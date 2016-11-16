@@ -7,7 +7,7 @@
   * .so (linux)
   * .dll (window)
 
-### :warning: Les textures avec des dimentions de puissances de 2 c'est pas pour les cucurbitacée
+### :warning: Les textures avec des dimentions de puissances de 2 c'est pas pour les cucurbitacées
 * Texture :art:
   * .png
 * Font :pencil2:
