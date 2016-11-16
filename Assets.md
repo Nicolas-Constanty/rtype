@@ -6,6 +6,7 @@
 * Monster :ghost:
   * .so (linux)
   * .dll (window)
+
 ### :warning: Les textures avec des dimentions de puissances de 2 c'est pas pour les cucurbitacée
 * Texture :art:
   * .png
