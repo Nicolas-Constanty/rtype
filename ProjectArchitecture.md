@@ -13,6 +13,9 @@
 │   │   ├── ...
 │   ├── Dependencies
 |   |   ├── SFML
+|   |   |   ├── Linux
+|   |   |   |   ├── include
+|   |   |   |   ├── lib
 |   |   |   ├── Win
 |   |   |   |   ├── include
 |   |   |   |   ├── x86
@@ -21,9 +24,6 @@
 |   |   |   |   ├── x64
 |   |   |   |   |   ├── Debug
 |   |   |   |   |   ├── Release
-|   |   |   ├── Linux
-|   |   |   |   ├── include
-|   |   |   |   ├── lib
 |   |   ├── ...
 │   ├── include
 │   │   ├── ClientGame
@@ -62,10 +62,15 @@
 # Dependencies
 ## :warning: Toutes les dépendances sont compréssées (zip, tar)
 * {{Dependence}}
-  * include
-  * x86
-    * Debug
-    * Release
-  * x64
-    * Debug
-    * Release
+  * Linux
+    * include
+    * lib
+  * Win
+    * include
+    * x86
+      * Debug
+      * Release
+    * x64
+      * Debug
+      * Release
+   
