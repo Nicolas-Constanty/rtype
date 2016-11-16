@@ -9,6 +9,8 @@
 │   │   ├── Sounds
 │   │   ├── Textures
 │   │   ├── ...
+│   ├── Conception
+│   │   ├── ...
 │   ├── Dependencies
 |   |   ├── SFML
 |   |   |   ├── include
@@ -37,9 +39,10 @@
 |   |   ├── ...
 │   ├── README.md
 ```
-### Ce qui fait un total de 6 dossiers à la racine:
+### Ce qui fait un total de 7 dossiers à la racine:
 * Assets
 * Dependencies
+* Conception
 * include
 * src
 * R-Type
