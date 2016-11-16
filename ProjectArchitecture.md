@@ -40,8 +40,8 @@
 * Ressource
   * include
   * x86
-   * Debug
-   * Release
+    * Debug
+    * Release
   * x64
-   * Debug
-   * Release
+    * Debug
+    * Release
