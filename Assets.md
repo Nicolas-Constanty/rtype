@@ -1,9 +1,11 @@
 # Assets Formats
 * Sound :musical_note:
-    * .mp3
+    * .ogg (compatible linux)
+    * .flac (compatible linux)
+    * wav
 * Monster :ghost:
-  * .so
-  * .dll
+  * .so (linux)
+  * .dll (window)
 * Texture :art:
   * .png
 * Font :pencil2:
