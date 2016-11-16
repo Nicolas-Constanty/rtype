@@ -3,15 +3,13 @@
 ```
 ├── rtype/
 │   ├── Assets
-│   ├── include
-│   │   ├── Client
-|   |   ├── Server
-|   |   ├── ...
-│   ├── src
-│   │   ├── Client
-|   |   ├── Server
-|   |   ├── ...
-│   ├── Ressources
+│   │   ├── Fonts
+│   │   ├── IA
+│   │   ├── Monsters
+│   │   ├── Sounds
+│   │   ├── Textures
+│   │   ├── ...
+│   ├── Dependencies
 |   |   ├── SFML
 |   |   |   ├── include
 |   |   |   ├── x86
@@ -21,23 +19,35 @@
 |   |   |   |   ├── Debug
 |   |   |   |   ├── Release
 |   |   ├── ...
+│   ├── include
+│   │   ├── Client
+|   |   ├── Server
+|   |   ├── ...
+│   ├── src
+│   │   ├── Client
+|   |   ├── Server
+|   |   ├── ...
 │   ├── R-Type
 │   │   ├── Client
 |   |   ├── Server
 │   │   ├── ...
-│   ├── Test
+│   ├── Tests
+│   │   ├── Client
+|   |   ├── Server
+|   |   ├── ...
 │   ├── README.md
 ```
 ### Ce qui fait un total de 6 dossiers à la racine:
 * Assets
+* Dependencies
 * include
 * src
-* Ressources
 * R-Type
-* Test
+* Tests
 
-# Ressources
-* Ressource
+# Dependencies
+## :exclamation: Toutes les dépendances sont compréssées (zip, tar)
+* {{Dependence}}
   * include
   * x86
     * Debug
