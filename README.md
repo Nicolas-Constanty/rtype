@@ -72,7 +72,7 @@ Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c6
 * **Fernand Veyrier** - *Programmer client* - [Github](https://github.com/Gouet)
 * **Nicolas Constanty** - *Programmer client* - [Github](https://github.com/Gouet)
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/Nicolas-Constanty/rtype/graphs/contributors) who participated in this project.
 
 ## Acknowledgments
 
