@@ -9,49 +9,68 @@
 │   │   ├── Sounds
 │   │   ├── Textures
 │   │   ├── ...
+│   ├── Conception
+│   │   ├── ...
 │   ├── Dependencies
 |   |   ├── SFML
-|   |   |   ├── include
-|   |   |   ├── x86
-|   |   |   |   ├── Debug
-|   |   |   |   ├── Release
-|   |   |   ├── x64
-|   |   |   |   ├── Debug
-|   |   |   |   ├── Release
+|   |   |   ├── Linux
+|   |   |   |   ├── include
+|   |   |   |   ├── lib
+|   |   |   ├── Win
+|   |   |   |   ├── include
+|   |   |   |   ├── x86
+|   |   |   |   |   ├── Debug
+|   |   |   |   |   ├── Release
+|   |   |   |   ├── x64
+|   |   |   |   |   ├── Debug
+|   |   |   |   |   ├── Release
 |   |   ├── ...
 │   ├── include
-│   │   ├── Client
-|   |   ├── Server
-|   |   ├── ...
-│   ├── src
-│   │   ├── Client
-|   |   ├── Server
+│   │   ├── ClientGame
+│   │   ├── ClientRoom
+|   |   ├── ServerGame
+|   |   ├── ServerRoom
 |   |   ├── ...
 │   ├── R-Type
-│   │   ├── Client
-|   |   ├── Server
+│   │   ├── ClientGame
+│   │   ├── ClientRoom
+|   |   ├── ServerGame
+|   |   ├── ServerRoom
 │   │   ├── ...
+│   ├── src
+│   │   ├── ClientGame
+│   │   ├── ClientRoom
+|   |   ├── Common
+|   |   ├── ServerGame
+|   |   ├── ServerRoom
+|   |   ├── ...
 │   ├── Tests
 │   │   ├── Client
 |   |   ├── Server
 |   |   ├── ...
 │   ├── README.md
 ```
-### Ce qui fait un total de 6 dossiers à la racine:
+### Ce qui fait un total de 7 dossiers à la racine:
 * Assets
 * Dependencies
+* Conception
 * include
-* src
 * R-Type
+* src
 * Tests
 
 # Dependencies
 ## :warning: Toutes les dépendances sont compréssées (zip, tar)
 * {{Dependence}}
-  * include
-  * x86
-    * Debug
-    * Release
-  * x64
-    * Debug
-    * Release
+  * Linux
+    * include
+    * lib
+  * Win
+    * include
+    * x86
+      * Debug
+      * Release
+    * x64
+      * Debug
+      * Release
+   
