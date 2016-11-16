@@ -1,10 +1,10 @@
 # Assets Formats
-* Sound
+* Sound :musical_note:
     * .mp3
-* Monster
+* Monster :ghost:
   * .so
   * .dll
-* Texture
+* Texture :art:
   * .png
-* Font
+* Font :pencil2:
   * ttf
