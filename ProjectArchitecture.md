@@ -46,7 +46,7 @@
 * Tests
 
 # Dependencies
-## :exclamation: Toutes les dépendances sont compréssées (zip, tar)
+## :warning: Toutes les dépendances sont compréssées (zip, tar)
 * {{Dependence}}
   * include
   * x86
