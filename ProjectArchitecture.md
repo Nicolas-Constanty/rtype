@@ -26,17 +26,24 @@
 |   |   |   |   ├── lib
 |   |   ├── ...
 │   ├── include
-│   │   ├── Client
-|   |   ├── Server
-|   |   ├── ...
-│   ├── src
-│   │   ├── Client
-|   |   ├── Server
+│   │   ├── ClientGame
+│   │   ├── ClientRoom
+|   |   ├── ServerGame
+|   |   ├── ServerRoom
 |   |   ├── ...
 │   ├── R-Type
-│   │   ├── Client
-|   |   ├── Server
+│   │   ├── ClientGame
+│   │   ├── ClientRoom
+|   |   ├── ServerGame
+|   |   ├── ServerRoom
 │   │   ├── ...
+│   ├── src
+│   │   ├── ClientGame
+│   │   ├── ClientRoom
+|   |   ├── Common
+|   |   ├── ServerGame
+|   |   ├── ServerRoom
+|   |   ├── ...
 │   ├── Tests
 │   │   ├── Client
 |   |   ├── Server
@@ -48,8 +55,8 @@
 * Dependencies
 * Conception
 * include
-* src
 * R-Type
+* src
 * Tests
 
 # Dependencies
