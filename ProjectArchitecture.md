@@ -13,13 +13,17 @@
 │   │   ├── ...
 │   ├── Dependencies
 |   |   ├── SFML
-|   |   |   ├── include
-|   |   |   ├── x86
-|   |   |   |   ├── Debug
-|   |   |   |   ├── Release
-|   |   |   ├── x64
-|   |   |   |   ├── Debug
-|   |   |   |   ├── Release
+|   |   |   ├── Win
+|   |   |   |   ├── include
+|   |   |   |   ├── x86
+|   |   |   |   |   ├── Debug
+|   |   |   |   |   ├── Release
+|   |   |   |   ├── x64
+|   |   |   |   |   ├── Debug
+|   |   |   |   |   ├── Release
+|   |   |   ├── Linux
+|   |   |   |   ├── include
+|   |   |   |   ├── lib
 |   |   ├── ...
 │   ├── include
 │   │   ├── Client
