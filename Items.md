@@ -6,14 +6,19 @@
 | Spirals | straight line | propeller | true | |
 | Fireballs | lick the walls | double (top, bottom) | true | 2 x 6 fireballs |
 
-> The basic weapon shot at the same time as temporary weapons. The loaded shot remains the same.
+> - The basic weapon shot at the same time as temporary weapons.
+> - The loaded shot remains the same.
+> - When a new weapon is take, it replace the other.
 
 # Options
+> Options are cumulative
+
 | Object | Type | Comment |
 |:-:|:-:|:-:|:-:|
 | Missiles | weapon | target-tracking (other button) |
 | Protective ball | guard | 2 max (top / bototm), indestructible |
 | Speed Bonus | bonus | 4 levels |
+
 
 # Nacelle
 - Obtaining
@@ -28,6 +33,9 @@
     - Touch ennemi => it explodes (except the coriaces)
     - cling to front or back
     - eject from spaceship and throw on ennemis => can't use tempory weapon
+
+> #### Tous les items se récupèrent sur les monstres sauf la Nacelle qui arrivent en même temps que la première arme temporaire.
+> #### :warning: Uniquement la Nacelle peut être lachée, ejectée, ...
 
 # Ennemis
 > Some enemies are indestructible

@@ -1,0 +1,34 @@
+{
+    "maxPlayers": 4,
+    "difficulty": 2,
+    "levels": [
+        {
+            "fixed": false,
+            "bonus": [
+                "laser",
+                "protectiveBall"
+            ]
+        },
+        {
+            "fixed": false,
+            "bonus": [
+                "spirals",
+                "speed"
+            ]
+        },
+        {
+            "fixed": false,
+            "bonus": [
+                "fireballs",
+                "protectiveBall"
+            ]
+        },
+        {
+            "fixed": true,
+            "bonus": [
+                "missiles",
+                "speed"
+            ]
+        }
+    ]
+}
