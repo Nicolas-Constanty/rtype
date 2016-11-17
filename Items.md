@@ -16,9 +16,8 @@
 | Speed Bonus | bonus | 4 levels |
 
 # Nacelle
-- Obtaining
-    - with tempory weapon
-    - raise with the 3 ???
+- Obtaining like an object
+- Raise with tempory weapon (2 for max ???)
 - Property
     - Weapon
     - Guard
