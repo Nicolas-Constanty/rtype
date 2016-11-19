@@ -1,12 +1,26 @@
 {
+    "id": 0,
     "maxPlayers": 4,
     "difficulty": 2,
-    "levels": [
+    "stages": [
         {
+            "speed": 10,
             "fixed": false,
             "bonus": [
                 "laser",
                 "protectiveBall"
+            ],
+            "monsters": [
+                {
+                    "name": "toto",
+                    "position": {"x": 1, "y": 2},
+                    "rotation": {"x": 0, "y": 0}
+                },
+                {
+                    "name": "toto",
+                    "position": {"x": 100, "y": 2},
+                    "rotation": {"x": 0, "y": 0}
+                }
             ]
         },
         {

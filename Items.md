@@ -34,8 +34,8 @@
     - cling to front or back
     - eject from spaceship and throw on ennemis => can't use tempory weapon
 
-> #### Tous les items se récupèrent sur les monstres sauf la Nacelle qui arrivent en même temps que la première arme temporaire.
-> #### :warning: Uniquement la Nacelle peut être lachée, ejectée, ...
+> #### All items are recovered on monsters except the Nacelle that arrive at the same time as the first temporary weapon.
+> #### :warning: Only the Nacelle can be launched, ejected, ...
 
 # Ennemis
 > Some enemies are indestructible
