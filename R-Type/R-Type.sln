@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Client", "Client\Client.vcx
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "R-Type", "R-Type", "{38E137EA-E43F-4F76-BBD7-68ABFBB78FB3}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GUI", "GUI\GUI.vcxproj", "{1036405A-3876-4F9F-8906-95F09A7D18C5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -23,11 +25,20 @@ Global
 		{6182BA9B-BC0C-47E8-97A1-2A01A5453F26}.Release|x64.Build.0 = Release|x64
 		{6182BA9B-BC0C-47E8-97A1-2A01A5453F26}.Release|x86.ActiveCfg = Release|Win32
 		{6182BA9B-BC0C-47E8-97A1-2A01A5453F26}.Release|x86.Build.0 = Release|Win32
+		{1036405A-3876-4F9F-8906-95F09A7D18C5}.Debug|x64.ActiveCfg = Debug|x64
+		{1036405A-3876-4F9F-8906-95F09A7D18C5}.Debug|x64.Build.0 = Debug|x64
+		{1036405A-3876-4F9F-8906-95F09A7D18C5}.Debug|x86.ActiveCfg = Debug|Win32
+		{1036405A-3876-4F9F-8906-95F09A7D18C5}.Debug|x86.Build.0 = Debug|Win32
+		{1036405A-3876-4F9F-8906-95F09A7D18C5}.Release|x64.ActiveCfg = Release|x64
+		{1036405A-3876-4F9F-8906-95F09A7D18C5}.Release|x64.Build.0 = Release|x64
+		{1036405A-3876-4F9F-8906-95F09A7D18C5}.Release|x86.ActiveCfg = Release|Win32
+		{1036405A-3876-4F9F-8906-95F09A7D18C5}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{6182BA9B-BC0C-47E8-97A1-2A01A5453F26} = {38E137EA-E43F-4F76-BBD7-68ABFBB78FB3}
+		{1036405A-3876-4F9F-8906-95F09A7D18C5} = {38E137EA-E43F-4F76-BBD7-68ABFBB78FB3}
 	EndGlobalSection
 EndGlobal
