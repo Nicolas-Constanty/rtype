@@ -76139,6 +76139,7 @@
 									"visibility": "public",
 									"isStatic": false,
 									"isLeaf": false,
+									"type": "",
 									"isReadOnly": false,
 									"isOrdered": false,
 									"isUnique": false,
@@ -77075,7 +77076,7 @@
 																	"containerExtending": false,
 																	"left": 234,
 																	"top": 158,
-																	"width": 64.314453125,
+																	"width": 65,
 																	"height": 13,
 																	"autoResize": false,
 																	"alpha": 1.5707963267948966,
@@ -77243,9 +77244,9 @@
 																	"showShadow": true,
 																	"containerChangeable": false,
 																	"containerExtending": false,
-																	"left": 334,
+																	"left": 332,
 																	"top": 176,
-																	"width": 97.54443359375,
+																	"width": 100,
 																	"height": 13,
 																	"autoResize": false,
 																	"alpha": 1.5707963267948966,
@@ -77916,6 +77917,7 @@
 											"visibility": "public",
 											"isStatic": false,
 											"isLeaf": false,
+											"type": "",
 											"isReadOnly": false,
 											"isOrdered": false,
 											"isUnique": false,
@@ -79871,6 +79873,37 @@
 													"model": {
 														"$ref": "AAAAAAFYeAy/Rx7X6hc="
 													},
+													"subViews": [
+														{
+															"_type": "UMLOperationView",
+															"_id": "AAAAAAFYfJ7I0vRGnnc=",
+															"_parent": {
+																"$ref": "AAAAAAFYeAy/Rh63BTE="
+															},
+															"model": {
+																"$ref": "AAAAAAFYfJ7H7/RDMbc="
+															},
+															"visible": true,
+															"enabled": true,
+															"lineColor": "#000000",
+															"fillColor": "#ffffff",
+															"fontColor": "#000000",
+															"font": "Arial;13;0",
+															"showShadow": true,
+															"containerChangeable": false,
+															"containerExtending": false,
+															"left": 589,
+															"top": 456,
+															"width": 94,
+															"height": 13,
+															"autoResize": false,
+															"underline": false,
+															"text": "+Instance()",
+															"horizontalAlignment": 0,
+															"verticalAlignment": 5,
+															"wordWrap": false
+														}
+													],
 													"visible": true,
 													"enabled": true,
 													"lineColor": "#000000",
@@ -79883,7 +79916,7 @@
 													"left": 584,
 													"top": 451,
 													"width": 104,
-													"height": 10,
+													"height": 23,
 													"autoResize": false
 												},
 												{
@@ -80603,9 +80636,9 @@
 													"showShadow": true,
 													"containerChangeable": false,
 													"containerExtending": false,
-													"left": 606,
+													"left": 605,
 													"top": 584,
-													"width": 40.11083984375,
+													"width": 42,
 													"height": 13,
 													"autoResize": false,
 													"alpha": 1.5707963267948966,
@@ -83042,9 +83075,9 @@
 													"showShadow": true,
 													"containerChangeable": false,
 													"containerExtending": false,
-													"left": 491,
+													"left": 489,
 													"top": 1500,
-													"width": 19.5126953125,
+													"width": 22,
 													"height": 13,
 													"autoResize": false,
 													"alpha": -0.5235987755982988,
@@ -83464,9 +83497,9 @@
 													"showShadow": true,
 													"containerChangeable": false,
 													"containerExtending": false,
-													"left": 417,
+													"left": 415,
 													"top": 701,
-													"width": 19.5126953125,
+													"width": 22,
 													"height": 13,
 													"autoResize": false,
 													"alpha": -0.5235987755982988,
@@ -84785,6 +84818,22 @@
 									},
 									"name": "Singleton",
 									"visibility": "public",
+									"operations": [
+										{
+											"_type": "UMLOperation",
+											"_id": "AAAAAAFYfJ7H7/RDMbc=",
+											"_parent": {
+												"$ref": "AAAAAAFYeAy/Rx7X6hc="
+											},
+											"name": "Instance",
+											"visibility": "public",
+											"isStatic": false,
+											"isLeaf": false,
+											"concurrency": "sequential",
+											"isQuery": false,
+											"isAbstract": false
+										}
+									],
 									"isAbstract": false,
 									"isFinalSpecialization": false,
 									"isLeaf": false,
