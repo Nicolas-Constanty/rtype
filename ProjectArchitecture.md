@@ -30,12 +30,14 @@
 │   │   ├── ClientRoom
 |   |   ├── ServerGame
 |   |   ├── ServerRoom
+|   |   ├── Protocol
 |   |   ├── ...
 │   ├── R-Type
 │   │   ├── ClientGame
 │   │   ├── ClientRoom
 |   |   ├── ServerGame
 |   |   ├── ServerRoom
+|   |   ├── Protocol
 │   │   ├── ...
 │   ├── src
 │   │   ├── ClientGame
@@ -43,6 +45,7 @@
 |   |   ├── Common
 |   |   ├── ServerGame
 |   |   ├── ServerRoom
+|   |   ├── Protocol
 |   |   ├── ...
 │   ├── Tests
 │   │   ├── Client
