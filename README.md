@@ -67,7 +67,7 @@ Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c6
 ## Authors
 
 * **Victor Gouet** - *Project Manager* - [Github](https://github.com/Gouet)
-* **Quentin Gasparoto** - *Programmer server* - [Github](https://github.com/GasparQ)
+* **Quentin Gasparotto** - *Programmer server* - [Github](https://github.com/GasparQ)
 * **Adrien Wery** - *Project server* - [Github](https://github.com/Gouet)
 * **Fernand Veyrier** - *Programmer client* - [Github](https://github.com/Gouet)
 * **Nicolas Constanty** - *Programmer client* - [Github](https://github.com/Gouet)
