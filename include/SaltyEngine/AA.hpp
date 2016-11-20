@@ -3,11 +3,11 @@
 #ifndef AA_HPP_
 #define AA_HPP_
 
-#include "SaltyBehavior.hpp"
+#include "SaltyBehaviour.hpp"
 
 
 namespace SaltyEngine {
-	class AA : public SaltyBehavior
+	class AA : public SaltyBehaviour
 	{
 	public:
 		AA();

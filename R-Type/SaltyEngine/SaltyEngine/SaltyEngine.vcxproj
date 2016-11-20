@@ -153,7 +153,7 @@
     <ClCompile Include="..\..\..\src\SaltyEngine\AA.cpp" />
     <ClCompile Include="..\..\..\src\SaltyEngine\main.cpp" />
     <ClCompile Include="..\..\..\src\SaltyEngine\Object.cpp" />
-    <ClCompile Include="..\..\..\src\SaltyEngine\SaltyBehavior.cpp" />
+    <ClCompile Include="..\..\..\src\SaltyEngine\SaltyBehaviour.cpp" />
     <ClCompile Include="..\..\..\src\SaltyEngine\SaltyGame.cpp" />
     <ClCompile Include="..\..\..\src\SaltyEngine\Scene.cpp" />
     <ClCompile Include="..\..\..\src\SaltyEngine\Vector2.cpp" />
@@ -164,7 +164,7 @@
     <ClInclude Include="..\..\..\include\SaltyEngine\Coroutine.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\GameObject.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\Object.hpp" />
-    <ClInclude Include="..\..\..\include\SaltyEngine\SaltyBehavior.hpp" />
+    <ClInclude Include="..\..\..\include\SaltyEngine\SaltyBehaviour.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\SaltyEngineSFML.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\SaltyGame.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\SaltyObj.hpp" />

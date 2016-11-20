@@ -3,7 +3,7 @@
 #ifndef SALTYOBJ_HPP_
 #define SALTYOBJ_HPP_
 
-#include "SaltyBehavior.hpp"
+#include "SaltyBehaviour.hpp"
 #include "AA.hpp"
 
 namespace SaltyEngine

@@ -2,11 +2,11 @@
 
 namespace SaltyEngine
 {
-	AA::AA() : SaltyBehavior("AA") {
+	AA::AA() : SaltyBehaviour("AA") {
 		speed = 3.5f;
 	};
 
-	AA::AA(const std::string &name) : SaltyBehavior(name) {
+	AA::AA(const std::string &name) : SaltyBehaviour(name) {
 		speed = 3.5f;
 	};
 

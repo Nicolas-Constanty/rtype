@@ -21,7 +21,7 @@ namespace SaltyEngine
 
 namespace SaltyEngine
 {
-	class SaltyBehavior;
+	class SaltyBehaviour;
 	template <class T>
 	class BaseTransform
 	{
@@ -34,7 +34,7 @@ namespace SaltyEngine
 			m_attach = nullptr;
 		}
 
-		BaseTransform(SaltyBehavior *sb) :
+		BaseTransform(SaltyBehaviour *sb) :
 			rotation(T::zero()), localRotation(T::zero()),
 			position(T::zero()), localPosition(T::zero())
 		{
@@ -100,7 +100,7 @@ namespace SaltyEngine
 		T localPosition;
 		BaseTransform<T>				*m_parent;
 		std::vector<BaseTransform<T> *>	m_children;
-		SaltyBehavior				*m_attach;
+		SaltyBehaviour				*m_attach;
 	};
 
 	typedef BaseTransform<Vector3>	Transform3D;
@@ -109,6 +109,6 @@ namespace SaltyEngine
 	typedef BaseTransform<Vector>	Transform;
 }
 
-#include "SaltyBehavior.hpp"
+#include "SaltyBehaviour.hpp"
 
 #endif // !TRANSFORM_HPP_

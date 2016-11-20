@@ -41,7 +41,7 @@ static void M_EVAL(T *t) {
 }
 
 template<typename T, typename ...Rest>
-static void M_CALL(typelist<T, Rest...>, SaltyBehavior *obj)
+static void M_CALL(typelist<T, Rest...>, SaltyBehaviour *obj)
 {
 	if (dynamic_cast<T *>(obj))
 		SaltyReflection<T>::M_EVAL(static_cast<T *>(obj));
@@ -50,7 +50,7 @@ static void M_CALL(typelist<T, Rest...>, SaltyBehavior *obj)
 }
 
 template<typename T>
-static void M_CALL(typelist<T>, SaltyBehavior *obj)
+static void M_CALL(typelist<T>, SaltyBehaviour *obj)
 {
 	if (dynamic_cast<T *>(obj))
 		SaltyReflection<T>::M_EVAL(static_cast<T *>(obj));

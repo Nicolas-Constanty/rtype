@@ -10,7 +10,7 @@ int main()
 	AA *aa = new AA();
 	Scene *scene(new Scene());
 
-	// Add SaltyBehavior Object to scene
+	// Add SaltyBehaviour Object to scene
 	*scene << aa;
 
 	// Add Scene Object to SaltyGame
