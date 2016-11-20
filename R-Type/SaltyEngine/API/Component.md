@@ -3,7 +3,8 @@
 Base class for everything attached to GameObjects.
 
 ## Inheritence
-
+Class in [SaltyEngine](https://github.com/Nicolas-Constanty/rtype/blob/feature/SaltyEngine/SaltyEnfineFeatures.md) / inherits from :
+[Object](https://github.com/Nicolas-Constanty/rtype/blob/feature/SaltyEngine/R-Type/SaltyEngine/API/Object.md)
 ```
         Object  
           |
@@ -12,17 +13,17 @@ Base class for everything attached to GameObjects.
 ```
 ###### Namespace SaltyEngine {
 
-| Constructor / Destructor |
-|------------------|
-| Component()         |
-| Component(const std::string &name)  |
-| virtual ~Component()  |
+| Constructor / Destructor              |
+|---------------------------------------|
+| `Component()`                         |
+| `Component(const std::string &name)`  |
+| `virtual ~Component()`                |
 
-| Public attributs |
-|------------------|
-| GameObject *gameObject |
-| std::string &tag  |
-| Transform *transform  |
+| Public attributs         |
+|--------------------------|
+| `GameObject *gameObject` |
+| `std::string &tag`       |
+| `Transform *transform`   |
 
 
 | Public Functions |   Information      |
