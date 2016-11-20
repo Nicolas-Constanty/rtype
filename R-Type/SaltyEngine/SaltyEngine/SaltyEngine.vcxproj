@@ -71,15 +71,19 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)..\include</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)..\include</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)..\include</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)..\include</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -146,30 +150,34 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="AA.hpp" />
-    <ClInclude Include="Coroutine.hpp" />
-    <ClInclude Include="SaltyGame.hpp" />
-    <ClInclude Include="SaltyBehavior.hpp" />
-    <ClInclude Include="SaltyObj.hpp" />
-    <ClInclude Include="SaltyReflection.hpp" />
-    <ClInclude Include="Scene.hpp" />
-    <ClInclude Include="Singleton.hpp" />
-    <ClInclude Include="Transform.hpp" />
-    <ClInclude Include="typestring.hh" />
-    <ClInclude Include="Vector3.hpp" />
+    <ClCompile Include="..\..\..\src\SaltyEngine\AA.cpp" />
+    <ClCompile Include="..\..\..\src\SaltyEngine\main.cpp" />
+    <ClCompile Include="..\..\..\src\SaltyEngine\Object.cpp" />
+    <ClCompile Include="..\..\..\src\SaltyEngine\SaltyBehavior.cpp" />
+    <ClCompile Include="..\..\..\src\SaltyEngine\SaltyGame.cpp" />
+    <ClCompile Include="..\..\..\src\SaltyEngine\Scene.cpp" />
+    <ClCompile Include="..\..\..\src\SaltyEngine\Vector2.cpp" />
+    <ClCompile Include="..\..\..\src\SaltyEngine\Vector3.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AA.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="SaltyGame.cpp" />
-    <ClCompile Include="SaltyBehavior.cpp" />
-    <ClCompile Include="Scene.cpp" />
-    <ClCompile Include="Transform.cpp" />
-    <ClCompile Include="Vector3.cpp" />
+    <ClInclude Include="..\..\..\include\SaltyEngine\AA.hpp" />
+    <ClInclude Include="..\..\..\include\SaltyEngine\Coroutine.hpp" />
+    <ClInclude Include="..\..\..\include\SaltyEngine\GameObject.hpp" />
+    <ClInclude Include="..\..\..\include\SaltyEngine\Object.hpp" />
+    <ClInclude Include="..\..\..\include\SaltyEngine\SaltyBehavior.hpp" />
+    <ClInclude Include="..\..\..\include\SaltyEngine\SaltyEngineSFML.hpp" />
+    <ClInclude Include="..\..\..\include\SaltyEngine\SaltyGame.hpp" />
+    <ClInclude Include="..\..\..\include\SaltyEngine\SaltyObj.hpp" />
+    <ClInclude Include="..\..\..\include\SaltyEngine\SaltyReflection.hpp" />
+    <ClInclude Include="..\..\..\include\SaltyEngine\Scene.hpp" />
+    <ClInclude Include="..\..\..\include\SaltyEngine\Transform.hpp" />
+    <ClInclude Include="..\..\..\include\SaltyEngine\typestring.hh" />
+    <ClInclude Include="..\..\..\include\SaltyEngine\Vector2.hpp" />
+    <ClInclude Include="..\..\..\include\SaltyEngine\Vector3.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="defaultReflection.inl" />
-    <None Include="Saltyreflection.inl" />
+    <None Include="..\..\..\include\SaltyEngine\defaultReflection.inl" />
+    <None Include="..\..\..\include\SaltyEngine\Saltyreflection.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
