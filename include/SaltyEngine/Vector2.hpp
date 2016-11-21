@@ -36,6 +36,10 @@ namespace SaltyEngine
 		{
 			return BaseVector2<T>((T)0, (T)0);
 		}
+		
+		friend std::ostream &operator<<(std::ostream &os, BaseVector2<T> const &obj) {
+            return os << "(" << obj.x << ", " << obj.y << ")";
+        }
 	};
 
 	;
@@ -49,9 +53,6 @@ namespace SaltyEngine
 	typedef Vector2f Vector2;
 #endif
 }
-
-std::ostream& operator<<(std::ostream& os, SaltyEngine::Vector2& obj);
-
 
 /**
 * @fn	SaltyEngine::Vector2 operator*(float val, T & vec)

@@ -5,13 +5,13 @@
 
 #include <list>
 #include <vector>
-#include "SaltyEngine/Object.hpp"
+#include <typeinfo>
 #include "SaltyEngine/Transform.hpp"
+#include "SaltyEngine/SaltyBehaviour.hpp"
 
 namespace SaltyEngine
-{ 
+{
 	class Scene;
-	class Component;
 	class GameObject : public Object
 	{
 	public:
@@ -53,7 +53,7 @@ namespace SaltyEngine
 		{
 			for (std::list<Component *>::const_iterator it = m_components.begin(); it != m_components.end(); it++)
 			{
-				if (typeid(**it) == T)
+				if (typeid(**it) == typeid(T))
 				{
 					return (*it);
 				}
@@ -63,7 +63,7 @@ namespace SaltyEngine
 		template<class T>
 		T GetComponentInChildren()
 		{
-			std::vector<Transform *> children = transform->GetChildren();
+			std::vector<Transform *> children = transform.GetChildren();
 			for (std::vector<Transform *>::const_iterator child = children.begin(); child != children.end(); child++)
 			{
 				T comp = (*child)->gameObject->GetComponent<T>();
@@ -76,7 +76,7 @@ namespace SaltyEngine
 		template<class T>
 		T GetComponentInParent()
 		{
-			return (transform->GetParent()->gameObject()->GetComponent<T>());
+			return (transform.GetParent()->gameObject->GetComponent<T>());
 		}
 
 		template<class T>
@@ -112,17 +112,17 @@ namespace SaltyEngine
 		std::list<T> GetComponentsInChildren()
 		{
 			std::list<T> list;
-			std::vector<Transform *> children = transform->GetChildren();
-			for (std::list<Transform *>::const_iterator child = children.begin(); child != children.end(); child++)
+			std::vector<Transform *> children = transform.GetChildren();
+			for (std::vector<Transform *>::const_iterator child = children.begin(); child != children.end(); child++)
 			{
-				child->gameObjet->GetComponents<T>();
+                (*child)->gameObject->GetComponents<T>();
 			}
 		}
 
 		template<class T>
 		std::list<T> GetComponentsInParent()
 		{
-			return (transform->GetParent()->gameObject()->GetComponents<T>());
+			return (transform.GetParent()->gameObject->GetComponents<T>());
 		}
 		void SetActive(bool value);
 	};

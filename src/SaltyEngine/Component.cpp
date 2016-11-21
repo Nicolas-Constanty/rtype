@@ -1,5 +1,5 @@
 #include "SaltyEngine/Component.hpp"
-#include "SaltyEngine/Transform.hpp"
+#include "SaltyEngine/GameObject.hpp"
 
 namespace SaltyEngine
 {
