@@ -5,11 +5,10 @@
 
 #include <list>
 #include "SaltyEngine/Object.hpp"
-#include "SaltyEngine/Transform.hpp"
 
 namespace SaltyEngine
 {
-	class GameObject;
+    class GameObject;
 	class Component : public Object
 	{
 	public:
@@ -23,50 +22,50 @@ namespace SaltyEngine
 		virtual ~Component() {};
 
 	public:
-		GameObject* const gameObject;
 		std::string tag;
+		GameObject* const gameObject;
 
 	public:
 		bool CompareTag(const std::string &tag);
 
-		template<class T>
-		T GetComponent()
-		{
-			return (gameObject->GetComponent<T>());
-		}
-
-		template<class T>
-		T GetComponentInChildren()
-		{
-			return (gameObject->GetComponentInChildren<T>());
-		}
-
-		template<class T>
-		T GetComponentInParent()
-		{
-			return (gameObject->GetComponentInParent<T>());
-		}
-
-		template<class T>
-		std::list<T> GetComponents()
-		{
-			return (gameObject->GetComponents<T>());
-		}
-
-		template<class T>
-		std::list<T> GetComponentsInChildren()
-		{
-			return (gameObject->GetComponentsInChildren<T>());
-		}
-
-		template<class T>
-		std::list<T> GetComponentsInParent()
-		{
-			return (gameObject->GetComponentsInParent<T>());
-		}
+//		template<class T>
+//		T GetComponent()
+//		{
+//			return (gameObject->GetComponent<T>());
+//		}
+//
+//		template<class T>
+//		T GetComponentInChildren()
+//		{
+//			return (gameObject->GetComponentInChildren<T>());
+//		}
+//
+//		template<class T>
+//		T GetComponentInParent()
+//		{
+//			return (gameObject->GetComponentInParent<T>());
+//		}
+//
+//		template<class T>
+//		std::list<T> GetComponents()
+//		{
+//			return (gameObject->GetComponents<T>());
+//		}
+//
+//		template<class T>
+//		std::list<T> GetComponentsInChildren()
+//		{
+//			return (gameObject->GetComponentsInChildren<T>());
+//		}
+//
+//		template<class T>
+//		std::list<T> GetComponentsInParent()
+//		{
+//			return (gameObject->GetComponentsInParent<T>());
+//		}
 	};
 }
 
-#include "SaltyEngine/GameObject.hpp"
+//#include "SaltyEngine/GameObject.hpp"
 
 #endif // !COMPONENT_HPP_
