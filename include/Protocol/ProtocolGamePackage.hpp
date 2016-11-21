@@ -6,17 +6,17 @@
 #define RTYPE_PROTOCOLGAMEPACKAGE_HPP
 
 typedef struct HeaderGameInfo {
-    unsigned char verLeft : 2;
-    unsigned char verRight : 2;
-    unsigned char reservedLeftOne : 2;
-    unsigned char reservedLeftZero : 2;
-    unsigned char reservedMiddleOne : 2;
-    unsigned char reservedRightZero : 2;
-    unsigned char reservedRightOne : 2;
-    unsigned char reliable : 2;
+    unsigned char verLeft : 1;
+    unsigned char verRight : 1;
+    unsigned char reservedLeftOne : 1;
+    unsigned char reservedLeftZero : 1;
+    unsigned char reservedMiddleOne : 1;
+    unsigned char reservedRightZero : 1;
+    unsigned char reservedRightOne : 1;
+    unsigned char reliable : 1;
 } HeaderGameInfo;
 
-enum : unsigned char {
+typedef enum : unsigned char {
     MOVE = 1,
     SHOT = 2,
     TAKE = 3,
@@ -38,7 +38,7 @@ public:
     unsigned char purpose;
     unsigned short transactionID;
 
-    PackageGameHeader(bool reliable,
+    PackageGameHeader(bool reliable = true,
                       unsigned short length = 0,
                       unsigned short sequenceID = 0,
                       unsigned char purpose = 0,
@@ -60,7 +60,7 @@ public:
 
 class PINGPackageGame : public PackageGameHeader {
 public:
-    PINGPackageGame(int secret, unsigned short sequenceID, unsigned short transactionID = 0)
+    PINGPackageGame(int secret = 0, unsigned short sequenceID = 0, unsigned short transactionID = 0)
             : PackageGameHeader(true, sizeof(PINGPackageGame), sequenceID, PING, transactionID) {
         this->secret = secret;
     }
@@ -71,7 +71,7 @@ public:
 
 class AUTHENTICATEPackageGame : public PackageGameHeader {
 public:
-    AUTHENTICATEPackageGame(int secret, unsigned short sequenceID, unsigned short transactionID = 0)
+    AUTHENTICATEPackageGame(int secret = 0, unsigned short sequenceID = 0, unsigned short transactionID = 0)
             : PackageGameHeader(true, sizeof(AUTHENTICATEPackageGame), sequenceID, AUTHENTICATE, transactionID) {
         this->secret = secret;
     }
@@ -82,8 +82,8 @@ public:
 
 class ObjectIDPackageGame : public PackageGameHeader {
 public:
-    ObjectIDPackageGame(unsigned short size, unsigned char purpose, unsigned short sequenceID,
-                        unsigned short objectID, bool reliable, unsigned short transactionID = 0)
+    ObjectIDPackageGame(unsigned short size = 0, unsigned char purpose = 0, unsigned short sequenceID = 0,
+                        unsigned short objectID = 0, bool reliable = 0, unsigned short transactionID = 0)
             : PackageGameHeader(reliable, size, sequenceID, purpose, transactionID) {
         this->objectID = objectID;
     }
@@ -94,7 +94,7 @@ public:
 
 class CREATEPackageGame : public ObjectIDPackageGame {
 public:
-    CREATEPackageGame(int posX, int posY, unsigned short ID, unsigned short sequenceID, unsigned short objectID, unsigned short transactionID = 0)
+    CREATEPackageGame(int posX = 0, int posY = 0, unsigned short ID = 0, unsigned short sequenceID = 0, unsigned short objectID = 0, unsigned short transactionID = 0)
             : ObjectIDPackageGame(sizeof(CREATEPackageGame), CREATE, sequenceID, objectID, true, transactionID) {
         this->posX = posX;
         this->posY = posY;
@@ -127,7 +127,7 @@ public:
 
 class MOVEPackageGame : public ObjectIDPackageGame {
 public:
-    MOVEPackageGame(int posX, int posY, unsigned short sequenceID, unsigned short objectID,
+    MOVEPackageGame(int posX = 0, int posY = 0, unsigned short sequenceID = 0, unsigned short objectID = 0,
                     unsigned short transactionID = 0)
             : ObjectIDPackageGame(sizeof(MOVEPackageGame), MOVE, sequenceID, objectID, false, transactionID) {
         this->posX = posX;
@@ -141,42 +141,42 @@ public:
 
 class BEAMPackageGame : public ObjectIDPackageGame {
 public:
-    BEAMPackageGame(unsigned short sequenceID, unsigned short objectID, unsigned short transactionID = 0)
+    BEAMPackageGame(unsigned short sequenceID = 0, unsigned short objectID = 0, unsigned short transactionID = 0)
             : ObjectIDPackageGame(sizeof(BEAMPackageGame), BEAM, sequenceID, objectID, true, transactionID) {
     }
 };
 
 class SHOTPackageGame : public ObjectIDPackageGame {
 public:
-    SHOTPackageGame(unsigned short sequenceID, unsigned short objectID, unsigned short transactionID = 0)
+    SHOTPackageGame(unsigned short sequenceID = 0, unsigned short objectID = 0, unsigned short transactionID = 0)
             : ObjectIDPackageGame(sizeof(SHOTPackageGame), SHOT, sequenceID, objectID, true, transactionID) {
     }
 };
 
 class DIEPackageGame : public ObjectIDPackageGame {
 public:
-    DIEPackageGame(int posX, int posY, unsigned short ID, unsigned short sequenceID, unsigned short objectID, unsigned short transactionID = 0)
+    DIEPackageGame(int posX = 0, int posY = 0, unsigned short ID = 0, unsigned short sequenceID = 0, unsigned short objectID = 0, unsigned short transactionID = 0)
             : ObjectIDPackageGame(sizeof(DIEPackageGame), DIE, sequenceID, objectID, true, transactionID) {
     }
 };
 
 class TAKEPackageGame : public ObjectIDPackageGame {
 public:
-    TAKEPackageGame(unsigned short sequenceID, unsigned short objectID, unsigned short transactionID = 0)
+    TAKEPackageGame(unsigned short sequenceID = 0, unsigned short objectID = 0, unsigned short transactionID = 0)
             : ObjectIDPackageGame(sizeof(TAKEPackageGame), TAKE, sequenceID, objectID, true, transactionID) {
     }
 };
 
 class DROPPackageGame : public ObjectIDPackageGame {
 public:
-    DROPPackageGame(unsigned short sequenceID, unsigned short objectID, unsigned short transactionID = 0)
+    DROPPackageGame(unsigned short sequenceID = 0, unsigned short objectID = 0, unsigned short transactionID = 0)
             : ObjectIDPackageGame(sizeof(DROPPackageGame), DROP, sequenceID, objectID, true, transactionID) {
     }
 };
 
 class LAUNCHPackageGame : public ObjectIDPackageGame {
 public:
-    LAUNCHPackageGame(unsigned short sequenceID, unsigned short objectID, unsigned short transactionID = 0)
+    LAUNCHPackageGame(unsigned short sequenceID = 0, unsigned short objectID = 0, unsigned short transactionID = 0)
             : ObjectIDPackageGame(sizeof(LAUNCHPackageGame), LAUNCH, sequenceID, objectID, true, transactionID) {
     }
 };

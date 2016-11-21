@@ -5,12 +5,14 @@
 #ifndef RTYPE_IRTYPEPROTOCOLMANAGER_HPP
 #define RTYPE_IRTYPEPROTOCOLMANAGER_HPP
 
+#include <cstring>
+
 class IRTypeProtocolManager {
 public:
     virtual ~IRTypeProtocolManager() {}
 
 public:
-    virtual bool handleProtocol(char *byte) = 0;
+    virtual bool handleProtocol(unsigned char *byte, size_t) = 0;
 };
 
 #endif //RTYPE_IRTYPEPROTOCOLMANAGER_HPP

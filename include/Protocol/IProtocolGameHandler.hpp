@@ -12,6 +12,7 @@ public:
     virtual ~IProtocolGameHandler() {}
 
 public:
+    virtual void onGetSTATUSPackage(STATUSPackageGame const &) = 0;
     virtual void onGetPINGPackage(PINGPackageGame const &) = 0;
     virtual void onGetAUTHENTICATEPackage(AUTHENTICATEPackageGame const &) = 0;
     virtual void onGetCREATEPackage(CREATEPackageGame const &) = 0;
