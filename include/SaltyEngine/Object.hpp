@@ -6,13 +6,17 @@
 #include <atomic>
 #include <iostream>
 #include <string>
+#include <memory>
+#include "Vector2.hpp"
+#include "Common/ICloneable.hpp"
+#include "Factory.hpp"
 
 namespace SaltyEngine
 {
 	static std::string const Tag[] = { "NONE", "PLAYER", "ENEMY" };
 	typedef size_t uid;
 
-	class Object
+	class Object : private ICloneable<Object>
 	{
 	private:
 		static std::atomic<int> s_id;
@@ -35,6 +39,14 @@ namespace SaltyEngine
 
 	public:
 		static void Destroy(Object* original);
+		static auto Instantiate(std::string const& obj, Vector pos = Vector::zero(), double rot = 0) -> decltype(Factory::Create(obj).get())
+		{
+			return Factory::Create(obj).get();
+		}
+
+	public:
+		virtual std::unique_ptr<Object> Clone() { return std::unique_ptr<Object>(new Object(m_name + "(Clone)")); }
+		virtual std::unique_ptr<Object> CloneMemberwise() { std::cout << "MDR LOL" << std::endl; return std::unique_ptr<Object>(new Object(m_name + "(Clone)")); }
 	};
 }
 
