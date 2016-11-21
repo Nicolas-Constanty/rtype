@@ -16,7 +16,7 @@ namespace SaltyEngine
 	static std::string const Tag[] = { "NONE", "PLAYER", "ENEMY" };
 	typedef size_t uid;
 
-	class Object: private ICloneable<Object>
+	class Object: protected ICloneable<Object>
 	{
 	private:
 		static std::atomic<int> s_id;
@@ -47,12 +47,23 @@ namespace SaltyEngine
 		}
 
 	public:
-		virtual std::shared_ptr<Object> Clone() {
-            return std::make_shared<Object>(m_name + "(Clone)");
+		virtual std::unique_ptr<Object> Clone() {
+            return std::unique_ptr<Object>(new Object(m_name + "(Clone)"));
         }
-		virtual std::shared_ptr<Object> CloneMemberwise() {
-            return std::make_shared<Object>(m_name + "(Clone)");
+		virtual std::unique_ptr<Object> CloneMemberwise() {
+            return std::unique_ptr<Object>(new Object(m_name + "(Clone)"));
         }
+
+	public:
+		/**
+		 * _\brief : retrieves all the object of a certain type currently instantiated.
+		 * This is slow, so consider using it wisely
+		 */
+		template <class Type>
+		static std::list<std::shared_ptr<Object> > FindObjectsOfType()
+		{
+			return Factory::GetObjectsOfType<Type>();
+		}
 	};
 }
 

@@ -10,8 +10,14 @@ class ICloneable
 public:
 	virtual  ~ICloneable() {}
 public:
-	virtual std::shared_ptr<T> Clone() = 0;
-	virtual std::shared_ptr<T> CloneMemberwise() = 0;
+	/**
+	 * \brief Shallow copy of the object
+	 */
+	virtual std::unique_ptr<T> Clone() = 0;
+	/**
+	 * \brief Deep copy of the object
+	 */
+	virtual std::unique_ptr<T> CloneMemberwise() = 0;
 };
 
 #endif

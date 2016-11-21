@@ -129,6 +129,14 @@ namespace SaltyEngine
 			os << object.GetName() << "(" << object.GetInstanceID() << ")" << std::endl;
 			return (os);
 		}
+
+		public:
+			virtual std::unique_ptr<Object> Clone() {
+				return std::unique_ptr<Object>(new GameObject(GetName() + "(Clone)"));
+			}
+			virtual std::unique_ptr<Object> CloneMemberwise() {
+				return std::unique_ptr<Object>(new GameObject(GetName() + "(Clone)"));
+			}
 	};
 }
 

@@ -23,6 +23,23 @@ namespace SaltyEngine
 	public:
 		static std::shared_ptr<Object> Create(std::string const& name);
 
+		/**
+		 * \brief Retrieves all the object of a certain type in the factory
+		 */
+		template <class T>
+		static std::list<std::shared_ptr<Object>> GetObjectsOfType()
+		{
+			std::list<std::shared_ptr<Object>> objs;
+			for (std::shared_ptr<Object> obj : m_objects)
+			{
+				if (dynamic_cast<T*>(obj.get()))
+				{
+					objs.push_back(obj);
+				}
+			}
+			return objs;
+		}
+
 	private:
 		static std::list<std::shared_ptr<Object> > m_objects;
 	};

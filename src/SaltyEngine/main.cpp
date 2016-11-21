@@ -10,8 +10,12 @@ int main()
 	SaltyEngine::GameObject *player = new SaltyEngine::GameObject("Player");
 
 	std::shared_ptr<SaltyEngine::Object> go = SaltyEngine::Object::Instantiate("DefaultMonster");
+	SaltyEngine::Object::Instantiate("Mutant");
+	SaltyEngine::Object::Instantiate("Script");
 
 	std::cout << go->GetName() << std::endl;
+
+	std::cout << "Size = " << SaltyEngine::Object::FindObjectsOfType<SaltyEngine::GameObject>().size() << std::endl;
 
 	// Add script to player
 	player->AddComponent<SaltyEngine::PlayerController>();
