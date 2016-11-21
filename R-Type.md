@@ -65,7 +65,7 @@
 
 ## Bonus
 | Object | Take | Launch | Touch Ennemi | Comment |
-|:-:|:-:|:-:|:-:|
+|:-:|:-:|:-:|:-:|:-:|
 | Missiles | take_missiles | launch_missiles | touch_missiles | None |
 | Protective ball | take_protective_ball | None | touched_protective_ball | None |
 | Speed Bonus | take_speed | None | None | None |
