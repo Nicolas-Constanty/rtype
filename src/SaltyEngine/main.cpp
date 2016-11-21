@@ -1,7 +1,4 @@
 #include "SaltyEngine/SaltyEngine.hpp"
-#include "Common/Singleton.hpp"
-#include "SaltyEngine/GameObject.hpp"
-#include "SaltyEngine/PlayerController.hpp"
 
 #define GAME2D
 
@@ -11,6 +8,10 @@ int main()
 	SaltyEngine::Scene *scene(new SaltyEngine::Scene());
 	// Create player
 	SaltyEngine::GameObject *player = new SaltyEngine::GameObject("Player");
+
+	std::shared_ptr<SaltyEngine::Object> go = SaltyEngine::Object::Instantiate("DefaultMonster");
+
+	(void)go;
 
 	// Add script to player
 	player->AddComponent<SaltyEngine::PlayerController>();

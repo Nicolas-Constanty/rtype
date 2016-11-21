@@ -21,6 +21,7 @@ SRC		= 	$(SALTYENGINE_DIR)/Behaviour.cpp        \
             $(SALTYENGINE_DIR)/SaltyBehaviour.cpp   \
             $(SALTYENGINE_DIR)/SaltyEngine.cpp      \
             $(SALTYENGINE_DIR)/Scene.cpp            \
+            $(SALTYENGINE_DIR)/Factory.cpp          \
 
 CPPFLAGS 	=   -W -Wall -g -Wextra -std=c++11
 

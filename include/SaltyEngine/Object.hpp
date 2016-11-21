@@ -16,7 +16,7 @@ namespace SaltyEngine
 	static std::string const Tag[] = { "NONE", "PLAYER", "ENEMY" };
 	typedef size_t uid;
 
-	class Object : private ICloneable<Object>
+	class Object: private ICloneable<Object>
 	{
 	private:
 		static std::atomic<int> s_id;
@@ -41,6 +41,8 @@ namespace SaltyEngine
 		static void Destroy(Object* original);
 		static std::shared_ptr<Object> Instantiate(std::string const& obj, Vector pos = Vector::zero(), double rot = 0)
 		{
+            (void)pos;
+            (void)rot;
 			return Factory::Create(obj);
 		}
 

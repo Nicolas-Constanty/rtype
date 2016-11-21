@@ -1,13 +1,14 @@
-#include "SaltyEngine\Factory.hpp"
+#include "SaltyEngine/Factory.hpp"
+#include "SaltyEngine/Object.hpp"
 
-SaltyEngine::Factory::~Factory()
-{
+
+namespace SaltyEngine {
+    std::map<std::string, Object *> Factory::m_prefabs = {{"DefaultMonster", new Object("DefaultMonster(Clone)")}};
+
+    Factory::~Factory() {
+    }
+
+    std::shared_ptr<Object> Factory::Create(std::string const &name) {
+        return m_prefabs[name]->Clone();
+    }
 }
-
-template <class ... Args>
-std::shared_ptr<SaltyEngine::Object> SaltyEngine::Factory::Create(std::string const& name, Args... args)
-{
-	return m_prefabs[name]->Clone();
-}
-
-std::map<std::string, SaltyEngine::GameObject*> SaltyEngine::Factory::m_prefabs = {{"DefaultMonster", new Object("DefaultMonster(Clone)")}};
