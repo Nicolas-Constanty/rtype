@@ -51,6 +51,9 @@
     <ClCompile Include="..\..\..\src\SaltyEngine\Behaviour.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\SaltyEngine\Factory.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\Common\Singleton.hpp">
@@ -104,6 +107,15 @@
     <ClInclude Include="..\..\..\include\SaltyEngine\SaltyEngine.hpp">
       <Filter>Fichiers d%27en-tête\SaltyEngine</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\SaltyEngine\Factory.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\Common\ICloneable.hpp">
+      <Filter>Fichiers d%27en-tête\Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\include\SaltyEngine\defaultReflection.inl">
@@ -112,5 +124,10 @@
     <None Include="..\..\..\include\SaltyEngine\Saltyreflection.inl">
       <Filter>Fichiers d%27en-tête\SaltyEngine</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SaltyEngine.rc">
+      <Filter>Fichiers de ressources</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

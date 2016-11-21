@@ -1,10 +1,15 @@
 #include <SFML/Graphics.hpp>
+#include "SaltyEngine/SaltyEngine.hpp"
+#include "SaltyEngine/Object.hpp"
+#include "SaltyEngine/GameObject.hpp"
 
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
 	sf::CircleShape shape(100.f);
 	shape.setFillColor(sf::Color::Green);
+
+	std::shared_ptr<SaltyEngine::Object> go = SaltyEngine::Object::Instantiate("DefaultMonster");
 
 	while (window.isOpen())
 	{
