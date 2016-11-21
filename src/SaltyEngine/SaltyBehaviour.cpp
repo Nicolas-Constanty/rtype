@@ -18,32 +18,6 @@ namespace SaltyEngine
 	}
 
 	/**
-	 * @fn	const std::string & SaltyBehaviour::GetName() const
-	 *
-	 * @brief	Gets the name.
-	 *
-	 * @return	The name.
-	 */
-
-	const std::string & SaltyBehaviour::GetName() const
-	{
-		return (m_name);
-	}
-
-	/**
-	 * @fn	size_t SaltyBehaviour::GetUID() const
-	 *
-	 * @brief	Gets the UID.
-	 *
-	 * @return	The UID.
-	 */
-
-	size_t SaltyBehaviour::GetUID() const
-	{
-		return (m_uid);
-	}
-
-	/**
 	 * @fn	bool SaltyBehaviour::IsInit() const
 	 *
 	 * @brief	Query if this object is init.

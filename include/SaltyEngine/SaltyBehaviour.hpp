@@ -27,8 +27,6 @@ namespace SaltyEngine
 		virtual ~SaltyBehaviour();
 
 	public:
-		const std::string &GetName() const;
-		size_t GetUID() const;
 		bool IsInit() const;
 		void Init();
 
@@ -43,12 +41,9 @@ namespace SaltyEngine
 		void CallCoroutines() const;
 
 	private:
-		std::string		m_name;
-		size_t			m_uid;
-		bool			m_status;
+		bool					m_status;
 		std::mutex		m_mutex;
 	};
 }
 
 #endif // SALTYBEHAVIOR_HPP_
-

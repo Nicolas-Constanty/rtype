@@ -70,4 +70,3 @@ namespace SaltyEngine
 #include "SaltyEngine/GameObject.hpp"
 
 #endif // !COMPONENT_HPP_
-

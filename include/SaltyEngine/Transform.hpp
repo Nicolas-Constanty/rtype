@@ -89,6 +89,7 @@ namespace SaltyEngine
 		T localRotation;
 		T position;
 		T localPosition;
+	private:
 		BaseTransform<T>					*m_parent;
 		std::vector<BaseTransform<T> *>		m_children;
 	};

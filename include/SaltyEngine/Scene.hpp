@@ -13,17 +13,18 @@
 #include "SaltyEngine/SaltyReflection.hpp"
 #include "SaltyEngine/SaltyBehaviour.hpp"
 #include "SaltyEngine/GameObject.hpp"
+#include "SaltyEngine/Object.hpp"
 
 namespace SaltyEngine
 {
-	class Scene
+	class Scene : public Object
 	{
 	public:
 		Scene();
+		Scene(const std::string &name);
 		~Scene();
 
 	public:
-		const std::string &GetName() const;
 		size_t GetSize() const;
 		std::ostream & print(std::ostream &os) const;
 		const std::unique_ptr<GameObject> &operator[](size_t index) const;
@@ -54,8 +55,6 @@ namespace SaltyEngine
 
 	private:
 		std::vector<std::unique_ptr<GameObject>>	m_objects;
-		size_t							m_counter; // Use to set the m_uid of SaltyBehaviour Objects
-		const std::string				m_name;
 		std::queue<size_t>				m_init;
 	};
 };
@@ -63,4 +62,3 @@ namespace SaltyEngine
 std::ostream& operator<<(std::ostream& os, SaltyEngine::Scene& obj);
 
 #endif // !SCENE_HPP_
-

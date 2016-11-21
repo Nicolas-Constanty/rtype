@@ -8,9 +8,11 @@ namespace SaltyEngine
 	 * @brief	Default constructor.
 	 */
 
-	Scene::Scene()
+	Scene::Scene() : Object("Scene")
 	{
 	}
+
+	Scene::Scene(const std::string &name) : Object(name) {}
 
 	/**
 	 * @fn	Scene::~Scene()
@@ -21,20 +23,7 @@ namespace SaltyEngine
 	Scene::~Scene()
 	{
 	}
-
-	/**
-	 * @fn	const std::string & Scene::GetName() const
-	 *
-	 * @brief	Gets the name.
-	 *
-	 * @return	The name.
-	 */
-
-	const std::string & Scene::GetName() const
-	{
-		return (m_name);
-	}
-
+	
 	/**
 	 * @fn	size_t Scene::GetSize() const
 	 *
@@ -71,7 +60,7 @@ namespace SaltyEngine
 	 * @fn	const std::unique_ptr<SaltyBehaviour> &Scene::operator[](size_t index) const
 	 *
 	 * @brief	Array indexer operator.
-	 * 			
+	 *
 	 * @param	index	Zero-based index of the.
 	 *
 	 * @return	The indexed value.
@@ -379,4 +368,3 @@ std::ostream & operator<<(std::ostream &os, SaltyEngine::Scene &scene)
 	os << "Scene " << scene.GetName() << " :" << std::endl;
 	return (os);
 }
-
