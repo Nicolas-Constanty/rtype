@@ -125,8 +125,11 @@ namespace SaltyEngine
 			return (transform.GetParent()->gameObject->GetComponents<T>());
 		}
 		void SetActive(bool value);
+		friend std::ostream &operator<<(std::ostream &os, GameObject const &object) {
+			os << object.GetName() << "(" << object.GetInstanceID() << ")" << std::endl;
+			return (os);
+		}
 	};
 }
-std::ostream &operator<<(std::ostream &os, SaltyEngine::GameObject &object);
 
 #endif // !GAMEOBJECT_HPP_

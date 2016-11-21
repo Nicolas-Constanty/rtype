@@ -159,7 +159,6 @@
     <ClCompile Include="..\..\..\src\SaltyEngine\SaltyBehaviour.cpp" />
     <ClCompile Include="..\..\..\src\SaltyEngine\SaltyEngine.cpp" />
     <ClCompile Include="..\..\..\src\SaltyEngine\Scene.cpp" />
-    <ClCompile Include="..\..\..\src\SaltyEngine\Vector2.cpp" />
     <ClCompile Include="..\..\..\src\SaltyEngine\Vector3.cpp" />
   </ItemGroup>
   <ItemGroup>
