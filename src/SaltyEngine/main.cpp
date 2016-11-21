@@ -11,7 +11,7 @@ int main()
 
 	std::shared_ptr<SaltyEngine::Object> go = SaltyEngine::Object::Instantiate("DefaultMonster");
 
-	(void)go;
+	std::cout << go->GetName() << std::endl;
 
 	// Add script to player
 	player->AddComponent<SaltyEngine::PlayerController>();

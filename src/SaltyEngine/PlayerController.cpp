@@ -13,7 +13,7 @@ namespace SaltyEngine
 	void PlayerController::Start()
 	{
 		std::cout << "Je suis le Start, je ne suis appelé qu'une fois" << std::endl;
-		StartCoroutine(&PlayerController::DisplayCoroutine);
+//		StartCoroutine(&PlayerController::DisplayCoroutine);
 	}
 
 //	void PlayerController::FixedUpdate()

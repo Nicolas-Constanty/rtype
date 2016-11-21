@@ -35,7 +35,7 @@ namespace SaltyEngine
 
 	private:
 		uid m_uid;
-		const std::string &m_name;
+		const std::string m_name;
 
 	public:
 		static void Destroy(Object* original);
@@ -47,8 +47,14 @@ namespace SaltyEngine
 		}
 
 	public:
-		virtual std::shared_ptr<Object> Clone() { return std::make_shared<Object>(m_name + "(Clone)"); }
-		virtual std::shared_ptr<Object> CloneMemberwise() { std::cout << "MDR LOL" << std::endl; return std::make_shared<Object>(m_name + "(Clone)"); }
+		virtual std::shared_ptr<Object> Clone() {
+            std::cout << m_name << std::endl;
+            return std::make_shared<Object>(m_name + "(Clone)");
+        }
+		virtual std::shared_ptr<Object> CloneMemberwise() {
+            std::cout << "MDR LOL" << std::endl;
+            return std::make_shared<Object>(m_name + "(Clone)");
+        }
 	};
 }
 

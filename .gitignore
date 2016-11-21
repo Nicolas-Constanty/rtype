@@ -11,6 +11,8 @@
 *.userprefs
 
 .idea/
+*.o
+salty-engine
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
