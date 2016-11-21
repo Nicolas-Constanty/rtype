@@ -39,14 +39,14 @@ namespace SaltyEngine
 
 	public:
 		static void Destroy(Object* original);
-		static auto Instantiate(std::string const& obj, Vector pos = Vector::zero(), double rot = 0) -> decltype(Factory::Create(obj).get())
+		static std::shared_ptr<Object> Instantiate(std::string const& obj, Vector pos = Vector::zero(), double rot = 0)
 		{
-			return Factory::Create(obj).get();
+			return Factory::Create(obj);
 		}
 
 	public:
-		virtual std::unique_ptr<Object> Clone() { return std::unique_ptr<Object>(new Object(m_name + "(Clone)")); }
-		virtual std::unique_ptr<Object> CloneMemberwise() { std::cout << "MDR LOL" << std::endl; return std::unique_ptr<Object>(new Object(m_name + "(Clone)")); }
+		virtual std::shared_ptr<Object> Clone() { return std::make_shared<Object>(m_name + "(Clone)"); }
+		virtual std::shared_ptr<Object> CloneMemberwise() { std::cout << "MDR LOL" << std::endl; return std::make_shared<Object>(m_name + "(Clone)"); }
 	};
 }
 

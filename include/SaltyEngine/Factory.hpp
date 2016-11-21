@@ -19,12 +19,11 @@ namespace SaltyEngine
 	private:
 		static std::map<std::string, GameObject*> m_prefabs;
 	private:
-		Factory();
 		virtual ~Factory();
 
 	public:
 		template <class ... Args>
-		static auto Create(std::string const& name, Args ... args);
+		static std::shared_ptr<Object> Create(std::string const& name, Args ... args);
 
 	private:
 		static std::list<std::shared_ptr<Object> > m_objects;

@@ -9,7 +9,7 @@ int main()
 	sf::CircleShape shape(100.f);
 	shape.setFillColor(sf::Color::Green);
 
-	SaltyEngine::GameObject *go = SaltyEngine::Object::Instantiate("DefaultMonster");
+	std::shared_ptr<SaltyEngine::Object> go = SaltyEngine::Object::Instantiate("DefaultMonster");
 
 	while (window.isOpen())
 	{
