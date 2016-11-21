@@ -3016,7 +3016,7 @@
 											"containerExtending": false,
 											"left": 1037,
 											"top": 854,
-											"width": 1631,
+											"width": 1895,
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
@@ -3085,7 +3085,7 @@
 									"containerExtending": false,
 									"left": 1032,
 									"top": 847,
-									"width": 1641,
+									"width": 1905,
 									"height": 25,
 									"autoResize": false,
 									"stereotypeLabel": {
@@ -3157,7 +3157,7 @@
 							"containerExtending": false,
 							"left": 1032,
 							"top": 832,
-							"width": 1641,
+							"width": 1905,
 							"height": 1225,
 							"autoResize": false,
 							"stereotypeDisplay": "label",
@@ -9321,7 +9321,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+Reliable: char : 1",
+											"text": "+Reliable: char : 2",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5
 										}
@@ -11523,7 +11523,7 @@
 											"containerExtending": false,
 											"left": 2165,
 											"top": 951,
-											"width": 482,
+											"width": 683,
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
@@ -11592,7 +11592,7 @@
 									"containerExtending": false,
 									"left": 2160,
 									"top": 944,
-									"width": 492,
+									"width": 693,
 									"height": 25,
 									"autoResize": false,
 									"stereotypeLabel": {
@@ -11628,7 +11628,7 @@
 									"containerExtending": false,
 									"left": 2160,
 									"top": 969,
-									"width": 492,
+									"width": 693,
 									"height": 10,
 									"autoResize": false
 								},
@@ -11662,11 +11662,11 @@
 											"containerExtending": false,
 											"left": 2165,
 											"top": 984,
-											"width": 482,
+											"width": 683,
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+createPINGPackage(secret: int)",
+											"text": "+createPINGPackage(secret: int, transactionID: unsigned short = 0)",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5
 										},
@@ -11690,11 +11690,11 @@
 											"containerExtending": false,
 											"left": 2165,
 											"top": 999,
-											"width": 482,
+											"width": 683,
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+createAUTHENTICATEPackage(secret: int)",
+											"text": "+createAUTHENTICATEPackage(secret: int, transactionID: unsigned short = 0)",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5
 										},
@@ -11718,11 +11718,11 @@
 											"containerExtending": false,
 											"left": 2165,
 											"top": 1014,
-											"width": 482,
+											"width": 683,
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+createCREATEPackage(x: int, y: int, id: unsigned short, objectID: unsigned short)",
+											"text": "+createCREATEPackage(x: int, y: int, id: unsigned short, objectID: unsigned short, transactionID: unsigned short = 0)",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5
 										},
@@ -11746,11 +11746,11 @@
 											"containerExtending": false,
 											"left": 2165,
 											"top": 1029,
-											"width": 482,
+											"width": 683,
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+createSTATUSPackage(high_score: int, running: bool, objectID: unsigned short)",
+											"text": "+createSTATUSPackage(high_score: int, running: bool, objectID: unsigned short, transactionID: unsigned short = 0)",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5
 										},
@@ -11774,11 +11774,11 @@
 											"containerExtending": false,
 											"left": 2165,
 											"top": 1044,
-											"width": 482,
+											"width": 683,
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+createBEAMPackage(objectID: unsigned short)",
+											"text": "+createBEAMPackage(objectID: unsigned short, transactionID: unsigned short = 0)",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5
 										},
@@ -11802,11 +11802,11 @@
 											"containerExtending": false,
 											"left": 2165,
 											"top": 1059,
-											"width": 482,
+											"width": 683,
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+createSHOTPackage(objectID: unsigned short)",
+											"text": "+createSHOTPackage(objectID: unsigned short, transactionID: unsigned short = 0)",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5
 										},
@@ -11830,11 +11830,11 @@
 											"containerExtending": false,
 											"left": 2165,
 											"top": 1074,
-											"width": 482,
+											"width": 683,
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+createDIEPackage(objectID: unsigned short)",
+											"text": "+createDIEPackage(objectID: unsigned short, transactionID: unsigned short = 0)",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5
 										},
@@ -11858,11 +11858,11 @@
 											"containerExtending": false,
 											"left": 2165,
 											"top": 1089,
-											"width": 482,
+											"width": 683,
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+createTAKEPackage(objectID: unsigned short)",
+											"text": "+createTAKEPackage(objectID: unsigned short, transactionID: unsigned short = 0)",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5
 										},
@@ -11886,11 +11886,11 @@
 											"containerExtending": false,
 											"left": 2165,
 											"top": 1104,
-											"width": 482,
+											"width": 683,
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+createDROPPackage(objectID: unsigned short)",
+											"text": "+createDROPPackage(objectID: unsigned short, transactionID: unsigned short = 0)",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5
 										},
@@ -11914,11 +11914,11 @@
 											"containerExtending": false,
 											"left": 2165,
 											"top": 1119,
-											"width": 482,
+											"width": 683,
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+createMOVEPackage(objectID: unsigned short, posX: int, posY: int)",
+											"text": "+createMOVEPackage(objectID: unsigned short, posX: int, posY: int, transactionID: unsigned short = 0)",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5
 										},
@@ -11942,11 +11942,11 @@
 											"containerExtending": false,
 											"left": 2165,
 											"top": 1134,
-											"width": 482,
+											"width": 683,
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+createLAUNCHPackage(objectID: unsigned short)",
+											"text": "+createLAUNCHPackage(objectID: unsigned short, transactionID: unsigned short = 0)",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5
 										}
@@ -11962,7 +11962,7 @@
 									"containerExtending": false,
 									"left": 2160,
 									"top": 979,
-									"width": 492,
+									"width": 693,
 									"height": 173,
 									"autoResize": false
 								},
@@ -12026,7 +12026,7 @@
 							"containerExtending": false,
 							"left": 2160,
 							"top": 944,
-							"width": 492,
+							"width": 693,
 							"height": 208,
 							"autoResize": false,
 							"stereotypeDisplay": "label",
@@ -20653,6 +20653,7 @@
 											"visibility": "public",
 											"isStatic": false,
 											"isLeaf": false,
+											"type": "",
 											"isReadOnly": false,
 											"isOrdered": false,
 											"isUnique": false,
@@ -20684,6 +20685,7 @@
 											"visibility": "public",
 											"isStatic": false,
 											"isLeaf": false,
+											"type": "",
 											"isReadOnly": false,
 											"isOrdered": false,
 											"isUnique": false,
@@ -20715,6 +20717,7 @@
 											"visibility": "public",
 											"isStatic": false,
 											"isLeaf": false,
+											"type": "",
 											"isReadOnly": false,
 											"isOrdered": false,
 											"isUnique": false,
@@ -20746,6 +20749,7 @@
 											"visibility": "public",
 											"isStatic": false,
 											"isLeaf": false,
+											"type": "",
 											"isReadOnly": false,
 											"isOrdered": false,
 											"isUnique": false,
@@ -20777,6 +20781,7 @@
 											"visibility": "public",
 											"isStatic": false,
 											"isLeaf": false,
+											"type": "",
 											"isReadOnly": false,
 											"isOrdered": false,
 											"isUnique": false,
@@ -20808,6 +20813,7 @@
 											"visibility": "public",
 											"isStatic": false,
 											"isLeaf": false,
+											"type": "",
 											"isReadOnly": false,
 											"isOrdered": false,
 											"isUnique": false,
@@ -20839,6 +20845,7 @@
 											"visibility": "public",
 											"isStatic": false,
 											"isLeaf": false,
+											"type": "",
 											"isReadOnly": false,
 											"isOrdered": false,
 											"isUnique": false,
@@ -20870,6 +20877,7 @@
 											"visibility": "public",
 											"isStatic": false,
 											"isLeaf": false,
+											"type": "",
 											"isReadOnly": false,
 											"isOrdered": false,
 											"isUnique": false,
@@ -20901,6 +20909,7 @@
 											"visibility": "public",
 											"isStatic": false,
 											"isLeaf": false,
+											"type": "",
 											"isReadOnly": false,
 											"isOrdered": false,
 											"isUnique": false,
@@ -20932,6 +20941,7 @@
 											"visibility": "public",
 											"isStatic": false,
 											"isLeaf": false,
+											"type": "",
 											"isReadOnly": false,
 											"isOrdered": false,
 											"isUnique": false,
@@ -20963,6 +20973,7 @@
 											"visibility": "public",
 											"isStatic": false,
 											"isLeaf": false,
+											"type": "",
 											"isReadOnly": false,
 											"isOrdered": false,
 											"isUnique": false,
@@ -21057,6 +21068,7 @@
 											"visibility": "public",
 											"isStatic": false,
 											"isLeaf": false,
+											"type": "",
 											"isReadOnly": false,
 											"isOrdered": false,
 											"isUnique": false,
@@ -21088,6 +21100,7 @@
 											"visibility": "public",
 											"isStatic": false,
 											"isLeaf": false,
+											"type": "",
 											"isReadOnly": false,
 											"isOrdered": false,
 											"isUnique": false,
@@ -21119,6 +21132,7 @@
 											"visibility": "public",
 											"isStatic": false,
 											"isLeaf": false,
+											"type": "",
 											"isReadOnly": false,
 											"isOrdered": false,
 											"isUnique": false,
@@ -21150,6 +21164,7 @@
 											"visibility": "public",
 											"isStatic": false,
 											"isLeaf": false,
+											"type": "",
 											"isReadOnly": false,
 											"isOrdered": false,
 											"isUnique": false,
@@ -21181,6 +21196,7 @@
 											"visibility": "public",
 											"isStatic": false,
 											"isLeaf": false,
+											"type": "",
 											"isReadOnly": false,
 											"isOrdered": false,
 											"isUnique": false,
@@ -21212,6 +21228,7 @@
 											"visibility": "public",
 											"isStatic": false,
 											"isLeaf": false,
+											"type": "",
 											"isReadOnly": false,
 											"isOrdered": false,
 											"isUnique": false,
@@ -21243,6 +21260,7 @@
 											"visibility": "public",
 											"isStatic": false,
 											"isLeaf": false,
+											"type": "",
 											"isReadOnly": false,
 											"isOrdered": false,
 											"isUnique": false,
@@ -21274,6 +21292,7 @@
 											"visibility": "public",
 											"isStatic": false,
 											"isLeaf": false,
+											"type": "",
 											"isReadOnly": false,
 											"isOrdered": false,
 											"isUnique": false,
@@ -22357,7 +22376,7 @@
 									"visibility": "public",
 									"isStatic": false,
 									"isLeaf": false,
-									"type": "char : 1",
+									"type": "char : 2",
 									"isReadOnly": false,
 									"isOrdered": false,
 									"isUnique": false,
@@ -23841,6 +23860,23 @@
 											"isOrdered": false,
 											"isUnique": false,
 											"direction": "in"
+										},
+										{
+											"_type": "UMLParameter",
+											"_id": "AAAAAAFYhjQOcQ5AhqI=",
+											"_parent": {
+												"$ref": "AAAAAAFYgiWBNfsnu6E="
+											},
+											"name": "transactionID",
+											"visibility": "public",
+											"isStatic": false,
+											"isLeaf": false,
+											"type": "unsigned short",
+											"isReadOnly": false,
+											"isOrdered": false,
+											"isUnique": false,
+											"defaultValue": "0",
+											"direction": "in"
 										}
 									],
 									"concurrency": "sequential",
@@ -23872,6 +23908,23 @@
 											"isReadOnly": false,
 											"isOrdered": false,
 											"isUnique": false,
+											"direction": "in"
+										},
+										{
+											"_type": "UMLParameter",
+											"_id": "AAAAAAFYhjTjzUt9mpc=",
+											"_parent": {
+												"$ref": "AAAAAAFYgiZX2fvDtI8="
+											},
+											"name": "transactionID",
+											"visibility": "public",
+											"isStatic": false,
+											"isLeaf": false,
+											"type": "unsigned short",
+											"isReadOnly": false,
+											"isOrdered": false,
+											"isUnique": false,
+											"defaultValue": "0",
 											"direction": "in"
 										}
 									],
@@ -23953,6 +24006,23 @@
 											"isOrdered": false,
 											"isUnique": false,
 											"direction": "in"
+										},
+										{
+											"_type": "UMLParameter",
+											"_id": "AAAAAAFYhjTv/Et+2Sc=",
+											"_parent": {
+												"$ref": "AAAAAAFYgidCe/xp2rY="
+											},
+											"name": "transactionID",
+											"visibility": "public",
+											"isStatic": false,
+											"isLeaf": false,
+											"type": "unsigned short",
+											"isReadOnly": false,
+											"isOrdered": false,
+											"isUnique": false,
+											"defaultValue": "0",
+											"direction": "in"
 										}
 									],
 									"concurrency": "sequential",
@@ -24017,6 +24087,23 @@
 											"isOrdered": false,
 											"isUnique": false,
 											"direction": "in"
+										},
+										{
+											"_type": "UMLParameter",
+											"_id": "AAAAAAFYhjT2REt/3C0=",
+											"_parent": {
+												"$ref": "AAAAAAFYgim2EP3hEs4="
+											},
+											"name": "transactionID",
+											"visibility": "public",
+											"isStatic": false,
+											"isLeaf": false,
+											"type": "unsigned short",
+											"isReadOnly": false,
+											"isOrdered": false,
+											"isUnique": false,
+											"defaultValue": "0",
+											"direction": "in"
 										}
 									],
 									"concurrency": "sequential",
@@ -24048,6 +24135,23 @@
 											"isReadOnly": false,
 											"isOrdered": false,
 											"isUnique": false,
+											"direction": "in"
+										},
+										{
+											"_type": "UMLParameter",
+											"_id": "AAAAAAFYhjT75UuATJw=",
+											"_parent": {
+												"$ref": "AAAAAAFYgi2W7v+hGLA="
+											},
+											"name": "transactionID",
+											"visibility": "public",
+											"isStatic": false,
+											"isLeaf": false,
+											"type": "unsigned short",
+											"isReadOnly": false,
+											"isOrdered": false,
+											"isUnique": false,
+											"defaultValue": "0",
 											"direction": "in"
 										}
 									],
@@ -24081,6 +24185,23 @@
 											"isOrdered": false,
 											"isUnique": false,
 											"direction": "in"
+										},
+										{
+											"_type": "UMLParameter",
+											"_id": "AAAAAAFYhjUEPEuBMCI=",
+											"_parent": {
+												"$ref": "AAAAAAFYgjdNfACozps="
+											},
+											"name": "transactionID",
+											"visibility": "public",
+											"isStatic": false,
+											"isLeaf": false,
+											"type": "unsigned short",
+											"isReadOnly": false,
+											"isOrdered": false,
+											"isUnique": false,
+											"defaultValue": "0",
+											"direction": "in"
 										}
 									],
 									"concurrency": "sequential",
@@ -24112,6 +24233,23 @@
 											"isReadOnly": false,
 											"isOrdered": false,
 											"isUnique": false,
+											"direction": "in"
+										},
+										{
+											"_type": "UMLParameter",
+											"_id": "AAAAAAFYhjUOZEuCIj0=",
+											"_parent": {
+												"$ref": "AAAAAAFYgjfHMZFMMB4="
+											},
+											"name": "transactionID",
+											"visibility": "public",
+											"isStatic": false,
+											"isLeaf": false,
+											"type": "unsigned short",
+											"isReadOnly": false,
+											"isOrdered": false,
+											"isUnique": false,
+											"defaultValue": "0",
 											"direction": "in"
 										}
 									],
@@ -24145,6 +24283,23 @@
 											"isOrdered": false,
 											"isUnique": false,
 											"direction": "in"
+										},
+										{
+											"_type": "UMLParameter",
+											"_id": "AAAAAAFYhjUWa0uDZfE=",
+											"_parent": {
+												"$ref": "AAAAAAFYgjgMaJFOVr8="
+											},
+											"name": "transactionID",
+											"visibility": "public",
+											"isStatic": false,
+											"isLeaf": false,
+											"type": "unsigned short",
+											"isReadOnly": false,
+											"isOrdered": false,
+											"isUnique": false,
+											"defaultValue": "0",
+											"direction": "in"
 										}
 									],
 									"concurrency": "sequential",
@@ -24176,6 +24331,23 @@
 											"isReadOnly": false,
 											"isOrdered": false,
 											"isUnique": false,
+											"direction": "in"
+										},
+										{
+											"_type": "UMLParameter",
+											"_id": "AAAAAAFYhjUc5EuE2T0=",
+											"_parent": {
+												"$ref": "AAAAAAFYgjg9T5FQs/M="
+											},
+											"name": "transactionID",
+											"visibility": "public",
+											"isStatic": false,
+											"isLeaf": false,
+											"type": "unsigned short",
+											"isReadOnly": false,
+											"isOrdered": false,
+											"isUnique": false,
+											"defaultValue": "0",
 											"direction": "in"
 										}
 									],
@@ -24241,6 +24413,23 @@
 											"isOrdered": false,
 											"isUnique": false,
 											"direction": "in"
+										},
+										{
+											"_type": "UMLParameter",
+											"_id": "AAAAAAFYhjUj80uFVg4=",
+											"_parent": {
+												"$ref": "AAAAAAFYgjiFWJFSqDk="
+											},
+											"name": "transactionID",
+											"visibility": "public",
+											"isStatic": false,
+											"isLeaf": false,
+											"type": "unsigned short",
+											"isReadOnly": false,
+											"isOrdered": false,
+											"isUnique": false,
+											"defaultValue": "0",
+											"direction": "in"
 										}
 									],
 									"concurrency": "sequential",
@@ -24272,6 +24461,23 @@
 											"isReadOnly": false,
 											"isOrdered": false,
 											"isUnique": false,
+											"direction": "in"
+										},
+										{
+											"_type": "UMLParameter",
+											"_id": "AAAAAAFYhjUp2kuGCWo=",
+											"_parent": {
+												"$ref": "AAAAAAFYgjkAl5FUWJU="
+											},
+											"name": "transactionID",
+											"visibility": "public",
+											"isStatic": false,
+											"isLeaf": false,
+											"type": "unsigned short",
+											"isReadOnly": false,
+											"isOrdered": false,
+											"isUnique": false,
+											"defaultValue": "0",
 											"direction": "in"
 										}
 									],
