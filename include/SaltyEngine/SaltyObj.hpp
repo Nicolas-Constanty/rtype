@@ -4,7 +4,7 @@
 #define SALTYOBJ_HPP_
 
 #include "SaltyBehaviour.hpp"
-#include "AA.hpp"
+#include "PlayerController.hpp"
 
 namespace SaltyEngine
 {
@@ -12,7 +12,7 @@ namespace SaltyEngine
 	struct typelist {};
 
 	// ADD OBJECT HERE FOR GENERATION TEMPLATE
-	using GameObjects = typelist<AA>;
+	using GameObjects = typelist<PlayerController>;
 }
 
 #endif // !SALTYOBJ_HPP_

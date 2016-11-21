@@ -3,42 +3,130 @@
 #ifndef GAMEOBJECT_HPP_
 #define GAMEOBJECT_HPP_
 
-
+#include <list>
+#include <vector>
 #include "SaltyEngine/Object.hpp"
+#include "SaltyEngine/Transform.hpp"
 
 namespace SaltyEngine
 { 
 	class Scene;
-	class Transform;
+	class Component;
 	class GameObject : public Object
 	{
 	public:
-		GameObject() : Object() {};
-		GameObject(const std::string &name) : Object(name) {};
+		// delete copy and move constructors and assign operators
+		GameObject(GameObject const&) = delete;             // Copy construct
+		GameObject(GameObject&&) = delete;                  // Move construct
+		GameObject& operator=(GameObject const&) = delete;  // Copy assign
+		GameObject& operator=(GameObject &&) = delete;      // Move assign
+		GameObject(const std::string &name);
 		virtual ~GameObject() {};
+	public:
+		Transform transform;
 
 	private:
-		bool activeSelf;
+		bool m_activeSelf;
 		size_t layer;
 		Scene *scene;
+		std::string m_tag;
+		std::list<Component *> m_components;
 
 	public:
-		std::string tag;
-		Transform *transform;
+		template<class T>
+		T *AddComponent()
+		{
+			T *component = new T(this);
+			m_components.push_back(component);
+			return (component);
+		}
+		template<class T>
+		T *AddComponent(const std::string &name)
+		{
+			T *component = new T(name, this);
+			m_components.push_back(component);
+			return (component);
+		}
+		bool CompareTag(const std::string &tag);
+		template<class T>
+		T GetComponent()
+		{
+			for (std::list<Component *>::const_iterator it = m_components.begin(); it != m_components.end(); it++)
+			{
+				if (typeid(**it) == T)
+				{
+					return (*it);
+				}
+			}
+			return (nullptr);
+		}
+		template<class T>
+		T GetComponentInChildren()
+		{
+			std::vector<Transform *> children = transform->GetChildren();
+			for (std::vector<Transform *>::const_iterator child = children.begin(); child != children.end(); child++)
+			{
+				T comp = (*child)->gameObject->GetComponent<T>();
+				if (comp != nullptr)
+					return (comp);
+			}
+			return (nullptr);
+		}
 
-	public:
+		template<class T>
+		T GetComponentInParent()
+		{
+			return (transform->GetParent()->gameObject()->GetComponent<T>());
+		}
 
-		AddComponent	Adds a component class named className to the game object.
-			CompareTag	Is this game object tagged with tag ?
-			GetComponent	Returns the component of Type type if the game object has one attached, null if it doesn't.
-			GetComponentInChildren	Returns the component of Type type in the GameObject or any of its children using depth first search.
-			GetComponentInParent	Returns the component of Type type in the GameObject or any of its parents.
-			GetComponents	Returns all components of Type type in the GameObject.
-			GetComponentsInChildren	Returns all components of Type type in the GameObject or any of its children.
-			GetComponentsInParent	Returns all components of Type type in the GameObject or any of its parents.
-			SendMessage	Calls the method named methodName on every MonoBehaviour in this game object.
-			SendMessageUpwards	Calls the method named methodName on every MonoBehaviour in this game object and on every ancestor of the behaviour.
-			SetActive
+		template<class T>
+		std::list<T> GetComponentsExactType()
+		{
+			std::list<T> list;
+			for (std::list<Component *>::const_iterator it = m_components.begin(); it != m_components.end(); it++)
+			{
+				if (typeid(**it) == typeid(T))
+				{
+					list.push_back(dynamic_cast<T>(*it));
+				}
+			}
+			return (list);
+		}
+
+		template<class T>
+		std::list<T> GetComponents()
+		{
+			std::list<T> list;
+			for (std::list<Component *>::const_iterator it = m_components.begin(); it != m_components.end(); it++)
+			{
+				SaltyBehaviour *tmp = dynamic_cast<T>(*it);
+				if (tmp)
+				{
+					list.push_back(tmp);
+				}
+			}
+			return (list);
+		}
+
+		template<class T>
+		std::list<T> GetComponentsInChildren()
+		{
+			std::list<T> list;
+			std::vector<Transform *> children = transform->GetChildren();
+			for (std::list<Transform *>::const_iterator child = children.begin(); child != children.end(); child++)
+			{
+				child->gameObjet->GetComponents<T>();
+			}
+		}
+
+		template<class T>
+		std::list<T> GetComponentsInParent()
+		{
+			return (transform->GetParent()->gameObject()->GetComponents<T>());
+		}
+		void SetActive(bool value);
 	};
 }
+std::ostream &operator<<(std::ostream &os, SaltyEngine::GameObject &object);
+
 #endif // !GAMEOBJECT_HPP_

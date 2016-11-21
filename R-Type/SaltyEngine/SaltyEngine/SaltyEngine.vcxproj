@@ -71,19 +71,19 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)..\include</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)..\include;$(SolutionDir)..\..\include</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)..\include</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)..\include;$(SolutionDir)..\..\include</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)..\include</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)..\include;$(SolutionDir)..\..\include</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)..\include</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)..\include;$(SolutionDir)..\..\include</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -150,28 +150,39 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\src\SaltyEngine\AA.cpp" />
+    <ClCompile Include="..\..\..\src\SaltyEngine\Behaviour.cpp" />
+    <ClCompile Include="..\..\..\src\SaltyEngine\PlayerController.cpp" />
+    <ClCompile Include="..\..\..\src\SaltyEngine\Component.cpp" />
+    <ClCompile Include="..\..\..\src\SaltyEngine\GameObject.cpp" />
     <ClCompile Include="..\..\..\src\SaltyEngine\main.cpp" />
     <ClCompile Include="..\..\..\src\SaltyEngine\Object.cpp" />
     <ClCompile Include="..\..\..\src\SaltyEngine\SaltyBehaviour.cpp" />
-    <ClCompile Include="..\..\..\src\SaltyEngine\SaltyGame.cpp" />
+    <ClCompile Include="..\..\..\src\SaltyEngine\SaltyEngine.cpp" />
     <ClCompile Include="..\..\..\src\SaltyEngine\Scene.cpp" />
     <ClCompile Include="..\..\..\src\SaltyEngine\Vector2.cpp" />
     <ClCompile Include="..\..\..\src\SaltyEngine\Vector3.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\include\SaltyEngine\AA.hpp" />
+    <ClInclude Include="..\..\..\include\Common\Singleton.hpp" />
+    <ClInclude Include="..\..\..\include\SaltyEngine\PlayerController.hpp" />
+    <ClInclude Include="..\..\..\include\SaltyEngine\Behaviour.hpp" />
+    <ClInclude Include="..\..\..\include\SaltyEngine\Component.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\Coroutine.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\GameObject.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\Object.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\SaltyBehaviour.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\SaltyEngineSFML.hpp" />
-    <ClInclude Include="..\..\..\include\SaltyEngine\SaltyGame.hpp" />
+    <ClInclude Include="..\..\..\include\SaltyEngine\SaltyEngine.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\SaltyObj.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\SaltyReflection.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\Scene.hpp" />
+    <ClInclude Include="..\..\..\include\SaltyEngine\Tag.conf">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="..\..\..\include\SaltyEngine\Transform.hpp" />
-    <ClInclude Include="..\..\..\include\SaltyEngine\typestring.hh" />
     <ClInclude Include="..\..\..\include\SaltyEngine\Vector2.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\Vector3.hpp" />
   </ItemGroup>

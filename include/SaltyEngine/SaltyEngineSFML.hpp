@@ -3,11 +3,11 @@
 #ifndef SALTENGINESFML_HPP_
 #define SALTENGINESFML_HPP_
 
-#include "SaltyGame.hpp"
+#include "SaltyEngine.hpp"
 
 namespace SaltyEngine
 {
-	class SaltyEngineSFML : public SaltyGame
+	class SaltyEngineSFML : public SaltyEngine
 	{
 	public:
 		SaltyEngineSFML();

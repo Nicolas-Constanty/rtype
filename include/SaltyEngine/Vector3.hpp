@@ -40,7 +40,11 @@ namespace SaltyEngine
 	typedef  BaseVector3<double> Vector3d;
 	typedef  BaseVector3<float> Vector3f;
 
+#ifndef GAME2D
 	typedef Vector3f Vector3;
+#else
+	typedef Vector3f Vector3, Vector;
+#endif
 }
 
 std::ostream& operator<<(std::ostream& os, SaltyEngine::Vector3& obj);

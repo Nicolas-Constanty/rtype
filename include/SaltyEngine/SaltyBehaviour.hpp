@@ -5,21 +5,25 @@
 
 #include <mutex>
 #include <vector>
-#include <iostream>
-#include <string>
 #include <functional>
-#include "Coroutine.hpp"
-#include "Transform.hpp"
+#include "SaltyEngine/Coroutine.hpp"
+#include "SaltyEngine/Behaviour.hpp"
 
 namespace SaltyEngine
 {
-	class SaltyGame;
+	class SaltyEngine;
 #define WaitForSecond(x) coroutine::await(std::bind(&SaltyBehaviour::__Wait_For_Seconds, this, x))
 #define StartCoroutine(x) m_coroutines.push_back(coroutine::create(std::bind(x, this)))
-	class SaltyBehaviour
+	class SaltyBehaviour : public Behaviour
 	{
 	public:
-		explicit SaltyBehaviour(const std::string &name);
+		// delete copy and move constructors and assign operators
+		SaltyBehaviour(SaltyBehaviour const&) = delete;             // Copy construct
+		SaltyBehaviour(SaltyBehaviour&&) = delete;                  // Move construct
+		SaltyBehaviour& operator=(SaltyBehaviour const&) = delete;  // Copy assign
+		SaltyBehaviour& operator=(SaltyBehaviour &&) = delete;      // Move assign
+		SaltyBehaviour(GameObject* gameObj);
+		SaltyBehaviour(const std::string &name, GameObject* gameObj);
 		virtual ~SaltyBehaviour();
 
 	public:
@@ -43,13 +47,8 @@ namespace SaltyEngine
 		size_t			m_uid;
 		bool			m_status;
 		std::mutex		m_mutex;
-
-	public:
-		Transform		*transform;
 	};
-};
-
-std::ostream &operator<<(std::ostream &os, SaltyEngine::SaltyBehaviour &object);
+}
 
 #endif // SALTYBEHAVIOR_HPP_
 

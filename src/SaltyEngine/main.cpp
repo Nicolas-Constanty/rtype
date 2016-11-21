@@ -1,22 +1,28 @@
-#include "SaltyEngine/SaltyReflection.hpp"
-#include "SaltyEngine/SaltyGame.hpp"
+#include "SaltyEngine/SaltyEngine.hpp"
 #include "Common/Singleton.hpp"
+#include "SaltyEngine/GameObject.hpp"
+#include "SaltyEngine/PlayerController.hpp"
+
 
 #define GAME2D
-using namespace SaltyEngine;
 
 int main()
 {
-	AA *aa = new AA();
-	Scene *scene(new Scene());
+	// Create Scene
+	SaltyEngine::Scene *scene(new SaltyEngine::Scene());
+	// Create player
+	SaltyEngine::GameObject *player = new SaltyEngine::GameObject("Player");
 
-	// Add SaltyBehaviour Object to scene
-	*scene << aa;
+	// Add script to player
+	player->AddComponent<SaltyEngine::PlayerController>();
+	
+	// Push player in scene
+	*scene << player;
 
-	// Add Scene Object to SaltyGame
-	Singleton<SaltyGame>::Instance() << scene;
+	// Push scene int SaltyEngine
+	Singleton<SaltyEngine::SaltyEngine>::Instance() << scene;
 
-	// Run the SaltyGame with default Scene 0
-	Singleton<SaltyGame>::Instance().Run();
+	// Run the SaltyEngine with default Scene 0
+	Singleton<SaltyEngine::SaltyEngine>::Instance().Run();
 	return 0;
 }

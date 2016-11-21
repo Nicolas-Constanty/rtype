@@ -28,6 +28,7 @@ namespace SaltyEngine
 	public:
 		// Signature match
 		template<typename A>
+
 		static std::true_type M_EXIST(void (A::*)()) {
 			return std::true_type();
 		}

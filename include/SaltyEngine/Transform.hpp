@@ -4,45 +4,28 @@
 #define TRANSFORM_HPP_
 
 #include <vector>
-#include "Vector3.hpp"
-#include "Vector2.hpp"
-
-#ifndef GAME2D
-namespace SaltyEngine
-{
-	typedef Vector2 Vector;
-}
-#else
-namespace SaltyEngine
-{
-	typedef Vector3 Vector;
-}
-#endif
+#include "SaltyEngine/Vector3.hpp"
+#include "SaltyEngine/Vector2.hpp"
+#include "SaltyEngine/Component.hpp"
 
 namespace SaltyEngine
 {
-	class SaltyBehaviour;
+	class GameObject;
 	template <class T>
-	class BaseTransform
+	class BaseTransform : public Component
 	{
 	public:
-		BaseTransform() :
-			rotation(T::zero()), localRotation(T::zero()),
-			position(T::zero()), localPosition(T::zero())
+		// delete copy and move constructors and assign operators
+		BaseTransform(BaseTransform const&) = delete;             // Copy construct
+		BaseTransform(BaseTransform&&) = delete;                  // Move construct
+		BaseTransform& operator=(BaseTransform const&) = delete;  // Copy assign
+		BaseTransform& operator=(BaseTransform &&) = delete;      // Move assign
+		BaseTransform(GameObject* const gameObj) : Component("Transform", gameObj)
 		{
-			m_parent = nullptr;
-			m_attach = nullptr;
-		}
-
-		BaseTransform(SaltyBehaviour *sb) :
-			rotation(T::zero()), localRotation(T::zero()),
-			position(T::zero()), localPosition(T::zero())
-		{
-			m_attach = sb;
 			m_parent = nullptr;
 		}
 
-		~BaseTransform()
+		virtual ~BaseTransform()
 		{
 			if (!m_children.empty())
 				DetachChildren();
@@ -60,11 +43,11 @@ namespace SaltyEngine
 				if (name == (*it)->GetName())
 					return (*it);
 			}
-			return nullptr;
+			return (nullptr);
 		}
 		BaseTransform<T> * GetChild(size_t index) const
 		{
-			return m_children[index];
+			return (m_children[index]);
 		}
 		bool IsChildOf(BaseTransform<T> *parent) const
 		{
@@ -88,9 +71,17 @@ namespace SaltyEngine
 		}
 		const std::string & GetName() const
 		{
-			if (m_attach)
-				return m_attach->GetName();
+			if (gameObject)
+				return (gameObject->GetName());
 			throw std::runtime_error("No attachement!");
+		}
+		const std::vector<BaseTransform<T> *> &GetChildren()
+		{
+			return (m_children);
+		}
+		BaseTransform<T> *GetParent()
+		{
+			return (m_parent);
 		}
 
 	public:
@@ -98,17 +89,15 @@ namespace SaltyEngine
 		T localRotation;
 		T position;
 		T localPosition;
-		BaseTransform<T>				*m_parent;
-		std::vector<BaseTransform<T> *>	m_children;
-		SaltyBehaviour				*m_attach;
+		BaseTransform<T>					*m_parent;
+		std::vector<BaseTransform<T> *>		m_children;
 	};
-
-	typedef BaseTransform<Vector3>	Transform3D;
-	typedef BaseTransform<Vector2>	Transform2D;
-
-	typedef BaseTransform<Vector>	Transform;
 }
 
-#include "SaltyBehaviour.hpp"
+#ifndef GAME2D
+typedef SaltyEngine::BaseTransform<SaltyEngine::Vector>	Transform;
+#else
+typedef SaltyEngine::BaseTransform<Vector>	Transform;
+#endif // !GAME2D
 
 #endif // !TRANSFORM_HPP_

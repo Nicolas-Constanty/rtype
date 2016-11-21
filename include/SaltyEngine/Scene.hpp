@@ -10,7 +10,9 @@
 #include <string>
 #include <iostream>
 #include <memory>
-#include "SaltyReflection.hpp"
+#include "SaltyEngine/SaltyReflection.hpp"
+#include "SaltyEngine/SaltyBehaviour.hpp"
+#include "SaltyEngine/GameObject.hpp"
 
 namespace SaltyEngine
 {
@@ -24,9 +26,9 @@ namespace SaltyEngine
 		const std::string &GetName() const;
 		size_t GetSize() const;
 		std::ostream & print(std::ostream &os) const;
-		const std::unique_ptr<SaltyBehaviour> &operator[](size_t index) const;
+		const std::unique_ptr<GameObject> &operator[](size_t index) const;
 		void Clear();
-		void operator<<(SaltyBehaviour *gameobj);
+		void operator<<(GameObject *gameobj);
 
 	public:
 		void OnStart();
@@ -51,7 +53,7 @@ namespace SaltyEngine
 		void CallCoroutines();
 
 	private:
-		std::vector<std::unique_ptr<SaltyBehaviour>>	m_objects;
+		std::vector<std::unique_ptr<GameObject>>	m_objects;
 		size_t							m_counter; // Use to set the m_uid of SaltyBehaviour Objects
 		const std::string				m_name;
 		std::queue<size_t>				m_init;
