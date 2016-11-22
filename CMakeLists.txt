@@ -3,9 +3,26 @@ project(rtype)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-file(GLOB SOURCE_FILE "src/Protocol/Game/*.cpp")
-file(GLOB INCLUDE_FILE "include/Protocol/Game")
 include_directories("include")
 
-set(SOURCE_FILES INCLUDE_SRC)
-add_executable(rtype ${SOURCE_FILE} ${INCLUDE_FILE} )
+file(GLOB Networksrc src/Network/*.cpp)
+file(GLOB Networkinc include/Network/*.hpp)
+
+file(GLOB Commoninc include/Common/*.hpp)
+
+file(GLOB Protocolsrc src/Protocol/*.cpp)
+file(GLOB Protocolinc include/Protocol/*.hpp)
+
+file(GLOB SaltyEnginesrc src/SaltyEngine/*.cpp)
+file(GLOB SaltyEngineinc include/SaltyEngine/*.hpp)
+
+file(GLOB allsrc src/*/*.cpp src/*/*/*.cpp)
+file(GLOB allinc src/*/*.hpp src/*/*/*.hpp)
+
+add_executable(rtype
+        ${Networksrc} ${Networkinc}
+        ${Commoninc}
+        ${Protocolsrc} ${Protocolinc}
+        ${SaltyEnginesrc} ${SaltyEngineinc})
+
+add_executable(udpserv-1 ${Networksrc} ${Networkinc} Tests/Network/udpserv-1.cpp)
