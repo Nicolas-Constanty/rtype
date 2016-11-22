@@ -6,8 +6,8 @@
 #define RTYPE_RTYPEPROTOCOLGAMEMANAGER_HPP
 
 #include <map>
-#include "IRTypeProtocolManager.hpp"
-#include "IProtocolGameHandler.hpp"
+#include "Protocol/IRTypeProtocolManager.hpp"
+#include "Protocol/Game/IProtocolGameHandler.hpp"
 
 class RTypeProtocolGameManager : public IRTypeProtocolManager {
 

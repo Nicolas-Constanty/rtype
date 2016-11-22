@@ -4,11 +4,11 @@
 
 #include <iostream>
 #include <unistd.h>
-#include "Protocol/RTypeProtocolGameManager.hpp"
-#include "Protocol/GamePackageFactory.hpp"
-#include "Protocol/GamePackageSerialize.hpp"
-#include "Protocol/IProtocolGameHandler.hpp"
-#include "Protocol/ProtocolPrintGamePackage.hpp"
+#include "Protocol/Game/RTypeProtocolGameManager.hpp"
+#include "Protocol/Game/GamePackageFactory.hpp"
+#include "Protocol/Game/GamePackageSerialize.hpp"
+#include "Protocol/Game/IProtocolGameHandler.hpp"
+#include "Protocol/Game/ProtocolPrintGamePackage.hpp"
 
 class test : public IProtocolGameHandler {
 public:

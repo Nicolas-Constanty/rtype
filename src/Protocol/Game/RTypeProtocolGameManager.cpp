@@ -3,8 +3,8 @@
 //
 
 #include <iostream>
-#include <Protocol/GamePackageFactory.hpp>
-#include "Protocol/RTypeProtocolGameManager.hpp"
+#include <Protocol/Game/GamePackageFactory.hpp>
+#include "Protocol/Game/RTypeProtocolGameManager.hpp"
 
 const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::MOVEID = RTypeProtocolGameManager::GameID(MOVE, sizeof(MOVEPackageGame));
 const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::TAKEID = RTypeProtocolGameManager::GameID(TAKE, sizeof(TAKEPackageGame));

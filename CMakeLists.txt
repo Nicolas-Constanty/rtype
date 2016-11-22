@@ -8,4 +8,4 @@ file(GLOB INCLUDE_FILE "include/Protocol")
 include_directories("include")
 
 set(SOURCE_FILES INCLUDE_SRC)
-add_executable(rtype ${SOURCE_FILE} ${INCLUDE_FILE} include/Protocol/ProtocolPrintGamePackage.hpp include/Protocol/GamePackageSerialize.hpp)
+add_executable(rtype ${SOURCE_FILE} ${INCLUDE_FILE} include/Protocol/Game/ProtocolPrintGamePackage.hpp include/Protocol/Game/GamePackageSerialize.hpp)

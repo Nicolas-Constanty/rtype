@@ -6,7 +6,7 @@
 #define RTYPE_PROTOCOLPRINTGAMEPACKAGE_HPP
 
 #include <iostream>
-#include "ProtocolGamePackage.hpp"
+#include "Protocol/Game/ProtocolGamePackage.hpp"
 
 std::ostream &operator<<(std::ostream &ostream, PackageGameHeader const &packageGameHeader) {
     ostream << "verleft=" << packageGameHeader.headerGameInfo.verLeft << std::endl;
