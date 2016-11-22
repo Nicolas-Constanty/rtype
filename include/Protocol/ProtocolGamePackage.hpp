@@ -155,7 +155,7 @@ public:
 
 class DIEPackageGame : public ObjectIDPackageGame {
 public:
-    DIEPackageGame(int posX = 0, int posY = 0, unsigned short ID = 0, unsigned short sequenceID = 0, unsigned short objectID = 0, unsigned short transactionID = 0)
+    DIEPackageGame(unsigned short sequenceID = 0, unsigned short objectID = 0, unsigned short transactionID = 0)
             : ObjectIDPackageGame(sizeof(DIEPackageGame), DIE, sequenceID, objectID, true, transactionID) {
     }
 };
