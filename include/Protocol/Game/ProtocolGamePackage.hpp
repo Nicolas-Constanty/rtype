@@ -61,7 +61,7 @@ public:
 class PINGPackageGame : public PackageGameHeader {
 public:
     PINGPackageGame(int secret = 0, unsigned short sequenceID = 0, unsigned short transactionID = 0)
-            : PackageGameHeader(true, sizeof(PINGPackageGame), sequenceID, PING, transactionID) {
+            : PackageGameHeader(true, sizeof(PINGPackageGame), sequenceID, GamePurpose::PING, transactionID) {
         this->secret = secret;
     }
 
@@ -72,7 +72,7 @@ public:
 class AUTHENTICATEPackageGame : public PackageGameHeader {
 public:
     AUTHENTICATEPackageGame(int secret = 0, unsigned short sequenceID = 0, unsigned short transactionID = 0)
-            : PackageGameHeader(true, sizeof(AUTHENTICATEPackageGame), sequenceID, AUTHENTICATE, transactionID) {
+            : PackageGameHeader(true, sizeof(AUTHENTICATEPackageGame), sequenceID, GamePurpose::AUTHENTICATE, transactionID) {
         this->secret = secret;
     }
 
@@ -95,7 +95,7 @@ public:
 class CREATEPackageGame : public ObjectIDPackageGame {
 public:
     CREATEPackageGame(int posX = 0, int posY = 0, unsigned short ID = 0, unsigned short sequenceID = 0, unsigned short objectID = 0, unsigned short transactionID = 0)
-            : ObjectIDPackageGame(sizeof(CREATEPackageGame), CREATE, sequenceID, objectID, true, transactionID) {
+            : ObjectIDPackageGame(sizeof(CREATEPackageGame), GamePurpose::CREATE, sequenceID, objectID, true, transactionID) {
         this->posX = posX;
         this->posY = posY;
         this->ID = ID;
@@ -110,7 +110,7 @@ public:
 class STATUSPackageGame : public ObjectIDPackageGame {
 public:
     STATUSPackageGame(int highScore, bool running, unsigned short sequenceID, unsigned short objectID, unsigned short transactionID = 0)
-            : ObjectIDPackageGame(sizeof(STATUSPackageGame), STATUS, sequenceID, objectID, false, transactionID) {
+            : ObjectIDPackageGame(sizeof(STATUSPackageGame), GamePurpose::STATUS, sequenceID, objectID, false, transactionID) {
         this->highScore = highScore;
         this->run = (unsigned char)running;
         if (this->run == 1) {
@@ -129,7 +129,7 @@ class MOVEPackageGame : public ObjectIDPackageGame {
 public:
     MOVEPackageGame(int posX = 0, int posY = 0, unsigned short sequenceID = 0, unsigned short objectID = 0,
                     unsigned short transactionID = 0)
-            : ObjectIDPackageGame(sizeof(MOVEPackageGame), MOVE, sequenceID, objectID, false, transactionID) {
+            : ObjectIDPackageGame(sizeof(MOVEPackageGame), GamePurpose::MOVE, sequenceID, objectID, false, transactionID) {
         this->posX = posX;
         this->posY = posY;
     }
@@ -142,42 +142,42 @@ public:
 class BEAMPackageGame : public ObjectIDPackageGame {
 public:
     BEAMPackageGame(unsigned short sequenceID = 0, unsigned short objectID = 0, unsigned short transactionID = 0)
-            : ObjectIDPackageGame(sizeof(BEAMPackageGame), BEAM, sequenceID, objectID, true, transactionID) {
+            : ObjectIDPackageGame(sizeof(BEAMPackageGame), GamePurpose::BEAM, sequenceID, objectID, true, transactionID) {
     }
 };
 
 class SHOTPackageGame : public ObjectIDPackageGame {
 public:
     SHOTPackageGame(unsigned short sequenceID = 0, unsigned short objectID = 0, unsigned short transactionID = 0)
-            : ObjectIDPackageGame(sizeof(SHOTPackageGame), SHOT, sequenceID, objectID, true, transactionID) {
+            : ObjectIDPackageGame(sizeof(SHOTPackageGame), GamePurpose::SHOT, sequenceID, objectID, true, transactionID) {
     }
 };
 
 class DIEPackageGame : public ObjectIDPackageGame {
 public:
     DIEPackageGame(unsigned short sequenceID = 0, unsigned short objectID = 0, unsigned short transactionID = 0)
-            : ObjectIDPackageGame(sizeof(DIEPackageGame), DIE, sequenceID, objectID, true, transactionID) {
+            : ObjectIDPackageGame(sizeof(DIEPackageGame), GamePurpose::DIE, sequenceID, objectID, true, transactionID) {
     }
 };
 
 class TAKEPackageGame : public ObjectIDPackageGame {
 public:
     TAKEPackageGame(unsigned short sequenceID = 0, unsigned short objectID = 0, unsigned short transactionID = 0)
-            : ObjectIDPackageGame(sizeof(TAKEPackageGame), TAKE, sequenceID, objectID, true, transactionID) {
+            : ObjectIDPackageGame(sizeof(TAKEPackageGame), GamePurpose::TAKE, sequenceID, objectID, true, transactionID) {
     }
 };
 
 class DROPPackageGame : public ObjectIDPackageGame {
 public:
     DROPPackageGame(unsigned short sequenceID = 0, unsigned short objectID = 0, unsigned short transactionID = 0)
-            : ObjectIDPackageGame(sizeof(DROPPackageGame), DROP, sequenceID, objectID, true, transactionID) {
+            : ObjectIDPackageGame(sizeof(DROPPackageGame), GamePurpose::DROP, sequenceID, objectID, true, transactionID) {
     }
 };
 
 class LAUNCHPackageGame : public ObjectIDPackageGame {
 public:
     LAUNCHPackageGame(unsigned short sequenceID = 0, unsigned short objectID = 0, unsigned short transactionID = 0)
-            : ObjectIDPackageGame(sizeof(LAUNCHPackageGame), LAUNCH, sequenceID, objectID, true, transactionID) {
+            : ObjectIDPackageGame(sizeof(LAUNCHPackageGame), GamePurpose::LAUNCH, sequenceID, objectID, true, transactionID) {
     }
 };
 

@@ -6,17 +6,17 @@
 #include <Protocol/Game/GamePackageFactory.hpp>
 #include "Protocol/Game/RTypeProtocolGameManager.hpp"
 
-const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::MOVEID = RTypeProtocolGameManager::GameID(MOVE, sizeof(MOVEPackageGame));
-const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::TAKEID = RTypeProtocolGameManager::GameID(TAKE, sizeof(TAKEPackageGame));
-const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::BEAMID = RTypeProtocolGameManager::GameID(BEAM, sizeof(BEAMPackageGame));
-const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::DROPID = RTypeProtocolGameManager::GameID(DROP, sizeof(DROPPackageGame));
-const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::DIEID = RTypeProtocolGameManager::GameID(DIE, sizeof(DIEPackageGame));
-const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::CREATEID = RTypeProtocolGameManager::GameID(CREATE, sizeof(CREATEPackageGame));
-const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::LAUNCHID = RTypeProtocolGameManager::GameID(LAUNCH, sizeof(LAUNCHPackageGame));
-const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::STATUSID = RTypeProtocolGameManager::GameID(STATUS, sizeof(STATUSPackageGame));
-const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::AUTHENTICATEID = RTypeProtocolGameManager::GameID(AUTHENTICATE, sizeof(AUTHENTICATEPackageGame));
-const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::PINGID = RTypeProtocolGameManager::GameID(PING, sizeof(PINGPackageGame));
-const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::SHOTID = RTypeProtocolGameManager::GameID(SHOT, sizeof(SHOTPackageGame));
+const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::MOVEID = RTypeProtocolGameManager::GameID(GamePurpose::MOVE, sizeof(MOVEPackageGame));
+const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::TAKEID = RTypeProtocolGameManager::GameID(GamePurpose::TAKE, sizeof(TAKEPackageGame));
+const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::BEAMID = RTypeProtocolGameManager::GameID(GamePurpose::BEAM, sizeof(BEAMPackageGame));
+const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::DROPID = RTypeProtocolGameManager::GameID(GamePurpose::DROP, sizeof(DROPPackageGame));
+const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::DIEID = RTypeProtocolGameManager::GameID(GamePurpose::DIE, sizeof(DIEPackageGame));
+const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::CREATEID = RTypeProtocolGameManager::GameID(GamePurpose::CREATE, sizeof(CREATEPackageGame));
+const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::LAUNCHID = RTypeProtocolGameManager::GameID(GamePurpose::LAUNCH, sizeof(LAUNCHPackageGame));
+const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::STATUSID = RTypeProtocolGameManager::GameID(GamePurpose::STATUS, sizeof(STATUSPackageGame));
+const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::AUTHENTICATEID = RTypeProtocolGameManager::GameID(GamePurpose::AUTHENTICATE, sizeof(AUTHENTICATEPackageGame));
+const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::PINGID = RTypeProtocolGameManager::GameID(GamePurpose::PING, sizeof(PINGPackageGame));
+const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::SHOTID = RTypeProtocolGameManager::GameID(GamePurpose::SHOT, sizeof(SHOTPackageGame));
 
 RTypeProtocolGameManager::RTypeProtocolGameManager(IProtocolGameHandler &protocolGameHandler)
         : protocolGameHandler(protocolGameHandler) {

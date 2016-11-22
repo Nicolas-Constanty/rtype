@@ -6,7 +6,6 @@
 #include <unistd.h>
 #include "Protocol/Game/RTypeProtocolGameManager.hpp"
 #include "Protocol/Game/GamePackageFactory.hpp"
-#include "Protocol/Game/GamePackageSerialize.hpp"
 #include "Protocol/Game/IProtocolGameHandler.hpp"
 #include "Protocol/Game/ProtocolPrintGamePackage.hpp"
 

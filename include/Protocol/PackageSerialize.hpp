@@ -2,13 +2,13 @@
 // Created by victor on 21/11/16.
 //
 
-#ifndef RTYPE_GAMEPACKAGESERIALIZE_HPP
-#define RTYPE_GAMEPACKAGESERIALIZE_HPP
+#ifndef RTYPE_ROOMPACKAGESERIALIZE_HPP
+#define RTYPE_ROOMPACKAGESERIALIZE_HPP
 
 #include <cstring>
 #include <iostream>
 
-class GamePackageSerialize {
+class PackageSerialize {
 public:
     template <typename T>
     static void print(T const &obj) {
@@ -23,4 +23,4 @@ public:
     }
 };
 
-#endif //RTYPE_GAMEPACKAGESERIALIZE_HPP
+#endif //RTYPE_ROOMPACKAGESERIALIZE_HPP
