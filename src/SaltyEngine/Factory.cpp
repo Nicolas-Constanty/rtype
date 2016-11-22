@@ -22,4 +22,9 @@ namespace SaltyEngine {
         m_objects.push_front(m_prefabs[name]->Clone());
         return m_objects.front();
     }
+
+	bool Factory::LoadAsset(std::string const& path)
+	{
+		return false;
+	}
 }

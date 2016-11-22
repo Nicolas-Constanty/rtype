@@ -150,6 +150,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\src\Common\DllLoader.cpp" />
     <ClCompile Include="..\..\..\src\SaltyEngine\Behaviour.cpp" />
     <ClCompile Include="..\..\..\src\SaltyEngine\Factory.cpp" />
     <ClCompile Include="..\..\..\src\SaltyEngine\PlayerController.cpp" />
@@ -163,7 +164,9 @@
     <ClCompile Include="..\..\..\src\SaltyEngine\Vector3.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\include\Common\DllLoader.hpp" />
     <ClInclude Include="..\..\..\include\Common\ICloneable.hpp" />
+    <ClInclude Include="..\..\..\include\Common\ILibraryLoader.hpp" />
     <ClInclude Include="..\..\..\include\Common\Singleton.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\Factory.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\PlayerController.hpp" />

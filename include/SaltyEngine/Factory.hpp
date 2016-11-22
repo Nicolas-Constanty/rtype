@@ -40,6 +40,11 @@ namespace SaltyEngine
 			return objs;
 		}
 
+		/**
+		 * \brief Loads an asset into the memory from a path
+		 */
+		static bool LoadAsset(std::string const& path);
+
 	private:
 		static std::list<std::shared_ptr<Object> > m_objects;
 	};
