@@ -1,11 +1,13 @@
 // dllmain.cpp : Définit le point d'entrée pour l'application DLL.
 #include "stdafx.h"
+#include <iostream>
 
 BOOL APIENTRY DllMain( HMODULE hModule,
                        DWORD  ul_reason_for_call,
                        LPVOID lpReserved
 					 )
 {
+	std::cout << "MOUNTING LIBRARY" << std::endl;
 	switch (ul_reason_for_call)
 	{
 	case DLL_PROCESS_ATTACH:
