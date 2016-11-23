@@ -2,9 +2,20 @@
 // Created by gaspar_q on 11/22/16.
 //
 
-#include <Network/NativeSocketIOOperationDispatcher.hpp>
 #include <csignal>
-#include <zconf.h>
+
+#include <Network/NativeSocketIOOperationDispatcher.hpp>
+#include <Network/NetBuffer.hpp>
+#include <Network/ISocket.hpp>
+
+#ifdef __linux__
+#include <unistd.h>
+ #include <Network/UnixSocket.hpp>
+#elif _WIN32
+#include <c++/iostream>
+ #include <Network/WinSocket.hpp>
+
+#endif
 
 static bool run = true;
 
@@ -18,10 +29,14 @@ void catchb(int)
 
 int main()
 {
-    Network::Socket::UnixSocket socket1(Network::Socket::UDP);
+#ifdef _WIN32
+    Network::Socket::WinSocket::Start();
+#endif
+
+    Network::Socket::OSSocket socket1(Network::Socket::UDP);
     fd_set s;
     Network::Core::NetBuffer    buff;
-    Network::Socket::UnixSocket rec;
+    Network::Socket::OSSocket rec;
 
     try
     {
@@ -49,15 +64,15 @@ int main()
     {
         FD_ZERO(&s);
         FD_SET(socket1.Native(), &s);
-        std::cout << "Selecting socket" << std::endl;
-//        select(socket1.Native() + 1, &s, NULL, NULL, NULL);
-//        if (FD_ISSET(socket1.Native(), &s))
-//        {
-            socket1.ReceiveFrom(buff, rec);
-            std::cout << "Reception of \"" << buff.toString() << "\" from " << rec << std::endl;
-//        }
-//        usleep(500000);
+        std::cout << "Receiving data" << std::endl;
+        std::cout << "Length received: " << socket1.ReceiveFrom(buff, rec) << std::endl;
+        std::cout << "Reception of \"" << buff.toString() << "\" from " << rec << std::endl;
+        buff.setTextMessage("Je te dis que j'ai reçu");
+        socket1.SendTo(buff, rec);
     }
     socket1.Close();
+#ifdef _WIN32
+    Network::Socket::WinSocket::Stop();
+#endif
     return 0;
 }

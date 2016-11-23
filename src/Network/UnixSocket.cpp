@@ -44,7 +44,7 @@ void Network::Socket::UnixSocket::Open() throw(SocketException)
 void Network::Socket::UnixSocket::Close()
 {
     close(fd);
-    fd = -1;
+    fd = Network::Socket::DEFAULT;
 }
 
 /**

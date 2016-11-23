@@ -5,27 +5,6 @@
 #ifndef PSU_2015_ZAPPY_SOCKET_HPP
 #define PSU_2015_ZAPPY_SOCKET_HPP
 
-//extern "C"
-//{
-//# ifdef __linux__
-//#  include <sys/types.h>
-//#  include <sys/socket.h>
-//#  include <sys/select.h>
-//#  include <netdb.h>
-//#  include <netinet/in.h>
-//#  include <arpa/inet.h>
-//# elif _WIN32
-//#  include <winsock2.h>
-//#  include <ws2tcpip.h>
-//# endif
-//};
-
-//#include <network/ISockStream.hpp>
-//#include "INativeSocketContainer.hpp"
-//#include "ISocket.hpp"
-
-//#define __linux__
-
 #ifdef __linux__
 # include <string>
 # include <stdexcept>
@@ -53,6 +32,8 @@ namespace Network
             void Open() throw(SocketException);
             void Close();
         };
+
+        using OSSocket = UnixSocket;
     }
 }
 #endif

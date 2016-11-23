@@ -3,8 +3,11 @@
 //
 
 #ifdef _WIN32
-#include "WinSocket.hpp"
+#include <Network/WinSocket.hpp>
 
+/**
+ * @brief Function that will initialize Windows sockets
+ */
 void Network::Socket::WinSocket::Start()
 {
     WSADATA  tofill;
@@ -13,30 +16,55 @@ void Network::Socket::WinSocket::Start()
         throw SocketException("Start up fail");
 }
 
+/**
+ * @brief Function that will stop windows sockets
+ */
 void Network::Socket::WinSocket::Stop()
 {
     WSACleanup();
 }
 
+/**
+ * @brief Basic constructor of Windows socket
+ * @param protocol The communication protocol that will use the socket
+ * @param domain The domain of the socket (ipv4/ipv6)
+ * @param option A few more options to pass on creation
+ */
 Network::Socket::WinSocket::WinSocket(const Protocol &protocol, const sa_family_t domain, int option) :
     Network::Socket::ASocket(protocol, domain, option)
 {
 
 }
 
+/**
+ * @brief Basic destructor that does nothing
+ */
 Network::Socket::WinSocket::~WinSocket()
 {
 
 }
 
+/**
+ * @brief Receive function and store bytes received into a buffer
+ * @param buff The buffer which will contains data received
+ * @return The number of bytes received
+ */
 int Network::Socket::WinSocket::Receive(Network::Core::NetBuffer &buff)
 {
-    return recv(fd, static_cast<char *>(buff.buff()), Core::NetBuffer::size, MSG_NOSIGNAL);
+    int ret = recv(fd, buff.buff<char>(), Core::NetBuffer::size, 0);
+
+    buff.setCurrlen(static_cast<size_t>(ret));
+    return ret;
 }
 
+/**
+ * @brief Function that will send data through the socket
+ * @param buff
+ * @return
+ */
 int Network::Socket::WinSocket::Send(Network::Core::NetBuffer &buff)
 {
-    return send(fd, static_cast<char *>(buff.buff()), Core::NetBuffer::size, MSG_NOSIGNAL);
+    return send(fd, buff.buff<char>(), buff.getCurrlen(), 0);
 }
 
 int Network::Socket::WinSocket::ReceiveFrom(Network::Core::NetBuffer &buff, Network::Socket::ISockStream &sender)
@@ -47,7 +75,11 @@ int Network::Socket::WinSocket::ReceiveFrom(Network::Core::NetBuffer &buff, Netw
     {
         socklen_t len = sizeof(snd->sockaddr);
 
-        return recvfrom(fd, static_cast<char *>(buff.buff()), Core::NetBuffer::size, MSG_NOSIGNAL, (struct sockaddr *)&snd->sockaddr, &len);
+        int ret = recvfrom(fd, buff.buff<char>(), Network::Core::NetBuffer::size, 0, (struct sockaddr *)&snd->sockaddr, &len);
+
+        buff.setCurrlen(static_cast<size_t>(ret));
+
+        return ret;
     }
     return 0;
 }
@@ -58,12 +90,12 @@ int Network::Socket::WinSocket::SendTo(Network::Core::NetBuffer &buff, Network::
 
     if (rcvr)
     {
-        return sendto(fd, static_cast<char *>(buff.buff()), Core::NetBuffer::size, MSG_NOSIGNAL, (struct sockaddr *)&rcvr->sockaddr, sizeof(rcvr->sockaddr));
+        return sendto(fd, buff.buff<char>(), buff.getCurrlen(), 0, (struct sockaddr *)&rcvr->sockaddr, sizeof(rcvr->sockaddr));
     }
     return 0;
 }
 
-void Network::Socket::WinSocket::Open()
+void Network::Socket::WinSocket::Open() throw(SocketException)
 {
     fd = socket(domain, protocol.type, protocol.proto);
     if (fd == INVALID_SOCKET)
@@ -73,6 +105,6 @@ void Network::Socket::WinSocket::Open()
 void Network::Socket::WinSocket::Close()
 {
     closesocket(fd);
-    fd = -1;
+    fd = Network::Socket::DEFAULT;
 }
 #endif

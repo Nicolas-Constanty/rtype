@@ -34,6 +34,8 @@ namespace Network
             void Open() throw(SocketException);
             void Close();
         };
+
+        using OSSocket = WinSocket;
     }
 }
 # endif
