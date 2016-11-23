@@ -15,16 +15,19 @@
 
 #include "SaltyEngine/GameObject.hpp"
 
-// Cette classe est exportée de Monster.dll
-class Monster : public SaltyEngine::GameObject
+extern "C"
 {
-public:
-	Monster();
-	virtual ~Monster();
-};
+	// Cette classe est exportée de Monster.dll
+	class Monster : public SaltyEngine::GameObject
+	{
+	public:
+		Monster();
+		virtual ~Monster();
+	};
 
-//extern MONSTER_API int nMonster;
+	//extern MONSTER_API int nMonster;
 
-MONSTER_API std::unique_ptr<SaltyEngine::Object> GetMonster();
+	MONSTER_API SaltyEngine::Object *GetMonster();
+}
 
 #endif

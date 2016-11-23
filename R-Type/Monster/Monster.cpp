@@ -19,7 +19,7 @@ Monster::~Monster()
 {
 }
 
-MONSTER_API std::unique_ptr<SaltyEngine::Object> GetMonster()
+MONSTER_API SaltyEngine::Object *GetMonster()
 {
-	return std::unique_ptr<SaltyEngine::Object>(new Monster());
+	return new Monster();
 }

@@ -7,7 +7,6 @@ BOOL APIENTRY DllMain( HMODULE hModule,
                        LPVOID lpReserved
 					 )
 {
-	std::cout << "MOUNTING LIBRARY" << std::endl;
 	switch (ul_reason_for_call)
 	{
 	case DLL_PROCESS_ATTACH:
