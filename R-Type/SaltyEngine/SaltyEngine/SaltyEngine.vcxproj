@@ -150,7 +150,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\src\Common\DllLoader.cpp" />
     <ClCompile Include="..\..\..\src\SaltyEngine\Behaviour.cpp" />
+    <ClCompile Include="..\..\..\src\SaltyEngine\Factory.cpp" />
     <ClCompile Include="..\..\..\src\SaltyEngine\PlayerController.cpp" />
     <ClCompile Include="..\..\..\src\SaltyEngine\Component.cpp" />
     <ClCompile Include="..\..\..\src\SaltyEngine\GameObject.cpp" />
@@ -159,11 +161,14 @@
     <ClCompile Include="..\..\..\src\SaltyEngine\SaltyBehaviour.cpp" />
     <ClCompile Include="..\..\..\src\SaltyEngine\SaltyEngine.cpp" />
     <ClCompile Include="..\..\..\src\SaltyEngine\Scene.cpp" />
-    <ClCompile Include="..\..\..\src\SaltyEngine\Vector2.cpp" />
     <ClCompile Include="..\..\..\src\SaltyEngine\Vector3.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\include\Common\DllLoader.hpp" />
+    <ClInclude Include="..\..\..\include\Common\ICloneable.hpp" />
+    <ClInclude Include="..\..\..\include\Common\ILibraryLoader.hpp" />
     <ClInclude Include="..\..\..\include\Common\Singleton.hpp" />
+    <ClInclude Include="..\..\..\include\SaltyEngine\Factory.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\PlayerController.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\Behaviour.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\Component.hpp" />
@@ -185,10 +190,14 @@
     <ClInclude Include="..\..\..\include\SaltyEngine\Transform.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\Vector2.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\Vector3.hpp" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\include\SaltyEngine\defaultReflection.inl" />
     <None Include="..\..\..\include\SaltyEngine\Saltyreflection.inl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SaltyEngine.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

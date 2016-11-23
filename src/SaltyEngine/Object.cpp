@@ -1,4 +1,5 @@
 #include "SaltyEngine/Object.hpp"
+#include "SaltyEngine/Factory.hpp"
 
 namespace SaltyEngine
 {
@@ -43,5 +44,4 @@ namespace SaltyEngine
 	{
 		delete original;
 	}
-
 }

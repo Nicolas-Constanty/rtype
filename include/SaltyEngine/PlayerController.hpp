@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef AA_HPP_
-#define AA_HPP_
+#ifndef PLAYER_CONTROLLER_HPP_
+#define PLAYER_CONTROLLER_HPP_
 
 #include "SaltyBehaviour.hpp"
 
@@ -13,7 +13,7 @@ namespace SaltyEngine {
 		PlayerController(GameObject* const gamObj);
 		PlayerController(const std::string &name, GameObject* const gamObj);
 		void Start();
-		void FixedUpdate();
+//		void FixedUpdate();
 		void DisplayCoroutine();
 		double speed;
 	};
@@ -21,4 +21,4 @@ namespace SaltyEngine {
 
 #include "SaltyEngine.hpp"
 
-#endif // !AA_HPP_
+#endif // !PLAYER_CONTROLLER_HPP_

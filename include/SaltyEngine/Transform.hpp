@@ -10,7 +10,7 @@
 
 namespace SaltyEngine
 {
-	class GameObject;
+    class GameObject;
 	template <class T>
 	class BaseTransform : public Component
 	{
@@ -20,10 +20,10 @@ namespace SaltyEngine
 		BaseTransform(BaseTransform&&) = delete;                  // Move construct
 		BaseTransform& operator=(BaseTransform const&) = delete;  // Copy assign
 		BaseTransform& operator=(BaseTransform &&) = delete;      // Move assign
-		BaseTransform(GameObject* const gameObj) : Component("Transform", gameObj)
-		{
-			m_parent = nullptr;
-		}
+        BaseTransform(GameObject* const gameObj) : Component("Transform", gameObj)
+        {
+            m_parent = nullptr;
+        }
 
 		virtual ~BaseTransform()
 		{
@@ -38,7 +38,7 @@ namespace SaltyEngine
 		}
 		BaseTransform<T> *Find(const std::string &name) const
 		{
-			for (std::vector<BaseTransform<T> *>::const_iterator it = m_children.begin(); it != m_children.end(); it++)
+			for (typename std::vector<BaseTransform<T> *>::const_iterator it = m_children.begin(); it != m_children.end(); it++)
 			{
 				if (name == (*it)->GetName())
 					return (*it);
@@ -68,12 +68,6 @@ namespace SaltyEngine
 		void Translate(const T & translation)
 		{
 			position += translation;
-		}
-		const std::string & GetName() const
-		{
-			if (gameObject)
-				return (gameObject->GetName());
-			throw std::runtime_error("No attachement!");
 		}
 		const std::vector<BaseTransform<T> *> &GetChildren()
 		{

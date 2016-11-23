@@ -6,13 +6,17 @@
 #include <atomic>
 #include <iostream>
 #include <string>
+#include <memory>
+#include "Vector2.hpp"
+#include "Common/ICloneable.hpp"
+#include "Factory.hpp"
 
 namespace SaltyEngine
 {
 	static std::string const Tag[] = { "NONE", "PLAYER", "ENEMY" };
 	typedef size_t uid;
 
-	class Object
+	class Object: protected ICloneable<Object>
 	{
 	private:
 		static std::atomic<int> s_id;
@@ -31,10 +35,35 @@ namespace SaltyEngine
 
 	private:
 		uid m_uid;
-		const std::string &m_name;
+		const std::string m_name;
 
 	public:
 		static void Destroy(Object* original);
+		static std::shared_ptr<Object> Instantiate(std::string const& obj, Vector pos = Vector::zero(), double rot = 0)
+		{
+            (void)pos;
+            (void)rot;
+			return Factory::Create(obj);
+		}
+
+	public:
+		virtual std::unique_ptr<Object> Clone() {
+            return std::unique_ptr<Object>(new Object(m_name + "(Clone)"));
+        }
+		virtual std::unique_ptr<Object> CloneMemberwise() {
+            return std::unique_ptr<Object>(new Object(m_name + "(Clone)"));
+        }
+
+	public:
+		/**
+		 * _\brief : retrieves all the object of a certain type currently instantiated.
+		 * This is slow, so consider using it wisely
+		 */
+		template <class Type>
+		static std::list<std::shared_ptr<Object> > FindObjectsOfType()
+		{
+			return Factory::GetObjectsOfType<Type>();
+		}
 	};
 }
 
