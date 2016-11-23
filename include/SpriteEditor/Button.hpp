@@ -12,17 +12,22 @@ namespace SpriteEditor
 	class Button
 	{
 	public:
-		Button(const std::string name);
-		Button(sf::Sprite sprite);
-		Button(sf::Texture texture);
+		Button(const sf::Texture &texture);
+		Button(const sf::Texture &texture, const sf::Texture &over);
 		~Button() {};
 
 	public:
 		void SetPosition(sf::Vector2f vector);
 		sf::Sprite operator()();
-	private:
+		void OnMouseOver(const sf::Event &event);
+		virtual void OnClic(const sf::Event &event);
+		sf::FloatRect GetRect() const;
+
+	protected:
 		sf::Sprite m_sprite;
-		
+		const sf::Texture &m_base;
+		const sf::Texture &m_over;
+		bool m_isover;
 	};
 }
 

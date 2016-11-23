@@ -19,11 +19,19 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\include\SpriteEditor\Texture.cpp" />
     <ClCompile Include="..\..\..\src\SpriteEditor\Button.cpp" />
+    <ClCompile Include="..\..\..\src\SpriteEditor\DialogBox.cpp" />
+    <ClCompile Include="..\..\..\src\SpriteEditor\ExportButton.cpp" />
     <ClCompile Include="..\..\..\src\SpriteEditor\main.cpp" />
+    <ClCompile Include="..\..\..\src\SpriteEditor\SelectRect.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\SpriteEditor\Button.hpp" />
+    <ClInclude Include="..\..\..\include\SpriteEditor\DialogBox.hpp" />
+    <ClInclude Include="..\..\..\include\SpriteEditor\ExportButton.hpp" />
+    <ClInclude Include="..\..\..\include\SpriteEditor\SelectRect.hpp" />
+    <ClInclude Include="..\..\..\include\SpriteEditor\Texture.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{4DBEB469-1371-44E9-8527-2F70EB35E838}</ProjectGuid>
