@@ -65,10 +65,19 @@ int main()
         FD_ZERO(&s);
         FD_SET(socket1.Native(), &s);
         std::cout << "Receiving data" << std::endl;
-        std::cout << "Length received: " << socket1.ReceiveFrom(buff, rec) << std::endl;
-        std::cout << "Reception of \"" << buff.toString() << "\" from " << rec << std::endl;
-        buff.setTextMessage("Je te dis que j'ai reçu");
-        socket1.SendTo(buff, rec);
+        struct timeval timeout = {1, 0};
+        select(socket1.Native() + 1, &s, NULL, NULL, &timeout);
+        if (FD_ISSET(socket1.Native(), &s))
+        {
+            std::cout << "Length received: " << socket1.ReceiveFrom(buff, rec) << std::endl;
+            std::cout << "Reception of \"" << buff.toString() << "\" from " << rec << std::endl;
+            buff.setTextMessage("Je te dis que j'ai reçu");
+            socket1.SendTo(buff, rec);
+        }
+        else
+        {
+            std::cout << "No one found" << std::endl;
+        }
     }
     socket1.Close();
 #ifdef _WIN32
