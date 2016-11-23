@@ -6,6 +6,9 @@
 *.user
 *.userosscache
 *.sln.docstates
+.idea/
+a.out
+*.db
 *.db
 *.opendb
 
