@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <unistd.h>
+#include <Protocol/Game/ProtocolGamePackage.hpp>
 #include "Protocol/Room/RTypeProtocolRoomManager.hpp"
 #include "Protocol/Room/RoomPackageFactory.hpp"
 #include "Protocol/Room/IProtocolRoomHandler.hpp"
@@ -19,6 +20,7 @@ public:
 public:
     virtual void onGetAUTHENTICATEPackage(AUTHENTICATEPackageRoom const &obj) {
         std::cout << obj << std::endl;
+//        obj.
     }
 
     virtual void onGetCREATEPackage(CREATEPackageRoom const &obj) {
@@ -50,19 +52,18 @@ public:
     }
 };
 
-typedef  AUTHENTICATEPackageRoom TYPE;
+typedef  SWAPPackageRoom TYPE;
 
 int main() {
     test test;
 //
     RTypeProtocolRoomManager protocol(test);
 //
-//    RoomPackageFactory factory;
+    RoomPackageFactory factory;
 
     // print
-//    TYPE *PING = factory.create<TYPE>("roger", 8);
+//    TYPE *PING = factory.create<TYPE>(124, 32, 22);
 
-//    std::cout << *PING << std::endl;
 //    PackageSerialize::print<TYPE>(*PING);
 //    return (0);
 

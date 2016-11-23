@@ -12,14 +12,10 @@ class PackageSerialize {
 public:
     template <typename T>
     static void print(T const &obj) {
-        size_t i = 0;
         unsigned char const *data;
 
         data = (unsigned char const *)&obj;
-        while (i < sizeof(obj)) {
-            std::cout << data[i];
-            ++i;
-        }
+        write(1, data, sizeof(obj));
     }
 };
 

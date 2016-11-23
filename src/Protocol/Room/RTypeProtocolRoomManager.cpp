@@ -6,14 +6,14 @@
 #include <Protocol/Room/RoomPackageFactory.hpp>
 #include "Protocol/Room/RTypeProtocolRoomManager.hpp"
 
-const RTypeProtocolRoomManager::RoomID RTypeProtocolRoomManager::AUTHENTICATEID = RTypeProtocolRoomManager::RoomID(RoomPurpose::AUTHENTICATE, sizeof(AUTHENTICATEPackageRoom));
-const RTypeProtocolRoomManager::RoomID RTypeProtocolRoomManager::CREATEID = RTypeProtocolRoomManager::RoomID(RoomPurpose::CREATE, sizeof(CREATEPackageRoom));
-const RTypeProtocolRoomManager::RoomID RTypeProtocolRoomManager::FAILUREID = RTypeProtocolRoomManager::RoomID(RoomPurpose::FAILURE, sizeof(FAILUREPackageRoom));
-const RTypeProtocolRoomManager::RoomID RTypeProtocolRoomManager::GETID = RTypeProtocolRoomManager::RoomID(RoomPurpose::GET, sizeof(GETPackageRoom));
-const RTypeProtocolRoomManager::RoomID RTypeProtocolRoomManager::JOINID = RTypeProtocolRoomManager::RoomID(RoomPurpose::JOIN, sizeof(JOINPackageRoom));
-const RTypeProtocolRoomManager::RoomID RTypeProtocolRoomManager::PLUGGEDID = RTypeProtocolRoomManager::RoomID(RoomPurpose::PLUGGED, sizeof(PLUGGEDPackageRoom));
-const RTypeProtocolRoomManager::RoomID RTypeProtocolRoomManager::SWAPID = RTypeProtocolRoomManager::RoomID(RoomPurpose::SWAP, sizeof(SWAPPackageRoom));
-const RTypeProtocolRoomManager::RoomID RTypeProtocolRoomManager::QUITID = RTypeProtocolRoomManager::RoomID(RoomPurpose::QUIT, sizeof(QUITPackageRoom));
+const RTypeProtocolRoomManager::RoomID RTypeProtocolRoomManager::AUTHENTICATEID = RTypeProtocolRoomManager::RoomID(ROOMAUTHENTICATE, sizeof(AUTHENTICATEPackageRoom));
+const RTypeProtocolRoomManager::RoomID RTypeProtocolRoomManager::CREATEID = RTypeProtocolRoomManager::RoomID(ROOMCREATE, sizeof(CREATEPackageRoom));
+const RTypeProtocolRoomManager::RoomID RTypeProtocolRoomManager::FAILUREID = RTypeProtocolRoomManager::RoomID(ROOMFAILURE, sizeof(FAILUREPackageRoom));
+const RTypeProtocolRoomManager::RoomID RTypeProtocolRoomManager::GETID = RTypeProtocolRoomManager::RoomID(ROOMGET, sizeof(GETPackageRoom));
+const RTypeProtocolRoomManager::RoomID RTypeProtocolRoomManager::JOINID = RTypeProtocolRoomManager::RoomID(ROOMJOIN, sizeof(JOINPackageRoom));
+const RTypeProtocolRoomManager::RoomID RTypeProtocolRoomManager::PLUGGEDID = RTypeProtocolRoomManager::RoomID(ROOMPLUGGED, sizeof(PLUGGEDPackageRoom));
+const RTypeProtocolRoomManager::RoomID RTypeProtocolRoomManager::SWAPID = RTypeProtocolRoomManager::RoomID(ROOMSWAP, sizeof(SWAPPackageRoom));
+const RTypeProtocolRoomManager::RoomID RTypeProtocolRoomManager::QUITID = RTypeProtocolRoomManager::RoomID(ROOMQUIT, sizeof(QUITPackageRoom));
 
 RTypeProtocolRoomManager::RTypeProtocolRoomManager(IProtocolRoomHandler &protocolRoomHandler)
         : protocolRoomHandler(protocolRoomHandler) {
