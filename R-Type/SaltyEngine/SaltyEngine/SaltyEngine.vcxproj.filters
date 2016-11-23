@@ -54,6 +54,9 @@
     <ClCompile Include="..\..\..\src\SaltyEngine\Factory.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\Common\DllLoader.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\Common\Singleton.hpp">
@@ -115,6 +118,12 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\SaltyEngine\Factory.hpp">
       <Filter>Fichiers d%27en-tête\SaltyEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\Common\ILibraryLoader.hpp">
+      <Filter>Fichiers d%27en-tête\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\Common\DllLoader.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

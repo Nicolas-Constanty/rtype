@@ -1,9 +1,13 @@
 #include "SaltyEngine/SaltyEngine.hpp"
+#include "Common/DllLoader.hpp"
 
 #define GAME2D
 
 int main()
 {
+	DllLoader *loader = new DllLoader();
+	std::cout << loader->Load("MonsterTest.dll") << std::endl;
+	std::cout << loader->Unload() << std::endl;
 	// Create Scene
 	SaltyEngine::Scene *scene(new SaltyEngine::Scene());
 	// Create player
