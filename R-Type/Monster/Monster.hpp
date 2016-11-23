@@ -10,13 +10,21 @@
 #define MONSTER_API __declspec(dllimport)
 #endif
 
+#ifndef MONSTER_HPP_
+#define MONSTER_HPP_
+
+#include "SaltyEngine/GameObject.hpp"
+
 // Cette classe est exportée de Monster.dll
-class MONSTER_API CMonster {
+class Monster : public SaltyEngine::GameObject
+{
 public:
-	CMonster(void);
-	// TODO: ajoutez ici vos méthodes.
+	Monster();
+	virtual ~Monster();
 };
 
-extern MONSTER_API int nMonster;
+//extern MONSTER_API int nMonster;
 
-MONSTER_API int fnMonster(void);
+MONSTER_API std::unique_ptr<SaltyEngine::Object> GetMonster();
+
+#endif
