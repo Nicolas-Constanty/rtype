@@ -3,9 +3,12 @@
 #ifndef SALTYENGINE_HPP_
 #define SALTYENGINE_HPP_
 
+#include <iostream>
 #include <vector>
-#include <memory>
+#include <numeric>
 #include <chrono>
+#include <memory>
+
 
 #define DEFAULT_FRAME_RATE 60
 

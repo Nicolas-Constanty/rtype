@@ -13,9 +13,3 @@ namespace SaltyEngine
 		m_activeSelf = value;
 	}
 }
-
-std::ostream & operator<<(std::ostream & os, SaltyEngine::GameObject & object)
-{
-	os << object.GetName() << "(" << object.GetInstanceID() << ")" << std::endl;
-	return (os);
-}

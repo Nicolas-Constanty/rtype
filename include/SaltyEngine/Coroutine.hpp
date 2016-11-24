@@ -257,7 +257,7 @@ namespace coroutine {
 		}
 	};
 
-	thread_local static Ordinator Singleton<Ordinator>::Instance();
+//	thread_local static Ordinator Singleton<Ordinator>::Instance();
 
 	inline routine_t create(std::function<void()> f)
 	{
@@ -357,11 +357,6 @@ namespace coroutine {
 		swapcontext(&routine->ctx, &Singleton<Ordinator>::Instance().ctx);
 	}
 
-	routine_t current()
-	{
-		return Singleton<Ordinator>::Instance().current;
-	}
-
 	template<typename Function>
 	typename std::result_of<Function()>::type
 		await(Function &&func)
@@ -417,7 +412,7 @@ namespace coroutine {
 		inline Type pop()
 		{
 			if (!_taker)
-				_taker = current();
+				_taker = Singleton<Ordinator>::Instance().current();
 
 			while (_list.empty())
 				yield();
