@@ -64,7 +64,7 @@ namespace SaltyEngine
 	{
 		Start();
 		std::chrono::nanoseconds lag(0);
-		std::chrono::time_point<std::chrono::steady_clock> time_start = std::chrono::high_resolution_clock::now();
+		std::chrono::time_point<std::chrono::high_resolution_clock> time_start = std::chrono::high_resolution_clock::now();
 
 		while (m_status != EngineStatus::stop)
 		{

@@ -56,9 +56,13 @@ namespace SaltyEngine
 	private:
 		std::vector<std::unique_ptr<GameObject>>	m_objects;
 		std::queue<size_t>				m_init;
+
+	public:
+		friend std::ostream &operator<<(std::ostream &os, Scene &obj) {
+			return os << "Scene " << obj.GetName() << " :" << std::endl;
+		};
 	};
 };
 
-std::ostream& operator<<(std::ostream& os, SaltyEngine::Scene& obj);
 
 #endif // !SCENE_HPP_

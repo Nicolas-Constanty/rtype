@@ -2,17 +2,28 @@
 #include "Common/Singleton.hpp"
 #include "SaltyEngine/GameObject.hpp"
 #include "SaltyEngine/PlayerController.hpp"
-
+#include "Common/DllLoader.hpp"
 #include "SaltyEngine/Input.hpp"
 
 #define GAME2D
 
 int main()
 {
+	DllLoader *loader = new DllLoader();
+	std::cout << loader->Load("MonsterTest.dll") << std::endl;
+	std::cout << loader->Unload() << std::endl;
 	// Create Scene
 	SaltyEngine::Scene *scene(new SaltyEngine::Scene());
 	// Create player
 	SaltyEngine::GameObject *player = new SaltyEngine::GameObject("Player");
+
+	std::shared_ptr<SaltyEngine::Object> go = SaltyEngine::Object::Instantiate("DefaultMonster");
+	SaltyEngine::Object::Instantiate("Mutant");
+	SaltyEngine::Object::Instantiate("Script");
+
+	std::cout << go->GetName() << std::endl;
+
+	std::cout << "Size = " << SaltyEngine::Object::FindObjectsOfType<SaltyEngine::GameObject>().size() << std::endl;
 
 	// Add script to player
 	player->AddComponent<SaltyEngine::PlayerController>();

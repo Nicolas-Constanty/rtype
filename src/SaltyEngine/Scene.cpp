@@ -363,8 +363,8 @@ namespace SaltyEngine
  * @return	The shifted result.
  */
 
-std::ostream & operator<<(std::ostream &os, SaltyEngine::Scene &scene)
-{
-	os << "Scene " << scene.GetName() << " :" << std::endl;
-	return (os);
-}
+//std::ostream & operator<<(std::ostream &os, SaltyEngine::Scene &scene)
+//{
+//	os << "Scene " << scene.GetName() << " :" << std::endl;
+//	return (os);
+//}
