@@ -15,7 +15,7 @@ public:
 
 public:
 	virtual HINSTANCE Load(std::string const& path);
-	virtual bool Unload();
+	virtual BOOL Unload();
 
 private:
 	HINSTANCE m_inst;

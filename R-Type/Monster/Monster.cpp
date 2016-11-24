@@ -1,8 +1,7 @@
 // Monster.cpp : définit les fonctions exportées pour l'application DLL.
 //
 
-#include "stdafx.h"
-#include "Monster.h"
+#include "Monster.hpp"
 #include "SaltyEngine/GameObject.hpp"
 
 

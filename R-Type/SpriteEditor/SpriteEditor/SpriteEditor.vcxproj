@@ -86,24 +86,24 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)..\..\Dependencies\SFML\Win\include$(SolutionDir)..\..\Dependencies\SFML\Win\include;</IncludePath>
+    <IncludePath>$(SolutionDir)..\Dependencies\SFML\Win\include;$(SolutionDir)..\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)..\..\Dependencies\SFML\Win\include$(SolutionDir)..\..\Dependencies\SFML\Win\include;;$(SolutionDir)..\..\include</IncludePath>
     <ReferencePath>$(ReferencePath)</ReferencePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <ReferencePath>$(ReferencePath)</ReferencePath>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)..\..\Dependencies\SFML\Win\include;$(SolutionDir)..\..\include;</IncludePath>
-    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;$(SolutionDir)..\..\Dependencies\SFML\Win\x64\Debug;</LibraryPath>
+    <IncludePath>$(SolutionDir)..\Dependencies\SFML\Win\include;$(SolutionDir)..\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)..\..\Dependencies\SFML\Win\include;$(SolutionDir)..\..\include;;$(SolutionDir)..\..\include</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;$(SolutionDir)..\..\Dependencies\SFML\Win\x64\Debug;$(SolutionDir)..\Dependencies\SFML\Win\x64\Debug;</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <ReferencePath>$(ReferencePath)</ReferencePath>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)..\..\Dependencies\SFML\Win\include;</IncludePath>
+    <IncludePath>$(SolutionDir)..\Dependencies\SFML\Win\include;$(SolutionDir)..\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)..\..\Dependencies\SFML\Win\include;;$(SolutionDir)..\..\include</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <ReferencePath>$(ReferencePath)</ReferencePath>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)..\..\Dependencies\SFML\Win\include;</IncludePath>
+    <IncludePath>$(SolutionDir)..\Dependencies\SFML\Win\include;$(SolutionDir)..\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)..\..\Dependencies\SFML\Win\include;;$(SolutionDir)..\..\include</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
