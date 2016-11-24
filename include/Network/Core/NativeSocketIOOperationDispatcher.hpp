@@ -40,7 +40,8 @@ namespace Network
             virtual void Run();
 
         public:
-                void Watch(Socket::INativeSocketStreamHandler &towatch);
+            void Watch(Socket::INativeSocketStreamHandler &towatch);
+            void Swap(Socket::INativeSocketStreamHandler &curr, Socket::INativeSocketStreamHandler &newone);
 
         public:
             void    setTimeout(struct timeval const &timeout);

@@ -34,7 +34,7 @@ namespace Network
         static const Protocol UDP = {IPPROTO_UDP, SOCK_DGRAM};
         static const SOCKET      DEFAULT = (SOCKET)-1;
 
-        class ASocket : public ISocket, public ISockStream, public INativeSocketContainer
+        class ASocket : public ISocket, public ISockStream
         {
         public:
             ASocket(const Protocol &protocol = Socket::TCP, const sa_family_t domain = AF_INET, int option = 1);
@@ -50,7 +50,7 @@ namespace Network
             //IStream
         public:
             virtual int Receive(Core::NetBuffer &buff) = 0;
-            virtual int Send(Core::NetBuffer &buff) = 0;
+            virtual int Send(Core::NetBuffer const &buff) const = 0;
 
             virtual int ReceiveFrom(Core::NetBuffer &buff, ISockStream &sender) = 0;
             virtual int SendTo(Core::NetBuffer &buff, ISockStream const &receiver) = 0;

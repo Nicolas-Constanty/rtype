@@ -10,7 +10,9 @@
 
 #ifdef __linux__
 #include <unistd.h>
- #include <Network/UnixSocket.hpp>
+ #include <Network/Socket/UnixSocket.hpp>
+ #include <limits>
+
 #elif _WIN32
 #include <c++/iostream>
  #include <Network/Socket/WinSocket.hpp>
@@ -58,13 +60,15 @@ int main()
         return 1;
     }
 
+    size_t i = 0;
+
     signal(SIGINT, catchb);
 
     while (run)
     {
         FD_ZERO(&s);
         FD_SET(socket1.Native(), &s);
-        std::cout << "Receiving data" << std::endl;
+        std::cout << "Receive data(" << i << ")" << std::endl;
         struct timeval timeout = {1, 0};
         select(socket1.Native() + 1, &s, NULL, NULL, &timeout);
         if (FD_ISSET(socket1.Native(), &s))
@@ -73,10 +77,15 @@ int main()
             std::cout << "Reception of \"" << buff.toString() << "\" from " << rec << std::endl;
             buff.setTextMessage("Je te dis que j'ai reçu");
             socket1.SendTo(buff, rec);
+            i = 0;
         }
         else
         {
             std::cout << "No one found" << std::endl;
+            if (i == std::numeric_limits<size_t>::max())
+                i = 0;
+            else
+                ++i;
         }
     }
     socket1.Close();

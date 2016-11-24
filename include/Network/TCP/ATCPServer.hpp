@@ -7,12 +7,13 @@
 
 #ifdef __linux__
  #include <vector>
+ #include <queue>
 #elif _WIN32
  #include <c++/vector>
+#include <c++/queue>
 #endif
 
 #include <Network/Core/NativeSocketIOOperationDispatcher.hpp>
-#include <c++/queue>
 #include "ATCPConnection.hpp"
 
 namespace Network
@@ -52,16 +53,35 @@ namespace Network
 
         public:
             /**
+             * @brief Function which will launch the server and made him listen on a specific port
+             * @param port The port to which bind the socket
+             */
+            void Start(const uint16_t port)
+            {
+                sock.Open();
+                sock.Listen(port);
+            }
+
+            /**
+             * @brief Function which will stop the server and close the socket
+             */
+            void Stop()
+            {
+                sock.Close();
+            }
+
+        public:
+            /**
              * @brief Callback called when there is data to read on socket
              * @return True if a new client has been accepted, false either
              */
             virtual bool OnAllowedToRead()
             {
-                ClientType  *newclient = new ClientType(Socket::TCP);
+                ClientType  *newclient = new ClientType();
 
                 try
                 {
-                    sock.Accept(newclient->sock);
+                    sock.Accept(newclient->giveSocket());
                 }
                 catch (Network::Socket::SocketException const &err)
                 {
@@ -71,6 +91,7 @@ namespace Network
                 }
                 Core::NativeSocketIOOperationDispatcher::Instance().Watch(*newclient);
                 garbage.emplace_back(newclient);
+                OnDataReceived(0);
                 return true;
             }
 

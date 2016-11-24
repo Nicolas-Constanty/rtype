@@ -3,6 +3,7 @@
 //
 
 #include <Network/Core/NetBuffer.hpp>
+#include <iostream>
 
 /**
  * \brief The internal size of the buffer. Limited in order to resolve MTU bug
@@ -35,6 +36,16 @@ Network::Core::NetBuffer::NetBuffer(const Network::Core::NetBuffer &ref)
 Network::Core::NetBuffer::~NetBuffer()
 {
 
+}
+
+/**
+ * @brief String constructor
+ * @param txt The text to set
+ */
+Network::Core::NetBuffer::NetBuffer(std::string const &txt) :
+    Network::Core::NetBuffer()
+{
+    setTextMessage(txt);
 }
 
 /**

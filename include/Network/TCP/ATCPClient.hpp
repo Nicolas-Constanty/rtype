@@ -20,6 +20,9 @@ namespace Network
 
         public:
             virtual bool OnAllowedToRead();
+
+        protected:
+            Core::NetBuffer buff;
         };
     }
 }

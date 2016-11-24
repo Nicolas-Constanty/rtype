@@ -80,8 +80,11 @@ void Network::Core::NativeSocketIOOperationDispatcher::HandleOperations()
 {
     fd_set readset;
     fd_set writeset;
+    std::unique_ptr<struct timeval>  timeout = NULL;
 
-    if (select(std::max(bindFdsToSet(readset), bindFdsToSet(writeset)) + 1, &readset, &writeset, NULL, m_timeout.get()) == -1)
+    if (m_timeout.get() != NULL)
+        timeout.reset(new struct timeval(*m_timeout.get()));
+    if (select(std::max(bindFdsToSet(readset), bindFdsToSet(writeset)) + 1, &readset, &writeset, NULL, timeout.get()) == -1)
         throw std::runtime_error("Select fails");
     performReadOperations(readset);
     performWriteOperations(writeset);
@@ -99,7 +102,7 @@ SOCKET Network::Core::NativeSocketIOOperationDispatcher::bindFdsToSet(fd_set &se
     FD_ZERO(&set);
     for (const std::unique_ptr<Network::Socket::INativeSocketStreamHandler> &curr : m_toWatch)
     {
-        SOCKET currsock = curr->Native();
+        SOCKET currsock = curr->getSocket().Native();
         FD_SET(currsock, &set);
         if (currsock > max)
             max = currsock;
@@ -115,7 +118,7 @@ void Network::Core::NativeSocketIOOperationDispatcher::performReadOperations(fd_
 {
     for (std::list<std::unique_ptr<Network::Socket::INativeSocketStreamHandler> >::iterator it = m_toWatch.begin(); it != m_toWatch.end(); ++it)
     {
-        if (FD_ISSET((*it)->Native(), &set) && !(*it)->OnAllowedToRead())
+        if (FD_ISSET((*it)->getSocket().Native(), &set) && !(*it)->OnAllowedToRead())
             it = m_toWatch.erase(it);
     }
 }
@@ -128,7 +131,7 @@ void Network::Core::NativeSocketIOOperationDispatcher::performWriteOperations(fd
 {
     for (std::list<std::unique_ptr<Network::Socket::INativeSocketStreamHandler> >::iterator it = m_toWatch.begin(); it != m_toWatch.end(); ++it)
     {
-        if (FD_ISSET((*it)->Native(), &set) && !(*it)->OnAllowedToWrite())
+        if (FD_ISSET((*it)->getSocket().Native(), &set) && !(*it)->OnAllowedToWrite())
             it = m_toWatch.erase(it);
     }
 }
@@ -139,10 +142,14 @@ void Network::Core::NativeSocketIOOperationDispatcher::performWriteOperations(fd
 void Network::Core::NativeSocketIOOperationDispatcher::Run()
 {
     signal(SIGINT, breakCatch);
+    std::cout << "Handling sigint" << std::endl;
     while (running)
     {
+        std::cout << "Handling operations" << std::endl;
         HandleOperations();
+        usleep(500000);
     }
+    std::cout << "Leaving" << std::endl;
     signal(SIGINT, SIG_DFL);
 }
 
@@ -171,4 +178,22 @@ void    Network::Core::NativeSocketIOOperationDispatcher::setTimeout(struct time
 void    Network::Core::NativeSocketIOOperationDispatcher::setTimeout(struct timeval *timeout)
 {
     m_timeout.reset(timeout);
+}
+
+/**
+ * @brief Swap the client instance in the internal watcher buffer
+ * @param curr The current client to swap
+ * @param newone The new client instance with which replace <curr>
+ */
+void Network::Core::NativeSocketIOOperationDispatcher::Swap(Network::Socket::INativeSocketStreamHandler &curr,
+                                                            Network::Socket::INativeSocketStreamHandler &newone)
+{
+    for (std::unique_ptr<Network::Socket::INativeSocketStreamHandler> &toswp : m_toWatch)
+    {
+        if (toswp.get() == &curr)
+        {
+            std::cout << "Swapping client" << std::endl;
+            return toswp.reset(&newone);
+        }
+    }
 }

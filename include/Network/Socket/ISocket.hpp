@@ -26,6 +26,8 @@ extern "C"
 # endif
 };
 
+#include "INativeSocketContainer.hpp"
+
 namespace Network
 {
     namespace Socket
@@ -45,7 +47,7 @@ namespace Network
             using std::runtime_error::what;
         };
 
-        class ISocket
+        class ISocket : public INativeSocketContainer
         {
         public:
             virtual void Open() throw(SocketException) = 0;
@@ -57,6 +59,9 @@ namespace Network
 
         public:
             virtual void Accept(ISocket &sock) = 0;
+
+        public:
+            virtual SOCKET Native() const = 0;
         };
     }
 }

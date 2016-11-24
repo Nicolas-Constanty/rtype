@@ -46,11 +46,34 @@ SOCKET Network::TCP::ATCPConnection::Native() const
  */
 bool Network::TCP::ATCPConnection::OnAllowedToWrite()
 {
+    unsigned int sent = 0;
+
     while (!toWrite.empty())
     {
-        if (sock.Send(toWrite.front()))
+        std::cout << "Sending data: \"" << toWrite.front().toString() << "\"" << std::endl;
+        int len = sock.Send(toWrite.front());
+        if (len < 0)
             return false;
+        sent += len;
         toWrite.pop();
     }
+    if (sent > 0)
+        OnDataSent(sent);
     return true;
+}
+
+Network::Socket::ISocket &Network::TCP::ATCPConnection::giveSocket()
+{
+    return sock;
+}
+
+const Network::Socket::ISocket &Network::TCP::ATCPConnection::getSocket() const
+{
+    return sock;
+}
+
+void Network::TCP::ATCPConnection::pushBuffer(Network::Core::NetBuffer const &topush)
+{
+    std::cout << "Push buffer" << std::endl;
+    toWrite.push(topush);
 }

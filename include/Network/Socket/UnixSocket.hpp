@@ -23,7 +23,7 @@ namespace Network
             //IStream
         public:
             virtual int Receive(Core::NetBuffer &buff);
-            virtual int Send(Core::NetBuffer &buff);
+            virtual int Send(Core::NetBuffer const &buff) const;
 
             virtual int ReceiveFrom(Core::NetBuffer &buff, ISockStream &sender);
             virtual int SendTo(Core::NetBuffer &buff, ISockStream const &receiver);

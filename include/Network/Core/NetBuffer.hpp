@@ -28,6 +28,8 @@ namespace Network
             NetBuffer(NetBuffer const &ref);
             ~NetBuffer();
 
+            NetBuffer(std::string const &txt);
+
             NetBuffer &operator=(NetBuffer const &ref);
 
         public:
@@ -98,7 +100,7 @@ namespace Network
              * \return A pointer on the <index> case of the internal buffer
              */
             template <typename RetType = unsigned char>
-            RetType *buff()
+            RetType *buff() const
             {
                 return (RetType *)&data[index];
             }
@@ -145,7 +147,6 @@ namespace Network
             size_t          index;
             size_t          currlen; //todo use it
         };
-
     }
 }
 

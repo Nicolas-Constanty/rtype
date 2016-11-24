@@ -18,7 +18,7 @@ namespace Network
 
 		public:
 			virtual int Receive(Core::NetBuffer &buff) = 0;
-			virtual int Send(Core::NetBuffer &buff) = 0;
+			virtual int Send(Core::NetBuffer const &buff) const = 0;
 
 		public:
 			virtual int ReceiveFrom(Core::NetBuffer &buff, ISockStream &sender) = 0;

@@ -37,5 +37,12 @@ Network::TCP::ATCPClient::~ATCPClient()
  */
 bool Network::TCP::ATCPClient::OnAllowedToRead()
 {
-    return true;
+    int len = sock.Receive(buff);
+
+    if (len > 0)
+    {
+        OnDataReceived(static_cast<unsigned int>(len));
+        return true;
+    }
+    return false;
 }

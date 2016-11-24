@@ -4,7 +4,7 @@
 
 #ifdef __linux__
 #include <unistd.h>
-#include <Network/UnixSocket.hpp>
+#include <Network/Socket/UnixSocket.hpp>
 
 /**
  * \brief Basic socket constructor
@@ -67,7 +67,7 @@ int Network::Socket::UnixSocket::Receive(Network::Core::NetBuffer &buff)
  * \param length The length of data to send
  * \return The length of data that was really send
  */
-int Network::Socket::UnixSocket::Send(Network::Core::NetBuffer &buff)
+int Network::Socket::UnixSocket::Send(Network::Core::NetBuffer const &buff) const
 {
     return static_cast<int>(send(fd, buff.buff(), buff.getCurrlen(), MSG_NOSIGNAL));
 }

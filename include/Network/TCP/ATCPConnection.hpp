@@ -7,13 +7,14 @@
 
 #ifdef __linux__
 #include <queue>
+#include <Network/Socket/UnixSocket.hpp>
 #elif _WIN32
 #include <c++/queue>
+#include <Network/Socket/WinSocket.hpp>
 #endif
 
 #include <Network/Socket/INativeSocketStreamHandler.hpp>
 #include <Network/Socket/ASocket.hpp>
-#include <Network/Socket/WinSocket.hpp>
 
 namespace Network
 {
@@ -42,8 +43,14 @@ namespace Network
                 Core::NetBuffer buff;
 
                 buff.serialize(tosend);
-                toWrite.push(buff);
+                pushBuffer(buff);
             }
+
+            void pushBuffer(Network::Core::NetBuffer const &topush);
+
+        public:
+            virtual Socket::ISocket &giveSocket();
+            virtual Socket::ISocket const &getSocket() const;
 
         protected:
             Socket::OSSocket                        sock;
