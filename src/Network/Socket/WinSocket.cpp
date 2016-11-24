@@ -3,7 +3,7 @@
 //
 
 #ifdef _WIN32
-#include <Network/WinSocket.hpp>
+#include <Network/Socket/WinSocket.hpp>
 
 /**
  * @brief Function that will initialize Windows sockets

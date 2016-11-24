@@ -7,9 +7,10 @@
 
 #include <list>
 #include <memory>
-#include "IIOOperationDispatcher.hpp"
-#include "UnixSocket.hpp"
-#include "INativeSocketStreamHandler.hpp"
+#include <Common/Singleton.hpp>
+#include "Network/Core/IIOOperationDispatcher.hpp"
+#include "Network/Socket/UnixSocket.hpp"
+#include "Network/Socket/INativeSocketStreamHandler.hpp"
 
 namespace Network
 {
@@ -19,9 +20,12 @@ namespace Network
          * \brief Class that will handle the entire system of Input/Output operations dispatchment through the call of
          * <select> then through the callbacks implemented by INativeSocketStreamHandler
          */
-        class NativeSocketIOOperationDispatcher : public IIOOperationDispatcher
+        class NativeSocketIOOperationDispatcher : public IIOOperationDispatcher, public Singleton<NativeSocketIOOperationDispatcher>
         {
         public:
+            friend class Singleton<NativeSocketIOOperationDispatcher>;
+
+        private:
             NativeSocketIOOperationDispatcher(struct timeval const &timeout);
             NativeSocketIOOperationDispatcher(struct timeval *timeout = NULL);
 
@@ -37,6 +41,10 @@ namespace Network
 
         public:
                 void Watch(Socket::INativeSocketStreamHandler &towatch);
+
+        public:
+            void    setTimeout(struct timeval const &timeout);
+            void    setTimeout(struct timeval *timeout);
 
         private:
             SOCKET bindFdsToSet(fd_set &set) const;

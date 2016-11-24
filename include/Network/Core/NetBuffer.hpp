@@ -23,12 +23,12 @@ namespace Network
         public:
             static const size_t size;
 
-            template <typename ... Args>
-            using toto = void (NetBuffer::*)(Args...);
-
         public:
             NetBuffer();
+            NetBuffer(NetBuffer const &ref);
             ~NetBuffer();
+
+            NetBuffer &operator=(NetBuffer const &ref);
 
         public:
             /**

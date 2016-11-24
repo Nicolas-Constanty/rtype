@@ -6,7 +6,7 @@
 # define NETWORK_WINSOCKET_HPP
 
 # ifdef _WIN32
-#  include "ASocket.hpp"
+#  include "Network/Socket/ASocket.hpp"
 
 namespace Network
 {

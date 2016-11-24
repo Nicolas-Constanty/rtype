@@ -4,16 +4,16 @@
 
 #include <csignal>
 
-#include <Network/NativeSocketIOOperationDispatcher.hpp>
-#include <Network/NetBuffer.hpp>
-#include <Network/ISocket.hpp>
+#include <Network/Core/NativeSocketIOOperationDispatcher.hpp>
+#include <Network/Core/NetBuffer.hpp>
+#include <Network/Socket/ISocket.hpp>
 
 #ifdef __linux__
 #include <unistd.h>
  #include <Network/UnixSocket.hpp>
 #elif _WIN32
 #include <c++/iostream>
- #include <Network/WinSocket.hpp>
+ #include <Network/Socket/WinSocket.hpp>
 
 #endif
 

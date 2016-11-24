@@ -3,7 +3,7 @@
 //
 
 #include <csignal>
-#include <Network/NativeSocketIOOperationDispatcher.hpp>
+#include <Network/Core/NativeSocketIOOperationDispatcher.hpp>
 
 /**
  * \brief A Boolean variable used in <Run> method as conditional for the infinite server loop. Eq false on Crtl+C
@@ -153,4 +153,22 @@ void Network::Core::NativeSocketIOOperationDispatcher::Run()
 void Network::Core::NativeSocketIOOperationDispatcher::Watch(Network::Socket::INativeSocketStreamHandler &towatch)
 {
     m_toWatch.emplace_back(&towatch);
+}
+
+/**
+ * @brief Set the internal timeout
+ * @param timeout The value of the timer to set
+ */
+void    Network::Core::NativeSocketIOOperationDispatcher::setTimeout(struct timeval const &timeout)
+{
+    m_timeout.reset(new struct timeval(timeout));
+}
+
+/**
+ * @brief Set the internal timeout
+ * @param timeout The value of the timer to set
+ */
+void    Network::Core::NativeSocketIOOperationDispatcher::setTimeout(struct timeval *timeout)
+{
+    m_timeout.reset(timeout);
 }
