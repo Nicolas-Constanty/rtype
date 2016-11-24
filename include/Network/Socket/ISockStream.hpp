@@ -5,7 +5,7 @@
 #ifndef OPENSSL_ISTREAM_HPP
 #define OPENSSL_ISTREAM_HPP
 
-#include "NetBuffer.hpp"
+#include "Network/Core/NetBuffer.hpp"
 
 namespace Network
 {

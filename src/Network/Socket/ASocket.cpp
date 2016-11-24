@@ -2,7 +2,7 @@
 // Created by gaspar on 21/11/2016.
 //
 
-#include <Network/ASocket.hpp>
+#include <Network/Socket/ASocket.hpp>
 
 /**
  * \brief Basic ASocket constructor
@@ -120,7 +120,7 @@ void Network::Socket::ASocket::Accept(ISocket &sock)
 
         if ((sck->fd = accept(fd, (struct sockaddr *)&sck->sockaddr, &len)) == -1 ||
                 getsockname(sck->fd, (struct sockaddr *)&sck->sockaddr, &len) == -1)
-            throw std::runtime_error("Accept fails");
+            throw Network::Socket::SocketException(strerror(errno));
     }
 }
 

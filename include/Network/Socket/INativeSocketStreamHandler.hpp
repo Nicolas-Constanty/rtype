@@ -5,13 +5,13 @@
 #ifndef SPIDER_SERVER_ISTREAMHANDLER_HPP
 #define SPIDER_SERVER_ISTREAMHANDLER_HPP
 
-#include "INativeSocketContainer.hpp"
+#include "Network/Socket/INativeSocketContainer.hpp"
 
 namespace Network
 {
     namespace Socket
     {
-        class INativeSocketStreamHandler : INativeSocketContainer
+        class INativeSocketStreamHandler : public INativeSocketContainer
         {
         public:
             virtual ~INativeSocketStreamHandler(){}

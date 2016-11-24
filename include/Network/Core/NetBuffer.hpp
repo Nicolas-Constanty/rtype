@@ -23,12 +23,12 @@ namespace Network
         public:
             static const size_t size;
 
-            template <typename ... Args>
-            using toto = void (NetBuffer::*)(Args...);
-
         public:
             NetBuffer();
+            NetBuffer(NetBuffer const &ref);
             ~NetBuffer();
+
+            NetBuffer &operator=(NetBuffer const &ref);
 
         public:
             /**
@@ -97,9 +97,10 @@ namespace Network
              * \brief Getter for internal buffer
              * \return A pointer on the <index> case of the internal buffer
              */
-            unsigned char *buff()
+            template <typename RetType = unsigned char>
+            RetType *buff()
             {
-                return &data[index];
+                return (RetType *)&data[index];
             }
 
             /**
@@ -108,12 +109,22 @@ namespace Network
              */
             std::string toString()
             {
-                return std::string((char *)buff(), currlen);
+                return std::string(buff<char>(), currlen);
+            }
+
+            /**
+             * @brief Set a text message into the current buffer
+             * @param msg The text message to set
+             */
+            void setTextMessage(std::string const &msg)
+            {
+                currlen = msg.size();
+                strncpy(buff<char>(), msg.c_str(), currlen);
             }
 
             /**
              * @brief Setter for currlen
-             * @param len
+             * @param len The length to set
              */
             void    setCurrlen(size_t len)
             {
@@ -124,7 +135,7 @@ namespace Network
              * @brief Returns the current length of the buffer
              * @return The current length of the buffer
              */
-            size_t getCurrlen()
+            size_t getCurrlen() const
             {
                 return currlen;
             }
