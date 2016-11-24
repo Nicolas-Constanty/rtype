@@ -3,6 +3,7 @@
 #include "SaltyEngine/GameObject.hpp"
 #include "SaltyEngine/PlayerController.hpp"
 
+#include "SaltyEngine/Input.hpp"
 
 #define GAME2D
 
