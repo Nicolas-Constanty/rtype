@@ -13,5 +13,75 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\Event">
+      <UniqueIdentifier>{cf227f32-dcbd-4a54-a9f0-e6ee6e8cfc15}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Test\GUI\main.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\SaltyEngine\GUI\Widget.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\SaltyEngine\GUI\Event.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\SaltyEngine\Debug.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\include\SaltyEngine\GUI\UIBehaviour.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\SaltyEngine\GUI\Button.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\SaltyEngine\GUI\Widget.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\GUI\Event.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\Debug.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\GUI\IEventSystemHandler.hpp">
+      <Filter>Fichiers d%27en-tête\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\GUI\IPointerDownHandler.hpp">
+      <Filter>Fichiers d%27en-tête\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\GUI\IPointerEnterHandler.hpp">
+      <Filter>Fichiers d%27en-tête\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\GUI\IPointerExitHandler.hpp">
+      <Filter>Fichiers d%27en-tête\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\GUI\IPointerUpHandler.hpp">
+      <Filter>Fichiers d%27en-tête\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\GUI\ISelectHandler.hpp">
+      <Filter>Fichiers d%27en-tête\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\GUI\IDeselectHandler.hpp">
+      <Filter>Fichiers d%27en-tête\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\GUI\ISubmitHandler.hpp">
+      <Filter>Fichiers d%27en-tête\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\GUI\Selectable.hpp">
+      <Filter>Fichiers d%27en-tête\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\GUI\IMoveHandler.hpp">
+      <Filter>Fichiers d%27en-tête\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\GUI\UIBehaviour.hpp">
+      <Filter>Fichiers d%27en-tête\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\GUI\Button.hpp">
+      <Filter>Fichiers d%27en-tête\Event</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

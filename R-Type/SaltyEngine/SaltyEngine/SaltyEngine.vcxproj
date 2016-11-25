@@ -39,13 +39,13 @@
     <CharacterSet>NotSet</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>NotSet</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -156,7 +156,9 @@
     <ClCompile Include="..\..\..\src\SaltyEngine\PlayerController.cpp" />
     <ClCompile Include="..\..\..\src\SaltyEngine\Component.cpp" />
     <ClCompile Include="..\..\..\src\SaltyEngine\GameObject.cpp" />
-    <ClCompile Include="..\..\..\src\SaltyEngine\main.cpp" />
+    <ClCompile Include="..\..\..\src\SaltyEngine\main.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\..\src\SaltyEngine\Object.cpp" />
     <ClCompile Include="..\..\..\src\SaltyEngine\SaltyBehaviour.cpp" />
     <ClCompile Include="..\..\..\src\SaltyEngine\SaltyEngine.cpp" />
