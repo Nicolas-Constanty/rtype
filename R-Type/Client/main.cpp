@@ -14,6 +14,7 @@ int main()
 	//sf::CircleShape shape(100.f);
 	//shape.setFillColor(sf::Color::Green);
 
+	new SaltyEngine::SaltyEngine();
 	std::shared_ptr<SaltyEngine::Object> go = SaltyEngine::Instantiate("DefaultMonster", SaltyEngine::Vector(10, 10), 10);
 	DllLoader *dll = new DllLoader();
 

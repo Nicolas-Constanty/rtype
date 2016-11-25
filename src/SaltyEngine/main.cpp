@@ -13,9 +13,9 @@ int main()
 	// Create player
 	SaltyEngine::GameObject *player = new SaltyEngine::GameObject("Player");
 
-	std::shared_ptr<SaltyEngine::Object> go = SaltyEngine::Object::Instantiate("DefaultMonster");
-	SaltyEngine::Object::Instantiate("Mutant");
-	SaltyEngine::Object::Instantiate("Script");
+	std::shared_ptr<SaltyEngine::Object> go = SaltyEngine::Instantiate("DefaultMonster");
+	SaltyEngine::Instantiate("Mutant");
+	SaltyEngine::Instantiate("Script");
 
 	std::cout << go->GetName() << std::endl;
 

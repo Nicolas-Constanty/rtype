@@ -1,3 +1,4 @@
+#include <direct.h>
 #include "SaltyEngine/SaltyEngine.hpp"
 
 namespace SaltyEngine
@@ -14,6 +15,7 @@ namespace SaltyEngine
 		m_fps = DEFAULT_FRAME_RATE;
 		std::chrono::duration<double> d(1.0 / m_fps);
 		m_frame_rate = std::chrono::duration_cast<std::chrono::nanoseconds>(d);
+		LoadAssets();
 	}
 
 	/**
@@ -218,6 +220,50 @@ namespace SaltyEngine
 	double SaltyEngine::GetFixedDeltaTime() const
 	{
 		return (1.0 / m_fps);
+	}
+
+	/**
+	 * \brief Will load all the assets contained in the folder
+	 */
+	void SaltyEngine::LoadAssets() noexcept
+	{
+#if _WIN32
+		WIN32_FIND_DATA findFileData;
+		HANDLE hFind;
+
+		CHAR str[256];
+		_getcwd(str, sizeof(str));
+
+		// Should open .
+		hFind = FindFirstFile(std::string(std::string(str) + "\\*").c_str(), &findFileData);
+
+		while (hFind != INVALID_HANDLE_VALUE)
+		{
+			std::cout << "Loading asset [" << findFileData.cFileName << "]" << std::endl;
+			std::cout << Factory::LoadAsset(findFileData.cFileName) << std::endl;
+			if (FindNextFile(hFind, &findFileData) == FALSE)
+				break;
+		}
+		FindClose(hFind);
+#else
+		DIR *dir;
+		struct dirent *ent;
+		if ((dir = opendir("./")) != NULL)
+		{
+			/* print all the files and directories within directory */
+			while ((ent = readdir(dir)) != NULL)
+			{
+				printf("%s\n", ent->d_name);
+				Factory::LoadAsset(ent->d_name);
+			}
+			closedir(dir);
+		}
+		else
+		{
+			/* could not open directory */
+			perror("");
+		}
+#endif
 	}
 
 	/**

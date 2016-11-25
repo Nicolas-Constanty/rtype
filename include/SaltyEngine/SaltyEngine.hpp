@@ -44,6 +44,9 @@ namespace SaltyEngine
 		static std::string const Tag[];*/
 
 	private:
+		void LoadAssets() noexcept;
+
+	private:
 		EngineStatus						m_status;
 		std::vector<std::unique_ptr<Scene>>	m_scenes;
 		size_t								m_current;
