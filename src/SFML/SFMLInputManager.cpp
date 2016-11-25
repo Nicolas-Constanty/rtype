@@ -2,12 +2,13 @@
 // Created by wery_a on 24/11/16.
 //
 
-#include "SFML/SFMLInputManager.hpp"
 #include "SaltyEngine/Input/Mapping.hpp"
+#include "SFML/SFMLInputManager.hpp"
 
 std::map<sf::Event::EventType, sf::Event>   SFMLInputManager::m_events;
 std::map<sf::Keyboard::Key, bool>           SFMLInputManager::m_keys_down;
 std::map<sf::Keyboard::Key, bool>           SFMLInputManager::m_keys_emited;
+sf::RenderWindow                            *SFMLInputManager::m_window;
 
 void SFMLInputManager::addEvent(sf::Event event) {
     m_events[event.type] = event;
@@ -51,4 +52,18 @@ std::vector<SaltyEngine::Input::KeyCode::Key> SFMLInputManager::GetCurrentKeys()
         }
     }
     return keys;
+}
+
+bool SFMLInputManager::GetButtonPressed(SaltyEngine::Input::Mouse::Button button) {
+    sf::Mouse::isButtonPressed(sf::Mouse::Button(button));
+}
+
+SaltyEngine::Vector2i SFMLInputManager::GetPosition() {
+    sf::Vector2i position = sf::Mouse::getPosition();
+    return SaltyEngine::Vector2i(position.x, position.y);
+}
+
+SaltyEngine::Vector2i SFMLInputManager::GetPositionRelative() {
+    sf::Vector2i position = sf::Mouse::getPosition(*m_window);
+    return SaltyEngine::Vector2i(position.x, position.y);
 }
