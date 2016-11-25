@@ -34,7 +34,6 @@ namespace SaltyEngine
 	public:
 		void OnStart();
 
-		void Update();
 		void FixedUpdate();
 
 		void OnTriggerEnter();
@@ -49,7 +48,9 @@ namespace SaltyEngine
 		void OnMouseExit();
 		void OnMouseOver();
 
+		void Update();
 		void OnGui();
+		void OnDestroy();
 
 		void CallCoroutines();
 
