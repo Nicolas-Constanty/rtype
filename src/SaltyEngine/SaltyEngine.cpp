@@ -109,6 +109,7 @@ namespace SaltyEngine
 			m_scenes[m_current]->Update();
 			m_scenes[m_current]->CallCoroutines();
 			m_scenes[m_current]->OnGui();
+			m_scenes[m_current]->OnDestroy();
 		}
 	}
 

@@ -301,7 +301,19 @@ namespace SaltyEngine
 			std::list<SaltyBehaviour *> Sb = (*obj)->GetComponents<SaltyBehaviour *>();
 			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); it++)
 			{
-				SaltyReflection<SaltyBehaviour>::CallGui(GameObjects(), (*it));
+				SaltyReflection<SaltyBehaviour>::CallOnGui(GameObjects(), (*it));
+			}
+		}
+	}
+
+	void Scene::OnDestroy()
+	{
+		for (std::vector<std::unique_ptr<GameObject>>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); obj++)
+		{
+			std::list<SaltyBehaviour *> Sb = (*obj)->GetComponents<SaltyBehaviour *>();
+			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); it++)
+			{
+				SaltyReflection<SaltyBehaviour>::CallOnDestroy(GameObjects(), (*it));
 			}
 		}
 	}

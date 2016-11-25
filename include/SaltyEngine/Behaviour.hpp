@@ -21,7 +21,7 @@ namespace SaltyEngine
 		Behaviour(const std::string name, GameObject* const gameObj);
 		virtual ~Behaviour() {};
 	public:
-		bool enabled;
+		bool		enabled;
 	};
 }
 

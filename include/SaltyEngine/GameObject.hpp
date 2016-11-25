@@ -33,6 +33,8 @@ namespace SaltyEngine
 		std::list<Component *> m_components;
 
 	public:
+		bool GetActiveSelf() const;
+	public:
 		template<class T>
 		T *AddComponent()
 		{
