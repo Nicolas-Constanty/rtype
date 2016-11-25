@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <unistd.h>
+#include <Protocol/PackageSerialize.hpp>
 #include "Protocol/Game/RTypeProtocolGameManager.hpp"
 #include "Protocol/Game/GamePackageFactory.hpp"
 #include "Protocol/Game/IProtocolGameHandler.hpp"
@@ -78,14 +79,19 @@ int main() {
 //
     RTypeProtocolGameManager protocol(test);
 //
-//    GamePackageFactory factory;
+    GamePackageFactory factory;
 
     // print
-//    TYPE *PING = factory.create<TYPE>(345678, 123, 111);
+    unsigned int i = 0;
+    while (i < 100000) {
+        TYPE *PING = factory.create<TYPE>(345678, 123);
 
-//    std::cout << *PING << std::endl;
-//    GamePackageSerialize::print<TYPE>(*PING);
-
+        std::cout << *PING << std::endl;
+        PackageSerialize::print<TYPE>(*PING);
+        delete (PING);
+        ++i;
+    }
+    return (0);
     // verification
     unsigned char lol[1024];
     int re = (int) read(0, &lol, sizeof(lol));
