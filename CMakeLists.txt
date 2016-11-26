@@ -3,7 +3,7 @@ project(rtype)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-file(GLOB SOURCE_FILE "src/Protocol/*/*.cpp")
+file(GLOB SOURCE_FILE "src/Protocol/*/*.cpp" "src/Protocol/Server/*.cpp")
 file(GLOB INCLUDE_FILE "include/Protocol/Game" "include/Protocol/Room" "include/Protocol")
 include_directories("include")
 
