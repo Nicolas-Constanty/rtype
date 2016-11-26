@@ -19,7 +19,7 @@ public:
 
 public:
 	virtual HINSTANCE Load(std::string const& path);
-	virtual bool Unload();
+	virtual int Unload();
 	template <class ... Args>
 	auto Call(std::string const& funcName, Args ... args)
 	{
