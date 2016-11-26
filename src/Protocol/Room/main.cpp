@@ -57,9 +57,9 @@ typedef  SWAPPackageRoom TYPE;
 int main() {
     test test;
 //
-    RTypeProtocolServerManager protocol(test);
+    RTypeProtocolRoomManager protocol(test);
 //
-    ServerPackageFactory factory;
+    RoomPackageFactory factory;
 
     // print
 //    TYPE *PING = factory.create<TYPE>(124, 32, 22);
