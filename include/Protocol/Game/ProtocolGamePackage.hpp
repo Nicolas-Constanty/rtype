@@ -74,13 +74,13 @@ public:
 
 class AUTHENTICATEPackageGame : public PackageGameHeader {
 public:
-    AUTHENTICATEPackageGame(unsigned short sequenceID = 0, int secret = 0, unsigned short transactionID = 0)
+    AUTHENTICATEPackageGame(unsigned short sequenceID = 0, unsigned int secret = 0, unsigned short transactionID = 0)
             : PackageGameHeader(true, sizeof(AUTHENTICATEPackageGame), sequenceID, GamePurpose::GAMEAUTHENTICATE, transactionID) {
         this->secret = secret;
     }
 
 public:
-    int secret;
+    unsigned int secret;
 };
 
 class ObjectIDPackageGame : public PackageGameHeader {

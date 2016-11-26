@@ -5,19 +5,35 @@
 #include <iostream>
 #include <unistd.h>
 #include <Protocol/Game/ProtocolGamePackage.hpp>
-#include "Protocol/Room/RTypeProtocolRoomManager.hpp"
-#include "Protocol/Room/RoomPackageFactory.hpp"
+#include <Protocol/Room/RTypeProtocolRoomManager.hpp>
+#include "Protocol/Server/RTypeProtocolServerManager.hpp"
+#include "Protocol/Server/ServerPackageFactory.hpp"
+#include "Protocol/Server/IProtocolServerHandler.hpp"
+#include "Protocol/Server/ProtocolPrintServerPackage.hpp"
+#include "Protocol/PackageSerialize.hpp"
 #include "Protocol/Room/IProtocolRoomHandler.hpp"
 #include "Protocol/Room/ProtocolPrintRoomPackage.hpp"
-#include "Protocol/PackageSerialize.hpp"
 
-class test : public IProtocolRoomHandler {
+class test : public IProtocolRoomHandler, public IProtocolServerHandler {
 public:
     virtual  ~test() {
 
     }
 
 public:
+    virtual void onGetAUTHENTICATEPackage(AUTHENTICATEPackageServer const &obj) {
+        std::cout << obj << std::endl;
+    }
+    virtual void onGetLAUNCHPackage(LAUNCHPackageServer const &obj) {
+        std::cout << obj << std::endl;
+    }
+    virtual void onGetSTATUSPackage(STATUSPackageServer const &obj) {
+        std::cout << obj << std::endl;
+    }
+
+
+    // ROOM PROTOCOL
+
     virtual void onGetAUTHENTICATEPackage(AUTHENTICATEPackageRoom const &obj) {
         std::cout << obj << std::endl;
 //        obj.
@@ -52,17 +68,18 @@ public:
     }
 };
 
-typedef  SWAPPackageRoom TYPE;
+typedef  AUTHENTICATEPackageServer  TYPE;
 
 int main() {
     test test;
 //
     RTypeProtocolServerManager protocol(test);
+    RTypeProtocolRoomManager protocolRoomManager(test);
 //
-    ServerPackageFactory factory;
+//    ServerPackageFactory factory;
 
     // print
-//    TYPE *PING = factory.create<TYPE>(124, 32, 22);
+//    TYPE *PING = factory.create<TYPE>(456789);
 
 //    PackageSerialize::print<TYPE>(*PING);
 //    return (0);
@@ -72,7 +89,9 @@ int main() {
     int re = (int) read(0, &lol, sizeof(lol));
 
     if (!protocol.handleProtocol((unsigned char *)lol, (size_t)re)) {
-        std::cout << "FAILED" << std::endl;
+        if (!protocolRoomManager.handleProtocol((unsigned char *)lol, (size_t)re)) {
+            std::cout << "FAILED" << std::endl;
+        }
     }
 
     return (0);
