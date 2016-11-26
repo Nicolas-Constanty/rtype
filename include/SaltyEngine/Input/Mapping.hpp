@@ -44,5 +44,11 @@ namespace SaltyEngine {
     }
 }
 
+/// Example Binding
+/// SaltyEngine::Input::Mapping::AddAction("Act", new SaltyEngine::Input::Action(SaltyEngine::Input::KeyCode::A));
+/// SaltyEngine::Input::Mapping::BindAction("Act", SaltyEngine::Input::ActionType::Pressed, [] () { std::cout << "Act" << std::endl; });
+///
+/// Example
+
 
 #endif //MAPPING_HPP
