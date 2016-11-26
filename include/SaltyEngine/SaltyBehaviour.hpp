@@ -42,7 +42,7 @@ namespace SaltyEngine
 
 	private:
 		bool					m_status;
-		std::mutex		m_mutex;
+		std::mutex				m_mutex;
 	};
 }
 

@@ -48,6 +48,10 @@
 #define M_NAME "OnMouseClic"
 #include "defaultReflection.inl"
 
-#define FUNC Gui
-#define M_NAME "Gui"
+#define FUNC OnGui
+#define M_NAME "OnGui"
+#include "defaultReflection.inl"
+
+#define FUNC OnDestroy
+#define M_NAME "OnDestroy"
 #include "defaultReflection.inl"

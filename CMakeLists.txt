@@ -7,4 +7,4 @@ file(GLOB SOURCE_FILE "src/SaltyEngine/*.cpp" "include/SaltyEngine/*.hpp" "src/C
 include_directories("include" "include/Common")
 
 set(SOURCE_FILES INCLUDE_SRC)
-add_executable(rtype ${SOURCE_FILE})
+add_executable(rtype ${SOURCE_FILE} ${INCLUDE_FILE} )

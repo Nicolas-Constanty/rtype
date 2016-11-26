@@ -2,7 +2,12 @@
 
 namespace SaltyEngine
 {
-	GameObject::GameObject(const std::string & name) : Object(name), transform(this) {};
+	GameObject::GameObject(const std::string & name) : Object(name), transform(this) {}
+
+	bool GameObject::GetActiveSelf() const
+	{
+		return (m_activeSelf);
+	}
 
 	bool GameObject::CompareTag(const std::string & tag)
 	{

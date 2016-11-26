@@ -6,8 +6,13 @@
 *.user
 *.userosscache
 *.sln.docstates
-*.VC.db
-*.VC.VC.opendb
+.idea/
+a.out
+*.db
+*.db
+*.opendb
+*.db
+.idea/*
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
@@ -220,3 +225,7 @@ FakesAssemblies/
 **/*.Server/GeneratedArtifacts
 **/*.Server/ModelManifest.xml
 _Pvt_Extensions
+
+*.o
+cmake-build-debug
+.idea

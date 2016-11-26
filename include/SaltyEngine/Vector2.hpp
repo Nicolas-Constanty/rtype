@@ -44,7 +44,7 @@ namespace SaltyEngine
 
 	;
 	typedef  BaseVector2<float> Vector2f;
-	typedef  BaseVector2<int> Vector2fi;
+	typedef  BaseVector2<int> Vector2i;
 	typedef  BaseVector2<double> Vector2d;
 
 #ifndef GAME2D
