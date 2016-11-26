@@ -1,22 +1,37 @@
-// Le bloc ifdef suivant est la façon standard de créer des macros qui facilitent l'exportation 
-// à partir d'une DLL. Tous les fichiers contenus dans cette DLL sont compilés avec le symbole MONSTER_EXPORTS
-// défini sur la ligne de commande. Ce symbole ne doit pas être défini pour un projet
-// qui utilisent cette DLL. De cette manière, les autres projets dont les fichiers sources comprennent ce fichier considèrent les fonctions 
-// MONSTER_API comme étant importées à partir d'une DLL, tandis que cette DLL considère les symboles
-// définis avec cette macro comme étant exportés.
-#ifdef MONSTER_EXPORTS
-#define MONSTER_API __declspec(dllexport)
+// Le bloc ifdef suivant est la faï¿½on standard de crï¿½er des macros qui facilitent l'exportation 
+// ï¿½ partir d'une DLL. Tous les fichiers contenus dans cette DLL sont compilï¿½s avec le symbole MONSTER_EXPORTS
+// dï¿½fini sur la ligne de commande. Ce symbole ne doit pas ï¿½tre dï¿½fini pour un projet
+// qui utilisent cette DLL. De cette maniï¿½re, les autres projets dont les fichiers sources comprennent ce fichier considï¿½rent les fonctions 
+// MONSTER_API comme ï¿½tant importï¿½es ï¿½ partir d'une DLL, tandis que cette DLL considï¿½re les symboles
+// dï¿½finis avec cette macro comme ï¿½tant exportï¿½s.
+#ifdef _WIN32
+    #ifdef MONSTER_EXPORTS
+        #define MONSTER_API __declspec(dllexport)
+    #else
+        #define MONSTER_API __declspec(dllimport)
+    #endif
 #else
-#define MONSTER_API __declspec(dllimport)
+#define MONSTER_API
 #endif
 
-// Cette classe est exportée de Monster.dll
-class MONSTER_API CMonster {
-public:
-	CMonster(void);
-	// TODO: ajoutez ici vos méthodes.
-};
+#ifndef MONSTER_HPP_
+#define MONSTER_HPP_
 
-extern MONSTER_API int nMonster;
+#include "SaltyEngine/GameObject.hpp"
 
-MONSTER_API int fnMonster(void);
+extern "C"
+{
+	// Cette classe est exportï¿½e de Monster.dll
+	class Monster : public SaltyEngine::GameObject
+	{
+	public:
+		Monster();
+		virtual ~Monster();
+	};
+
+	//extern MONSTER_API int nMonster;
+
+	MONSTER_API SaltyEngine::Object *GetMonster();
+}
+
+#endif

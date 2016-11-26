@@ -65,6 +65,8 @@ namespace SaltyEngine
 			return Factory::GetObjectsOfType<Type>();
 		}
 	};
+
+#define Instantiate(x, ...) Object::Instantiate(x, ## __VA_ARGS__)
 }
 
 #endif // !OBJECT_HPP_

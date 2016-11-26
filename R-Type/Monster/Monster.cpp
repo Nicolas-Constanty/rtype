@@ -1,23 +1,24 @@
-// Monster.cpp : définit les fonctions exportées pour l'application DLL.
+// Monster.cppï¿½: dï¿½finit les fonctions exportï¿½es pour l'application DLL.
 //
 
 #include "Monster.hpp"
 #include "SaltyEngine/GameObject.hpp"
 
+// Il s'agit d'un exemple de variable exportï¿½e
+//MONSTER_API int nMonster=0;
 
-// Il s'agit d'un exemple de variable exportée
-MONSTER_API int nMonster=0;
-
-// Il s'agit d'un exemple de fonction exportée.
-MONSTER_API int fnMonster(void)
+/**
+ * \brief You can add your properties here
+ */
+Monster::Monster() : GameObject("Monster")
 {
-	SaltyEngine::GameObject *go = new SaltyEngine::GameObject("toto");
-    return 42;
 }
 
-// Il s'agit du constructeur d'une classe qui a été exportée.
-// consultez Monster.h pour la définition de la classe
-CMonster::CMonster()
+Monster::~Monster()
 {
-    return;
+}
+
+MONSTER_API SaltyEngine::Object *GetMonster()
+{
+	return new Monster();
 }

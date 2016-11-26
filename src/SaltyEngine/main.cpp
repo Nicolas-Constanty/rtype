@@ -1,3 +1,4 @@
+#include "Common/LibLoader.hpp"
 #include "SaltyEngine/SaltyEngine.hpp"
 #include "Common/Singleton.hpp"
 #include "SaltyEngine/GameObject.hpp"
@@ -9,17 +10,25 @@
 
 int main()
 {
+#ifdef _WIN32
 	DllLoader *loader = new DllLoader();
-	std::cout << loader->Load("MonsterTest.dll") << std::endl;
+    std::cout << loader->Load("MonsterTest.dll") << std::endl;
 	std::cout << loader->Unload() << std::endl;
+#else
+    LibLoader *loader = new LibLoader();
+    std::cout << "Loading monster: " << loader->Load("./monster.so") << std::endl;
+    std::cout << loader->Call(std::string("GetObject")) << std::endl;
+    std::cout << loader->Unload() << std::endl;
+#endif
+
 	// Create Scene
 	SaltyEngine::Scene *scene(new SaltyEngine::Scene());
 	// Create player
 	SaltyEngine::GameObject *player = new SaltyEngine::GameObject("Player");
 
-	std::shared_ptr<SaltyEngine::Object> go = SaltyEngine::Object::Instantiate("DefaultMonster");
-	SaltyEngine::Object::Instantiate("Mutant");
-	SaltyEngine::Object::Instantiate("Script");
+	std::shared_ptr<SaltyEngine::Object> go = SaltyEngine::Instantiate("DefaultMonster");
+	SaltyEngine::Instantiate("Mutant");
+	SaltyEngine::Instantiate("Script");
 
 	std::cout << go->GetName() << std::endl;
 
