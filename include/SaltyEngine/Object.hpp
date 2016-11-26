@@ -26,7 +26,7 @@ namespace SaltyEngine
 		Object(Object&&) = delete;                  // Move construct
 		Object& operator=(Object const&) = delete;  // Copy assign
 		Object& operator=(Object &&) = delete;      // Move assign
-		Object(const std::string &name) : m_uid(++s_id), m_name(name) {};
+		explicit Object(const std::string &name) : m_uid(++s_id), m_name(name) {};
 		virtual ~Object() {};
 
 	public:

@@ -31,6 +31,12 @@
     <Filter Include="Fichiers sources\SaltyEngine\GUI\Event">
       <UniqueIdentifier>{3e5d470b-f472-4502-98cf-b9bff27bef30}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\SaltyEngine\SFML">
+      <UniqueIdentifier>{c993af6f-7989-4484-92bd-681c533122a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\SaltyEngine\SFML">
+      <UniqueIdentifier>{fe3c3e11-7efe-47d1-888d-23e0847bc0e7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Test\GUI\main.cpp">
@@ -50,6 +56,9 @@
     </ClCompile>
     <ClCompile Include="..\..\src\SaltyEngine\GUI\Event.cpp">
       <Filter>Fichiers sources\SaltyEngine\GUI\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\SaltyEngine\SFML\Renderer.cpp">
+      <Filter>Fichiers sources\SaltyEngine\SFML</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -97,6 +106,9 @@
     </ClInclude>
     <ClInclude Include="..\..\include\SaltyEngine\GUI\UIBehaviour.hpp">
       <Filter>Fichiers d%27en-tête\SaltyEngine\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\SFML\Renderer.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine\SFML</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

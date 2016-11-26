@@ -193,6 +193,7 @@
     <ClInclude Include="..\..\..\include\SaltyEngine\Transform.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\Vector2.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\Vector3.hpp" />
+    <ClInclude Include="..\..\..\src\SaltyEngine\ASpriteRenderer.hpp" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>

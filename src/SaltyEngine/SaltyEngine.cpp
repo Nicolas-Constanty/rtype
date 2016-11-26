@@ -21,7 +21,7 @@ namespace SaltyEngine
 		m_fps = DEFAULT_FRAME_RATE;
 		std::chrono::duration<double> d(1.0 / m_fps);
 		m_frame_rate = std::chrono::duration_cast<std::chrono::nanoseconds>(d);
-		LoadAssets();
+		//LoadAssets();
 	}
 
 	/**
@@ -232,6 +232,8 @@ namespace SaltyEngine
 
 	void SaltyEngine::SetRenderer(IRenderer *renderer)
 	{
+		if (m_renderer)
+			delete m_renderer;
 		m_renderer = renderer;
 	}
 
