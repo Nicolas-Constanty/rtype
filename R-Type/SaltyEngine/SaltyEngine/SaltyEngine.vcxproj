@@ -168,7 +168,9 @@
     <ClInclude Include="..\..\..\include\Common\ICloneable.hpp" />
     <ClInclude Include="..\..\..\include\Common\ILibraryLoader.hpp" />
     <ClInclude Include="..\..\..\include\Common\Singleton.hpp" />
+    <ClInclude Include="..\..\..\include\SaltyEngine\DefaultRenderer.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\Factory.hpp" />
+    <ClInclude Include="..\..\..\include\SaltyEngine\IRenderer.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\PlayerController.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\Behaviour.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\Component.hpp" />
@@ -176,7 +178,6 @@
     <ClInclude Include="..\..\..\include\SaltyEngine\GameObject.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\Object.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\SaltyBehaviour.hpp" />
-    <ClInclude Include="..\..\..\include\SaltyEngine\SaltyEngineSFML.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\SaltyEngine.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\SaltyObj.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\SaltyReflection.hpp" />

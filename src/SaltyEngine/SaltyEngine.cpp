@@ -1,8 +1,9 @@
-#ifdef WIN32
+#ifdef _WIN32
 #include <direct.h>
+#else
+#include <dirent.h>
 #endif
 
-#include <dirent.h>
 #include "SaltyEngine/SaltyEngine.hpp"
 
 namespace SaltyEngine
@@ -15,6 +16,7 @@ namespace SaltyEngine
 
 	SaltyEngine::SaltyEngine()
 	{
+		m_renderer = new DefaultRenderer();
 		m_status = EngineStatus::stop;
 		m_fps = DEFAULT_FRAME_RATE;
 		std::chrono::duration<double> d(1.0 / m_fps);
@@ -115,6 +117,7 @@ namespace SaltyEngine
 			m_scenes[m_current]->Update();
 			m_scenes[m_current]->CallCoroutines();
 			m_scenes[m_current]->OnGui();
+			m_renderer->Display(m_scenes[m_current]);
 		}
 	}
 
@@ -224,6 +227,11 @@ namespace SaltyEngine
 	double SaltyEngine::GetFixedDeltaTime() const
 	{
 		return (1.0 / m_fps);
+	}
+
+	void SaltyEngine::SetRenderer(IRenderer *renderer)
+	{
+		m_renderer = renderer;
 	}
 
 	/**

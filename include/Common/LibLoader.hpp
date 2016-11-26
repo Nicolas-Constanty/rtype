@@ -5,7 +5,9 @@
 
 #include <string>
 #include <iostream>
+#ifndef _WIN32
 #include <dlfcn.h>
+#endif
 #include "ILibraryLoader.hpp"
 
 class LibLoader : public ILibraryLoader<void const*>

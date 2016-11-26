@@ -77,9 +77,6 @@
     <ClInclude Include="..\..\..\include\SaltyEngine\SaltyBehaviour.hpp">
       <Filter>Fichiers d%27en-tête\SaltyEngine</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\SaltyEngine\SaltyEngineSFML.hpp">
-      <Filter>Fichiers d%27en-tête\SaltyEngine</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\SaltyEngine\SaltyObj.hpp">
       <Filter>Fichiers d%27en-tête\SaltyEngine</Filter>
     </ClInclude>
@@ -124,6 +121,12 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\Common\DllLoader.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\SaltyEngine\IRenderer.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\SaltyEngine\DefaultRenderer.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

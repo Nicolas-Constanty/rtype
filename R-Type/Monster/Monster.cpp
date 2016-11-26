@@ -1,9 +1,6 @@
 // Monster.cpp�: d�finit les fonctions export�es pour l'application DLL.
 //
 
-#ifdef _WIN32
-#include "stdafx.h"
-#endif
 #include "Monster.hpp"
 #include "SaltyEngine/GameObject.hpp"
 
