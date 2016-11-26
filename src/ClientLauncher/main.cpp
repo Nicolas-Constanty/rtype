@@ -10,7 +10,6 @@ int main()
 {
 	// Create Scene
 	SaltyEngine::Scene *scene(new SaltyEngine::Scene());
-	
 
 	// Push scene int SaltyEngine
 	Singleton<SaltyEngine::SaltyEngine>::Instance() << scene;
