@@ -1,11 +1,18 @@
+#include "Common/LibLoader.hpp"
 #include "SaltyEngine/SaltyEngine.hpp"
+#ifdef _WIN32
 #include "Common/DllLoader.hpp"
+#endif
 
 #define GAME2D
 
 int main()
 {
+#ifdef _WIN32
 	DllLoader *loader = new DllLoader();
+#else
+    LibLoader *loader = new LibLoader();
+#endif
 	std::cout << loader->Load("MonsterTest.dll") << std::endl;
 	std::cout << loader->Unload() << std::endl;
 	// Create Scene

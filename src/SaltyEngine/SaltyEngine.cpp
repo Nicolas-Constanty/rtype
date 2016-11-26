@@ -1,4 +1,8 @@
+#ifdef WIN32
 #include <direct.h>
+#endif
+
+#include <dirent.h>
 #include "SaltyEngine/SaltyEngine.hpp"
 
 namespace SaltyEngine
@@ -250,10 +254,10 @@ namespace SaltyEngine
 		struct dirent *ent;
 		if ((dir = opendir("./")) != NULL)
 		{
-			/* print all the files and directories within directory */
+			/* get all the files and directories within directory */
 			while ((ent = readdir(dir)) != NULL)
 			{
-				printf("%s\n", ent->d_name);
+				std::cout << "Loading asset [" << ent->d_name << "]" << std::endl;
 				Factory::LoadAsset(ent->d_name);
 			}
 			closedir(dir);

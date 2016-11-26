@@ -11,6 +11,7 @@ SRC_DIR =   $(PROJECT_DIR)/src
 INC_DIR =   $(PROJECT_DIR)/include
 
 SALTYENGINE_DIR         =   $(SRC_DIR)/SaltyEngine
+COMMON_DIR              =   $(SRC_DIR)/Common
 
 SRC		= 	$(SALTYENGINE_DIR)/Behaviour.cpp        \
             $(SALTYENGINE_DIR)/Component.cpp        \
@@ -22,12 +23,13 @@ SRC		= 	$(SALTYENGINE_DIR)/Behaviour.cpp        \
             $(SALTYENGINE_DIR)/SaltyEngine.cpp      \
             $(SALTYENGINE_DIR)/Scene.cpp            \
             $(SALTYENGINE_DIR)/Factory.cpp          \
+            $(COMMON_DIR)/LibLoader.cpp             \
 
 CPPFLAGS 	=   -W -Wall -g -Wextra -std=c++11
 
 CPPFLAGS    +=  -I $(INC_DIR)
 
-LDFLAGS	=   -lpthread
+LDFLAGS	=   -lpthread -ldl
 
 OBJ		= 	$(SRC:.cpp=.o)
 

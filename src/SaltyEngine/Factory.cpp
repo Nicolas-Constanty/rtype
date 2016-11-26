@@ -23,8 +23,14 @@ namespace SaltyEngine {
         return m_objects.front();
     }
 
-	bool Factory::LoadAsset(std::string const& path)
+	bool Factory::LoadAsset(std::string const& name)
 	{
-		return false;
+        if (m_prefabs.find(name) != m_prefabs.end())
+        {
+            std::cerr << "Prefab [" << name << "] already in prefab list." << std::endl;
+            return false;
+        }
+        m_prefabs[name] = new GameObject(name);
+		return true;
 	}
 }
