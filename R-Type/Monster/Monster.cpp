@@ -1,11 +1,13 @@
-// Monster.cpp : définit les fonctions exportées pour l'application DLL.
+// Monster.cppï¿½: dï¿½finit les fonctions exportï¿½es pour l'application DLL.
 //
 
+#ifdef _WIN32
 #include "stdafx.h"
+#endif
 #include "Monster.hpp"
 #include "SaltyEngine/GameObject.hpp"
 
-// Il s'agit d'un exemple de variable exportée
+// Il s'agit d'un exemple de variable exportï¿½e
 //MONSTER_API int nMonster=0;
 
 /**

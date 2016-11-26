@@ -4,6 +4,8 @@ RM 		=	rm -rf
 
 NAME	=	salty-engine
 
+LIBNAME =   libSaltyEngine.a
+
 PROJECT_DIR =   ../..
 
 SRC_DIR =   $(PROJECT_DIR)/src
@@ -25,7 +27,7 @@ SRC		= 	$(SALTYENGINE_DIR)/Behaviour.cpp        \
             $(SALTYENGINE_DIR)/Factory.cpp          \
             $(COMMON_DIR)/LibLoader.cpp             \
 
-CPPFLAGS 	=   -W -Wall -g -Wextra -std=c++11
+CPPFLAGS 	=   -W -Wall -g -Wextra -std=c++11 -fPIC
 
 CPPFLAGS    +=  -I $(INC_DIR)
 
@@ -35,6 +37,8 @@ OBJ		= 	$(SRC:.cpp=.o)
 
 $(NAME)	: 	$(OBJ)
 	$(CC) $(OBJ) -o $(NAME) $(LDFLAGS)
+	ar rc $(LIBNAME) $(OBJ)
+	ranlib $(LIBNAME)
 
 all		: 	$(NAME)
 
