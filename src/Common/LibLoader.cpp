@@ -9,7 +9,7 @@ LibLoader::~LibLoader()
 {
 }
 
-void const*LibLoader::Load(std::string const& path)
+void const *LibLoader::Load(std::string const& path)
 {
 	return m_inst = dlopen(path.c_str(), RTLD_LAZY);
 }

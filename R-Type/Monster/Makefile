@@ -26,8 +26,6 @@ OBJ		= 	$(SRC:.cpp=.o)
 
 $(NAME)	: 	$(OBJ)
 	$(CC) $(OBJ) -o $(NAME) $(LDFLAGS)
-	ar rc SaltyEngine.a $(OBJ)
-	ranlib SaltyEngine.a
 
 all		: 	$(NAME)
 
