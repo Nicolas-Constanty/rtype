@@ -9,8 +9,8 @@
 class TestSwapClient : public Network::TCP::ATCPClient
 {
 public:
-    TestSwapClient() :
-            Network::TCP::ATCPClient()
+    TestSwapClient(Network::Core::NativeSocketIOOperationDispatcher &dispatcher) :
+            Network::TCP::ATCPClient(dispatcher)
     {
 
     }
@@ -29,7 +29,7 @@ public:
 public:
     virtual void OnDataReceived(unsigned int len)
     {
-        std::cout << "Réception nouveau client: \"" << buff.toString() << "\" of len: " << len << std::endl;
+        std::cout << "Réception nouveau client: " << buff << std::endl;
     }
 
     virtual void OnDataSent(unsigned int len)
@@ -41,8 +41,14 @@ public:
 class BasicClient : public Network::TCP::ATCPClient
 {
 public:
-    BasicClient() :
-            Network::TCP::ATCPClient()
+    BasicClient(Network::Core::NativeSocketIOOperationDispatcher &dispatcher) :
+            Network::TCP::ATCPClient(dispatcher)
+    {
+
+    }
+
+    BasicClient(Network::Core::BasicConnection &ref) :
+            Network::TCP::ATCPClient(ref.Dispatcher())
     {
 
     }
@@ -55,13 +61,17 @@ public:
 public:
     virtual void OnDataReceived(unsigned int len)
     {
-        std::cout << "Receiving \"" << buff.toString() << "\" of len: " << len << std::endl;
+        std::cout << "Receiving " << buff << std::endl;
         if (buff.toString() == "change\n")
         {
             std::cout << "Changing client to Testswap client" << std::endl;
             TestSwapClient  *newc = new TestSwapClient(*this);
-            newc->pushBuffer(Network::Core::NetBuffer("on est bon\n"));
-            Network::Core::NativeSocketIOOperationDispatcher::Instance().Swap(*this, *newc);
+            std::cout << "TestSwap instantiated" << std::endl;
+            clients->Move(this, newc);
+            std::cout << "Client moved" << std::endl;
+            newc->SendData("on est bon\n");
+            newc->WantReceive();
+            std::cout << "Pending data sent" << std::endl;
         }
     }
 
@@ -74,8 +84,8 @@ public:
 class BasicTCPServ : public Network::TCP::ATCPServer<BasicClient>
 {
 public:
-    BasicTCPServ() :
-            Network::TCP::ATCPServer<BasicClient>()
+    BasicTCPServ(Network::Core::NativeSocketIOOperationDispatcher &dispatcher) :
+            Network::TCP::ATCPServer<BasicClient>(dispatcher)
     {
         Start(4242);
     }
@@ -99,10 +109,10 @@ public:
 
 int main()
 {
-    BasicTCPServ    serv;
+    Network::Core::NativeSocketIOOperationDispatcher    dispatcher((struct timeval){5, 0});
+    BasicTCPServ    server(dispatcher);
 
-    Network::Core::NativeSocketIOOperationDispatcher::Instance().Watch(serv);
-    Network::Core::NativeSocketIOOperationDispatcher::Instance().setTimeout((struct timeval){5, 0});
-    Network::Core::NativeSocketIOOperationDispatcher::Instance().Run();
+    dispatcher.Watch(server, Network::Core::NativeSocketIOOperationDispatcher::WatchMode::READ);
+    dispatcher.Run();
     return 0;
 }

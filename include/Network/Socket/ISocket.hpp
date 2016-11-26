@@ -62,6 +62,10 @@ namespace Network
 
         public:
             virtual SOCKET Native() const = 0;
+
+        public:
+            virtual bool operator==(ISocket const &ref) const = 0;
+            virtual ISocket &operator=(ISocket const &ref) = 0;
         };
     }
 }

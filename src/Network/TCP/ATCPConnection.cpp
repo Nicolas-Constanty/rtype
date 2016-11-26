@@ -7,7 +7,8 @@
 /**
  * @brief Basic constructor that will call socket constructor with TCP protocol
  */
-Network::TCP::ATCPConnection::ATCPConnection() :
+Network::TCP::ATCPConnection::ATCPConnection(Core::NativeSocketIOOperationDispatcher &dispatcher) :
+    BasicConnection(dispatcher),
     sock(Network::Socket::TCP)
 {
 
@@ -18,6 +19,7 @@ Network::TCP::ATCPConnection::ATCPConnection() :
  * @param ref The reference to copy
  */
 Network::TCP::ATCPConnection::ATCPConnection(const Network::TCP::ATCPConnection &ref) :
+    BasicConnection(ref),
     sock(ref.sock)
 {
 
@@ -32,34 +34,23 @@ Network::TCP::ATCPConnection::~ATCPConnection()
 }
 
 /**
- * @brief Native method that will return the native socket that handle
- * @return The native socket handled
- */
-SOCKET Network::TCP::ATCPConnection::Native() const
-{
-    return sock.Native();
-}
-
-/**
  * @brief Function which will write internal data into the socket
  * @return True if it really send data, false either
  */
-bool Network::TCP::ATCPConnection::OnAllowedToWrite()
+void Network::TCP::ATCPConnection::OnAllowedToWrite()
 {
     unsigned int sent = 0;
 
     while (!toWrite.empty())
     {
-        std::cout << "Sending data: \"" << toWrite.front().toString() << "\"" << std::endl;
+        std::cout << "Sending data: " << toWrite.front() << std::endl;
         int len = sock.Send(toWrite.front());
-        if (len < 0)
-            return false;
-        sent += len;
+        if (len > 0)
+            sent += len;
         toWrite.pop();
     }
     if (sent > 0)
         OnDataSent(sent);
-    return true;
 }
 
 Network::Socket::ISocket &Network::TCP::ATCPConnection::giveSocket()
@@ -70,10 +61,4 @@ Network::Socket::ISocket &Network::TCP::ATCPConnection::giveSocket()
 const Network::Socket::ISocket &Network::TCP::ATCPConnection::getSocket() const
 {
     return sock;
-}
-
-void Network::TCP::ATCPConnection::pushBuffer(Network::Core::NetBuffer const &topush)
-{
-    std::cout << "Push buffer" << std::endl;
-    toWrite.push(topush);
 }

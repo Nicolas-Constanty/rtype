@@ -6,6 +6,7 @@
 #define SPIDERCLIENT_SINGLETON_HPP
 
 #include <type_traits>
+#include <Network/Socket/ISockStreamHandler.hpp>
 
 /**
  * \brief Singleton class that creates a templated singleton

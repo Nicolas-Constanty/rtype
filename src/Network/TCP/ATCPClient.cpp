@@ -7,8 +7,8 @@
 /**
  * @brief Basic constructor
  */
-Network::TCP::ATCPClient::ATCPClient() :
-    Network::TCP::ATCPConnection()
+Network::TCP::ATCPClient::ATCPClient(Network::Core::NativeSocketIOOperationDispatcher &dispatcher) :
+    Network::TCP::ATCPConnection(dispatcher)
 {
 
 }
@@ -35,14 +35,15 @@ Network::TCP::ATCPClient::~ATCPClient()
  * @brief Callback called when client is allowed to read
  * @return True if socket actually read, false either
  */
-bool Network::TCP::ATCPClient::OnAllowedToRead()
+void Network::TCP::ATCPClient::OnAllowedToRead()
 {
     int len = sock.Receive(buff);
 
     if (len > 0)
     {
+        WantReceive();
         OnDataReceived(static_cast<unsigned int>(len));
-        return true;
     }
-    return false;
+    else
+        Disconnect();
 }

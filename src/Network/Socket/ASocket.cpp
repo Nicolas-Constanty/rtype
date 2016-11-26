@@ -54,15 +54,28 @@ Network::Socket::ASocket &Network::Socket::ASocket::operator=(ASocket const &ref
     return *this;
 }
 
+Network::Socket::ISocket &Network::Socket::ASocket::operator=(const Network::Socket::ISocket &ref)
+{
+    *this = dynamic_cast<ASocket const &>(ref);
+    return *this;
+}
+
 /**
  * \brief Comparison operator that compare IP adresses and ports
  * \return True if sockets are on same IP/Port
  */
-bool Network::Socket::ASocket::operator==(ASocket const &ref)
+bool Network::Socket::ASocket::operator==(ISocket const &ref) const
 {
-    return (sockaddr.sin_addr.s_addr == ref.sockaddr.sin_addr.s_addr &&
-            sockaddr.sin_family == ref.sockaddr.sin_family &&
-            sockaddr.sin_port == ref.sockaddr.sin_port);
+    ASocket const *sock = dynamic_cast<ASocket const *>(&ref);
+
+    std::cout << "comparing: " << std::endl;
+    std::cout << "   ip: " << sockaddr.sin_addr.s_addr << " vs " << sock->sockaddr.sin_addr.s_addr << std::endl;
+    std::cout << "   port: " << sockaddr.sin_port << " vs " << sockaddr.sin_port << std::endl;
+
+    return sock &&
+            sockaddr.sin_addr.s_addr == sock->sockaddr.sin_addr.s_addr &&
+            sockaddr.sin_family == sock->sockaddr.sin_family &&
+            sockaddr.sin_port == sock->sockaddr.sin_port;
 }
 
 /**
@@ -85,7 +98,7 @@ void Network::Socket::ASocket::Listen(const uint16_t port, const int nbc) throw(
 
     sockaddr.sin_family = domain;
     sockaddr.sin_port = htons(port);
-    sockaddr.sin_addr.s_addr = INADDR_ANY;
+    sockaddr.sin_addr.s_addr = htonl(INADDR_ANY);
     if (bind(fd, (const struct sockaddr *)&sockaddr, len) == -1 || (protocol == Network::Socket::TCP && listen(fd, nbc) == -1))
         throw SocketException(strerror(errno));
 }
@@ -102,7 +115,7 @@ void Network::Socket::ASocket::Talk(const std::string &ip, const uint16_t port) 
     sockaddr.sin_family = domain;
     sockaddr.sin_port = htons(port);
     sockaddr.sin_addr.s_addr = inet_addr(ip.c_str());
-    if (connect(fd, (struct sockaddr *)&sockaddr, len) == -1)
+    if (protocol == Network::Socket::TCP && connect(fd, (struct sockaddr *)&sockaddr, len) == -1)
         throw SocketException(strerror(errno));
 }
 

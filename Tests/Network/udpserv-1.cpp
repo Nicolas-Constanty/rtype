@@ -74,8 +74,8 @@ int main()
         if (FD_ISSET(socket1.Native(), &s))
         {
             std::cout << "Length received: " << socket1.ReceiveFrom(buff, rec) << std::endl;
-            std::cout << "Reception of \"" << buff.toString() << "\" from " << rec << std::endl;
-            buff.setTextMessage("Je te dis que j'ai reçu");
+            std::cout << "Reception of \"" << buff << "\" from " << rec << std::endl;
+            buff.serialize("Je te dis que j'ai reçu");
             socket1.SendTo(buff, rec);
             i = 0;
         }

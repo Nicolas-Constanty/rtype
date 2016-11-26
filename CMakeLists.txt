@@ -27,8 +27,10 @@ add_executable(rtype
 
 add_executable(udpserv-1 ${Networksrc} ${Networkinc} Tests/Network/udpserv-1.cpp)
 add_executable(tcpserv-1 ${Networksrc} ${Networkinc} Tests/Network/tcpserv-1.cpp)
+add_executable(udpserv-2 ${Networksrc} ${Networkinc} Tests/Network/udpserv-2.cpp)
 
 IF(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
     target_link_libraries(udpserv-1 -lWs2_32)
     target_link_libraries(tcpserv-1 -lWs2_32)
+    target_link_libraries(tcpserv-2 -lWs2_32)
 ENDIF(${CMAKE_SYSTEM_NAME} MATCHES "Windows")

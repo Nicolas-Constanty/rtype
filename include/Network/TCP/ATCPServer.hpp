@@ -14,6 +14,7 @@
 #endif
 
 #include <Network/Core/NativeSocketIOOperationDispatcher.hpp>
+#include <Network/Socket/BasicSockStreamsContainer.hpp>
 #include "ATCPConnection.hpp"
 
 namespace Network
@@ -27,10 +28,10 @@ namespace Network
             /**
              * @brief Basic constructor
              */
-            ATCPServer() :
-                ATCPConnection()
+            ATCPServer(Core::NativeSocketIOOperationDispatcher &dispatcher) :
+                ATCPConnection(dispatcher)
             {
-
+                clients = new Socket::BasicSockStreamsContainer();
             }
 
             /**
@@ -40,7 +41,7 @@ namespace Network
             ATCPServer(ATCPServer const &ref) :
                     ATCPConnection(ref)
             {
-
+                clients = new Socket::BasicSockStreamsContainer();
             }
 
             /**
@@ -48,7 +49,7 @@ namespace Network
              */
             virtual ~ATCPServer()
             {
-
+                delete(clients);
             }
 
         public:
@@ -75,9 +76,9 @@ namespace Network
              * @brief Callback called when there is data to read on socket
              * @return True if a new client has been accepted, false either
              */
-            virtual bool OnAllowedToRead()
+            virtual void OnAllowedToRead()
             {
-                ClientType  *newclient = new ClientType();
+                newclient = new ClientType(*this);
 
                 try
                 {
@@ -87,16 +88,25 @@ namespace Network
                 {
                     std::cerr << "Accept failure: " << err.what() << std::endl;
                     delete newclient;
-                    return false;
+                    throw err;
                 }
-                Core::NativeSocketIOOperationDispatcher::Instance().Watch(*newclient);
-                garbage.emplace_back(newclient);
+                newclient->setClients(clients);
+                clients->Add(newclient);
+                newclient->WantReceive();
+                WantReceive();
                 OnDataReceived(0);
-                return true;
             }
 
-        private:
-            std::list<std::unique_ptr<ClientType> >   garbage;
+            /**
+             * @brief Callback called when data has been received
+             */
+            void OnDataReceived(unsigned int)
+            {
+                WantReceive();
+            }
+
+        protected:
+            ClientType  *newclient;
         };
     }
 }

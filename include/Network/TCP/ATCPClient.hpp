@@ -14,12 +14,12 @@ namespace Network
         class ATCPClient : public ATCPConnection
         {
         public:
-            ATCPClient();
+            ATCPClient(Core::NativeSocketIOOperationDispatcher &dispatcher);
             ATCPClient(ATCPClient const &ref);
             virtual ~ATCPClient();
 
         public:
-            virtual bool OnAllowedToRead();
+            virtual void OnAllowedToRead();
 
         protected:
             Core::NetBuffer buff;

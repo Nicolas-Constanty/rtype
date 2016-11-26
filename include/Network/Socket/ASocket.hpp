@@ -43,9 +43,7 @@ namespace Network
 
         public:
             ASocket &operator=(ASocket const &ref);
-
-        public:
-            bool    operator==(ASocket const &ref);
+            virtual ISocket &operator=(ISocket const &ref);
 
             //IStream
         public:
@@ -68,6 +66,8 @@ namespace Network
             virtual void Talk(const std::string &ip, const uint16_t port) throw(SocketException);
 
             virtual void Accept(ISocket &sock);
+
+            virtual bool operator==(ISocket const &ref) const;
 
         public:
             void print(std::ostream &output = std::cout) const;

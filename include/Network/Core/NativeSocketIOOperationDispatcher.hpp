@@ -7,10 +7,9 @@
 
 #include <list>
 #include <memory>
-#include <Common/Singleton.hpp>
 #include "Network/Core/IIOOperationDispatcher.hpp"
 #include "Network/Socket/UnixSocket.hpp"
-#include "Network/Socket/INativeSocketStreamHandler.hpp"
+#include "Network/Socket/ISockStreamHandler.hpp"
 
 namespace Network
 {
@@ -20,12 +19,28 @@ namespace Network
          * \brief Class that will handle the entire system of Input/Output operations dispatchment through the call of
          * <select> then through the callbacks implemented by INativeSocketStreamHandler
          */
-        class NativeSocketIOOperationDispatcher : public IIOOperationDispatcher, public Singleton<NativeSocketIOOperationDispatcher>
+        class NativeSocketIOOperationDispatcher : public IIOOperationDispatcher
         {
-        public:
-            friend class Singleton<NativeSocketIOOperationDispatcher>;
-
         private:
+            struct IOOperation
+            {
+                std::string name;
+                std::list<Socket::ISockStreamHandler *> NativeSocketIOOperationDispatcher::*watched;
+                void (Socket::ISockStreamHandler::*callback)();
+            };
+
+            static const IOOperation  read;
+            static const IOOperation  write;
+
+        public:
+            enum WatchMode
+            {
+                READ = 1,
+                WRITE = 2,
+                BOTH = 3
+            };
+
+        public:
             NativeSocketIOOperationDispatcher(struct timeval const &timeout);
             NativeSocketIOOperationDispatcher(struct timeval *timeout = NULL);
 
@@ -40,21 +55,25 @@ namespace Network
             virtual void Run();
 
         public:
-            void Watch(Socket::INativeSocketStreamHandler &towatch);
-            void Swap(Socket::INativeSocketStreamHandler &curr, Socket::INativeSocketStreamHandler &newone);
+            void Watch(Socket::ISockStreamHandler &towatch, WatchMode mode = WatchMode::BOTH);
+            void Watch(Socket::ISockStreamHandler *towatch, WatchMode mode = WatchMode::BOTH);
+            bool IsBinded(Socket::ISockStreamHandler *tocheck, WatchMode mode = WatchMode::BOTH);
+
+        public:
+            void Remove(Socket::ISockStreamHandler *torm, WatchMode mode = WatchMode::BOTH);
 
         public:
             void    setTimeout(struct timeval const &timeout);
             void    setTimeout(struct timeval *timeout);
 
         private:
-            SOCKET bindFdsToSet(fd_set &set) const;
-            void performReadOperations(fd_set &set);
-            void performWriteOperations(fd_set &set);
+            SOCKET bindFdsToSet(fd_set &set, std::list<Socket::ISockStreamHandler *> &tobind) const;
+            void performOperations(fd_set &set, IOOperation const &operation);
 
         private:
-            std::list<std::unique_ptr<Socket::INativeSocketStreamHandler>>  m_toWatch;
-            std::unique_ptr<struct timeval>                                 m_timeout;
+            std::list<Socket::ISockStreamHandler *>  m_readWatch;
+            std::list<Socket::ISockStreamHandler *>  m_writeWatch;
+            std::unique_ptr<struct timeval>                         m_timeout;
         };
     }
 }

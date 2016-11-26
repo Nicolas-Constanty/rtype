@@ -8,6 +8,8 @@
 #include <sys/types.h>
 #include <cstring>
 #include <string>
+#include <fstream>
+#include <iostream>
 
 #define MAX_MTU 1024
 
@@ -28,7 +30,17 @@ namespace Network
             NetBuffer(NetBuffer const &ref);
             ~NetBuffer();
 
-            NetBuffer(std::string const &txt);
+            /**
+             * @brief Template constructor used to directly serialize an object at construction
+             * @tparam T The type of the object to serialize
+             * @param rf The object to serialize
+             */
+            template <typename T>
+            NetBuffer(T const &rf) :
+                    NetBuffer()
+            {
+                serialize(rf);
+            }
 
             NetBuffer &operator=(NetBuffer const &ref);
 
@@ -41,22 +53,37 @@ namespace Network
             template <typename T>
             bool serialize(T const &obj)
             {
-                if (index + sizeof(T) > size || index + sizeof(T) > currlen)
+                if (currlen + sizeof(T) > size)
                     return false;
                 union swp
                 {
                     T dat;
                     unsigned char cvrt[sizeof(T)];
+
+                    swp() { memset(this, 0, sizeof(swp)); }
+                    ~swp() {  }
                 } dest;
                 dest.dat = obj;
-#if __BYTE_ORDER == __BIG_ENDIAN
-                for (size_t i = sizeof(T) - 1; i >= 0; ++i)
+                #if __BYTE_ORDER == __BIG_ENDIAN
+                    for (size_t i = sizeof(T) - 1; i >= 0; ++i)
                     data[index + i] = dest.cvrt[i];
-#elif __BYTE_ORDER == __LITTLE_ENDIAN
-                memcpy(&data[index], dest.cvrt, sizeof(T));
-#endif
-                index += sizeof(T);
+                #elif __BYTE_ORDER == __LITTLE_ENDIAN
+                    memcpy(&data[currlen], dest.cvrt, sizeof(T));
+                #endif
+                currlen += sizeof(T);
                 return true;
+            }
+
+            /**
+             * @brief Serialize template polymorphism in order to catch char arrays serialization
+             * @tparam n The size of the array
+             * @param msg The message to serialize
+             * @return If the serialization was done
+             */
+            template <size_t n>
+            bool serialize(char const (&msg)[n])
+            {
+                return serialize<const char *>(&msg[0]);
             }
 
             /**
@@ -67,32 +94,23 @@ namespace Network
             template <typename T>
             bool deserialize(T &obj)
             {
-                if (index < sizeof(T))
+                if (index + sizeof(T) < sizeof(T))
                     return false;
                 union swp
                 {
                     T dat;
                     unsigned char cvrt[sizeof(T)];
                 } dest;
-#if __BYTE_ORDER == __BIG_ENDIAN
-                for (size_t i = sizeof(T) - 1; i >= 0; ++i)
+                #if __BYTE_ORDER == __BIG_ENDIAN
+                    for (size_t i = sizeof(T) - 1; i >= 0; ++i)
                     dest.cvrt[i] = data[index + i];
-#elif __BYTE_ORDER == __LITTLE_ENDIAN
-                memcpy(dest.cvrt, &data[index], sizeof(T));
-#endif
+                #elif __BYTE_ORDER == __LITTLE_ENDIAN
+                    memcpy(dest.cvrt, &data[index], sizeof(T));
+                #endif
                 obj = dest.dat;
-                index -= sizeof(T);
+                index += sizeof(T);
+                currlen -= sizeof(T);
                 return true;
-            }
-
-        public:
-            /**
-             * \brief Reset the buffer internally to position 0
-             */
-            void reset()
-            {
-                index = 0;
-                currlen = 0;
             }
 
             /**
@@ -105,48 +123,29 @@ namespace Network
                 return (RetType *)&data[index];
             }
 
-            /**
-             * Converts the buffer into a std::string
-             * @return The string that corresponds to the buffer
-             */
-            std::string toString()
-            {
-                return std::string(buff<char>(), currlen);
-            }
+        public:
+            void reset();
+            std::string toString() const;
 
-            /**
-             * @brief Set a text message into the current buffer
-             * @param msg The text message to set
-             */
-            void setTextMessage(std::string const &msg)
-            {
-                currlen = msg.size();
-                strncpy(buff<char>(), msg.c_str(), currlen);
-            }
-
-            /**
-             * @brief Setter for currlen
-             * @param len The length to set
-             */
-            void    setCurrlen(size_t len)
-            {
-                currlen = len;
-            }
-
-            /**
-             * @brief Returns the current length of the buffer
-             * @return The current length of the buffer
-             */
-            size_t getCurrlen() const
-            {
-                return currlen;
-            }
+        public:
+            void setCurrlen(size_t len);
+            size_t getCurrlen() const;
+            bool isFull();
 
         private:
             unsigned char   data[MAX_MTU];
             size_t          index;
             size_t          currlen; //todo use it
         };
+
+        template <>
+        bool NetBuffer::serialize<std::string>(std::string const &);
+        template <>
+        bool NetBuffer::serialize<const char *>(const char * const &);
+        template <>
+        bool NetBuffer::serialize<NetBuffer>(NetBuffer const &);
+
+        std::ostream    &operator<<(std::ostream &output, NetBuffer const &ref);
     }
 }
 

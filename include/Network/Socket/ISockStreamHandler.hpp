@@ -12,16 +12,19 @@ namespace Network
 {
     namespace Socket
     {
-        class INativeSocketStreamHandler : public ISocketContainer
+        class ISockStreamHandler : public ISocketContainer
         {
         public:
-            virtual ~INativeSocketStreamHandler(){}
+            virtual ~ISockStreamHandler(){}
 
+            //ISocketContainer
         public:
             virtual ISocket &giveSocket() = 0;
             virtual ISocket const &getSocket() const = 0;
-            virtual bool OnAllowedToRead() = 0;
-            virtual bool OnAllowedToWrite() = 0;
+
+        public:
+            virtual void OnAllowedToRead() = 0;
+            virtual void OnAllowedToWrite() = 0;
             virtual void OnDataReceived(unsigned int len) = 0;
             virtual void OnDataSent(unsigned int len) = 0;
         };

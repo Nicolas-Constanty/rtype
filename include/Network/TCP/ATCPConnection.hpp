@@ -13,40 +13,24 @@
 #include <Network/Socket/WinSocket.hpp>
 #endif
 
-#include <Network/Socket/INativeSocketStreamHandler.hpp>
+#include <Network/Socket/ISockStreamHandler.hpp>
 #include <Network/Socket/ASocket.hpp>
+#include <Network/Core/NativeSocketIOOperationDispatcher.hpp>
+#include <Network/Core/BasicConnection.hpp>
 
 namespace Network
 {
     namespace TCP
     {
-        class ATCPConnection : public Socket::INativeSocketStreamHandler
+        class ATCPConnection : public Core::BasicConnection
         {
         public:
-            ATCPConnection();
+            ATCPConnection(Core::NativeSocketIOOperationDispatcher &dispatcher);
             ATCPConnection(ATCPConnection const &ref);
             virtual ~ATCPConnection();
 
         public:
-            virtual SOCKET Native() const;
-            virtual bool OnAllowedToWrite();
-
-        public:
-            /**
-             * @brief Function that send data into socket (in fact it stores data internally in prevision of writing it later)
-             * @tparam T
-             * @param tosend
-             */
-            template <typename T>
-            void sendData(T const &tosend)
-            {
-                Core::NetBuffer buff;
-
-                buff.serialize(tosend);
-                pushBuffer(buff);
-            }
-
-            void pushBuffer(Network::Core::NetBuffer const &topush);
+            virtual void OnAllowedToWrite();
 
         public:
             virtual Socket::ISocket &giveSocket();
@@ -55,7 +39,6 @@ namespace Network
         protected:
             Socket::OSSocket                        sock;
             Core::NetBuffer                         buff;
-            std::queue<Network::Core::NetBuffer>    toWrite;
         };
     }
 }
