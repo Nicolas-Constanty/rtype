@@ -176,6 +176,7 @@
     <ClInclude Include="..\..\include\SaltyEngine\GUI\Selectable.hpp" />
     <ClInclude Include="..\..\include\SaltyEngine\GUI\UIBehaviour.hpp" />
     <ClInclude Include="..\..\include\SaltyEngine\GUI\Widget.hpp" />
+    <ClInclude Include="..\..\include\SaltyEngine\SFML\Button.hpp" />
     <ClInclude Include="..\..\include\SaltyEngine\SFML\Rect.hpp" />
     <ClInclude Include="..\..\include\SaltyEngine\SFML\Renderer.hpp" />
     <ClInclude Include="..\..\include\SaltyEngine\SFML\Sprite.hpp" />

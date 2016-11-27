@@ -125,5 +125,8 @@
     <ClInclude Include="..\..\include\SaltyEngine\SFML\Window.hpp">
       <Filter>Fichiers d%27en-tête\SaltyEngine\SFML</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\SFML\Button.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine\SFML</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
