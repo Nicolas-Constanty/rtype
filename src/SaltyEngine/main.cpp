@@ -15,15 +15,14 @@ int main()
 #ifdef _WIN32
 	DllLoader *loader = new DllLoader();
     std::cout << loader->Load("MonsterTest.dll") << std::endl;
-	std::cout << loader->Unload() << std::endl;
 #else
     LibLoader *loader = new LibLoader();
     std::cout << "Loading monster: " << loader->Load("./monster.so") << std::endl;
-    std::cout << loader->Call(std::string("GetObject")) << std::endl;
-    std::cout << loader->Unload() << std::endl;
 #endif
+    std::cout << loader->Call(std::string("GetObjectPrefab")) << std::endl;
+    std::cout << loader->Unload() << std::endl;
 
-	// Create Scene
+    // Create Scene
 	SaltyEngine::Scene *scene(new SaltyEngine::Scene());
 	// Create player
 	SaltyEngine::GameObject *player = new SaltyEngine::GameObject("Player");
