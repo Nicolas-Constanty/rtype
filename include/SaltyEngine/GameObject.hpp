@@ -49,6 +49,14 @@ namespace SaltyEngine
 			m_components.push_back(component);
 			return (component);
 		}
+
+		template<class T, class ... Args>
+		T *AddComponent(Args &&... args)
+		{
+			T *component = new T(this, args...);
+			m_components.push_back(component);
+			return (component);
+		}
 		bool CompareTag(const std::string &tag);
 		template<class T>
 		T GetComponent()

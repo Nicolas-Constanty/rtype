@@ -12,25 +12,34 @@ namespace SaltyEngine
 	class Sprite : public Object 
 	{
 	public:
-		explicit Sprite(IRect *const rect,
+		explicit Sprite(Texture<T>* const texture,
+			const std::string& name)
+			: Object(name)
+		{
+			m_rect = nullptr;
+			m_texture = texture;
+		}
+
+		explicit Sprite(Texture<T>* const texture, IRect<T>* const rect,
 			const std::string& name)
 			: Object(name)
 		{
 			m_rect = rect;
+			m_texture = texture;
 		}
 
 		virtual ~Sprite() {};
 
 	private:
-		IRect		*m_rect;
-		Texture<T>  *m_texture;
+		IRect<T>		*m_rect;
+		Texture<T>		*m_texture;
 	public:
-		IRect* GetRect() const
+		IRect<T>* GetRect() const
 		{
 			return m_rect;
 		}
 
-		virtual void SetRect(IRect* const rect)
+		virtual void SetRect(IRect<T>* const rect)
 		{
 			m_rect = rect;
 		}

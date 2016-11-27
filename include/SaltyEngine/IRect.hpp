@@ -2,15 +2,15 @@
 
 #ifndef IRECT_HPP_
 #define IRECT_HPP_
-#include "SaltyEngine/Vector2.hpp"
 
 namespace SaltyEngine
 {
+	template <class T>
 	class IRect
 	{
 	public:
 		virtual ~IRect() {};
-		virtual bool Contain(const Vector &vec) const = 0;
+		virtual bool Contain(const T &vec) const = 0;
 	};
 }
 

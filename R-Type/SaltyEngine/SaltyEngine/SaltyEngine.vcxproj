@@ -170,9 +170,14 @@
     <ClInclude Include="..\..\..\include\Common\ICloneable.hpp" />
     <ClInclude Include="..\..\..\include\Common\ILibraryLoader.hpp" />
     <ClInclude Include="..\..\..\include\Common\Singleton.hpp" />
+    <ClInclude Include="..\..\..\include\SaltyEngine\Config.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\DefaultRenderer.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\Factory.hpp" />
+    <ClInclude Include="..\..\..\include\SaltyEngine\IRect.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\IRenderer.hpp" />
+    <ClInclude Include="..\..\..\include\SaltyEngine\IWindow.hpp" />
+    <ClInclude Include="..\..\..\include\SaltyEngine\Sprite.hpp" />
+    <ClInclude Include="..\..\..\include\SaltyEngine\Texture.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\PlayerController.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\Behaviour.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\Component.hpp" />
@@ -181,7 +186,9 @@
     <ClInclude Include="..\..\..\include\SaltyEngine\Object.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\SaltyBehaviour.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\SaltyEngine.hpp" />
-    <ClInclude Include="..\..\..\include\SaltyEngine\SaltyObj.hpp" />
+    <ClInclude Include="..\..\..\include\SaltyEngine\SaltyObj.hpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="..\..\..\include\SaltyEngine\SaltyReflection.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\Scene.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\Tag.conf">
@@ -193,11 +200,13 @@
     <ClInclude Include="..\..\..\include\SaltyEngine\Transform.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\Vector2.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\Vector3.hpp" />
-    <ClInclude Include="..\..\..\src\SaltyEngine\ASpriteRenderer.hpp" />
+    <ClInclude Include="..\..\..\include\SaltyEngine\ASpriteRenderer.hpp" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\include\SaltyEngine\defaultReflection.inl" />
+    <None Include="..\..\..\include\SaltyEngine\Layout.conf" />
+    <None Include="..\..\..\include\SaltyEngine\Prefabs.conf" />
     <None Include="..\..\..\include\SaltyEngine\Saltyreflection.inl" />
   </ItemGroup>
   <ItemGroup>

@@ -2,11 +2,23 @@
 #include "SaltyEngine/SaltyEngine.hpp"
 #include "SaltyEngine/GameObject.hpp"
 #include "SaltyEngine/SFML/Renderer.hpp"
+#include "SaltyEngine/SFML/SpriteRenderer.hpp"
+#include "SaltyEngine/Debug.hpp"
 
 int main(int ac, char **av)
 {
-	SaltyEngine::SFML::Renderer *renderer = new SaltyEngine::SFML::Renderer();
+	SaltyEngine::SFML::Renderer *renderer = new SaltyEngine::SFML::Renderer(sf::VideoMode(500, 500), "R-Type Launcher");
 
+	SaltyEngine::GameObject *player = new SaltyEngine::GameObject("Player");
+
+	SaltyEngine::SFML::Texture *texture = new SaltyEngine::SFML::Texture();
+	if (!texture->loadFromFile("../../Assets/Textures/Image.png"))
+	{
+		SaltyEngine::Debug::PrintError("Failed to load texture");
+		return (1);
+	}
+	SaltyEngine::SFML::Sprite *spr = new SaltyEngine::SFML::Sprite(texture);
+	player->AddComponent<SaltyEngine::SFML::SpriteRenderer>(spr, SaltyEngine::Layout::GUI);
 	// Set SFML Renderer
 	Singleton<SaltyEngine::SaltyEngine>::Instance().SetRenderer(renderer);
 

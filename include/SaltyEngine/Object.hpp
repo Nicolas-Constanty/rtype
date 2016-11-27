@@ -47,11 +47,14 @@ namespace SaltyEngine
 		}
 
 	public:
-		virtual std::unique_ptr<Object> Clone() {
-            return std::unique_ptr<Object>(new Object(m_name + "(Clone)"));
+		std::unique_ptr<Object> Clone() override
+		{
+            return std::make_unique<Object>(m_name + "(Clone)");
         }
-		virtual std::unique_ptr<Object> CloneMemberwise() {
-            return std::unique_ptr<Object>(new Object(m_name + "(Clone)"));
+
+		std::unique_ptr<Object> CloneMemberwise() override
+		{
+            return std::make_unique<Object>(m_name + "(Clone)");
         }
 
 	public:

@@ -11,7 +11,7 @@ namespace SaltyEngine
 	{
 	public:
 		virtual ~DefaultRenderer() {};
-		virtual void Display(const std::unique_ptr<Scene> &scene) const {};
+		void Display() const override {};
 	};
 }
 

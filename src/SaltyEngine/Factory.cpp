@@ -2,13 +2,13 @@
 #include "SaltyEngine/Object.hpp"
 #include "SaltyEngine/GameObject.hpp"
 
-
 namespace SaltyEngine {
-    std::map<std::string, Object *> Factory::m_prefabs = {
-    	{"DefaultMonster", new GameObject("DefaultMonster")},
-		{"Mutant", new GameObject("Mutant")},
-		{"Script", new SaltyBehaviour(nullptr)}
-    };
+
+	std::map<std::string, Object *> Factory::m_prefabs = {
+#include "SaltyEngine/Prefabs.conf"
+		{ "Script", new SaltyBehaviour(nullptr) }
+	};
+    
     std::list<std::shared_ptr<Object> > Factory::m_objects;
 
     Factory::~Factory() {

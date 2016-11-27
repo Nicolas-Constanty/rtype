@@ -15,7 +15,7 @@ void run(SpriteEditor::Texture texture)
 	sf::Sprite sprite;
 	sf::Vector2u size = texture.getSize();
 	sprite.setTexture(texture);
-	sprite.move(sf::Vector2f(0.01, 0.01));
+	sprite.move(sf::Vector2f(0.01f, 0.01f));
 	
 	// SELECT BUTTON
 	// SELECT NORM
@@ -46,7 +46,7 @@ void run(SpriteEditor::Texture texture)
 	panel.setFillColor(sf::Color(80, 80, 80, 255));
 	sf::Color background = sf::Color(50, 50, 50, 255);
 	// WINDOW
-	sf::RenderWindow window(sf::VideoMode(size.x + margin_left * 2, size.y + select_button().getGlobalBounds().height + 2 + margin_top * 2), "Salty Sprite Editor");
+	sf::RenderWindow window(sf::VideoMode(size.x + static_cast<unsigned int>(margin_left * 2), size.y + static_cast<unsigned int>(select_button().getGlobalBounds().height + 2 + margin_top * 2)), "Salty Sprite Editor");
 	// SELECTRECT
 	SpriteEditor::SelectRect select_rect(sprite.getGlobalBounds());
 	

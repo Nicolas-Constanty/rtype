@@ -2,6 +2,7 @@
 
 #ifndef TEXTURE_HPP_
 #define TEXTURE_HPP_
+
 #include "SaltyEngine/Object.hpp"
 
 namespace SaltyEngine
