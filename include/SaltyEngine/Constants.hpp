@@ -30,7 +30,7 @@ namespace SaltyEngine
         typedef LibLoader ASSET_LOADER;
 #endif
 
-        const std::string ASSET_PATH = "./";
+        const std::string ASSET_PATH = "./Assets";
     }
 }
 

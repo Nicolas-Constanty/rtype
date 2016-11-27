@@ -3,6 +3,7 @@
 
 #include "Monster/Monster.hpp"
 #include "SaltyEngine/GameObject.hpp"
+#include "Monster/MonsterController.hpp"
 
 // Il s'agit d'un exemple de variable export�e
 //MONSTER_API int nMonster=0;
@@ -12,6 +13,7 @@
  */
 Monster::Monster() : GameObject("Monster")
 {
+	AddComponent<MonsterController>();
 }
 
 Monster::~Monster()

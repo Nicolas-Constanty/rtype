@@ -14,6 +14,8 @@ int main()
 	// Push scene int SaltyEngine
 	Singleton<SaltyEngine::SaltyEngine>::Instance() << scene;
 
+	std::cout << "Instance -> " << SaltyEngine::Instantiate("Monster") << std::endl;
+
 	// Run the SaltyEngine with default Scene 0
 	Singleton<SaltyEngine::SaltyEngine>::Instance().Run();
 	return 0;
