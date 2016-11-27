@@ -1,9 +1,11 @@
 #include "SaltyEngine/GUI/Event.hpp"
 
+
 namespace SaltyEngine
 {
 	namespace GUI
 	{
+		static const std::string none = "None";
 		void Event::Invoke(const std::string & name)
 		{
 #if DEBUG
@@ -23,7 +25,7 @@ namespace SaltyEngine
 		}
 		void Event::InvokeAll() const
 		{
-			for (EventList::const_iterator it = m_events.begin(); it != m_events.end(); it++)
+			for (EventList::const_iterator it = m_events.begin(); it != m_events.end(); ++it)
 			{
 #if DEBUG
 				Debug::PrintInfo("Call " + (*it).first + " function.")
@@ -45,16 +47,16 @@ namespace SaltyEngine
 			return m_events.size();
 		}
 
-		const std::string Event::GetMethodName(size_t index) const
+		const std::string &Event::GetMethodName(size_t index) const
 		{
 			size_t i = 0;
-			for (EventList::const_iterator it = m_events.begin(); it != m_events.end(); it++)
+			for (EventList::const_iterator it = m_events.begin(); it != m_events.end(); ++it)
 			{
 				if (i == index)
 					return ((*it).first);
 				++i;
 			}
-			return ("Key not found!");
+			return (none);
 		}
 
 		void Event::RemoveAllListeners()

@@ -28,7 +28,7 @@ namespace SaltyEngine
 	{
 	public:
 		SaltyEngine();
-		~SaltyEngine();
+		virtual ~SaltyEngine();
 
 		void Start();
 		void Stop();

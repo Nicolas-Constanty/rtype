@@ -6,7 +6,6 @@
 #include <SFML/Graphics.hpp>
 #include "SaltyEngine/Config.hpp"
 #include "SaltyEngine/ASpriteRenderer.hpp"
-#include "SaltyEngine/SFML/Renderer.hpp"
 #include "SaltyEngine/SFML/Sprite.hpp"
 #include "SaltyEngine/SFML/Window.hpp"
 

@@ -3,7 +3,6 @@
 #ifndef VECTOR3_HPP_
 #define VECTOR3_HPP_
 
-#include <string>
 #include <iostream>
 
 namespace SaltyEngine
@@ -31,9 +30,9 @@ namespace SaltyEngine
 			z += vec.z;
 		}
 		
-		static const BaseVector3<T> zero()
+		static BaseVector3<T> zero()
 		{
-			return BaseVector3<T>((T)0, (T)0, (T)0);
+			return BaseVector3<T>(static_cast<T>(0), static_cast<T>(0), static_cast<T>(0));
 		}
 	};
 

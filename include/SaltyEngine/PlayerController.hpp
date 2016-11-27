@@ -10,7 +10,7 @@ namespace SaltyEngine {
 	class PlayerController : public SaltyBehaviour
 	{
 	public:
-		PlayerController(GameObject* const gamObj);
+		explicit PlayerController(GameObject* const gamObj);
 		PlayerController(const std::string &name, GameObject* const gamObj);
 		void Start();
 //		void FixedUpdate();

@@ -14,7 +14,7 @@ namespace SaltyEngine
 	 * @brief	Default constructor init m_fps at DEFAULT_FRAME_RATE.
 	 */
 
-	SaltyEngine::SaltyEngine()
+	SaltyEngine::SaltyEngine(): m_current(0)
 	{
 		m_renderer = new DefaultRenderer();
 		m_status = EngineStatus::stop;
@@ -176,7 +176,7 @@ namespace SaltyEngine
 	bool SaltyEngine::LoadScene(const std::string & name)
 	{
 		size_t index = 0;
-		for (std::vector<std::unique_ptr<Scene>>::const_iterator it = m_scenes.begin(); it < m_scenes.end(); it++)
+		for (std::vector<std::unique_ptr<Scene>>::const_iterator it = m_scenes.begin(); it < m_scenes.end(); ++it)
 		{
 			if ((*it)->GetName() == name)
 				break;

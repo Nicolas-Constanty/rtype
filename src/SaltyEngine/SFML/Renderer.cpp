@@ -6,8 +6,6 @@ namespace SaltyEngine
 {
 	namespace SFML
 	{
-
-
 		Renderer::Renderer(sf::VideoMode& vm, const std::string& name) : m_window(std::make_unique<sf::RenderWindow>(vm, name))
 		{
 		}
@@ -33,7 +31,7 @@ namespace SaltyEngine
 
 		void Renderer::DrawGame(const SpriteMap &sprite_map) const
 		{
-			for (int it = 0; it < Layout::SIZE; it++)
+			for (int it = 0; it < Layout::SIZE; ++it)
 			{
 				if (sprite_map.find(it) != sprite_map.end())
 					DrawSprites(sprite_map.at(it));

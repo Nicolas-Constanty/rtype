@@ -19,14 +19,12 @@ namespace SaltyEngine
 		Component& operator=(Component &&) = delete;      // Move assign
 		explicit Component(GameObject* const gameObj);
 		Component(const std::string &name, GameObject* const gameObj);
+		bool CompareTag(const std::string& tag) const;
 		virtual ~Component() {};
 
 	public:
 		std::string tag;
 		GameObject* const gameObject;
-
-	public:
-		bool CompareTag(const std::string &tag);
 
 //		template<class T>
 //		T GetComponent()

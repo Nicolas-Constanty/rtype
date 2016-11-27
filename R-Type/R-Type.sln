@@ -18,6 +18,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Monster", "Monster\Monster.
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SpriteEditor", "SpriteEditor\SpriteEditor\SpriteEditor.vcxproj", "{4DBEB469-1371-44E9-8527-2F70EB35E838}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8D3847F1-F79F-4473-A994-7A09DF9692FD} = {8D3847F1-F79F-4473-A994-7A09DF9692FD}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ClientLauncher", "ClientLauncher\ClientLauncher\ClientLauncher.vcxproj", "{D475EDC8-4425-4488-AF76-A90A66566167}"
 	ProjectSection(ProjectDependencies) = postProject

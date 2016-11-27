@@ -20,7 +20,7 @@ namespace SaltyEngine
 		BaseTransform(BaseTransform&&) = delete;                  // Move construct
 		BaseTransform& operator=(BaseTransform const&) = delete;  // Copy assign
 		BaseTransform& operator=(BaseTransform &&) = delete;      // Move assign
-        BaseTransform(GameObject* const gameObj) : Component("Transform", gameObj)
+		explicit BaseTransform(GameObject* const gameObj) : Component("Transform", gameObj)
         {
             m_parent = nullptr;
         }
@@ -38,7 +38,7 @@ namespace SaltyEngine
 		}
 		BaseTransform<T> *Find(const std::string &name) const
 		{
-			for (typename std::vector<BaseTransform<T> *>::const_iterator it = m_children.begin(); it != m_children.end(); it++)
+			for (typename std::vector<BaseTransform<T> *>::const_iterator it = m_children.begin(); it != m_children.end(); ++it)
 			{
 				if (name == (*it)->GetName())
 					return (*it);

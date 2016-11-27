@@ -21,7 +21,7 @@ namespace SaltyEngine
 	{
 	public:
 		Scene();
-		Scene(const std::string &name);
+		explicit Scene(const std::string &name);
 		~Scene();
 
 	public:

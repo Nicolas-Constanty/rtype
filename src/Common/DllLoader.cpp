@@ -1,6 +1,6 @@
 #include "Common/DllLoader.hpp"
 
-DllLoader::DllLoader()
+DllLoader::DllLoader(): m_inst(nullptr)
 {
 }
 

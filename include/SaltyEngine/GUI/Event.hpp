@@ -22,7 +22,7 @@ namespace SaltyEngine
 			void InvokeAll() const; //	Invoke all registered callbacks(runtime and persistent).
 			void RemoveListener(const std::string &name); // Remove a listener from the Event.
 			size_t GetEventCount() const; //	Get the number of registered listeners.
-			const std::string  GetMethodName(size_t index) const;//	Get the target method name of the listener at index index.
+			const std::string  &GetMethodName(size_t index) const;//	Get the target method name of the listener at index index.
 			void RemoveAllListeners(); //	Remove all listeners from the event.
 			void SetListener(const std::string &name, EventDelegate func); // Modify the execution state of a persistent listener.
 
