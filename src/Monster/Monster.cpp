@@ -1,7 +1,7 @@
 // Monster.cpp�: d�finit les fonctions export�es pour l'application DLL.
 //
 
-#include "Monster.hpp"
+#include "Monster/Monster.hpp"
 #include "SaltyEngine/GameObject.hpp"
 
 // Il s'agit d'un exemple de variable export�e

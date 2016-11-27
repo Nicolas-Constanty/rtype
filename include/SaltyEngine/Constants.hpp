@@ -6,7 +6,11 @@
 #define RTYPE_CONSTANTS_HPP
 
 #include <string>
-#include <Common/LibLoader.hpp>
+#ifdef _WIN32
+#include "Common/DllLoader.hpp"
+#else
+#include "Common/LibLoader.hpp"
+#endif
 
 /**
  * \brief Contains global data for the engine

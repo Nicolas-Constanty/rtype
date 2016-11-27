@@ -8,6 +8,7 @@
 #endif
 
 #include "SaltyEngine/SaltyEngine.hpp"
+#include <SaltyEngine/Constants.hpp>
 
 namespace SaltyEngine
 {
@@ -248,17 +249,22 @@ namespace SaltyEngine
 #if _WIN32
 		WIN32_FIND_DATA findFileData;
 		HANDLE hFind;
-
 		CHAR str[256];
+
 		_getcwd(str, sizeof(str));
 
-		// Should open .
 		hFind = FindFirstFile(std::string(std::string(str) + "\\*").c_str(), &findFileData);
 
 		while (hFind != INVALID_HANDLE_VALUE)
 		{
-			std::cout << "Loading asset [" << findFileData.cFileName << "]" << std::endl;
-			std::cout << Factory::LoadAsset(findFileData.cFileName) << std::endl;
+			std::string assetName = std::string(findFileData.cFileName);
+			if (assetName.length() >= Asset::LIB_EXTENSION.length()
+				&& assetName.compare(assetName.length() - Asset::LIB_EXTENSION.length(), Asset::LIB_EXTENSION.length(), Asset::LIB_EXTENSION) == 0)
+			{
+				std::cout << "Loading asset [" << assetName << "]" << std::endl;
+				std::string assetPath = std::string(str) + "/" + assetName;
+				Factory::LoadAsset(assetPath);
+			}
 			if (FindNextFile(hFind, &findFileData) == FALSE)
 				break;
 		}

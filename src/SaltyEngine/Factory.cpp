@@ -29,7 +29,11 @@ namespace SaltyEngine {
             std::cerr << "Factory: failed to load asset at path [" << path << "]" << std::endl;
             return false;
         }
-        Object *obj = static_cast<Object*>(loader.Call("GetObjectPrefab"));
+#ifdef _WIN32
+        Object *obj = (GameObject*)(loader.Call("GetObjectPrefab"));
+#else
+		Object *obj = static_cast<Object*>(loader.Call("GetObjectPrefab"));
+#endif
         if (obj == nullptr)
         {
             std::cerr << "Factory: failed to get asset." << std::endl;

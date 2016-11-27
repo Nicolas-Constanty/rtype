@@ -1,6 +1,5 @@
 // dllmain.cpp : Définit le point d'entrée pour l'application DLL.
-#include "stdafx.h"
-#include <iostream>
+#include "Monster/stdafx.h"
 
 int APIENTRY DllMain( HMODULE hModule,
                        DWORD  ul_reason_for_call,
@@ -17,4 +16,3 @@ int APIENTRY DllMain( HMODULE hModule,
 	}
 	return TRUE;
 }
-
