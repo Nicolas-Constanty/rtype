@@ -14,7 +14,7 @@ SALTYENGINE_DIR         =   $(SRC_DIR)/SaltyEngine
 COMMON_DIR              =   $(SRC_DIR)/Common
 MONSTER_DIR             =   $(SRC_DIR)/Monster
 
-SRC		= 	Monster.cpp             \
+SRC		= 	$(MONSTER_DIR)/Monster.cpp             \
 
 CPPFLAGS 	=   -W -Wall -g -Wextra -std=c++11 -fPIC
 
