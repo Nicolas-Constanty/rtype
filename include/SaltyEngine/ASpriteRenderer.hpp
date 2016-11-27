@@ -21,8 +21,12 @@ namespace SaltyEngine
 		ASpriteRenderer& operator=(ASpriteRenderer &&) = delete;      // Move assign
 
 	public:
-		ASpriteRenderer(const std::string &name, GameObject * const gameObj, Sprite<T> * const sprite, Layout layer) : Component(name, gameObj), m_layer(layer), m_sprite(sprite) {};
-		ASpriteRenderer(GameObject* const gameObj, Sprite<T> * const sprite, Layout layer) : Component("ASpriteRenderer", gameObj), m_layer(layer), m_sprite(sprite) {};
+		explicit ASpriteRenderer(const std::string &name, GameObject * const gameObj, Sprite<T> * const sprite, Layout layer) : Component(name, gameObj), m_sprite(sprite), m_layer(layer), m_window(nullptr)
+		{
+		};
+		explicit ASpriteRenderer(GameObject* const gameObj, Sprite<T> * const sprite, Layout layer) : Component("ASpriteRenderer", gameObj), m_sprite(sprite), m_layer(layer), m_window(nullptr)
+		{
+		};
 		virtual ~ASpriteRenderer() {};
 		virtual Sprite<T>  *GetSprite() const = 0;
 		virtual IWindow *GetWindow() const = 0;

@@ -7,6 +7,7 @@
 #include <iostream>
 #include <string>
 #include <memory>
+#include <utility>
 #include "Vector2.hpp"
 #include "Common/ICloneable.hpp"
 #include "Factory.hpp"
@@ -49,12 +50,20 @@ namespace SaltyEngine
 	public:
 		std::unique_ptr<Object> Clone() override
 		{
-            return std::make_unique<Object>(m_name + "(Clone)");
+#if _WIN32
+            return (std::make_unique<Object>(m_name + "(Clone)"));
+#else
+			return (std::unique_ptr<Object>(new Object(m_name + "(Clone)")));
+#endif
         }
 
 		std::unique_ptr<Object> CloneMemberwise() override
 		{
-            return std::make_unique<Object>(m_name + "(Clone)");
+#if _WIN32
+            return (std::make_unique<Object>(m_name + "(Clone)"));
+#else
+			return (std::unique_ptr<Object>(new Object(m_name + "(Clone)")));
+#endif
         }
 
 	public:

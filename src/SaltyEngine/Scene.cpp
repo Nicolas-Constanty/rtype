@@ -49,7 +49,7 @@ namespace SaltyEngine
 
 	std::ostream &Scene::print(std::ostream &os) const
 	{
-		for (std::vector<std::unique_ptr<GameObject>>::const_iterator it = m_objects.begin(); it != m_objects.end(); it++)
+		for (std::vector<std::unique_ptr<GameObject>>::const_iterator it = m_objects.begin(); it != m_objects.end(); ++it)
 		{
 			os << "\t" << (**it) << std::endl;
 		}
@@ -81,8 +81,8 @@ namespace SaltyEngine
 	{
 		while (!m_init.empty())
 		{
-			std::list<SaltyBehaviour *> Sb = m_objects[m_init.front()]->GetComponents<SaltyBehaviour *>();
-			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); it++)
+			const std::list<SaltyBehaviour *> &Sb = m_objects[m_init.front()]->GetSaltyBehaviour();
+			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
 			{
 				SaltyReflection<SaltyBehaviour>::CallStart(GameObjects(), (*it));
 			}
@@ -98,10 +98,10 @@ namespace SaltyEngine
 
 	void Scene::Update()
 	{
-		for (std::vector<std::unique_ptr<GameObject>>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); obj++)
+		for (std::vector<std::unique_ptr<GameObject>>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); ++obj)
 		{
-			std::list<SaltyBehaviour *> Sb = (*obj)->GetComponents<SaltyBehaviour *>();
-			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); it++)
+			const std::list<SaltyBehaviour *> &Sb = (*obj)->GetSaltyBehaviour();
+			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
 			{
 				SaltyReflection<SaltyBehaviour>::CallUpdate(GameObjects(), (*it));
 			}
@@ -116,10 +116,10 @@ namespace SaltyEngine
 
 	void Scene::FixedUpdate()
 	{
-		for (std::vector<std::unique_ptr<GameObject>>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); obj++)
+		for (std::vector<std::unique_ptr<GameObject>>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); ++obj)
 		{
-			std::list<SaltyBehaviour *> Sb = (*obj)->GetComponents<SaltyBehaviour *>();
-			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); it++)
+			const std::list<SaltyBehaviour *> &Sb = (*obj)->GetSaltyBehaviour();
+			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
 			{
 				SaltyReflection<SaltyBehaviour>::CallFixedUpdate(GameObjects(), (*it));
 			}
@@ -134,10 +134,10 @@ namespace SaltyEngine
 
 	void Scene::OnTriggerEnter()
 	{
-		for (std::vector<std::unique_ptr<GameObject>>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); obj++)
+		for (std::vector<std::unique_ptr<GameObject>>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); ++obj)
 		{
-			std::list<SaltyBehaviour *> Sb = (*obj)->GetComponents<SaltyBehaviour *>();
-			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); it++)
+			const std::list<SaltyBehaviour *> &Sb = (*obj)->GetSaltyBehaviour();
+			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
 			{
 				SaltyReflection<SaltyBehaviour>::CallOnTriggerEnter(GameObjects(), (*it));
 			}
@@ -152,10 +152,10 @@ namespace SaltyEngine
 
 	void Scene::OnTriggerExit()
 	{
-		for (std::vector<std::unique_ptr<GameObject>>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); obj++)
+		for (std::vector<std::unique_ptr<GameObject>>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); ++obj)
 		{
-			std::list<SaltyBehaviour *> Sb = (*obj)->GetComponents<SaltyBehaviour *>();
-			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); it++)
+			const std::list<SaltyBehaviour *> &Sb = (*obj)->GetSaltyBehaviour();
+			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
 			{
 				SaltyReflection<SaltyBehaviour>::CallOnTriggerExit(GameObjects(), (*it));
 			}
@@ -170,10 +170,10 @@ namespace SaltyEngine
 
 	void Scene::OnTriggerStay()
 	{
-		for (std::vector<std::unique_ptr<GameObject>>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); obj++)
+		for (std::vector<std::unique_ptr<GameObject>>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); ++obj)
 		{
-			std::list<SaltyBehaviour *> Sb = (*obj)->GetComponents<SaltyBehaviour *>();
-			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); it++)
+			const std::list<SaltyBehaviour *> &Sb = (*obj)->GetSaltyBehaviour();
+			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
 			{
 				SaltyReflection<SaltyBehaviour>::CallOnTriggerStay(GameObjects(), (*it));
 			}
@@ -188,10 +188,10 @@ namespace SaltyEngine
 
 	void Scene::OnCollisionEnter()
 	{
-		for (std::vector<std::unique_ptr<GameObject>>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); obj++)
+		for (std::vector<std::unique_ptr<GameObject>>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); ++obj)
 		{
-			std::list<SaltyBehaviour *> Sb = (*obj)->GetComponents<SaltyBehaviour *>();
-			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); it++)
+			const std::list<SaltyBehaviour *> &Sb = (*obj)->GetSaltyBehaviour();
+			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
 			{
 				SaltyReflection<SaltyBehaviour>::CallOnCollisionEnter(GameObjects(), (*it));
 			}
@@ -206,10 +206,10 @@ namespace SaltyEngine
 
 	void Scene::OnCollisionExit()
 	{
-		for (std::vector<std::unique_ptr<GameObject>>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); obj++)
+		for (std::vector<std::unique_ptr<GameObject>>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); ++obj)
 		{
-			std::list<SaltyBehaviour *> Sb = (*obj)->GetComponents<SaltyBehaviour *>();
-			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); it++)
+			const std::list<SaltyBehaviour *> &Sb = (*obj)->GetSaltyBehaviour();
+			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
 			{
 				SaltyReflection<SaltyBehaviour>::CallOnCollisionExit(GameObjects(), (*it));
 			}
@@ -224,10 +224,10 @@ namespace SaltyEngine
 
 	void Scene::OnCollisionStay()
 	{
-		for (std::vector<std::unique_ptr<GameObject>>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); obj++)
+		for (std::vector<std::unique_ptr<GameObject>>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); ++obj)
 		{
-			std::list<SaltyBehaviour *> Sb = (*obj)->GetComponents<SaltyBehaviour *>();
-			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); it++)
+			const std::list<SaltyBehaviour *> &Sb = (*obj)->GetSaltyBehaviour();
+			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
 			{
 				SaltyReflection<SaltyBehaviour>::CallOnCollisionStay(GameObjects(), (*it));
 			}
@@ -242,10 +242,10 @@ namespace SaltyEngine
 
 	void Scene::OnMouseEnter()
 	{
-		for (std::vector<std::unique_ptr<GameObject>>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); obj++)
+		for (std::vector<std::unique_ptr<GameObject>>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); ++obj)
 		{
-			std::list<SaltyBehaviour *> Sb = (*obj)->GetComponents<SaltyBehaviour *>();
-			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); it++)
+			const std::list<SaltyBehaviour *> &Sb = (*obj)->GetSaltyBehaviour();
+			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
 			{
 				SaltyReflection<SaltyBehaviour>::CallOnMouseEnter(GameObjects(), (*it));
 			}
@@ -260,10 +260,10 @@ namespace SaltyEngine
 
 	void Scene::OnMouseExit()
 	{
-		for (std::vector<std::unique_ptr<GameObject>>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); obj++)
+		for (std::vector<std::unique_ptr<GameObject>>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); ++obj)
 		{
-			std::list<SaltyBehaviour *> Sb = (*obj)->GetComponents<SaltyBehaviour *>();
-			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); it++)
+			const std::list<SaltyBehaviour *> &Sb = (*obj)->GetSaltyBehaviour();
+			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
 			{
 				SaltyReflection<SaltyBehaviour>::CallOnMouseExit(GameObjects(), (*it));
 			}
@@ -278,10 +278,10 @@ namespace SaltyEngine
 
 	void Scene::OnMouseOver()
 	{
-		for (std::vector<std::unique_ptr<GameObject>>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); obj++)
+		for (std::vector<std::unique_ptr<GameObject>>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); ++obj)
 		{
-			std::list<SaltyBehaviour *> Sb = (*obj)->GetComponents<SaltyBehaviour *>();
-			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); it++)
+			const std::list<SaltyBehaviour *> &Sb = (*obj)->GetSaltyBehaviour();
+			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
 			{
 				SaltyReflection<SaltyBehaviour>::CallOnMouseOver(GameObjects(), (*it));
 			}
@@ -296,10 +296,10 @@ namespace SaltyEngine
 
 	void Scene::OnGui()
 	{
-		for (std::vector<std::unique_ptr<GameObject>>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); obj++)
+		for (std::vector<std::unique_ptr<GameObject>>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); ++obj)
 		{
-			std::list<SaltyBehaviour *> Sb = (*obj)->GetComponents<SaltyBehaviour *>();
-			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); it++)
+			const std::list<SaltyBehaviour *> &Sb = (*obj)->GetSaltyBehaviour();
+			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
 			{
 				SaltyReflection<SaltyBehaviour>::CallOnGui(GameObjects(), (*it));
 			}
@@ -308,10 +308,10 @@ namespace SaltyEngine
 
 	void Scene::OnDestroy()
 	{
-		for (std::vector<std::unique_ptr<GameObject>>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); obj++)
+		for (std::vector<std::unique_ptr<GameObject>>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); ++obj)
 		{
-			std::list<SaltyBehaviour *> Sb = (*obj)->GetComponents<SaltyBehaviour *>();
-			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); it++)
+			const std::list<SaltyBehaviour *> &Sb = (*obj)->GetSaltyBehaviour();
+			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
 			{
 				SaltyReflection<SaltyBehaviour>::CallOnDestroy(GameObjects(), (*it));
 			}
@@ -326,10 +326,10 @@ namespace SaltyEngine
 
 	void Scene::CallCoroutines()
 	{
-		for (std::vector<std::unique_ptr<GameObject>>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); obj++)
+		for (std::vector<std::unique_ptr<GameObject>>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); ++obj)
 		{
-			std::list<SaltyBehaviour *> Sb = (*obj)->GetComponents<SaltyBehaviour *>();
-			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); it++)
+			const std::list<SaltyBehaviour *> &Sb = (*obj)->GetSaltyBehaviour();
+			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
 			{
 				(*it)->CallCoroutines();
 			}

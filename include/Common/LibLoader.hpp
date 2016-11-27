@@ -22,7 +22,7 @@ public:
 
 public:
 	virtual void const *Load(std::string const& path);
-	virtual bool Unload();
+	virtual int Unload();
 	template <class ... Args>
 	void* Call(std::string const& funcName, Args ... args)
 	{

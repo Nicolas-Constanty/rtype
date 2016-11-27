@@ -3,7 +3,9 @@
 #include "Common/Singleton.hpp"
 #include "SaltyEngine/GameObject.hpp"
 #include "SaltyEngine/PlayerController.hpp"
+#ifdef _WIN32
 #include "Common/DllLoader.hpp"
+#endif
 #include "SaltyEngine/Input.hpp"
 
 #define GAME2D

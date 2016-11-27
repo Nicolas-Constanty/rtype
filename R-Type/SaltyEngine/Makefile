@@ -18,7 +18,7 @@ COMMON_DIR              =   $(SRC_DIR)/Common
 SRC		= 	$(SALTYENGINE_DIR)/Behaviour.cpp        \
             $(SALTYENGINE_DIR)/Component.cpp        \
             $(SALTYENGINE_DIR)/GameObject.cpp       \
-            $(SALTYENGINE_DIR)/main.cpp             \
+	    $(SALTYENGINE_DIR)/main.cpp		\
             $(SALTYENGINE_DIR)/Object.cpp           \
             $(SALTYENGINE_DIR)/PlayerController.cpp \
             $(SALTYENGINE_DIR)/SaltyBehaviour.cpp   \
