@@ -4720,7 +4720,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "vérification speudo",
+											"text": "vérification login",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5
 										},
@@ -7280,7 +7280,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFYpU73fxsraVE="
 							},
-							"name": "vérification speudo",
+							"name": "vérification login",
 							"visibility": "public",
 							"kind": "opaque",
 							"isLocallyReentrant": false,
