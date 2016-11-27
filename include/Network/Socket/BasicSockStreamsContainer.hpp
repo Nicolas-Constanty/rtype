@@ -13,6 +13,9 @@ namespace Network
 {
     namespace Socket
     {
+        /**
+         * @brief Abstraction of a socket stream handler container
+         */
         class BasicSockStreamsContainer : public ISockStreamsContainer
         {
         public:

@@ -22,6 +22,9 @@ namespace Network
 {
     namespace TCP
     {
+        /**
+         * @brief Abstraction of a TCP connection
+         */
         class ATCPConnection : public Core::BasicConnection
         {
         public:

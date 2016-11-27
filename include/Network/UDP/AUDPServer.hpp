@@ -120,7 +120,7 @@ namespace Network
 
                 int ret;
 
-                ret = sock.ReceiveFrom(buff, dynamic_cast<Socket::ISockStream&>(newclient->giveSocket()));
+                ret = sock.ReceiveFrom(buff, newclient->giveSocket());
                 if (ret > 0)
                 {
                     //Check which client send us data
@@ -187,7 +187,7 @@ namespace Network
                     while (!msgs.empty())
                     {
                         std::cout << "Sending: " << msgs.front() << std::endl;
-                        int ret = sock.SendTo(msgs.front(), dynamic_cast<Socket::ISockStream&>(curr->giveSocket()));
+                        int ret = sock.SendTo(msgs.front(), curr->giveSocket());
 
                         if (ret < 0)
                             return ;

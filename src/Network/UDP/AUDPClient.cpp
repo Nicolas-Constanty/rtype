@@ -31,7 +31,7 @@ Network::UDP::AUDPClient::~AUDPClient()
  */
 void Network::UDP::AUDPClient::OnAllowedToRead()
 {
-    Network::Socket::ISockStream    *stream = dynamic_cast<Network::Socket::ISockStream *>(&model->giveSocket());
+    Network::Socket::ISockStream    *stream = &model->giveSocket();
 
     if (stream)
     {

@@ -14,12 +14,18 @@
  */
 static bool running = true;
 
+/**
+ * @brief Constant IOOperation definition of read. Sets the good pointers on member and name
+ */
 const Network::Core::NativeSocketIOOperationDispatcher::IOOperation  Network::Core::NativeSocketIOOperationDispatcher::read = {
         "Read",
         &NativeSocketIOOperationDispatcher::m_readWatch,
         &Socket::ISockStreamHandler::OnAllowedToRead
 };
 
+/**
+ * @brief Constant IOOperation definition of write. Sets the good pointers on member and name
+ */
 const Network::Core::NativeSocketIOOperationDispatcher::IOOperation Network::Core::NativeSocketIOOperationDispatcher::write = {
         "Write",
         &NativeSocketIOOperationDispatcher::m_writeWatch,
@@ -254,6 +260,11 @@ bool Network::Core::NativeSocketIOOperationDispatcher::IsBinded(Network::Socket:
 
 }
 
+/**
+ * @brief Removes any king of reference to <torm> parameter in the good watch list defined by <mode>
+ * @param torm The pointer on the object to remove
+ * @param mode Defines in which watch list we will remove the <torm> parameter
+ */
 void Network::Core::NativeSocketIOOperationDispatcher::Remove(Network::Socket::ISockStreamHandler *torm,
                                                               Network::Core::NativeSocketIOOperationDispatcher::WatchMode mode)
 {

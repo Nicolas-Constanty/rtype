@@ -19,6 +19,9 @@ namespace Network
 {
     namespace UDP
     {
+        /**
+         * @brief Abstraction of an UDP connection
+         */
         class AUDPConnection : public Core::BasicConnection
         {
         public:

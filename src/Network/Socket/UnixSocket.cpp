@@ -43,7 +43,8 @@ void Network::Socket::UnixSocket::Open() throw(SocketException)
  */
 void Network::Socket::UnixSocket::Close()
 {
-    close(fd);
+    if (fd > 2)
+        close(fd);
     fd = Network::Socket::DEFAULT;
 }
 
@@ -55,9 +56,9 @@ void Network::Socket::UnixSocket::Close()
  */
 int Network::Socket::UnixSocket::Receive(Network::Core::NetBuffer &buff)
 {
-    int ret = static_cast<int>(recv(fd, buff.buff(), Core::NetBuffer::size, MSG_NOSIGNAL));
+    int ret = static_cast<int>(recv(fd, buff.buff(), buff.getAvailableSpace(), MSG_NOSIGNAL));
 
-    buff.setCurrlen(static_cast<size_t>(ret));
+    buff.addLength(static_cast<size_t>(ret));
     return ret;
 }
 
@@ -69,7 +70,7 @@ int Network::Socket::UnixSocket::Receive(Network::Core::NetBuffer &buff)
  */
 int Network::Socket::UnixSocket::Send(Network::Core::NetBuffer const &buff) const
 {
-    return static_cast<int>(send(fd, buff.buff(), buff.getCurrlen(), MSG_NOSIGNAL));
+    return static_cast<int>(send(fd, buff.buff(), buff.getLength(), MSG_NOSIGNAL));
 }
 
 /**
@@ -86,9 +87,9 @@ int Network::Socket::UnixSocket::ReceiveFrom(Network::Core::NetBuffer &buff, ISo
     if (snd)
     {
         socklen_t len = sizeof(snd->sockaddr);
-        int ret = static_cast<int>(recvfrom(fd, buff.buff(), Core::NetBuffer::size, MSG_NOSIGNAL, (struct sockaddr *)&snd->sockaddr, &len));
+        int ret = static_cast<int>(recvfrom(fd, buff.buff(), buff.getAvailableSpace(), MSG_NOSIGNAL, (struct sockaddr *)&snd->sockaddr, &len));
 
-        buff.setCurrlen(static_cast<size_t >(ret));
+        buff.addLength(static_cast<size_t >(ret));
         return ret;
     }
     return 0;
@@ -107,7 +108,7 @@ int Network::Socket::UnixSocket::SendTo(Network::Core::NetBuffer &buff, ISockStr
 
     if (rcvr)
     {
-        return static_cast<int>(sendto(fd, buff.buff(), buff.getCurrlen(), MSG_NOSIGNAL, (struct sockaddr *)&rcvr->sockaddr, sizeof(rcvr->sockaddr)));
+        return static_cast<int>(sendto(fd, buff.buff(), buff.getLength(), MSG_NOSIGNAL, (struct sockaddr *)&rcvr->sockaddr, sizeof(rcvr->sockaddr)));
     }
     return 0;
 }

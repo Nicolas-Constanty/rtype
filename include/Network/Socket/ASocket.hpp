@@ -14,27 +14,54 @@ namespace Network
 {
     namespace Socket
     {
+        /**
+         * @brief Struct that defines a Network communication Protocol
+         */
         struct Protocol
         {
             const int proto;
             const int type;
 
+            /**
+             * @brief Allow user to check equality between protocols
+             * @param ref The reference to compare with <this>
+             * @return True if protocols are same, false either
+             */
             bool operator==(Protocol const &ref) const
             {
                 return proto == ref.proto && type == ref.type;
             }
 
+            /**
+             * @brief Allow user to check differences between protocols
+             * @param ref The reference to compare with <this>
+             * @return True if protocols are same, false either
+             */
             bool operator!=(Protocol const &ref) const
             {
                 return !(*this == ref);
             }
         };
 
+        /**
+         * @brief Definition of TCP protocol
+         */
         static const Protocol TCP = {IPPROTO_TCP, SOCK_STREAM};
+
+        /**
+         * @brief Definition of UDP protocol
+         */
         static const Protocol UDP = {IPPROTO_UDP, SOCK_DGRAM};
+
+        /**
+         * @brief Definition on DEFAULT socket
+         */
         static const SOCKET      DEFAULT = (SOCKET)-1;
 
-        class ASocket : public ISocket, public ISockStream
+        /**
+         * @brief Class that abstracts the socket characteristics
+         */
+        class ASocket : public ISocket
         {
         public:
             ASocket(const Protocol &protocol = Socket::TCP, const sa_family_t domain = AF_INET, int option = 1);

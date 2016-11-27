@@ -56,14 +56,23 @@ void Network::Socket::BasicSockStreamsContainer::Move(Network::Socket::ISockStre
     }
 }
 
+/**
+ * @brief Allow user to broadcast a message to all clients handled inside the container from a specific sender
+ * @param tosnd The data to send
+ * @param sender The sender from who send the data
+ */
 void Network::Socket::BasicSockStreamsContainer::Broadcast(Network::Core::NetBuffer &tosnd, Socket::ISockStream &sender)
 {
     for (std::unique_ptr<Socket::ISockStreamHandler> &curr : streams)
     {
-        sender.SendTo(tosnd, dynamic_cast<const ISockStream&>(curr->getSocket()));
+        sender.SendTo(tosnd, curr->getSocket());
     }
 }
 
+/**
+ * @brief Allow user to get a reference on streams list internally handled
+ * @return A reference on stream list
+ */
 std::list<std::unique_ptr<Network::Socket::ISockStreamHandler>> &Network::Socket::BasicSockStreamsContainer::Streams()
 {
     return streams;

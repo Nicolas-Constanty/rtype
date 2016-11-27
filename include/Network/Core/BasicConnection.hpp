@@ -14,6 +14,9 @@ namespace Network
 {
     namespace Core
     {
+        /**
+         * @brief Class that abstract the Connection concept. It's here for dispatcher and clients container. It also provides some space for messages queue
+         */
         class BasicConnection : public IConnection
         {
         public:
@@ -31,6 +34,11 @@ namespace Network
             virtual void setClients(Socket::ISockStreamsContainer *clts);
 
         public:
+            /**
+             * @brief Used for sending any kind of data through socket
+             * @tparam T The type of data to send
+             * @param towr The data to send
+             */
             template <typename T>
             void SendData(T const &towr)
             {

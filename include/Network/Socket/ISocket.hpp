@@ -27,27 +27,43 @@ extern "C"
 };
 
 #include "INativeSocketContainer.hpp"
+#include "ISockStream.hpp"
 
 namespace Network
 {
     namespace Socket
     {
+        /**
+         * @brief Class that defines a socket exception
+         */
         class SocketException : public std::runtime_error
         {
         public:
+            /**
+             * @brief Basic constructor
+             * @param err The error message to display
+             */
             SocketException(std::string const &err) :
                     std::runtime_error(err)
             {
 
             }
+
+            /**
+             * @brief Basic destructor
+             */
             virtual ~SocketException() throw()
             {
 
             }
+
+            /**
+             * @brief Reuse std::runtime_error::what method
+             */
             using std::runtime_error::what;
         };
 
-        class ISocket : public INativeSocketContainer
+        class ISocket : public INativeSocketContainer, public ISockStream
         {
         public:
             virtual void Open() throw(SocketException) = 0;

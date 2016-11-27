@@ -16,7 +16,7 @@ const size_t Network::Core::NetBuffer::size = MAX_MTU;
 Network::Core::NetBuffer::NetBuffer() :
     data(),
     index(0),
-    currlen(0)
+    length(0)
 {
 
 }
@@ -45,10 +45,37 @@ Network::Core::NetBuffer::~NetBuffer()
  */
 Network::Core::NetBuffer &Network::Core::NetBuffer::operator=(const Network::Core::NetBuffer &ref)
 {
-    memcpy(data, ref.data, ref.currlen);
+    memcpy(data, ref.data, ref.length);
     index = ref.index;
-    currlen = ref.currlen;
+    length = ref.length;
     return *this;
+}
+
+/**
+ * @brief Will concatenate the <ref> buffer into <this> buffer. Will set the index and the length of the buffer
+ * @param ref The buffer to concatenate
+ * @return A reference on freshly changes <this>
+ */
+Network::Core::NetBuffer &Network::Core::NetBuffer::operator+=(const Network::Core::NetBuffer &ref)
+{
+    if (length + ref.length > NetBuffer::size)
+        return *this;
+    memmove(data, buff(), length);
+    index = 0;
+    memcpy(buff(), ref.buff(), ref.length);
+    length += ref.length;
+    return *this;
+}
+
+/**
+ * @brief Will concatenate the <ref> buffer with <this> buffer into a copy
+ * @param ref The reference to concatenate
+ * @return A copy of the concatenates buffers
+ */
+Network::Core::NetBuffer Network::Core::NetBuffer::operator+(const Network::Core::NetBuffer &ref)
+{
+    NetBuffer   toret(*this);
+    return toret += ref;
 }
 
 /**
@@ -57,7 +84,7 @@ Network::Core::NetBuffer &Network::Core::NetBuffer::operator=(const Network::Cor
 void Network::Core::NetBuffer::reset()
 {
     index = 0;
-    currlen = 0;
+    length = 0;
 }
 
 /**
@@ -66,26 +93,36 @@ void Network::Core::NetBuffer::reset()
  */
 std::string Network::Core::NetBuffer::toString() const
 {
-    return std::string(buff<char>(), currlen);
+    return std::string(buff<char>(), length);
 }
 
 /**
  * @brief Setter for currlen
  * @param len The length to set
  */
-void Network::Core::NetBuffer::setCurrlen(size_t len)
+void Network::Core::NetBuffer::setLength(size_t len)
 {
-    currlen = len;
+    length = len;
 }
 
 /**
  * @brief Returns the current length of the buffer
  * @return The current length of the buffer
  */
-size_t Network::Core::NetBuffer::getCurrlen() const
+size_t Network::Core::NetBuffer::getLength() const
 {
-    return currlen;
+    return length;
 }
+
+/**
+ * @brief Allow user to add length
+ * @param len The length to add
+ */
+void Network::Core::NetBuffer::addLength(size_t len)
+{
+    length += len;
+}
+
 
 /**
  * @brief Check if the buffer is full
@@ -93,7 +130,16 @@ size_t Network::Core::NetBuffer::getCurrlen() const
  */
 bool Network::Core::NetBuffer::isFull()
 {
-    return currlen == size;
+    return length == size;
+}
+
+/**
+ * @brief Allow user to know how much space is available into the buffer
+ * @return The available space in the buffer
+ */
+size_t Network::Core::NetBuffer::getAvailableSpace() const
+{
+    return NetBuffer::size - length;
 }
 
 /**
@@ -104,10 +150,10 @@ bool Network::Core::NetBuffer::isFull()
 template <>
 bool Network::Core::NetBuffer::serialize<std::string>(std::string const &obj)
 {
-    if (currlen + obj.size() > NetBuffer::size)
+    if (length + obj.size() > NetBuffer::size)
         return false;
     strncpy(buff<char>(), obj.c_str(), obj.size());
-    currlen += obj.size();
+    length += obj.size();
     return true;
 }
 
@@ -144,13 +190,13 @@ std::ostream    &Network::Core::operator<<(std::ostream &output, Network::Core::
     unsigned char *bf = ref.buff();
 
     output << "\"" << std::hex;
-    for (size_t i = 0, max = ref.getCurrlen(); i < max; ++i)
+    for (size_t i = 0, max = ref.getLength(); i < max; ++i)
     {
         if (bf[i] >= ' ' && bf[i] <= '~')
             output << bf[i];
         else
             output << "\x1B[7m\\x" << static_cast<unsigned int>(bf[i]) << "\x1B[0m";
     }
-    output << "\"(" << std::dec << ref.getCurrlen() << ")";
+    output << "\"(" << std::dec << ref.getLength() << ")";
     return output;
 }

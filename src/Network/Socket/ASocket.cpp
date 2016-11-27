@@ -54,6 +54,11 @@ Network::Socket::ASocket &Network::Socket::ASocket::operator=(ASocket const &ref
     return *this;
 }
 
+/**
+ * @brief Copy operator for ISockets copy
+ * @param ref The reference to copy
+ * @return A reference on this
+ */
 Network::Socket::ISocket &Network::Socket::ASocket::operator=(const Network::Socket::ISocket &ref)
 {
     *this = dynamic_cast<ASocket const &>(ref);

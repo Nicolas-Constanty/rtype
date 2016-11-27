@@ -53,11 +53,19 @@ void Network::TCP::ATCPConnection::OnAllowedToWrite()
         OnDataSent(sent);
 }
 
+/**
+ * @brief Allow user to get a reference on the internal socket handled
+ * @return A reference on the internal socket
+ */
 Network::Socket::ISocket &Network::TCP::ATCPConnection::giveSocket()
 {
     return sock;
 }
 
+/**
+ * @brief Constant getter on the internal socket
+ * @return A constant reference on the internal socket
+ */
 const Network::Socket::ISocket &Network::TCP::ATCPConnection::getSocket() const
 {
     return sock;

@@ -13,6 +13,9 @@ namespace Network
 {
     namespace UDP
     {
+        /**
+         * @brief Abstraction of an UDP client
+         */
         class AUDPClient : public AUDPConnection, public Core::INetBufferContainer
         {
         public:

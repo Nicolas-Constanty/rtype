@@ -11,6 +11,9 @@ namespace Network
 {
     namespace TCP
     {
+        /**
+         * @brief Abstraction of a TCP Client
+         */
         class ATCPClient : public ATCPConnection
         {
         public:

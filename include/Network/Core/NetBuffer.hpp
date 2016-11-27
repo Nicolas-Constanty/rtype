@@ -43,6 +43,8 @@ namespace Network
             }
 
             NetBuffer &operator=(NetBuffer const &ref);
+            NetBuffer &operator+=(NetBuffer const &ref);
+            NetBuffer operator+(NetBuffer const &ref);
 
         public:
             /**
@@ -53,7 +55,7 @@ namespace Network
             template <typename T>
             bool serialize(T const &obj)
             {
-                if (currlen + sizeof(T) > size)
+                if (length + sizeof(T) > size)
                     return false;
                 union swp
                 {
@@ -68,9 +70,9 @@ namespace Network
                     for (size_t i = sizeof(T) - 1; i >= 0; ++i)
                     data[index + i] = dest.cvrt[i];
                 #elif __BYTE_ORDER == __LITTLE_ENDIAN
-                    memcpy(&data[currlen], dest.cvrt, sizeof(T));
+                    memcpy(&data[length], dest.cvrt, sizeof(T));
                 #endif
-                currlen += sizeof(T);
+                length += sizeof(T);
                 return true;
             }
 
@@ -109,7 +111,7 @@ namespace Network
                 #endif
                 obj = dest.dat;
                 index += sizeof(T);
-                currlen -= sizeof(T);
+                length -= sizeof(T);
                 return true;
             }
 
@@ -128,14 +130,16 @@ namespace Network
             std::string toString() const;
 
         public:
-            void setCurrlen(size_t len);
-            size_t getCurrlen() const;
+            void setLength(size_t len);
+            size_t getLength() const;
+            void addLength(size_t len);
             bool isFull();
+            size_t getAvailableSpace() const;
 
         private:
             unsigned char   data[MAX_MTU];
             size_t          index;
-            size_t          currlen; //todo use it
+            size_t          length; //todo use it
         };
 
         template <>

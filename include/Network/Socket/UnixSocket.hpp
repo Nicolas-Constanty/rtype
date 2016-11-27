@@ -14,6 +14,9 @@ namespace Network
 {
     namespace Socket
     {
+        /**
+         * @brief Definition of a Unix socket
+         */
         class UnixSocket : public ASocket
         {
         public:
@@ -33,6 +36,9 @@ namespace Network
             void Close();
         };
 
+        /**
+         * @brief If os on which the compilation is done is __linux__ then defines OSSocket as UnixSocket
+         */
         using OSSocket = UnixSocket;
     }
 }
