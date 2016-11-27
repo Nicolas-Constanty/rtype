@@ -12,30 +12,24 @@
 
 int main()
 {
-#ifdef _WIN32
-	DllLoader *loader = new DllLoader();
-    std::cout << loader->Load("MonsterTest.dll") << std::endl;
-#else
-    LibLoader *loader = new LibLoader();
-    std::cout << "Loading monster: " << loader->Load("./monster.so") << std::endl;
-#endif
-    std::cout << loader->Call(std::string("GetObjectPrefab")) << std::endl;
-    std::cout << loader->Unload() << std::endl;
+	/**
+	 * Starts the engine
+	 */
+	Singleton<SaltyEngine::SaltyEngine>::Instance();
 
     // Create Scene
 	SaltyEngine::Scene *scene(new SaltyEngine::Scene());
 	// Create player
 	SaltyEngine::GameObject *player = new SaltyEngine::GameObject("Player");
 
-	std::shared_ptr<SaltyEngine::Object> go = SaltyEngine::Instantiate("DefaultMonster");
-	SaltyEngine::Instantiate("Mutant");
-	SaltyEngine::Instantiate("Script");
+	std::shared_ptr<SaltyEngine::Object> gu = SaltyEngine::Instantiate("Monster");
 
-	std::cout << go->GetName() << std::endl;
+	if (gu.get() != nullptr)
+		std::cout << gu->GetName() << std::endl;
 
 	std::cout << "Size = " << SaltyEngine::Object::FindObjectsOfType<SaltyEngine::GameObject>().size() << std::endl;
 
-	// Add script to player
+	// Add script to the player
 	player->AddComponent<SaltyEngine::PlayerController>();
 	
 	// Push player in scene

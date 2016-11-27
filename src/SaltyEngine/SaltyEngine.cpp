@@ -2,6 +2,9 @@
 #include <direct.h>
 #else
 #include <dirent.h>
+#include <SaltyEngine/Constants.hpp>
+#include <zconf.h>
+
 #endif
 
 #include "SaltyEngine/SaltyEngine.hpp"
@@ -21,7 +24,7 @@ namespace SaltyEngine
 		m_fps = DEFAULT_FRAME_RATE;
 		std::chrono::duration<double> d(1.0 / m_fps);
 		m_frame_rate = std::chrono::duration_cast<std::chrono::nanoseconds>(d);
-		//LoadAssets();
+		LoadAssets();
 	}
 
 	/**
@@ -263,13 +266,23 @@ namespace SaltyEngine
 #else
 		DIR *dir;
 		struct dirent *ent;
-		if ((dir = opendir("./")) != NULL)
+        char str[256];
+
+        getcwd(str, sizeof(str));
+
+		if ((dir = opendir(Asset::ASSET_PATH.c_str())) != NULL)
 		{
 			/* get all the files and directories within directory */
 			while ((ent = readdir(dir)) != NULL)
 			{
-				std::cout << "Loading asset [" << ent->d_name << "]" << std::endl;
-				Factory::LoadAsset(ent->d_name);
+                std::string assetName = std::string(ent->d_name);
+                if (assetName.length() >= Asset::LIB_EXTENSION.length()
+                    && assetName.compare(assetName.length() - Asset::LIB_EXTENSION.length(), Asset::LIB_EXTENSION.length(), Asset::LIB_EXTENSION) == 0)
+                {
+                    std::cout << "Loading asset [" << assetName << "]" << std::endl;
+                    std::string assetPath = std::string(str) + "/" + assetName;
+                    Factory::LoadAsset(assetPath);
+                }
 			}
 			closedir(dir);
 		}
