@@ -13,14 +13,16 @@
  */
 Monster::Monster() : GameObject("Monster")
 {
-	AddComponent<MonsterController>();
 }
 
 Monster::~Monster()
 {
 }
 
-MONSTER_API SaltyEngine::Object *GetObjectPrefab()
+MONSTER_API SaltyEngine::Object const*GetObjectPrefab()
 {
-	return new Monster();
+	Monster *m = new Monster();
+	m->AddComponent<MonsterController>();
+	std::cout << "JE suis laaaaa" << std::endl;
+	return m;
 }

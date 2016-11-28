@@ -9,8 +9,7 @@ public:
 	virtual ~MonsterController();
 
 public:
-	void Update() {
-		std::cout << "Update" << std::endl;
-	}
+	void Start();
+	void Update();
 };
 

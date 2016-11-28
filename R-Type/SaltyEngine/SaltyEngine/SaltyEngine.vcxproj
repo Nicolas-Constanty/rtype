@@ -163,6 +163,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\Common\DllLoader.cpp" />
+    <ClCompile Include="..\..\..\src\Monster\MonsterController.cpp" />
     <ClCompile Include="..\..\..\src\SaltyEngine\Behaviour.cpp" />
     <ClCompile Include="..\..\..\src\SaltyEngine\Factory.cpp" />
     <ClCompile Include="..\..\..\src\SaltyEngine\PlayerController.cpp" />

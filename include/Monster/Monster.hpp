@@ -31,7 +31,7 @@ extern "C"
 
 	//extern MONSTER_API int nMonster;
 
-	MONSTER_API SaltyEngine::Object *GetObjectPrefab();
+	MONSTER_API SaltyEngine::Object const *GetObjectPrefab();
 }
 
 #endif

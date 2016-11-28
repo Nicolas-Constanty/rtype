@@ -171,6 +171,9 @@ namespace SaltyEngine
 
 		public:
 			virtual std::unique_ptr<Object> Clone() {
+				std::cout << "Shallow Cloning object -> " << GetName() << std::endl;
+				std::cout << "Shallow Cloning object -> " << GetSaltyBehaviour().size() << std::endl;
+
 				return std::unique_ptr<Object>(new GameObject(GetName() + "(Clone)"));
 			}
 			virtual std::unique_ptr<Object> CloneMemberwise() {

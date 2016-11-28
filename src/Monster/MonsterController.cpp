@@ -11,7 +11,12 @@ MonsterController::~MonsterController()
 {
 }
 
-//void MonsterController::Update()
-//{
-//	std::cout << "Update" << std::endl;
-//}
+void MonsterController::Start()
+{
+	std::cout << "STAAAART" << std::endl;
+}
+
+void MonsterController::Update()
+{
+	std::cout << "Update monster" << std::endl;
+}
