@@ -37,8 +37,8 @@ public:
 
 public:
     static const GameID MOVEID;// = GameID(MOVE, sizeof(MOVEPackageGame));
-    static const GameID TAKEID;// = GameID(TAKE, sizeof(TAKEPackageGame));
-    static const GameID BEAMID;// = GameID(BEAM, sizeof(BEAMPackageGame));
+    static const GameID TAKEID;// = GameID(GAMETAKE, sizeof(TAKEPackageGame));
+    static const GameID BEAMID;// = GameID(GAMEBEAM, sizeof(BEAMPackageGame));
     static const GameID DROPID;// = GameID(DROP, sizeof(DROPPackageGame));
     static const GameID DIEID;// = GameID(DIE, sizeof(DIEPackageGame));
     static const GameID CREATEID;// = GameID(CREATE, sizeof(CREATEPackageGame));

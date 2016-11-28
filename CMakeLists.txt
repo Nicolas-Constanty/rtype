@@ -19,7 +19,7 @@ file(GLOB SaltyEngineinc include/SaltyEngine/*.hpp)
 file(GLOB allsrc src/*/*.cpp src/*/*/*.cpp)
 file(GLOB allinc src/*/*.hpp src/*/*/*.hpp)
 
-add_executable(rtype
+add_executable(rtype-server
         ${Networksrc} ${Networkinc}
         ${Commoninc}
         ${Protocolsrc} ${Protocolinc}

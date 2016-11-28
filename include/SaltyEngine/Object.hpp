@@ -6,13 +6,18 @@
 #include <atomic>
 #include <iostream>
 #include <string>
+#include <memory>
+#include <utility>
+#include "Vector2.hpp"
+#include "Common/ICloneable.hpp"
+#include "Factory.hpp"
 
 namespace SaltyEngine
 {
 	static std::string const Tag[] = { "NONE", "PLAYER", "ENEMY" };
 	typedef size_t uid;
 
-	class Object
+	class Object: protected ICloneable<Object>
 	{
 	private:
 		static std::atomic<int> s_id;
@@ -22,7 +27,7 @@ namespace SaltyEngine
 		Object(Object&&) = delete;                  // Move construct
 		Object& operator=(Object const&) = delete;  // Copy assign
 		Object& operator=(Object &&) = delete;      // Move assign
-		Object(const std::string &name) : m_uid(++s_id), m_name(name) {};
+		explicit Object(const std::string &name) : m_uid(++s_id), m_name(name) {};
 		virtual ~Object() {};
 
 	public:
@@ -31,11 +36,49 @@ namespace SaltyEngine
 
 	private:
 		uid m_uid;
-		const std::string &m_name;
+		const std::string m_name;
 
 	public:
 		static void Destroy(Object* original);
+		static std::shared_ptr<Object> Instantiate(std::string const& obj, Vector pos = Vector::zero(), double rot = 0)
+		{
+            (void)pos;
+            (void)rot;
+			return Factory::Create(obj);
+		}
+
+	public:
+		std::unique_ptr<Object> Clone() override
+		{
+#if _WIN32
+            return (std::make_unique<Object>(m_name + "(Clone)"));
+#else
+			return (std::unique_ptr<Object>(new Object(m_name + "(Clone)")));
+#endif
+        }
+
+		std::unique_ptr<Object> CloneMemberwise() override
+		{
+#if _WIN32
+            return (std::make_unique<Object>(m_name + "(Clone)"));
+#else
+			return (std::unique_ptr<Object>(new Object(m_name + "(Clone)")));
+#endif
+        }
+
+	public:
+		/**
+		 * _\brief : retrieves all the object of a certain type currently instantiated.
+		 * This is slow, so consider using it wisely
+		 */
+		template <class Type>
+		static std::list<std::shared_ptr<Object> > FindObjectsOfType()
+		{
+			return Factory::GetObjectsOfType<Type>();
+		}
 	};
+
+#define Instantiate(x, ...) Object::Instantiate(x, ## __VA_ARGS__)
 }
 
 #endif // !OBJECT_HPP_

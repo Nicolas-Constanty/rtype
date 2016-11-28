@@ -1,5 +1,5 @@
 #include "SaltyEngine/Component.hpp"
-#include "SaltyEngine/Transform.hpp"
+#include "SaltyEngine/GameObject.hpp"
 
 namespace SaltyEngine
 {
@@ -7,7 +7,7 @@ namespace SaltyEngine
 
 	Component::Component(const std::string & name, GameObject * const gameObj) : Object(name), tag(Tag[0]), gameObject(gameObj) {};
 
-	bool Component::CompareTag(const std::string & tag)
+	bool Component::CompareTag(const std::string & tag) const
 	{
 		return gameObject->CompareTag(tag);
 	}

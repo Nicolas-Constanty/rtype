@@ -37,6 +37,7 @@ Network::TCP::ATCPClient::~ATCPClient()
  */
 void Network::TCP::ATCPClient::OnAllowedToRead()
 {
+    buff.reset();
     int len = sock.Receive(buff);
 
     if (len > 0)

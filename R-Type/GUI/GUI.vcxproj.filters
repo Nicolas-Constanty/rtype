@@ -13,5 +13,117 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\SaltyEngine">
+      <UniqueIdentifier>{130e28c6-f592-44fd-8e18-af3b526bd357}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\SaltyEngine\GUI">
+      <UniqueIdentifier>{387a5a08-4b05-4c41-bf7c-c42db404f76a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\SaltyEngine\GUI\Event">
+      <UniqueIdentifier>{cf227f32-dcbd-4a54-a9f0-e6ee6e8cfc15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\SaltyEngine">
+      <UniqueIdentifier>{4641fea3-44e9-4ccf-bc05-5a043f4a29ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\SaltyEngine\GUI">
+      <UniqueIdentifier>{6226475a-1d53-4618-9f13-7322e62f4083}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\SaltyEngine\GUI\Event">
+      <UniqueIdentifier>{3e5d470b-f472-4502-98cf-b9bff27bef30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\SaltyEngine\SFML">
+      <UniqueIdentifier>{c993af6f-7989-4484-92bd-681c533122a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\SaltyEngine\SFML">
+      <UniqueIdentifier>{fe3c3e11-7efe-47d1-888d-23e0847bc0e7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Test\GUI\main.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\include\SaltyEngine\GUI\UIBehaviour.cpp">
+      <Filter>Fichiers sources\SaltyEngine\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\SaltyEngine\GUI\Widget.cpp">
+      <Filter>Fichiers sources\SaltyEngine\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\SaltyEngine\Debug.cpp">
+      <Filter>Fichiers sources\SaltyEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\SaltyEngine\GUI\Button.cpp">
+      <Filter>Fichiers sources\SaltyEngine\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\SaltyEngine\GUI\Event.cpp">
+      <Filter>Fichiers sources\SaltyEngine\GUI\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\SaltyEngine\SFML\Renderer.cpp">
+      <Filter>Fichiers sources\SaltyEngine\SFML</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\SaltyEngine\GUI\IEventSystemHandler.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine\GUI\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\GUI\IPointerDownHandler.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine\GUI\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\GUI\IPointerEnterHandler.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine\GUI\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\GUI\IPointerExitHandler.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine\GUI\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\GUI\IPointerUpHandler.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine\GUI\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\GUI\ISelectHandler.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine\GUI\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\GUI\IDeselectHandler.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine\GUI\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\GUI\ISubmitHandler.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine\GUI\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\GUI\Selectable.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine\GUI\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\GUI\IMoveHandler.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine\GUI\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\Debug.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\GUI\Event.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine\GUI\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\GUI\Button.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\GUI\Widget.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\GUI\UIBehaviour.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\SFML\Renderer.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine\SFML</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\SFML\Sprite.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine\SFML</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\SFML\Rect.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine\SFML</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\SFML\Texture.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine\SFML</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\SFML\SpriteRenderer.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine\SFML</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\SFML\Window.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine\SFML</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

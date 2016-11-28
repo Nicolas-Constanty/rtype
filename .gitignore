@@ -9,10 +9,14 @@
 .idea/
 a.out
 *.db
+*.opendb
+.idea/*
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
+*.o
+salty-engine
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
@@ -140,7 +144,7 @@ publish/
 # Publish Web Output
 *.[Pp]ublish.xml
 *.azurePubxml
-# TODO: Comment the next line if you want to checkin your web deploy settings 
+# TODO: Comment the next line if you want to checkin your web deploy settings
 # but database connection strings (with potential passwords) will be unencrypted
 *.pubxml
 *.publishproj
@@ -219,5 +223,4 @@ FakesAssemblies/
 **/*.Server/ModelManifest.xml
 _Pvt_Extensions
 
-cmake-build-debug/
-*.o
+cmake-build-debug

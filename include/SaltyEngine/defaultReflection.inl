@@ -40,20 +40,20 @@ static void M_EVAL(T *t) {
 	M_EVAL(t, M_TYPE());
 }
 
-template<typename T, typename ...Rest>
-static void M_CALL(typelist<T, Rest...>, SaltyBehaviour *obj)
+template<class S, typename ...Rest>
+static void M_CALL(typelist<S, Rest...>, SaltyBehaviour *obj)
 {
-	if (dynamic_cast<T *>(obj))
-		SaltyReflection<T>::M_EVAL(static_cast<T *>(obj));
+	if (dynamic_cast<S *>(obj))
+		SaltyReflection<S>::M_EVAL(static_cast<S *>(obj));
 	else
 		return M_CALL(typelist<Rest...>(), obj);
 }
 
-template<typename T>
-static void M_CALL(typelist<T>, SaltyBehaviour *obj)
+template<class U>
+static void M_CALL(typelist<U>, SaltyBehaviour *obj)
 {
-	if (dynamic_cast<T *>(obj))
-		SaltyReflection<T>::M_EVAL(static_cast<T *>(obj));
+	if (dynamic_cast<U *>(obj))
+		SaltyReflection<U>::M_EVAL(static_cast<U *>(obj));
 }
 
 #undef FUNC
