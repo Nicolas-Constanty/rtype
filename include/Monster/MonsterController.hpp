@@ -9,7 +9,6 @@ public:
 	virtual ~MonsterController();
 
 public:
-	void Start();
 	void FixedUpdate();
 };
 
