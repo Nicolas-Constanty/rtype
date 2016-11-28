@@ -7,12 +7,13 @@
 
 #ifdef __linux__
  #include <queue>
+#include <Network/Socket/UnixSocket.hpp>
 #elif _WIN32
  #include <c++/queue>
+ #include <Network/Socket/WinSocket.hpp>
 #endif
 
 #include <Network/Socket/ISockStreamHandler.hpp>
-#include <Network/Socket/UnixSocket.hpp>
 #include <Network/Core/BasicConnection.hpp>
 
 namespace Network

@@ -14,10 +14,10 @@ namespace Network
 {
     namespace Socket
     {
-        class ISockStreamsContainer
+        class ISockStreamHandlersContainer
         {
         public:
-            virtual ~ISockStreamsContainer(){}
+            virtual ~ISockStreamHandlersContainer(){}
 
         public:
             virtual void Add(ISockStreamHandler *toAdd) = 0;

@@ -6,7 +6,7 @@
 #define RTYPE_ICONNECTION_HPP
 
 #include <Network/Socket/ISockStreamHandler.hpp>
-#include <Network/Socket/ISockStreamsContainer.hpp>
+#include <Network/Socket/ISockStreamHandlersContainer.hpp>
 #include "NativeSocketIOOperationDispatcher.hpp"
 
 namespace Network
@@ -26,7 +26,7 @@ namespace Network
         public:
             virtual Core::NativeSocketIOOperationDispatcher &Dispatcher() = 0;
             virtual Core::NativeSocketIOOperationDispatcher const &Dispatcher() const = 0;
-            virtual void setClients(Socket::ISockStreamsContainer *clts) = 0;
+            virtual void setClients(Socket::ISockStreamHandlersContainer *clts) = 0;
         };
     }
 }

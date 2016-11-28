@@ -62,7 +62,7 @@ const Network::Core::NativeSocketIOOperationDispatcher &Network::Core::BasicConn
  * @brief Allow user to set the internal pointer of <clients>. Usefull for UDP when a client connects/disconnects
  * @param clts The clients pointer to set
  */
-void Network::Core::BasicConnection::setClients(Network::Socket::ISockStreamsContainer *clts)
+void Network::Core::BasicConnection::setClients(Network::Socket::ISockStreamHandlersContainer *clts)
 {
     clients = clts;
 }

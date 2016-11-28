@@ -64,10 +64,16 @@ public:
 
 int main()
 {
+#ifdef _WIN32
+    Network::Socket::WinSocket::Start();
+#endif
     Network::Core::NativeSocketIOOperationDispatcher    dispatcher;
     BasicUDPServ    serv(dispatcher);
 
     dispatcher.Watch(serv);
     dispatcher.Run();
+#ifdef _WIN32
+    Network::Socket::WinSocket::Stop();
+#endif
     return 0;
 }

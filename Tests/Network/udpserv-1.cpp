@@ -16,6 +16,7 @@
 #elif _WIN32
 #include <c++/iostream>
  #include <Network/Socket/WinSocket.hpp>
+ #include <c++/limits>
 
 #endif
 
