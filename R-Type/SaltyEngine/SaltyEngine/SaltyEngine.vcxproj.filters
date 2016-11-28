@@ -77,9 +77,6 @@
     <ClInclude Include="..\..\..\include\SaltyEngine\SaltyBehaviour.hpp">
       <Filter>Fichiers d%27en-tête\SaltyEngine</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\SaltyEngine\SaltyEngineSFML.hpp">
-      <Filter>Fichiers d%27en-tête\SaltyEngine</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\SaltyEngine\SaltyObj.hpp">
       <Filter>Fichiers d%27en-tête\SaltyEngine</Filter>
     </ClInclude>
@@ -125,12 +122,42 @@
     <ClInclude Include="..\..\..\include\Common\DllLoader.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\SaltyEngine\DefaultRenderer.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\SaltyEngine\IRenderer.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\SaltyEngine\IRect.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\SaltyEngine\Sprite.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\SaltyEngine\Texture.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\SaltyEngine\ASpriteRenderer.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\SaltyEngine\Config.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\SaltyEngine\IWindow.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\include\SaltyEngine\defaultReflection.inl">
       <Filter>Fichiers d%27en-tête\SaltyEngine</Filter>
     </None>
     <None Include="..\..\..\include\SaltyEngine\Saltyreflection.inl">
+      <Filter>Fichiers d%27en-tête\SaltyEngine</Filter>
+    </None>
+    <None Include="..\..\..\include\SaltyEngine\Prefabs.conf">
+      <Filter>Fichiers d%27en-tête\SaltyEngine</Filter>
+    </None>
+    <None Include="..\..\..\include\SaltyEngine\Layout.conf">
       <Filter>Fichiers d%27en-tête\SaltyEngine</Filter>
     </None>
   </ItemGroup>

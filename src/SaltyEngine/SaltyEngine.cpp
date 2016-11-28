@@ -1,3 +1,9 @@
+#ifdef _WIN32
+#include <direct.h>
+#else
+#include <dirent.h>
+#endif
+
 #include "SaltyEngine/SaltyEngine.hpp"
 
 namespace SaltyEngine
@@ -8,12 +14,14 @@ namespace SaltyEngine
 	 * @brief	Default constructor init m_fps at DEFAULT_FRAME_RATE.
 	 */
 
-	SaltyEngine::SaltyEngine()
+	SaltyEngine::SaltyEngine(): m_current(0)
 	{
+		m_renderer = new DefaultRenderer();
 		m_status = EngineStatus::stop;
 		m_fps = DEFAULT_FRAME_RATE;
 		std::chrono::duration<double> d(1.0 / m_fps);
 		m_frame_rate = std::chrono::duration_cast<std::chrono::nanoseconds>(d);
+		//LoadAssets();
 	}
 
 	/**
@@ -109,6 +117,8 @@ namespace SaltyEngine
 			m_scenes[m_current]->Update();
 			m_scenes[m_current]->CallCoroutines();
 			m_scenes[m_current]->OnGui();
+			m_scenes[m_current]->OnDestroy();
+			m_renderer->Display();
 		}
 	}
 
@@ -166,7 +176,7 @@ namespace SaltyEngine
 	bool SaltyEngine::LoadScene(const std::string & name)
 	{
 		size_t index = 0;
-		for (std::vector<std::unique_ptr<Scene>>::const_iterator it = m_scenes.begin(); it < m_scenes.end(); it++)
+		for (std::vector<std::unique_ptr<Scene>>::const_iterator it = m_scenes.begin(); it < m_scenes.end(); ++it)
 		{
 			if ((*it)->GetName() == name)
 				break;
@@ -218,6 +228,57 @@ namespace SaltyEngine
 	double SaltyEngine::GetFixedDeltaTime() const
 	{
 		return (1.0 / m_fps);
+	}
+
+	void SaltyEngine::SetRenderer(IRenderer *renderer)
+	{
+		if (m_renderer)
+			delete m_renderer;
+		m_renderer = renderer;
+	}
+
+	/**
+	 * \brief Will load all the assets contained in the folder
+	 */
+	void SaltyEngine::LoadAssets() noexcept
+	{
+#if _WIN32
+		WIN32_FIND_DATA findFileData;
+		HANDLE hFind;
+
+		CHAR str[256];
+		_getcwd(str, sizeof(str));
+
+		// Should open .
+		hFind = FindFirstFile(std::string(std::string(str) + "\\*").c_str(), &findFileData);
+
+		while (hFind != INVALID_HANDLE_VALUE)
+		{
+			std::cout << "Loading asset [" << findFileData.cFileName << "]" << std::endl;
+			std::cout << Factory::LoadAsset(findFileData.cFileName) << std::endl;
+			if (FindNextFile(hFind, &findFileData) == FALSE)
+				break;
+		}
+		FindClose(hFind);
+#else
+		DIR *dir;
+		struct dirent *ent;
+		if ((dir = opendir("./")) != NULL)
+		{
+			/* get all the files and directories within directory */
+			while ((ent = readdir(dir)) != NULL)
+			{
+				std::cout << "Loading asset [" << ent->d_name << "]" << std::endl;
+				Factory::LoadAsset(ent->d_name);
+			}
+			closedir(dir);
+		}
+		else
+		{
+			/* could not open directory */
+			perror("");
+		}
+#endif
 	}
 
 	/**

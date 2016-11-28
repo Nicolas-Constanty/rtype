@@ -63,7 +63,7 @@ public:
 
 class PINGPackageGame : public PackageGameHeader {
 public:
-    PINGPackageGame(int secret = 0, unsigned short sequenceID = 0, unsigned short transactionID = 0)
+    PINGPackageGame(unsigned short sequenceID = 0, int secret = 0, unsigned short transactionID = 0)
             : PackageGameHeader(true, sizeof(PINGPackageGame), sequenceID, GamePurpose::GAMEPING, transactionID) {
         this->secret = secret;
     }
@@ -74,13 +74,13 @@ public:
 
 class AUTHENTICATEPackageGame : public PackageGameHeader {
 public:
-    AUTHENTICATEPackageGame(int secret = 0, unsigned short sequenceID = 0, unsigned short transactionID = 0)
+    AUTHENTICATEPackageGame(unsigned short sequenceID = 0, unsigned int secret = 0, unsigned short transactionID = 0)
             : PackageGameHeader(true, sizeof(AUTHENTICATEPackageGame), sequenceID, GamePurpose::GAMEAUTHENTICATE, transactionID) {
         this->secret = secret;
     }
 
 public:
-    int secret;
+    unsigned int secret;
 };
 
 class ObjectIDPackageGame : public PackageGameHeader {
@@ -97,7 +97,8 @@ public:
 
 class CREATEPackageGame : public ObjectIDPackageGame {
 public:
-    CREATEPackageGame(int posX = 0, int posY = 0, unsigned short ID = 0, unsigned short sequenceID = 0, unsigned short objectID = 0, unsigned short transactionID = 0)
+    CREATEPackageGame(unsigned short sequenceID = 0, int posX = 0, int posY = 0, unsigned short ID = 0,
+                      unsigned short objectID = 0, unsigned short transactionID = 0)
             : ObjectIDPackageGame(sizeof(CREATEPackageGame), GamePurpose::GAMECREATE, sequenceID, objectID, true, transactionID) {
         this->posX = posX;
         this->posY = posY;
@@ -112,7 +113,7 @@ public:
 
 class STATUSPackageGame : public ObjectIDPackageGame {
 public:
-    STATUSPackageGame(int highScore, bool running, unsigned short sequenceID, unsigned short objectID, unsigned short transactionID = 0)
+    STATUSPackageGame(unsigned short transactionID, int highScore, bool running, unsigned short sequenceID, unsigned short objectID)
             : ObjectIDPackageGame(sizeof(STATUSPackageGame), GamePurpose::GAMESTATUS, sequenceID, objectID, false, transactionID) {
         this->highScore = highScore;
         this->run = (unsigned char)running;
@@ -130,7 +131,7 @@ public:
 
 class MOVEPackageGame : public ObjectIDPackageGame {
 public:
-    MOVEPackageGame(int posX = 0, int posY = 0, unsigned short sequenceID = 0, unsigned short objectID = 0,
+    MOVEPackageGame(unsigned short sequenceID = 0, int posX = 0, int posY = 0, unsigned short objectID = 0,
                     unsigned short transactionID = 0)
             : ObjectIDPackageGame(sizeof(MOVEPackageGame), GamePurpose::GAMEMOVE, sequenceID, objectID, false, transactionID) {
         this->posX = posX;

@@ -7,6 +7,7 @@
 #include <iostream>
 #include <string>
 #include <memory>
+#include <utility>
 #include "Vector2.hpp"
 #include "Common/ICloneable.hpp"
 #include "Factory.hpp"
@@ -26,7 +27,7 @@ namespace SaltyEngine
 		Object(Object&&) = delete;                  // Move construct
 		Object& operator=(Object const&) = delete;  // Copy assign
 		Object& operator=(Object &&) = delete;      // Move assign
-		Object(const std::string &name) : m_uid(++s_id), m_name(name) {};
+		explicit Object(const std::string &name) : m_uid(++s_id), m_name(name) {};
 		virtual ~Object() {};
 
 	public:
@@ -47,11 +48,22 @@ namespace SaltyEngine
 		}
 
 	public:
-		virtual std::unique_ptr<Object> Clone() {
-            return std::unique_ptr<Object>(new Object(m_name + "(Clone)"));
+		std::unique_ptr<Object> Clone() override
+		{
+#if _WIN32
+            return (std::make_unique<Object>(m_name + "(Clone)"));
+#else
+			return (std::unique_ptr<Object>(new Object(m_name + "(Clone)")));
+#endif
         }
-		virtual std::unique_ptr<Object> CloneMemberwise() {
-            return std::unique_ptr<Object>(new Object(m_name + "(Clone)"));
+
+		std::unique_ptr<Object> CloneMemberwise() override
+		{
+#if _WIN32
+            return (std::make_unique<Object>(m_name + "(Clone)"));
+#else
+			return (std::unique_ptr<Object>(new Object(m_name + "(Clone)")));
+#endif
         }
 
 	public:
@@ -65,6 +77,8 @@ namespace SaltyEngine
 			return Factory::GetObjectsOfType<Type>();
 		}
 	};
+
+#define Instantiate(x, ...) Object::Instantiate(x, ## __VA_ARGS__)
 }
 
 #endif // !OBJECT_HPP_

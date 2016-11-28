@@ -5,7 +5,7 @@
 #ifndef RTYPE_ROOMPACKAGEFACTORY_HPP
 #define RTYPE_ROOMPACKAGEFACTORY_HPP
 
-#include <vector>
+#include <list>
 #include "ProtocolRoomPackage.hpp"
 
 class RoomPackageFactory {
@@ -23,7 +23,7 @@ public:
     }
 
 private:
-    std::vector<PackageRoomHeader *> _vec;
+    std::list<PackageRoomHeader *> _vec;
 };
 
 #endif //RTYPE_ROOMPACKAGEFACTORY_HPP

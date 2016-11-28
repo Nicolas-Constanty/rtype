@@ -75,7 +75,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)..\Dependencies\SFML\Win\include</IncludePath>
+    <IncludePath>$(SolutionDir)..\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)..\Dependencies\SFML\Win\include</IncludePath>
+    <LibraryPath>$(SolutionDir)..\Dependencies\SFML\Win\x64\Debug;$(LibraryPath);$(SolutionDir)x64\Debug</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -111,6 +112,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>sfml-audio-d.lib;sfml-graphics-d.lib;sfml-network-d.lib;sfml-system-d.lib;sfml-window-d.lib;SaltyEngine.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -150,6 +152,36 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\include\SaltyEngine\GUI\UIBehaviour.cpp" />
+    <ClCompile Include="..\..\src\SaltyEngine\Debug.cpp" />
+    <ClCompile Include="..\..\src\SaltyEngine\GUI\Button.cpp" />
+    <ClCompile Include="..\..\src\SaltyEngine\GUI\Event.cpp" />
+    <ClCompile Include="..\..\src\SaltyEngine\GUI\Widget.cpp" />
+    <ClCompile Include="..\..\src\SaltyEngine\SFML\Renderer.cpp" />
+    <ClCompile Include="..\..\Test\GUI\main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\SaltyEngine\Debug.hpp" />
+    <ClInclude Include="..\..\include\SaltyEngine\GUI\Button.hpp" />
+    <ClInclude Include="..\..\include\SaltyEngine\GUI\Event.hpp" />
+    <ClInclude Include="..\..\include\SaltyEngine\GUI\IDeselectHandler.hpp" />
+    <ClInclude Include="..\..\include\SaltyEngine\GUI\IEventSystemHandler.hpp" />
+    <ClInclude Include="..\..\include\SaltyEngine\GUI\IMoveHandler.hpp" />
+    <ClInclude Include="..\..\include\SaltyEngine\GUI\IPointerDownHandler.hpp" />
+    <ClInclude Include="..\..\include\SaltyEngine\GUI\IPointerEnterHandler.hpp" />
+    <ClInclude Include="..\..\include\SaltyEngine\GUI\IPointerExitHandler.hpp" />
+    <ClInclude Include="..\..\include\SaltyEngine\GUI\IPointerUpHandler.hpp" />
+    <ClInclude Include="..\..\include\SaltyEngine\GUI\ISelectHandler.hpp" />
+    <ClInclude Include="..\..\include\SaltyEngine\GUI\ISubmitHandler.hpp" />
+    <ClInclude Include="..\..\include\SaltyEngine\GUI\Selectable.hpp" />
+    <ClInclude Include="..\..\include\SaltyEngine\GUI\UIBehaviour.hpp" />
+    <ClInclude Include="..\..\include\SaltyEngine\GUI\Widget.hpp" />
+    <ClInclude Include="..\..\include\SaltyEngine\SFML\Rect.hpp" />
+    <ClInclude Include="..\..\include\SaltyEngine\SFML\Renderer.hpp" />
+    <ClInclude Include="..\..\include\SaltyEngine\SFML\Sprite.hpp" />
+    <ClInclude Include="..\..\include\SaltyEngine\SFML\SpriteRenderer.hpp" />
+    <ClInclude Include="..\..\include\SaltyEngine\SFML\Texture.hpp" />
+    <ClInclude Include="..\..\include\SaltyEngine\SFML\Window.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -12,6 +12,7 @@ a.out
 *.db
 *.opendb
 *.db
+.idea/*
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
@@ -227,3 +228,5 @@ _Pvt_Extensions
 
 cmake-build-debug/
 *.o
+.idea
+>>>>>>> 694f00bfd458609511d59e5bb3e7259465b6d88f

@@ -8,6 +8,7 @@
 #include <numeric>
 #include <chrono>
 #include <memory>
+#include "SaltyEngine/DefaultRenderer.hpp"
 
 
 #define DEFAULT_FRAME_RATE 60
@@ -27,7 +28,7 @@ namespace SaltyEngine
 	{
 	public:
 		SaltyEngine();
-		~SaltyEngine();
+		virtual ~SaltyEngine();
 
 		void Start();
 		void Stop();
@@ -39,9 +40,13 @@ namespace SaltyEngine
 		void operator<<(Scene *scene);
 		long long GetDeltaTime() const;
 		double GetFixedDeltaTime() const;
+		void SetRenderer(IRenderer *renderer);
 
 	/*public:
 		static std::string const Tag[];*/
+
+	private:
+		void LoadAssets() noexcept;
 
 	private:
 		EngineStatus						m_status;
@@ -50,15 +55,9 @@ namespace SaltyEngine
 		std::chrono::nanoseconds			m_frame_rate;
 		size_t								m_fps;
 		std::chrono::duration<long long, std::nano> m_delta_time;
+		IRenderer							*m_renderer;
 	};
 }
-//
-//namespace SaltyEngine
-//{
-//	std::string const SaltyEngine::Tag[] = {
-//		#include "Tag.conf"
-//	};
-//}
 
 #include "SaltyEngine/Scene.hpp"
 

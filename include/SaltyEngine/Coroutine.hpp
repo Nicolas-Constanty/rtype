@@ -62,7 +62,7 @@ namespace coroutine {
 		bool finished;
 		LPVOID fiber;
 
-		Routine(std::function<void()> f)
+		explicit Routine(std::function<void()> f)
 		{
 			func = f;
 			finished = false;
@@ -83,7 +83,7 @@ namespace coroutine {
 		size_t stack_size;
 		LPVOID fiber;
 
-		Ordinator(size_t ss = STACK_LIMIT)
+		explicit Ordinator(size_t ss = STACK_LIMIT)
 		{
 			current = 0;
 			stack_size = ss;

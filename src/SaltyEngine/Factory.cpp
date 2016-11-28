@@ -2,13 +2,13 @@
 #include "SaltyEngine/Object.hpp"
 #include "SaltyEngine/GameObject.hpp"
 
-
 namespace SaltyEngine {
-    std::map<std::string, Object *> Factory::m_prefabs = {
-    	{"DefaultMonster", new GameObject("DefaultMonster")},
-		{"Mutant", new GameObject("Mutant")},
-		{"Script", new SaltyBehaviour(nullptr)}
-    };
+
+	std::map<std::string, Object *> Factory::m_prefabs = {
+#include "SaltyEngine/Prefabs.conf"
+		{ "Script", new SaltyBehaviour(nullptr) }
+	};
+    
     std::list<std::shared_ptr<Object> > Factory::m_objects;
 
     Factory::~Factory() {
@@ -23,8 +23,14 @@ namespace SaltyEngine {
         return m_objects.front();
     }
 
-	bool Factory::LoadAsset(std::string const& path)
+	bool Factory::LoadAsset(std::string const& name)
 	{
-		return false;
+        if (m_prefabs.find(name) != m_prefabs.end())
+        {
+            std::cerr << "Prefab [" << name << "] already in prefab list." << std::endl;
+            return false;
+        }
+        m_prefabs[name] = new GameObject(name);
+		return true;
 	}
 }

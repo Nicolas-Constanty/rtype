@@ -20,7 +20,7 @@ namespace SaltyEngine
 		GameObject(GameObject&&) = delete;                  // Move construct
 		GameObject& operator=(GameObject const&) = delete;  // Copy assign
 		GameObject& operator=(GameObject &&) = delete;      // Move assign
-		GameObject(const std::string &name);
+		explicit GameObject(const std::string &name);
 		virtual ~GameObject() {};
 	public:
 		Transform transform;
@@ -30,30 +30,63 @@ namespace SaltyEngine
 		size_t layer;
 		Scene *scene;
 		std::string m_tag;
-		std::list<Component *> m_components;
+		std::list<std::unique_ptr<Component>> m_components;
+		std::list<SaltyBehaviour *> m_behaviour;
+		size_t						m_bcount;
 
+	public:
+		bool GetActiveSelf() const;
+
+	protected:
+		template<typename T, typename... Args>
+		std::unique_ptr<T> make_unique(Args&&... args) {
+			return std::unique_ptr<T>(new T(std::forward<Args>(args)...));
+		}
 	public:
 		template<class T>
 		T *AddComponent()
 		{
-			T *component = new T(this);
-			m_components.push_back(component);
-			return (component);
+			m_components.push_back(make_unique<T>(this));
+			SaltyBehaviour *tmp = dynamic_cast<SaltyBehaviour *>(m_components.back().get());
+			if (tmp)
+			{
+				++m_bcount;
+				m_behaviour.push_back(tmp);
+			}
+			return (dynamic_cast<T *>(m_components.back().get()));
 		}
 		template<class T>
 		T *AddComponent(const std::string &name)
 		{
-			T *component = new T(name, this);
-			m_components.push_back(component);
-			return (component);
+			m_components.push_back(make_unique<T>(this));
+			SaltyBehaviour *tmp = dynamic_cast<SaltyBehaviour *>(m_components.back().get());
+			if (tmp)
+			{
+				++m_bcount;
+				m_behaviour.push_back(tmp);
+			}
+			return (dynamic_cast<T *>(m_components.back().get()));
 		}
-		bool CompareTag(const std::string &tag);
+
+		template<class T, class ... Args>
+		T *AddComponent(Args &&... args)
+		{
+			m_components.push_back(make_unique<T>(this, args...));
+			SaltyBehaviour *tmp = dynamic_cast<SaltyBehaviour *>(m_components.back().get());
+			if (tmp)
+			{
+				++m_bcount;
+				m_behaviour.push_back(tmp);
+			}
+			return (dynamic_cast<T *>(m_components.back().get()));
+		}
+		bool CompareTag(const std::string &tag) const;
 		template<class T>
 		T GetComponent()
 		{
-			for (std::list<Component *>::const_iterator it = m_components.begin(); it != m_components.end(); it++)
+			for (std::list<std::unique_ptr<Component>>::const_iterator it = m_components.begin(); it != m_components.end(); ++it)
 			{
-				if (typeid(**it) == typeid(T))
+				if (typeid(*(*it).get()) == typeid(T))
 				{
 					return (*it);
 				}
@@ -64,7 +97,7 @@ namespace SaltyEngine
 		T GetComponentInChildren()
 		{
 			std::vector<Transform *> children = transform.GetChildren();
-			for (std::vector<Transform *>::const_iterator child = children.begin(); child != children.end(); child++)
+			for (std::vector<Transform *>::const_iterator child = children.begin(); child != children.end(); ++child)
 			{
 				T comp = (*child)->gameObject->GetComponent<T>();
 				if (comp != nullptr)
@@ -83,11 +116,11 @@ namespace SaltyEngine
 		std::list<T> GetComponentsExactType()
 		{
 			std::list<T> list;
-			for (std::list<Component *>::const_iterator it = m_components.begin(); it != m_components.end(); it++)
+			for (std::list<std::unique_ptr<Component>>::const_iterator it = m_components.begin(); it != m_components.end(); ++it)
 			{
-				if (typeid(**it) == typeid(T))
+				if (typeid(*(*it).get()) == typeid(T))
 				{
-					list.push_back(dynamic_cast<T>(*it));
+					list.push_back(dynamic_cast<T>((*it).get()));
 				}
 			}
 			return (list);
@@ -97,9 +130,9 @@ namespace SaltyEngine
 		std::list<T> GetComponents()
 		{
 			std::list<T> list;
-			for (std::list<Component *>::const_iterator it = m_components.begin(); it != m_components.end(); it++)
+			for (std::list<std::unique_ptr<Component>>::const_iterator it = m_components.begin(); it != m_components.end(); ++it)
 			{
-				SaltyBehaviour *tmp = dynamic_cast<T>(*it);
+				SaltyBehaviour *tmp = dynamic_cast<T>((*it).get());
 				if (tmp)
 				{
 					list.push_back(tmp);
@@ -108,15 +141,21 @@ namespace SaltyEngine
 			return (list);
 		}
 
+		const std::list<SaltyBehaviour *> &GetSaltyBehaviour() const
+		{
+			return (m_behaviour);
+		}
+
 		template<class T>
 		std::list<T> GetComponentsInChildren()
 		{
 			std::list<T> list;
 			std::vector<Transform *> children = transform.GetChildren();
-			for (std::vector<Transform *>::const_iterator child = children.begin(); child != children.end(); child++)
+			for (std::vector<Transform *>::const_iterator child = children.begin(); child != children.end(); ++child)
 			{
                 (*child)->gameObject->GetComponents<T>();
 			}
+			return (list);
 		}
 
 		template<class T>

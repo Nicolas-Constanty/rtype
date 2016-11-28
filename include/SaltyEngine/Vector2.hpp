@@ -13,8 +13,8 @@ namespace SaltyEngine
 	{
 	public:
 		BaseVector2() {
-			x = (T)0;
-			y = (T)0;
+			x = static_cast<T>(0);
+			y = static_cast<T>(0);
 		}
 		BaseVector2(T _x, T _y) {
 			x = _x;
@@ -32,9 +32,9 @@ namespace SaltyEngine
 			y += vec.y;
 		}
 
-		static const BaseVector2<T> zero()
+		static BaseVector2<T> zero()
 		{
-			return BaseVector2<T>((T)0, (T)0);
+			return BaseVector2<T>(static_cast<T>(0), static_cast<T>(0));
 		}
 		
 		friend std::ostream &operator<<(std::ostream &os, BaseVector2<T> const &obj) {
@@ -44,7 +44,7 @@ namespace SaltyEngine
 
 	;
 	typedef  BaseVector2<float> Vector2f;
-	typedef  BaseVector2<int> Vector2fi;
+	typedef  BaseVector2<int> Vector2i;
 	typedef  BaseVector2<double> Vector2d;
 
 #ifndef GAME2D
