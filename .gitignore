@@ -224,3 +224,5 @@ FakesAssemblies/
 _Pvt_Extensions
 
 cmake-build-debug
+*.o
+.idea
