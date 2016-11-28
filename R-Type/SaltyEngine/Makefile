@@ -39,7 +39,7 @@ CPPFLAGS 	=   -W -Wall -g -Wextra -std=c++11 -fPIC
 
 CPPFLAGS    +=  -I $(INC_DIR)
 
-LDFLAGS	=   -lpthread -ldl
+LDFLAGS	=   -lpthread -ldl -lsfml-graphics -lsfml-window -lsfml-system
 
 OBJ		= 	$(SRC:.cpp=.o)
 
