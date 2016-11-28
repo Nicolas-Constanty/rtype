@@ -25,6 +25,7 @@ namespace SaltyEngine
 				: sf::Sprite(*texture),
 				::SaltyEngine::Sprite<sf::Vector2i>(dynamic_cast<::SaltyEngine::Texture<sf::Vector2i> *>(texture), rect, "SFMLSprite")
 			{
+				setTextureRect(*rect);
 			}
 		};
 	}

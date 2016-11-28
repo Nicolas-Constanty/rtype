@@ -80,6 +80,7 @@ namespace SaltyEngine
 			time_start = std::chrono::high_resolution_clock::now();
 			lag += std::chrono::duration_cast<std::chrono::nanoseconds>(m_delta_time);
 			// Control Frame Rate
+
 			while (lag >= m_frame_rate)
 			{
 				//std::cout << "FixedUpdate" << std::endl;

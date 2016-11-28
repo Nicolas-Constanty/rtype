@@ -104,7 +104,7 @@
     <ClCompile>
       <PrecompiledHeader>
       </PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
@@ -176,6 +176,8 @@
     <ClInclude Include="..\..\include\SaltyEngine\GUI\Selectable.hpp" />
     <ClInclude Include="..\..\include\SaltyEngine\GUI\UIBehaviour.hpp" />
     <ClInclude Include="..\..\include\SaltyEngine\GUI\Widget.hpp" />
+    <ClInclude Include="..\..\include\SaltyEngine\SFML\Button.hpp" />
+    <ClInclude Include="..\..\include\SaltyEngine\SFML\Graphics.hpp" />
     <ClInclude Include="..\..\include\SaltyEngine\SFML\Rect.hpp" />
     <ClInclude Include="..\..\include\SaltyEngine\SFML\Renderer.hpp" />
     <ClInclude Include="..\..\include\SaltyEngine\SFML\Sprite.hpp" />

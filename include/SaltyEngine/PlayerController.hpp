@@ -13,7 +13,7 @@ namespace SaltyEngine {
 		explicit PlayerController(GameObject* const gamObj);
 		PlayerController(const std::string &name, GameObject* const gamObj);
 		void Start();
-//		void FixedUpdate();
+		void FixedUpdate();
 		void DisplayCoroutine();
 		double speed;
 	};
