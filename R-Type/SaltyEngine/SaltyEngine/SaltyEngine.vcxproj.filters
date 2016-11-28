@@ -146,6 +146,12 @@
     <ClInclude Include="..\..\..\include\SaltyEngine\IWindow.hpp">
       <Filter>Fichiers d%27en-tête\SaltyEngine</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\SaltyEngine\Engine.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\SaltyEngine\Graphics.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\include\SaltyEngine\defaultReflection.inl">

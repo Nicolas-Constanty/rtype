@@ -172,7 +172,9 @@
     <ClInclude Include="..\..\..\include\Common\Singleton.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\Config.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\DefaultRenderer.hpp" />
+    <ClInclude Include="..\..\..\include\SaltyEngine\Engine.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\Factory.hpp" />
+    <ClInclude Include="..\..\..\include\SaltyEngine\Graphics.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\IRect.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\IRenderer.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\IWindow.hpp" />

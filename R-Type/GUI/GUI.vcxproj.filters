@@ -113,9 +113,6 @@
     <ClInclude Include="..\..\include\SaltyEngine\SFML\Sprite.hpp">
       <Filter>Fichiers d%27en-tête\SaltyEngine\SFML</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\SaltyEngine\SFML\Rect.hpp">
-      <Filter>Fichiers d%27en-tête\SaltyEngine\SFML</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\SaltyEngine\SFML\Texture.hpp">
       <Filter>Fichiers d%27en-tête\SaltyEngine\SFML</Filter>
     </ClInclude>
@@ -127,6 +124,12 @@
     </ClInclude>
     <ClInclude Include="..\..\include\SaltyEngine\SFML\Button.hpp">
       <Filter>Fichiers d%27en-tête\SaltyEngine\SFML</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\SFML\Graphics.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine\SFML</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\SFML\Rect.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine\GUI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
