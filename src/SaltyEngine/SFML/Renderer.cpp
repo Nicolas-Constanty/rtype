@@ -1,6 +1,7 @@
 #include "SaltyEngine/SFML/Renderer.hpp"
 #include "SaltyEngine/SFML/Window.hpp"
 #include "SaltyEngine/Debug.hpp"
+#include "SaltyEngine/GameObject.hpp"
 
 namespace SaltyEngine
 {
@@ -53,7 +54,10 @@ namespace SaltyEngine
 				{
 					Sprite *s = dynamic_cast<Sprite *>((*sprr)->GetSprite());
 					if (s != nullptr)
+					{
+						s->setPosition((*sprr)->gameObject->transform.position.x, (*sprr)->gameObject->transform.position.y);
 						m_window->draw(*s);
+					}
 				}
 			}
 		}

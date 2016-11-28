@@ -46,7 +46,7 @@ clean	:
 	$(RM) $(OBJ)
 
 fclean	: 	clean
-	$(RM) $(NAME)
+	$(RM) $(NAME) $(LIBNAME)
 
 re		: 	fclean all
 

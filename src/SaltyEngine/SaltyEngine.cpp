@@ -2,9 +2,13 @@
 #include <direct.h>
 #else
 #include <dirent.h>
+#include <SaltyEngine/Constants.hpp>
+#include <zconf.h>
+
 #endif
 
 #include "SaltyEngine/SaltyEngine.hpp"
+#include <SaltyEngine/Constants.hpp>
 
 namespace SaltyEngine
 {
@@ -21,7 +25,7 @@ namespace SaltyEngine
 		m_fps = DEFAULT_FRAME_RATE;
 		std::chrono::duration<double> d(1.0 / m_fps);
 		m_frame_rate = std::chrono::duration_cast<std::chrono::nanoseconds>(d);
-		//LoadAssets();
+		LoadAssets();
 	}
 
 	/**
@@ -80,6 +84,7 @@ namespace SaltyEngine
 			time_start = std::chrono::high_resolution_clock::now();
 			lag += std::chrono::duration_cast<std::chrono::nanoseconds>(m_delta_time);
 			// Control Frame Rate
+
 			while (lag >= m_frame_rate)
 			{
 				//std::cout << "FixedUpdate" << std::endl;
@@ -245,17 +250,22 @@ namespace SaltyEngine
 #if _WIN32
 		WIN32_FIND_DATA findFileData;
 		HANDLE hFind;
-
 		CHAR str[256];
+
 		_getcwd(str, sizeof(str));
 
-		// Should open .
 		hFind = FindFirstFile(std::string(std::string(str) + "\\*").c_str(), &findFileData);
 
 		while (hFind != INVALID_HANDLE_VALUE)
 		{
-			std::cout << "Loading asset [" << findFileData.cFileName << "]" << std::endl;
-			std::cout << Factory::LoadAsset(findFileData.cFileName) << std::endl;
+			std::string assetName = std::string(findFileData.cFileName);
+			if (assetName.length() >= Asset::LIB_EXTENSION.length()
+				&& assetName.compare(assetName.length() - Asset::LIB_EXTENSION.length(), Asset::LIB_EXTENSION.length(), Asset::LIB_EXTENSION) == 0)
+			{
+				std::cout << "Loading asset [" << assetName << "]" << std::endl;
+				std::string assetPath = std::string(str) + "/" + assetName;
+				Factory::LoadAsset(assetPath);
+			}
 			if (FindNextFile(hFind, &findFileData) == FALSE)
 				break;
 		}
@@ -263,13 +273,23 @@ namespace SaltyEngine
 #else
 		DIR *dir;
 		struct dirent *ent;
-		if ((dir = opendir("./")) != NULL)
+        char str[256];
+
+        getcwd(str, sizeof(str));
+
+		if ((dir = opendir(Asset::ASSET_PATH.c_str())) != NULL)
 		{
 			/* get all the files and directories within directory */
 			while ((ent = readdir(dir)) != NULL)
 			{
-				std::cout << "Loading asset [" << ent->d_name << "]" << std::endl;
-				Factory::LoadAsset(ent->d_name);
+                std::string assetName = std::string(ent->d_name);
+                if (assetName.length() >= Asset::LIB_EXTENSION.length()
+                    && assetName.compare(assetName.length() - Asset::LIB_EXTENSION.length(), Asset::LIB_EXTENSION.length(), Asset::LIB_EXTENSION) == 0)
+                {
+                    std::cout << "Loading asset [" << assetName << "]" << std::endl;
+                    std::string assetPath = std::string(str) + "/" + assetName;
+                    Factory::LoadAsset(assetPath);
+                }
 			}
 			closedir(dir);
 		}
