@@ -16,7 +16,7 @@ namespace SaltyEngine {
 		{
 			return nullptr;
 		}
-        m_objects.push_front(m_prefabs[name]->Clone());
+        m_objects.push_front(m_prefabs[name]->CloneMemberwise());
         return m_objects.front();
     }
 

@@ -254,7 +254,7 @@ namespace SaltyEngine
 
 		_getcwd(str, sizeof(str));
 
-		hFind = FindFirstFile(std::string(std::string(str) + "\\*").c_str(), &findFileData);
+		hFind = FindFirstFile(std::string(std::string(str) + Asset::ASSET_PATH + "\\*").c_str(), &findFileData);
 
 		while (hFind != INVALID_HANDLE_VALUE)
 		{
@@ -263,7 +263,7 @@ namespace SaltyEngine
 				&& assetName.compare(assetName.length() - Asset::LIB_EXTENSION.length(), Asset::LIB_EXTENSION.length(), Asset::LIB_EXTENSION) == 0)
 			{
 				std::cout << "Loading asset [" << assetName << "]" << std::endl;
-				std::string assetPath = std::string(str) + "/" + assetName;
+				std::string assetPath = std::string(str) + Asset::ASSET_PATH + "\\" + assetName;
 				Factory::LoadAsset(assetPath);
 			}
 			if (FindNextFile(hFind, &findFileData) == FALSE)
@@ -277,7 +277,7 @@ namespace SaltyEngine
 
         getcwd(str, sizeof(str));
 
-		if ((dir = opendir(Asset::ASSET_PATH.c_str())) != NULL)
+		if ((dir = opendir(std::string(std::string(str) + Asset::ASSET_PATH).c_str())) != NULL)
 		{
 			/* get all the files and directories within directory */
 			while ((ent = readdir(dir)) != NULL)
@@ -287,7 +287,7 @@ namespace SaltyEngine
                     && assetName.compare(assetName.length() - Asset::LIB_EXTENSION.length(), Asset::LIB_EXTENSION.length(), Asset::LIB_EXTENSION) == 0)
                 {
                     std::cout << "Loading asset [" << assetName << "]" << std::endl;
-                    std::string assetPath = std::string(str) + "/" + assetName;
+                    std::string assetPath = std::string(str) + Asset::ASSET_PATH + "/" + assetName;
                     Factory::LoadAsset(assetPath);
                 }
 			}

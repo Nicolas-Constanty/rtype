@@ -2,12 +2,13 @@
 #include "SaltyEngine/SFML/Window.hpp"
 #include "SaltyEngine/Debug.hpp"
 #include "SaltyEngine/GameObject.hpp"
+#include "Common/MakeUnique.hpp"
 
 namespace SaltyEngine
 {
 	namespace SFML
 	{
-		Renderer::Renderer(sf::VideoMode& vm, const std::string& name) : m_window(std::make_unique<sf::RenderWindow>(vm, name))
+		Renderer::Renderer(sf::VideoMode& vm, const std::string& name) : m_window(make_unique<sf::RenderWindow>(vm, name))
 		{
 		}
 

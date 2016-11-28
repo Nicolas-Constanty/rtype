@@ -16,43 +16,43 @@ namespace SaltyEngine {
         template <class Input>
         class InputManager {
         public:
-            static bool GetKey(KeyCode::Key key) {
-                Input::isKey(key);
+            static inline bool GetKey(KeyCode::Key key) {
+                return Input::IsKey(key);
             }
 
-            static bool GetKeyDown(KeyCode::Key key) {
-                Input::isKeyDown(key);
+            static inline bool GetKeyDown(KeyCode::Key key) {
+                return Input::IsKeyDown(key);
             }
 
-            static bool GetKeyUp(KeyCode::Key key) {
-                Input::isKeyUp(key);
+            static inline bool GetKeyUp(KeyCode::Key key) {
+                return Input::isKeyUp(key);
             }
 
-            static bool GetKey(std::string const &key) {
-                GetKey(m_keycodes.find(key)->second);
+            static inline bool GetKey(std::string const &key) {
+                return GetKey(m_keycodes.find(key)->second);
             }
 
-            static bool GetKeyDown(std::string const &key) {
-                GetKeyDown(m_keycodes.find(key)->second);
+            static inline bool GetKeyDown(std::string const &key) {
+                return GetKeyDown(m_keycodes.find(key)->second);
             }
 
-            static bool GetKeyUp(const std::string &key) {
-                GetKeyUp(m_keycodes.find(key)->second);
+            static inline bool GetKeyUp(const std::string &key) {
+                return GetKeyUp(m_keycodes.find(key)->second);
             }
 
-            static std::vector<KeyCode::Key>    GetCurrentKeys() {
+            static inline std::vector<KeyCode::Key>    GetCurrentKeys() {
                 return Input::GetCurrentKeys();
             }
 
-            static bool     GetButtonPressed(Mouse::Button button) {
+            static inline bool     GetButtonPressed(Mouse::Button button) {
                 return Input::GetButtonPressed(button);
             }
 
-            static Vector2i GetPosition() {
+            static inline Vector2i GetPosition() {
                 return Input::GetPosition();
             }
 
-            static Vector2i GetPositionRelative() {
+            static inline Vector2i GetPositionRelative() {
                 return Input::GetPositionRelative();
             }
         };
