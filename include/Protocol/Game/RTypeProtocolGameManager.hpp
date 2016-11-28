@@ -25,9 +25,10 @@ public:
             return (this->purposeID == gameID.purposeID && this->size == gameID.size);
         }
 
-        bool operator=(GameID const &gameID) {
+        GameID &operator=(GameID const &gameID) {
             this->size = gameID.size;
             this->purposeID = gameID.purposeID;
+            return *this;
         }
 
         bool operator<(GameID const &gameID) const {

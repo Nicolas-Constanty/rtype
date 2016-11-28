@@ -73,10 +73,6 @@ bool Network::Socket::ASocket::operator==(ISocket const &ref) const
 {
     ASocket const *sock = dynamic_cast<ASocket const *>(&ref);
 
-    std::cout << "comparing: " << std::endl;
-    std::cout << "   ip: " << sockaddr.sin_addr.s_addr << " vs " << sock->sockaddr.sin_addr.s_addr << std::endl;
-    std::cout << "   port: " << sockaddr.sin_port << " vs " << sockaddr.sin_port << std::endl;
-
     return sock &&
             sockaddr.sin_addr.s_addr == sock->sockaddr.sin_addr.s_addr &&
             sockaddr.sin_family == sock->sockaddr.sin_family &&

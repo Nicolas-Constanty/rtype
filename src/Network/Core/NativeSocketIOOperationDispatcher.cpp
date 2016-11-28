@@ -108,19 +108,19 @@ void Network::Core::NativeSocketIOOperationDispatcher::HandleOperations()
     if (m_timeout.get() != NULL)
         timeout.reset(new struct timeval(*m_timeout.get()));
 
-    std::cout << "  ==> read " << m_readWatch.size() << std::endl;
-    for (Socket::ISockStreamHandler *curr : m_readWatch)
-        std::cout << "     - " << curr << std::endl;
-    std::cout << "  ==> write " << m_writeWatch.size() << std::endl;
-    for (Socket::ISockStreamHandler *curr : m_writeWatch)
-        std::cout << "     - " << curr << std::endl;
-    std::cout << std::endl;
+//    std::cout << "  ==> read " << m_readWatch.size() << std::endl;
+//    for (Socket::ISockStreamHandler *curr : m_readWatch)
+//        std::cout << "     - " << curr << std::endl;
+//    std::cout << "  ==> write " << m_writeWatch.size() << std::endl;
+//    for (Socket::ISockStreamHandler *curr : m_writeWatch)
+//        std::cout << "     - " << curr << std::endl;
+//    std::cout << std::endl;
 
     if (select(std::max(bindFdsToSet(readset, m_readWatch), bindFdsToSet(writeset, m_writeWatch)) + 1, &readset, &writeset, NULL, timeout.get()) == -1)
         throw std::runtime_error("Select fails");
     performOperations(readset, NativeSocketIOOperationDispatcher::read);
     performOperations(writeset, NativeSocketIOOperationDispatcher::write);
-    std::cout << std::endl << std::endl;
+//    std::cout << std::endl << std::endl;
 }
 
 /**
@@ -152,21 +152,21 @@ void Network::Core::NativeSocketIOOperationDispatcher::performOperations(fd_set 
 {
     std::list<Socket::ISockStreamHandler *>  tmp = this->*operation.watched;
 
-    std::cout << "  ===" << operation.name << "(" << tmp.size() << ")===" << std::endl << std::endl;
+//    std::cout << "  ===" << operation.name << "(" << tmp.size() << ")===" << std::endl << std::endl;
     for (Socket::ISockStreamHandler *curr : tmp)
     {
-        std::cout << "    \x1b[33mChecking fd\x1b[0m: " << curr->getSocket().Native() << " >> ";
+//        std::cout << "    \x1b[33mChecking fd\x1b[0m: " << curr->getSocket().Native() << " >> ";
         if (FD_ISSET(curr->getSocket().Native(), &set))
         {
-            std::cout << "\x1b[32mOK\x1b[0m" << std::endl;
+//            std::cout << "\x1b[32mOK\x1b[0m" << std::endl;
             (this->*operation.watched).remove(curr);
             (curr->*operation.callback)();
         }
         else
         {
-            std::cout << "\x1b[31mKO\x1b[0m" << std::endl;
+//            std::cout << "\x1b[31mKO\x1b[0m" << std::endl;
         }
-        std::cout << std::endl;
+//        std::cout << std::endl;
     }
 }
 
@@ -176,20 +176,20 @@ void Network::Core::NativeSocketIOOperationDispatcher::performOperations(fd_set 
  */
 void Network::Core::NativeSocketIOOperationDispatcher::Run()
 {
-    std::cout << "Handling sigint" << std::endl;
+//    std::cout << "Handling sigint" << std::endl;
     signal(SIGINT, breakCatch);
     while (running)
     {
         try
         {
-            std::cout << "===Handling operations===" << std::endl;
+//            std::cout << "===Handling operations===" << std::endl;
             HandleOperations();
         }
         catch (std::runtime_error const &err){}
         usleep(30);
     }
     signal(SIGINT, SIG_DFL);
-    std::cout << "Leaving" << std::endl;
+//    std::cout << "Leaving" << std::endl;
 }
 
 /**

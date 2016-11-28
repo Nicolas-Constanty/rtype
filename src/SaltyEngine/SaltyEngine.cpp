@@ -3,7 +3,7 @@
 #else
 #include <dirent.h>
 #include <SaltyEngine/Constants.hpp>
-
+ #include <unistd.h>
 #endif
 
 #include "SaltyEngine/SaltyEngine.hpp"
@@ -84,6 +84,7 @@ namespace SaltyEngine
 			time_start = std::chrono::high_resolution_clock::now();
 			lag += std::chrono::duration_cast<std::chrono::nanoseconds>(m_delta_time);
 			m_even_manager->Update();
+            m_scenes[m_current]->OnStart();
 			// Control Frame Rate
 			while (lag >= m_frame_rate)
 			{
@@ -93,9 +94,7 @@ namespace SaltyEngine
 				{
 					if (m_status != EngineStatus::pause)
 					{
-						m_scenes[m_current]->OnStart();
-
-						m_scenes[m_current]->FixedUpdate();
+                        m_scenes[m_current]->FixedUpdate();
 
 						m_scenes[m_current]->OnTriggerEnter();
 						m_scenes[m_current]->OnTriggerExit();

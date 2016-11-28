@@ -1,3 +1,5 @@
+#ifdef _WIN32
+
 #include "Common/DllLoader.hpp"
 
 DllLoader::DllLoader(): m_inst(nullptr)
@@ -18,3 +20,5 @@ int DllLoader::Unload()
 {
 	return FreeLibrary(m_inst);
 }
+
+#endif
