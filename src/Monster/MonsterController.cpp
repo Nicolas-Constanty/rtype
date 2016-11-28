@@ -1,4 +1,3 @@
-//#include "Monster/stdafx.h"
 #include "Monster/MonsterController.hpp"
 
 
@@ -16,7 +15,7 @@ void MonsterController::Start()
 	std::cout << "STAAAART" << std::endl;
 }
 
-void MonsterController::Update()
+void MonsterController::FixedUpdate()
 {
-	std::cout << "Update monster" << std::endl;
+	gameObject->transform.Translate(SaltyEngine::Vector(1, 0));
 }

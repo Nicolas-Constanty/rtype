@@ -10,6 +10,6 @@ public:
 
 public:
 	void Start();
-	void Update();
+	void FixedUpdate();
 };
 
