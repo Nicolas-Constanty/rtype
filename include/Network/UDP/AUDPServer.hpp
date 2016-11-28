@@ -120,6 +120,7 @@ namespace Network
 
                 int ret;
 
+                buff.reset();
                 ret = sock.ReceiveFrom(buff, newclient->giveSocket());
                 if (ret > 0)
                 {
