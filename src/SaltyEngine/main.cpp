@@ -34,6 +34,7 @@ int main()
 	
 	// Push player in scene
 	*scene << player;
+	*scene << (SaltyEngine::GameObject *)gu.get();
 
 	// Push scene int SaltyEngine
 	Singleton<SaltyEngine::SaltyEngine>::Instance() << scene;

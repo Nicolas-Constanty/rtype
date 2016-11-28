@@ -57,6 +57,9 @@
     <ClCompile Include="..\..\..\src\Common\DllLoader.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\Monster\MonsterController.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\Common\Singleton.hpp">
