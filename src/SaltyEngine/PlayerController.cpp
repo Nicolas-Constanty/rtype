@@ -1,4 +1,8 @@
 #include "SaltyEngine/PlayerController.hpp"
+#include "SaltyEngine/SFML/EventManager.hpp"
+#include "SaltyEngine/Input/InputManager.hpp"
+
+typedef SaltyEngine::Input::InputManager<SaltyEngine::SFML::EventManager>  InputKey;
 
 namespace SaltyEngine
 {
@@ -18,9 +22,17 @@ namespace SaltyEngine
 
 	void PlayerController::FixedUpdate()
 	{
-		std::cout << "Fixed Update 60 fps" << std::endl;
-		gameObject->transform.Translate(Vector(0.5f, 1.0f) * Singleton<SaltyEngine>::Instance().GetFixedDeltaTime() * speed);
-        std::cout << gameObject->transform.position << std::endl;
+		//std::cout << "Fixed Update 60 fps" << std::endl;
+		
+		if (InputKey::GetKeyDown("S"))
+			gameObject->transform.Translate(Vector(0.0f, 1.0f)  * speed);
+		if (InputKey::GetKeyDown("Z"))
+			gameObject->transform.Translate(Vector(0.0f, -1.0f) * speed);
+		if (InputKey::GetKeyDown("D"))
+			gameObject->transform.Translate(Vector(1.0f, 0.0f) * speed);
+		if (InputKey::GetKeyDown("Q"))
+			gameObject->transform.Translate(Vector(-1.0f, 0.0f) * speed);
+        //std::cout << gameObject->transform.position << std::endl;
 	}
 
 	void PlayerController::DisplayCoroutine()

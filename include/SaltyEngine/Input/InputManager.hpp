@@ -8,7 +8,7 @@
 #include <string>
 #include <vector>
 #include <map>
-#include "KeyCodes.hpp"
+#include "SaltyEngine/Input/KeyCodes.hpp"
 
 namespace SaltyEngine {
     namespace Input {

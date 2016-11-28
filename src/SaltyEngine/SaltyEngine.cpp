@@ -3,7 +3,6 @@
 #else
 #include <dirent.h>
 #include <SaltyEngine/Constants.hpp>
-#include <zconf.h>
 
 #endif
 
@@ -21,6 +20,7 @@ namespace SaltyEngine
 	SaltyEngine::SaltyEngine(): m_current(0)
 	{
 		m_renderer = new DefaultRenderer();
+		m_even_manager = new Input::DefaultEventManager();
 		m_status = EngineStatus::stop;
 		m_fps = DEFAULT_FRAME_RATE;
 		std::chrono::duration<double> d(1.0 / m_fps);
@@ -83,8 +83,8 @@ namespace SaltyEngine
 			m_delta_time = std::chrono::high_resolution_clock::now() - time_start;
 			time_start = std::chrono::high_resolution_clock::now();
 			lag += std::chrono::duration_cast<std::chrono::nanoseconds>(m_delta_time);
+			m_even_manager->Update();
 			// Control Frame Rate
-
 			while (lag >= m_frame_rate)
 			{
 				//std::cout << "FixedUpdate" << std::endl;
@@ -240,6 +240,13 @@ namespace SaltyEngine
 		if (m_renderer)
 			delete m_renderer;
 		m_renderer = renderer;
+	}
+
+	void SaltyEngine::SetEventManager(Input::IEventManager * ev_manager)
+	{
+		if (m_even_manager)
+			delete m_even_manager;
+		m_even_manager = ev_manager;
 	}
 
 	/**

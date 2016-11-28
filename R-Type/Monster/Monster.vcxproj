@@ -27,8 +27,6 @@
   <ItemGroup>
     <ClInclude Include="..\..\include\Monster\Monster.hpp" />
     <ClInclude Include="..\..\include\Monster\MonsterController.hpp" />
-    <ClInclude Include="..\..\include\Monster\stdafx.h" />
-    <ClInclude Include="..\..\include\Monster\targetver.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{BCCE84AD-8B77-4FB8-BBC7-12F24AABBC08}</ProjectGuid>

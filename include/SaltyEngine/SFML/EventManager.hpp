@@ -8,16 +8,16 @@
 
 #include <map>
 #include <vector>
-#include <SFML/Window/Event.hpp>
-#include <SFML/Graphics/RenderWindow.hpp>
+#include <queue>
+#include <SFML/Graphics.hpp>
 #include <SaltyEngine/Vector2.hpp>
-#include "SaltyEngine/Input/InputManager.hpp"
 #include "SaltyEngine/Input/IEventManager.hpp"
+#include "SaltyEngine/Input/InputManager.hpp"
 
 
 namespace SaltyEngine {
     namespace SFML {
-        class EventManager : public Input::IEventManager {
+        class EventManager : public ::SaltyEngine::Input::IEventManager {
         public:
             EventManager(sf::RenderWindow *const window);
 
@@ -31,25 +31,25 @@ namespace SaltyEngine {
         public:
             void Update();
 
-            static bool IsKey(SaltyEngine::Input::KeyCode::Key key);
+            static bool IsKey(::SaltyEngine::Input::KeyCode::Key key);
 
-            static bool IsKeyDown(SaltyEngine::Input::KeyCode::Key key);
+            static bool IsKeyDown(::SaltyEngine::Input::KeyCode::Key key);
 
-            static bool IsKeyUp(SaltyEngine::Input::KeyCode::Key key);
+            static bool IsKeyUp(::SaltyEngine::Input::KeyCode::Key key);
 
-            static std::vector<SaltyEngine::Input::KeyCode::Key> GetCurrentKeys();
+            static std::vector<::SaltyEngine::Input::KeyCode::Key> GetCurrentKeys();
 
-            static bool GetButtonPressed(SaltyEngine::Input::Mouse::Button button);
+            static bool GetButtonPressed(::SaltyEngine::Input::Mouse::Button button);
 
-            static SaltyEngine::Vector2i GetPosition();
+            static Vector GetPosition();
 
-            static SaltyEngine::Vector2i GetPositionRelative();
+            static Vector GetPositionRelative();
 
-            static inline SaltyEngine::Input::KeyCode::Key GetKeyCode(sf::Keyboard::Key key) {
-                return (SaltyEngine::Input::KeyCode::Key(key + 1));
+            static inline ::SaltyEngine::Input::KeyCode::Key GetKeyCode(sf::Keyboard::Key key) {
+                return (::SaltyEngine::Input::KeyCode::Key(key + 1));
             }
 
-            static inline sf::Keyboard::Key GetKeyCode(SaltyEngine::Input::KeyCode::Key key) {
+            static inline sf::Keyboard::Key GetKeyCode(::SaltyEngine::Input::KeyCode::Key key) {
                 return (sf::Keyboard::Key(key - 1));
             }
         };

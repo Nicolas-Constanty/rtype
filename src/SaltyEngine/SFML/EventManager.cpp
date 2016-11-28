@@ -79,14 +79,14 @@ namespace SaltyEngine {
             return sf::Mouse::isButtonPressed(sf::Mouse::Button(button));
         }
 
-        SaltyEngine::Vector2i EventManager::GetPosition() {
+        SaltyEngine::Vector EventManager::GetPosition() {
             sf::Vector2i position = sf::Mouse::getPosition();
-            return SaltyEngine::Vector2i(position.x, position.y);
+            return SaltyEngine::Vector(position.x, position.y);
         }
 
-        SaltyEngine::Vector2i EventManager::GetPositionRelative() {
+        SaltyEngine::Vector EventManager::GetPositionRelative() {
             sf::Vector2i position = sf::Mouse::getPosition(*m_window);
-            return SaltyEngine::Vector2i(position.x, position.y);
+            return SaltyEngine::Vector(position.x, position.y);
         }
     }
 }

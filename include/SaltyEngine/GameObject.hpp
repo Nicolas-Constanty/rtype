@@ -42,7 +42,7 @@ namespace SaltyEngine
 		template<class T>
 		T *AddComponent()
 		{
-			m_components.push_back(make_unique<T>(this));
+			m_components.push_back(Make_unique<T>(this));
 			SaltyBehaviour *tmp = dynamic_cast<SaltyBehaviour *>(m_components.back().get());
 			if (tmp)
 			{
@@ -67,7 +67,7 @@ namespace SaltyEngine
 		template<class T, class ... Args>
 		T *AddComponent(Args &&... args)
 		{
-			m_components.push_back(make_unique<T>(this, args...));
+			m_components.push_back(Make_unique<T>(this, args...));
 			SaltyBehaviour *tmp = dynamic_cast<SaltyBehaviour *>(m_components.back().get());
 			if (tmp)
 			{
