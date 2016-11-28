@@ -39,6 +39,27 @@ namespace SaltyEngine
 
 		void CallCoroutines() const;
 
+	public:
+		virtual void Start() {};
+
+		virtual void FixedUpdate() {};
+
+		virtual void OnTriggerEnter() {};
+		virtual void OnTriggerExit() {};
+		virtual void OnTriggerStay() {};
+
+		virtual void OnCollisionEnter() {};
+		virtual void OnCollisionExit() {};
+		virtual void OnCollisionStay() {};
+
+		virtual void OnMouseEnter() {};
+		virtual void OnMouseExit() {};
+		virtual void OnMouseOver() {};
+
+		virtual void Update() {};
+		virtual void OnGui() {};
+		virtual void OnDestroy() {};
+
 	private:
 		bool					m_status;
 		std::mutex				m_mutex;

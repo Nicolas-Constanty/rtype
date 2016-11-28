@@ -91,7 +91,6 @@ namespace SaltyEngine
 				lag -= m_frame_rate;
 				if (!m_scenes.empty())
 				{
-					
 					if (m_status != EngineStatus::pause)
 					{
 						m_scenes[m_current]->OnStart();
