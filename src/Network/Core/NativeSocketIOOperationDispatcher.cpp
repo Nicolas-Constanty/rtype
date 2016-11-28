@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <stack>
 #include <iomanip>
+#include <poll.h>
 
 /**
  * \brief A Boolean variable used in <Run> method as conditional for the infinite server loop. Eq false on Crtl+C
@@ -189,6 +190,30 @@ void Network::Core::NativeSocketIOOperationDispatcher::Run()
     }
     signal(SIGINT, SIG_DFL);
     std::cout << "Leaving" << std::endl;
+}
+
+/**
+ * @brief Will call <select> on handled streams
+ */
+void Network::Core::NativeSocketIOOperationDispatcher::Poll()
+{
+    HandleOperations();
+}
+
+/**
+ * @brief Will perform check on <handler> parameter
+ * @param handler The handler to check
+ */
+void Network::Core::NativeSocketIOOperationDispatcher::Poll(Network::Socket::ISockStreamHandler &handler)
+{
+    struct pollfd   fd = {handler.getSocket().Native(), POLLIN | POLLOUT, 0};
+
+    if (poll(&fd, 1, 0) == -1)
+        return;
+    if (fd.revents & POLLIN)
+        handler.OnAllowedToRead();
+    if (fd.revents & POLLOUT)
+        handler.OnAllowedToWrite();
 }
 
 /**
