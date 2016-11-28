@@ -32,5 +32,5 @@ add_executable(udpserv-2 ${Networksrc} ${Networkinc} Tests/Network/udpserv-2.cpp
 IF(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
     target_link_libraries(udpserv-1 -lWs2_32)
     target_link_libraries(tcpserv-1 -lWs2_32)
-    target_link_libraries(tcpserv-2 -lWs2_32)
+    target_link_libraries(udpserv-2 -lWs2_32)
 ENDIF(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
