@@ -8,6 +8,7 @@
 #include <typeinfo>
 #include "SaltyEngine/Transform.hpp"
 #include "SaltyEngine/SaltyBehaviour.hpp"
+#include "Common/MakeUnique.hpp"
 
 namespace SaltyEngine
 {
@@ -37,11 +38,6 @@ namespace SaltyEngine
 	public:
 		bool GetActiveSelf() const;
 
-	protected:
-		template<typename T, typename... Args>
-		std::unique_ptr<T> make_unique(Args&&... args) {
-			return std::unique_ptr<T>(new T(std::forward<Args>(args)...));
-		}
 	public:
 		template<class T>
 		T *AddComponent()

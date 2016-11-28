@@ -18,16 +18,22 @@ MONSTER_DIR             =   $(SRC_DIR)/Monster
 
 SRC		= 	$(SALTYENGINE_DIR)/Behaviour.cpp        \
             $(SALTYENGINE_DIR)/Component.cpp        \
+            $(SALTYENGINE_DIR)/Debug.cpp            \
+            $(SALTYENGINE_DIR)/Factory.cpp          \
             $(SALTYENGINE_DIR)/GameObject.cpp       \
-	        $(SALTYENGINE_DIR)/main.cpp		\
+	        $(SALTYENGINE_DIR)/main.cpp		        \
             $(SALTYENGINE_DIR)/Object.cpp           \
             $(SALTYENGINE_DIR)/PlayerController.cpp \
             $(SALTYENGINE_DIR)/SaltyBehaviour.cpp   \
             $(SALTYENGINE_DIR)/SaltyEngine.cpp      \
             $(SALTYENGINE_DIR)/Scene.cpp            \
-            $(SALTYENGINE_DIR)/Factory.cpp          \
-            $(COMMON_DIR)/LibLoader.cpp             \
+            $(SALTYENGINE_DIR)/Input/Action.cpp                 \
+            $(SALTYENGINE_DIR)/Input/Axis.cpp                   \
+            $(SALTYENGINE_DIR)/Input/Mapping.cpp                \
+            $(SALTYENGINE_DIR)/SFML/EventManager.cpp    \
+            $(SALTYENGINE_DIR)/SFML/Renderer.cpp        \
             $(MONSTER_DIR)/MonsterController.cpp    \
+            $(COMMON_DIR)/LibLoader.cpp             \
 
 CPPFLAGS 	=   -W -Wall -g -Wextra -std=c++11 -fPIC
 
