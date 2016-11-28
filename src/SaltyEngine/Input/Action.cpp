@@ -20,11 +20,11 @@ namespace SaltyEngine {
         }
 
         bool Action::Pressed() const {
-
+            return false;
         }
 
         bool Action::Released() const {
-
+            return false;
         }
     }
 }

@@ -9,15 +9,12 @@
 .idea/
 a.out
 *.db
-*.db
 *.opendb
-*.db
 .idea/*
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
-.idea/
 *.o
 salty-engine
 # Build results
@@ -226,6 +223,8 @@ FakesAssemblies/
 **/*.Server/ModelManifest.xml
 _Pvt_Extensions
 
-*.o
 cmake-build-debug
+*.o
 .idea
+*.so
+*.a

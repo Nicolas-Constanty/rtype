@@ -9,6 +9,7 @@
 #include <chrono>
 #include <memory>
 #include "SaltyEngine/DefaultRenderer.hpp"
+#include "SaltyEngine/Input/DefaultEventManager.hpp"
 
 
 #define DEFAULT_FRAME_RATE 60
@@ -41,6 +42,7 @@ namespace SaltyEngine
 		long long GetDeltaTime() const;
 		double GetFixedDeltaTime() const;
 		void SetRenderer(IRenderer *renderer);
+		void SetEventManager(Input::IEventManager *ev_manager);
 
 	/*public:
 		static std::string const Tag[];*/
@@ -56,6 +58,7 @@ namespace SaltyEngine
 		size_t								m_fps;
 		std::chrono::duration<long long, std::nano> m_delta_time;
 		IRenderer							*m_renderer;
+		Input::IEventManager				*m_even_manager;
 	};
 }
 

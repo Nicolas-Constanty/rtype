@@ -15,16 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Monster.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\Monster\Monster.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\Monster\stdafx.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\Monster\targetver.h">
+    <ClInclude Include="..\..\include\Monster\MonsterController.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
@@ -36,6 +30,9 @@
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Monster\stdafx.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Monster\MonsterController.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>

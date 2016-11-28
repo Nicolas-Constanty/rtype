@@ -1,12 +1,14 @@
 #include "SaltyEngine/SFML/Renderer.hpp"
 #include "SaltyEngine/SFML/Window.hpp"
 #include "SaltyEngine/Debug.hpp"
+#include "SaltyEngine/GameObject.hpp"
+#include "Common/MakeUnique.hpp"
 
 namespace SaltyEngine
 {
 	namespace SFML
 	{
-		Renderer::Renderer(sf::VideoMode& vm, const std::string& name) : m_window(std::make_unique<sf::RenderWindow>(vm, name))
+		Renderer::Renderer(sf::VideoMode& vm, const std::string& name) : m_window(Make_unique<sf::RenderWindow>(vm, name))
 		{
 		}
 
@@ -27,6 +29,11 @@ namespace SaltyEngine
 			}
 			else
 				Debug::PrintWarning("Main window has been closed!");
+		}
+
+		sf::RenderWindow * Renderer::GetRenderWindow() const
+		{
+			return m_window.get();
 		}
 
 		void Renderer::DrawGame(const SpriteMap &sprite_map) const
@@ -53,7 +60,10 @@ namespace SaltyEngine
 				{
 					Sprite *s = dynamic_cast<Sprite *>((*sprr)->GetSprite());
 					if (s != nullptr)
+					{
+						s->setPosition((*sprr)->gameObject->transform.position.x, (*sprr)->gameObject->transform.position.y);
 						m_window->draw(*s);
+					}
 				}
 			}
 		}

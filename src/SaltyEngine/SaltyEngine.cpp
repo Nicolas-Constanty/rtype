@@ -3,7 +3,6 @@
 #else
 #include <dirent.h>
 #include <SaltyEngine/Constants.hpp>
-#include <zconf.h>
 
 #endif
 
@@ -21,6 +20,7 @@ namespace SaltyEngine
 	SaltyEngine::SaltyEngine(): m_current(0)
 	{
 		m_renderer = new DefaultRenderer();
+		m_even_manager = new Input::DefaultEventManager();
 		m_status = EngineStatus::stop;
 		m_fps = DEFAULT_FRAME_RATE;
 		std::chrono::duration<double> d(1.0 / m_fps);
@@ -83,6 +83,7 @@ namespace SaltyEngine
 			m_delta_time = std::chrono::high_resolution_clock::now() - time_start;
 			time_start = std::chrono::high_resolution_clock::now();
 			lag += std::chrono::duration_cast<std::chrono::nanoseconds>(m_delta_time);
+			m_even_manager->Update();
 			// Control Frame Rate
 			while (lag >= m_frame_rate)
 			{
@@ -241,6 +242,13 @@ namespace SaltyEngine
 		m_renderer = renderer;
 	}
 
+	void SaltyEngine::SetEventManager(Input::IEventManager * ev_manager)
+	{
+		if (m_even_manager)
+			delete m_even_manager;
+		m_even_manager = ev_manager;
+	}
+
 	/**
 	 * \brief Will load all the assets contained in the folder
 	 */
@@ -253,7 +261,7 @@ namespace SaltyEngine
 
 		_getcwd(str, sizeof(str));
 
-		hFind = FindFirstFile(std::string(std::string(str) + "\\*").c_str(), &findFileData);
+		hFind = FindFirstFile(std::string(std::string(str) + Asset::ASSET_PATH + "\\*").c_str(), &findFileData);
 
 		while (hFind != INVALID_HANDLE_VALUE)
 		{
@@ -262,7 +270,7 @@ namespace SaltyEngine
 				&& assetName.compare(assetName.length() - Asset::LIB_EXTENSION.length(), Asset::LIB_EXTENSION.length(), Asset::LIB_EXTENSION) == 0)
 			{
 				std::cout << "Loading asset [" << assetName << "]" << std::endl;
-				std::string assetPath = std::string(str) + "/" + assetName;
+				std::string assetPath = std::string(str) + Asset::ASSET_PATH + "\\" + assetName;
 				Factory::LoadAsset(assetPath);
 			}
 			if (FindNextFile(hFind, &findFileData) == FALSE)
@@ -276,7 +284,7 @@ namespace SaltyEngine
 
         getcwd(str, sizeof(str));
 
-		if ((dir = opendir(Asset::ASSET_PATH.c_str())) != NULL)
+		if ((dir = opendir(std::string(std::string(str) + Asset::ASSET_PATH).c_str())) != NULL)
 		{
 			/* get all the files and directories within directory */
 			while ((ent = readdir(dir)) != NULL)
@@ -286,7 +294,7 @@ namespace SaltyEngine
                     && assetName.compare(assetName.length() - Asset::LIB_EXTENSION.length(), Asset::LIB_EXTENSION.length(), Asset::LIB_EXTENSION) == 0)
                 {
                     std::cout << "Loading asset [" << assetName << "]" << std::endl;
-                    std::string assetPath = std::string(str) + "/" + assetName;
+                    std::string assetPath = std::string(str) + Asset::ASSET_PATH + "/" + assetName;
                     Factory::LoadAsset(assetPath);
                 }
 			}
