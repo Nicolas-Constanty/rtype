@@ -17,27 +17,27 @@ namespace SaltyEngine {
         class InputManager {
         public:
             static bool GetKey(KeyCode::Key key) {
-                Input::isKey(key);
+                return Input::isKey(key);
             }
 
             static bool GetKeyDown(KeyCode::Key key) {
-                Input::isKeyDown(key);
+                return Input::isKeyDown(key);
             }
 
             static bool GetKeyUp(KeyCode::Key key) {
-                Input::isKeyUp(key);
+                return Input::isKeyUp(key);
             }
 
             static bool GetKey(std::string const &key) {
-                GetKey(m_keycodes.find(key)->second);
+                return GetKey(m_keycodes.find(key)->second);
             }
 
             static bool GetKeyDown(std::string const &key) {
-                GetKeyDown(m_keycodes.find(key)->second);
+                return GetKeyDown(m_keycodes.find(key)->second);
             }
 
             static bool GetKeyUp(const std::string &key) {
-                GetKeyUp(m_keycodes.find(key)->second);
+                return GetKeyUp(m_keycodes.find(key)->second);
             }
 
             static std::vector<KeyCode::Key>    GetCurrentKeys() {

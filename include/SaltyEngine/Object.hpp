@@ -50,7 +50,6 @@ namespace SaltyEngine
 	public:
 		std::unique_ptr<Object> Clone() override
 		{
-			std::cout << "1. OBJ CLONE" << std::endl;
 #if _WIN32
             return (std::make_unique<Object>(m_name + "(Clone)"));
 #else

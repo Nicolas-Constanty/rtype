@@ -12,13 +12,11 @@ namespace SaltyEngine {
     }
 
     std::shared_ptr<Object> Factory::Create(std::string const &name) {
-		std::cout << "1.Factory -> cloning" << std::endl;
 		if (m_prefabs.find(name) == m_prefabs.end())
 		{
 			return nullptr;
 		}
-        m_objects.push_front(m_prefabs[name]->Clone());
-		std::cout << "2.Factory -> cloning" << std::endl;
+        m_objects.push_front(m_prefabs[name]->CloneMemberwise());
         return m_objects.front();
     }
 
