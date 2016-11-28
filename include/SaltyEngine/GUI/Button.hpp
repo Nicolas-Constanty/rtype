@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef IBUTTONHANDLER_HPP_
-#define IBUTTONHANDLER_HPP_
+#ifndef BUTTON_HPP_
+#define BUTTON_HPP_
 
 #include "SaltyEngine/GUI/Selectable.hpp"
 #include "SaltyEngine/GUI/Event.hpp"
@@ -13,11 +13,22 @@ namespace SaltyEngine
 		class Button : public Selectable
 		{
 		public:
+			explicit Button(GameObject* gameObj)
+				: Selectable("Button", gameObj)
+			{
+				//gameObject->AddComponent<>()
+			}
+
+			Button(const std::string& name, GameObject* gameObj)
+				: Selectable(name, gameObj)
+			{
+			}
+
 			virtual ~Button() {};
 
 		public:
-			void OnPointerClick(); //	Registered IPointerClickHandler callback.
-			void OnSubmit(); //
+			virtual void OnPointerClick(); //	Registered IPointerClickHandler callback.
+			virtual void OnSubmit(); //
 
 		public:
 			Event onClick;
@@ -25,4 +36,4 @@ namespace SaltyEngine
 	}
 }
 
-#endif // !IBUTTONHANDLER_HPP_
+#endif // !BUTTON_HPP_

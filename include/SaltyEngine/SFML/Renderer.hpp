@@ -21,6 +21,7 @@ namespace SaltyEngine
 			Renderer(sf::VideoMode &vm, const std::string &name);
 			virtual ~Renderer() {};
 			void Display() const override;
+			sf::RenderWindow *GetRenderWindow() const;
 
 		protected:
 			std::unique_ptr<sf::RenderWindow> m_window;

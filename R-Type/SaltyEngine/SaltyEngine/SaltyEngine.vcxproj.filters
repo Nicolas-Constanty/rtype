@@ -19,6 +19,9 @@
     <Filter Include="Fichiers d%27en-tête\SaltyEngine">
       <UniqueIdentifier>{325f8b4c-d8cc-41a0-8cef-2e7a725386ce}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\Input">
+      <UniqueIdentifier>{2ab65409-1882-4ff1-8fe1-56618ab23afd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\SaltyEngine\main.cpp">
@@ -55,6 +58,21 @@
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Common\DllLoader.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Monster\MonsterController.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\SaltyEngine\SFML\EventManager.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\SaltyEngine\Input\Action.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\SaltyEngine\Input\Axis.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\SaltyEngine\Input\Mapping.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
@@ -146,6 +164,36 @@
     <ClInclude Include="..\..\..\include\SaltyEngine\IWindow.hpp">
       <Filter>Fichiers d%27en-tête\SaltyEngine</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\SaltyEngine\Engine.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\SaltyEngine\Graphics.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\SaltyEngine\Input\Action.hpp">
+      <Filter>Fichiers d%27en-tête\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\SaltyEngine\Input\Axis.hpp">
+      <Filter>Fichiers d%27en-tête\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\SaltyEngine\Input\DefaultEventManager.hpp">
+      <Filter>Fichiers d%27en-tête\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\SaltyEngine\Input\IEventManager.hpp">
+      <Filter>Fichiers d%27en-tête\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\SaltyEngine\Input\InputManager.hpp">
+      <Filter>Fichiers d%27en-tête\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\SaltyEngine\Input\KeyCodes.hpp">
+      <Filter>Fichiers d%27en-tête\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\SaltyEngine\Input\Mapping.hpp">
+      <Filter>Fichiers d%27en-tête\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\Common\MakeUnique.hpp">
+      <Filter>Fichiers d%27en-tête\Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\include\SaltyEngine\defaultReflection.inl">
@@ -159,6 +207,9 @@
     </None>
     <None Include="..\..\..\include\SaltyEngine\Layout.conf">
       <Filter>Fichiers d%27en-tête\SaltyEngine</Filter>
+    </None>
+    <None Include="..\..\..\include\SaltyEngine\Input\KeyCodesString.inl">
+      <Filter>Fichiers d%27en-tête\Input</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

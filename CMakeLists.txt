@@ -23,7 +23,7 @@ add_executable(rtype-server
         ${Networksrc} ${Networkinc}
         ${Commoninc}
         ${Protocolsrc} ${Protocolinc}
-        ${SaltyEnginesrc} ${SaltyEngineinc})
+        ${SaltyEnginesrc} ${SaltyEngineinc} include/SaltyEngine/Input/IEventManager.hpp include/SaltyEngine/Input/DefaultEventManager.hpp)
 
 add_executable(udpserv-1 ${Networksrc} ${Networkinc} Tests/Network/udpserv-1.cpp)
 add_executable(tcpserv-1 ${Networksrc} ${Networkinc} Tests/Network/tcpserv-1.cpp)

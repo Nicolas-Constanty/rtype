@@ -226,3 +226,5 @@ _Pvt_Extensions
 cmake-build-debug
 *.o
 .idea
+*.so
+*.a

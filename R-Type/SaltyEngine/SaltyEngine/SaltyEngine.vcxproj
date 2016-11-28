@@ -75,7 +75,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)..\include;$(SolutionDir)..\..\include</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)..\include;$(SolutionDir)..\..\include;$(SolutionDir)..\Dependencies\SFML\Win\include</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;$(SolutionDir)..\Dependencies\SFML\Win\x64\Debug</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -98,11 +99,13 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -112,6 +115,9 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalDependencies>sfml-audio-d.lib;sfml-graphics-d.lib;sfml-network-d.lib;sfml-system-d.lib;sfml-window-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -130,6 +136,9 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -148,11 +157,18 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\Common\DllLoader.cpp" />
+    <ClCompile Include="..\..\..\src\Monster\MonsterController.cpp" />
     <ClCompile Include="..\..\..\src\SaltyEngine\Behaviour.cpp" />
     <ClCompile Include="..\..\..\src\SaltyEngine\Factory.cpp" />
+    <ClCompile Include="..\..\..\src\SaltyEngine\Input\Action.cpp" />
+    <ClCompile Include="..\..\..\src\SaltyEngine\Input\Axis.cpp" />
+    <ClCompile Include="..\..\..\src\SaltyEngine\Input\Mapping.cpp" />
     <ClCompile Include="..\..\..\src\SaltyEngine\PlayerController.cpp" />
     <ClCompile Include="..\..\..\src\SaltyEngine\Component.cpp" />
     <ClCompile Include="..\..\..\src\SaltyEngine\GameObject.cpp" />
@@ -163,16 +179,27 @@
     <ClCompile Include="..\..\..\src\SaltyEngine\SaltyBehaviour.cpp" />
     <ClCompile Include="..\..\..\src\SaltyEngine\SaltyEngine.cpp" />
     <ClCompile Include="..\..\..\src\SaltyEngine\Scene.cpp" />
+    <ClCompile Include="..\..\..\src\SaltyEngine\SFML\EventManager.cpp" />
     <ClCompile Include="..\..\..\src\SaltyEngine\Vector3.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\Common\DllLoader.hpp" />
     <ClInclude Include="..\..\..\include\Common\ICloneable.hpp" />
     <ClInclude Include="..\..\..\include\Common\ILibraryLoader.hpp" />
+    <ClInclude Include="..\..\..\include\Common\MakeUnique.hpp" />
     <ClInclude Include="..\..\..\include\Common\Singleton.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\Config.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\DefaultRenderer.hpp" />
+    <ClInclude Include="..\..\..\include\SaltyEngine\Engine.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\Factory.hpp" />
+    <ClInclude Include="..\..\..\include\SaltyEngine\Graphics.hpp" />
+    <ClInclude Include="..\..\..\include\SaltyEngine\Input\Action.hpp" />
+    <ClInclude Include="..\..\..\include\SaltyEngine\Input\Axis.hpp" />
+    <ClInclude Include="..\..\..\include\SaltyEngine\Input\DefaultEventManager.hpp" />
+    <ClInclude Include="..\..\..\include\SaltyEngine\Input\IEventManager.hpp" />
+    <ClInclude Include="..\..\..\include\SaltyEngine\Input\InputManager.hpp" />
+    <ClInclude Include="..\..\..\include\SaltyEngine\Input\KeyCodes.hpp" />
+    <ClInclude Include="..\..\..\include\SaltyEngine\Input\Mapping.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\IRect.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\IRenderer.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\IWindow.hpp" />
@@ -205,6 +232,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\include\SaltyEngine\defaultReflection.inl" />
+    <None Include="..\..\..\include\SaltyEngine\Input\KeyCodesString.inl" />
     <None Include="..\..\..\include\SaltyEngine\Layout.conf" />
     <None Include="..\..\..\include\SaltyEngine\Prefabs.conf" />
     <None Include="..\..\..\include\SaltyEngine\Saltyreflection.inl" />

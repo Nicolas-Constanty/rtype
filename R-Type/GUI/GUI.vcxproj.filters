@@ -60,6 +60,9 @@
     <ClCompile Include="..\..\src\SaltyEngine\SFML\Renderer.cpp">
       <Filter>Fichiers sources\SaltyEngine\SFML</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\SaltyEngine\SFML\EventManager.cpp">
+      <Filter>Fichiers sources\SaltyEngine\SFML</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\SaltyEngine\GUI\IEventSystemHandler.hpp">
@@ -113,9 +116,6 @@
     <ClInclude Include="..\..\include\SaltyEngine\SFML\Sprite.hpp">
       <Filter>Fichiers d%27en-tête\SaltyEngine\SFML</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\SaltyEngine\SFML\Rect.hpp">
-      <Filter>Fichiers d%27en-tête\SaltyEngine\SFML</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\SaltyEngine\SFML\Texture.hpp">
       <Filter>Fichiers d%27en-tête\SaltyEngine\SFML</Filter>
     </ClInclude>
@@ -123,6 +123,18 @@
       <Filter>Fichiers d%27en-tête\SaltyEngine\SFML</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\SaltyEngine\SFML\Window.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine\SFML</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\SFML\Button.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine\SFML</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\SFML\Graphics.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine\SFML</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\SFML\Rect.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\SFML\EventManager.hpp">
       <Filter>Fichiers d%27en-tête\SaltyEngine\SFML</Filter>
     </ClInclude>
   </ItemGroup>
