@@ -18,12 +18,6 @@
     <ClInclude Include="..\..\include\Monster\Monster.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\Monster\stdafx.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\Monster\targetver.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\Monster\MonsterController.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>

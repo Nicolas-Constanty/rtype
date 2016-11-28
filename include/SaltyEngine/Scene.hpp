@@ -8,7 +8,6 @@
 #include <queue>
 #include <iostream>
 #include <string>
-#include <iostream>
 #include <memory>
 #include "SaltyEngine/SaltyReflection.hpp"
 #include "SaltyEngine/SaltyBehaviour.hpp"

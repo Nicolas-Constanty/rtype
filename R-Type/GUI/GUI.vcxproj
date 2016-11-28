@@ -157,6 +157,7 @@
     <ClCompile Include="..\..\src\SaltyEngine\GUI\Button.cpp" />
     <ClCompile Include="..\..\src\SaltyEngine\GUI\Event.cpp" />
     <ClCompile Include="..\..\src\SaltyEngine\GUI\Widget.cpp" />
+    <ClCompile Include="..\..\src\SaltyEngine\SFML\EventManager.cpp" />
     <ClCompile Include="..\..\src\SaltyEngine\SFML\Renderer.cpp" />
     <ClCompile Include="..\..\Test\GUI\main.cpp" />
   </ItemGroup>
@@ -177,6 +178,7 @@
     <ClInclude Include="..\..\include\SaltyEngine\GUI\UIBehaviour.hpp" />
     <ClInclude Include="..\..\include\SaltyEngine\GUI\Widget.hpp" />
     <ClInclude Include="..\..\include\SaltyEngine\SFML\Button.hpp" />
+    <ClInclude Include="..\..\include\SaltyEngine\SFML\EventManager.hpp" />
     <ClInclude Include="..\..\include\SaltyEngine\SFML\Graphics.hpp" />
     <ClInclude Include="..\..\include\SaltyEngine\SFML\Rect.hpp" />
     <ClInclude Include="..\..\include\SaltyEngine\SFML\Renderer.hpp" />

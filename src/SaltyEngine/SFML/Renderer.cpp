@@ -8,7 +8,7 @@ namespace SaltyEngine
 {
 	namespace SFML
 	{
-		Renderer::Renderer(sf::VideoMode& vm, const std::string& name) : m_window(make_unique<sf::RenderWindow>(vm, name))
+		Renderer::Renderer(sf::VideoMode& vm, const std::string& name) : m_window(Make_unique<sf::RenderWindow>(vm, name))
 		{
 		}
 
@@ -29,6 +29,11 @@ namespace SaltyEngine
 			}
 			else
 				Debug::PrintWarning("Main window has been closed!");
+		}
+
+		sf::RenderWindow * Renderer::GetRenderWindow() const
+		{
+			return m_window.get();
 		}
 
 		void Renderer::DrawGame(const SpriteMap &sprite_map) const

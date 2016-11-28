@@ -6,10 +6,12 @@
 #include "SaltyEngine/Debug.hpp"
 #include "SaltyEngine/Input.hpp"
 #include "SaltyEngine/PlayerController.hpp"
+#include "SaltyEngine/SFML/EventManager.hpp"
 
 int main(int ac, char **av)
 {
 	SaltyEngine::SFML::Renderer *renderer = new SaltyEngine::SFML::Renderer(sf::VideoMode(1280, 720), "R-Type Launcher");
+	SaltyEngine::SFML::EventManager *event_manager = new SaltyEngine::SFML::EventManager(renderer->GetRenderWindow());
 
 	SaltyEngine::GameObject *player = new SaltyEngine::GameObject("Player");
 
@@ -26,7 +28,7 @@ int main(int ac, char **av)
 	player->AddComponent<SaltyEngine::PlayerController>();
 	// Set SFML Renderer
 	Singleton<SaltyEngine::SaltyEngine>::Instance().SetRenderer(renderer);
-
+	Singleton<SaltyEngine::SaltyEngine>::Instance().SetEventManager(event_manager);
 	// Create Scene
 	SaltyEngine::Scene *scene(new SaltyEngine::Scene());
 
