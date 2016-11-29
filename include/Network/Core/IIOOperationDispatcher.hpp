@@ -5,6 +5,8 @@
 #ifndef SPIDER_SERVER_ISERVERDISPATCHER_HPP
 #define SPIDER_SERVER_ISERVERDISPATCHER_HPP
 
+#include <Network/Socket/ISockStreamHandler.hpp>
+
 namespace Network
 {
     namespace Core
@@ -21,6 +23,8 @@ namespace Network
 
         public:
             virtual void Run() = 0;
+            virtual void Poll() = 0;
+            virtual void Poll(Socket::ISockStreamHandler &handler) = 0;
         };
     }
 }

@@ -54,7 +54,7 @@ namespace SaltyEngine
 		template<class T>
 		T *AddComponent(const std::string &name)
 		{
-			m_components.push_back(make_unique<T>(this));
+			m_components.push_back(Make_unique<T>(this));
 			SaltyBehaviour *tmp = dynamic_cast<SaltyBehaviour *>(m_components.back().get());
 			if (tmp)
 			{

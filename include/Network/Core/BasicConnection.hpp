@@ -5,7 +5,7 @@
 #ifndef RTYPE_BASICCONNECTION_HPP
 #define RTYPE_BASICCONNECTION_HPP
 
-#include <Network/Socket/ISockStreamsContainer.hpp>
+#include <Network/Socket/ISockStreamHandlersContainer.hpp>
 #include <queue>
 #include "IConnection.hpp"
 #include "NativeSocketIOOperationDispatcher.hpp"
@@ -31,7 +31,7 @@ namespace Network
 
             virtual Core::NativeSocketIOOperationDispatcher &Dispatcher();
             virtual Core::NativeSocketIOOperationDispatcher const &Dispatcher() const;
-            virtual void setClients(Socket::ISockStreamsContainer *clts);
+            virtual void setClients(Socket::ISockStreamHandlersContainer *clts);
 
         public:
             /**
@@ -52,7 +52,7 @@ namespace Network
             NativeSocketIOOperationDispatcher &dispatcher;
 
         protected:
-            Network::Socket::ISockStreamsContainer *clients; //optional attribute, will be instantiate by another class if need it
+            Network::Socket::ISockStreamHandlersContainer *clients; //optional attribute, will be instantiate by another class if need it
             std::queue<Core::NetBuffer> toWrite;
         };
     }

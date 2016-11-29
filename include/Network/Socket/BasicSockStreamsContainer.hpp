@@ -7,7 +7,7 @@
 
 #include <memory>
 #include <list>
-#include "ISockStreamsContainer.hpp"
+#include "ISockStreamHandlersContainer.hpp"
 
 namespace Network
 {
@@ -16,7 +16,7 @@ namespace Network
         /**
          * @brief Abstraction of a socket stream handler container
          */
-        class BasicSockStreamsContainer : public ISockStreamsContainer
+        class BasicSockStreamsContainer : public ISockStreamHandlersContainer
         {
         public:
             BasicSockStreamsContainer();

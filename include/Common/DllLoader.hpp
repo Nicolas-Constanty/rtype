@@ -3,6 +3,7 @@
 #ifndef DLLLOADER_HPP_
 #define DLLLOADER_HPP_
 
+#ifdef _WIN32
 #include <Windows.h>
 #include <string>
 #include <iostream>
@@ -35,5 +36,6 @@ public:
 		return static_cast<decltype(fp(args...))>(0);
 	}
 };
+#endif
 
 #endif
