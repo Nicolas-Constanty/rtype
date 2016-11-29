@@ -2,27 +2,28 @@
 #include <functional>
 #include <list>
 #include "Object.hpp"
-#include "SaltyEngine/SFML/SpriteRenderer.hpp"
+#include "SaltyEngine/Sprite.hpp"
 
+template <class T>
 class AnimationClip : public SaltyEngine::Object
 {
 private:
 	std::list<std::function<void()>> m_events;
 	int m_frameRate = 60;
-	std::list<SaltyEngine::SFML::Sprite *> m_sprites;
+	std::list<SaltyEngine::Sprite<T>> m_sprites;
 
 public:
 	AnimationClip(std::string const& name = "Animation");
 	virtual ~AnimationClip();
 
 public:
-	template<class T>
-	void AddEvent(T event)
+	template<class U>
+	void AddEvent(U event)
 	{
 		m_events.push_back(event);
 	}
-	void AddSprite(SaltyEngine::SFML::Sprite * sprite);
+	void AddSprite(SaltyEngine::Sprite<T> sprite);
 	int GetFrameRate() const;
 	void SetFrameRate(int frameRate);
-	const std::list<SaltyEngine::SFML::Sprite*> GetFrames() const;
+	const std::list<SaltyEngine::Sprite<T>> GetFrames() const;
 };

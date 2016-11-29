@@ -4,12 +4,13 @@
 #include "AnimationClip.hpp"
 #include "Constants.hpp"
 
+template <class T>
 class Animation : public SaltyEngine::SaltyBehaviour
 {
 private:
 	bool m_isPlaying = false;
 	bool m_playAuto = true;
-	std::map<std::string, AnimationClip> m_clips;
+	std::map<std::string, AnimationClip<T> > m_clips;
 	SaltyEngine::Animation::WrapMode m_wrapMode;
 
 private:
@@ -28,10 +29,10 @@ public:
 	void RemoveClip(std::string const& clipName);
 	void Stop() const;
 	void Stop(std::string const& name) const;
-	void AddClip(AnimationClip const& clip, std::string const& name);
+	void AddClip(AnimationClip<T> const& clip, std::string const& name);
 	int GetClipCount() const;
 
 public:
-	AnimationClip const clip;
+	AnimationClip<T> const clip;
 };
 
