@@ -24,6 +24,8 @@ namespace Network
 
         public:
             virtual void OnStart() = 0;
+            virtual void OnReadCheck() = 0;
+            virtual void OnWriteCheck() = 0;
             virtual void OnAllowedToRead() = 0;
             virtual void OnAllowedToWrite() = 0;
             virtual void OnDataReceived(unsigned int len) = 0;
