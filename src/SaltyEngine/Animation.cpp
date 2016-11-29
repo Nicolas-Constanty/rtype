@@ -1,17 +1,19 @@
 #include "SaltyEngine/Animation.hpp"
 #include "SaltyEngine/GameObject.hpp"
 
-
-Animation::Animation(SaltyEngine::GameObject* const obj) : SaltyBehaviour(obj)
+template <class T>
+Animation<T>::Animation(SaltyEngine::GameObject* const obj) : SaltyBehaviour(obj)
 {
 }
 
 
-Animation::~Animation()
+template <class T>
+Animation<T>::~Animation()
 {
 }
 
-void Animation::PlayAnim()
+template <class T>
+void Animation<T>::PlayAnim()
 {
 	int frameCount;
 	switch (m_wrapMode)
@@ -45,16 +47,19 @@ void Animation::PlayAnim()
 	}
 }
 
-void Animation::PlayAnim(std::string const& name)
+template <class T>
+void Animation<T>::PlayAnim(std::string const& name)
 {
 }
 
-bool Animation::IsPlaying() const
+template <class T>
+bool Animation<T>::IsPlaying() const
 {
 	return m_isPlaying;
 }
 
-void Animation::Play()
+template <class T>
+void Animation<T>::Play()
 {
 	if (m_clips.size() == 0)
 	{
@@ -64,7 +69,8 @@ void Animation::Play()
 	//StartCoroutine(&Animation::PlayAnim);
 }
 
-void Animation::Play(std::string const& name)
+template <class T>
+void Animation<T>::Play(std::string const& name)
 {
 	if (m_clips.size() == 0 || m_clips.find(name) == m_clips.end())
 	{
@@ -74,7 +80,13 @@ void Animation::Play(std::string const& name)
 	//m_coroutines.push_back(std::bind(&Animation::PlayAnim, this, name));
 }
 
-int Animation::GetClipCount() const
+template <class T>
+void Animation<T>::PlayQueued(std::string const& animName) const
+{
+}
+
+template <class T>
+int Animation<T>::GetClipCount() const
 {
 	return m_clips.size();
 }
