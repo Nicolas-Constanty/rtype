@@ -3,14 +3,17 @@
 //
 
 #include "ServerRoom/DefaultTCPConnection.hpp"
+#include "Protocol/Room/ProtocolPrintRoomPackage.hpp"
+#include "Protocol/Server/ProtocolPrintServerPackage.hpp"
 
 DefaultTCPConnection::DefaultTCPConnection(Network::Core::NativeSocketIOOperationDispatcher &dispatcher)
-        : Network::TCP::ATCPClient(dispatcher)
+        : Network::TCP::ATCPClient(dispatcher), protocolRoomManager(*this), protocolServerManager(*this)
 {
 
 }
 
-DefaultTCPConnection::DefaultTCPConnection(Network::Core::BasicConnection &ref) : Network::TCP::ATCPClient(ref.Dispatcher())
+DefaultTCPConnection::DefaultTCPConnection(Network::Core::BasicConnection &ref)
+        : Network::TCP::ATCPClient(ref.Dispatcher()), protocolRoomManager(*this), protocolServerManager(*this)
 {
 
 }
@@ -20,9 +23,14 @@ DefaultTCPConnection::~DefaultTCPConnection()
     std::cout << "\e[31mDestructor called\e[0m" << std::endl;
 }
 
-void DefaultTCPConnection::OnDataReceived(unsigned int len)
+void DefaultTCPConnection::OnDataReceived(unsigned int)
 {
     std::cout << "Receiving " << buff << std::endl;
+    if ((!protocolServerManager.handleProtocol(buff.buff(), buff.getLength()))) {
+        if ((!protocolServerManager.handleProtocol(buff.buff(), buff.getLength()))) {
+            std::cout << "unknown command" << std::endl;
+        }
+    }
 //        if (buff.toString() == "change\n")
 //        {
 //            std::cout << "Changing client to Testswap client" << std::endl;
@@ -39,4 +47,16 @@ void DefaultTCPConnection::OnDataReceived(unsigned int len)
 void DefaultTCPConnection::OnDataSent(unsigned int len)
 {
     std::cout << "Number of bytes sent: " << len << std::endl;
+}
+
+void DefaultTCPConnection::onGetAUTHENTICATEPackage(AUTHENTICATEPackageRoom const &authenticatePackageRoom) {
+    std::cout << authenticatePackageRoom << std::endl;
+}
+
+void DefaultTCPConnection::onGetFAILUREPackage(FAILUREPackageRoom const &failurePackageRoom) {
+    std::cout << failurePackageRoom << std::endl;
+}
+
+void DefaultTCPConnection::onGetAUTHENTICATEPackage(AUTHENTICATEPackageServer const &authenticatePackageServer) {
+    std::cout << authenticatePackageServer << std::endl;
 }
