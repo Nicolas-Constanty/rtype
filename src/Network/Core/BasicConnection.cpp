@@ -9,7 +9,9 @@
  * @param dispatcher The reference on the dispatcher to work with
  */
 Network::Core::BasicConnection::BasicConnection(Network::Core::NativeSocketIOOperationDispatcher &dispatcher) :
-    dispatcher(dispatcher)
+    dispatcher(dispatcher),
+    clients(NULL),
+    toWrite()
 {
 
 }
@@ -19,7 +21,7 @@ Network::Core::BasicConnection::BasicConnection(Network::Core::NativeSocketIOOpe
  */
 Network::Core::BasicConnection::~BasicConnection()
 {
-    dispatcher.Remove(this);
+
 }
 
 /**
@@ -74,10 +76,9 @@ void Network::Core::BasicConnection::Disconnect()
 {
     std::cout << "\x1b[31mClient disconnected\x1b[0m: " << this << std::endl;
     giveSocket().Close();
+    dispatcher.Remove(this);
     if (clients)
         clients->Remove(this);
-    else
-        delete(this);
 }
 
 /**

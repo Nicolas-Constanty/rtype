@@ -178,7 +178,7 @@ void Network::Core::NativeSocketIOOperationDispatcher::Run()
 {
 //    std::cout << "Handling sigint" << std::endl;
     signal(SIGINT, breakCatch);
-    while (running)
+    while (running && (m_readWatch.size() > 0 || m_writeWatch.size() > 0))
     {
         try
         {
