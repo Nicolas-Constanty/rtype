@@ -4,6 +4,7 @@
 
 #include "SaltyEngine/Input/Mapping.hpp"
 #include "SaltyEngine/SFML/EventManager.hpp"
+#include <SaltyEngine/SaltyEngine.hpp>
 
 namespace SaltyEngine {
     namespace SFML {
@@ -22,17 +23,19 @@ namespace SaltyEngine {
             sf::Event event;
             while (m_window->pollEvent(event)) {
                 switch (event.type) {
+                    case sf::Event::EventType::Closed:
+                        m_window->close();
+                        Singleton<SaltyEngine>::Instance().Stop();
+                        break;
                     case sf::Event::EventType::KeyPressed:
                         m_keys_down[event.key.code] = true;
-                        SaltyEngine::Input::Mapping::CallAxis(GetKeyCode(event.key.code));
-                        SaltyEngine::Input::Mapping::CallAction(GetKeyCode(event.key.code),
-                                                                SaltyEngine::Input::ActionType::Pressed);
+                        Input::Mapping::CallAxis(GetKeyCode(event.key.code));
+                        Input::Mapping::CallAction(GetKeyCode(event.key.code), Input::ActionType::Pressed);
                         break;
                     case sf::Event::EventType::KeyReleased:
                         m_keys_down[event.key.code] = false;
                         m_keys_emited[event.key.code] = false;
-                        SaltyEngine::Input::Mapping::CallAction(GetKeyCode(event.key.code),
-                                                                SaltyEngine::Input::ActionType::Released);
+                        Input::Mapping::CallAction(GetKeyCode(event.key.code), Input::ActionType::Released);
                         break;
                     case sf::Event::EventType::JoystickButtonPressed:
                         break;
