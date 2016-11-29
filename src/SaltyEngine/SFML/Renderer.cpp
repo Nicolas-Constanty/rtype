@@ -8,7 +8,7 @@ namespace SaltyEngine
 {
 	namespace SFML
 	{
-		Renderer::Renderer(sf::VideoMode& vm, const std::string& name) : m_window(Make_unique<sf::RenderWindow>(vm, name))
+		Renderer::Renderer(sf::VideoMode const &vm, const std::string& name) : m_window(Make_unique<sf::RenderWindow>(vm, name))
 		{
 		}
 

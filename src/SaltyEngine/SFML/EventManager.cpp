@@ -48,16 +48,16 @@ namespace SaltyEngine {
         }
 
         bool EventManager::IsKey(SaltyEngine::Input::KeyCode::Key key) {
+            return (m_keys_down[GetKeyCode(key)] == true);
+        }
+
+        bool EventManager::IsKeyDown(SaltyEngine::Input::KeyCode::Key key) {
             sf::Keyboard::Key sfKey = GetKeyCode(key);
             if (!m_keys_emited[sfKey] && m_keys_down[sfKey]) {
                 m_keys_emited[sfKey] = true;
                 return true;
             }
             return false;
-        }
-
-        bool EventManager::IsKeyDown(SaltyEngine::Input::KeyCode::Key key) {
-            return (m_keys_down[GetKeyCode(key)] == true);
         }
 
         bool EventManager::IsKeyUp(SaltyEngine::Input::KeyCode::Key key) {
