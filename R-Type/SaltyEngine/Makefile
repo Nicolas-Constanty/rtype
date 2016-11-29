@@ -1,4 +1,4 @@
-CC		=	g++
+BCC		=	g++
 
 RM 		=	rm -rf
 
@@ -33,8 +33,6 @@ SRC		= 	$(SALTYENGINE_DIR)/Behaviour.cpp        \
             $(SALTYENGINE_DIR)/Input/Action.cpp         \
             $(SALTYENGINE_DIR)/Input/Axis.cpp           \
             $(SALTYENGINE_DIR)/Input/Mapping.cpp        \
-            $(SALTYENGINE_DIR)/SFML/EventManager.cpp    \
-            $(SALTYENGINE_DIR)/SFML/Renderer.cpp        \
             $(COMMON_DIR)/LibLoader.cpp                 \
 
 CPPFLAGS 	=   -W -Wall -g -Wextra -std=c++11 -fPIC

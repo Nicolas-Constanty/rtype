@@ -27,7 +27,7 @@ namespace SaltyEngine
 			size_t i;
 			size_t frameCount = clip->GetFrames().size();
 			ASpriteRenderer<T> *sprite = gameObject->GetComponent<ASpriteRenderer<T>>();
-			const auto frames = clip->GetFrames();
+			const std::list<Sprite<T> *> &frames = clip->GetFrames();
 			size_t frameRate = (size_t)(1000 /clip->GetFrameRate());
 
 			if (frameCount == 0)
@@ -38,9 +38,9 @@ namespace SaltyEngine
 			switch (m_wrapMode)
 			{
 			case AnimationConstants::ONCE:
-				for (i = 0; i < frameCount; ++i)
+				for (std::list<Sprite<T> *>::const_iterator it = frames.begin(); it != frames.end(); it++)
 				{
-					sprite->SetSprite(frames[i]);
+					sprite->SetSprite(*it);
 					WaitForMillisecond(frameRate);
 				}
 				break;
@@ -49,15 +49,18 @@ namespace SaltyEngine
 				i = 0;
 				for (;;)
 				{
-					std::cout << "toto" << i << " frame rate " << 1.f / clip->GetFrameRate() << std::endl;
-					sprite->SetSprite(frames[i++]);
-					WaitForMillisecond(frameRate);
-					i %= frameCount;
+					for (std::list<Sprite<T> *>::const_iterator it = frames.begin(); it != frames.end(); it++)
+					{
+						std::cout << "toto" << i << " frame rate " << 1.f / clip->GetFrameRate() << std::endl;
+						sprite->SetSprite((*it));
+						WaitForMillisecond(frameRate);
+						i %= frameCount;
+					}
 				}
 				break;
 
 			case AnimationConstants::PING_PONG:
-				for (;;)
+				/*for (;;)
 				{
 					for (i = 0; i < frameCount; ++i)
 					{
@@ -69,7 +72,7 @@ namespace SaltyEngine
 						sprite->SetSprite(frames[i]);
 						WaitForMillisecond(frameRate);
 					}
-				}
+				}*/
 				break;
 			}
 		}

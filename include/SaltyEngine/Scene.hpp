@@ -55,7 +55,7 @@ namespace SaltyEngine
 		void CallCoroutines();
 
 	private:
-		std::vector<std::unique_ptr<GameObject>>	m_objects;
+		std::vector<GameObject *>					m_objects;
 		std::queue<size_t>							m_init;
 		float										m_gravity;
 
