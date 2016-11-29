@@ -116,7 +116,8 @@ void Network::Socket::ASocket::Talk(const std::string &ip, const uint16_t port) 
     sockaddr.sin_family = domain;
     sockaddr.sin_port = htons(port);
     sockaddr.sin_addr.s_addr = inet_addr(ip.c_str());
-    if (protocol == Network::Socket::TCP && connect(fd, (struct sockaddr *)&sockaddr, len) == -1)
+    if ((protocol == Network::Socket::TCP && connect(fd, (struct sockaddr *)&sockaddr, len) == -1) ||
+            (protocol == Network::Socket::UDP && inet_aton(ip.c_str(), &sockaddr.sin_addr) == 0))
         throw SocketException(strerror(errno));
 }
 

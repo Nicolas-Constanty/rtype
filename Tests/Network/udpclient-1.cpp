@@ -10,5 +10,14 @@ int main()
     Network::Core::NativeSocketIOOperationDispatcher    dispatcher;
     BasicUDPClient  client(dispatcher);
 
-    
+    std::cout << "Connecting socket" << std::endl;
+    client.Connect("127.0.0.1", 4242);
+    client.SendData("hello");
+    client.DirectSend("hello");
+    std::cout << "Data sent" << std::endl;
+    dispatcher.Watch(client, Network::Core::NativeSocketIOOperationDispatcher::READ);
+    std::cout << "Client watched in read mode" << std::endl;
+    dispatcher.Run();
+    std::cout << "Leaving" << std::endl;
+    return 0;
 }

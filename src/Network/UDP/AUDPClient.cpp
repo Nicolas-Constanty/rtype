@@ -95,5 +95,6 @@ void Network::UDP::AUDPClient::OnAllowedToWrite()
  */
 void Network::UDP::AUDPClient::Connect(std::string const &ip, const uint16_t port)
 {
+    server.Open();
     server.Talk(ip, port);
 }
