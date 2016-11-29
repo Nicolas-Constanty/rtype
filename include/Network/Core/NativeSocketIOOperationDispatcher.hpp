@@ -53,6 +53,8 @@ namespace Network
             virtual void HandleOperations();
 
             virtual void Run();
+            virtual void Poll();
+            virtual void Poll(Socket::ISockStreamHandler &handler);
 
         public:
             void Watch(Socket::ISockStreamHandler &towatch, WatchMode mode = WatchMode::BOTH);

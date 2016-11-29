@@ -23,9 +23,6 @@ namespace Network
 
         public:
             virtual void OnAllowedToRead();
-
-        protected:
-            Core::NetBuffer buff;
         };
     }
 }

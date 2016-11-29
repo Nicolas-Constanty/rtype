@@ -55,8 +55,10 @@ namespace Network
         public:
             void Connect(std::string const &ip, const uint16_t port);
 
-        private:
+        protected:
             Core::NetBuffer buff;
+
+        private:
             std::unique_ptr<Network::Socket::ISockStreamHandler> model;
             Socket::OSSocket server;
         };

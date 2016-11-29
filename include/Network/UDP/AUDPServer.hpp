@@ -139,7 +139,6 @@ namespace Network
                             clt->setBuffer(buff);
                             WantReceive();
                             clt->OnDataReceived(ret);
-                            std::cout << "Client found" << std::endl;
                             return ;
                         }
 //                        else if (clt->timedout()) //todo replace it in another callback #disconnectionClientTimeout
