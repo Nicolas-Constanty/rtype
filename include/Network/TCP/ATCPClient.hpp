@@ -26,6 +26,7 @@ namespace Network
 
         public:
             void Connect(std::string const &ip, const uint16_t port);
+            virtual void OnStart();
         };
     }
 }
