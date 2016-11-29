@@ -70,12 +70,16 @@ file(GLOB incGameServ include/ServerGame/*.hpp)
 file(GLOB allsrc src/*/*.cpp src/*/*/*.cpp)
 file(GLOB allinc include/*/*.hpp include/*/*/*.hpp)
 
+file(GLOB serverRoomsrc src/ServerRoom/*.cpp)
+file(GLOB serverRoominc include/ServerRoom/*.hpp)
+
+
 add_executable(rtype-server
         ${srcGameServ} ${incGameServ}
         ${Networksrc} ${Networkinc}
         ${Commoninc} ${Commonsrc}
         ${Protocolsrc} ${Protocolinc}
-        ${SaltyEnginesrc} ${SaltyEngineinc} include/SaltyEngine/Input/IEventManager.hpp include/SaltyEngine/Input/DefaultEventManager.hpp)
+        ${SaltyEnginesrc} ${SaltyEngineinc})
 
 add_executable(udpserv-1 ${Networksrc} ${Networkinc} Tests/Network/udpserv-1.cpp Tests/Network/baseudp.hpp)
 add_executable(tcpserv-1 ${Networksrc} ${Networkinc} Tests/Network/tcpserv-1.cpp Tests/Network/basetcp.hpp)
@@ -89,9 +93,17 @@ add_executable(gameserv-1
         ${Protocolsrc} ${Protocolinc}
         Tests/GameServer/gameserv-1.cpp)
 
+add_executable(serverRoom
+        ${Networksrc} ${Networkinc}
+        ${Commoninc} ${Commonsrc}
+        ${Protocolsrc} ${Protocolinc}
+        ${serverRoomsrc} ${serverRoominc}
+        src/ServerRoom/main.cpp)
+
 #add_executable(toto Tests/SaltyEngine/main.cpp) #for color
 
 target_link_libraries(gameserv-1 -ldl)
+target_link_libraries(serverRoom -ldl)
 
 IF(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
     target_link_libraries(udpserv-1 -lWs2_32)
