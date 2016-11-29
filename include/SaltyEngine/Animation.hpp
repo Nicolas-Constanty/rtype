@@ -1,5 +1,6 @@
 #pragma once
 
+#include <queue>
 #include "SaltyBehaviour.hpp"
 #include "AnimationClip.hpp"
 #include "Constants.hpp"
@@ -11,11 +12,13 @@ private:
 	bool m_isPlaying = false;
 	bool m_playAuto = true;
 	std::map<std::string, AnimationClip<T> > m_clips;
+	//AnimationClip<T> m_currClip;
 	SaltyEngine::Animation::WrapMode m_wrapMode;
+
+	std::queue<std::string> m_queuedAnims;
 
 private:
 	void PlayAnim();
-	void PlayAnim(std::string const& name);
 
 public:
 	Animation(SaltyEngine::GameObject* const obj);
@@ -27,8 +30,8 @@ public:
 	void Play(std::string const& name);
 	void PlayQueued(std::string const& animName) const;
 	void RemoveClip(std::string const& clipName);
-	void Stop() const;
-	void Stop(std::string const& name) const;
+	void Stop();
+	void Stop(std::string const& name);
 	void AddClip(AnimationClip<T> const& clip, std::string const& name);
 	int GetClipCount() const;
 

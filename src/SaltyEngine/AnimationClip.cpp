@@ -29,7 +29,7 @@ void AnimationClip<T>::SetFrameRate(int frameRate)
 }
 
 template <class T>
-const std::list<SaltyEngine::Sprite<T>> AnimationClip<T>::GetFrames() const
+const std::vector<SaltyEngine::Sprite<T>> AnimationClip<T>::GetFrames() const
 {
 	return m_sprites;
 }
