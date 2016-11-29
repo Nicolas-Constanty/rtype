@@ -92,6 +92,7 @@ add_executable(gameserv-1
         ${srcGameServ} ${incGameServ}
         ${Protocolsrc} ${Protocolinc}
         Tests/GameServer/gameserv-1.cpp)
+add_executable(tcpclient-1 ${Networksrc} ${Networkinc} Tests/Network/tcpclient-1.cpp Tests/Network/basetcp.hpp)
 
 add_executable(serverRoom
         ${Networksrc} ${Networkinc}

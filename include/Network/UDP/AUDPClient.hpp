@@ -58,7 +58,7 @@ namespace Network
         protected:
             Core::NetBuffer buff;
 
-        private:
+        protected:
             std::unique_ptr<Network::Socket::ISockStreamHandler> model;
             Socket::OSSocket server;
         };

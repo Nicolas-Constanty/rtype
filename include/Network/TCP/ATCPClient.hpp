@@ -23,6 +23,9 @@ namespace Network
 
         public:
             virtual void OnAllowedToRead();
+
+        public:
+            void Connect(std::string const &ip, const uint16_t port);
         };
     }
 }

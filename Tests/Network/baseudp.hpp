@@ -34,6 +34,14 @@ public:
     {
         std::cout << "Sent " << len << " bytes" << std::endl;
     }
+
+    template <typename T>
+    void DirectSend(T const &ref)
+    {
+        buff.reset();
+        buff.serialize(ref);
+        sock.SendTo(buff, server);
+    }
 };
 
 class BasicUDPServ : public Network::UDP::AUDPServer<BasicUDPClient>
