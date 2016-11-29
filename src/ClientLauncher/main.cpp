@@ -15,7 +15,7 @@ int main()
 
 	SaltyEngine::GameObject *player = new SaltyEngine::GameObject("Player");
 
-	SaltyEngine::GameObject *monster = (SaltyEngine::GameObject*)SaltyEngine::Instantiate("Monster").get();
+	SaltyEngine::GameObject *monster = (SaltyEngine::GameObject*)SaltyEngine::Instantiate("Monster");
 	// Add script to the player
 	player->AddComponent<SaltyEngine::PlayerController>();
 	std::cout << "Monster scripts -> " << monster->GetSaltyBehaviour().size() << std::endl;

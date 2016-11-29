@@ -334,7 +334,7 @@ namespace SaltyEngine
     void Scene::operator<<(GameObject * const gameobj)
     {
         if (gameobj == nullptr) {
-            Debug::PrintWarning("Cannot add nullptr object");
+            Debug::PrintWarning("Scene: Cannot add nullptr object");
             return;
         }
         m_objects.push_back(gameobj);

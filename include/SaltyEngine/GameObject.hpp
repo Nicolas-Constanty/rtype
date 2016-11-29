@@ -84,7 +84,7 @@ namespace SaltyEngine
 			{
 				if (typeid(*(*it).get()) == typeid(T))
 				{
-					return (*it);
+					return (T)(*it).get();
 				}
 			}
 			return (nullptr);

@@ -29,9 +29,6 @@
     <ClCompile Include="..\..\src\Monster\Monster.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Monster\stdafx.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\Monster\MonsterController.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
