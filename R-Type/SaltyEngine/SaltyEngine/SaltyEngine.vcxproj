@@ -164,6 +164,8 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\src\Common\DllLoader.cpp" />
     <ClCompile Include="..\..\..\src\Monster\MonsterController.cpp" />
+    <ClCompile Include="..\..\..\src\SaltyEngine\Animation.cpp" />
+    <ClCompile Include="..\..\..\src\SaltyEngine\AnimationClip.cpp" />
     <ClCompile Include="..\..\..\src\SaltyEngine\Behaviour.cpp" />
     <ClCompile Include="..\..\..\src\SaltyEngine\Factory.cpp" />
     <ClCompile Include="..\..\..\src\SaltyEngine\Input\Action.cpp" />
@@ -189,6 +191,8 @@
     <ClInclude Include="..\..\..\include\Common\ILibraryLoader.hpp" />
     <ClInclude Include="..\..\..\include\Common\MakeUnique.hpp" />
     <ClInclude Include="..\..\..\include\Common\Singleton.hpp" />
+    <ClInclude Include="..\..\..\include\SaltyEngine\Animation.hpp" />
+    <ClInclude Include="..\..\..\include\SaltyEngine\AnimationClip.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\Config.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\DefaultRenderer.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\Engine.hpp" />
