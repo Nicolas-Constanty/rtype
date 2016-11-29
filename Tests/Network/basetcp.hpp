@@ -65,17 +65,17 @@ public:
     virtual void OnDataReceived(unsigned int len)
     {
         std::cout << "Receiving " << buff << std::endl;
-        if (buff.toString() == "change\n")
-        {
-            std::cout << "Changing client to Testswap client" << std::endl;
-            TestSwapClient  *newc = new TestSwapClient(*this);
-            std::cout << "TestSwap instantiated" << std::endl;
-            clients->Move(this, newc);
-            std::cout << "Client moved" << std::endl;
-            newc->SendData("on est bon\n");
-            newc->WantReceive();
-            std::cout << "Pending data sent" << std::endl;
-        }
+//        if (buff.toString() == "change\n")
+//        {
+//            std::cout << "Changing client to Testswap client" << std::endl;
+//            TestSwapClient  *newc = new TestSwapClient(*this);
+//            std::cout << "TestSwap instantiated" << std::endl;
+//            clients->Move(this, newc);
+//            std::cout << "Client moved" << std::endl;
+//            newc->SendData("on est bon\n");
+//            newc->WantReceive();
+//            std::cout << "Pending data sent" << std::endl;
+//        }
     }
 
     virtual void OnDataSent(unsigned int len)

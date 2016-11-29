@@ -9,13 +9,15 @@
 DefaultTCPConnection::DefaultTCPConnection(Network::Core::NativeSocketIOOperationDispatcher &dispatcher)
         : Network::TCP::ATCPClient(dispatcher), protocolRoomManager(*this), protocolServerManager(*this)
 {
-
+    this->SendData("hello");
+    std::cout << "CALLED DefaultTCPCOnnection constructor" << std::endl;
 }
 
 DefaultTCPConnection::DefaultTCPConnection(Network::Core::BasicConnection &ref)
         : Network::TCP::ATCPClient(ref.Dispatcher()), protocolRoomManager(*this), protocolServerManager(*this)
 {
-
+    this->SendData("hello");
+    std::cout << "CALLED DefaultTCPCOnnection constructor copy" << std::endl;
 }
 
 DefaultTCPConnection::~DefaultTCPConnection()
