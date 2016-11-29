@@ -21,20 +21,20 @@ namespace SaltyEngine
 		virtual ~Factory();
 
 	public:
-		static std::shared_ptr<Object> Create(std::string const& name);
+		static Object	*Create(std::string const& name);
 
 		/**
 		 * \brief Retrieves all the object of a certain type in the factory
 		 */
 		template <class T>
-		static std::list<std::shared_ptr<Object>> GetObjectsOfType()
+		static std::list<Object*> GetObjectsOfType()
 		{
-			std::list<std::shared_ptr<Object>> objs;
-			for (std::shared_ptr<Object> obj : m_objects)
+			std::list<Object*> objs;
+			for (std::list<std::unique_ptr<Object>>::const_iterator it = m_objects.begin(); it != m_objects.end(); ++it)
 			{
-				if (dynamic_cast<T*>(obj.get()))
+				if (dynamic_cast<T*>(it->get()))
 				{
-					objs.push_back(obj);
+					objs.push_back(it->get());
 				}
 			}
 			return objs;
@@ -46,7 +46,7 @@ namespace SaltyEngine
 		static bool LoadAsset(std::string const& path);
 
 	private:
-		static std::list<std::shared_ptr<Object> > m_objects;
+		static std::list<std::unique_ptr<Object>> m_objects;
 	};
 }
 

@@ -20,21 +20,21 @@ int main()
     // Create Scene
 	SaltyEngine::Scene *scene(new SaltyEngine::Scene());
 	// Create player
-	SaltyEngine::GameObject *player = new SaltyEngine::GameObject("Player");
+    SaltyEngine::GameObject *player = new SaltyEngine::GameObject("Player");
 
-	std::shared_ptr<SaltyEngine::Object> gu = SaltyEngine::Instantiate("Monster");
+	SaltyEngine::GameObject *gu = (SaltyEngine::GameObject*)SaltyEngine::Instantiate("Monster");
 
-	if (gu.get() != nullptr)
+	if (gu != nullptr)
 		std::cout << gu->GetName() << std::endl;
 
 	std::cout << "Size = " << SaltyEngine::Object::FindObjectsOfType<SaltyEngine::GameObject>().size() << std::endl;
 
 	// Add script to the player
 	player->AddComponent<SaltyEngine::PlayerController>();
-	
+
 	// Push player in scene
 	*scene << player;
-	*scene << (SaltyEngine::GameObject *)gu.get();
+	*scene << gu;
 
 	// Push scene int SaltyEngine
 	Singleton<SaltyEngine::SaltyEngine>::Instance() << scene;

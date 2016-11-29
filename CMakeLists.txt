@@ -61,8 +61,8 @@ file(GLOB Commonsrc src/Common/*.cpp)
 file(GLOB Protocolsrc src/Protocol/*.cpp src/Protocol/*/*.cpp)
 file(GLOB Protocolinc include/Protocol/*.hpp include/Protocol/*/*.hpp)
 
-file(GLOB SaltyEnginesrc src/SaltyEngine/*.cpp src/SaltyEngine/GUI/*.cpp src/SaltyEngine/Input/*.cpp src/SaltyEngine/SFML/*.cpp)
-file(GLOB SaltyEngineinc include/SaltyEngine/*.hpp include/SaltyEngine/GUI/*.hpp include/SaltyEngine/Input/*.hpp include/SaltyEngine/SFML/*.hpp)
+file(GLOB SaltyEnginesrc src/SaltyEngine/*.cpp src/SaltyEngine/GUI/*.cpp src/SaltyEngine/Input/*.cpp src/SaltyEngine/SFML/*.cpp src/Monster/*.cpp)
+file(GLOB SaltyEngineinc include/SaltyEngine/*.hpp include/SaltyEngine/GUI/*.hpp include/SaltyEngine/Input/*.hpp include/SaltyEngine/SFML/*.hpp include/Monster/*.hpp)
 
 file(GLOB srcGameServ src/ServerGame/*.cpp)
 file(GLOB incGameServ include/ServerGame/*.hpp)
