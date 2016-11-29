@@ -21,7 +21,7 @@ Network::Core::BasicConnection::BasicConnection(Network::Core::NativeSocketIOOpe
  */
 Network::Core::BasicConnection::~BasicConnection()
 {
-
+    dispatcher.Remove(this);
 }
 
 /**

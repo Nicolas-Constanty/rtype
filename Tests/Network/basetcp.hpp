@@ -9,6 +9,7 @@
 #include <Network/TCP/ATCPServer.hpp>
 #include <Network/TCP/ATCPClient.hpp>
 #include <Protocol/Room/RoomPackageFactory.hpp>
+#include "Protocol/Room/ProtocolPrintRoomPackage.hpp"
 
 class TestSwapClient : public Network::TCP::ATCPClient
 {
@@ -42,17 +43,21 @@ public:
     }
 };
 
-class BasicClient : public Network::TCP::ATCPClient
+#include "Protocol/Room/RoomPackageFactory.hpp"
+#include "Protocol/Room/IProtocolRoomHandler.hpp"
+#include "Protocol/Room/RTypeProtocolRoomManager.hpp"
+
+class BasicClient : public Network::TCP::ATCPClient, public IProtocolRoomHandler
 {
 public:
     BasicClient(Network::Core::NativeSocketIOOperationDispatcher &dispatcher) :
-            Network::TCP::ATCPClient(dispatcher)
+            Network::TCP::ATCPClient(dispatcher), protocolRoomManager(*this)
     {
 
     }
 
     BasicClient(Network::Core::BasicConnection &ref) :
-            Network::TCP::ATCPClient(ref.Dispatcher())
+            Network::TCP::ATCPClient(ref.Dispatcher()), protocolRoomManager(*this)
     {
 
     }
@@ -62,10 +67,16 @@ public:
         std::cout << "\e[31mDestructor called\e[0m" << std::endl;
     }
 
+private:
+    RTypeProtocolRoomManager protocolRoomManager;
+
 public:
     virtual void OnDataReceived(unsigned int len)
     {
         std::cout << "Receiving " << buff << std::endl;
+        if (!protocolRoomManager.handleProtocol(buff.buff(), buff.getLength())) {
+            std::cout << "unknown cmd" << std::endl;
+        }
 //        if (buff.toString() == "change\n")
 //        {
 //            std::cout << "Changing client to Testswap client" << std::endl;
@@ -86,6 +97,35 @@ public:
 
     virtual void OnStart() {
         this->SendData(*(factory.create<AUTHENTICATEPackageRoom>("toto", 0)));
+    }
+
+public:
+    virtual void onGetAUTHENTICATEPackage(AUTHENTICATEPackageRoom const &obj) {
+        std::cout << obj << std::endl;
+    }
+    virtual void onGetCREATEPackage(CREATEPackageRoom const &obj) {
+        std::cout << obj << std::endl;
+    }
+    virtual void onGetJOINPackage(JOINPackageRoom const &obj) {
+        std::cout << obj << std::endl;
+    }
+    virtual void onGetQUITPackage(QUITPackageRoom const &obj) {
+        std::cout << obj << std::endl;
+    }
+    virtual void onGetPLUGGEDPackage(PLUGGEDPackageRoom const &obj) {
+        std::cout << obj << std::endl;
+    }
+    virtual void onGetSWAPPackage(SWAPPackageRoom const &obj) {
+        std::cout << obj << std::endl;
+    }
+    virtual void onGetGETPackage(GETPackageRoom const &obj) {
+        std::cout << obj << std::endl;
+    }
+    virtual void onGetFAILUREPackage(FAILUREPackageRoom const &obj) {
+        std::cout << obj << std::endl;
+    }
+    virtual void onGetLAUNCHPackage(LAUNCHPackageRoom const &obj) {
+        std::cout << obj << std::endl;
     }
 
 private:

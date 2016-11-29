@@ -6,6 +6,7 @@
 #include "Protocol/Room/ProtocolPrintRoomPackage.hpp"
 #include "Protocol/Server/ProtocolPrintServerPackage.hpp"
 #include "Protocol/Room/RoomPackageFactory.hpp"
+#include "ServerRoom/RtypeRoomTCPConnection.hpp"
 #include "Protocol/Server/ServerPackageFactory.hpp"
 
 DefaultTCPConnection::DefaultTCPConnection(Network::Core::NativeSocketIOOperationDispatcher &dispatcher)
@@ -33,17 +34,6 @@ void DefaultTCPConnection::OnDataReceived(unsigned int)
             std::cout << "unknown command" << std::endl;
         }
     }
-//        if (buff.toString() == "change\n")
-//        {
-//            std::cout << "Changing client to Testswap client" << std::endl;
-//            TestSwapClient  *newc = new TestSwapClient(*this);
-//            std::cout << "TestSwap instantiated" << std::endl;
-//            clients->Move(this, newc);
-//            std::cout << "Client moved" << std::endl;
-//            newc->SendData("on est bon\n");
-//            newc->WantReceive();
-//            std::cout << "Pending data sent" << std::endl;
-//        }
 }
 
 void DefaultTCPConnection::OnDataSent(unsigned int len)
@@ -55,7 +45,11 @@ void DefaultTCPConnection::onGetAUTHENTICATEPackage(AUTHENTICATEPackageRoom cons
     std::cout << authenticatePackageRoom << std::endl;
 
     static unsigned int userID = 1;
-    this->SendData(*(RoomPackageFactory().create<AUTHENTICATEPackageRoom>(authenticatePackageRoom.name, userID)));
+
+    RtypeRoomTCPConnection *newc = new RtypeRoomTCPConnection(*this, authenticatePackageRoom.name, userID);
+    clients->Move(this, newc);
+    newc->WantReceive();
+    newc->OnStart();
     ++userID;
 }
 
