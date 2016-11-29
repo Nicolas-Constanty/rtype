@@ -33,7 +33,7 @@ namespace SaltyEngine
         const std::string ASSET_PATH = "/Assets";
     }
 
-	namespace Animation
+	namespace AnimationConstants
     {
 	    enum WrapMode
 	    {
