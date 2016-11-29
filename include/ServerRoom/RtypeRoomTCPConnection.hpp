@@ -33,13 +33,10 @@ public:
     virtual void onGetFAILUREPackage(FAILUREPackageRoom const &);
     virtual void onGetLAUNCHPackage(LAUNCHPackageRoom const &);
 
-public:
-
 private:
     RTypeProtocolRoomManager protocolRoomManager;
     std::string                 pseudo;
     unsigned int                id;
-
 };
 
 #endif //RTYPE_RTYPEROOMTCPCONNECTION_HPP

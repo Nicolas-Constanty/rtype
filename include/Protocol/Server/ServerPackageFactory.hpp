@@ -6,6 +6,7 @@
 #define RTYPE_SERVERPACKAGEFACTORY_HPP
 
 #include <list>
+#include <memory>
 #include "ProtocolServerPackage.hpp"
 
 class ServerPackageFactory {
@@ -23,7 +24,7 @@ public:
     }
 
 private:
-    std::list<std::unique_ptr<PackageServerHeader>> _vec;
+    std::list<std::unique_ptr<PackageServerHeader> > _vec;
 };
 
 #endif //RTYPE_ServerPACKAGEFACTORY_HPP

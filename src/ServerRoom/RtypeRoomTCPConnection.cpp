@@ -7,7 +7,7 @@
 #include "Protocol/Room/ProtocolPrintRoomPackage.hpp"
 
 RtypeRoomTCPConnection::RtypeRoomTCPConnection(Network::Core::NativeSocketIOOperationDispatcher &dispatcher)
-        : ATCPClient(dispatcher), protocolRoomManager(*this) {
+        : ATCPClient(dispatcher), protocolRoomManager(*this), pseudo(""), id(0) {
 
 }
 
