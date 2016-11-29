@@ -28,12 +28,12 @@ namespace SaltyEngine
 
 			virtual ~Texture() {};
 
-			sf::Vector2i GetSize() const override
+			sf::Vector2i GetSize(void) const override
 			{
 				return m_size;
 			}
 
-			const std::string &GetFileName() const
+			const std::string &GetFileName(void) const
 			{
 				return (m_filename);
 			}

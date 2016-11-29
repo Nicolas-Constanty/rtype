@@ -21,7 +21,7 @@ namespace SaltyEngine
 			Renderer(sf::VideoMode const &vm, const std::string &name);
 			virtual ~Renderer() {};
 			void Display() const override;
-			sf::RenderWindow *GetRenderWindow() const;
+			sf::RenderWindow *GetRenderWindow(void) const;
 
 		protected:
 			std::unique_ptr<sf::RenderWindow> m_window;
@@ -36,7 +36,7 @@ namespace SaltyEngine
 		public:
 			static void AddSpriteRenderer(SpriteRenderer* const sprr);
 
-			static const SpriteMap &GetSprites()
+			static const SpriteMap &GetSprites(void)
 			{
 				return (m_spriteRenderers);
 			}

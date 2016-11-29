@@ -136,7 +136,7 @@ namespace SaltyEngine
 	 * @return	The status.
 	 */
 
-	EngineStatus SaltyEngine::GetStatus() const
+	EngineStatus SaltyEngine::GetStatus(void) const
 	{
 		return m_status;
 	}
@@ -215,9 +215,10 @@ namespace SaltyEngine
 	 * @return	The delta time.
 	 */
 
-	long long SaltyEngine::GetDeltaTime() const
+	double SaltyEngine::GetDeltaTime(void) const
 	{
-		return m_delta_time.count();
+		double res = m_delta_time.count() / 1000000000;
+		return res;
 	}
 
 	/**
@@ -228,7 +229,7 @@ namespace SaltyEngine
 	 * @return	The fixed delta time.
 	 */
 
-	double SaltyEngine::GetFixedDeltaTime() const
+	double SaltyEngine::GetFixedDeltaTime(void) const
 	{
 		return (1.0 / m_fps);
 	}
@@ -245,6 +246,13 @@ namespace SaltyEngine
 		if (m_even_manager)
 			delete m_even_manager;
 		m_even_manager = ev_manager;
+	}
+
+	Scene * SaltyEngine::GetCurrentScene(void)
+	{
+		if (m_scenes.empty())
+			return (nullptr);
+		return m_scenes[m_current].get();
 	}
 
 	/**

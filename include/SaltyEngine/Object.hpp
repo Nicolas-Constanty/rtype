@@ -31,8 +31,8 @@ namespace SaltyEngine
 		virtual ~Object() {};
 
 	public:
-		uid GetInstanceID() const;
-		const std::string &GetName() const;
+		uid GetInstanceID(void) const;
+		const std::string &GetName(void) const;
 
 	private:
 		uid m_uid;

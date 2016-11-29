@@ -113,11 +113,15 @@ void Network::Socket::ASocket::Talk(const std::string &ip, const uint16_t port) 
 {
     socklen_t len = sizeof(sockaddr);
 
+    std::cout << "Talk" << std::endl;
+    memset(&sockaddr, 0, len);
     sockaddr.sin_family = domain;
     sockaddr.sin_port = htons(port);
-    sockaddr.sin_addr.s_addr = inet_addr(ip.c_str());
-    if (protocol == Network::Socket::TCP && connect(fd, (struct sockaddr *)&sockaddr, len) == -1)
+//    sockaddr.sin_addr.s_addr = inet_addr(ip.c_str());
+    if ((protocol == Network::Socket::TCP && connect(fd, (struct sockaddr *)&sockaddr, len) == -1) ||
+            (protocol == Network::Socket::UDP && inet_aton(ip.c_str(), &sockaddr.sin_addr) == 0))
         throw SocketException(strerror(errno));
+    std::cout << *this << std::endl;
 }
 
 /**

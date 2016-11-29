@@ -23,7 +23,9 @@ namespace SaltyEngine
 		~Scene();
 
 	public:
-		size_t GetSize() const;
+		size_t GetSize(void) const;
+		float GetGravity(void) const;
+		void SetGravity(float gravity);
 		std::ostream & print(std::ostream &os) const;
 		GameObject const &operator[](size_t index) const;
 		void Clear();
@@ -53,8 +55,9 @@ namespace SaltyEngine
 		void CallCoroutines();
 
 	private:
-		std::vector<GameObject*>	    m_objects;
-		std::queue<size_t>				m_init;
+		std::vector<GameObject *>					m_objects;
+		std::queue<size_t>							m_init;
+		float										m_gravity;
 
 	public:
 		friend std::ostream &operator<<(std::ostream &os, Scene &obj) {

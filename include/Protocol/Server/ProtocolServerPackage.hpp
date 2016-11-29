@@ -55,13 +55,15 @@ public:
 
 class AUTHENTICATEPackageServer : public PackageServerHeader {
 public:
-    AUTHENTICATEPackageServer(unsigned int userID)
+    AUTHENTICATEPackageServer(unsigned int userID, unsigned short roomNumber)
             : PackageServerHeader(sizeof(AUTHENTICATEPackageServer), ServerPurpose::SERVERAUTHENTICATE) {
         this->userID = userID;
+        this->roomNumber = roomNumber;
     }
 
 public:
     unsigned int userID;
+    unsigned short roomNumber;
 };
 
 class LAUNCHPackageServer : public PackageServerHeader {

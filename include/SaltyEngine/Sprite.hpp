@@ -34,7 +34,7 @@ namespace SaltyEngine
 		IRect<T>		*m_rect;
 		Texture<T>		*m_texture;
 	public:
-		IRect<T>* GetRect() const
+		IRect<T>* GetRect(void) const
 		{
 			return m_rect;
 		}

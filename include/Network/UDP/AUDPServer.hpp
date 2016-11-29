@@ -125,15 +125,15 @@ namespace Network
                 if (ret > 0)
                 {
                     //Check which client send us data
-                    for (typename std::list<std::unique_ptr<Socket::ISockStreamHandler>>::iterator it = clients->Streams().begin(); it != clients->Streams().end(); ++it)
+                    for (std::unique_ptr<Socket::ISockStreamHandler> &curr : clients->Streams())
                     {
-                        TimedUDPClient *clt = dynamic_cast<TimedUDPClient *>(it->get());
+                        TimedUDPClient *clt = dynamic_cast<TimedUDPClient *>(curr.get());
 
                         if (clt == NULL)
                             continue;
 
                         //And call the callback in case of matching
-                        if ((*it)->getSocket() == newclient->getSocket())
+                        if (curr->getSocket() == newclient->getSocket())
                         {
                             clt->refresh();
                             clt->setBuffer(buff);
@@ -141,15 +141,11 @@ namespace Network
                             clt->OnDataReceived(ret);
                             return ;
                         }
-//                        else if (clt->timedout()) //todo replace it in another callback #disconnectionClientTimeout
-//                        {
-//                            std::cout << "Disconnecting client" << std::endl;
-//                            clt->Disconnect();
-//                        }
                     }
                     std::cout << "New client joined: " << (Socket::ASocket const &)newclient->getSocket() << std::endl;
                     //Either it mean that it's a new client, so push it in <clients> list
                     clients->Add(newclient);
+                    newclient->setClients(clients);
                     //And call the callbacks
                     newclient->setBuffer(buff);
                     newclient->OnDataReceived(ret);
@@ -160,6 +156,27 @@ namespace Network
                 {
                     delete(newclient);
                     Disconnect();
+                }
+            }
+
+            /**
+             * @brief Callback called juste before checking if the fd is allowed to read
+             */
+            virtual void OnReadCheck()
+            {
+                std::list<std::unique_ptr<Socket::ISockStreamHandler>> &streams = clients->Streams();
+                std::cout << "Check du read" << std::endl;
+                for (typename std::list<std::unique_ptr<Socket::ISockStreamHandler> >::iterator it = streams.begin(); it != streams.end();)
+                {
+                    TimedUDPClient  *clt = dynamic_cast<TimedUDPClient *>(it->get());
+
+                    if (clt->timedout())
+                    {
+                        clt->Disconnect();
+                        it = streams.begin();
+                    }
+                    else
+                        ++it;
                 }
             }
 

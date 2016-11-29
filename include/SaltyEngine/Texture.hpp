@@ -16,7 +16,7 @@ namespace SaltyEngine
 		}
 
 		virtual ~Texture() {};
-		virtual T GetSize() const = 0;
+		virtual T GetSize(void) const = 0;
 
 	protected:
 		T	m_size;

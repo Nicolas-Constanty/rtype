@@ -1,7 +1,6 @@
 #pragma once
 #include <functional>
 #include <list>
-#include <vector>
 #include "Object.hpp"
 #include "SaltyEngine/Sprite.hpp"
 
@@ -13,10 +12,12 @@ namespace SaltyEngine
 	private:
 		std::list<std::function<void()>> m_events;
 		int m_frameRate = 60;
-		std::vector<Sprite<T> *> m_sprites;
+		std::list<Sprite<T> *> m_sprites;
 
 	public:
-		AnimationClip(std::string const& name = "Animation") : Object(name)
+		AnimationClip(std::string const& name = "Animation", int frameRate = 60) :
+				Object(name),
+				m_frameRate(frameRate)
 		{}
 
 		virtual ~AnimationClip() {}
@@ -33,7 +34,7 @@ namespace SaltyEngine
 			m_sprites.push_back(sprite);
 		}
 
-		float GetFrameRate() const
+		double GetFrameRate() const
 		{
 			return m_frameRate;
 		}
@@ -43,7 +44,7 @@ namespace SaltyEngine
 			m_frameRate = frameRate;
 		}
 
-		const std::vector<Sprite<T> *> GetFrames() const
+		const std::list<Sprite<T> *> &GetFrames() const
 		{
 			return m_sprites;
 		}

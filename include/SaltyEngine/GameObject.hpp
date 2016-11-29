@@ -36,7 +36,7 @@ namespace SaltyEngine
 		size_t						m_bcount;
 
 	public:
-		bool GetActiveSelf() const;
+		bool GetActiveSelf(void) const;
 
 	public:
 		template<class T>
@@ -137,7 +137,7 @@ namespace SaltyEngine
 			return (list);
 		}
 
-		const std::list<SaltyBehaviour *> &GetSaltyBehaviour() const
+		const std::list<SaltyBehaviour *> &GetSaltyBehaviour(void) const
 		{
 			return (m_behaviour);
 		}

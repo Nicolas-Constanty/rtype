@@ -36,9 +36,14 @@ void Network::Socket::BasicSockStreamsContainer::Add(Network::Socket::ISockStrea
  */
 void Network::Socket::BasicSockStreamsContainer::Remove(Network::Socket::ISockStreamHandler *torm)
 {
-    std::remove_if(streams.begin(), streams.end(), [torm](std::unique_ptr<Socket::ISockStreamHandler> &curr){
-            return torm == curr.get();
-        });
+    for (std::list<std::unique_ptr<Socket::ISockStreamHandler>>::iterator it = streams.begin(), end = streams.end(); it != end; ++it)
+    {
+        if (torm == it->get())
+        {
+            streams.erase(it);
+            return;
+        }
+    }
 }
 
 /**

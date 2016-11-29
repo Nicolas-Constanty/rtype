@@ -108,6 +108,7 @@ int Network::Socket::UnixSocket::SendTo(Network::Core::NetBuffer &buff, ISockStr
 
     if (rcvr)
     {
+        std::cout << "Sending data: " << buff << " to: " << *rcvr << std::endl;
         return static_cast<int>(sendto(fd, buff.buff(), buff.getLength(), MSG_NOSIGNAL, (struct sockaddr *)&rcvr->sockaddr, sizeof(rcvr->sockaddr)));
     }
     return 0;

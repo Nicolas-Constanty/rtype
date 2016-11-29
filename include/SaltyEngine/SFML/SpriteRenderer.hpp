@@ -8,6 +8,7 @@
 #include "SaltyEngine/ASpriteRenderer.hpp"
 #include "SaltyEngine/SFML/Sprite.hpp"
 #include "SaltyEngine/SFML/Window.hpp"
+#include "SaltyEngine/SFML/Renderer.hpp"
 
 namespace SaltyEngine
 {
@@ -32,12 +33,12 @@ namespace SaltyEngine
 				m_window = w;
 			}
 			virtual ~SpriteRenderer() {};
-			Sprite* GetSprite() const override
+			Sprite* GetSprite(void) const override
 			{
 				return (dynamic_cast<Sprite*>(m_sprite));
 			};
 
-			IWindow *GetWindow() const override
+			IWindow *GetWindow(void) const override
 			{
 				return (m_window);
 			}

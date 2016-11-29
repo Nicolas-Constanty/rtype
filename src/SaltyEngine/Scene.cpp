@@ -11,9 +11,12 @@ namespace SaltyEngine
 
 	Scene::Scene() : Object("Scene")
 	{
+		m_gravity = 9.81f;
 	}
 
-	Scene::Scene(const std::string &name) : Object(name) {}
+	Scene::Scene(const std::string &name) : Object(name) {
+		m_gravity = 9.81f;
+	}
 
 	/**
 	 * @fn	Scene::~Scene()
@@ -33,9 +36,19 @@ namespace SaltyEngine
 	 * @return	The size.
 	 */
 
-	size_t Scene::GetSize() const
+	size_t Scene::GetSize(void) const
 	{
 		return (m_objects.size());
+	}
+
+	float Scene::GetGravity(void) const
+	{
+		return (m_gravity);
+	}
+
+	void Scene::SetGravity(float gravity)
+	{
+		m_gravity = gravity;
 	}
 
 	/**

@@ -21,7 +21,7 @@ namespace SpriteEditor
 		sf::Sprite operator()();
 		void OnMouseOver(const sf::Event &event);
 		virtual void OnClic(const sf::Event &event);
-		sf::FloatRect GetRect() const;
+		sf::FloatRect GetRect(void) const;
 
 	protected:
 		sf::Sprite m_sprite;

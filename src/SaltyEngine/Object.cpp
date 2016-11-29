@@ -14,7 +14,7 @@ namespace SaltyEngine
 	 * @return	The instance identifier.
 	 */
 
-	uid Object::GetInstanceID() const
+	uid Object::GetInstanceID(void) const
 	{
 		return m_uid;
 	}
@@ -27,7 +27,7 @@ namespace SaltyEngine
 	 * @return	The name.
 	 */
 
-	const std::string & Object::GetName() const
+	const std::string & Object::GetName(void) const
 	{
 		return m_name;
 	}
