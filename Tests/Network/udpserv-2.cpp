@@ -13,6 +13,7 @@ int main()
     Network::Core::NativeSocketIOOperationDispatcher    dispatcher;
     BasicUDPServ    serv(dispatcher);
 
+    dispatcher.setTimeout({1, 0});
     dispatcher.Watch(serv);
     dispatcher.Run();
 #ifdef _WIN32

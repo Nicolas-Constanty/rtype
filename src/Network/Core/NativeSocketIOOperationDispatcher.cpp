@@ -21,7 +21,8 @@ static bool running = true;
 const Network::Core::NativeSocketIOOperationDispatcher::IOOperation  Network::Core::NativeSocketIOOperationDispatcher::read = {
         "Read",
         &NativeSocketIOOperationDispatcher::m_readWatch,
-        &Socket::ISockStreamHandler::OnAllowedToRead
+        &Socket::ISockStreamHandler::OnAllowedToRead,
+        &Socket::ISockStreamHandler::OnReadCheck
 };
 
 /**
@@ -30,7 +31,8 @@ const Network::Core::NativeSocketIOOperationDispatcher::IOOperation  Network::Co
 const Network::Core::NativeSocketIOOperationDispatcher::IOOperation Network::Core::NativeSocketIOOperationDispatcher::write = {
         "Write",
         &NativeSocketIOOperationDispatcher::m_writeWatch,
-        &Socket::ISockStreamHandler::OnAllowedToWrite
+        &Socket::ISockStreamHandler::OnAllowedToWrite,
+        &Socket::ISockStreamHandler::OnWriteCheck
 };
 
 /**
@@ -156,6 +158,7 @@ void Network::Core::NativeSocketIOOperationDispatcher::performOperations(fd_set 
     for (Socket::ISockStreamHandler *curr : tmp)
     {
 //        std::cout << "    \x1b[33mChecking fd\x1b[0m: " << curr->getSocket().Native() << " >> ";
+        (curr->*operation.check)();
         if (FD_ISSET(curr->getSocket().Native(), &set))
         {
 //            std::cout << "\x1b[32mOK\x1b[0m" << std::endl;
@@ -178,11 +181,11 @@ void Network::Core::NativeSocketIOOperationDispatcher::Run()
 {
 //    std::cout << "Handling sigint" << std::endl;
     signal(SIGINT, breakCatch);
-    while (running)
+    while (running && (m_readWatch.size() > 0 || m_writeWatch.size() > 0))
     {
         try
         {
-//            std::cout << "===Handling operations===" << std::endl;
+//            std::cout << "===Handling operations(read: " << m_readWatch.size() << ", write: " << m_writeWatch.size() << ")===" << std::endl;
             HandleOperations();
         }
         catch (std::runtime_error const &err){}

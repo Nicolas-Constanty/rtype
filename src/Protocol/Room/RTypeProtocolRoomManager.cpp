@@ -14,6 +14,7 @@ const RTypeProtocolRoomManager::RoomID RTypeProtocolRoomManager::JOINID = RTypeP
 const RTypeProtocolRoomManager::RoomID RTypeProtocolRoomManager::PLUGGEDID = RTypeProtocolRoomManager::RoomID(ROOMPLUGGED, sizeof(PLUGGEDPackageRoom));
 const RTypeProtocolRoomManager::RoomID RTypeProtocolRoomManager::SWAPID = RTypeProtocolRoomManager::RoomID(ROOMSWAP, sizeof(SWAPPackageRoom));
 const RTypeProtocolRoomManager::RoomID RTypeProtocolRoomManager::QUITID = RTypeProtocolRoomManager::RoomID(ROOMQUIT, sizeof(QUITPackageRoom));
+const RTypeProtocolRoomManager::RoomID RTypeProtocolRoomManager::LAUNCHID = RTypeProtocolRoomManager::RoomID(ROOMLAUNCH, sizeof(LAUNCHPackageRoom));
 
 RTypeProtocolRoomManager::RTypeProtocolRoomManager(IProtocolRoomHandler &protocolRoomHandler)
         : protocolRoomHandler(protocolRoomHandler) {
@@ -25,6 +26,7 @@ RTypeProtocolRoomManager::RTypeProtocolRoomManager(IProtocolRoomHandler &protoco
     fptr[PLUGGEDID] = (MFP)&IProtocolRoomHandler::onGetPLUGGEDPackage;
     fptr[SWAPID] = (MFP)&IProtocolRoomHandler::onGetSWAPPackage;
     fptr[QUITID] = (MFP)&IProtocolRoomHandler::onGetQUITPackage;
+    fptr[LAUNCHID] = (MFP)&IProtocolRoomHandler::onGetLAUNCHPackage;
 }
 
 RTypeProtocolRoomManager::~RTypeProtocolRoomManager() {
