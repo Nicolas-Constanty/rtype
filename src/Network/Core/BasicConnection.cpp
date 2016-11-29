@@ -78,7 +78,12 @@ void Network::Core::BasicConnection::Disconnect()
     giveSocket().Close();
     dispatcher.Remove(this);
     if (clients)
+    {
+        std::cout << "\x1b[32mRemoved\x1b[0m" << std::endl;
         clients->Remove(this);
+    }
+    else
+        std::cout << "\x1b[33mNot Removed\x1b[0m" << std::endl;
 }
 
 /**
@@ -88,4 +93,20 @@ void Network::Core::BasicConnection::Disconnect()
 std::queue<Network::Core::NetBuffer> &Network::Core::BasicConnection::Messages()
 {
     return toWrite;
+}
+
+/**
+ * @brief Callback called just before check that the fd is allowed to read
+ */
+void Network::Core::BasicConnection::OnReadCheck()
+{
+
+}
+
+/**
+ * @brief Callback called juste befroe check that the fd is allowed to write
+ */
+void Network::Core::BasicConnection::OnWriteCheck()
+{
+
 }
