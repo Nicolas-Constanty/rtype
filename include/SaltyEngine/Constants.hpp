@@ -32,6 +32,16 @@ namespace SaltyEngine
 
         const std::string ASSET_PATH = "/Assets";
     }
+
+	namespace Animation
+    {
+	    enum WrapMode
+	    {
+		    PING_PONG,
+			LOOP,
+			ONCE
+	    };
+    }
 }
 
 #endif //RTYPE_CONSTANTS_HPP
