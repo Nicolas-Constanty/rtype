@@ -78,13 +78,13 @@ namespace SaltyEngine
 		}
 		bool CompareTag(const std::string &tag) const;
 		template<class T>
-		T GetComponent()
+		T *GetComponent()
 		{
 			for (std::list<std::unique_ptr<Component>>::const_iterator it = m_components.begin(); it != m_components.end(); ++it)
 			{
-				if (typeid(*(*it).get()) == typeid(T))
+				if (dynamic_cast<T*>((*it).get()))
 				{
-					return (T)(*it).get();
+					return (T*)(*it).get();
 				}
 			}
 			return (nullptr);

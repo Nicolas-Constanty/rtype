@@ -33,7 +33,7 @@ namespace SaltyEngine
 			m_sprites.push_back(sprite);
 		}
 
-		int GetFrameRate() const
+		float GetFrameRate() const
 		{
 			return m_frameRate;
 		}

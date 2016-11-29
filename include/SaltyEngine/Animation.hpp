@@ -15,25 +15,32 @@ namespace SaltyEngine
 		bool m_isPlaying = false;
 		bool m_playAuto = true;
 		std::map<std::string, AnimationClip<T> *> m_clips;
-		//AnimationClip<T> m_currClip;
-		AnimationConstants::WrapMode m_wrapMode;
+
+		AnimationConstants::WrapMode m_wrapMode = AnimationConstants::WrapMode::LOOP;
 
 		std::queue<std::string> m_queuedAnims;
 
 	private:
 		void PlayAnim()
 		{
-			int i;
-			int frameCount = clip.GetFrames().size();
-			ASpriteRenderer<T> *sprite = gameObject->GetComponent<ASpriteRenderer<T> *>();
+			size_t i;
+			int frameCount = clip->GetFrames().size();
+			ASpriteRenderer<T> *sprite = gameObject->GetComponent<ASpriteRenderer<T>>();
+			const auto frames = clip->GetFrames();
+			int frameRate = 1000 /clip->GetFrameRate();
 
+			if (frameCount == 0)
+			{
+				Debug::PrintWarning("Animation: No frames in animation");
+				return;
+			}
 			switch (m_wrapMode)
 			{
 			case AnimationConstants::ONCE:
 				for (i = 0; i < frameCount; ++i)
 				{
-					sprite->SetSprite(clip.GetFrames()[i]);
-					WaitForSecond(1.0 / clip.GetFrameRate());
+					sprite->SetSprite(frames[i]);
+					WaitForMillisecond(frameRate);
 				}
 				break;
 
@@ -41,8 +48,9 @@ namespace SaltyEngine
 				i = 0;
 				for (;;)
 				{
-					sprite->SetSprite(clip.GetFrames()[i++]);
-					WaitForSecond(1.0 / clip.GetFrameRate());
+					std::cout << "toto" << i << " frame rate " << 1.f / clip->GetFrameRate() << std::endl;
+					sprite->SetSprite(frames[i++]);
+					WaitForMillisecond(frameRate);
 					i %= frameCount;
 				}
 				break;
@@ -52,13 +60,13 @@ namespace SaltyEngine
 				{
 					for (i = 0; i < frameCount; ++i)
 					{
-						sprite->SetSprite(clip.GetFrames()[i]);
-						WaitForSecond(1.0 / clip.GetFrameRate());
+						sprite->SetSprite(frames[i]);
+						WaitForMillisecond(frameRate);
 					}
 					for (i = frameCount - 1; i >= 0; --i)
 					{
-						sprite->SetSprite(clip.GetFrames()[i]);
-						WaitForSecond(1.0 / clip.GetFrameRate());
+						sprite->SetSprite(frames[i]);
+						WaitForMillisecond(frameRate);
 					}
 				}
 				break;
@@ -87,18 +95,18 @@ namespace SaltyEngine
 				return;
 			}
 			m_isPlaying = true;
-			clip = m_clips.at(0);
-			StartCoroutine(&SaltyEngine::Animation::PlayAnim);
+			clip = m_clips.begin()->second;
+			StartCoroutine(&Animation::PlayAnim);
 		}
 
 		void Play(std::string const& name)
 		{
-			if (m_clips.size() == 0)
+			if (m_clips.size() == 0 || m_clips.find(name) == m_clips.end())
 			{
 				return;
 			}
 			m_isPlaying = true;
-			clip = m_clips.at(0);
+			clip = m_clips[name];
 			StartCoroutine(&Animation::PlayAnim);
 		}
 
@@ -143,7 +151,7 @@ namespace SaltyEngine
 		}
 
 	public:
-		AnimationClip<T> const clip;
+		AnimationClip<T> *clip = nullptr;
 
 		/**
 		 * \brief Behaviour functions
@@ -154,7 +162,7 @@ namespace SaltyEngine
 			std::cout << "STARTING" << std::endl;
 			if (m_playAuto)
 			{
-				StartCoroutine(&Animation::PlayAnim);
+				Play();
 			}
 		}
 	};
