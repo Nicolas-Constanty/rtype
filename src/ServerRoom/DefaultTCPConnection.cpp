@@ -5,6 +5,8 @@
 #include "ServerRoom/DefaultTCPConnection.hpp"
 #include "Protocol/Room/ProtocolPrintRoomPackage.hpp"
 #include "Protocol/Server/ProtocolPrintServerPackage.hpp"
+#include "Protocol/Room/RoomPackageFactory.hpp"
+#include "Protocol/Server/ServerPackageFactory.hpp"
 
 DefaultTCPConnection::DefaultTCPConnection(Network::Core::NativeSocketIOOperationDispatcher &dispatcher)
         : Network::TCP::ATCPClient(dispatcher), protocolRoomManager(*this), protocolServerManager(*this)
@@ -51,6 +53,10 @@ void DefaultTCPConnection::OnDataSent(unsigned int len)
 
 void DefaultTCPConnection::onGetAUTHENTICATEPackage(AUTHENTICATEPackageRoom const &authenticatePackageRoom) {
     std::cout << authenticatePackageRoom << std::endl;
+
+    static unsigned int userID = 1;
+    this->SendData(*(RoomPackageFactory().create<AUTHENTICATEPackageRoom>(authenticatePackageRoom.name, userID)));
+    ++userID;
 }
 
 void DefaultTCPConnection::onGetFAILUREPackage(FAILUREPackageRoom const &failurePackageRoom) {
@@ -62,5 +68,4 @@ void DefaultTCPConnection::onGetAUTHENTICATEPackage(AUTHENTICATEPackageServer co
 }
 
 void DefaultTCPConnection::OnStart() {
-//    this->SendData("salut !");
 }
