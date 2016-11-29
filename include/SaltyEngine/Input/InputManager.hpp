@@ -68,7 +68,7 @@ namespace SaltyEngine {
                     Debug::PrintWarning("Axis " + name + " is already set, use SetAxis instead.");
                     return;
                 }
-                m_axis[name] = Make_unique<Axis>(axis);
+                m_axis[name] = std::unique_ptr<Axis>(axis);
             }
 
             static void  AddAction(std::string const &name, Action *action) {
@@ -76,15 +76,15 @@ namespace SaltyEngine {
                     Debug::PrintWarning("Action " + name + " is already set, use SetAction instead.");
                     return;
                 }
-                m_actions[name] = Make_unique<Action>(action);
+                m_actions[name] = std::unique_ptr<Action>(action);
             }
 
             static void  SetAxis(std::string const &name, Axis *axis) {
-                m_axis[name] = Make_unique<Axis>(axis);
+                m_axis[name] = std::unique_ptr<Axis>(axis);
             }
 
             static void  SetAction(std::string const &name, Action *action) {
-                m_actions[name] = Make_unique<Action>(action);
+                m_actions[name] = std::unique_ptr<Action>(action);
             }
 
             static float GetAxis(std::string const &name) {
@@ -108,8 +108,14 @@ namespace SaltyEngine {
                     case ActionType::Released :
                         return it->second.get()->Released<Input>();
                 }
+                return false;
             }
         };
+        template <class T>
+        std::map<std::string, std::unique_ptr<Axis>>    InputManager<T>::m_axis;
+
+        template <class T>
+        std::map<std::string, std::unique_ptr<Action>>  InputManager<T>::m_actions;
     }
 }
 

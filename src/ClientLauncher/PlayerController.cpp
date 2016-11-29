@@ -18,21 +18,33 @@ namespace SaltyEngine
 	{
 		std::cout << "Je suis le Start, je ne suis appelé qu'une fois" << std::endl;
 		StartCoroutine(&PlayerController::DisplayCoroutine);
+		InputKey::AddAxis("Horizontal", new Input::Axis(
+				{
+						{Input::KeyCode::Left, -1},
+						{Input::KeyCode::Right, 1},
+						{Input::KeyCode::Q, -1},
+						{Input::KeyCode::D, 1}
+				}
+		));
+        InputKey::AddAxis("Vertical", new Input::Axis(
+                {
+                        {Input::KeyCode::Up, -1},
+                        {Input::KeyCode::Down, 1},
+                        {Input::KeyCode::Z, -1},
+                        {Input::KeyCode::S, 1}
+                }
+        ));
 	}
 
 	void PlayerController::FixedUpdate()
 	{
-		//std::cout << "Fixed Update 60 fps" << std::endl;
-		
-		if (InputKey::GetKeyDown("S"))
-			gameObject->transform.Translate(Vector(0.0f, 1.0f)  * speed);
-		if (InputKey::GetKeyDown("Z"))
-			gameObject->transform.Translate(Vector(0.0f, -1.0f) * speed);
-		if (InputKey::GetKeyDown("D"))
-			gameObject->transform.Translate(Vector(1.0f, 0.0f) * speed);
-		if (InputKey::GetKeyDown("Q"))
-			gameObject->transform.Translate(Vector(-1.0f, 0.0f) * speed);
-        //std::cout << gameObject->transform.position << std::endl;
+		std::cout << "Fixed Update 60 fps" << std::endl;
+
+        float h = InputKey::GetAxis("Horizontal");
+        float v = InputKey::GetAxis("Vertical");
+        if (h != 0 || v != 0) {
+            gameObject->transform.Translate(Vector(h, v) * speed);
+        }
 	}
 
 	void PlayerController::DisplayCoroutine()

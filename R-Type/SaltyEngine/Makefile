@@ -28,6 +28,7 @@ SRC		= 	$(SALTYENGINE_DIR)/Behaviour.cpp        \
             $(SALTYENGINE_DIR)/Scene.cpp            \
             $(SALTYENGINE_DIR)/GUI/Button.cpp           \
             $(SALTYENGINE_DIR)/GUI/Event.cpp            \
+            $(SALTYENGINE_DIR)/GUI/UIBehaviour.cpp      \
             $(SALTYENGINE_DIR)/GUI/Widget.cpp           \
             $(SALTYENGINE_DIR)/Input/Action.cpp         \
             $(SALTYENGINE_DIR)/Input/Axis.cpp           \
