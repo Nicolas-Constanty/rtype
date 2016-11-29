@@ -94,6 +94,7 @@ namespace Network
                 newclient->setClients(clients);
                 clients->Add(newclient);
                 newclient->WantReceive();
+                newclient->OnStart();
                 WantReceive();
                 OnDataReceived(0);
             }

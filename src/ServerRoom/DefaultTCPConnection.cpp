@@ -9,14 +9,12 @@
 DefaultTCPConnection::DefaultTCPConnection(Network::Core::NativeSocketIOOperationDispatcher &dispatcher)
         : Network::TCP::ATCPClient(dispatcher), protocolRoomManager(*this), protocolServerManager(*this)
 {
-    this->SendData("hello");
     std::cout << "CALLED DefaultTCPCOnnection constructor" << std::endl;
 }
 
 DefaultTCPConnection::DefaultTCPConnection(Network::Core::BasicConnection &ref)
         : Network::TCP::ATCPClient(ref.Dispatcher()), protocolRoomManager(*this), protocolServerManager(*this)
 {
-    this->SendData("hello");
     std::cout << "CALLED DefaultTCPCOnnection constructor copy" << std::endl;
 }
 
@@ -29,7 +27,7 @@ void DefaultTCPConnection::OnDataReceived(unsigned int)
 {
     std::cout << "Receiving " << buff << std::endl;
     if ((!protocolServerManager.handleProtocol(buff.buff(), buff.getLength()))) {
-        if ((!protocolServerManager.handleProtocol(buff.buff(), buff.getLength()))) {
+        if ((!protocolRoomManager.handleProtocol(buff.buff(), buff.getLength()))) {
             std::cout << "unknown command" << std::endl;
         }
     }
@@ -61,4 +59,8 @@ void DefaultTCPConnection::onGetFAILUREPackage(FAILUREPackageRoom const &failure
 
 void DefaultTCPConnection::onGetAUTHENTICATEPackage(AUTHENTICATEPackageServer const &authenticatePackageServer) {
     std::cout << authenticatePackageServer << std::endl;
+}
+
+void DefaultTCPConnection::OnStart() {
+//    this->SendData("salut !");
 }

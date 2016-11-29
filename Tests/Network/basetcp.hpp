@@ -8,6 +8,7 @@
 #include <iostream>
 #include <Network/TCP/ATCPServer.hpp>
 #include <Network/TCP/ATCPClient.hpp>
+#include <Protocol/Room/RoomPackageFactory.hpp>
 
 class TestSwapClient : public Network::TCP::ATCPClient
 {
@@ -82,6 +83,13 @@ public:
     {
         std::cout << "Number of bytes sent: " << len << std::endl;
     }
+
+    virtual void OnStart() {
+        this->SendData(*(factory.create<AUTHENTICATEPackageRoom>("toto", 0)));
+    }
+
+private:
+    RoomPackageFactory factory;
 };
 
 class BasicTCPServ : public Network::TCP::ATCPServer<BasicClient>
