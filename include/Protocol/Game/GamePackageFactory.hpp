@@ -7,6 +7,7 @@
 
 #include <list>
 #include <climits>
+#include <bits/unique_ptr.h>
 #include "ProtocolGamePackage.hpp"
 
 class GamePackageFactory {
@@ -23,7 +24,7 @@ public:
     T *create(Args ...args) {
         T *package = new T(idx, args...);
 
-        _vec.push_back(package);
+        _vec.emplace_back(package);
         if (idx == USHRT_MAX) {
             idx = 0;
         } else {
@@ -34,7 +35,7 @@ public:
 
 private:
     unsigned short idx;
-    std::list<PackageGameHeader *> _vec;
+    std::list<std::unique_ptr<PackageGameHeader>> _vec;
 };
 
 #endif //RTYPE_GAMEPACKAGEFACTORY_HPP
