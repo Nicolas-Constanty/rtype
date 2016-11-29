@@ -36,13 +36,13 @@ namespace SaltyEngine {
 
             static bool IsKeyUp(::SaltyEngine::Input::KeyCode::Key key);
 
-            static std::vector<::SaltyEngine::Input::KeyCode::Key> GetCurrentKeys();
+            static std::vector<::SaltyEngine::Input::KeyCode::Key> GetCurrentKeys(void);
 
             static bool GetButtonPressed(::SaltyEngine::Input::Mouse::Button button);
 
-            static Vector GetPosition();
+            static Vector GetPosition(void);
 
-            static Vector GetPositionRelative();
+            static Vector GetPositionRelative(void);
 
             static inline ::SaltyEngine::Input::KeyCode::Key GetKeyCode(sf::Keyboard::Key key) {
                 return (::SaltyEngine::Input::KeyCode::Key(key + 1));

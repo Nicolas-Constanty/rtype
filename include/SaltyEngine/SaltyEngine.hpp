@@ -10,6 +10,7 @@
 #include <memory>
 #include "SaltyEngine/DefaultRenderer.hpp"
 #include "SaltyEngine/Input/DefaultEventManager.hpp"
+#include "Common/Singleton.hpp"
 
 
 #define DEFAULT_FRAME_RATE 60
@@ -25,24 +26,26 @@ namespace SaltyEngine
 	class Scene;
 #define print_status(x) x
 
-	class SaltyEngine
+	class SaltyEngine : public Singleton<SaltyEngine>
 	{
+		friend class Singleton<SaltyEngine>;
 	public:
 		SaltyEngine();
 		virtual ~SaltyEngine();
 
 		void Start();
 		void Stop();
-		virtual void Run();
-		EngineStatus GetStatus() const;
+		virtual void Run(void);
+		EngineStatus GetStatus(void) const;
 		bool LoadScene(size_t index);
 		bool LoadScene(const std::string &name);
 		void SetFrameRate(size_t fr);
 		void operator<<(Scene *scene);
-		long long GetDeltaTime() const;
-		double GetFixedDeltaTime() const;
+		double GetDeltaTime(void) const;
+		double GetFixedDeltaTime(void) const;
 		void SetRenderer(IRenderer *renderer);
 		void SetEventManager(Input::IEventManager *ev_manager);
+		Scene *GetCurrentScene(void);
 
 	/*public:
 		static std::string const Tag[];*/

@@ -7,7 +7,7 @@ namespace SaltyEngine
 		m_bcount = 0;
 	}
 
-	bool GameObject::GetActiveSelf() const
+	bool GameObject::GetActiveSelf(void) const
 	{
 		return (m_activeSelf);
 	}

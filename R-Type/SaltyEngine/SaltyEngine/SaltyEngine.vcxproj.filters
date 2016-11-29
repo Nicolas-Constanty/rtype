@@ -24,9 +24,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\src\SaltyEngine\main.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\SaltyEngine\Scene.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
@@ -70,6 +67,12 @@
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\SaltyEngine\Input\Mapping.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\SaltyEngine\RigidBody.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Tests\SaltyEngine\main.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
@@ -190,6 +193,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\Common\MakeUnique.hpp">
       <Filter>Fichiers d%27en-tête\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\SaltyEngine\RigidBody.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

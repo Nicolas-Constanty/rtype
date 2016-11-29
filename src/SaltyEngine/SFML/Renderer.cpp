@@ -25,7 +25,7 @@ namespace SaltyEngine
 				Debug::PrintWarning("Main window has been closed!");
 		}
 
-		sf::RenderWindow * Renderer::GetRenderWindow() const
+		sf::RenderWindow * Renderer::GetRenderWindow(void) const
 		{
 			return m_window.get();
 		}

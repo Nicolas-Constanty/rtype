@@ -23,7 +23,9 @@ namespace SaltyEngine
 		~Scene();
 
 	public:
-		size_t GetSize() const;
+		size_t GetSize(void) const;
+		float GetGravity(void) const;
+		void SetGravity(float gravity);
 		std::ostream & print(std::ostream &os) const;
 		const std::unique_ptr<GameObject> &operator[](size_t index) const;
 		void Clear();
@@ -54,7 +56,8 @@ namespace SaltyEngine
 
 	private:
 		std::vector<std::unique_ptr<GameObject>>	m_objects;
-		std::queue<size_t>				m_init;
+		std::queue<size_t>							m_init;
+		float										m_gravity;
 
 	public:
 		friend std::ostream &operator<<(std::ostream &os, Scene &obj) {

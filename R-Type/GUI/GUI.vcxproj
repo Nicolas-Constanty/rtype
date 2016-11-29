@@ -160,7 +160,7 @@
     <ClCompile Include="..\..\src\SaltyEngine\GUI\Widget.cpp" />
     <ClCompile Include="..\..\src\SaltyEngine\SFML\EventManager.cpp" />
     <ClCompile Include="..\..\src\SaltyEngine\SFML\Renderer.cpp" />
-    <ClCompile Include="..\..\Test\GUI\main.cpp" />
+    <ClCompile Include="..\..\Tests\GUI\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\ClientLauncher\PlayerController.hpp" />

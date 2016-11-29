@@ -42,7 +42,7 @@ namespace SaltyEngine
 			m_events.erase(name);
 		}
 
-		size_t Event::GetEventCount() const
+		size_t Event::GetEventCount(void) const
 		{
 			return m_events.size();
 		}
