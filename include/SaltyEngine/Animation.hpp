@@ -5,6 +5,7 @@
 #include "AnimationClip.hpp"
 #include "Constants.hpp"
 #include "SaltyEngine/ASpriteRenderer.hpp"
+#include "Debug.hpp"
 
 namespace SaltyEngine
 {
@@ -24,10 +25,10 @@ namespace SaltyEngine
 		void PlayAnim()
 		{
 			size_t i;
-			int frameCount = clip->GetFrames().size();
+			size_t frameCount = clip->GetFrames().size();
 			ASpriteRenderer<T> *sprite = gameObject->GetComponent<ASpriteRenderer<T>>();
 			const auto frames = clip->GetFrames();
-			int frameRate = 1000 /clip->GetFrameRate();
+			size_t frameRate = (size_t)(1000 /clip->GetFrameRate());
 
 			if (frameCount == 0)
 			{
@@ -110,7 +111,7 @@ namespace SaltyEngine
 			StartCoroutine(&Animation::PlayAnim);
 		}
 
-		void PlayQueued(std::string const& animName) const
+		void PlayQueued(std::string const& animName)
 		{
 			m_queuedAnims.push(animName);
 		}
@@ -132,7 +133,7 @@ namespace SaltyEngine
 
 		void Stop(std::string const& name)
 		{
-			std::map<std::string, Animation<T> >::iterator it = m_clips.find(name);
+			typename std::map<std::string, Animation<T> >::iterator it = m_clips.find(name);
 			if (it != m_clips.end() || *it->second != clip)
 			{
 				return;
@@ -145,7 +146,7 @@ namespace SaltyEngine
 			m_clips[name] = clip;
 		}
 
-		int GetClipCount() const
+		size_t GetClipCount() const
 		{
 			return m_clips.size();
 		}
