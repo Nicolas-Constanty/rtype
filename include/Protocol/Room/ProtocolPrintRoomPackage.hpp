@@ -133,5 +133,17 @@ std::ostream &operator<<(std::ostream &ostream, FAILUREPackageRoom const &failur
     return (ostream);
 }
 
+std::ostream &operator<<(std::ostream &ostream, LAUNCHPackageRoom const &launchPackageRoom) {
+    ostream << "LAUNCHPackageRoom = {" << std::endl;
+
+    PackageRoomHeader const *header = dynamic_cast<PackageRoomHeader const *>(&launchPackageRoom);
+    if (header) {
+        ostream << *header;
+    }
+    ostream << "roomID=" << launchPackageRoom.roomID << std::endl;
+    ostream << "}";
+    return (ostream);
+}
+
 
 #endif //RTYPE_PROTOCOLPRINTROOMPACKAGE_HPP
