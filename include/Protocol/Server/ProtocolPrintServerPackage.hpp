@@ -30,6 +30,7 @@ std::ostream &operator<<(std::ostream &ostream, AUTHENTICATEPackageServer const 
         ostream << *header;
     }
     ostream << "userID=" << authenticatePackageServer.userID << std::endl;
+    ostream << "roomNumber=" << authenticatePackageServer.roomNumber << std::endl;
     ostream << "}";
     return (ostream);
 }
