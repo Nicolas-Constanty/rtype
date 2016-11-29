@@ -5,7 +5,7 @@
 #ifndef ACTION_HPP
 #define ACTION_HPP
 
-#include "KeyCodes.hpp"
+#include "SaltyEngine/Input/KeyCodes.hpp"
 
 namespace SaltyEngine {
     namespace Input {
@@ -27,8 +27,16 @@ namespace SaltyEngine {
 
         public:
             KeyCode::Key    getKey() const;
-            bool    Pressed() const;
-            bool    Released() const;
+
+            template <class Input>
+            bool    Pressed() const {
+                return Input::IsKeyDown(m_key);
+            }
+
+            template <class Input>
+            bool    Released() const {
+                return Input::IsKeyUp(m_key);
+            }
         };
     }
 }

@@ -18,13 +18,5 @@ namespace SaltyEngine {
         KeyCode::Key Action::getKey() const {
             return m_key;
         }
-
-        bool Action::Pressed() const {
-            return false;
-        }
-
-        bool Action::Released() const {
-            return false;
-        }
     }
 }

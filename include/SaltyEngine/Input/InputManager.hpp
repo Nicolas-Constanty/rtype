@@ -8,7 +8,9 @@
 #include <string>
 #include <vector>
 #include <map>
-#include "SaltyEngine/Input/KeyCodes.hpp"
+#include "SaltyEngine/Input/Axis.hpp"
+#include "SaltyEngine/Input/Action.hpp"
+#include "SaltyEngine/Debug.hpp"
 
 namespace SaltyEngine {
     namespace Input {
@@ -55,6 +57,58 @@ namespace SaltyEngine {
             static inline Vector2i GetPositionRelative() {
                 return Input::GetPositionRelative();
             }
+
+        private:
+            static std::map<std::string, std::unique_ptr<Axis>>    m_axis;
+            static std::map<std::string, std::unique_ptr<Action>>  m_actions;
+
+        public:
+            static void  AddAxis(std::string const &name, Axis *axis) {
+                if (m_axis.find(name) != m_axis.end()) {
+                    Debug::PrintWarning("Axis " + name + " is already set, use SetAxis instead.");
+                    return;
+                }
+                m_axis[name] = Make_unique<Axis>(axis);
+            }
+
+            static void  AddAction(std::string const &name, Action *action) {
+                if (m_actions.find(name) != m_actions.end()) {
+                    Debug::PrintWarning("Action " + name + " is already set, use SetAction instead.");
+                    return;
+                }
+                m_actions[name] = Make_unique<Action>(action);
+            }
+
+            static void  SetAxis(std::string const &name, Axis *axis) {
+                m_axis[name] = Make_unique<Axis>(axis);
+            }
+
+            static void  SetAction(std::string const &name, Action *action) {
+                m_actions[name] = Make_unique<Action>(action);
+            }
+
+            static float GetAxis(std::string const &name) {
+                std::map<std::string, std::unique_ptr<Axis>>::const_iterator it = m_axis.find(name);
+                if (it == m_axis.end()) {
+                    Debug::PrintWarning("Axis " + name + " is not set");
+                    return 0;
+                }
+                return it->second.get()->getValue<Input>();
+            }
+
+            static bool  GetAction(std::string const &name, ActionType actionType) {
+                std::map<std::string, std::unique_ptr<Action>>::const_iterator it = m_actions.find(name);
+                if (it == m_actions.end()) {
+                    Debug::PrintWarning("Action " + name + " is not set");
+                    return false;
+                }
+                switch (actionType) {
+                    case ActionType::Pressed :
+                        return it->second.get()->Pressed<Input>();
+                    case ActionType::Released :
+                        return it->second.get()->Released<Input>();
+                }
+            }
         };
     }
 }
@@ -78,6 +132,5 @@ namespace SaltyEngine {
 /// std::cout << InputKey::GetButtonPressed(SaltyEngine::Input::Mouse::Left) << std::endl;
 /// std::cout << InputKey::GetPosition() << std::endl;
 /// std::cout << InputKey::GetPositionRelative() << std::endl;
-
 
 #endif //INPUTMANAGER_HPP

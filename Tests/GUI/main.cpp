@@ -7,7 +7,6 @@
 #include "SaltyEngine/Input.hpp"
 #include "ClientLauncher/PlayerController.hpp"
 #include "SaltyEngine/SFML/EventManager.hpp"
-#include "SaltyEngine/Animation.hpp"
 
 int main(int ac, char **av)
 {
@@ -33,16 +32,7 @@ int main(int ac, char **av)
 	// Create Scene
 	SaltyEngine::Scene *scene(new SaltyEngine::Scene());
 
-	// Create monster with sprites
-	SaltyEngine::GameObject *monster = (SaltyEngine::GameObject*)SaltyEngine::Instantiate("Monster").get();
-	SaltyEngine::AnimationClip<SaltyEngine::SFML::Sprite> *clip= new SaltyEngine::AnimationClip<SaltyEngine::SFML::Sprite>();
-	clip->AddSprite(new SaltyEngine::SFML::Sprite(texture));
-	*clip << new SaltyEngine::SFML::Sprite(texture);
-	SaltyEngine::Animation<SaltyEngine::SFML::Sprite> anim(monster);
-	anim.AddClip(clip, "Walk");
-
 	*scene << player;
-	*scene << monster;
 	// Push scene int SaltyEngine
 	Singleton<SaltyEngine::SaltyEngine>::Instance() << scene;
 

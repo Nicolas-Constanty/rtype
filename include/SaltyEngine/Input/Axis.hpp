@@ -6,7 +6,7 @@
 #define AXIS_HPP
 
 #include <map>
-#include "KeyCodes.hpp"
+#include "SaltyEngine/Input/KeyCodes.hpp"
 
 namespace SaltyEngine {
     namespace Input {
@@ -19,7 +19,17 @@ namespace SaltyEngine {
             const std::map<KeyCode::Key, float> m_keys;
         public:
             const std::map<KeyCode::Key, float> &getKeys();
-            float getValue(KeyCode::Key key);
+
+            template <class Input>
+            float getValue() const {
+                float   ret = 0;
+                for (std::map<KeyCode::Key, float>::const_iterator it = m_keys.begin(); it != m_keys.end(); ++it) {
+                    if (Input::IsKeyDown(it->first)) {
+                        ret = it->second;
+                    }
+                }
+                return ret;
+            }
         };
     }
 }
