@@ -67,8 +67,8 @@ void RtypeRoomTCPConnection::onGetLAUNCHPackage(LAUNCHPackageRoom const &obj) {
 }
 
 void RtypeRoomTCPConnection::OnStart() {
-    this->SendData(*(RoomPackageFactory().create<AUTHENTICATEPackageRoom>(pseudo, id)));
+    this->SendData(*(roomPackageFactory.create<AUTHENTICATEPackageRoom>(pseudo, id)));
 
     // TODO donné toute les rooms du server
-    this->SendData(*(RoomPackageFactory().create<GETPackageRoom>(100, 123, "MABITE", 1, 1)));
+    this->SendData(*(roomPackageFactory.create<GETPackageRoom>(100, 123, "MABITE", 1, 1)));
 }

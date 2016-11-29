@@ -37,6 +37,7 @@ private:
     RTypeProtocolRoomManager protocolRoomManager;
     std::string                 pseudo;
     unsigned int                id;
+    RoomPackageFactory          roomPackageFactory;
 };
 
 #endif //RTYPE_RTYPEROOMTCPCONNECTION_HPP
