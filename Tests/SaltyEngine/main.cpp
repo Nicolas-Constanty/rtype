@@ -1,44 +1,42 @@
-#include "Common/LibLoader.hpp"
+#include <SFML/Graphics.hpp>
 #include "SaltyEngine/SaltyEngine.hpp"
 #include "SaltyEngine/GameObject.hpp"
-#include "ClientLauncher/PlayerController.hpp"
-#ifdef _WIN32
-#include "Common/DllLoader.hpp"
-#endif
+#include "SaltyEngine/SFML/Renderer.hpp"
+#include "SaltyEngine/SFML/Button.hpp"
+#include "SaltyEngine/Debug.hpp"
 #include "SaltyEngine/Input.hpp"
-
-#define GAME2D
+#include "ClientLauncher/PlayerController.hpp"
+#include "SaltyEngine/SFML/EventManager.hpp"
 
 int main()
 {
-	/**
-	 * Starts the engine
-	 */
-	Singleton<SaltyEngine::SaltyEngine>::Instance();
+    SaltyEngine::SFML::Renderer *renderer = new SaltyEngine::SFML::Renderer(sf::VideoMode(1280, 720), "R-Type Launcher");
+    SaltyEngine::SFML::EventManager *event_manager = new SaltyEngine::SFML::EventManager(renderer->GetRenderWindow());
 
+    SaltyEngine::GameObject *player = new SaltyEngine::GameObject("Player");
+
+    // Create Button
+    SaltyEngine::SFML::Texture *texture = new SaltyEngine::SFML::Texture();
+    if (!texture->loadFromFile("../../Assets/Textures/Image.png"))
+    {
+        SaltyEngine::Debug::PrintError("Failed to load texture");
+        return (1);
+    }
+    SaltyEngine::SFML::Rect *rect = new SaltyEngine::SFML::Rect(10, 10, 100, 100);
+    SaltyEngine::SFML::Sprite *spr = new SaltyEngine::SFML::Sprite(texture, rect);
+    player->AddComponent<SaltyEngine::GUI::SFML::Button>(spr);
+    player->AddComponent<SaltyEngine::PlayerController>();
+    // Set SFML Renderer
+    Singleton<SaltyEngine::SaltyEngine>::Instance().SetRenderer(renderer);
+    Singleton<SaltyEngine::SaltyEngine>::Instance().SetEventManager(event_manager);
     // Create Scene
-	SaltyEngine::Scene *scene(new SaltyEngine::Scene());
-	// Create player
-	SaltyEngine::GameObject *player = new SaltyEngine::GameObject("Player");
+    SaltyEngine::Scene *scene(new SaltyEngine::Scene());
 
-	std::shared_ptr<SaltyEngine::Object> gu = SaltyEngine::Instantiate("Monster");
+    *scene << player;
+    // Push scene int SaltyEngine
+    Singleton<SaltyEngine::SaltyEngine>::Instance() << scene;
 
-	if (gu.get() != nullptr)
-		std::cout << gu->GetName() << std::endl;
-
-	std::cout << "Size = " << SaltyEngine::Object::FindObjectsOfType<SaltyEngine::GameObject>().size() << std::endl;
-
-	// Add script to the player
-	player->AddComponent<SaltyEngine::PlayerController>();
-	
-	// Push player in scene
-	*scene << player;
-	*scene << (SaltyEngine::GameObject *)gu.get();
-
-	// Push scene int SaltyEngine
-	Singleton<SaltyEngine::SaltyEngine>::Instance() << scene;
-
-	// Run the SaltyEngine with default Scene 0
-	Singleton<SaltyEngine::SaltyEngine>::Instance().Run();
-	return 0;
+    // Run the SaltyEngine with default Scene 0
+    Singleton<SaltyEngine::SaltyEngine>::Instance().Run();
+    return (0);
 }

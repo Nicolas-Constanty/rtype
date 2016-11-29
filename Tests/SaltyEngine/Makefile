@@ -2,7 +2,7 @@ CC		=	g++
 
 RM 		=	rm -rf
 
-NAME	=	monster.so
+NAME	=	test_engine
 
 PROJECT_DIR =   ../..
 
@@ -13,15 +13,19 @@ INC_DIR =   $(PROJECT_DIR)/include
 SALTYENGINE_DIR         =   $(SRC_DIR)/SaltyEngine
 COMMON_DIR              =   $(SRC_DIR)/Common
 MONSTER_DIR             =   $(SRC_DIR)/Monster
+CLIENT_DIR              =   $(SRC_DIR)/ClientLauncher
 
-SRC		= 	$(MONSTER_DIR)/Monster.cpp              \
+SRC		= 	main.cpp    \
+            $(CLIENT_DIR)/PlayerController.cpp      \
             $(MONSTER_DIR)/MonsterController.cpp    \
 
 CPPFLAGS 	=   -W -Wall -g -Wextra -std=c++11 -fPIC
 
 CPPFLAGS    +=  -I $(INC_DIR)
 
-LDFLAGS	=   -lpthread -ldl -L ../SaltyEngine -lSaltyEngine -shared
+LDFLAGS	=   -lpthread -ldl -lsfml-graphics -lsfml-window -lsfml-system
+
+LDFLAGS +=  -L ./ -lSaltyEngine
 
 OBJ		= 	$(SRC:.cpp=.o)
 

@@ -17,7 +17,7 @@ namespace SaltyEngine
 
 	void Debug::PrintWarning(const std::string & msg)
 	{
-		PrintColor("Warnin : " + msg, YELLOW);
+		PrintColor("Warning : " + msg, YELLOW);
 	}
 
 	void Debug::PrintSuccess(const std::string & msg)

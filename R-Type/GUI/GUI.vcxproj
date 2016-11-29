@@ -152,7 +152,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\include\SaltyEngine\GUI\UIBehaviour.cpp" />
+    <ClCompile Include="..\..\src\SaltyEngine\GUI\UIBehaviour.cpp" />
     <ClCompile Include="..\..\src\ClientLauncher\PlayerController.cpp" />
     <ClCompile Include="..\..\src\SaltyEngine\Debug.cpp" />
     <ClCompile Include="..\..\src\SaltyEngine\GUI\Button.cpp" />

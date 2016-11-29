@@ -27,9 +27,9 @@ namespace SaltyEngine
 		float GetGravity(void) const;
 		void SetGravity(float gravity);
 		std::ostream & print(std::ostream &os) const;
-		const std::unique_ptr<GameObject> &operator[](size_t index) const;
+		GameObject const &operator[](size_t index) const;
 		void Clear();
-		void operator<<(GameObject *gameobj);
+		void operator<<(GameObject * const gameobj);
 
 	public:
 		void OnStart();

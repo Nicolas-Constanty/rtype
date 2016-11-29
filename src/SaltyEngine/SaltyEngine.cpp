@@ -266,7 +266,6 @@ namespace SaltyEngine
 		CHAR str[256];
 
 		_getcwd(str, sizeof(str));
-
 		hFind = FindFirstFile(std::string(std::string(str) + Asset::ASSET_PATH + "\\*").c_str(), &findFileData);
 
 		while (hFind != INVALID_HANDLE_VALUE)
