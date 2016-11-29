@@ -83,10 +83,8 @@ namespace SaltyEngine
 		{
 			const std::list<SaltyBehaviour *> &Sb = m_objects[m_init.front()]->GetSaltyBehaviour();
 			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
-			{
 				(*it)->Start();
-				m_init.pop();
-			}
+			m_init.pop();
 		}
 	}
 
