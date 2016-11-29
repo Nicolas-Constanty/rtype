@@ -153,6 +153,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\include\SaltyEngine\GUI\UIBehaviour.cpp" />
+    <ClCompile Include="..\..\src\ClientLauncher\PlayerController.cpp" />
     <ClCompile Include="..\..\src\SaltyEngine\Debug.cpp" />
     <ClCompile Include="..\..\src\SaltyEngine\GUI\Button.cpp" />
     <ClCompile Include="..\..\src\SaltyEngine\GUI\Event.cpp" />
@@ -162,6 +163,7 @@
     <ClCompile Include="..\..\Test\GUI\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\ClientLauncher\PlayerController.hpp" />
     <ClInclude Include="..\..\include\SaltyEngine\Debug.hpp" />
     <ClInclude Include="..\..\include\SaltyEngine\GUI\Button.hpp" />
     <ClInclude Include="..\..\include\SaltyEngine\GUI\Event.hpp" />

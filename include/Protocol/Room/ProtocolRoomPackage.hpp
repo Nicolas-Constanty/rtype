@@ -27,7 +27,8 @@ typedef enum RoomPurpose : unsigned char{
     ROOMPLUGGED = 5,
     ROOMSWAP = 6,
     ROOMGET = 7,
-    ROOMFAILURE = 8
+    ROOMFAILURE = 8,
+    ROOMLAUNCH = 9
 } RoomPurpose;
 
 class PackageRoomHeader {
@@ -186,6 +187,18 @@ public:
 public:
     char msg[8];
     unsigned char purposeFailed;
+};
+
+class LAUNCHPackageRoom : public PackageRoomHeader {
+
+public:
+    LAUNCHPackageRoom(unsigned short roomID)
+            : PackageRoomHeader(sizeof(LAUNCHPackageRoom), RoomPurpose::ROOMLAUNCH) {
+        this->roomID = roomID;
+    }
+
+public:
+    unsigned short roomID;
 };
 
 #endif //RTYPE_PROTOCOLROOMPACKAGE_HPP

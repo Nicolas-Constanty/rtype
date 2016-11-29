@@ -14,7 +14,6 @@
 #include "SaltyEngine/Input/IEventManager.hpp"
 #include "SaltyEngine/Input/InputManager.hpp"
 
-
 namespace SaltyEngine {
     namespace SFML {
         class EventManager : public ::SaltyEngine::Input::IEventManager {

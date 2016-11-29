@@ -63,9 +63,6 @@
     <ClCompile Include="..\..\..\src\Monster\MonsterController.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\SaltyEngine\SFML\EventManager.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\SaltyEngine\Input\Action.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
