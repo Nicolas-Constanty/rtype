@@ -182,7 +182,7 @@ void Network::Core::NativeSocketIOOperationDispatcher::Run()
     {
         try
         {
-//            std::cout << "===Handling operations===" << std::endl;
+//            std::cout << "===Handling operations(read: " << m_readWatch.size() << ", write: " << m_writeWatch.size() << ")===" << std::endl;
             HandleOperations();
         }
         catch (std::runtime_error const &err){}

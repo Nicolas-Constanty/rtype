@@ -5,13 +5,23 @@
 #include <Network/UDP/AUDPClient.hpp>
 
 /**
+ * @brief Basic construtor
+ */
+Network::UDP::AUDPClient::AUDPClient(Network::Core::NativeSocketIOOperationDispatcher &dispatcher) :
+        AUDPConnection(dispatcher),
+        buff(),
+        server(Socket::UDP)
+{
+
+}
+
+/**
  * @brief Copy constructor
  * @param ref The reference to copy
  */
 Network::UDP::AUDPClient::AUDPClient(const Network::UDP::AUDPClient &ref) :
         AUDPConnection(ref),
         buff(ref.buff),
-        model(nullptr),
         server(Network::Socket::UDP)
 {
 
@@ -31,17 +41,13 @@ Network::UDP::AUDPClient::~AUDPClient()
  */
 void Network::UDP::AUDPClient::OnAllowedToRead()
 {
-    Network::Socket::ISockStream    *stream = &model->giveSocket();
+    buff.reset();
+    int ret = sock.ReceiveFrom(buff, server);
 
-    if (stream)
+    if (ret > 0)
     {
-        int ret = sock.ReceiveFrom(buff, *stream);
-
-        if (ret > 0)
-        {
-            OnDataReceived(static_cast<unsigned int>(ret));
-            return ;
-        }
+        WantReceive();
+        OnDataReceived(static_cast<unsigned int>(ret));
     }
 }
 
@@ -80,11 +86,12 @@ void Network::UDP::AUDPClient::OnAllowedToWrite()
 {
     while (!toWrite.empty())
     {
-        int ret = sock.SendTo(toWrite.front(), server);
+        int ret = sock.SendTo(toWrite.front(), sock);
 
         if (ret < 0)
             return ;
         OnDataSent(static_cast<unsigned int>(ret));
+        toWrite.pop();
     }
 }
 
@@ -95,6 +102,6 @@ void Network::UDP::AUDPClient::OnAllowedToWrite()
  */
 void Network::UDP::AUDPClient::Connect(std::string const &ip, const uint16_t port)
 {
-    server.Open();
-    server.Talk(ip, port);
+    sock.Open();
+    sock.Talk(ip, port);
 }

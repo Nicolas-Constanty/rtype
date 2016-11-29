@@ -13,7 +13,7 @@ class BasicUDPClient : public Network::UDP::AUDPClient
 {
 public:
     BasicUDPClient(Network::Core::NativeSocketIOOperationDispatcher &dispatcher) :
-            Network::UDP::AUDPClient::AUDPClient(this, dispatcher)
+            AUDPClient(dispatcher)
     {
 
     }
@@ -28,19 +28,12 @@ public:
     virtual void OnDataReceived(unsigned int len)
     {
         std::cout << "Data received: " << getBuffer() << " from " << sock << std::endl;
+        SendData("je reçoit des choses\n");
     }
 
     virtual void OnDataSent(unsigned int len)
     {
         std::cout << "Sent " << len << " bytes" << std::endl;
-    }
-
-    template <typename T>
-    void DirectSend(T const &ref)
-    {
-        buff.reset();
-        buff.serialize(ref);
-        sock.SendTo(buff, sock);
     }
 };
 
