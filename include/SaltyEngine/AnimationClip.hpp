@@ -1,6 +1,7 @@
 #pragma once
 #include <functional>
 #include <list>
+#include <vector>
 #include "Object.hpp"
 #include "SaltyEngine/Sprite.hpp"
 
@@ -10,7 +11,7 @@ class AnimationClip : public SaltyEngine::Object
 private:
 	std::list<std::function<void()>> m_events;
 	int m_frameRate = 60;
-	std::list<SaltyEngine::Sprite<T>> m_sprites;
+	std::vector<SaltyEngine::Sprite<T>> m_sprites;
 
 public:
 	AnimationClip(std::string const& name = "Animation");
@@ -25,5 +26,5 @@ public:
 	void AddSprite(SaltyEngine::Sprite<T> sprite);
 	int GetFrameRate() const;
 	void SetFrameRate(int frameRate);
-	const std::list<SaltyEngine::Sprite<T>> GetFrames() const;
+	const std::vector<SaltyEngine::Sprite<T>> GetFrames() const;
 };
