@@ -10,44 +10,13 @@
 class DefaultTCPConnection : public Network::TCP::ATCPClient
 {
 public:
-    DefaultTCPConnection(Network::Core::NativeSocketIOOperationDispatcher &dispatcher) :
-            Network::TCP::ATCPClient(dispatcher)
-    {
-
-    }
-
-    DefaultTCPConnection(Network::Core::BasicConnection &ref) :
-            Network::TCP::ATCPClient(ref.Dispatcher())
-    {
-
-    }
-
-    virtual ~DefaultTCPConnection()
-    {
-        std::cout << "\e[31mDestructor called\e[0m" << std::endl;
-    }
+    DefaultTCPConnection(Network::Core::NativeSocketIOOperationDispatcher &dispatcher);
+    DefaultTCPConnection(Network::Core::BasicConnection &ref);
+    virtual ~DefaultTCPConnection();
 
 public:
-    virtual void OnDataReceived(unsigned int len)
-    {
-        std::cout << "Receiving " << buff << std::endl;
-//        if (buff.toString() == "change\n")
-//        {
-//            std::cout << "Changing client to Testswap client" << std::endl;
-//            TestSwapClient  *newc = new TestSwapClient(*this);
-//            std::cout << "TestSwap instantiated" << std::endl;
-//            clients->Move(this, newc);
-//            std::cout << "Client moved" << std::endl;
-//            newc->SendData("on est bon\n");
-//            newc->WantReceive();
-//            std::cout << "Pending data sent" << std::endl;
-//        }
-    }
-
-    virtual void OnDataSent(unsigned int len)
-    {
-        std::cout << "Number of bytes sent: " << len << std::endl;
-    }
+    virtual void OnDataReceived(unsigned int len);
+    virtual void OnDataSent(unsigned int len);
 };
 
 #endif //RTYPE_DEFAULTTCPCONNECTION_HPP

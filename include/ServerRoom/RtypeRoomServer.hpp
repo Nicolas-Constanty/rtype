@@ -12,27 +12,12 @@
 class RtypeRoomServer : public Network::TCP::ATCPServer<DefaultTCPConnection>
 {
 public:
-    RtypeRoomServer(Network::Core::NativeSocketIOOperationDispatcher &dispatcher) :
-            Network::TCP::ATCPServer<DefaultTCPConnection>(dispatcher)
-    {
-        Start(4242);
-    }
-
-    virtual ~RtypeRoomServer()
-    {
-        Stop();
-    }
+    RtypeRoomServer(Network::Core::NativeSocketIOOperationDispatcher &dispatcher);
+    virtual ~RtypeRoomServer();
 
 public:
-    virtual void OnDataReceived(unsigned int)
-    {
-        std::cout << "New client accepted" << std::endl;
-    }
-
-    virtual void OnDataSent(unsigned int len)
-    {
-        std::cout << "Number of bytes sent: " << len << std::endl;
-    }
+    virtual void OnDataReceived(unsigned int);
+    virtual void OnDataSent(unsigned int len);
 };
 
 
