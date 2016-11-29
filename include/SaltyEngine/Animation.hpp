@@ -12,24 +12,87 @@ namespace SaltyEngine
 	template <class T>
 	class Animation : public SaltyBehaviour
 	{
+    private:
+
+        class AnimData
+        {
+        public:
+            AnimData(size_t frameCount, ASpriteRenderer<T> *sprite, const std::list<Sprite<T> *> &frames, double frameRate) :
+                    m_frameCount(frameCount),
+                    m_sprite(sprite),
+                    m_frames(frames),
+                    m_frameRate(frameRate),
+                    m_iterator(frames.begin()),
+                    m_reviterator(frames.rbegin())
+            {}
+
+            bool IsAnimOver() const
+            {
+                if (!m_playBackwards)
+                    return m_iterator == m_frames.end();
+                else
+                    return m_reviterator == m_frames.rend();
+            }
+
+            void Reset()
+            {
+                m_iterator = m_frames.begin();
+                m_reviterator = m_frames.rbegin();
+            }
+
+            void ReverseAndReset()
+            {
+                m_playBackwards = !m_playBackwards;
+                Reset();
+            }
+
+            void UpdateAnimTimeline(double deltaTime)
+            {
+                m_elapsed += deltaTime;
+                if (m_elapsed >= m_frameRate)
+                {
+                    m_elapsed = 0;
+                    if (!m_playBackwards)
+                    {
+                        m_sprite->SetSprite(*m_iterator);
+                        ++m_iterator;
+                    }
+                    else
+                    {
+                        m_sprite->SetSprite(*m_reviterator);
+                        ++m_reviterator;
+                    }
+                }
+            }
+        private:
+            size_t m_frameCount;
+            ASpriteRenderer<T> *m_sprite;
+            const std::list<Sprite<T> *> &m_frames;
+            double m_frameRate;
+            typename std::list<Sprite<T> *>::const_iterator m_iterator;
+            typename std::list<Sprite<T> *>::const_reverse_iterator m_reviterator;
+            double m_elapsed = 0;
+            bool m_playBackwards = false;
+        };
+        AnimData *animData = nullptr;
+
 	private:
 		bool m_isPlaying = false;
 		bool m_playAuto = true;
 		std::map<std::string, AnimationClip<T> *> m_clips;
 
-		AnimationConstants::WrapMode m_wrapMode = AnimationConstants::WrapMode::LOOP;
+		AnimationConstants::WrapMode m_wrapMode = AnimationConstants::WrapMode::ONCE;
 
 		std::queue<std::string> m_queuedAnims;
 
 	private:
 		void PlayAnim()
 		{
-			size_t i;
 			size_t frameCount = clip->GetFrames().size();
 			ASpriteRenderer<T> *sprite = gameObject->GetComponent<ASpriteRenderer<T>>();
 			const std::list<Sprite<T> *> &frames = clip->GetFrames();
 			size_t frameRate = (size_t)(1000 /clip->GetFrameRate());
-
+            std::cout << "Frame count = " << frameCount << std::endl;
 			if (frameCount == 0)
 			{
 				Debug::PrintWarning("Animation: No frames in animation");
@@ -38,7 +101,7 @@ namespace SaltyEngine
 			switch (m_wrapMode)
 			{
 			case AnimationConstants::ONCE:
-				for (std::list<Sprite<T> *>::const_iterator it = frames.begin(); it != frames.end(); it++)
+				for (typename std::list<Sprite<T> *>::const_iterator it = frames.begin(); it != frames.end(); it++)
 				{
 					sprite->SetSprite(*it);
 					WaitForMillisecond(frameRate);
@@ -46,42 +109,47 @@ namespace SaltyEngine
 				break;
 
 			case AnimationConstants::LOOP:
-				i = 0;
 				for (;;)
 				{
-					for (std::list<Sprite<T> *>::const_iterator it = frames.begin(); it != frames.end(); it++)
+					for (typename std::list<Sprite<T> *>::const_iterator it = frames.begin(); it != frames.end(); it++)
 					{
-						std::cout << "toto" << i << " frame rate " << 1.f / clip->GetFrameRate() << std::endl;
+						std::cout << "toto" << " frame rate " << 1.f / clip->GetFrameRate() << std::endl;
 						sprite->SetSprite((*it));
 						WaitForMillisecond(frameRate);
-						i %= frameCount;
 					}
 				}
 				break;
 
 			case AnimationConstants::PING_PONG:
-				/*for (;;)
-				{
-					for (i = 0; i < frameCount; ++i)
-					{
-						sprite->SetSprite(frames[i]);
-						WaitForMillisecond(frameRate);
-					}
-					for (i = frameCount - 1; i >= 0; --i)
-					{
-						sprite->SetSprite(frames[i]);
-						WaitForMillisecond(frameRate);
-					}
-				}*/
+//				for (;;)
+//				{
+//					for (i = 0; i < frameCount; ++i)
+//					{
+//						sprite->SetSprite(frames[i]);
+//						WaitForMillisecond(frameRate);
+//					}
+//					for (i = frameCount - 1; i >= 0; --i)
+//					{
+//						sprite->SetSprite(frames[i]);
+//						WaitForMillisecond(frameRate);
+//					}
+//				}
 				break;
 			}
 		}
 
 	public:
-		Animation(GameObject* const obj) : SaltyBehaviour(obj)
+		Animation(GameObject* const obj, bool playAuto = true,
+				  AnimationConstants::WrapMode mode = AnimationConstants::WrapMode::ONCE) :
+				SaltyBehaviour(obj),
+				m_playAuto(playAuto),
+				m_wrapMode(mode)
 		{}
 		virtual ~Animation()
-		{}
+		{
+            if (animData != nullptr)
+                delete animData;
+        }
 
 		/**
 		 * \brief Animation functions
@@ -100,7 +168,7 @@ namespace SaltyEngine
 			}
 			m_isPlaying = true;
 			clip = m_clips.begin()->second;
-			StartCoroutine(&Animation::PlayAnim);
+			//StartCoroutine(&Animation::PlayAnim);
 		}
 
 		void Play(std::string const& name)
@@ -111,7 +179,7 @@ namespace SaltyEngine
 			}
 			m_isPlaying = true;
 			clip = m_clips[name];
-			StartCoroutine(&Animation::PlayAnim);
+			//StartCoroutine(&Animation::PlayAnim);
 		}
 
 		void PlayQueued(std::string const& animName)
@@ -131,7 +199,6 @@ namespace SaltyEngine
 		void Stop()
 		{
 			m_isPlaying = false;
-			// TODO : StopCoroutine();
 		}
 
 		void Stop(std::string const& name)
@@ -141,7 +208,7 @@ namespace SaltyEngine
 			{
 				return;
 			}
-			// TODO : StopCoroutine();
+            m_isPlaying = false;
 		}
 
 		void AddClip(AnimationClip<T> * const clip, std::string const& name)
@@ -154,8 +221,60 @@ namespace SaltyEngine
 			return m_clips.size();
 		}
 
+		AnimationConstants::WrapMode GetWrapMode() const {
+			return m_wrapMode;
+		}
+
+		void SetWrapMode(AnimationConstants::WrapMode mode)
+		{
+			m_wrapMode = mode;
+		}
+
 	public:
 		AnimationClip<T> *clip = nullptr;
+
+	private:
+		void UpdateAnimations()
+		{
+			// If we are playing animations and we have a clip
+			if (m_isPlaying && clip != nullptr)
+			{
+				// If we do not have animData yet
+				if (animData == nullptr)
+				{
+					animData = new AnimData(
+							clip->GetFrames().size(),
+							gameObject->GetComponent<ASpriteRenderer<T>>(),
+							clip->GetFrames(),
+							(1.0 / clip->GetFrameRate())
+					);
+				}
+				// Update anim
+				if (animData != nullptr)
+				{
+                    animData->UpdateAnimTimeline(SaltyEngine::Instance().GetFixedDeltaTime());
+                    if (animData->IsAnimOver()) {
+                        switch (m_wrapMode) {
+                            case AnimationConstants::ONCE:
+                                m_isPlaying = false;
+                                break;
+                            case AnimationConstants::LOOP:
+                                animData->Reset();
+                                break;
+                            case AnimationConstants::PING_PONG:
+                                animData->ReverseAndReset();
+                                break;
+                        }
+                    }
+				}
+			}
+			else
+			{
+				if (animData != nullptr)
+					delete animData;
+				animData = nullptr;
+			}
+		}
 
 		/**
 		 * \brief Behaviour functions
@@ -163,11 +282,15 @@ namespace SaltyEngine
 	public:
 		void Start()
 		{
-			std::cout << "STARTING" << std::endl;
 			if (m_playAuto)
 			{
 				Play();
 			}
+		}
+
+        void FixedUpdate()
+		{
+			UpdateAnimations();
 		}
 	};
 }
