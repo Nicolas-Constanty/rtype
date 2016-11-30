@@ -13,10 +13,9 @@ MonsterController::~MonsterController()
 
 void MonsterController::Start()
 {
-	std::cout << "STAAAART" << std::endl;
 }
 
 void MonsterController::Update()
 {
-	//std::cout << "Update monster" << std::endl;
+	this->gameObject->transform.Translate(SaltyEngine::Vector(0, -1));
 }

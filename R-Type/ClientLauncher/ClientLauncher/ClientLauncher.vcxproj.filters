@@ -18,10 +18,10 @@
     <ClCompile Include="..\..\..\src\ClientLauncher\main.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\ClientLauncher\PlayerController.cpp">
+    <ClCompile Include="..\..\..\src\SaltyEngine\SFML\EventManager.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\SaltyEngine\SFML\EventManager.cpp">
+    <ClCompile Include="..\..\..\src\Player\PlayerController.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\SaltyEngine\SFML\Scene.cpp">
