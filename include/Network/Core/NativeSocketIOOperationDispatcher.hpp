@@ -27,6 +27,7 @@ namespace Network
                 std::string name;
                 std::list<Socket::ISockStreamHandler *> NativeSocketIOOperationDispatcher::*watched;
                 void (Socket::ISockStreamHandler::*callback)();
+                void (Socket::ISockStreamHandler::*check)();
             };
 
             static const IOOperation  read;
@@ -53,6 +54,8 @@ namespace Network
             virtual void HandleOperations();
 
             virtual void Run();
+            virtual void Poll();
+            virtual void Poll(Socket::ISockStreamHandler &handler);
 
         public:
             void Watch(Socket::ISockStreamHandler &towatch, WatchMode mode = WatchMode::BOTH);

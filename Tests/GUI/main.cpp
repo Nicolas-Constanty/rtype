@@ -5,7 +5,7 @@
 #include "SaltyEngine/SFML/Button.hpp"
 #include "SaltyEngine/Debug.hpp"
 #include "SaltyEngine/Input.hpp"
-#include "SaltyEngine/PlayerController.hpp"
+#include "ClientLauncher/PlayerController.hpp"
 #include "SaltyEngine/SFML/EventManager.hpp"
 
 int main(int ac, char **av)

@@ -73,10 +73,6 @@ bool Network::Socket::ASocket::operator==(ISocket const &ref) const
 {
     ASocket const *sock = dynamic_cast<ASocket const *>(&ref);
 
-    std::cout << "comparing: " << std::endl;
-    std::cout << "   ip: " << sockaddr.sin_addr.s_addr << " vs " << sock->sockaddr.sin_addr.s_addr << std::endl;
-    std::cout << "   port: " << sockaddr.sin_port << " vs " << sockaddr.sin_port << std::endl;
-
     return sock &&
             sockaddr.sin_addr.s_addr == sock->sockaddr.sin_addr.s_addr &&
             sockaddr.sin_family == sock->sockaddr.sin_family &&
@@ -117,11 +113,15 @@ void Network::Socket::ASocket::Talk(const std::string &ip, const uint16_t port) 
 {
     socklen_t len = sizeof(sockaddr);
 
+    std::cout << "Talk" << std::endl;
+    memset(&sockaddr, 0, len);
     sockaddr.sin_family = domain;
     sockaddr.sin_port = htons(port);
-    sockaddr.sin_addr.s_addr = inet_addr(ip.c_str());
-    if (protocol == Network::Socket::TCP && connect(fd, (struct sockaddr *)&sockaddr, len) == -1)
+//    sockaddr.sin_addr.s_addr = inet_addr(ip.c_str());
+    if ((protocol == Network::Socket::TCP && connect(fd, (struct sockaddr *)&sockaddr, len) == -1) ||
+            (protocol == Network::Socket::UDP && inet_aton(ip.c_str(), &sockaddr.sin_addr) == 0))
         throw SocketException(strerror(errno));
+    std::cout << *this << std::endl;
 }
 
 /**

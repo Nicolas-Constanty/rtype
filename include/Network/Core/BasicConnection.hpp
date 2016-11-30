@@ -34,6 +34,11 @@ namespace Network
             virtual void setClients(Socket::ISockStreamHandlersContainer *clts);
 
         public:
+            virtual void OnReadCheck();
+            virtual void OnWriteCheck();
+            virtual void OnDisconnect();
+
+        public:
             /**
              * @brief Used for sending any kind of data through socket
              * @tparam T The type of data to send

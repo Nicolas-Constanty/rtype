@@ -83,9 +83,7 @@ namespace SaltyEngine
 		{
 			const std::list<SaltyBehaviour *> &Sb = m_objects[m_init.front()]->GetSaltyBehaviour();
 			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
-			{
-				SaltyReflection<SaltyBehaviour>::CallStart(GameObjects(), (*it));
-			}
+				(*it)->Start();
 			m_init.pop();
 		}
 	}
@@ -102,9 +100,7 @@ namespace SaltyEngine
 		{
 			const std::list<SaltyBehaviour *> &Sb = (*obj)->GetSaltyBehaviour();
 			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
-			{
-				SaltyReflection<SaltyBehaviour>::CallUpdate(GameObjects(), (*it));
-			}
+				(*it)->Update();
 		}
 	}
 
@@ -120,9 +116,7 @@ namespace SaltyEngine
 		{
 			const std::list<SaltyBehaviour *> &Sb = (*obj)->GetSaltyBehaviour();
 			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
-			{
-				SaltyReflection<SaltyBehaviour>::CallFixedUpdate(GameObjects(), (*it));
-			}
+				(*it)->FixedUpdate();
 		}
 	}
 
@@ -138,9 +132,7 @@ namespace SaltyEngine
 		{
 			const std::list<SaltyBehaviour *> &Sb = (*obj)->GetSaltyBehaviour();
 			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
-			{
-				SaltyReflection<SaltyBehaviour>::CallOnTriggerEnter(GameObjects(), (*it));
-			}
+				(*it)->OnTriggerEnter();
 		}
 	}
 
@@ -156,9 +148,7 @@ namespace SaltyEngine
 		{
 			const std::list<SaltyBehaviour *> &Sb = (*obj)->GetSaltyBehaviour();
 			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
-			{
-				SaltyReflection<SaltyBehaviour>::CallOnTriggerExit(GameObjects(), (*it));
-			}
+				(*it)->OnTriggerExit();
 		}
 	}
 
@@ -174,9 +164,7 @@ namespace SaltyEngine
 		{
 			const std::list<SaltyBehaviour *> &Sb = (*obj)->GetSaltyBehaviour();
 			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
-			{
-				SaltyReflection<SaltyBehaviour>::CallOnTriggerStay(GameObjects(), (*it));
-			}
+				(*it)->OnTriggerStay();
 		}
 	}
 
@@ -192,9 +180,7 @@ namespace SaltyEngine
 		{
 			const std::list<SaltyBehaviour *> &Sb = (*obj)->GetSaltyBehaviour();
 			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
-			{
-				SaltyReflection<SaltyBehaviour>::CallOnCollisionEnter(GameObjects(), (*it));
-			}
+				(*it)->OnCollisionEnter();
 		}
 	}
 
@@ -210,9 +196,7 @@ namespace SaltyEngine
 		{
 			const std::list<SaltyBehaviour *> &Sb = (*obj)->GetSaltyBehaviour();
 			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
-			{
-				SaltyReflection<SaltyBehaviour>::CallOnCollisionExit(GameObjects(), (*it));
-			}
+				(*it)->OnCollisionExit();
 		}
 	}
 
@@ -228,9 +212,7 @@ namespace SaltyEngine
 		{
 			const std::list<SaltyBehaviour *> &Sb = (*obj)->GetSaltyBehaviour();
 			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
-			{
-				SaltyReflection<SaltyBehaviour>::CallOnCollisionStay(GameObjects(), (*it));
-			}
+				(*it)->OnCollisionStay();
 		}
 	}
 
@@ -246,9 +228,7 @@ namespace SaltyEngine
 		{
 			const std::list<SaltyBehaviour *> &Sb = (*obj)->GetSaltyBehaviour();
 			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
-			{
-				SaltyReflection<SaltyBehaviour>::CallOnMouseEnter(GameObjects(), (*it));
-			}
+				(*it)->OnMouseEnter();
 		}
 	}
 
@@ -264,9 +244,7 @@ namespace SaltyEngine
 		{
 			const std::list<SaltyBehaviour *> &Sb = (*obj)->GetSaltyBehaviour();
 			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
-			{
-				SaltyReflection<SaltyBehaviour>::CallOnMouseExit(GameObjects(), (*it));
-			}
+				(*it)->OnMouseExit();
 		}
 	}
 
@@ -282,9 +260,7 @@ namespace SaltyEngine
 		{
 			const std::list<SaltyBehaviour *> &Sb = (*obj)->GetSaltyBehaviour();
 			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
-			{
-				SaltyReflection<SaltyBehaviour>::CallOnMouseOver(GameObjects(), (*it));
-			}
+				(*it)->OnMouseOver();
 		}
 	}
 
@@ -300,9 +276,7 @@ namespace SaltyEngine
 		{
 			const std::list<SaltyBehaviour *> &Sb = (*obj)->GetSaltyBehaviour();
 			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
-			{
-				SaltyReflection<SaltyBehaviour>::CallOnGui(GameObjects(), (*it));
-			}
+				(*it)->OnGui();
 		}
 	}
 
@@ -312,9 +286,7 @@ namespace SaltyEngine
 		{
 			const std::list<SaltyBehaviour *> &Sb = (*obj)->GetSaltyBehaviour();
 			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
-			{
-				SaltyReflection<SaltyBehaviour>::CallOnDestroy(GameObjects(), (*it));
-			}
+				(*it)->OnDestroy();
 		}
 	}
 

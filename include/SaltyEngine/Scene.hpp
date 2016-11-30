@@ -9,7 +9,6 @@
 #include <iostream>
 #include <string>
 #include <memory>
-#include "SaltyEngine/SaltyReflection.hpp"
 #include "SaltyEngine/SaltyBehaviour.hpp"
 #include "SaltyEngine/GameObject.hpp"
 #include "SaltyEngine/Object.hpp"

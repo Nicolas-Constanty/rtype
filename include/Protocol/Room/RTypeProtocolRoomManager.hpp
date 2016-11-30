@@ -44,6 +44,7 @@ public:
     static const RoomID PLUGGEDID;
     static const RoomID SWAPID;
     static const RoomID QUITID;
+    static const RoomID LAUNCHID;
 
 public:
     typedef void (IProtocolRoomHandler::*MFP)(PackageRoomHeader const &);

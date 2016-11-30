@@ -18,7 +18,7 @@ namespace SaltyEngine
 			typedef std::list<std::unique_ptr<SpriteRenderer>> SpriteList;
 			typedef  std::map<int, SpriteList> SpriteMap;
 		public:
-			Renderer(sf::VideoMode &vm, const std::string &name);
+			Renderer(sf::VideoMode const &vm, const std::string &name);
 			virtual ~Renderer() {};
 			void Display() const override;
 			sf::RenderWindow *GetRenderWindow() const;

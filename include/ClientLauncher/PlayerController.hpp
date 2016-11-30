@@ -3,7 +3,7 @@
 #ifndef PLAYER_CONTROLLER_HPP_
 #define PLAYER_CONTROLLER_HPP_
 
-#include "SaltyBehaviour.hpp"
+#include "SaltyEngine/SaltyBehaviour.hpp"
 
 
 namespace SaltyEngine {
@@ -19,6 +19,6 @@ namespace SaltyEngine {
 	};
 }
 
-#include "SaltyEngine.hpp"
+#include "SaltyEngine/SaltyEngine.hpp"
 
 #endif // !PLAYER_CONTROLLER_HPP_

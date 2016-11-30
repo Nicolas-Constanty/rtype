@@ -20,6 +20,7 @@ public:
     virtual void onGetSWAPPackage(SWAPPackageRoom const &) = 0;
     virtual void onGetGETPackage(GETPackageRoom const &) = 0;
     virtual void onGetFAILUREPackage(FAILUREPackageRoom const &) = 0;
+    virtual void onGetLAUNCHPackage(LAUNCHPackageRoom const &) = 0;
 };
 
 #endif //RTYPE_IPROTOCOLROOMHANDLER_HPP

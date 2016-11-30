@@ -8,7 +8,7 @@ namespace SaltyEngine
 {
 	namespace SFML
 	{
-		Renderer::Renderer(sf::VideoMode& vm, const std::string& name) : m_window(Make_unique<sf::RenderWindow>(vm, name))
+		Renderer::Renderer(sf::VideoMode const &vm, const std::string& name) : m_window(Make_unique<sf::RenderWindow>(vm, name))
 		{
 		}
 
@@ -16,12 +16,6 @@ namespace SaltyEngine
 		{
 			if (m_window->isOpen())
 			{
-				sf::Event event;
-				while (m_window->pollEvent(event))
-				{
-					if (event.type == sf::Event::Closed)
-						m_window->close();
-				}
 				m_window->clear();
 				DrawGame(GetSprites());
 				DrawGUI(GetSprites());
