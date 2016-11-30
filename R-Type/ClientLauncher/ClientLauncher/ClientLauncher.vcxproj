@@ -153,7 +153,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\ClientLauncher\main.cpp" />
-    <ClCompile Include="..\..\..\src\ClientLauncher\PlayerController.cpp" />
+    <ClCompile Include="..\..\..\src\Player\PlayerController.cpp" />
     <ClCompile Include="..\..\..\src\SaltyEngine\SFML\EventManager.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -1,7 +1,7 @@
 #include "SaltyEngine/SaltyEngine.hpp"
 #include "Common/Singleton.hpp"
 #include "SaltyEngine/GameObject.hpp"
-#include "ClientLauncher/PlayerController.hpp"
+#include "Player/PlayerController.hpp"
 #include "SaltyEngine/Input.hpp"
 
 #define GAME2D

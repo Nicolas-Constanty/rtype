@@ -1,4 +1,4 @@
-#include "ClientLauncher/PlayerController.hpp"
+#include "Player/PlayerController.hpp"
 #include "SaltyEngine/SFML/EventManager.hpp"
 #include "SaltyEngine/Input/InputManager.hpp"
 

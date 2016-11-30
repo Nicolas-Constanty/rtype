@@ -42,9 +42,6 @@
     <ClCompile Include="..\..\..\src\SaltyEngine\GameObject.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\SaltyEngine\PlayerController.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\SaltyEngine\SaltyEngine.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
@@ -70,6 +67,12 @@
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\SaltyEngine\Debug.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Tests\SaltyEngine\main.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\SaltyEngine\RigidBody.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
@@ -115,9 +118,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\SaltyEngine\Behaviour.hpp">
       <Filter>Fichiers d%27en-tête\SaltyEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\SaltyEngine\PlayerController.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\SaltyEngine\SaltyEngine.hpp">
       <Filter>Fichiers d%27en-tête\SaltyEngine</Filter>
@@ -199,6 +199,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\Common\DllLoader.hpp">
       <Filter>Fichiers d%27en-tête\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\SaltyEngine\RigidBody.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

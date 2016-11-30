@@ -19,18 +19,17 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\Monster\dllmain.cpp" />
-    <ClCompile Include="..\..\src\Monster\Monster.cpp" />
-    <ClCompile Include="..\..\src\Monster\MonsterController.cpp" />
+    <ClInclude Include="..\..\include\Player\Player.hpp" />
+    <ClInclude Include="..\..\include\Player\PlayerController.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\include\Monster\Monster.hpp" />
-    <ClInclude Include="..\..\include\Monster\MonsterController.hpp" />
+    <ClCompile Include="..\..\src\Player\Player.cpp" />
+    <ClCompile Include="..\..\src\Player\PlayerController.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{BCCE84AD-8B77-4FB8-BBC7-12F24AABBC08}</ProjectGuid>
+    <ProjectGuid>{E665901E-B0DB-4258-97DF-F1E2362231C8}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>Monster</RootNamespace>
+    <RootNamespace>Player</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -80,33 +79,32 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)..\Dependencies\SFML\Win\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)..\include;$(SolutionDir)..\..\include</IncludePath>
+    <IncludePath>$(SolutionDir)..\Dependencies\SFML\Win\include;$(SolutionDir)..\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)x64\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)..\Dependencies\SFML\Win\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)..\include;$(SolutionDir)..\..\include</IncludePath>
+    <IncludePath>$(SolutionDir)..\Dependencies\SFML\Win\include;$(SolutionDir)..\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)x64\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)..\Dependencies\SFML\Win\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)..\include;$(SolutionDir)..\..\include</IncludePath>
+    <IncludePath>$(SolutionDir)..\Dependencies\SFML\Win\include;$(SolutionDir)..\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)x64\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)..\Dependencies\SFML\Win\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)..\include;$(SolutionDir)..\..\include</IncludePath>
+    <IncludePath>$(SolutionDir)..\Dependencies\SFML\Win\include;$(SolutionDir)..\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)x64\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;MONSTER_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;PLAYER_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>
-      </AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -116,13 +114,12 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_DEBUG;_WINDOWS;_USRDLL;MONSTER_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;_USRDLL;PLAYER_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>
-      </AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -133,14 +130,13 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;MONSTER_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;PLAYER_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>
-      </AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -153,14 +149,13 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>NDEBUG;_WINDOWS;_USRDLL;MONSTER_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;_USRDLL;PLAYER_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>
-      </AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
