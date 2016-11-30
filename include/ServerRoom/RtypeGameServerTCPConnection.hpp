@@ -8,6 +8,7 @@
 
 #include <Network/TCP/ATCPClient.hpp>
 #include <Protocol/Server/RTypeProtocolServerManager.hpp>
+#include <Protocol/Server/ServerPackageFactory.hpp>
 #include "Protocol/Server/IProtocolServerHandler.hpp"
 
 class RtypeGameServerTCPConnection : public Network::TCP::ATCPClient,
@@ -34,9 +35,10 @@ public:
     virtual void onGetSTATUSPackage(STATUSPackageServer const &);
 
 private:
-    RTypeProtocolServerManager protocolServerManager;
-    unsigned int id;
-    unsigned short roomNumberMax;
+    RTypeProtocolServerManager  protocolServerManager;
+    unsigned int                id;
+    unsigned short              roomNumberMax;
+    ServerPackageFactory        serverPackageFactory;
 };
 
 #endif //RTYPE_RTYPEGAMESERVERTCPCONNECTION_HPP

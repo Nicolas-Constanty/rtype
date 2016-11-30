@@ -31,7 +31,7 @@ void RtypeGameServerTCPConnection::OnDataSent(unsigned int len) {
 }
 
 void RtypeGameServerTCPConnection::OnStart() {
-
+    this->SendData(*(serverPackageFactory.create<AUTHENTICATEPackageServer>(id, roomNumberMax)));
 }
 
 void RtypeGameServerTCPConnection::onGetAUTHENTICATEPackage(const AUTHENTICATEPackageServer &obj) {
