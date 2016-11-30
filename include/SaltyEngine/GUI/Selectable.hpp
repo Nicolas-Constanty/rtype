@@ -22,14 +22,24 @@ namespace SaltyEngine
 			public IPointerEnterHandler, public IPointerExitHandler, public IPointerUpHandler, public ISelectHandler
 		{
 		public:
+			explicit Selectable(GameObject* gameObj)
+				: UIBehaviour("Selectable", gameObj), interactable(true)
+			{
+			}
+
+			Selectable(const std::string& name, GameObject* gameObj)
+				: UIBehaviour(name, gameObj), interactable(true)
+			{
+			}
+
 			virtual ~Selectable() {};
-			virtual void OnSelect() { Debug::PrintInfo("OnSelect called"); };
-			virtual void OnDeselect() { Debug::PrintInfo("OnDeselect called"); };
-			virtual void OnMove() { Debug::PrintInfo("OnMove called"); };
-			virtual void OnPointerUp() { Debug::PrintInfo("OnPointerUp called"); };
-			virtual void OnPointerDown() { Debug::PrintInfo("OnPointerDown called"); };
-			virtual void OnPointerEnter() { Debug::PrintInfo("OnPointerEnter called"); };
-			virtual void OnPointerExit() { Debug::PrintInfo("OnPointerExit called"); };
+			void OnSelect() override { Debug::PrintInfo("OnSelect called"); };
+			void OnDeselect() override { Debug::PrintInfo("OnDeselect called"); };
+			void OnMove() override { Debug::PrintInfo("OnMove called"); };
+			void OnPointerUp() override { Debug::PrintInfo("OnPointerUp called"); };
+			void OnPointerDown() override { Debug::PrintInfo("OnPointerDown called"); };
+			void OnPointerEnter() override { Debug::PrintInfo("OnPointerEnter called"); };
+			void OnPointerExit() override { Debug::PrintInfo("OnPointerExit called"); };
 			void Select() {};
 		public:
 			static std::list<Selectable> allSelectable;

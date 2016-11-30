@@ -2,9 +2,12 @@
 #include <direct.h>
 #else
 #include <dirent.h>
+#include <SaltyEngine/Constants.hpp>
+
 #endif
 
 #include "SaltyEngine/SaltyEngine.hpp"
+#include <SaltyEngine/Constants.hpp>
 
 namespace SaltyEngine
 {
@@ -17,11 +20,12 @@ namespace SaltyEngine
 	SaltyEngine::SaltyEngine(): m_current(0)
 	{
 		m_renderer = new DefaultRenderer();
+		m_even_manager = new Input::DefaultEventManager();
 		m_status = EngineStatus::stop;
 		m_fps = DEFAULT_FRAME_RATE;
 		std::chrono::duration<double> d(1.0 / m_fps);
 		m_frame_rate = std::chrono::duration_cast<std::chrono::nanoseconds>(d);
-		//LoadAssets();
+		LoadAssets();
 	}
 
 	/**
@@ -79,6 +83,7 @@ namespace SaltyEngine
 			m_delta_time = std::chrono::high_resolution_clock::now() - time_start;
 			time_start = std::chrono::high_resolution_clock::now();
 			lag += std::chrono::duration_cast<std::chrono::nanoseconds>(m_delta_time);
+			m_even_manager->Update();
 			// Control Frame Rate
 			while (lag >= m_frame_rate)
 			{
@@ -237,6 +242,13 @@ namespace SaltyEngine
 		m_renderer = renderer;
 	}
 
+	void SaltyEngine::SetEventManager(Input::IEventManager * ev_manager)
+	{
+		if (m_even_manager)
+			delete m_even_manager;
+		m_even_manager = ev_manager;
+	}
+
 	/**
 	 * \brief Will load all the assets contained in the folder
 	 */
@@ -245,17 +257,22 @@ namespace SaltyEngine
 #if _WIN32
 		WIN32_FIND_DATA findFileData;
 		HANDLE hFind;
-
 		CHAR str[256];
+
 		_getcwd(str, sizeof(str));
 
-		// Should open .
-		hFind = FindFirstFile(std::string(std::string(str) + "\\*").c_str(), &findFileData);
+		hFind = FindFirstFile(std::string(std::string(str) + Asset::ASSET_PATH + "\\*").c_str(), &findFileData);
 
 		while (hFind != INVALID_HANDLE_VALUE)
 		{
-			std::cout << "Loading asset [" << findFileData.cFileName << "]" << std::endl;
-			std::cout << Factory::LoadAsset(findFileData.cFileName) << std::endl;
+			std::string assetName = std::string(findFileData.cFileName);
+			if (assetName.length() >= Asset::LIB_EXTENSION.length()
+				&& assetName.compare(assetName.length() - Asset::LIB_EXTENSION.length(), Asset::LIB_EXTENSION.length(), Asset::LIB_EXTENSION) == 0)
+			{
+				std::cout << "Loading asset [" << assetName << "]" << std::endl;
+				std::string assetPath = std::string(str) + Asset::ASSET_PATH + "\\" + assetName;
+				Factory::LoadAsset(assetPath);
+			}
 			if (FindNextFile(hFind, &findFileData) == FALSE)
 				break;
 		}
@@ -263,13 +280,23 @@ namespace SaltyEngine
 #else
 		DIR *dir;
 		struct dirent *ent;
-		if ((dir = opendir("./")) != NULL)
+        char str[256];
+
+        getcwd(str, sizeof(str));
+
+		if ((dir = opendir(std::string(std::string(str) + Asset::ASSET_PATH).c_str())) != NULL)
 		{
 			/* get all the files and directories within directory */
 			while ((ent = readdir(dir)) != NULL)
 			{
-				std::cout << "Loading asset [" << ent->d_name << "]" << std::endl;
-				Factory::LoadAsset(ent->d_name);
+                std::string assetName = std::string(ent->d_name);
+                if (assetName.length() >= Asset::LIB_EXTENSION.length()
+                    && assetName.compare(assetName.length() - Asset::LIB_EXTENSION.length(), Asset::LIB_EXTENSION.length(), Asset::LIB_EXTENSION) == 0)
+                {
+                    std::cout << "Loading asset [" << assetName << "]" << std::endl;
+                    std::string assetPath = std::string(str) + Asset::ASSET_PATH + "/" + assetName;
+                    Factory::LoadAsset(assetPath);
+                }
 			}
 			closedir(dir);
 		}

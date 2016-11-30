@@ -8,6 +8,7 @@
 #include <typeinfo>
 #include "SaltyEngine/Transform.hpp"
 #include "SaltyEngine/SaltyBehaviour.hpp"
+#include "Common/MakeUnique.hpp"
 
 namespace SaltyEngine
 {
@@ -37,16 +38,11 @@ namespace SaltyEngine
 	public:
 		bool GetActiveSelf() const;
 
-	protected:
-		template<typename T, typename... Args>
-		std::unique_ptr<T> make_unique(Args&&... args) {
-			return std::unique_ptr<T>(new T(std::forward<Args>(args)...));
-		}
 	public:
 		template<class T>
 		T *AddComponent()
 		{
-			m_components.push_back(make_unique<T>(this));
+			m_components.push_back(Make_unique<T>(this));
 			SaltyBehaviour *tmp = dynamic_cast<SaltyBehaviour *>(m_components.back().get());
 			if (tmp)
 			{
@@ -71,7 +67,7 @@ namespace SaltyEngine
 		template<class T, class ... Args>
 		T *AddComponent(Args &&... args)
 		{
-			m_components.push_back(make_unique<T>(this, args...));
+			m_components.push_back(Make_unique<T>(this, args...));
 			SaltyBehaviour *tmp = dynamic_cast<SaltyBehaviour *>(m_components.back().get());
 			if (tmp)
 			{
@@ -174,7 +170,19 @@ namespace SaltyEngine
 				return std::unique_ptr<Object>(new GameObject(GetName() + "(Clone)"));
 			}
 			virtual std::unique_ptr<Object> CloneMemberwise() {
-				return std::unique_ptr<Object>(new GameObject(GetName() + "(Clone)"));
+				GameObject	*obj = new GameObject(GetName() + "(Clone)");
+
+//				obj->transform = transform;
+				obj->layer = layer;
+				obj->m_activeSelf = m_activeSelf;
+				obj->m_behaviour = m_behaviour;
+				for (std::list<std::unique_ptr<Component>>::const_iterator it = m_components.begin(); it != m_components.end(); ++it) {
+					obj->m_components.push_back(std::unique_ptr<Component>(it->get()));
+				}
+//				obj->scene = scene;
+//				obj->m_bcount = m_bcount;
+				obj->m_tag = m_tag;
+				return std::unique_ptr<Object>(obj);
 			}
 	};
 }

@@ -27,7 +27,7 @@ namespace SaltyEngine
 	public:
 		static void AddSpriteRenderer(ASpriteRenderer<T> *const sprr)
 		{
-			m_spriteRenderers.at(sprr->GetLayer()).push_back(std::make_unique<ASpriteRenderer<T>>(sprr));
+			m_spriteRenderers.at(sprr->GetLayer()).push_back(std::unique_ptr<ASpriteRenderer<T>>(sprr));
 		}
 
 		static const SpriteMap &GetSprites()
