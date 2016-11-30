@@ -36,6 +36,7 @@ namespace Network
         public:
             virtual void OnReadCheck();
             virtual void OnWriteCheck();
+            virtual void OnDisconnect();
 
         public:
             /**

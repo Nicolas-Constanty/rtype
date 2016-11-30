@@ -30,6 +30,7 @@ namespace Network
             virtual void OnAllowedToWrite() = 0;
             virtual void OnDataReceived(unsigned int len) = 0;
             virtual void OnDataSent(unsigned int len) = 0;
+            virtual void OnDisconnect() = 0;
         };
     }
 }

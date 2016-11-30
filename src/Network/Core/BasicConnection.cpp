@@ -74,6 +74,7 @@ void Network::Core::BasicConnection::setClients(Network::Socket::ISockStreamHand
  */
 void Network::Core::BasicConnection::Disconnect()
 {
+    OnDisconnect();
     std::cout << "\x1b[31mClient disconnected\x1b[0m: " << this << std::endl;
     giveSocket().Close();
     if (clients)
@@ -107,5 +108,9 @@ void Network::Core::BasicConnection::OnReadCheck()
  */
 void Network::Core::BasicConnection::OnWriteCheck()
 {
+
+}
+
+void Network::Core::BasicConnection::OnDisconnect() {
 
 }
