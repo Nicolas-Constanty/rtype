@@ -185,7 +185,7 @@ public:
     }
 
 public:
-    char msg[8];
+    char msg[40];
     unsigned char purposeFailed;
 };
 

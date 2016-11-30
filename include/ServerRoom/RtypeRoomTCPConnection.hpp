@@ -8,6 +8,10 @@
 #include <Network/TCP/ATCPClient.hpp>
 #include <Protocol/Room/RTypeProtocolRoomManager.hpp>
 #include "Protocol/Room/IProtocolRoomHandler.hpp"
+#include "RoomService.hpp"
+#include "Protocol/Room/RoomPackageFactory.hpp"
+
+class RoomService;
 
 class RtypeRoomTCPConnection : public Network::TCP::ATCPClient,
                                public IProtocolRoomHandler
@@ -21,6 +25,9 @@ public:
     virtual void OnDataReceived(unsigned int len);
     virtual void OnDataSent(unsigned int len);
     virtual void OnStart();
+
+private:
+    bool        OnJoinRoom();
 
 public:
     virtual void onGetAUTHENTICATEPackage(AUTHENTICATEPackageRoom const &);
@@ -38,6 +45,7 @@ private:
     std::string                 pseudo;
     unsigned int                id;
     RoomPackageFactory          roomPackageFactory;
+    RoomService                 *roomService;
 };
 
 #endif //RTYPE_RTYPEROOMTCPCONNECTION_HPP

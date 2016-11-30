@@ -51,6 +51,17 @@ namespace Network
                 WantSend();
             }
 
+            template <typename U = BasicConnection, typename T>
+            void Broadcast(T const &towr) {
+                for (std::unique_ptr<Socket::ISockStreamHandler> &curr : clients->Streams()) {
+                    U *basicConnection;
+
+                    if ((basicConnection = dynamic_cast<U *>(curr.get()))) {
+                        basicConnection->SendData(towr);
+                    }
+                }
+            }
+
             std::queue<Core::NetBuffer> &Messages();
 
         private:

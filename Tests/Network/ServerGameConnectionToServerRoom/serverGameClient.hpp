@@ -86,7 +86,7 @@ public:
     }
 
     virtual void OnStart() {
-        this->SendData(*(factory.create<AUTHENTICATEPackageServer>(0, 10)));
+        this->SendData(*(factory.create<AUTHENTICATEPackageServer>(0, 3)));
     }
 
 public:
