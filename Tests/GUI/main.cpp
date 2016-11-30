@@ -8,20 +8,25 @@
 #include "ClientLauncher/PlayerController.hpp"
 #include "SaltyEngine/SFML/EventManager.hpp"
 
-int main(int ac, char **av)
+#include "SaltyEngine/SFML/AssetManager.hpp"
+
+int main()
 {
 	SaltyEngine::SFML::Renderer *renderer = new SaltyEngine::SFML::Renderer(sf::VideoMode(1280, 720), "R-Type Launcher");
 	SaltyEngine::SFML::EventManager *event_manager = new SaltyEngine::SFML::EventManager(renderer->GetRenderWindow());
 
 	SaltyEngine::GameObject *player = new SaltyEngine::GameObject("Player");
 
+    SaltyEngine::SFML::AssetManager::Instance().LoadTexture("Image");
+    SaltyEngine::SFML::Texture *texture = SaltyEngine::SFML::AssetManager::Instance().GetTexture("Image");
+
 	// Create Button
-	SaltyEngine::SFML::Texture *texture = new SaltyEngine::SFML::Texture();
-	if (!texture->loadFromFile("../../Assets/Textures/Image.png"))
-	{
-		SaltyEngine::Debug::PrintError("Failed to load texture");
-		return (1);
-	}
+//	SaltyEngine::SFML::Texture *texture = new SaltyEngine::SFML::Texture();
+//	if (!texture->loadFromFile("../../Assets/Textures/Image.png"))
+//	{
+//		SaltyEngine::Debug::PrintError("Failed to load texture");
+//		return (1);
+//	}
 	SaltyEngine::SFML::Rect *rect = new SaltyEngine::SFML::Rect(10, 10, 100, 100);
 	SaltyEngine::SFML::Sprite *spr = new SaltyEngine::SFML::Sprite(texture, rect);
 	player->AddComponent<SaltyEngine::GUI::SFML::Button>(spr);
