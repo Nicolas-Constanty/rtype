@@ -22,7 +22,6 @@
     <ClCompile Include="..\..\src\Monster\dllmain.cpp" />
     <ClCompile Include="..\..\src\Monster\Monster.cpp" />
     <ClCompile Include="..\..\src\Monster\MonsterController.cpp" />
-    <ClCompile Include="..\..\src\Monster\stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\Monster\Monster.hpp" />

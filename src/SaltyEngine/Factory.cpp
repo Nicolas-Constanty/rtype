@@ -6,18 +6,18 @@
 namespace SaltyEngine {
 
 	std::map<std::string, Object *> Factory::m_prefabs;
-    std::list<std::shared_ptr<Object> > Factory::m_objects;
+    std::list<std::unique_ptr<Object> > Factory::m_objects;
 
     Factory::~Factory() {
     }
 
-    std::shared_ptr<Object> Factory::Create(std::string const &name) {
+    Object  *Factory::Create(std::string const &name) {
 		if (m_prefabs.find(name) == m_prefabs.end())
 		{
 			return nullptr;
 		}
         m_objects.push_front(m_prefabs[name]->CloneMemberwise());
-        return m_objects.front();
+        return m_objects.front().get();
     }
 
 	bool Factory::LoadAsset(std::string const& path)

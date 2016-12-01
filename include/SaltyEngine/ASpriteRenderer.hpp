@@ -31,6 +31,7 @@ namespace SaltyEngine
 		virtual Sprite<T>  *GetSprite() const = 0;
 		virtual IWindow *GetWindow() const = 0;
 		virtual int GetLayer() const { return (m_layer); }
+		virtual void SetSprite(Sprite<T> * const sprite) { m_sprite = sprite; }
 
 	protected:
 		Sprite<T>		*m_sprite;

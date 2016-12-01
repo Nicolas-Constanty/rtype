@@ -25,9 +25,9 @@ namespace SaltyEngine
 	public:
 		size_t GetSize() const;
 		std::ostream & print(std::ostream &os) const;
-		const std::unique_ptr<GameObject> &operator[](size_t index) const;
+		GameObject const &operator[](size_t index) const;
 		void Clear();
-		void operator<<(GameObject *gameobj);
+		void operator<<(GameObject * const gameobj);
 
 	public:
 		void OnStart();
@@ -53,7 +53,7 @@ namespace SaltyEngine
 		void CallCoroutines();
 
 	private:
-		std::vector<std::unique_ptr<GameObject>>	m_objects;
+		std::vector<GameObject*>	    m_objects;
 		std::queue<size_t>				m_init;
 
 	public:
