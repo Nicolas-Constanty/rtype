@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef RECT_HPP_
-#define RECT_HPP_
+#ifndef SFMLRECT_HPP_
+#define SFMLRECT_HPP_
 
 #include <SFML/Graphics.hpp>
 #include "SaltyEngine/IRect.hpp"
@@ -24,8 +24,37 @@ namespace SaltyEngine
 			{
 				return (contains(vec.x, vec.y));
 			}
+			bool Intersect(IRect<sf::Vector2i> * rect) const override
+			{
+				Rect *r = dynamic_cast<Rect *>(rect);
+				if (r)
+					return intersects(*r);
+				return false;
+			}
+		};
+		class FRect : public IRect<sf::Vector2f>, public sf::FloatRect
+		{
+		public:
+			FRect(float rectLeft, float rectTop, float rectWidth, float rectHeight)
+				: sf::FloatRect(rectLeft, rectTop, rectWidth, rectHeight) {}
+			FRect(const sf::Vector2f& position, const sf::Vector2f& size)
+				: sf::FloatRect(position, size) {}
+			virtual ~FRect() {}
+
+		public:
+			bool Contain(const sf::Vector2f &vec) const override
+			{
+				return (contains(vec.x, vec.y));
+			}
+			bool Intersect(IRect<sf::Vector2f> * const rect) const override
+			{
+				FRect *r = dynamic_cast<FRect *>(rect);
+				if (r)
+					return intersects(*r);
+				return false;
+			};
 		};
 	}
 }
 
-#endif //!RECT_HPP_
+#endif //!SFMLRECT_HPP_

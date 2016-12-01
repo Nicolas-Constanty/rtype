@@ -6,6 +6,8 @@
 #define SINGLETON_HPP
 
 #include <type_traits>
+#include <ServerRoom/RtypeGameServerTCPConnection.hpp>
+#include <ServerRoom/RoomService.hpp>
 
 /**
  * \brief Singleton class that creates a templated singleton

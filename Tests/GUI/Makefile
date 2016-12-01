@@ -14,6 +14,7 @@ SALTYENGINE_DIR         =   $(SRC_DIR)/SaltyEngine
 COMMON_DIR              =   $(SRC_DIR)/Common
 MONSTER_DIR             =   $(SRC_DIR)/Monster
 CLIENT_DIR              =   $(SRC_DIR)/ClientLauncher
+SFML_DIR                =   $(SALTYENGINE_DIR)/SFML
 
 SRC		= 	$(SALTYENGINE_DIR)/SFML/AssetManager.cpp    \
             $(SALTYENGINE_DIR)/SFML/EventManager.cpp    \
@@ -26,11 +27,11 @@ SRC		= 	$(SALTYENGINE_DIR)/SFML/AssetManager.cpp    \
 
 CPPFLAGS 	=   -W -Wall -g -Wextra -std=c++11 -fPIC
 
-CPPFLAGS    +=  -I $(INC_DIR)
+CPPFLAGS    +=  -I $(INC_DIR) -I$(PROJECT_DIR)/Dependencies/SFML/Linux/include
 
-LDFLAGS	=   -lpthread -ldl -lsfml-system -lsfml-window -lsfml-graphics -lsfml-audio
+LDFLAGS	=   -lpthread -L$(PROJECT_DIR)/Dependencies/SFML/Linux/lib -lsfml-system -lsfml-window -lsfml-graphics -lsfml-audio -Wl,-rpath=$(PROJECT_DIR)/Dependencies/SFML/Linux/lib
 
-LDFLAGS +=  $(PROJECT_DIR)/R-Type/SaltyEngine/libSaltyEngine.a
+LDFLAGS +=  $(PROJECT_DIR)/R-Type/SaltyEngine/libSaltyEngine.a -ldl
 
 OBJ		= 	$(SRC:.cpp=.o)
 

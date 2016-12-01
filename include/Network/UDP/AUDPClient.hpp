@@ -19,26 +19,8 @@ namespace Network
         class AUDPClient : public AUDPConnection, public Core::INetBufferContainer
         {
         public:
-            /**
-             * @brief Basic construtor
-             * @tparam ClientType The type of the client model
-             */
-            template <typename ClientType>
-            AUDPClient(ClientType * const model, Core::NativeSocketIOOperationDispatcher &dispatcher) :
-                    AUDPConnection(dispatcher),
-                    buff(),
-                    model(new ClientType(*model)),
-                    server(Socket::UDP)
-            {
-
-            }
-
-            /**
-             * @brief Basic copy constructor
-             * @param ref The reference to copy
-             */
+            AUDPClient(Core::NativeSocketIOOperationDispatcher &dispatcher);
             AUDPClient(AUDPClient const &ref);
-
             virtual ~AUDPClient();
 
             //AUDPConnection
@@ -59,7 +41,6 @@ namespace Network
             Core::NetBuffer buff;
 
         private:
-            std::unique_ptr<Network::Socket::ISockStreamHandler> model;
             Socket::OSSocket server;
         };
     }

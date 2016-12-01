@@ -1,13 +1,16 @@
 //
-// Created by gaspar_q on 11/28/16.
+// Created by victor on 30/11/16.
 //
 
-#ifndef RTYPE_BASETCP_HPP
-#define RTYPE_BASETCP_HPP
+#ifndef RTYPE_SERVERGAMECLIENT_HPP
+#define RTYPE_SERVERGAMECLIENT_HPP
+
 
 #include <iostream>
 #include <Network/TCP/ATCPServer.hpp>
 #include <Network/TCP/ATCPClient.hpp>
+#include <Protocol/Server/ServerPackageFactory.hpp>
+#include "Protocol/Server/ProtocolPrintServerPackage.hpp"
 
 class TestSwapClient : public Network::TCP::ATCPClient
 {
@@ -41,17 +44,21 @@ public:
     }
 };
 
-class BasicClient : public Network::TCP::ATCPClient
+#include "Protocol/Server/ServerPackageFactory.hpp"
+#include "Protocol/Server/IProtocolServerHandler.hpp"
+#include "Protocol/Server/RTypeProtocolServerManager.hpp"
+
+class BasicClient : public Network::TCP::ATCPClient, public IProtocolServerHandler
 {
 public:
     BasicClient(Network::Core::NativeSocketIOOperationDispatcher &dispatcher) :
-            Network::TCP::ATCPClient(dispatcher)
+            Network::TCP::ATCPClient(dispatcher), protocolServerManager(*this)
     {
 
     }
 
     BasicClient(Network::Core::BasicConnection &ref) :
-            Network::TCP::ATCPClient(ref.Dispatcher())
+            Network::TCP::ATCPClient(ref.Dispatcher()), protocolServerManager(*this)
     {
 
     }
@@ -61,20 +68,15 @@ public:
         std::cout << "\e[31mDestructor called\e[0m" << std::endl;
     }
 
+private:
+    RTypeProtocolServerManager protocolServerManager;
+
 public:
     virtual void OnDataReceived(unsigned int len)
     {
         std::cout << "Receiving " << buff << std::endl;
-        if (buff.toString() == "change\n")
-        {
-            std::cout << "Changing client to Testswap client" << std::endl;
-            TestSwapClient  *newc = new TestSwapClient(*this);
-            std::cout << "TestSwap instantiated" << std::endl;
-            clients->Move(this, newc);
-            std::cout << "Client moved" << std::endl;
-            newc->SendData("on est bon\n");
-            newc->WantReceive();
-            std::cout << "Pending data sent" << std::endl;
+        if (!protocolServerManager.handleProtocol(buff.buff(), buff.getLength())) {
+            std::cout << "unknown cmd" << std::endl;
         }
     }
 
@@ -82,6 +84,27 @@ public:
     {
         std::cout << "Number of bytes sent: " << len << std::endl;
     }
+
+    virtual void OnStart() {
+        this->SendData(*(factory.create<AUTHENTICATEPackageServer>(0, 3)));
+    }
+
+public:
+
+    virtual void onGetAUTHENTICATEPackage(AUTHENTICATEPackageServer const &obj) {
+        std::cout << obj << std::endl;
+    }
+
+    virtual void onGetLAUNCHPackage(LAUNCHPackageServer const &obj) {
+        std::cout << obj << std::endl;
+    }
+
+    virtual void onGetSTATUSPackage(STATUSPackageServer const &obj) {
+        std::cout << obj << std::endl;
+    }
+
+private:
+    ServerPackageFactory factory;
 };
 
 class BasicTCPServ : public Network::TCP::ATCPServer<BasicClient>
@@ -110,4 +133,5 @@ public:
     }
 };
 
-#endif //RTYPE_BASETCP_HPP
+
+#endif //RTYPE_SERVERGAMECLIENT_HPP

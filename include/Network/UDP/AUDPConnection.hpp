@@ -35,6 +35,9 @@ namespace Network
             virtual Socket::ISocket &giveSocket();
             virtual Socket::ISocket const &getSocket() const;
 
+        public:
+            virtual void OnStart();
+
         protected:
             Socket::OSSocket sock;
         };

@@ -34,6 +34,11 @@ namespace Network
             virtual void setClients(Socket::ISockStreamHandlersContainer *clts);
 
         public:
+            virtual void OnReadCheck();
+            virtual void OnWriteCheck();
+            virtual void OnDisconnect();
+
+        public:
             /**
              * @brief Used for sending any kind of data through socket
              * @tparam T The type of data to send
@@ -45,6 +50,29 @@ namespace Network
                 toWrite.emplace(towr);
                 WantSend();
             }
+
+            template <typename U = BasicConnection, typename T>
+            void Broadcast(T const &towr) {
+                for (std::unique_ptr<Socket::ISockStreamHandler> &curr : clients->Streams()) {
+                    U *basicConnection;
+
+                    if ((basicConnection = dynamic_cast<U *>(curr.get()))) {
+                        basicConnection->SendData(towr);
+                    }
+                }
+            }
+
+            template <typename U = BasicConnection, typename T>
+            void BroadcastNow(T const &towr) {
+                for (std::unique_ptr<Socket::ISockStreamHandler> &curr : clients->Streams()) {
+                    U *basicConnection;
+
+                    if ((basicConnection = dynamic_cast<U *>(curr.get()))) {
+                        basicConnection->giveSocket().Send(towr);
+                    }
+                }
+            }
+
 
             std::queue<Core::NetBuffer> &Messages();
 

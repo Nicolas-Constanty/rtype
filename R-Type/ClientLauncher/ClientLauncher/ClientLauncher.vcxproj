@@ -155,10 +155,12 @@
     <ClCompile Include="..\..\..\src\ClientLauncher\main.cpp" />
     <ClCompile Include="..\..\..\src\ClientLauncher\PlayerController.cpp" />
     <ClCompile Include="..\..\..\src\SaltyEngine\SFML\EventManager.cpp" />
+    <ClCompile Include="..\..\..\src\SaltyEngine\SFML\Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\ClientLauncher\PlayerController.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\SFML\EventManager.hpp" />
+    <ClInclude Include="..\..\..\include\SaltyEngine\SFML\Scene.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

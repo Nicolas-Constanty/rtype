@@ -9,7 +9,9 @@
  * @param dispatcher The reference on the dispatcher to work with
  */
 Network::Core::BasicConnection::BasicConnection(Network::Core::NativeSocketIOOperationDispatcher &dispatcher) :
-    dispatcher(dispatcher)
+    dispatcher(dispatcher),
+    clients(NULL),
+    toWrite()
 {
 
 }
@@ -72,12 +74,16 @@ void Network::Core::BasicConnection::setClients(Network::Socket::ISockStreamHand
  */
 void Network::Core::BasicConnection::Disconnect()
 {
+    OnDisconnect();
     std::cout << "\x1b[31mClient disconnected\x1b[0m: " << this << std::endl;
     giveSocket().Close();
     if (clients)
+    {
         clients->Remove(this);
-    else
-        delete(this);
+    }
+    else {
+        dispatcher.Remove(this);
+    }
 }
 
 /**
@@ -87,4 +93,24 @@ void Network::Core::BasicConnection::Disconnect()
 std::queue<Network::Core::NetBuffer> &Network::Core::BasicConnection::Messages()
 {
     return toWrite;
+}
+
+/**
+ * @brief Callback called just before check that the fd is allowed to read
+ */
+void Network::Core::BasicConnection::OnReadCheck()
+{
+
+}
+
+/**
+ * @brief Callback called juste befroe check that the fd is allowed to write
+ */
+void Network::Core::BasicConnection::OnWriteCheck()
+{
+
+}
+
+void Network::Core::BasicConnection::OnDisconnect() {
+
 }

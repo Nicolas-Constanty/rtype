@@ -39,12 +39,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Test\GUI\main.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\include\SaltyEngine\GUI\UIBehaviour.cpp">
-      <Filter>Fichiers sources\SaltyEngine\GUI</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\SaltyEngine\GUI\Widget.cpp">
       <Filter>Fichiers sources\SaltyEngine\GUI</Filter>
     </ClCompile>
@@ -65,6 +59,15 @@
     </ClCompile>
     <ClCompile Include="..\..\src\ClientLauncher\PlayerController.cpp">
       <Filter>Fichiers sources\SaltyEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Tests\GUI\main.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\SaltyEngine\GUI\UIBehaviour.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\SaltyEngine\SFML\Scene.cpp">
+      <Filter>Fichiers sources\SaltyEngine\SFML</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -142,6 +145,12 @@
     </ClInclude>
     <ClInclude Include="..\..\include\ClientLauncher\PlayerController.hpp">
       <Filter>Fichiers d%27en-tête\SaltyEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\SFML\BoxCollider2D.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine\SFML</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\SFML\Scene.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine\SFML</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

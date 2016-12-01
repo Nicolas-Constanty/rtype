@@ -11,6 +11,7 @@ namespace SaltyEngine
 	public:
 		virtual ~IRect() {};
 		virtual bool Contain(const T &vec) const = 0;
+		virtual bool Intersect(IRect<T> *) const = 0;
 	};
 }
 

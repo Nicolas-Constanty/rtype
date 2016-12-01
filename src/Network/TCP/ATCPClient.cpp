@@ -48,3 +48,15 @@ void Network::TCP::ATCPClient::OnAllowedToRead()
     else
         Disconnect();
 }
+
+void Network::TCP::ATCPClient::Connect(std::string const &ip, const uint16_t port)
+{
+    sock.Open();
+    sock.Talk(ip, port);
+    OnStart();
+}
+
+void Network::TCP::ATCPClient::OnStart()
+{
+
+}

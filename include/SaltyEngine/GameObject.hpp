@@ -36,7 +36,7 @@ namespace SaltyEngine
 		size_t						m_bcount;
 
 	public:
-		bool GetActiveSelf() const;
+		bool GetActiveSelf(void) const;
 
 	public:
 		template<class T>
@@ -78,13 +78,13 @@ namespace SaltyEngine
 		}
 		bool CompareTag(const std::string &tag) const;
 		template<class T>
-		T GetComponent()
+		T *GetComponent()
 		{
 			for (std::list<std::unique_ptr<Component>>::const_iterator it = m_components.begin(); it != m_components.end(); ++it)
 			{
-				if (typeid(*(*it).get()) == typeid(T))
+				if (dynamic_cast<T*>((*it).get()))
 				{
-					return (T)(*it).get();
+					return (T*)(*it).get();
 				}
 			}
 			return (nullptr);
@@ -137,7 +137,7 @@ namespace SaltyEngine
 			return (list);
 		}
 
-		const std::list<SaltyBehaviour *> &GetSaltyBehaviour() const
+		const std::list<SaltyBehaviour *> &GetSaltyBehaviour(void) const
 		{
 			return (m_behaviour);
 		}

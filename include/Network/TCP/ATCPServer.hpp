@@ -61,6 +61,7 @@ namespace Network
             {
                 sock.Open();
                 sock.Listen(port);
+                OnStart();
             }
 
             /**
@@ -93,6 +94,7 @@ namespace Network
                 newclient->setClients(clients);
                 clients->Add(newclient);
                 newclient->WantReceive();
+                newclient->OnStart();
                 WantReceive();
                 OnDataReceived(0);
             }
@@ -100,9 +102,14 @@ namespace Network
             /**
              * @brief Callback called when data has been received
              */
-            void OnDataReceived(unsigned int)
+            virtual void OnDataReceived(unsigned int)
             {
                 WantReceive();
+            }
+
+            virtual void OnStart()
+            {
+
             }
 
         protected:

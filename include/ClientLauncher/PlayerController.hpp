@@ -6,6 +6,7 @@
 #include "SaltyEngine/SaltyBehaviour.hpp"
 
 
+
 namespace SaltyEngine {
 	class PlayerController : public SaltyBehaviour
 	{
@@ -15,6 +16,10 @@ namespace SaltyEngine {
 		void Start();
 		void FixedUpdate();
 		void DisplayCoroutine();
+		//void OnCollisionEnter(ICollider const *) override;
+		void OnCollisionEnter(ICollider *) override;
+		void OnCollisionStay(ICollider *) override;
+		void OnCollisionExit(ICollider *) override;
 		double speed;
 	};
 }
