@@ -41,6 +41,8 @@ std::ostream &operator<<(std::ostream &ostream, LAUNCHPackageServer const &launc
     ostream << "secret=" << launchPackageServer.secret << std::endl;
     ostream << "mapID=" << launchPackageServer.mapID << std::endl;
     ostream << "roomPlayer=" << launchPackageServer.roomPlayer << std::endl;
+    ostream << "ip=" << launchPackageServer.ip << std::endl;
+    ostream << "port=" << launchPackageServer.port << std::endl;
     ostream << "}";
     return (ostream);
 }

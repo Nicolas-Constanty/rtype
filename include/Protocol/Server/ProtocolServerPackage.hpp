@@ -68,17 +68,22 @@ public:
 
 class LAUNCHPackageServer : public PackageServerHeader {
 public:
-    LAUNCHPackageServer(unsigned short roomPlayer, unsigned short mapID, unsigned int secret)
+    LAUNCHPackageServer(unsigned short roomPlayer, unsigned short mapID, unsigned int secret,
+                        unsigned int ip = 0, unsigned short port = 0)
             : PackageServerHeader(sizeof(LAUNCHPackageServer), ServerPurpose::SERVERLAUNCH) {
         this->roomPlayer = roomPlayer;
         this->mapID = mapID;
         this->secret = secret;
+        this->ip = ip;
+        this->port = port;
     }
 
 public:
     unsigned short roomPlayer;
     unsigned short mapID;
     unsigned int secret;
+    unsigned int ip;
+    unsigned short port;
 };
 
 class STATUSPackageServer : public PackageServerHeader {
