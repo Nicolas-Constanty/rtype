@@ -3,13 +3,17 @@
 //
 
 #include <ServerRoom/RoomService.hpp>
+#include <ServerRoom/SecretGeneration.hpp>
+#include "ServerRoom/RtypeGameServerTCPConnection.hpp"
+#include "Protocol/Server/ServerPackageFactory.hpp"
 
 RoomService::RoomService(const std::string &name,
                          unsigned short clientMaxNbr,
                          unsigned short mapID,
                          unsigned short id,
                          RtypeGameServerTCPConnection *gameServerTCPConnection)
-        : name(name), clientMaxNbr(clientMaxNbr), mapID(mapID), id(id), gameServerTCPConnection(gameServerTCPConnection), launch(false) {
+        : name(name), clientMaxNbr(clientMaxNbr), mapID(mapID), id(id),
+          gameServerTCPConnection(gameServerTCPConnection), clientsList(), launch(false), secret(0) {
 
 }
 
@@ -27,6 +31,10 @@ void RoomService::RemovePlayer(RtypeRoomTCPConnection *roomTCPConnection) {
 
 void RoomService::Launch() {
     launch = true;
+    secret = SecretGeneration::Instance().generateSecret();
+    this->gameServerTCPConnection->SendData(*ServerPackageFactory().create<LAUNCHPackageServer>(static_cast<unsigned short>(this->clientsList.size()),
+                                                                                                this->mapID,
+                                                                                                secret));
 }
 
 bool RoomService::isLaunch() const {
@@ -66,4 +74,8 @@ void RoomService::Abort() {
     while (!this->clientsList.empty()) {
         this->clientsList.front()->OnQUITEvent(false);
     }
+}
+
+unsigned int RoomService::getSecret() const {
+    return (this->secret);
 }
