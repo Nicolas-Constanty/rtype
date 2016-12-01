@@ -4,7 +4,7 @@ RM 		=	rm -rf
 
 NAME	=	salty-engine
 
-LIBNAME =   libSaltyEngine.a
+LIBNAME =   libSaltyEngine.so
 
 PROJECT_DIR =   ../..
 
@@ -39,7 +39,7 @@ SRC		= 	$(SALTYENGINE_DIR)/Animation.cpp        \
             $(SALTYENGINE_DIR)/Input/Mapping.cpp        \
             $(COMMON_DIR)/LibLoader.cpp                 \
 
-CPPFLAGS 	=   -W -Wall -g -Wextra -std=c++11 -fPIC -rdynamic
+CPPFLAGS 	=   -W -Wall -g -Wextra -std=c++11 -fPIC -rdynamic -shared -O2
 
 CPPFLAGS    +=  -I $(INC_DIR)
 

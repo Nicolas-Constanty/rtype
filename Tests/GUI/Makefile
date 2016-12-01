@@ -32,7 +32,7 @@ CPPFLAGS    +=  -I $(INC_DIR) -I$(PROJECT_DIR)/Dependencies/SFML/Linux/include
 
 LDFLAGS	=   -lpthread -L$(PROJECT_DIR)/Dependencies/SFML/Linux/lib -lsfml-system -lsfml-window -lsfml-graphics -lsfml-audio -Wl,-rpath=$(PROJECT_DIR)/Dependencies/SFML/Linux/lib
 
-LDFLAGS +=  $(PROJECT_DIR)/R-Type/SaltyEngine/libSaltyEngine.a -ldl
+LDFLAGS +=  -L ./ -lSaltyEngine -ldl
 
 OBJ		= 	$(SRC:.cpp=.o)
 
