@@ -5,6 +5,7 @@
 #include <ServerRoom/ServerGameDispatcher.hpp>
 #include "ServerRoom/RtypeGameServerTCPConnection.hpp"
 #include "Protocol/Server/ProtocolPrintServerPackage.hpp"
+#include "Protocol/Room/RoomPackageFactory.hpp"
 
 RtypeGameServerTCPConnection::RtypeGameServerTCPConnection(Network::Core::NativeSocketIOOperationDispatcher &dispatcher)
         : ATCPClient(dispatcher), protocolServerManager(*this), id(0), roomNumberMax(0) {
@@ -27,7 +28,6 @@ void RtypeGameServerTCPConnection::OnDataReceived(unsigned int len) {
     }
 }
 
-#include "Protocol/Room/RoomPackageFactory.hpp"
 void RtypeGameServerTCPConnection::OnDisconnect() {
     std::list<std::unique_ptr<RoomService>>::iterator it = roomServiceList.begin();
 
@@ -55,6 +55,21 @@ void RtypeGameServerTCPConnection::onGetAUTHENTICATEPackage(const AUTHENTICATEPa
 
 void RtypeGameServerTCPConnection::onGetLAUNCHPackage(const LAUNCHPackageServer &obj) {
     std::cout << obj << std::endl;
+    std::list<std::unique_ptr<RoomService>>::iterator it = roomServiceList.begin();
+
+    while (it != roomServiceList.end()) {
+        if ((*it)->getSecret() == obj.secret && obj.secret != 0 && (*it)->isLaunch()) {
+            SWAPPackageRoom *swapPackageRoom = RoomPackageFactory().create<SWAPPackageRoom>(this->getSocket().getIP(),
+                                                                                            this->getSocket().getPort(),
+                                                                                            obj.secret);
+
+            for (RtypeRoomTCPConnection *roomTCPConnection : (*it)->getClients()) {
+                roomTCPConnection->SendData(*swapPackageRoom);
+            }
+            return ;
+        }
+        ++it;
+    }
 }
 
 void RtypeGameServerTCPConnection::onGetSTATUSPackage(const STATUSPackageServer &obj) {

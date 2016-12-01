@@ -67,6 +67,7 @@ public:
 };
 
 class LAUNCHPackageServer : public PackageServerHeader {
+public:
     LAUNCHPackageServer(unsigned short roomPlayer, unsigned short mapID, unsigned int secret)
             : PackageServerHeader(sizeof(LAUNCHPackageServer), ServerPurpose::SERVERLAUNCH) {
         this->roomPlayer = roomPlayer;
@@ -81,6 +82,7 @@ public:
 };
 
 class STATUSPackageServer : public PackageServerHeader {
+public:
     STATUSPackageServer(unsigned int secret, ServerInformation information)
             : PackageServerHeader(sizeof(STATUSPackageServer), ServerPurpose::SERVERSTATUS) {
         this->secret = secret;

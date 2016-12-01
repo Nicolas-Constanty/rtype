@@ -33,6 +33,7 @@ public:
     unsigned short getMapID() const;
     unsigned short getClientNbr() const;
     std::list<RtypeRoomTCPConnection *> getClients() const;
+    unsigned int getSecret() const;
 
 private:
     std::string                             name;
@@ -42,6 +43,7 @@ private:
     std::list<RtypeRoomTCPConnection *>     clientsList;
     RtypeGameServerTCPConnection            *gameServerTCPConnection;
     bool                                    launch;
+    unsigned int                            secret;
 };
 
 #endif //RTYPE_ROOMSERVICE_HPP
