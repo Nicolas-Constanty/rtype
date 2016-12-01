@@ -59,7 +59,8 @@ void RtypeGameServerTCPConnection::onGetLAUNCHPackage(const LAUNCHPackageServer 
 
     while (it != roomServiceList.end()) {
         if ((*it)->getSecret() == obj.secret && obj.secret != 0 && (*it)->isLaunch()) {
-            SWAPPackageRoom *swapPackageRoom = RoomPackageFactory().create<SWAPPackageRoom>(this->getSocket().getIP(),
+            RoomPackageFactory packageFactory;
+            SWAPPackageRoom *swapPackageRoom = packageFactory.create<SWAPPackageRoom>(this->getSocket().getIP(),
                                                                                             this->getSocket().getPort(),
                                                                                             obj.secret);
 

@@ -97,6 +97,7 @@ public:
 
     virtual void onGetLAUNCHPackage(LAUNCHPackageServer const &obj) {
         std::cout << obj << std::endl;
+        this->SendData<LAUNCHPackageServer>(*factory.create<LAUNCHPackageServer>(obj.roomPlayer, obj.mapID, obj.secret));
     }
 
     virtual void onGetSTATUSPackage(STATUSPackageServer const &obj) {

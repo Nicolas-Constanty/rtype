@@ -104,7 +104,7 @@ public:
         std::cout << obj << std::endl;
 //        this->SendData(*(factory.create<CREATEPackageRoom>(0, 2, "koalas", 0, 1)));
         buff += sizeof(obj);
-        this->SendData(*(factory.create<JOINPackageRoom>(1)));
+//        this->SendData(*(factory.create<JOINPackageRoom>(1)));
     }
 
     virtual void onGetCREATEPackage(CREATEPackageRoom const &obj) {
