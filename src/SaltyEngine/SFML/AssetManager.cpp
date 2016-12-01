@@ -30,7 +30,7 @@ namespace SaltyEngine {
             } else {
                 sound = new ::SaltyEngine::SFML::Sound();
             }
-            if (!sound->LoadFromFile(Asset::SOUNDS_PATH + name + Asset::SOUND_EXTENSION)) {
+            if (!sound->LoadFromFile(getFullPath(Asset::SOUNDS_PATH) + name + Asset::SOUND_EXTENSION)) {
                 return false;
             }
             m_sounds[name] = sound;
@@ -39,8 +39,7 @@ namespace SaltyEngine {
 
         bool AssetManager::LoadTexture(const std::string &name) {
             ::SaltyEngine::SFML::Texture *texture = new SaltyEngine::SFML::Texture();
-            if (!texture->loadFromFile(Asset::TEXTURES_PATH + name + Asset::TEXTURE_EXTENSION))
-            {
+            if (!texture->loadFromFile(getFullPath(Asset::TEXTURES_PATH) + name + Asset::TEXTURE_EXTENSION)) {
                 Debug::PrintError("Failed to load texture " + name);
                 return false;
             }
