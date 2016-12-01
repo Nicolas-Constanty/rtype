@@ -48,3 +48,8 @@ RoomService *ServerGameDispatcher::GetRoomServiceFromID(unsigned short id) const
     }
     return (NULL);
 }
+
+
+std::list<RtypeGameServerTCPConnection *> ServerGameDispatcher::GetServerList() const {
+    return this->serverList;
+}

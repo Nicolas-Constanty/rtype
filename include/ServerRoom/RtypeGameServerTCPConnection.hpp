@@ -33,13 +33,14 @@ public:
 public:
     RoomService            *AddRoomService(std::string const &name, unsigned short clientMaxNbr, unsigned short mapID);
     void                    RemoveRoomService(RoomService *);
-    RoomService             *GetRoomFromID(unsigned short id) const;
 
 public:
+    RoomService     *GetRoomFromID(unsigned short id) const;
     unsigned int    getID() const;
     unsigned short  getRoomNumberMax() const;
     unsigned long   getActualRoomNumber() const;
     bool            isFull() const;
+    std::list<RoomService *> RoomsService();
 
 private:
     RTypeProtocolServerManager  protocolServerManager;

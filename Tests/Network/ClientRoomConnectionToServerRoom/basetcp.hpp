@@ -106,6 +106,7 @@ public:
         buff += sizeof(obj);
 //        this->SendData(*(factory.create<JOINPackageRoom>(1)));
     }
+
     virtual void onGetCREATEPackage(CREATEPackageRoom const &obj) {
         std::cout << obj << std::endl;
         buff += sizeof(obj);
@@ -135,6 +136,11 @@ public:
         buff += sizeof(obj);
     }
     virtual void onGetLAUNCHPackage(LAUNCHPackageRoom const &obj) {
+        std::cout << obj << std::endl;
+        buff += sizeof(obj);
+    }
+
+    virtual void onGetDELETEPackage(DELETEPackageRoom const &obj) {
         std::cout << obj << std::endl;
         buff += sizeof(obj);
     }

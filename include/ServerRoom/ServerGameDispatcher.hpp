@@ -23,6 +23,7 @@ public:
     RoomService *GetRoomServiceFromID(unsigned short) const;
     RoomService *CreateRoomService(std::string const &name, unsigned short clientMaxNbr,
                                    unsigned short mapID);
+    std::list<RtypeGameServerTCPConnection *>   GetServerList() const;
 
 private:
     std::list<RtypeGameServerTCPConnection *>   serverList;
