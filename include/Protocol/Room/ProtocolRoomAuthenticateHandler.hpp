@@ -20,6 +20,7 @@ public:
     virtual void onGetSWAPPackage(SWAPPackageRoom const &) {}
     virtual void onGetGETPackage(GETPackageRoom const &) {}
     virtual void onGetLAUNCHPackage(LAUNCHPackageRoom const &) {}
+    virtual void onGetDELETEPackage(DELETEPackageRoom const &) {}
 };
 
 #endif //RTYPE_PROTOCOLROOMAUTHENTICATE_HPP

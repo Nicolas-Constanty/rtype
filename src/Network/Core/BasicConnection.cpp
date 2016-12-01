@@ -74,16 +74,16 @@ void Network::Core::BasicConnection::setClients(Network::Socket::ISockStreamHand
  */
 void Network::Core::BasicConnection::Disconnect()
 {
+    OnDisconnect();
     std::cout << "\x1b[31mClient disconnected\x1b[0m: " << this << std::endl;
     giveSocket().Close();
-    dispatcher.Remove(this);
     if (clients)
     {
-        std::cout << "\x1b[32mRemoved\x1b[0m" << std::endl;
         clients->Remove(this);
     }
-    else
-        std::cout << "\x1b[33mNot Removed\x1b[0m" << std::endl;
+    else {
+        dispatcher.Remove(this);
+    }
 }
 
 /**
@@ -108,5 +108,9 @@ void Network::Core::BasicConnection::OnReadCheck()
  */
 void Network::Core::BasicConnection::OnWriteCheck()
 {
+
+}
+
+void Network::Core::BasicConnection::OnDisconnect() {
 
 }

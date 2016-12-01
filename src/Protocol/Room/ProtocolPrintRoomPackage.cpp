@@ -140,3 +140,15 @@ std::ostream &operator<<(std::ostream &ostream, LAUNCHPackageRoom const &launchP
     ostream << "}";
     return (ostream);
 }
+
+std::ostream &operator<<(std::ostream &ostream, DELETEPackageRoom const &deletePackageRoom) {
+    ostream << "DELETEPackageRoom = {" << std::endl;
+
+    PackageRoomHeader const *header = dynamic_cast<PackageRoomHeader const *>(&deletePackageRoom);
+    if (header) {
+        ostream << *header;
+    }
+    ostream << "roomID=" << deletePackageRoom.roomID << std::endl;
+    ostream << "}";
+    return (ostream);
+}
