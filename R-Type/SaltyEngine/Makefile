@@ -35,9 +35,11 @@ SRC		= 	$(SALTYENGINE_DIR)/Behaviour.cpp        \
             $(SALTYENGINE_DIR)/Input/Mapping.cpp        \
             $(COMMON_DIR)/LibLoader.cpp                 \
 
-CPPFLAGS 	=   -W -Wall -g -Wextra -std=c++11 -fPIC
+CPPFLAGS 	=   -W -Wall -g -Wextra -std=c++11 -fPIC -rdynamic
 
 CPPFLAGS    +=  -I $(INC_DIR)
+
+LDFLAGS		+= -ldl
 
 OBJ		= 	$(SRC:.cpp=.o)
 

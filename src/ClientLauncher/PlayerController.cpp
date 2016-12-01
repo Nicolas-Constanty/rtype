@@ -18,7 +18,7 @@ namespace SaltyEngine
 	void PlayerController::Start()
 	{
 		std::cout << "Je suis le Start, je ne suis appelé qu'une fois" << std::endl;
-		StartCoroutine(&PlayerController::DisplayCoroutine);
+		//StartCoroutine(&PlayerController::DisplayCoroutine);
 		InputKey::AddAxis("Horizontal", new Input::Axis(
 				{
 						{Input::KeyCode::Left, -1},
@@ -58,7 +58,10 @@ namespace SaltyEngine
 
 	void PlayerController::DisplayCoroutine()
 	{
-		WaitForSecond(3);
+		for (;;) {
+			Debug::Print("Je suis dans la coroutine");
+			WaitForMillisecond(3);
+		}
 		std::cout << "Je m'affiche apr�s 3 seconde" << std::endl;
 	}
 	void PlayerController::OnCollisionEnter(ICollider *col)

@@ -15,7 +15,9 @@ namespace SaltyEngine
 		std::list<Sprite<T> *> m_sprites;
 
 	public:
-		AnimationClip(std::string const& name = "Animation") : Object(name)
+		AnimationClip(std::string const& name = "Animation", int frameRate = 60) :
+				Object(name),
+				m_frameRate(frameRate)
 		{}
 
 		virtual ~AnimationClip() {}
@@ -32,7 +34,7 @@ namespace SaltyEngine
 			m_sprites.push_back(sprite);
 		}
 
-		float GetFrameRate() const
+		double GetFrameRate() const
 		{
 			return m_frameRate;
 		}
