@@ -19,32 +19,10 @@
 #include <dirent.h>
 #include <unistd.h>
 #include "Common/LibLoader.hpp"
+#include "SaltyEngine/Constants.hpp"
 #endif
 
 namespace SaltyEngine {
-    namespace Asset {
-
-        #ifdef _WIN32
-                const std::string LIB_EXTENSION = ".dll";
-                typedef DllLoader ASSET_LOADER;
-        #else
-                const std::string LIB_EXTENSION = ".so";
-                typedef LibLoader ASSET_LOADER;
-        #endif
-
-        const std::string    ASSET_PATH = "Assets/";
-        const std::string    SOUNDS_PATH = ASSET_PATH + "Sounds/";
-        const std::string    TEXTURES_PATH = ASSET_PATH + "Textures/";
-        const std::string    FONTS_PATH = ASSET_PATH + "Fonts/";
-        const std::string    MONSTERS_PATH = ASSET_PATH + "Monsters/";
-
-        const std::string    SOUND_EXTENSION = ".ogg";
-        const std::string    TEXTURE_EXTENSION = ".png";
-        const std::string    FONT_EXTENSION = ".ttf";
-        const std::string    MONSTER_EXTENSION = LIB_EXTENSION;
-
-    }
-
     template <class Texture, class Sound = ::SaltyEngine::Sound::ISound>
     class AAssetManager {
     protected:
@@ -133,6 +111,7 @@ namespace SaltyEngine {
             }
         }
 
+    protected:
         inline std::string getFullPath(std::string const &path) {
             return cwd + path;
         }

@@ -1,4 +1,3 @@
-#include "..\..\include\SaltyEngine\SaltyEngine.hpp"
 #ifdef _WIN32
 #include <direct.h>
 #else
@@ -26,8 +25,7 @@ namespace SaltyEngine
 		m_fps = DEFAULT_FRAME_RATE;
 		std::chrono::duration<double> d(1.0 / m_fps);
 		m_frame_rate = std::chrono::duration_cast<std::chrono::nanoseconds>(d);
-		LoadAssets();
-	}
+    }
 
 	/**
 	 * @fn	SaltyEngine::~SaltyEngine()
@@ -262,63 +260,63 @@ namespace SaltyEngine
 		return m_renderer;
 	}
 
-	/**
-	 * \brief Will load all the assets contained in the folder
-	 */
-	void SaltyEngine::LoadAssets() noexcept
-	{
-#if _WIN32
-		WIN32_FIND_DATA findFileData;
-		HANDLE hFind;
-		CHAR str[256];
-
-		_getcwd(str, sizeof(str));
-		hFind = FindFirstFile(std::string(std::string(str) + Asset::ASSET_PATH + "\\*").c_str(), &findFileData);
-
-		while (hFind != INVALID_HANDLE_VALUE)
-		{
-			std::string assetName = std::string(findFileData.cFileName);
-			if (assetName.length() >= Asset::LIB_EXTENSION.length()
-				&& assetName.compare(assetName.length() - Asset::LIB_EXTENSION.length(), Asset::LIB_EXTENSION.length(), Asset::LIB_EXTENSION) == 0)
-			{
-				std::cout << "Loading asset [" << assetName << "]" << std::endl;
-				std::string assetPath = std::string(str) + Asset::ASSET_PATH + "\\" + assetName;
-				Factory::LoadAsset(assetPath);
-			}
-			if (FindNextFile(hFind, &findFileData) == FALSE)
-				break;
-		}
-		FindClose(hFind);
-#else
-		DIR *dir;
-		struct dirent *ent;
-        char str[256];
-
-        getcwd(str, sizeof(str));
-
-		if ((dir = opendir(std::string(std::string(str) + Asset::ASSET_PATH).c_str())) != NULL)
-		{
-			/* get all the files and directories within directory */
-			while ((ent = readdir(dir)) != NULL)
-			{
-                std::string assetName = std::string(ent->d_name);
-                if (assetName.length() >= Asset::LIB_EXTENSION.length()
-                    && assetName.compare(assetName.length() - Asset::LIB_EXTENSION.length(), Asset::LIB_EXTENSION.length(), Asset::LIB_EXTENSION) == 0)
-                {
-                    std::cout << "Loading asset [" << assetName << "]" << std::endl;
-                    std::string assetPath = std::string(str) + Asset::ASSET_PATH + "/" + assetName;
-                    Factory::LoadAsset(assetPath);
-                }
-			}
-			closedir(dir);
-		}
-		else
-		{
-			/* could not open directory */
-			perror("");
-		}
-#endif
-	}
+//	/**
+//	 * \brief Will load all the assets contained in the folder
+//	 */
+//	void SaltyEngine::LoadAssets() noexcept
+//	{
+//#if _WIN32
+//		WIN32_FIND_DATA findFileData;
+//		HANDLE hFind;
+//		CHAR str[256];
+//
+//		_getcwd(str, sizeof(str));
+//		hFind = FindFirstFile(std::string(std::string(str) + Asset::ASSET_PATH + "\\*").c_str(), &findFileData);
+//
+//		while (hFind != INVALID_HANDLE_VALUE)
+//		{
+//			std::string assetName = std::string(findFileData.cFileName);
+//			if (assetName.length() >= Asset::LIB_EXTENSION.length()
+//				&& assetName.compare(assetName.length() - Asset::LIB_EXTENSION.length(), Asset::LIB_EXTENSION.length(), Asset::LIB_EXTENSION) == 0)
+//			{
+//				std::cout << "Loading asset [" << assetName << "]" << std::endl;
+//				std::string assetPath = std::string(str) + Asset::ASSET_PATH + "\\" + assetName;
+//				Factory::LoadAsset(assetPath);
+//			}
+//			if (FindNextFile(hFind, &findFileData) == FALSE)
+//				break;
+//		}
+//		FindClose(hFind);
+//#else
+//		DIR *dir;
+//		struct dirent *ent;
+//        char str[256];
+//
+//        getcwd(str, sizeof(str));
+//
+//		if ((dir = opendir(std::string(std::string(str) + Asset::ASSET_PATH).c_str())) != NULL)
+//		{
+//			/* get all the files and directories within directory */
+//			while ((ent = readdir(dir)) != NULL)
+//			{
+//                std::string assetName = std::string(ent->d_name);
+//                if (assetName.length() >= Asset::LIB_EXTENSION.length()
+//                    && assetName.compare(assetName.length() - Asset::LIB_EXTENSION.length(), Asset::LIB_EXTENSION.length(), Asset::LIB_EXTENSION) == 0)
+//                {
+//                    std::cout << "Loading asset [" << assetName << "]" << std::endl;
+//                    std::string assetPath = std::string(str) + Asset::ASSET_PATH + "/" + assetName;
+//                    Factory::LoadAsset(assetPath);
+//                }
+//			}
+//			closedir(dir);
+//		}
+//		else
+//		{
+//			/* could not open directory */
+//			perror("");
+//		}
+//#endif
+//	}
 
 	/**
 	 * @fn	void SaltyEngine::operator<<(Scene *scene)

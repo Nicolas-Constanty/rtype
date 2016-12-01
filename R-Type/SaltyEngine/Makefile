@@ -17,12 +17,16 @@ COMMON_DIR              =   $(SRC_DIR)/Common
 MONSTER_DIR             =   $(SRC_DIR)/Monster
 CLIENT_DIR              =   $(SRC_DIR)/ClientLauncher
 
-SRC		= 	$(SALTYENGINE_DIR)/Behaviour.cpp        \
+SRC		= 	$(SALTYENGINE_DIR)/Animation.cpp        \
+            $(SALTYENGINE_DIR)/AnimationClip.cpp    \
+            $(SALTYENGINE_DIR)/Behaviour.cpp        \
             $(SALTYENGINE_DIR)/Component.cpp        \
             $(SALTYENGINE_DIR)/Debug.cpp            \
+            $(SALTYENGINE_DIR)/DefaultScene.cpp     \
             $(SALTYENGINE_DIR)/Factory.cpp          \
             $(SALTYENGINE_DIR)/GameObject.cpp       \
             $(SALTYENGINE_DIR)/Object.cpp           \
+            $(SALTYENGINE_DIR)/RigidBody.cpp        \
             $(SALTYENGINE_DIR)/SaltyBehaviour.cpp   \
             $(SALTYENGINE_DIR)/SaltyEngine.cpp      \
             $(SALTYENGINE_DIR)/Scene.cpp            \

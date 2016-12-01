@@ -20,6 +20,7 @@ SRC		= 	$(SALTYENGINE_DIR)/SFML/AssetManager.cpp    \
             $(SALTYENGINE_DIR)/SFML/EventManager.cpp    \
             $(SALTYENGINE_DIR)/SFML/Music.cpp           \
             $(SALTYENGINE_DIR)/SFML/Renderer.cpp        \
+            $(SALTYENGINE_DIR)/SFML/Scene.cpp           \
             $(SALTYENGINE_DIR)/SFML/Sound.cpp           \
             $(CLIENT_DIR)/PlayerController.cpp      \
             $(MONSTER_DIR)/MonsterController.cpp    \
