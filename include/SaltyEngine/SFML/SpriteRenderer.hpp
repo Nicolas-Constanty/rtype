@@ -26,11 +26,17 @@ namespace SaltyEngine
 			{
 				Renderer::AddSpriteRenderer(this);
 				m_window = w;
+				Rect *rect = dynamic_cast<Rect *>(GetSprite()->GetRect());
+				sprite->setPosition(gameObject->transform.position.x - (rect->width / 2),
+					gameObject->transform.position.y - (rect->height / 2));
 			}
 			explicit SpriteRenderer(GameObject* const gameObj, Sprite * const sprite, Layout layer, Window * const w = nullptr) : ASpriteRenderer("SpriteRenderer", gameObj, sprite, layer)
 			{
 				Renderer::AddSpriteRenderer(this);
 				m_window = w;
+				Rect *rect = dynamic_cast<Rect *>(GetSprite()->GetRect());
+				sprite->setPosition(gameObject->transform.position.x - (rect->width / 2),
+					gameObject->transform.position.y - (rect->height / 2));
 			}
 			virtual ~SpriteRenderer() {};
 			Sprite* GetSprite(void) const override

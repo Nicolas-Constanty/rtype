@@ -23,7 +23,7 @@ namespace SaltyEngine
 	class BaseRigidBody2D : public Component
 	{
 	public:
-		BaseRigidBody2D(GameObject* const gameObj) : public Component("RigidBody2D", gameObj) {};
+		explicit BaseRigidBody2D(GameObject* const gameObj) : Component("RigidBody2D", gameObj) {};
 		~BaseRigidBody2D() {};
 
 	private:

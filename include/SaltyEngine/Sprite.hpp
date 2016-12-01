@@ -43,6 +43,8 @@ namespace SaltyEngine
 		{
 			m_rect = rect;
 		}
+
+		virtual IRect<T> *GetBounds() const = 0;
 	};
 }
 

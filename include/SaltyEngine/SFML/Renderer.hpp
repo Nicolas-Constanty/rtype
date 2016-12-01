@@ -12,16 +12,19 @@ namespace SaltyEngine
 	namespace SFML
 	{
 		class SpriteRenderer;
+		class BoxCollider2D;
 		class Renderer : public ARenderer<sf::Vector2i>
 		{
 		public:
-			typedef std::list<std::unique_ptr<SpriteRenderer>> SpriteList;
+			typedef std::list<SpriteRenderer *> SpriteList;
 			typedef  std::map<int, SpriteList> SpriteMap;
 		public:
 			Renderer(sf::VideoMode const &vm, const std::string &name);
 			virtual ~Renderer() {};
 			void Display() const override;
 			sf::RenderWindow *GetRenderWindow(void) const;
+
+			void DrawDebug() const;
 
 		protected:
 			std::unique_ptr<sf::RenderWindow> m_window;
@@ -33,8 +36,10 @@ namespace SaltyEngine
 
 		public:
 			static SpriteMap m_spriteRenderers;
+			static std::list<BoxCollider2D *> m_debug;
 		public:
 			static void AddSpriteRenderer(SpriteRenderer* const sprr);
+			static void AddDebug(BoxCollider2D *);
 
 			static const SpriteMap &GetSprites(void)
 			{
@@ -45,5 +50,6 @@ namespace SaltyEngine
 }
 
 #include "SaltyEngine/SFML/SpriteRenderer.hpp"
+#include "SaltyEngine/SFML/BoxCollider2D.hpp"
 
 #endif // !SFMLRENDERER_HPP_

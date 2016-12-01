@@ -1,3 +1,4 @@
+#include "..\..\include\SaltyEngine\SaltyEngine.hpp"
 #ifdef _WIN32
 #include <direct.h>
 #else
@@ -95,6 +96,7 @@ namespace SaltyEngine
 					if (m_status != EngineStatus::pause)
 					{
                         m_scenes[m_current]->FixedUpdate();
+						m_scenes[m_current]->UpdatePhysics();
 
 						m_scenes[m_current]->OnTriggerEnter();
 						m_scenes[m_current]->OnTriggerExit();
@@ -179,7 +181,7 @@ namespace SaltyEngine
 	bool SaltyEngine::LoadScene(const std::string & name)
 	{
 		size_t index = 0;
-		for (std::vector<std::unique_ptr<Scene>>::const_iterator it = m_scenes.begin(); it < m_scenes.end(); ++it)
+		for (std::vector<std::unique_ptr<AScene>>::const_iterator it = m_scenes.begin(); it < m_scenes.end(); ++it)
 		{
 			if ((*it)->GetName() == name)
 				break;
@@ -248,11 +250,16 @@ namespace SaltyEngine
 		m_even_manager = ev_manager;
 	}
 
-	Scene * SaltyEngine::GetCurrentScene(void)
+	AScene * SaltyEngine::GetCurrentScene(void) const
 	{
 		if (m_scenes.empty())
 			return (nullptr);
 		return m_scenes[m_current].get();
+	}
+
+	IRenderer * SaltyEngine::GetRenderer(void) const
+	{
+		return m_renderer;
 	}
 
 	/**
@@ -323,10 +330,10 @@ namespace SaltyEngine
 	 * @param [in,out]	scene	If non-null, the scene.
 	 */
 
-	void SaltyEngine::operator<<(Scene *scene)
+	void SaltyEngine::operator<<(AScene *scene)
 	{
 		if (scene != nullptr)
-			m_scenes.push_back(std::unique_ptr<Scene>(scene));
+			m_scenes.push_back(std::unique_ptr<AScene>(scene));
 		else
 			throw new std::runtime_error("Can't push null scene");
 	}

@@ -1,6 +1,7 @@
 #include "ClientLauncher/PlayerController.hpp"
 #include "SaltyEngine/SFML/EventManager.hpp"
 #include "SaltyEngine/Input/InputManager.hpp"
+//#include "SaltyEngine/SFML/BoxCollider2D.hpp"
 
 typedef SaltyEngine::Input::InputManager<SaltyEngine::SFML::EventManager>  InputKey;
 
@@ -59,6 +60,32 @@ namespace SaltyEngine
 	{
 		WaitForSecond(3);
 		std::cout << "Je m'affiche apr�s 3 seconde" << std::endl;
+	}
+	void PlayerController::OnCollisionEnter(ICollider *col)
+	{
+		//::SaltyEngine::SFML::BoxCollider2D *box = dynamic_cast<::SaltyEngine::SFML::BoxCollider2D *>(col);
+		//if (box)
+		//{
+			Debug::PrintSuccess("Collision enter!");
+		//}
+	}
+
+	void PlayerController::OnCollisionExit(ICollider *col)
+	{
+		//::SaltyEngine::SFML::BoxCollider2D *box = dynamic_cast<::SaltyEngine::SFML::BoxCollider2D *>(col);
+		//if (box)
+		//{
+		Debug::PrintSuccess("Collision exit!");
+		//}
+	}
+
+	void PlayerController::OnCollisionStay(ICollider *col)
+	{
+		//::SaltyEngine::SFML::BoxCollider2D *box = dynamic_cast<::SaltyEngine::SFML::BoxCollider2D *>(col);
+		//if (box)
+		//{
+		Debug::PrintInfo("Collision stay!");
+		//}
 	}
 }
 

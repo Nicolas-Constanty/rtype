@@ -193,12 +193,15 @@
     <ClInclude Include="..\..\..\include\Common\Singleton.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\Animation.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\AnimationClip.hpp" />
+    <ClInclude Include="..\..\..\include\SaltyEngine\Collider.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\Config.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\Debug.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\DefaultRenderer.hpp" />
+    <ClInclude Include="..\..\..\include\SaltyEngine\DefaultScene.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\Engine.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\Factory.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\Graphics.hpp" />
+    <ClInclude Include="..\..\..\include\SaltyEngine\ICollider.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\Input\Action.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\Input\Axis.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\Input\DefaultEventManager.hpp" />
@@ -209,6 +212,7 @@
     <ClInclude Include="..\..\..\include\SaltyEngine\IRect.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\IRenderer.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\IWindow.hpp" />
+    <ClInclude Include="..\..\..\include\SaltyEngine\Rect.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\RigidBody.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\Sprite.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\Texture.hpp" />
@@ -228,7 +232,7 @@
     <ClInclude Include="..\..\..\include\SaltyEngine\SaltyReflection.hpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\SaltyEngine\Scene.hpp" />
+    <ClInclude Include="..\..\..\include\SaltyEngine\AScene.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\Tag.conf">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
@@ -239,6 +243,7 @@
     <ClInclude Include="..\..\..\include\SaltyEngine\Vector2.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\Vector3.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\ASpriteRenderer.hpp" />
+    <ClInclude Include="..\..\..\src\SaltyEngine\DefaultScene.cpp" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
