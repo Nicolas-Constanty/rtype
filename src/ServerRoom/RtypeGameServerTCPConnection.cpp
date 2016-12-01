@@ -60,9 +60,9 @@ void RtypeGameServerTCPConnection::onGetLAUNCHPackage(const LAUNCHPackageServer 
     while (it != roomServiceList.end()) {
         if ((*it)->getSecret() == obj.secret && obj.secret != 0 && (*it)->isLaunch()) {
             RoomPackageFactory packageFactory;
-            SWAPPackageRoom *swapPackageRoom = packageFactory.create<SWAPPackageRoom>(this->getSocket().getIP(),
-                                                                                            this->getSocket().getPort(),
-                                                                                            obj.secret);
+            SWAPPackageRoom *swapPackageRoom = packageFactory.create<SWAPPackageRoom>(obj.ip,
+                                                                                      obj.port,
+                                                                                      obj.secret);
 
             for (RtypeRoomTCPConnection *roomTCPConnection : (*it)->getClients()) {
                 roomTCPConnection->SendData(*swapPackageRoom);
