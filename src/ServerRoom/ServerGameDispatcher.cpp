@@ -26,7 +26,6 @@ RoomService *ServerGameDispatcher::CreateRoomService(std::string const &name, un
                                                      unsigned short mapID) {
     std::list<RtypeGameServerTCPConnection *>::iterator it = serverList.begin();
     while (it != serverList.end()) {
-        std::cout << "ServerGameClient ID ==" << (*it)->getID() << std::endl;
         if (!(*it)->isFull()) {
             return ((*it)->AddRoomService(name, clientMaxNbr, mapID));
         }
