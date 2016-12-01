@@ -3,6 +3,7 @@
 #include "SaltyEngine/GameObject.hpp"
 #include "ClientLauncher/PlayerController.hpp"
 #include "SaltyEngine/Input.hpp"
+#include "SaltyEngine/SFML/Scene.hpp"
 
 #define GAME2D
 
@@ -11,11 +12,11 @@ int main()
 	Singleton<SaltyEngine::SaltyEngine>::Instance();
 	
 	// Create Scene
-	SaltyEngine::Scene *scene(new SaltyEngine::Scene());
+	SaltyEngine::SFML::Scene *scene = new SaltyEngine::SFML::Scene();
 
 	SaltyEngine::GameObject *player = new SaltyEngine::GameObject("Player");
 
-	SaltyEngine::GameObject *monster = (SaltyEngine::GameObject*)SaltyEngine::Instantiate("Monster").get();
+	SaltyEngine::GameObject *monster = (SaltyEngine::GameObject*)SaltyEngine::Instantiate("Monster");
 	// Add script to the player
 	player->AddComponent<SaltyEngine::PlayerController>();
 	std::cout << "Monster scripts -> " << monster->GetSaltyBehaviour().size() << std::endl;

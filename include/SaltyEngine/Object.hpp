@@ -31,8 +31,8 @@ namespace SaltyEngine
 		virtual ~Object() {};
 
 	public:
-		uid GetInstanceID() const;
-		const std::string &GetName() const;
+		uid GetInstanceID(void) const;
+		const std::string &GetName(void) const;
 
 	private:
 		uid m_uid;
@@ -40,7 +40,7 @@ namespace SaltyEngine
 
 	public:
 		static void Destroy(Object* original);
-		static std::shared_ptr<Object> Instantiate(std::string const& obj, Vector pos = Vector::zero(), double rot = 0)
+		static Object *Instantiate(std::string const& obj, Vector pos = Vector::zero(), double rot = 0)
 		{
             (void)pos;
             (void)rot;
@@ -64,7 +64,7 @@ namespace SaltyEngine
 		 * This is slow, so consider using it wisely
 		 */
 		template <class Type>
-		static std::list<std::shared_ptr<Object> > FindObjectsOfType()
+		static std::list<Object*> FindObjectsOfType()
 		{
 			return Factory::GetObjectsOfType<Type>();
 		}

@@ -41,11 +41,11 @@ namespace SaltyEngine
 					m_normal = sprite;
 				}
 
-				::SaltyEngine::SFML::Sprite* GetOver() const
+				::SaltyEngine::SFML::Sprite* GetOver(void) const
 				{
 					return (m_over);
 				}
-				::SaltyEngine::SFML::Sprite* GetNormal() const
+				::SaltyEngine::SFML::Sprite* GetNormal(void) const
 				{
 					return (m_normal);
 				}

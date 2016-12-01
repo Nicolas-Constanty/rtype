@@ -18,5 +18,5 @@ void MonsterController::Start()
 
 void MonsterController::Update()
 {
-	std::cout << "Update monster" << std::endl;
+	//std::cout << "Update monster" << std::endl;
 }

@@ -1,4 +1,4 @@
-#include "UIBehaviour.hpp"
+#include "SaltyEngine/GUI/UIBehaviour.hpp"
 
 namespace SaltyEngine
 {

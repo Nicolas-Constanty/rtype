@@ -46,7 +46,7 @@ namespace SpriteEditor
 		
 	}
 
-	sf::FloatRect Button::GetRect() const
+	sf::FloatRect Button::GetRect(void) const
 	{
 		return (m_sprite.getGlobalBounds());
 	}

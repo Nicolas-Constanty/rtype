@@ -24,9 +24,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\src\SaltyEngine\main.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\SaltyEngine\Scene.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
@@ -72,6 +69,15 @@
     <ClCompile Include="..\..\..\src\SaltyEngine\Input\Mapping.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\SaltyEngine\Debug.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Tests\SaltyEngine\main.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\SaltyEngine\RigidBody.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\Common\Singleton.hpp">
@@ -96,9 +102,6 @@
       <Filter>Fichiers d%27en-tête\SaltyEngine</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\SaltyEngine\SaltyReflection.hpp">
-      <Filter>Fichiers d%27en-tête\SaltyEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\SaltyEngine\Scene.hpp">
       <Filter>Fichiers d%27en-tête\SaltyEngine</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\SaltyEngine\Tag.conf">
@@ -133,9 +136,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\Common\ILibraryLoader.hpp">
       <Filter>Fichiers d%27en-tête\Common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\Common\DllLoader.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\SaltyEngine\DefaultRenderer.hpp">
       <Filter>Fichiers d%27en-tête\SaltyEngine</Filter>
@@ -190,6 +190,39 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\Common\MakeUnique.hpp">
       <Filter>Fichiers d%27en-tête\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\SaltyEngine\Debug.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\SaltyEngine\Animation.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\SaltyEngine\AnimationClip.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\Common\DllLoader.hpp">
+      <Filter>Fichiers d%27en-tête\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\SaltyEngine\RigidBody.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\SaltyEngine\Collider.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\SaltyEngine\Rect.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\SaltyEngine\ICollider.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\SaltyEngine\DefaultScene.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\SaltyEngine\AScene.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\SaltyEngine\DefaultScene.cpp">
+      <Filter>Fichiers sources</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

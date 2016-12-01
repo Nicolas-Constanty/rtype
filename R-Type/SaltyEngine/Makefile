@@ -1,4 +1,4 @@
-CC		=	g++
+BCC		=	g++
 
 RM 		=	rm -rf
 
@@ -28,27 +28,22 @@ SRC		= 	$(SALTYENGINE_DIR)/Behaviour.cpp        \
             $(SALTYENGINE_DIR)/Scene.cpp            \
             $(SALTYENGINE_DIR)/GUI/Button.cpp           \
             $(SALTYENGINE_DIR)/GUI/Event.cpp            \
+            $(SALTYENGINE_DIR)/GUI/UIBehaviour.cpp      \
             $(SALTYENGINE_DIR)/GUI/Widget.cpp           \
             $(SALTYENGINE_DIR)/Input/Action.cpp         \
             $(SALTYENGINE_DIR)/Input/Axis.cpp           \
             $(SALTYENGINE_DIR)/Input/Mapping.cpp        \
-            $(SALTYENGINE_DIR)/SFML/EventManager.cpp    \
-            $(SALTYENGINE_DIR)/SFML/Renderer.cpp        \
-            #$(MONSTER_DIR)/MonsterController.cpp       \
             $(COMMON_DIR)/LibLoader.cpp                 \
-            #$(CLIENT_DIR)/PlayerController.cpp         \
-            #$(PROJECT_DIR)/Tests/GUI/main.cpp          \
 
-CPPFLAGS 	=   -W -Wall -g -Wextra -std=c++11 -fPIC
+CPPFLAGS 	=   -W -Wall -g -Wextra -std=c++11 -fPIC -rdynamic
 
 CPPFLAGS    +=  -I $(INC_DIR)
 
-LDFLAGS	=   -lpthread -ldl -lsfml-graphics -lsfml-window -lsfml-system
+LDFLAGS		+= -ldl
 
 OBJ		= 	$(SRC:.cpp=.o)
 
 $(NAME)	: 	$(OBJ)
-	#$(CC) $(OBJ) -o $(NAME) $(LDFLAGS)
 	ar rc $(LIBNAME) $(OBJ)
 	ranlib $(LIBNAME)
 
