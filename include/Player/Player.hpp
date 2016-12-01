@@ -1,5 +1,4 @@
 ﻿#pragma once
-#include "SaltyEngine/SaltyEngine.hpp"
 
 #ifdef _WIN32
 #ifdef PLAYER_EXPORTS
@@ -14,6 +13,7 @@
 #ifndef PLAYER_HPP_
 #define PLAYER_HPP_
 
+#include "SaltyEngine/SaltyEngine.hpp"
 #include "SaltyEngine/GameObject.hpp"
 
 extern "C"
