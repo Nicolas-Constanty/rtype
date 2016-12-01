@@ -26,7 +26,20 @@ int main()
 	Singleton<SaltyEngine::SaltyEngine>::Instance().SetEventManager(event_manager);
 
 	SaltyEngine::GameObject *player = new SaltyEngine::GameObject("Player");
+    player->AddComponent<SaltyEngine::PlayerController>();
 
+//    auto m_components = player->GetComponents<SaltyEngine::Component>();
+//
+//    for (SaltyEngine::Component *toto: m_components) {
+//        auto aa = *toto;
+//        std::cout << typeid(*toto).name() << std::endl;
+//        auto titi = dynamic_cast<decltype(aa)>(toto);
+//        decltype(titi) *tata = new decltype(titi)(nullptr);
+//        std::cout << typeid(toto).name() << std::endl;
+//        std::cout << typeid(*toto).name() << std::endl;
+//        std::cout << typeid(tata).name() << std::endl;
+//        std::cout << typeid(*tata).name() << std::endl;
+//    }
     ::SaltyEngine::AssetManager.LoadAssets();
 
     SaltyEngine::SFML::Texture *texture = SaltyEngine::AssetManager.GetTexture("Image");
@@ -50,6 +63,9 @@ int main()
 	monster2->AddComponent<SaltyEngine::SFML::BoxCollider2D>();
 	monster2->transform.position.x = 200;
 	monster2->transform.position.y = 200;
+
+    std::cout << "xx" << monster->GetComponent<MonsterController>() << std::endl;
+    std::cout << monster2->GetComponent<MonsterController>() << std::endl;
 
 	//*scene << player;
 	*scene << monster;
