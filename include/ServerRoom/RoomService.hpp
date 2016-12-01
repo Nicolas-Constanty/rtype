@@ -18,15 +18,21 @@ public:
 
 public:
     void AddPlayer(RtypeRoomTCPConnection *);
-    bool isFull() const;
-    void RemovePlayer(RtypeRoomTCPConnection *);
     void Launch();
+    void RemovePlayer(RtypeRoomTCPConnection *);
+
+public:
+    void Abort();
+
+public:
     bool isLaunch() const;
+    bool isFull() const;
     unsigned short getID() const;
     std::string const &getName() const;
     unsigned short getClientMaxNbr() const;
     unsigned short getMapID() const;
     unsigned short getClientNbr() const;
+    std::list<RtypeRoomTCPConnection *> getClients() const;
 
 private:
     std::string                             name;

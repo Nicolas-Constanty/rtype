@@ -27,7 +27,16 @@ void RtypeGameServerTCPConnection::OnDataReceived(unsigned int len) {
     }
 }
 
+#include "Protocol/Room/RoomPackageFactory.hpp"
 void RtypeGameServerTCPConnection::OnDisconnect() {
+    std::list<std::unique_ptr<RoomService>>::iterator it = roomServiceList.begin();
+
+    RoomPackageFactory roomPackageFactory;
+    while (it != roomServiceList.end()) {
+        (*it).get()->Abort();
+        this->BroadcastNow<RtypeRoomTCPConnection>(*roomPackageFactory.create<DELETEPackageRoom>((*it)->getID()));
+        ++it;
+    }
     ServerGameDispatcher::Instance().Remove(this);
 }
 
@@ -78,7 +87,7 @@ bool RtypeGameServerTCPConnection::isFull() const {
 }
 
 void RtypeGameServerTCPConnection::RemoveRoomService(RoomService *roomService) {
-    std::list<std::unique_ptr<RoomService>>::const_iterator it = roomServiceList.begin();
+    std::list<std::unique_ptr<RoomService>>::iterator it = roomServiceList.begin();
 
     while (it != roomServiceList.end()) {
         if ((*it).get() == roomService) {
@@ -99,4 +108,13 @@ RoomService *RtypeGameServerTCPConnection::GetRoomFromID(unsigned short id) cons
         ++it;
     }
     return (NULL);
+}
+
+std::list<RoomService *> RtypeGameServerTCPConnection::RoomsService() {
+    std::list<RoomService *> list;
+
+    for (std::unique_ptr<RoomService> &curr : this->roomServiceList) {
+        list.push_back(curr.get());
+    }
+    return (list);
 }

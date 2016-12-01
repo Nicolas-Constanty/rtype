@@ -34,7 +34,7 @@ bool RoomService::isLaunch() const {
 }
 
 bool RoomService::isFull() const {
-    return (this->clientsList.size() > clientMaxNbr);
+    return (this->clientsList.size() >= clientMaxNbr);
 }
 
 unsigned short RoomService::getID() const {
@@ -55,4 +55,15 @@ unsigned short RoomService::getMapID() const {
 
 unsigned short RoomService::getClientNbr() const {
     return static_cast<unsigned short>(this->clientsList.size());
+}
+
+std::list<RtypeRoomTCPConnection *> RoomService::getClients() const {
+    return this->clientsList;
+}
+
+//#include "Protocol/Room/RoomPackageFactory.hpp"
+void RoomService::Abort() {
+    while (!this->clientsList.empty()) {
+        this->clientsList.front()->OnQUITEvent(false);
+    }
 }
