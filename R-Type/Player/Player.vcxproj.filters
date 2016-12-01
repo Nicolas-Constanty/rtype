@@ -13,6 +13,21 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\Input">
+      <UniqueIdentifier>{e99828e7-3b74-4548-b8b8-50dc4b1fc2c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Input">
+      <UniqueIdentifier>{b4e53b6f-a46a-4099-8c75-7b06f5a19e18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\SFML">
+      <UniqueIdentifier>{de62d1cf-acf0-4bfd-ba92-6d267447bae6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\SFML">
+      <UniqueIdentifier>{fc9263dc-072b-4d85-9f41-2abe392f3ca6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\GUI">
+      <UniqueIdentifier>{0cc21e4d-93f4-46f8-be64-6fe0cf0fe910}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\Player\Player.hpp">
@@ -20,6 +35,51 @@
     </ClInclude>
     <ClInclude Include="..\..\include\Player\PlayerController.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\Input\Action.hpp">
+      <Filter>Fichiers d%27en-tête\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\Input\Axis.hpp">
+      <Filter>Fichiers d%27en-tête\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\Input\DefaultEventManager.hpp">
+      <Filter>Fichiers d%27en-tête\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\Input\IEventManager.hpp">
+      <Filter>Fichiers d%27en-tête\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\Input\InputManager.hpp">
+      <Filter>Fichiers d%27en-tête\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\Input\KeyCodes.hpp">
+      <Filter>Fichiers d%27en-tête\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\Input\Mapping.hpp">
+      <Filter>Fichiers d%27en-tête\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\SFML\Button.hpp">
+      <Filter>Fichiers d%27en-tête\SFML</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\SFML\EventManager.hpp">
+      <Filter>Fichiers d%27en-tête\SFML</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\SFML\Graphics.hpp">
+      <Filter>Fichiers d%27en-tête\SFML</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\SFML\Renderer.hpp">
+      <Filter>Fichiers d%27en-tête\SFML</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\SFML\Sprite.hpp">
+      <Filter>Fichiers d%27en-tête\SFML</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\SFML\SpriteRenderer.hpp">
+      <Filter>Fichiers d%27en-tête\SFML</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\SFML\Texture.hpp">
+      <Filter>Fichiers d%27en-tête\SFML</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\SFML\Window.hpp">
+      <Filter>Fichiers d%27en-tête\SFML</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -29,5 +89,31 @@
     <ClCompile Include="..\..\src\Player\PlayerController.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\SaltyEngine\Input\Action.cpp">
+      <Filter>Fichiers sources\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\SaltyEngine\Input\Axis.cpp">
+      <Filter>Fichiers sources\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\SaltyEngine\Input\Mapping.cpp">
+      <Filter>Fichiers sources\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\SaltyEngine\SFML\EventManager.cpp">
+      <Filter>Fichiers sources\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\SaltyEngine\SFML\Renderer.cpp">
+      <Filter>Fichiers sources\SFML</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\SaltyEngine\GUI\Button.cpp">
+      <Filter>Fichiers sources\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\SaltyEngine\GUI\UIBehaviour.cpp">
+      <Filter>Fichiers sources\GUI</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\include\SaltyEngine\Input\KeyCodesString.inl">
+      <Filter>Fichiers d%27en-tête\Input</Filter>
+    </None>
   </ItemGroup>
 </Project>
