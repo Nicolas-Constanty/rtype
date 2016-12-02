@@ -169,21 +169,6 @@ namespace SaltyEngine
 			virtual std::unique_ptr<Object> Clone() {
 				return std::unique_ptr<Object>(new GameObject(GetName() + "(Clone)"));
 			}
-			virtual std::unique_ptr<Object> CloneMemberwise() {
-				GameObject	*obj = new GameObject(GetName() + "(Clone)");
-
-//				obj->transform = transform;
-				obj->layer = layer;
-				obj->m_activeSelf = m_activeSelf;
-				obj->m_behaviour = m_behaviour;
-				for (std::list<std::unique_ptr<Component>>::const_iterator it = m_components.begin(); it != m_components.end(); ++it) {
-					obj->m_components.push_back(std::unique_ptr<Component>(it->get()));
-				}
-//				obj->scene = scene;
-//				obj->m_bcount = m_bcount;
-				obj->m_tag = m_tag;
-				return std::unique_ptr<Object>(obj);
-			}
 	};
 }
 

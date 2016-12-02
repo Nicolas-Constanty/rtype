@@ -274,14 +274,13 @@ namespace SaltyEngine
 
 		_getcwd(str, sizeof(str));
 		hFind = FindFirstFile(std::string(std::string(str) + Asset::ASSET_PATH + "\\*").c_str(), &findFileData);
-
 		while (hFind != INVALID_HANDLE_VALUE)
 		{
 			std::string assetName = std::string(findFileData.cFileName);
 			if (assetName.length() >= Asset::LIB_EXTENSION.length()
 				&& assetName.compare(assetName.length() - Asset::LIB_EXTENSION.length(), Asset::LIB_EXTENSION.length(), Asset::LIB_EXTENSION) == 0)
 			{
-				std::cout << "Loading asset [" << assetName << "]" << std::endl;
+				Debug::PrintInfo("Loading asset [" + assetName + "]");
 				std::string assetPath = std::string(str) + Asset::ASSET_PATH + "\\" + assetName;
 				Factory::LoadAsset(assetPath);
 			}

@@ -6,6 +6,8 @@
 #include <memory>
 #include <list>
 #include <map>
+#include "Common/MakeUnique.hpp"
+#include "SaltyEngine/Debug.hpp"
 
 namespace SaltyEngine
 {
@@ -21,7 +23,16 @@ namespace SaltyEngine
 		virtual ~Factory();
 
 	public:
-		static Object	*Create(std::string const& name);
+		template <class U, typename ...Args>
+		static Object  *Factory::Create(std::string const &name, Args... args) {
+		if (m_prefabs.find(name) == m_prefabs.end())
+		{
+			Debug::PrintError("Invalid prebab [" + name + "]");
+			return nullptr;
+		}
+        m_objects.push_front(std::unique_ptr<Object>(m_prefabs[name]->CloneMemberwise<U, Args...>(args...)));
+        return m_objects.front().get();
+    }
 
 		/**
 		 * \brief Retrieves all the object of a certain type in the factory

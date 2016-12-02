@@ -10,6 +10,12 @@
 #include "SaltyEngine/Animation.hpp"
 #include "Monster/MonsterController.hpp"
 #include "SaltyEngine/SFML/Scene.hpp"
+#include "ClientLauncher/RtypeFactory.hpp"
+#include "Monster/Monster.hpp"
+
+const std::vector<std::string> RtypeFactory<Monster>::names = {
+	"Monster"
+};
 
 int main(int ac, char **av)
 {
@@ -33,15 +39,16 @@ int main(int ac, char **av)
 	// Create Scene
 	SaltyEngine::SFML::Scene *scene = new SaltyEngine::SFML::Scene();
 
+	RtypeFactory<Monster>	factory;
 	// Create monster with sprites
-	SaltyEngine::GameObject *monster = (SaltyEngine::GameObject*)SaltyEngine::Instantiate("Monster");
+	SaltyEngine::GameObject *monster = factory.create("Monster");
 	monster->AddComponent<SaltyEngine::SFML::SpriteRenderer>(spr, SaltyEngine::Layout::normal);
 	monster->AddComponent<SaltyEngine::PlayerController>();
 	monster->AddComponent<SaltyEngine::SFML::BoxCollider2D>();
 
 	rect = new SaltyEngine::SFML::Rect(100, 10, 100, 100);
 	spr = new SaltyEngine::SFML::Sprite(texture, rect);
-	SaltyEngine::GameObject *monster2 = (SaltyEngine::GameObject*)SaltyEngine::Instantiate("Monster");
+	SaltyEngine::GameObject *monster2 = factory.create("Monster");
 	monster2->AddComponent<SaltyEngine::SFML::SpriteRenderer>(spr, SaltyEngine::Layout::normal);
 	monster2->AddComponent<SaltyEngine::SFML::BoxCollider2D>();
 	monster2->transform.position.x = 200;

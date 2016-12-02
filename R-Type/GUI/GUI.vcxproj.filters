@@ -152,5 +152,8 @@
     <ClInclude Include="..\..\include\SaltyEngine\SFML\Scene.hpp">
       <Filter>Fichiers d%27en-tête\SaltyEngine\SFML</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\ClientLauncher\RtypeFactory.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

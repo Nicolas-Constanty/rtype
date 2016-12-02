@@ -17,7 +17,13 @@ public:
 	/**
 	 * \brief Deep copy of the object
 	 */
-	virtual std::unique_ptr<T> CloneMemberwise() = 0;
+	
+	template <class U, typename ...Args>
+	T *CloneMemberwise(Args... args)
+	{
+		T *obj = dynamic_cast<T *>(new U(args...));
+		return obj;
+	};
 };
 
 #endif
