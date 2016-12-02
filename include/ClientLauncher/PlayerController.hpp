@@ -21,6 +21,11 @@ namespace SaltyEngine {
 		void OnCollisionStay(ICollider *) override;
 		void OnCollisionExit(ICollider *) override;
 		double speed;
+
+	public:
+		virtual Component *CloneComponent(GameObject* const obj) {
+			return new PlayerController(obj);
+		}
 	};
 }
 

@@ -58,6 +58,10 @@ namespace SaltyEngine
 				::SaltyEngine::SFML::Sprite			*m_over;
 				::SaltyEngine::SFML::SpriteRenderer *m_sprr;
 
+			public:
+				virtual Component *CloneComponent(GameObject* const obj) {
+					return new Button(obj, m_over);
+				}
 			};
 		}
 	}

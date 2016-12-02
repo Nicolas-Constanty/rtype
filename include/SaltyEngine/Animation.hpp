@@ -294,5 +294,10 @@ namespace SaltyEngine
 		{
 			UpdateAnimations();
 		}
+
+	public:
+		virtual Component *CloneComponent(GameObject* const obj) {
+			return new Animation<T>(obj, m_playAuto, m_wrapMode);
+		}
 	};
 }

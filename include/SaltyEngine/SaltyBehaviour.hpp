@@ -67,6 +67,11 @@ namespace SaltyEngine
 	private:
 		bool					m_status;
 		std::mutex				m_mutex;
+
+	public:
+		virtual Component *CloneComponent(GameObject* const obj) {
+			return new SaltyBehaviour(obj);
+		}
 	};
 }
 
