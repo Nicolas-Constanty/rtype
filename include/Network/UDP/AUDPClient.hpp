@@ -37,8 +37,12 @@ namespace Network
         public:
             void Connect(std::string const &ip, const uint16_t port);
 
+        public:
+            void setServer(Core::BasicConnection *server);
+
         protected:
             Core::NetBuffer buff;
+            Core::BasicConnection *serverStream;
 
         private:
             Socket::OSSocket server;

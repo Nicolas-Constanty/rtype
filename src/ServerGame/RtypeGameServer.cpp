@@ -3,39 +3,52 @@
 //
 
 #include <ServerGame/RtypeGameServer.hpp>
+#include <SaltyEngine/Scene.hpp>
 
-RtypeGameServer::RtypeGameServer(SaltyEngine::GameObject *obj) :
+Rtype::RtypeGameServer::RtypeGameServer(SaltyEngine::GameObject *obj, const uint16_t port, const int maxSize) :
         AUDPServer(dispatcher),
         SaltyBehaviour(obj),
-        dispatcher()
+        dispatcher(),
+        port(port),
+        maxSize(maxSize)
 {
 
 }
 
-RtypeGameServer::~RtypeGameServer()
+Rtype::RtypeGameServer::~RtypeGameServer()
 {
 
 }
 
-void RtypeGameServer::OnDataReceived(unsigned int )
+void Rtype::RtypeGameServer::OnDataReceived(unsigned int)
 {
+    if (clients->Streams().size() > maxSize)
+    {
+        newclient->Disconnect();
+        return;
+    }
+
+    SaltyEngine::GameObject *ship = new SaltyEngine::GameObject("Player " + std::to_string(newclient->getId()));
+    //todo add script component to <ship> and set it to <newclient> in order to call script functions in each network callback
+
+    //    Singleton<SaltyEngine::SaltyEngine>::Instance()-> todo add gameobject to scene
+//    SendData(*factory.create<CREATEPackageGame>(ship->transform.localPosition.x, ship->transform.localPosition.y, TODEFINE, ship->GetInstanceID())); todo define correspondance id for gameobjects type
     std::cout << "Hey j'ai reçu " << buff << std::endl;
 }
 
-void RtypeGameServer::OnDataSent(unsigned int len)
+void Rtype::RtypeGameServer::OnDataSent(unsigned int len)
 {
     std::cout << "On send des choses: " << len << std::endl;
 }
 
-void RtypeGameServer::Start()
+void Rtype::RtypeGameServer::Start()
 {
-    sock.Open();
-    sock.Listen(4242);
+    Network::UDP::AUDPServer<RtypeGameClient>::Start(port);
     dispatcher.Watch(this, Network::Core::NativeSocketIOOperationDispatcher::READ);
     dispatcher.setTimeout({0, 0});
 }
 
-void RtypeGameServer::Update()
+void Rtype::RtypeGameServer::Update()
 {
     dispatcher.Poll();
 }

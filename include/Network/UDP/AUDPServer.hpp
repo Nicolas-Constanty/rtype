@@ -110,6 +110,26 @@ namespace Network
 
         public:
             /**
+             * @brief Function which will launch the server and made him listen on a specific port
+             * @param port The port to which bind the socket
+             */
+            void Start(const uint16_t port)
+            {
+                sock.Open();
+                sock.Listen(port);
+                OnStart();
+            }
+
+            /**
+             * @brief Function which will stop the server and close the socket
+             */
+            void Stop()
+            {
+                sock.Close();
+            }
+
+        public:
+            /**
              * @brief Callback called after <select> detects the current file descriptor is allowed to read
              * @return True if everything went fine, false either
              */
@@ -145,7 +165,9 @@ namespace Network
                     std::cout << "New client joined: " << (Socket::ASocket const &)newclient->getSocket() << std::endl;
                     //Either it mean that it's a new client, so push it in <clients> list
                     clients->Add(newclient);
+                    newclient->setServer(this);
                     newclient->setClients(clients);
+                    newclient->OnStart();
                     //And call the callbacks
                     newclient->setBuffer(buff);
                     newclient->OnDataReceived(ret);
@@ -165,7 +187,6 @@ namespace Network
             virtual void OnReadCheck()
             {
                 std::list<std::unique_ptr<Socket::ISockStreamHandler>> &streams = clients->Streams();
-                std::cout << "Check du read" << std::endl;
                 for (typename std::list<std::unique_ptr<Socket::ISockStreamHandler> >::iterator it = streams.begin(); it != streams.end();)
                 {
                     TimedUDPClient  *clt = dynamic_cast<TimedUDPClient *>(it->get());
@@ -198,12 +219,12 @@ namespace Network
                 //Send messages that are in each client, to the specified client
                 for (std::unique_ptr<Socket::ISockStreamHandler> &curr : clients->Streams())
                 {
-                    std::cout << "====>Checking client" << std::endl;
+//                    std::cout << "====>Checking client" << std::endl;
                     std::queue<Core::NetBuffer> &msgs = dynamic_cast<Core::BasicConnection *>(curr.get())->Messages();
 
                     while (!msgs.empty())
                     {
-                        std::cout << "Sending: " << msgs.front() << std::endl;
+//                        std::cout << "Sending: " << msgs.front() << std::endl;
                         int ret = sock.SendTo(msgs.front(), curr->giveSocket());
 
                         if (ret < 0)

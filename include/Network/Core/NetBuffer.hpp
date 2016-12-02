@@ -136,6 +136,7 @@ namespace Network
         public:
             void reset();
             std::string toString() const;
+            void consume();
 
         public:
             void setLength(size_t len);
