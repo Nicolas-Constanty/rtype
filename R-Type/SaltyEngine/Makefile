@@ -1,10 +1,10 @@
-CC		=	g++
+BCC		=	g++
 
 RM 		=	rm -rf
 
 NAME	=	salty-engine
 
-LIBNAME =   libSaltyEngine.a
+LIBNAME =   libSaltyEngine.so
 
 PROJECT_DIR =   ../..
 
@@ -17,38 +17,37 @@ COMMON_DIR              =   $(SRC_DIR)/Common
 MONSTER_DIR             =   $(SRC_DIR)/Monster
 CLIENT_DIR              =   $(SRC_DIR)/ClientLauncher
 
-SRC		= 	$(SALTYENGINE_DIR)/Behaviour.cpp        \
+SRC		= 	$(SALTYENGINE_DIR)/Animation.cpp        \
+            $(SALTYENGINE_DIR)/AnimationClip.cpp    \
+            $(SALTYENGINE_DIR)/Behaviour.cpp        \
             $(SALTYENGINE_DIR)/Component.cpp        \
             $(SALTYENGINE_DIR)/Debug.cpp            \
+            $(SALTYENGINE_DIR)/DefaultScene.cpp     \
             $(SALTYENGINE_DIR)/Factory.cpp          \
             $(SALTYENGINE_DIR)/GameObject.cpp       \
             $(SALTYENGINE_DIR)/Object.cpp           \
+            $(SALTYENGINE_DIR)/RigidBody.cpp        \
             $(SALTYENGINE_DIR)/SaltyBehaviour.cpp   \
             $(SALTYENGINE_DIR)/SaltyEngine.cpp      \
             $(SALTYENGINE_DIR)/Scene.cpp            \
             $(SALTYENGINE_DIR)/GUI/Button.cpp           \
             $(SALTYENGINE_DIR)/GUI/Event.cpp            \
+            $(SALTYENGINE_DIR)/GUI/UIBehaviour.cpp      \
             $(SALTYENGINE_DIR)/GUI/Widget.cpp           \
             $(SALTYENGINE_DIR)/Input/Action.cpp         \
             $(SALTYENGINE_DIR)/Input/Axis.cpp           \
             $(SALTYENGINE_DIR)/Input/Mapping.cpp        \
-            $(SALTYENGINE_DIR)/SFML/EventManager.cpp    \
-            $(SALTYENGINE_DIR)/SFML/Renderer.cpp        \
-            #$(MONSTER_DIR)/MonsterController.cpp       \
             $(COMMON_DIR)/LibLoader.cpp                 \
-            #$(CLIENT_DIR)/PlayerController.cpp         \
-            #$(PROJECT_DIR)/Tests/GUI/main.cpp          \
 
-CPPFLAGS 	=   -W -Wall -g -Wextra -std=c++11 -fPIC
+CPPFLAGS 	=   -W -Wall -g -Wextra -std=c++11 -fPIC -rdynamic -shared -O2
 
 CPPFLAGS    +=  -I $(INC_DIR)
 
-LDFLAGS	=   -lpthread -ldl -lsfml-graphics -lsfml-window -lsfml-system
+LDFLAGS		+= -ldl
 
 OBJ		= 	$(SRC:.cpp=.o)
 
 $(NAME)	: 	$(OBJ)
-	#$(CC) $(OBJ) -o $(NAME) $(LDFLAGS)
 	ar rc $(LIBNAME) $(OBJ)
 	ranlib $(LIBNAME)
 

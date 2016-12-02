@@ -1,44 +1,58 @@
-#include "SaltyEngine/Scene.hpp"
+#include <SaltyEngine/Debug.hpp>
+#include "SaltyEngine/AScene.hpp"
 
 namespace SaltyEngine
 {
 	/**
-	 * @fn	Scene::Scene()
+	 * @fn	AScene::AScene()
 	 *
 	 * @brief	Default constructor.
 	 */
 
-	Scene::Scene() : Object("Scene")
+	AScene::AScene() : Object("AScene")
 	{
+		m_gravity = 9.81f;
 	}
 
-	Scene::Scene(const std::string &name) : Object(name) {}
+	AScene::AScene(const std::string &name) : Object(name) {
+		m_gravity = 9.81f;
+	}
 
 	/**
-	 * @fn	Scene::~Scene()
+	 * @fn	AScene::~AScene()
 	 *
 	 * @brief	Destructor.
 	 */
 
-	Scene::~Scene()
+	AScene::~AScene()
 	{
 	}
 	
 	/**
-	 * @fn	size_t Scene::GetSize() const
+	 * @fn	size_t AScene::GetSize() const
 	 *
 	 * @brief	Gets the size.
 	 *
 	 * @return	The size.
 	 */
 
-	size_t Scene::GetSize() const
+	size_t AScene::GetSize(void) const
 	{
 		return (m_objects.size());
 	}
 
+	float AScene::GetGravity(void) const
+	{
+		return (m_gravity);
+	}
+
+	void AScene::SetGravity(float gravity)
+	{
+		m_gravity = gravity;
+	}
+
 	/**
-	 * @fn	std::ostream &Scene::print(std::ostream &os) const
+	 * @fn	std::ostream &AScene::print(std::ostream &os) const
 	 *
 	 * @brief	Prints the given operating system.
 	 *
@@ -47,9 +61,9 @@ namespace SaltyEngine
 	 * @return	A reference to a std::ostream.
 	 */
 
-	std::ostream &Scene::print(std::ostream &os) const
+	std::ostream &AScene::print(std::ostream &os) const
 	{
-		for (std::vector<std::unique_ptr<GameObject>>::const_iterator it = m_objects.begin(); it != m_objects.end(); ++it)
+		for (std::vector<GameObject*>::const_iterator it = m_objects.begin(); it != m_objects.end(); ++it)
 		{
 			os << "\t" << (**it) << std::endl;
 		}
@@ -57,7 +71,7 @@ namespace SaltyEngine
 	}
 
 	/**
-	 * @fn	const std::unique_ptr<SaltyBehaviour> &Scene::operator[](size_t index) const
+	 * @fn	const std::unique_ptr<SaltyBehaviour> &AScene::operator[](size_t index) const
 	 *
 	 * @brief	Array indexer operator.
 	 *
@@ -66,278 +80,286 @@ namespace SaltyEngine
 	 * @return	The indexed value.
 	 */
 
-	const std::unique_ptr<GameObject> &Scene::operator[](size_t index) const
+    GameObject const &AScene::operator[](size_t index) const
 	{
-		return m_objects[index];
+		return *m_objects[index];
 	}
 
 	/**
-	 * @fn	void Scene::OnStart()
+	 * @fn	void AScene::OnStart()
 	 *
 	 * @brief	Executes the start action.
 	 */
 
-	void Scene::OnStart()
+	void AScene::OnStart()
 	{
 		while (!m_init.empty())
 		{
+            std::cout <<  m_init.front() << std::endl;
 			const std::list<SaltyBehaviour *> &Sb = m_objects[m_init.front()]->GetSaltyBehaviour();
 			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
-				(*it)->Start();
+				if ((*it)->enabled)
+					(*it)->Start();
 			m_init.pop();
 		}
 	}
 
 	/**
-	 * @fn	void Scene::Update()
+	 * @fn	void AScene::Update()
 	 *
 	 * @brief	Updates objects in scene.
 	 */
 
-	void Scene::Update()
+	void AScene::Update()
 	{
-		for (std::vector<std::unique_ptr<GameObject>>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); ++obj)
+		for (std::vector<GameObject*>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); ++obj)
 		{
 			const std::list<SaltyBehaviour *> &Sb = (*obj)->GetSaltyBehaviour();
 			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
-				(*it)->Update();
+				if ((*it)->enabled)
+					(*it)->Update();
 		}
 	}
 
 	/**
-	 * @fn	void Scene::FixedUpdate()
+	 * @fn	void AScene::FixedUpdate()
 	 *
 	 * @brief	Fixed update.
 	 */
 
-	void Scene::FixedUpdate()
+	void AScene::FixedUpdate()
 	{
-		for (std::vector<std::unique_ptr<GameObject>>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); ++obj)
+		for (std::vector<GameObject*>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); ++obj)
 		{
 			const std::list<SaltyBehaviour *> &Sb = (*obj)->GetSaltyBehaviour();
 			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
-				(*it)->FixedUpdate();
+				if ((*it)->enabled)
+					(*it)->FixedUpdate();
 		}
 	}
 
 	/**
-	 * @fn	void Scene::OnTriggerEnter()
+	 * @fn	void AScene::OnTriggerEnter()
 	 *
 	 * @brief	Executes the trigger enter action.
 	 */
 
-	void Scene::OnTriggerEnter()
+	void AScene::OnTriggerEnter()
 	{
-		for (std::vector<std::unique_ptr<GameObject>>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); ++obj)
+		while (!m_onTriggerEnter.empty())
 		{
-			const std::list<SaltyBehaviour *> &Sb = (*obj)->GetSaltyBehaviour();
-			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
-				(*it)->OnTriggerEnter();
+			m_onTriggerEnter.front()();
+			m_onTriggerEnter.pop();
 		}
 	}
 
 	/**
-	 * @fn	void Scene::OnTriggerExit()
+	 * @fn	void AScene::OnTriggerExit()
 	 *
 	 * @brief	Executes the trigger exit action.
 	 */
 
-	void Scene::OnTriggerExit()
+	void AScene::OnTriggerExit()
 	{
-		for (std::vector<std::unique_ptr<GameObject>>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); ++obj)
+		while (!m_onTriggerExit.empty())
 		{
-			const std::list<SaltyBehaviour *> &Sb = (*obj)->GetSaltyBehaviour();
-			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
-				(*it)->OnTriggerExit();
+			m_onTriggerExit.front()();
+			m_onTriggerExit.pop();
 		}
 	}
 
 	/**
-	 * @fn	void Scene::OnTriggerStay()
+	 * @fn	void AScene::OnTriggerStay()
 	 *
 	 * @brief	Executes the trigger stay action.
 	 */
 
-	void Scene::OnTriggerStay()
+	void AScene::OnTriggerStay()
 	{
-		for (std::vector<std::unique_ptr<GameObject>>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); ++obj)
+		while (!m_onTriggerStay.empty())
 		{
-			const std::list<SaltyBehaviour *> &Sb = (*obj)->GetSaltyBehaviour();
-			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
-				(*it)->OnTriggerStay();
+			m_onTriggerStay.front()();
+			m_onTriggerStay.pop();
 		}
 	}
 
 	/**
-	 * @fn	void Scene::OnCollisionEnter()
+	 * @fn	void AScene::OnCollisionEnter()
 	 *
 	 * @brief	Executes the collision enter action.
 	 */
 
-	void Scene::OnCollisionEnter()
+	void AScene::OnCollisionEnter()
 	{
-		for (std::vector<std::unique_ptr<GameObject>>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); ++obj)
+		while (!m_onCollisionEnter.empty())
 		{
-			const std::list<SaltyBehaviour *> &Sb = (*obj)->GetSaltyBehaviour();
-			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
-				(*it)->OnCollisionEnter();
+			m_onCollisionEnter.front()();
+			m_onCollisionEnter.pop();
 		}
 	}
 
 	/**
-	 * @fn	void Scene::OnCollisionExit()
+	 * @fn	void AScene::OnCollisionExit()
 	 *
 	 * @brief	Executes the collision exit action.
 	 */
 
-	void Scene::OnCollisionExit()
+	void AScene::OnCollisionExit()
 	{
-		for (std::vector<std::unique_ptr<GameObject>>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); ++obj)
+		while (!m_onCollisionExit.empty())
 		{
-			const std::list<SaltyBehaviour *> &Sb = (*obj)->GetSaltyBehaviour();
-			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
-				(*it)->OnCollisionExit();
+			m_onCollisionExit.front()();
+			m_onCollisionExit.pop();
 		}
 	}
 
 	/**
-	 * @fn	void Scene::OnCollisionStay()
+	 * @fn	void AScene::OnCollisionStay()
 	 *
 	 * @brief	Executes the collision stay action.
 	 */
 
-	void Scene::OnCollisionStay()
+	void AScene::OnCollisionStay()
 	{
-		for (std::vector<std::unique_ptr<GameObject>>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); ++obj)
+		while (!m_onCollisionStay.empty())
 		{
-			const std::list<SaltyBehaviour *> &Sb = (*obj)->GetSaltyBehaviour();
-			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
-				(*it)->OnCollisionStay();
+			m_onCollisionStay.front()();
+			m_onCollisionStay.pop();
 		}
 	}
 
 	/**
-	 * @fn	void Scene::OnMouseEnter()
+	 * @fn	void AScene::OnMouseEnter()
 	 *
 	 * @brief	Executes the mouse enter action.
 	 */
 
-	void Scene::OnMouseEnter()
+	void AScene::OnMouseEnter()
 	{
-		for (std::vector<std::unique_ptr<GameObject>>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); ++obj)
+		for (std::vector<GameObject*>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); ++obj)
 		{
 			const std::list<SaltyBehaviour *> &Sb = (*obj)->GetSaltyBehaviour();
 			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
-				(*it)->OnMouseEnter();
+				if ((*it)->enabled)
+					(*it)->OnMouseEnter();
 		}
 	}
 
 	/**
-	 * @fn	void Scene::OnMouseExit()
+	 * @fn	void AScene::OnMouseExit()
 	 *
 	 * @brief	Executes the mouse exit action.
 	 */
 
-	void Scene::OnMouseExit()
+	void AScene::OnMouseExit()
 	{
-		for (std::vector<std::unique_ptr<GameObject>>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); ++obj)
+		for (std::vector<GameObject*>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); ++obj)
 		{
 			const std::list<SaltyBehaviour *> &Sb = (*obj)->GetSaltyBehaviour();
 			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
-				(*it)->OnMouseExit();
+				if ((*it)->enabled)
+					(*it)->OnMouseExit();
 		}
 	}
 
 	/**
-	 * @fn	void Scene::OnMouseOver()
+	 * @fn	void AScene::OnMouseOver()
 	 *
 	 * @brief	Executes the mouse over action.
 	 */
 
-	void Scene::OnMouseOver()
+	void AScene::OnMouseOver()
 	{
-		for (std::vector<std::unique_ptr<GameObject>>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); ++obj)
+		for (std::vector<GameObject*>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); ++obj)
 		{
 			const std::list<SaltyBehaviour *> &Sb = (*obj)->GetSaltyBehaviour();
 			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
-				(*it)->OnMouseOver();
+				if ((*it)->enabled)
+					(*it)->OnMouseOver();
 		}
 	}
 
 	/**
-	 * @fn	void Scene::OnGui()
+	 * @fn	void AScene::OnGui()
 	 *
 	 * @brief	Executes the graphical user interface action.
 	 */
 
-	void Scene::OnGui()
+	void AScene::OnGui()
 	{
-		for (std::vector<std::unique_ptr<GameObject>>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); ++obj)
+		for (std::vector<GameObject*>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); ++obj)
 		{
 			const std::list<SaltyBehaviour *> &Sb = (*obj)->GetSaltyBehaviour();
 			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
-				(*it)->OnGui();
+				if ((*it)->enabled)
+					(*it)->OnGui();
 		}
 	}
 
-	void Scene::OnDestroy()
+	void AScene::OnDestroy()
 	{
-		for (std::vector<std::unique_ptr<GameObject>>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); ++obj)
+		for (std::vector<GameObject*>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); ++obj)
 		{
 			const std::list<SaltyBehaviour *> &Sb = (*obj)->GetSaltyBehaviour();
 			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
-				(*it)->OnDestroy();
+				if ((*it)->enabled)
+					(*it)->OnDestroy();
 		}
 	}
 
 	/**
-	 * @fn	void Scene::CallCoroutines()
+	 * @fn	void AScene::CallCoroutines()
 	 *
 	 * @brief	Call coroutines.
 	 */
 
-	void Scene::CallCoroutines()
+	void AScene::CallCoroutines()
 	{
-		for (std::vector<std::unique_ptr<GameObject>>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); ++obj)
+		for (std::vector<GameObject*>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); ++obj)
 		{
 			const std::list<SaltyBehaviour *> &Sb = (*obj)->GetSaltyBehaviour();
 			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
 			{
-				(*it)->CallCoroutines();
+				if ((*it)->enabled)
+					(*it)->CallCoroutines();
 			}
 		}
 	}
 
 	/**
-	 * @fn	void Scene::Clear()
+	 * @fn	void AScene::Clear()
 	 *
 	 * @brief	Clears this object to its blank/initial state.
 	 */
 
-	void Scene::Clear()
+	void AScene::Clear()
 	{
 		m_objects.clear();
 		while (!m_init.empty())
 			m_init.pop();
 	}
 
-	/**
-	 * @fn	void Scene::operator<<(SaltyBehaviour *gameobj)
-	 *
-	 * @brief	Bitwise left shift operator.
-	 *
-	 * @param [in,out]	gameobj	If non-null, the gameobj.
-	 */
+    /**
+ * @fn	void AScene::operator<<(SaltyBehaviour *gameobj)
+ *
+ * @brief	Bitwise left shift operator.
+ *
+ * @param [in,out]	gameobj	If non-null, the gameobj.
+ */
 
-	void Scene::operator<<(GameObject *gameobj)
-	{
-		m_objects.push_back(std::unique_ptr<GameObject>(gameobj));
-		m_init.emplace(m_objects.size() - 1);
-	}
+    void AScene::operator<<(GameObject * const gameobj)
+    {
+        if (gameobj == nullptr) {
+            Debug::PrintWarning("AScene: Cannot add nullptr object");
+            return;
+        }
+        m_objects.push_back(gameobj);
+        m_init.emplace(m_objects.size() - 1);
+    }
 }
 
 /**
- * @fn	std::ostream & operator<<(std::ostream &os, SaltyEngine::Scene &scene)
+ * @fn	std::ostream & operator<<(std::ostream &os, SaltyEngine::AScene &scene)
  *
  * @brief	Stream insertion operator.
  *
@@ -347,8 +369,8 @@ namespace SaltyEngine
  * @return	The shifted result.
  */
 
-//std::ostream & operator<<(std::ostream &os, SaltyEngine::Scene &scene)
+//std::ostream & operator<<(std::ostream &os, SaltyEngine::AScene &scene)
 //{
-//	os << "Scene " << scene.GetName() << " :" << std::endl;
+//	os << "AScene " << scene.GetName() << " :" << std::endl;
 //	return (os);
 //}

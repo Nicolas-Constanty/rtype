@@ -7,12 +7,16 @@
 #include <vector>
 #include "SaltyEngine/Coroutine.hpp"
 #include "SaltyEngine/Behaviour.hpp"
+#include "ICollider.hpp"
 
 namespace SaltyEngine
 {
 	class SaltyEngine;
 #define WaitForSecond(x) coroutine::await(std::bind(&SaltyBehaviour::__Wait_For_Seconds, x))
+#define WaitForMillisecond(x) coroutine::await(std::bind(&SaltyBehaviour::__Wait_For_Milliseconds, x))
+#define WaitForMicrosecond(x) coroutine::await(std::bind(&SaltyBehaviour::__Wait_For_Microseconds, x))
 #define StartCoroutine(x) m_coroutines.push_back(coroutine::create(std::bind(x, this)))
+
 	class SaltyBehaviour : public Behaviour
 	{
 	public:
@@ -44,13 +48,13 @@ namespace SaltyEngine
 
 		virtual void FixedUpdate() {};
 
-		virtual void OnTriggerEnter() {};
-		virtual void OnTriggerExit() {};
-		virtual void OnTriggerStay() {};
+		virtual void OnTriggerEnter(ICollider *) {};
+		virtual void OnTriggerExit(ICollider *) {};
+		virtual void OnTriggerStay(ICollider *) {};
 
-		virtual void OnCollisionEnter() {};
-		virtual void OnCollisionExit() {};
-		virtual void OnCollisionStay() {};
+		virtual void OnCollisionEnter(ICollider *) {};
+		virtual void OnCollisionExit(ICollider *) {};
+		virtual void OnCollisionStay(ICollider *) {};
 
 		virtual void OnMouseEnter() {};
 		virtual void OnMouseExit() {};

@@ -10,6 +10,7 @@
 #include <memory>
 #include "SaltyEngine/DefaultRenderer.hpp"
 #include "SaltyEngine/Input/DefaultEventManager.hpp"
+#include "Common/Singleton.hpp"
 
 
 #define DEFAULT_FRAME_RATE 60
@@ -22,27 +23,30 @@ namespace SaltyEngine
 		stop,
 		pause
 	};
-	class Scene;
+	class AScene;
 #define print_status(x) x
 
-	class SaltyEngine
+	class SaltyEngine : public Singleton<SaltyEngine>
 	{
+		friend class Singleton<SaltyEngine>;
 	public:
 		SaltyEngine();
 		virtual ~SaltyEngine();
 
 		void Start();
 		void Stop();
-		virtual void Run();
-		EngineStatus GetStatus() const;
+		virtual void Run(void);
+		EngineStatus GetStatus(void) const;
 		bool LoadScene(size_t index);
 		bool LoadScene(const std::string &name);
 		void SetFrameRate(size_t fr);
-		void operator<<(Scene *scene);
-		long long GetDeltaTime() const;
-		double GetFixedDeltaTime() const;
+		void operator<<(AScene *scene);
+		double GetDeltaTime(void) const;
+		double GetFixedDeltaTime(void) const;
 		void SetRenderer(IRenderer *renderer);
 		void SetEventManager(Input::IEventManager *ev_manager);
+		AScene *GetCurrentScene(void) const;
+		IRenderer *GetRenderer(void) const;
 
 	/*public:
 		static std::string const Tag[];*/
@@ -52,7 +56,7 @@ namespace SaltyEngine
 
 	private:
 		EngineStatus						m_status;
-		std::vector<std::unique_ptr<Scene>>	m_scenes;
+		std::vector<std::unique_ptr<AScene>>	m_scenes;
 		size_t								m_current;
 		std::chrono::nanoseconds			m_frame_rate;
 		size_t								m_fps;
@@ -62,7 +66,7 @@ namespace SaltyEngine
 	};
 }
 
-#include "SaltyEngine/Scene.hpp"
+#include "SaltyEngine/AScene.hpp"
 
 #endif // !SALTYENGINE_HPP_
 

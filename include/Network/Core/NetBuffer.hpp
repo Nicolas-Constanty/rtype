@@ -88,6 +88,14 @@ namespace Network
                 return serialize<const char *>(&msg[0]);
             }
 
+            void operator+=(unsigned int size) {
+                if (length - size < 0) {
+                    return ;
+                }
+                index += size;
+                length -= size;
+            }
+
             /**
              * \brief Deserialize a type into the buffer
              * \param obj The object in which deserialize

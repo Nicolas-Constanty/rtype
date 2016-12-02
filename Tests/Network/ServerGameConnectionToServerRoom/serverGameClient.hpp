@@ -86,7 +86,7 @@ public:
     }
 
     virtual void OnStart() {
-        this->SendData(*(factory.create<AUTHENTICATEPackageServer>(0, 10)));
+        this->SendData(*(factory.create<AUTHENTICATEPackageServer>(0, 3)));
     }
 
 public:
@@ -97,6 +97,7 @@ public:
 
     virtual void onGetLAUNCHPackage(LAUNCHPackageServer const &obj) {
         std::cout << obj << std::endl;
+        this->SendData<LAUNCHPackageServer>(*factory.create<LAUNCHPackageServer>(obj.roomPlayer, obj.mapID, obj.secret, 353121, 6565));
     }
 
     virtual void onGetSTATUSPackage(STATUSPackageServer const &obj) {

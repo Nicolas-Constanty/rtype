@@ -151,6 +151,14 @@ void Network::Socket::ASocket::print(std::ostream &output) const
     output << inet_ntoa(sockaddr.sin_addr) << ":" << sockaddr.sin_port;
 }
 
+unsigned int Network::Socket::ASocket::getIP() const {
+    return (sockaddr.sin_addr.s_addr);
+}
+
+unsigned int Network::Socket::ASocket::getPort() const {
+    return (static_cast<unsigned int>(sockaddr.sin_port));
+}
+
 /**
  * @brief Basic write operator for ASocket that call print() method
  * @param output The output in which write

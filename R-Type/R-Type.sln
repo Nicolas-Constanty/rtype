@@ -24,7 +24,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SpriteEditor", "SpriteEdito
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ClientLauncher", "ClientLauncher\ClientLauncher\ClientLauncher.vcxproj", "{D475EDC8-4425-4488-AF76-A90A66566167}"
 	ProjectSection(ProjectDependencies) = postProject
-		{1036405A-3876-4F9F-8906-95F09A7D18C5} = {1036405A-3876-4F9F-8906-95F09A7D18C5}
 		{8D3847F1-F79F-4473-A994-7A09DF9692FD} = {8D3847F1-F79F-4473-A994-7A09DF9692FD}
 	EndProjectSection
 EndProject

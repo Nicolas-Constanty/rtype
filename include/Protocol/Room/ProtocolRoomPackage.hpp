@@ -28,7 +28,9 @@ typedef enum RoomPurpose : unsigned char{
     ROOMSWAP = 6,
     ROOMGET = 7,
     ROOMFAILURE = 8,
-    ROOMLAUNCH = 9
+    ROOMLAUNCH = 9,
+    ROOMDELETE = 10,
+    ROOMCHAT = 11
 } RoomPurpose;
 
 class PackageRoomHeader {
@@ -185,12 +187,11 @@ public:
     }
 
 public:
-    char msg[8];
+    char msg[40];
     unsigned char purposeFailed;
 };
 
 class LAUNCHPackageRoom : public PackageRoomHeader {
-
 public:
     LAUNCHPackageRoom(unsigned short roomID)
             : PackageRoomHeader(sizeof(LAUNCHPackageRoom), RoomPurpose::ROOMLAUNCH) {
@@ -199,6 +200,34 @@ public:
 
 public:
     unsigned short roomID;
+};
+
+class DELETEPackageRoom : public PackageRoomHeader {
+public:
+    DELETEPackageRoom(unsigned short roomID)
+            : PackageRoomHeader(sizeof(DELETEPackageRoom), RoomPurpose::ROOMDELETE) {
+        this->roomID = roomID;
+    }
+
+public:
+    unsigned short roomID;
+};
+
+class CHATPackageRoom : public PackageRoomHeader {
+public:
+    CHATPackageRoom(unsigned short roomID, std::string const &msg)
+            : PackageRoomHeader(sizeof(CHATPackageRoom), RoomPurpose::ROOMCHAT) {
+        this->roomID = roomID;
+        memset(this->msg, 0, sizeof(this->msg));
+        if (msg.length() < sizeof(msg)) {
+            strncpy(this->msg, msg.c_str(), msg.length());
+        }
+
+    }
+
+public:
+    unsigned short roomID;
+    char msg[256];
 };
 
 #endif //RTYPE_PROTOCOLROOMPACKAGE_HPP

@@ -3,6 +3,7 @@
 #ifndef ICLONEABLE_HPP_
 #define ICLONEABLE_HPP_
 #include <memory>
+#include <SaltyEngine/Debug.hpp>
 
 template <class T>
 class ICloneable
@@ -17,7 +18,12 @@ public:
 	/**
 	 * \brief Deep copy of the object
 	 */
-	virtual std::unique_ptr<T> CloneMemberwise() = 0;
+	
+	template <class U, typename ...Args>
+	T *CloneMemberwise(Args... args)
+	{
+		return dynamic_cast<T *>(new U(args...));
+	};
 };
 
 #endif

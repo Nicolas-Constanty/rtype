@@ -14,13 +14,14 @@ SALTYENGINE_DIR         =   $(SRC_DIR)/SaltyEngine
 COMMON_DIR              =   $(SRC_DIR)/Common
 MONSTER_DIR             =   $(SRC_DIR)/Monster
 
-SRC		= 	$(MONSTER_DIR)/Monster.cpp             \
+SRC		= 	$(MONSTER_DIR)/Monster.cpp              \
+            $(MONSTER_DIR)/MonsterController.cpp    \
 
 CPPFLAGS 	=   -W -Wall -g -Wextra -std=c++11 -fPIC
 
 CPPFLAGS    +=  -I $(INC_DIR)
 
-LDFLAGS	=   -lpthread -ldl -L ../SaltyEngine -lSaltyEngine -shared
+LDFLAGS	=   -lpthread -ldl -L ../SaltyEngine -lSaltyEngine -shared -O2
 
 OBJ		= 	$(SRC:.cpp=.o)
 

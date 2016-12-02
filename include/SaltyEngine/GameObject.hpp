@@ -36,7 +36,7 @@ namespace SaltyEngine
 		size_t						m_bcount;
 
 	public:
-		bool GetActiveSelf() const;
+		bool GetActiveSelf(void) const;
 
 	public:
 		template<class T>
@@ -78,13 +78,13 @@ namespace SaltyEngine
 		}
 		bool CompareTag(const std::string &tag) const;
 		template<class T>
-		T GetComponent()
+		T *GetComponent()
 		{
 			for (std::list<std::unique_ptr<Component>>::const_iterator it = m_components.begin(); it != m_components.end(); ++it)
 			{
-				if (typeid(*(*it).get()) == typeid(T))
+				if (dynamic_cast<T*>((*it).get()))
 				{
-					return (*it);
+					return (T*)(*it).get();
 				}
 			}
 			return (nullptr);
@@ -123,12 +123,12 @@ namespace SaltyEngine
 		}
 
 		template<class T>
-		std::list<T> GetComponents()
+		std::list<T*> GetComponents()
 		{
-			std::list<T> list;
+			std::list<T*> list;
 			for (std::list<std::unique_ptr<Component>>::const_iterator it = m_components.begin(); it != m_components.end(); ++it)
 			{
-				SaltyBehaviour *tmp = dynamic_cast<T>((*it).get());
+				T *tmp = dynamic_cast<T*>((*it).get());
 				if (tmp)
 				{
 					list.push_back(tmp);
@@ -137,7 +137,7 @@ namespace SaltyEngine
 			return (list);
 		}
 
-		const std::list<SaltyBehaviour *> &GetSaltyBehaviour() const
+		const std::list<SaltyBehaviour *> &GetSaltyBehaviour(void) const
 		{
 			return (m_behaviour);
 		}
@@ -168,21 +168,6 @@ namespace SaltyEngine
 		public:
 			virtual std::unique_ptr<Object> Clone() {
 				return std::unique_ptr<Object>(new GameObject(GetName() + "(Clone)"));
-			}
-			virtual std::unique_ptr<Object> CloneMemberwise() {
-				GameObject	*obj = new GameObject(GetName() + "(Clone)");
-
-//				obj->transform = transform;
-				obj->layer = layer;
-				obj->m_activeSelf = m_activeSelf;
-				obj->m_behaviour = m_behaviour;
-				for (std::list<std::unique_ptr<Component>>::const_iterator it = m_components.begin(); it != m_components.end(); ++it) {
-					obj->m_components.push_back(std::unique_ptr<Component>(it->get()));
-				}
-//				obj->scene = scene;
-//				obj->m_bcount = m_bcount;
-				obj->m_tag = m_tag;
-				return std::unique_ptr<Object>(obj);
 			}
 	};
 }

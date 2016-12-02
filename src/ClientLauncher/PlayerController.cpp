@@ -1,6 +1,7 @@
 #include "ClientLauncher/PlayerController.hpp"
 #include "SaltyEngine/SFML/EventManager.hpp"
 #include "SaltyEngine/Input/InputManager.hpp"
+//#include "SaltyEngine/SFML/BoxCollider2D.hpp"
 
 typedef SaltyEngine::Input::InputManager<SaltyEngine::SFML::EventManager>  InputKey;
 
@@ -17,28 +18,77 @@ namespace SaltyEngine
 	void PlayerController::Start()
 	{
 		std::cout << "Je suis le Start, je ne suis appelé qu'une fois" << std::endl;
-		StartCoroutine(&PlayerController::DisplayCoroutine);
+		//StartCoroutine(&PlayerController::DisplayCoroutine);
+		InputKey::AddAxis("Horizontal", new Input::Axis(
+				{
+						{Input::KeyCode::Left, -1},
+						{Input::KeyCode::Right, 1},
+						{Input::KeyCode::Q, -1},
+						{Input::KeyCode::D, 1}
+				},
+                std::make_pair<unsigned int, Input::MotionController::Axis>(0, Input::MotionController::X)
+		));
+        InputKey::AddAxis("Vertical", new Input::Axis(
+                {
+                        {Input::KeyCode::Up, -1},
+                        {Input::KeyCode::Down, 1},
+                        {Input::KeyCode::Z, -1},
+                        {Input::KeyCode::S, 1}
+                },
+                std::make_pair<unsigned int, Input::MotionController::Axis>(0, Input::MotionController::Y)
+        ));
+
+        InputKey::AddAction("Hello", new Input::Action(Input::KeyCode::F, std::make_pair<unsigned int, int>(0, 1)));
 	}
 
 	void PlayerController::FixedUpdate()
 	{
-		//std::cout << "Fixed Update 60 fps" << std::endl;
-		
-		if (InputKey::GetKeyDown("S"))
-			gameObject->transform.Translate(Vector(0.0f, 1.0f)  * speed);
-		if (InputKey::GetKeyDown("Z"))
-			gameObject->transform.Translate(Vector(0.0f, -1.0f) * speed);
-		if (InputKey::GetKeyDown("D"))
-			gameObject->transform.Translate(Vector(1.0f, 0.0f) * speed);
-		if (InputKey::GetKeyDown("Q"))
-			gameObject->transform.Translate(Vector(-1.0f, 0.0f) * speed);
-        //std::cout << gameObject->transform.position << std::endl;
+//		std::cout << "Fixed Update 60 fps" << std::endl;
+
+        float h = InputKey::GetAxis("Horizontal");
+        float v = InputKey::GetAxis("Vertical");
+        if (h != 0 || v != 0) {
+            gameObject->transform.Translate(Vector(h, v) * speed);
+        }
+
+        if (InputKey::GetAction("Hello", Input::ActionType::Pressed)) {
+            std::cout << "hello" << std::endl;
+        }
 	}
 
 	void PlayerController::DisplayCoroutine()
 	{
-		WaitForSecond(3);
+		for (;;) {
+			Debug::Print("Je suis dans la coroutine");
+			WaitForMillisecond(3);
+		}
 		std::cout << "Je m'affiche apr�s 3 seconde" << std::endl;
+	}
+	void PlayerController::OnCollisionEnter(ICollider *col)
+	{
+		//::SaltyEngine::SFML::BoxCollider2D *box = dynamic_cast<::SaltyEngine::SFML::BoxCollider2D *>(col);
+		//if (box)
+		//{
+			Debug::PrintSuccess("Collision enter!");
+		//}
+	}
+
+	void PlayerController::OnCollisionExit(ICollider *col)
+	{
+		//::SaltyEngine::SFML::BoxCollider2D *box = dynamic_cast<::SaltyEngine::SFML::BoxCollider2D *>(col);
+		//if (box)
+		//{
+		Debug::PrintSuccess("Collision exit!");
+		//}
+	}
+
+	void PlayerController::OnCollisionStay(ICollider *col)
+	{
+		//::SaltyEngine::SFML::BoxCollider2D *box = dynamic_cast<::SaltyEngine::SFML::BoxCollider2D *>(col);
+		//if (box)
+		//{
+		Debug::PrintInfo("Collision stay!");
+		//}
 	}
 }
 

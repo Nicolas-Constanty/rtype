@@ -25,8 +25,7 @@ namespace SaltyEngine
 		m_fps = DEFAULT_FRAME_RATE;
 		std::chrono::duration<double> d(1.0 / m_fps);
 		m_frame_rate = std::chrono::duration_cast<std::chrono::nanoseconds>(d);
-		LoadAssets();
-	}
+    }
 
 	/**
 	 * @fn	SaltyEngine::~SaltyEngine()
@@ -95,6 +94,7 @@ namespace SaltyEngine
 					if (m_status != EngineStatus::pause)
 					{
                         m_scenes[m_current]->FixedUpdate();
+						m_scenes[m_current]->UpdatePhysics();
 
 						m_scenes[m_current]->OnTriggerEnter();
 						m_scenes[m_current]->OnTriggerExit();
@@ -136,7 +136,7 @@ namespace SaltyEngine
 	 * @return	The status.
 	 */
 
-	EngineStatus SaltyEngine::GetStatus() const
+	EngineStatus SaltyEngine::GetStatus(void) const
 	{
 		return m_status;
 	}
@@ -179,7 +179,7 @@ namespace SaltyEngine
 	bool SaltyEngine::LoadScene(const std::string & name)
 	{
 		size_t index = 0;
-		for (std::vector<std::unique_ptr<Scene>>::const_iterator it = m_scenes.begin(); it < m_scenes.end(); ++it)
+		for (std::vector<std::unique_ptr<AScene>>::const_iterator it = m_scenes.begin(); it < m_scenes.end(); ++it)
 		{
 			if ((*it)->GetName() == name)
 				break;
@@ -215,9 +215,10 @@ namespace SaltyEngine
 	 * @return	The delta time.
 	 */
 
-	long long SaltyEngine::GetDeltaTime() const
+	double SaltyEngine::GetDeltaTime(void) const
 	{
-		return m_delta_time.count();
+		double res = m_delta_time.count() / 1000000000;
+		return res;
 	}
 
 	/**
@@ -228,7 +229,7 @@ namespace SaltyEngine
 	 * @return	The fixed delta time.
 	 */
 
-	double SaltyEngine::GetFixedDeltaTime() const
+	double SaltyEngine::GetFixedDeltaTime(void) const
 	{
 		return (1.0 / m_fps);
 	}
@@ -247,64 +248,75 @@ namespace SaltyEngine
 		m_even_manager = ev_manager;
 	}
 
-	/**
-	 * \brief Will load all the assets contained in the folder
-	 */
-	void SaltyEngine::LoadAssets() noexcept
+	AScene * SaltyEngine::GetCurrentScene(void) const
 	{
-#if _WIN32
-		WIN32_FIND_DATA findFileData;
-		HANDLE hFind;
-		CHAR str[256];
-
-		_getcwd(str, sizeof(str));
-
-		hFind = FindFirstFile(std::string(std::string(str) + Asset::ASSET_PATH + "\\*").c_str(), &findFileData);
-
-		while (hFind != INVALID_HANDLE_VALUE)
-		{
-			std::string assetName = std::string(findFileData.cFileName);
-			if (assetName.length() >= Asset::LIB_EXTENSION.length()
-				&& assetName.compare(assetName.length() - Asset::LIB_EXTENSION.length(), Asset::LIB_EXTENSION.length(), Asset::LIB_EXTENSION) == 0)
-			{
-				std::cout << "Loading asset [" << assetName << "]" << std::endl;
-				std::string assetPath = std::string(str) + Asset::ASSET_PATH + "\\" + assetName;
-				Factory::LoadAsset(assetPath);
-			}
-			if (FindNextFile(hFind, &findFileData) == FALSE)
-				break;
-		}
-		FindClose(hFind);
-#else
-		DIR *dir;
-		struct dirent *ent;
-        char str[256];
-
-        getcwd(str, sizeof(str));
-
-		if ((dir = opendir(std::string(std::string(str) + Asset::ASSET_PATH).c_str())) != NULL)
-		{
-			/* get all the files and directories within directory */
-			while ((ent = readdir(dir)) != NULL)
-			{
-                std::string assetName = std::string(ent->d_name);
-                if (assetName.length() >= Asset::LIB_EXTENSION.length()
-                    && assetName.compare(assetName.length() - Asset::LIB_EXTENSION.length(), Asset::LIB_EXTENSION.length(), Asset::LIB_EXTENSION) == 0)
-                {
-                    std::cout << "Loading asset [" << assetName << "]" << std::endl;
-                    std::string assetPath = std::string(str) + Asset::ASSET_PATH + "/" + assetName;
-                    Factory::LoadAsset(assetPath);
-                }
-			}
-			closedir(dir);
-		}
-		else
-		{
-			/* could not open directory */
-			perror("");
-		}
-#endif
+		if (m_scenes.empty())
+			return (nullptr);
+		return m_scenes[m_current].get();
 	}
+
+	IRenderer * SaltyEngine::GetRenderer(void) const
+	{
+		return m_renderer;
+	}
+
+//	/**
+//	 * \brief Will load all the assets contained in the folder
+//	 */
+//	void SaltyEngine::LoadAssets() noexcept
+//	{
+//#if _WIN32
+//		WIN32_FIND_DATA findFileData;
+//		HANDLE hFind;
+//		CHAR str[256];
+//
+//		_getcwd(str, sizeof(str));
+//		hFind = FindFirstFile(std::string(std::string(str) + Asset::ASSET_PATH + "\\*").c_str(), &findFileData);
+//
+//		while (hFind != INVALID_HANDLE_VALUE)
+//		{
+//			std::string assetName = std::string(findFileData.cFileName);
+//			if (assetName.length() >= Asset::LIB_EXTENSION.length()
+//				&& assetName.compare(assetName.length() - Asset::LIB_EXTENSION.length(), Asset::LIB_EXTENSION.length(), Asset::LIB_EXTENSION) == 0)
+//			{
+//				std::cout << "Loading asset [" << assetName << "]" << std::endl;
+//				std::string assetPath = std::string(str) + Asset::ASSET_PATH + "\\" + assetName;
+//				Factory::LoadAsset(assetPath);
+//			}
+//			if (FindNextFile(hFind, &findFileData) == FALSE)
+//				break;
+//		}
+//		FindClose(hFind);
+//#else
+//		DIR *dir;
+//		struct dirent *ent;
+//        char str[256];
+//
+//        getcwd(str, sizeof(str));
+//
+//		if ((dir = opendir(std::string(std::string(str) + Asset::ASSET_PATH).c_str())) != NULL)
+//		{
+//			/* get all the files and directories within directory */
+//			while ((ent = readdir(dir)) != NULL)
+//			{
+//                std::string assetName = std::string(ent->d_name);
+//                if (assetName.length() >= Asset::LIB_EXTENSION.length()
+//                    && assetName.compare(assetName.length() - Asset::LIB_EXTENSION.length(), Asset::LIB_EXTENSION.length(), Asset::LIB_EXTENSION) == 0)
+//                {
+//                    std::cout << "Loading asset [" << assetName << "]" << std::endl;
+//                    std::string assetPath = std::string(str) + Asset::ASSET_PATH + "/" + assetName;
+//                    Factory::LoadAsset(assetPath);
+//                }
+//			}
+//			closedir(dir);
+//		}
+//		else
+//		{
+//			/* could not open directory */
+//			perror("");
+//		}
+//#endif
+//	}
 
 	/**
 	 * @fn	void SaltyEngine::operator<<(Scene *scene)
@@ -316,10 +328,10 @@ namespace SaltyEngine
 	 * @param [in,out]	scene	If non-null, the scene.
 	 */
 
-	void SaltyEngine::operator<<(Scene *scene)
+	void SaltyEngine::operator<<(AScene *scene)
 	{
 		if (scene != nullptr)
-			m_scenes.push_back(std::unique_ptr<Scene>(scene));
+			m_scenes.push_back(std::unique_ptr<AScene>(scene));
 		else
 			throw new std::runtime_error("Can't push null scene");
 	}

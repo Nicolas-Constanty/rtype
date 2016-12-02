@@ -94,7 +94,7 @@ std::ostream &operator<<(std::ostream &ostream, SWAPPackageRoom const &swapPacka
         ostream << *header;
     }
     ostream << "addrIP=" << swapPackageRoom.addrIP << std::endl;
-    ostream << "userID=" << swapPackageRoom.port << std::endl;
+    ostream << "port=" << swapPackageRoom.port << std::endl;
     ostream << "secret=" << swapPackageRoom.secret << std::endl;
     ostream << "}";
     return (ostream);
@@ -137,6 +137,31 @@ std::ostream &operator<<(std::ostream &ostream, LAUNCHPackageRoom const &launchP
         ostream << *header;
     }
     ostream << "roomID=" << launchPackageRoom.roomID << std::endl;
+    ostream << "}";
+    return (ostream);
+}
+
+std::ostream &operator<<(std::ostream &ostream, DELETEPackageRoom const &deletePackageRoom) {
+    ostream << "DELETEPackageRoom = {" << std::endl;
+
+    PackageRoomHeader const *header = dynamic_cast<PackageRoomHeader const *>(&deletePackageRoom);
+    if (header) {
+        ostream << *header;
+    }
+    ostream << "roomID=" << deletePackageRoom.roomID << std::endl;
+    ostream << "}";
+    return (ostream);
+}
+
+std::ostream &operator<<(std::ostream &ostream, CHATPackageRoom const &chatPackageRoom) {
+    ostream << "CHATPackageRoom = {" << std::endl;
+
+    PackageRoomHeader const *header = dynamic_cast<PackageRoomHeader const *>(&chatPackageRoom);
+    if (header) {
+        ostream << *header;
+    }
+    ostream << "roomID=" << chatPackageRoom.roomID << std::endl;
+    ostream << "msg=" << chatPackageRoom.msg << std::endl;
     ostream << "}";
     return (ostream);
 }

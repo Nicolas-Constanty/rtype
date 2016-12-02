@@ -8,6 +8,10 @@
 #include <Network/TCP/ATCPClient.hpp>
 #include <Protocol/Room/RTypeProtocolRoomManager.hpp>
 #include "Protocol/Room/IProtocolRoomHandler.hpp"
+//#include "RoomService.hpp"
+#include "Protocol/Room/RoomPackageFactory.hpp"
+
+class RoomService;
 
 class RtypeRoomTCPConnection : public Network::TCP::ATCPClient,
                                public IProtocolRoomHandler
@@ -21,8 +25,27 @@ public:
     virtual void OnDataReceived(unsigned int len);
     virtual void OnDataSent(unsigned int len);
     virtual void OnStart();
+    virtual void OnDisconnect();
+
+private:
+    bool        OnJoinRoom();
+    void        OnSendGetRooms();
+    void        BroadCastGETRoom();
+    void        BroadCastNowGETRoom();
+    void        SendQUITToAllClientsInsideTheRoom();
 
 public:
+    void        OnQUITEvent(bool canBroadcastGET);
+
+public:
+    void        removeOnRoom();
+
+public:
+    unsigned int getID() const;
+
+public:
+
+    virtual void onGetDELETEPackage(DELETEPackageRoom const &obj);
     virtual void onGetAUTHENTICATEPackage(AUTHENTICATEPackageRoom const &);
     virtual void onGetCREATEPackage(CREATEPackageRoom const &);
     virtual void onGetJOINPackage(JOINPackageRoom const &);
@@ -32,12 +55,14 @@ public:
     virtual void onGetGETPackage(GETPackageRoom const &);
     virtual void onGetFAILUREPackage(FAILUREPackageRoom const &);
     virtual void onGetLAUNCHPackage(LAUNCHPackageRoom const &);
+    virtual void onGetCHATPackage(CHATPackageRoom const &);
 
 private:
     RTypeProtocolRoomManager protocolRoomManager;
     std::string                 pseudo;
     unsigned int                id;
     RoomPackageFactory          roomPackageFactory;
+    RoomService                 *roomService;
 };
 
 #endif //RTYPE_RTYPEROOMTCPCONNECTION_HPP

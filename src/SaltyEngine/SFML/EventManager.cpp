@@ -84,14 +84,34 @@ namespace SaltyEngine {
             return sf::Mouse::isButtonPressed(sf::Mouse::Button(button));
         }
 
-        ::SaltyEngine::Vector EventManager::GetPosition() {
+        ::SaltyEngine::Vector EventManager::GetPosition(void) {
             sf::Vector2i position = sf::Mouse::getPosition();
             return ::SaltyEngine::Vector(position.x, position.y);
         }
 
-        ::SaltyEngine::Vector EventManager::GetPositionRelative() {
+        ::SaltyEngine::Vector EventManager::GetPositionRelative(void) {
             sf::Vector2i position = sf::Mouse::getPosition(*m_window);
             return ::SaltyEngine::Vector(position.x, position.y);
+        }
+
+        bool EventManager::IsJoystickConnected(unsigned int id) {
+            return sf::Joystick::isConnected(id);
+        }
+
+        unsigned int EventManager::GetButtons(unsigned int id) {
+            return sf::Joystick::getButtonCount(id);
+        }
+
+        bool EventManager::HasAxis(unsigned int id, ::SaltyEngine::Input::MotionController::Axis axis) {
+            return sf::Joystick::hasAxis(id, sf::Joystick::Axis(axis));
+        }
+
+        bool EventManager::IsButtonPressed(unsigned int id, unsigned int button) {
+            return sf::Joystick::isButtonPressed(id, button);
+        }
+
+        float EventManager::GetAxisPosition(unsigned int id, ::SaltyEngine::Input::MotionController::Axis axis) {
+            return sf::Joystick::getAxisPosition(id, sf::Joystick::Axis(axis));
         }
     }
 }
