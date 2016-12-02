@@ -84,3 +84,7 @@ void RoomService::Close() {
         roomTCPConnection->removeOnRoom();
     }
 }
+
+bool RoomService::getLaunch() const {
+    return launch;
+}

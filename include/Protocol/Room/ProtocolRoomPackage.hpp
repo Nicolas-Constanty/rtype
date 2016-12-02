@@ -155,7 +155,7 @@ public:
 class GETPackageRoom : public PackageRoomHeader {
 public:
     GETPackageRoom(unsigned short roomPlayer, unsigned short roomPlayerMax,
-                   std::string const &pseudo, unsigned short roomID, unsigned short mapID)
+                   std::string const &pseudo, unsigned short roomID, unsigned short mapID, bool launch = false)
             : PackageRoomHeader(sizeof(GETPackageRoom), RoomPurpose::ROOMGET) {
         memset(this->name, 0, sizeof(this->name));
         if (pseudo.length() < sizeof(name)) {
@@ -165,14 +165,16 @@ public:
         this->roomPlayerMax = roomPlayerMax;
         this->roomID = roomID;
         this->mapID = mapID;
+        this->launch = launch;
     }
 
 public:
-    unsigned short roomPlayer;
-    unsigned short roomPlayerMax;
-    char name[8];
-    unsigned short roomID;
-    unsigned short mapID;
+    unsigned short  roomPlayer;
+    unsigned short  roomPlayerMax;
+    char            name[8];
+    unsigned short  roomID;
+    unsigned short  mapID;
+    bool            launch;
 };
 
 class FAILUREPackageRoom : public PackageRoomHeader {

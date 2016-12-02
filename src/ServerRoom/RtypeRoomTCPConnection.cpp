@@ -37,17 +37,19 @@ void RtypeRoomTCPConnection::BroadCastGETRoom() {
                                                                                            roomService->getClientMaxNbr(),
                                                                                            roomService->getName(),
                                                                                            roomService->getID(),
-                                                                                           roomService->getMapID()));
+                                                                                           roomService->getMapID(),
+                                                                                           roomService->getLaunch()));
 
 }
 
 void RtypeRoomTCPConnection::BroadCastNowGETRoom() {
     if (roomService)
         this->BroadcastNow<RtypeRoomTCPConnection>(*roomPackageFactory.create<GETPackageRoom>(roomService->getClientNbr(),
-                                                                                           roomService->getClientMaxNbr(),
-                                                                                           roomService->getName(),
-                                                                                           roomService->getID(),
-                                                                                           roomService->getMapID()));
+                                                                                              roomService->getClientMaxNbr(),
+                                                                                              roomService->getName(),
+                                                                                              roomService->getID(),
+                                                                                              roomService->getMapID(),
+                                                                                              roomService->getLaunch()));
 
 }
 
@@ -59,11 +61,12 @@ void RtypeRoomTCPConnection::OnSendGetRooms() {
     std::list<RtypeGameServerTCPConnection *> serverList = ServerGameDispatcher::Instance().GetServerList();
     for (RtypeGameServerTCPConnection *serverGame : serverList) {
         for (RoomService *roomService : serverGame->RoomsService()) {
-            this->SendData(*roomPackageFactory.create<GETPackageRoom>(roomService->getClientMaxNbr(),
+            this->SendData(*roomPackageFactory.create<GETPackageRoom>(roomService->getClientNbr(),
                                                                       roomService->getClientMaxNbr(),
                                                                       roomService->getName(),
                                                                       roomService->getID(),
-                                                                      roomService->getMapID()));
+                                                                      roomService->getMapID(),
+                                                                      roomService->getLaunch()));
         }
     }
 }
@@ -177,6 +180,7 @@ void RtypeRoomTCPConnection::onGetLAUNCHPackage(LAUNCHPackageRoom const &obj) {
 }
 
 void RtypeRoomTCPConnection::onGetCHATPackage(CHATPackageRoom const &chatPackageRoom) {
+    std::cout << chatPackageRoom << std::endl;
     if (roomService && chatPackageRoom.roomID == roomService->getID()) {
         roomService->Broadcast(chatPackageRoom);
     } else {

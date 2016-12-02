@@ -41,6 +41,7 @@ public:
     unsigned short getClientMaxNbr() const;
     unsigned short getMapID() const;
     unsigned short getClientNbr() const;
+    bool getLaunch() const;
     std::list<RtypeRoomTCPConnection *> getClients() const;
     unsigned int getSecret() const;
 
