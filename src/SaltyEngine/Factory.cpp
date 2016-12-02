@@ -11,15 +11,6 @@ namespace SaltyEngine {
     Factory::~Factory() {
     }
 
-    Object  *Factory::Create(std::string const &name) {
-		if (m_prefabs.find(name) == m_prefabs.end())
-		{
-			return nullptr;
-		}
-        m_objects.push_front(m_prefabs[name]->CloneMemberwise());
-        return m_objects.front().get();
-    }
-
 	bool Factory::LoadAsset(std::string const& path)
 	{
         static Asset::ASSET_LOADER loader;
@@ -40,6 +31,7 @@ namespace SaltyEngine {
             std::cerr << "Prefab [" << obj->GetName() << "] already in prefab list." << std::endl;
             return false;
         }
+		Debug::PrintSuccess("Successfully load " + obj->GetName() + " prebab.");
         m_prefabs[obj->GetName()] = obj;
         //loader.Unload();
 		return true;
