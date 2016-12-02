@@ -80,9 +80,13 @@ bool RtypeRoomTCPConnection::OnJoinRoom() {
         PLUGGEDPackageRoom *pluggedPackageRoom = roomPackageFactory.create<PLUGGEDPackageRoom>(this->pseudo,
                                                                                                this->id,
                                                                                                roomService->getID());
+        roomService->Broadcast(*pluggedPackageRoom);
+
         for (RtypeRoomTCPConnection *client : clientsList) {
             if (client != this)
-                client->SendData(*pluggedPackageRoom);
+                this->SendData(*roomPackageFactory.create<PLUGGEDPackageRoom>(client->pseudo,
+                                                                              client->id,
+                                                                              roomService->getID()));
         }
     } else {
         return (false);
@@ -167,6 +171,8 @@ void RtypeRoomTCPConnection::onGetLAUNCHPackage(LAUNCHPackageRoom const &obj) {
     std::cout << obj << std::endl;
     if (roomService && !roomService->isLaunch()) {
         roomService->Launch();
+    } else {
+        this->SendData(*roomPackageFactory.create<FAILUREPackageRoom>("no room to launch", RoomPurpose::ROOMLAUNCH));
     }
 }
 
@@ -188,13 +194,9 @@ void RtypeRoomTCPConnection::SendQUITToAllClientsInsideTheRoom() {
     if (!roomService) {
         return ;
     }
-    std::list<RtypeRoomTCPConnection *> clientsList = roomService->getClients();
     QUITPackageRoom *quitPackageRoom = roomPackageFactory.create<QUITPackageRoom>(this->id,
                                                                                   roomService->getID());
-    for (RtypeRoomTCPConnection *client : clientsList) {
-        if (client != this)
-            client->giveSocket().Send(*quitPackageRoom);
-    }
+    roomService->Broadcast(*quitPackageRoom);
 }
 
 unsigned int RtypeRoomTCPConnection::getID() const {

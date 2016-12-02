@@ -69,7 +69,6 @@ std::list<RtypeRoomTCPConnection *> RoomService::getClients() const {
     return this->clientsList;
 }
 
-//#include "Protocol/Room/RoomPackageFactory.hpp"
 void RoomService::Abort() {
     while (!this->clientsList.empty()) {
         this->clientsList.front()->OnQUITEvent(false);

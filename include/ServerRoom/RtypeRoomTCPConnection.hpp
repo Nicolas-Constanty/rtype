@@ -8,7 +8,7 @@
 #include <Network/TCP/ATCPClient.hpp>
 #include <Protocol/Room/RTypeProtocolRoomManager.hpp>
 #include "Protocol/Room/IProtocolRoomHandler.hpp"
-#include "RoomService.hpp"
+//#include "RoomService.hpp"
 #include "Protocol/Room/RoomPackageFactory.hpp"
 
 class RoomService;

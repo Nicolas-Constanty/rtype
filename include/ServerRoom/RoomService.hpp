@@ -8,7 +8,7 @@
 #include "ServerRoom/RtypeRoomTCPConnection.hpp"
 
 class RtypeGameServerTCPConnection;
-class RtypeRoomTCPConnection;
+//class RtypeRoomTCPConnection;
 
 class RoomService {
 public:
@@ -20,6 +20,14 @@ public:
     void AddPlayer(RtypeRoomTCPConnection *);
     void Launch();
     void RemovePlayer(RtypeRoomTCPConnection *);
+
+public:
+    template <typename T>
+    void Broadcast(T const &obj) {
+        for (RtypeRoomTCPConnection *roomTCPConnection : clientsList) {
+            roomTCPConnection->SendData(obj);
+        }
+    }
 
 public:
     void Abort();
