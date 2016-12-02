@@ -53,6 +53,11 @@ namespace SaltyEngine
 			{
 				return m_quad;
 			};
+
+		public:
+			virtual Component *CloneComponent(GameObject* const obj) {
+				return new BoxCollider2D(obj);
+			}
 		};
 	}
 }

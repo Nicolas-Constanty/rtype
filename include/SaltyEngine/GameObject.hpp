@@ -76,6 +76,17 @@ namespace SaltyEngine
 			}
 			return (dynamic_cast<T *>(m_components.back().get()));
 		}
+		Component *AddComponent(Component *component)
+		{
+			m_components.push_back(std::unique_ptr<Component>(component));
+			SaltyBehaviour *tmp = dynamic_cast<SaltyBehaviour *>(m_components.back().get());
+			if (tmp)
+			{
+				++m_bcount;
+				m_behaviour.push_back(tmp);
+			}
+			return (dynamic_cast<Component *>(m_components.back().get()));
+		}
 		bool CompareTag(const std::string &tag) const;
 		template<class T>
 		T *GetComponent()
@@ -178,10 +189,7 @@ namespace SaltyEngine
 //                TODO copy m_behaviour
 				obj->m_behaviour = m_behaviour;
 				for (std::list<std::unique_ptr<Component>>::const_iterator it = m_components.begin(); it != m_components.end(); ++it) {
-//                    m_components.push_back();
-//                    auto constexpr type = typeid(*(*it).get());
-//                    std::cout << typeid(*(*it).get()).name() << std::endl;
-//                    obj->AddComponent<type>();
+					obj->AddComponent((*it)->CloneComponent(obj));
 				}
 				obj->m_tag = m_tag;
 				return std::unique_ptr<Object>(obj);

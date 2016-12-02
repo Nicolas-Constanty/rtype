@@ -22,6 +22,11 @@ namespace SaltyEngine
 		virtual ~Behaviour() {};
 	public:
 		bool		enabled;
+
+	public:
+		virtual Component *CloneComponent(GameObject* const obj) {
+			return new Behaviour(obj);
+		}
 	};
 }
 
