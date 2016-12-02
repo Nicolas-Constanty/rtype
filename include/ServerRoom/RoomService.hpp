@@ -44,6 +44,7 @@ public:
     bool getLaunch() const;
     std::list<RtypeRoomTCPConnection *> getClients() const;
     unsigned int getSecret() const;
+    RtypeGameServerTCPConnection *getGameServer() const;
 
 private:
     std::string                             name;

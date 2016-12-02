@@ -143,11 +143,21 @@ void RtypeRoomTCPConnection::OnQUITEvent(bool canBroadcastGET) {
 
 void RtypeRoomTCPConnection::onGetQUITPackage(QUITPackageRoom const &obj) {
     std::cout << obj << std::endl;
-    if (!roomService) {
-        this->SendData(*roomPackageFactory.create<FAILUREPackageRoom>("no room", RoomPurpose::ROOMQUIT));
+    if (!roomService
+        || (roomService && roomService->getID() != obj.roomID)
+        || obj.userID != this->id) {
+        this->SendData(*roomPackageFactory.create<FAILUREPackageRoom>("no room has been found", RoomPurpose::ROOMQUIT));
         return ;
     }
-    OnQUITEvent(true);
+    if (roomService->getClientNbr() == 1) {
+
+        this->Broadcast<RtypeRoomTCPConnection>(*roomPackageFactory.create<DELETEPackageRoom>(roomService->getID()));
+        this->roomService->getGameServer()->RemoveRoomService(roomService);
+//        roomService->Close();
+
+    } else {
+        OnQUITEvent(true);
+    }
 }
 
 void RtypeRoomTCPConnection::onGetDELETEPackage(DELETEPackageRoom const &obj) {
@@ -172,7 +182,7 @@ void RtypeRoomTCPConnection::onGetFAILUREPackage(FAILUREPackageRoom const &obj) 
 
 void RtypeRoomTCPConnection::onGetLAUNCHPackage(LAUNCHPackageRoom const &obj) {
     std::cout << obj << std::endl;
-    if (roomService && !roomService->isLaunch()) {
+    if (roomService && !roomService->isLaunch() && roomService->getID() == obj.roomID) {
         roomService->Launch();
     } else {
         this->SendData(*roomPackageFactory.create<FAILUREPackageRoom>("no room to launch", RoomPurpose::ROOMLAUNCH));
