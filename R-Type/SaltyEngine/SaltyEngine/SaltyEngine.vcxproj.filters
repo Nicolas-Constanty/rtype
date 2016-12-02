@@ -224,6 +224,12 @@
     <ClInclude Include="..\..\..\src\SaltyEngine\DefaultScene.cpp">
       <Filter>Fichiers sources</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\SaltyEngine\AAssetManager.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\SaltyEngine\ISound.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\include\SaltyEngine\defaultReflection.inl">

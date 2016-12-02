@@ -11,6 +11,8 @@
 #include "SaltyEngine/ISound.hpp"
 #include "SaltyEngine/Texture.hpp"
 #include "SaltyEngine/Debug.hpp"
+#include "SaltyEngine/Constants.hpp"
+#include "SaltyEngine/Texture.hpp"
 
 #if _WIN32
 #include <direct.h>
@@ -19,7 +21,6 @@
 #include <dirent.h>
 #include <unistd.h>
 #include "Common/LibLoader.hpp"
-#include "SaltyEngine/Constants.hpp"
 #endif
 
 namespace SaltyEngine {
@@ -28,7 +29,7 @@ namespace SaltyEngine {
     protected:
         AAssetManager() {
             #if _WIN32
-                CHAR new *cwd = new char[256];
+                CHAR *cwd = new char[256];
                 _getcwd(cwd, 256);
                 this->cwd = std::string(cwd) + "\\";
             #else
@@ -123,17 +124,21 @@ namespace SaltyEngine {
             WIN32_FIND_DATA findFileData;
 		    HANDLE hFind;
 
-//TODO check if folder exist else error
-		    hFind = FindFirstFile(folder.c_str(), &findFileData);
+			std::wstring s = std::wstring(folder.begin(), folder.end());
+		    hFind = FindFirstFile(s.c_str(), &findFileData);
 
 		    while (hFind != INVALID_HANDLE_VALUE)
 		    {
-                std::string filename = std::string(ent->d_name);
+				std::wstring fn = findFileData.cFileName;
+                std::string filename = std::string(fn.begin(), fn.end());
                 if (filename != "."  && filename != "..") {
                     files.push_back(filename);
                 }
-    			if (FindNextFile(hFind, &findFileData) == FALSE)
-    				break;
+				if (FindNextFile(hFind, &findFileData) == FALSE)
+				{
+					Debug::PrintError("Cannnot open folder " + folder);
+					break;
+				}
     		}
     		FindClose(hFind);
 #else

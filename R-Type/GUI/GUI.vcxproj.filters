@@ -69,6 +69,15 @@
     <ClCompile Include="..\..\src\SaltyEngine\SFML\Scene.cpp">
       <Filter>Fichiers sources\SaltyEngine\SFML</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\SaltyEngine\SFML\AssetManager.cpp">
+      <Filter>Fichiers sources\SaltyEngine\SFML</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\SaltyEngine\SFML\Music.cpp">
+      <Filter>Fichiers sources\SaltyEngine\SFML</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\SaltyEngine\SFML\Sound.cpp">
+      <Filter>Fichiers sources\SaltyEngine\SFML</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\SaltyEngine\GUI\IEventSystemHandler.hpp">
@@ -150,6 +159,15 @@
       <Filter>Fichiers d%27en-tête\SaltyEngine\SFML</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\SaltyEngine\SFML\Scene.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine\SFML</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\SFML\AssetManager.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine\SFML</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\SFML\Music.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine\SFML</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SaltyEngine\SFML\Sound.hpp">
       <Filter>Fichiers d%27en-tête\SaltyEngine\SFML</Filter>
     </ClInclude>
   </ItemGroup>

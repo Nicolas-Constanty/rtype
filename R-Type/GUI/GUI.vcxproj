@@ -158,9 +158,12 @@
     <ClCompile Include="..\..\src\SaltyEngine\GUI\Button.cpp" />
     <ClCompile Include="..\..\src\SaltyEngine\GUI\Event.cpp" />
     <ClCompile Include="..\..\src\SaltyEngine\GUI\Widget.cpp" />
+    <ClCompile Include="..\..\src\SaltyEngine\SFML\AssetManager.cpp" />
     <ClCompile Include="..\..\src\SaltyEngine\SFML\EventManager.cpp" />
+    <ClCompile Include="..\..\src\SaltyEngine\SFML\Music.cpp" />
     <ClCompile Include="..\..\src\SaltyEngine\SFML\Renderer.cpp" />
     <ClCompile Include="..\..\src\SaltyEngine\SFML\Scene.cpp" />
+    <ClCompile Include="..\..\src\SaltyEngine\SFML\Sound.cpp" />
     <ClCompile Include="..\..\Tests\GUI\main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -180,13 +183,16 @@
     <ClInclude Include="..\..\include\SaltyEngine\GUI\Selectable.hpp" />
     <ClInclude Include="..\..\include\SaltyEngine\GUI\UIBehaviour.hpp" />
     <ClInclude Include="..\..\include\SaltyEngine\GUI\Widget.hpp" />
+    <ClInclude Include="..\..\include\SaltyEngine\SFML\AssetManager.hpp" />
     <ClInclude Include="..\..\include\SaltyEngine\SFML\BoxCollider2D.hpp" />
     <ClInclude Include="..\..\include\SaltyEngine\SFML\Button.hpp" />
     <ClInclude Include="..\..\include\SaltyEngine\SFML\EventManager.hpp" />
     <ClInclude Include="..\..\include\SaltyEngine\SFML\Graphics.hpp" />
+    <ClInclude Include="..\..\include\SaltyEngine\SFML\Music.hpp" />
     <ClInclude Include="..\..\include\SaltyEngine\SFML\Rect.hpp" />
     <ClInclude Include="..\..\include\SaltyEngine\SFML\Renderer.hpp" />
     <ClInclude Include="..\..\include\SaltyEngine\SFML\Scene.hpp" />
+    <ClInclude Include="..\..\include\SaltyEngine\SFML\Sound.hpp" />
     <ClInclude Include="..\..\include\SaltyEngine\SFML\Sprite.hpp" />
     <ClInclude Include="..\..\include\SaltyEngine\SFML\SpriteRenderer.hpp" />
     <ClInclude Include="..\..\include\SaltyEngine\SFML\Texture.hpp" />
