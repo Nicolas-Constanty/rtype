@@ -176,6 +176,14 @@ void RtypeRoomTCPConnection::onGetLAUNCHPackage(LAUNCHPackageRoom const &obj) {
     }
 }
 
+void RtypeRoomTCPConnection::onGetCHATPackage(CHATPackageRoom const &chatPackageRoom) {
+    if (roomService && chatPackageRoom.roomID == roomService->getID()) {
+        roomService->Broadcast(chatPackageRoom);
+    } else {
+        this->SendData(*roomPackageFactory.create<FAILUREPackageRoom>("no room to chat or bad id", RoomPurpose::ROOMCHAT));
+    }
+}
+
 void RtypeRoomTCPConnection::OnStart() {
     this->SendData(*(roomPackageFactory.create<AUTHENTICATEPackageRoom>(pseudo, id)));
     OnSendGetRooms();

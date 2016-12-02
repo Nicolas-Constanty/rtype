@@ -152,3 +152,16 @@ std::ostream &operator<<(std::ostream &ostream, DELETEPackageRoom const &deleteP
     ostream << "}";
     return (ostream);
 }
+
+std::ostream &operator<<(std::ostream &ostream, CHATPackageRoom const &chatPackageRoom) {
+    ostream << "CHATPackageRoom = {" << std::endl;
+
+    PackageRoomHeader const *header = dynamic_cast<PackageRoomHeader const *>(&chatPackageRoom);
+    if (header) {
+        ostream << *header;
+    }
+    ostream << "roomID=" << chatPackageRoom.roomID << std::endl;
+    ostream << "msg=" << chatPackageRoom.msg << std::endl;
+    ostream << "}";
+    return (ostream);
+}

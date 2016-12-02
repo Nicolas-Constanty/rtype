@@ -55,6 +55,7 @@ public:
     virtual void onGetGETPackage(GETPackageRoom const &);
     virtual void onGetFAILUREPackage(FAILUREPackageRoom const &);
     virtual void onGetLAUNCHPackage(LAUNCHPackageRoom const &);
+    virtual void onGetCHATPackage(CHATPackageRoom const &);
 
 private:
     RTypeProtocolRoomManager protocolRoomManager;

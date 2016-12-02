@@ -66,7 +66,10 @@ int main()
                                                                   (unsigned short)std::atoi(cmds[2].c_str()))));
             } else if (cmds[0] == "LAUNCH" && cmds.size() == 2) {
                 client.SendData(*(factory.create<LAUNCHPackageRoom>((unsigned short)std::atoi(cmds[1].c_str()))));
-            } else {
+            } else if (cmds[0] == "CHAT") {
+                client.SendData(*(factory.create<CHATPackageRoom>((unsigned short)std::atoi(cmds[1].c_str()), buffer)));
+            }
+            else {
                 std::cout << "unknown cmd" << std::endl;
             }
             std::cout << buffer << std::endl;

@@ -145,6 +145,11 @@ public:
         buff += sizeof(obj);
     }
 
+    virtual void onGetCHATPackage(CHATPackageRoom const &obj) {
+        std::cout << obj << std::endl;
+        buff += sizeof(obj);
+    }
+
 private:
     RoomPackageFactory factory;
 };
