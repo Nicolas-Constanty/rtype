@@ -63,10 +63,13 @@ void RtypeGameServerTCPConnection::onGetLAUNCHPackage(const LAUNCHPackageServer 
             SWAPPackageRoom *swapPackageRoom = packageFactory.create<SWAPPackageRoom>(obj.ip,
                                                                                       obj.port,
                                                                                       obj.secret);
+            (*it)->Broadcast(*swapPackageRoom);
 
-            for (RtypeRoomTCPConnection *roomTCPConnection : (*it)->getClients()) {
-                roomTCPConnection->SendData(*swapPackageRoom);
-            }
+            RoomPackageFactory roomPackageFactory;
+            (*it)->Close();
+            this->Broadcast<RtypeRoomTCPConnection>(*roomPackageFactory.create<DELETEPackageRoom>((*it)->getID()));
+            this->RemoveRoomService((*it).get());
+
             return ;
         }
         ++it;

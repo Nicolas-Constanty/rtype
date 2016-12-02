@@ -31,6 +31,7 @@ public:
 
 public:
     void Abort();
+    void Close();
 
 public:
     bool isLaunch() const;

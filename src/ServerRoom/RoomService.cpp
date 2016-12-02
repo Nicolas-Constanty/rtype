@@ -18,7 +18,7 @@ RoomService::RoomService(const std::string &name,
 }
 
 RoomService::~RoomService() {
-
+    std::cout << "\e[31m RoomService deleted name: " << name << "id:" << id << "\e[0m" << std::endl;
 }
 
 void RoomService::AddPlayer(RtypeRoomTCPConnection *roomTCPConnection) {
@@ -77,4 +77,10 @@ void RoomService::Abort() {
 
 unsigned int RoomService::getSecret() const {
     return (this->secret);
+}
+
+void RoomService::Close() {
+    for (RtypeRoomTCPConnection *roomTCPConnection : this->clientsList) {
+        roomTCPConnection->removeOnRoom();
+    }
 }

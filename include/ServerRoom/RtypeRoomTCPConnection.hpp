@@ -38,6 +38,9 @@ public:
     void        OnQUITEvent(bool canBroadcastGET);
 
 public:
+    void        removeOnRoom();
+
+public:
     unsigned int getID() const;
 
 public:

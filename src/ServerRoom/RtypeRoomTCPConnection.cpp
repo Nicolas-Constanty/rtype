@@ -203,3 +203,7 @@ unsigned int RtypeRoomTCPConnection::getID() const {
     return (id);
 }
 
+void RtypeRoomTCPConnection::removeOnRoom() {
+    roomService = NULL;
+}
+
