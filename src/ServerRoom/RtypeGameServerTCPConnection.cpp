@@ -65,10 +65,10 @@ void RtypeGameServerTCPConnection::onGetLAUNCHPackage(const LAUNCHPackageServer 
                                                                                       obj.secret);
             (*it)->Broadcast(*swapPackageRoom);
 
-            RoomPackageFactory roomPackageFactory;
-            (*it)->Close();
-            this->Broadcast<RtypeRoomTCPConnection>(*roomPackageFactory.create<DELETEPackageRoom>((*it)->getID()));
-            this->RemoveRoomService((*it).get());
+//            RoomPackageFactory roomPackageFactory;
+//            (*it)->Close();
+//            this->Broadcast<RtypeRoomTCPConnection>(*roomPackageFactory.create<DELETEPackageRoom>((*it)->getID()));
+//            this->RemoveRoomService((*it).get());
 
             return ;
         }
@@ -78,6 +78,23 @@ void RtypeGameServerTCPConnection::onGetLAUNCHPackage(const LAUNCHPackageServer 
 
 void RtypeGameServerTCPConnection::onGetSTATUSPackage(const STATUSPackageServer &obj) {
     std::cout << obj << std::endl;
+    std::list<std::unique_ptr<RoomService>>::iterator it = roomServiceList.begin();
+
+    if (obj.information == ServerInformation::SERVEROVER) {
+        while (it != roomServiceList.end()) {
+            if ((*it)->getSecret() == obj.secret && obj.secret != 0 && (*it)->isLaunch()) {
+                RoomPackageFactory roomPackageFactory;
+
+                (*it)->Close();
+                this->Broadcast<RtypeRoomTCPConnection>(*roomPackageFactory.create<DELETEPackageRoom>((*it)->getID()));
+                this->RemoveRoomService((*it).get());
+
+                return;
+            }
+            ++it;
+        }
+    }
+
 }
 
 unsigned short RtypeGameServerTCPConnection::getRoomNumberMax() const {
