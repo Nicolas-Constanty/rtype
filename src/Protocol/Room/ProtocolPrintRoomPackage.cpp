@@ -111,7 +111,8 @@ std::ostream &operator<<(std::ostream &ostream, GETPackageRoom const &getPackage
     ostream << "roomPlayerMax=" << getPackageRoom.roomPlayerMax << std::endl;
     ostream << "name=" << getPackageRoom.name << std::endl;
     ostream << "roomID=" << getPackageRoom.roomID << std::endl;
-    ostream << "mapID" << getPackageRoom.mapID << std::endl;
+    ostream << "mapID=" << getPackageRoom.mapID << std::endl;
+    ostream << "launch=" << std::boolalpha << getPackageRoom.launch << std::noboolalpha << std::endl;
     ostream << "}";
     return (ostream);
 }

@@ -65,6 +65,13 @@ void RtypeGameServerTCPConnection::onGetLAUNCHPackage(const LAUNCHPackageServer 
                                                                                       obj.secret);
             (*it)->Broadcast(*swapPackageRoom);
 
+            this->Broadcast<RtypeRoomTCPConnection>(*packageFactory.create<GETPackageRoom>((*it)->getClientNbr(),
+                                                                                           (*it)->getClientMaxNbr(),
+                                                                                           (*it)->getName(),
+                                                                                           (*it)->getID(),
+                                                                                           (*it)->getMapID(),
+                                                                                           (*it)->getLaunch()));
+
 //            RoomPackageFactory roomPackageFactory;
 //            (*it)->Close();
 //            this->Broadcast<RtypeRoomTCPConnection>(*roomPackageFactory.create<DELETEPackageRoom>((*it)->getID()));
