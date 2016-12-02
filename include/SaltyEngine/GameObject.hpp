@@ -123,12 +123,12 @@ namespace SaltyEngine
 		}
 
 		template<class T>
-		std::list<T> GetComponents()
+		std::list<T*> GetComponents()
 		{
-			std::list<T> list;
+			std::list<T*> list;
 			for (std::list<std::unique_ptr<Component>>::const_iterator it = m_components.begin(); it != m_components.end(); ++it)
 			{
-				SaltyBehaviour *tmp = dynamic_cast<T>((*it).get());
+				T *tmp = dynamic_cast<T*>((*it).get());
 				if (tmp)
 				{
 					list.push_back(tmp);

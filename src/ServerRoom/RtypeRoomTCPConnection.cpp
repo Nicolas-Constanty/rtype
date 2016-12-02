@@ -165,6 +165,9 @@ void RtypeRoomTCPConnection::onGetFAILUREPackage(FAILUREPackageRoom const &obj) 
 
 void RtypeRoomTCPConnection::onGetLAUNCHPackage(LAUNCHPackageRoom const &obj) {
     std::cout << obj << std::endl;
+    if (roomService && !roomService->isLaunch()) {
+        roomService->Launch();
+    }
 }
 
 void RtypeRoomTCPConnection::OnStart() {

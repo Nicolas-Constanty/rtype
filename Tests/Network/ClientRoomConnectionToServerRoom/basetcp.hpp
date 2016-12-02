@@ -102,7 +102,7 @@ public:
 public:
     virtual void onGetAUTHENTICATEPackage(AUTHENTICATEPackageRoom const &obj) {
         std::cout << obj << std::endl;
-        this->SendData(*(factory.create<CREATEPackageRoom>(0, 2, "koalas", 0, 1)));
+//        this->SendData(*(factory.create<CREATEPackageRoom>(0, 2, "koalas", 0, 1)));
         buff += sizeof(obj);
 //        this->SendData(*(factory.create<JOINPackageRoom>(1)));
     }

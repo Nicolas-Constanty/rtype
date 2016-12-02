@@ -25,9 +25,10 @@ public:
             return (this->purposeID == ServerID.purposeID && this->size == ServerID.size);
         }
 
-        bool operator=(ServerID const &ServerID) {
+        ServerID &operator=(ServerID const &ServerID) {
             this->size = ServerID.size;
             this->purposeID = ServerID.purposeID;
+            return (*this);
         }
 
         bool operator<(ServerID const &ServerID) const {

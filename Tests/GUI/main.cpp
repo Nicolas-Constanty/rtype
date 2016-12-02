@@ -17,22 +17,39 @@ const std::vector<std::string> RtypeFactory<Monster>::names = {
 	"Monster"
 };
 
-int main(int ac, char **av)
+#include "SaltyEngine/SFML/AssetManager.hpp"
+
+namespace SaltyEngine {
+    #define AssetManager SFML::AssetManager::Instance()
+}
+
+int main()
 {
-	(void)ac;
-	(void)av;
 	SaltyEngine::SFML::Renderer *renderer = new SaltyEngine::SFML::Renderer(sf::VideoMode(1280, 720), "R-Type Launcher");
 	SaltyEngine::SFML::EventManager *event_manager = new SaltyEngine::SFML::EventManager(renderer->GetRenderWindow());
 	// Set Renderer and EventManager
 	Singleton<SaltyEngine::SaltyEngine>::Instance().SetRenderer(renderer);
 	Singleton<SaltyEngine::SaltyEngine>::Instance().SetEventManager(event_manager);
 
-	SaltyEngine::SFML::Texture *texture = new SaltyEngine::SFML::Texture();
-	if (!texture->loadFromFile("../../Assets/Textures/Image.png"))
-	{
-		SaltyEngine::Debug::PrintError("Failed to load texture");
-		return (1);
-	}
+	SaltyEngine::GameObject *player = new SaltyEngine::GameObject("Player");
+    player->AddComponent<SaltyEngine::PlayerController>();
+
+//    auto m_components = player->GetComponents<SaltyEngine::Component>();
+//
+//    for (SaltyEngine::Component *toto: m_components) {
+//        auto aa = *toto;
+//        std::cout << typeid(*toto).name() << std::endl;
+//        auto titi = dynamic_cast<decltype(aa)>(toto);
+//        decltype(titi) *tata = new decltype(titi)(nullptr);
+//        std::cout << typeid(toto).name() << std::endl;
+//        std::cout << typeid(*toto).name() << std::endl;
+//        std::cout << typeid(tata).name() << std::endl;
+//        std::cout << typeid(*tata).name() << std::endl;
+//    }
+    ::SaltyEngine::AssetManager.LoadAssets();
+
+    SaltyEngine::SFML::Texture *texture = SaltyEngine::AssetManager.GetTexture("Image");
+
 	SaltyEngine::SFML::Rect *rect = new SaltyEngine::SFML::Rect(10, 10, 100, 100);
 	SaltyEngine::SFML::Sprite *spr = new SaltyEngine::SFML::Sprite(texture, rect);
 
@@ -53,6 +70,10 @@ int main(int ac, char **av)
 	monster2->AddComponent<SaltyEngine::SFML::BoxCollider2D>();
 	monster2->transform.position.x = 200;
 	monster2->transform.position.y = 200;
+
+    std::cout << "xx" << monster->GetComponent<MonsterController>() << std::endl;
+    std::cout << monster2->GetComponent<MonsterController>() << std::endl;
+
 	//*scene << player;
 	*scene << monster;
 	*scene << monster2;

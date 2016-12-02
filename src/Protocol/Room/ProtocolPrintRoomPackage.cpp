@@ -94,7 +94,7 @@ std::ostream &operator<<(std::ostream &ostream, SWAPPackageRoom const &swapPacka
         ostream << *header;
     }
     ostream << "addrIP=" << swapPackageRoom.addrIP << std::endl;
-    ostream << "userID=" << swapPackageRoom.port << std::endl;
+    ostream << "port=" << swapPackageRoom.port << std::endl;
     ostream << "secret=" << swapPackageRoom.secret << std::endl;
     ostream << "}";
     return (ostream);

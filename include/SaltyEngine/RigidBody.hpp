@@ -52,7 +52,7 @@ namespace SaltyEngine
 		inline T						GetGravityScale(void) const { return m_gravityScale; };
 		inline T						GetInertia(void) const { return m_inertia; };
 		inline bool						IsKinematic(void) const { return m_kinematic; };
-		inline T						GetMass(void) const { return  m_mass };
+		inline T						GetMass(void) const { return  m_mass; };
 		inline BaseVector2<T>			GetPosition(void) const { m_position; };
 		inline T						GetRotation(void) const { return m_rotation; };
 		inline BaseVector2<T>			GetVelocity(void) const { return m_velocity; };
@@ -67,7 +67,7 @@ namespace SaltyEngine
 		inline void SetFreezeRotation(bool freeze) { m_freezeRotation = freeze; };
 		inline void SetGravityScale(T gravity_scale) { m_gravityScale = gravity_scale; };
 		inline void SetInertia(T inertia) { m_inertia = inertia; };
-		inline void	SetKinematic(bool kinematic) { return m_kinematic; };
+		inline void	SetKinematic(bool kinematic) { m_kinematic = kinematic; };
 		inline void SetMass(T mass) { m_mass = mass; };
 		inline void SetPosition(const BaseVector2<T> &pos) { m_position = pos; };
 		inline void SetRotation(T rot) { m_rotation = rot; };
