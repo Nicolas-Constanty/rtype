@@ -11,6 +11,7 @@ a.out
 *.db
 *.opendb
 .idea/*
+*.dll
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
