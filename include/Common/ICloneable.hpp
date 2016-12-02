@@ -3,6 +3,7 @@
 #ifndef ICLONEABLE_HPP_
 #define ICLONEABLE_HPP_
 #include <memory>
+#include <SaltyEngine/Debug.hpp>
 
 template <class T>
 class ICloneable
@@ -21,8 +22,7 @@ public:
 	template <class U, typename ...Args>
 	T *CloneMemberwise(Args... args)
 	{
-		T *obj = dynamic_cast<T *>(new U(args...));
-		return obj;
+		return dynamic_cast<T *>(new U(args...));
 	};
 };
 

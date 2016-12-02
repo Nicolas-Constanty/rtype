@@ -23,7 +23,7 @@ private:
 			return NULL;
 
 		if (name == names[n])
-			return dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Object::Instantiate<std::tuple_element<n, std::tuple<Args...> >::type >(name));
+			return dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Object::Instantiate<typename std::tuple_element<n, std::tuple<Args...> >::type >(name));
 		return _create<n + 1 >= sizeof...(Args) ? 0 : n + 1>(name);
 	}
 };

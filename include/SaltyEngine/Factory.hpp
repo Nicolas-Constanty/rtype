@@ -8,6 +8,7 @@
 #include <map>
 #include "Common/MakeUnique.hpp"
 #include "SaltyEngine/Debug.hpp"
+#include "Common/ICloneable.hpp"
 
 namespace SaltyEngine
 {
@@ -24,15 +25,25 @@ namespace SaltyEngine
 
 	public:
 		template <class U, typename ...Args>
-		static Object  *Factory::Create(std::string const &name, Args... args) {
-		if (m_prefabs.find(name) == m_prefabs.end())
-		{
-			Debug::PrintError("Invalid prebab [" + name + "]");
-			return nullptr;
+		static Object  *Create(std::string const &name, Args... args) {
+			if (m_prefabs.find(name) == m_prefabs.end())
+			{
+				Debug::PrintError("Invalid prebab [" + name + "]");
+				return nullptr;
+			}
+			ICloneable<Object>	*prefab = dynamic_cast<ICloneable<Object>*>(m_prefabs[name]);
+			if (prefab == nullptr) {
+				Debug::PrintError("Failed to instantiate " + name);
+				return nullptr;
+			}
+			Object *obj = prefab->CloneMemberwise<U, Args...>(args...);
+			if (obj == nullptr) {
+				Debug::PrintError("Failed to instantiate " + name);
+				return nullptr;
+			}
+			m_objects.push_front(std::unique_ptr<Object>(obj));
+			return m_objects.front().get();
 		}
-        m_objects.push_front(std::unique_ptr<Object>(m_prefabs[name]->CloneMemberwise<U, Args...>(args...)));
-        return m_objects.front().get();
-    }
 
 		/**
 		 * \brief Retrieves all the object of a certain type in the factory

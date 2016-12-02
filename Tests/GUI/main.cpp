@@ -13,6 +13,7 @@
 #include "ClientLauncher/RtypeFactory.hpp"
 #include "Monster/Monster.hpp"
 
+template <>
 const std::vector<std::string> RtypeFactory<Monster>::names = {
 	"Monster"
 };
@@ -34,18 +35,6 @@ int main()
 	SaltyEngine::GameObject *player = new SaltyEngine::GameObject("Player");
     player->AddComponent<SaltyEngine::PlayerController>();
 
-//    auto m_components = player->GetComponents<SaltyEngine::Component>();
-//
-//    for (SaltyEngine::Component *toto: m_components) {
-//        auto aa = *toto;
-//        std::cout << typeid(*toto).name() << std::endl;
-//        auto titi = dynamic_cast<decltype(aa)>(toto);
-//        decltype(titi) *tata = new decltype(titi)(nullptr);
-//        std::cout << typeid(toto).name() << std::endl;
-//        std::cout << typeid(*toto).name() << std::endl;
-//        std::cout << typeid(tata).name() << std::endl;
-//        std::cout << typeid(*tata).name() << std::endl;
-//    }
     ::SaltyEngine::AssetManager.LoadAssets();
 
     SaltyEngine::SFML::Texture *texture = SaltyEngine::AssetManager.GetTexture("Image");

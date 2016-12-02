@@ -10,7 +10,7 @@
 #include <utility>
 #include "Vector2.hpp"
 #include "Common/ICloneable.hpp"
-#include "Factory.hpp"
+#include "SaltyEngine/Factory.hpp"
 
 namespace SaltyEngine
 {
