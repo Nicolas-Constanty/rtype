@@ -123,6 +123,7 @@ namespace SaltyEngine {
             WIN32_FIND_DATA findFileData;
 		    HANDLE hFind;
 
+//TODO check if folder exist else error
 		    hFind = FindFirstFile(folder.c_str(), &findFileData);
 
 		    while (hFind != INVALID_HANDLE_VALUE)
@@ -150,8 +151,7 @@ namespace SaltyEngine {
                 }
                 closedir(dir);
             } else {
-                /* could not open directory */
-                perror("");
+                Debug::PrintError("Cannnot open folder " + folder);
             }
 #endif
         return files;
