@@ -1,7 +1,12 @@
-#include "ClientLauncher/PlayerController.hpp"
+#include "SaltyEngine/SFML/SpriteRenderer.hpp"
+#include "SaltyEngine/SFML/AssetManager.hpp"
 #include "SaltyEngine/SFML/EventManager.hpp"
+#include "ClientLauncher/PlayerController.hpp"
 #include "SaltyEngine/Input/InputManager.hpp"
 //#include "SaltyEngine/SFML/BoxCollider2D.hpp"
+#include "ClientLauncher/Laser.hpp"
+#include "SaltyEngine/SaltyEngine.hpp"
+
 
 typedef SaltyEngine::Input::InputManager<SaltyEngine::SFML::EventManager>  InputKey;
 
@@ -51,8 +56,17 @@ namespace SaltyEngine
             gameObject->transform.Translate(Vector(h, v) * speed);
         }
 
-        if (InputKey::GetAction("Hello", Input::ActionType::Pressed)) {
-            std::cout << "hello" << std::endl;
+        if (InputKey::GetKey(Input::KeyCode::Space)) {
+
+			GameObject *laser = (GameObject*)::SaltyEngine::Instantiate("laser");
+			::SaltyEngine::SFML::Texture *texture = ::SaltyEngine::SFML::AssetManager::Instance().GetTexture("Laser");
+			::SaltyEngine::SFML::Rect *rect = new ::SaltyEngine::SFML::Rect(201, 154, 64, 14);
+			::SaltyEngine::SFML::Sprite *spr = new ::SaltyEngine::SFML::Sprite(texture, rect);
+			laser->AddComponent<Laser>();
+			laser->AddComponent<::SaltyEngine::SFML::SpriteRenderer>(spr, ::SaltyEngine::Layout::normal);
+			laser->AddComponent<::SaltyEngine::SFML::BoxCollider2D>();
+			laser->transform.position = gameObject->transform.position;
+			*Singleton<::SaltyEngine::SaltyEngine>::Instance().GetCurrentScene() << laser;
         }
 	}
 

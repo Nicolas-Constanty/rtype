@@ -5,7 +5,7 @@ namespace SaltyEngine
 	// DEFAULT, ERROR, SUCCESS, WARNING
 
 #if _WIN32
-	const WORD Debug::colors[] = { 0x07, 0x04, 0x02, 0x06, 0x01 };
+	const WORD Debug::colors[] = { 0x07, 0x04, 0x02, 0x06, 0x09 };
 #else
 	const char* const Debug::colors[] = { "\e[39m", "\e[31m", "\e[32m", "\e[33m", "\e[34m" };
 #endif

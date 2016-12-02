@@ -20,17 +20,19 @@ namespace SaltyEngine
     namespace Asset {
 #ifdef _WIN32
 		const std::string LIB_EXTENSION = ".dll";
-                typedef DllLoader ASSET_LOADER;
+        typedef DllLoader ASSET_LOADER;
+		const std::string	SEP = "\\";
 #else
 		const std::string LIB_EXTENSION = ".so";
 		typedef LibLoader ASSET_LOADER;
+		const std::string	SEP = "/";
 #endif
 
-		const std::string    ASSET_PATH = "Assets/";
-		const std::string    SOUNDS_PATH = ASSET_PATH + "Sounds/";
-		const std::string    TEXTURES_PATH = ASSET_PATH + "Textures/";
-		const std::string    FONTS_PATH = ASSET_PATH + "Fonts/";
-		const std::string    MONSTERS_PATH = ASSET_PATH + "Monsters/";
+		const std::string    ASSET_PATH = "Assets" + SEP;
+		const std::string    SOUNDS_PATH = ASSET_PATH + "Sounds" + SEP;
+		const std::string    TEXTURES_PATH = ASSET_PATH + "Textures" + SEP;
+		const std::string    FONTS_PATH = ASSET_PATH + "Fonts" + SEP;
+		const std::string    MONSTERS_PATH = ASSET_PATH + "Monsters" + SEP;
 
 		const std::string    SOUND_EXTENSION = ".ogg";
 		const std::string    TEXTURE_EXTENSION = ".png";

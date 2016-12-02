@@ -113,9 +113,11 @@ namespace SaltyEngine {
         }
 
     protected:
-        inline std::string getFullPath(std::string const &path) {
-            return cwd + path;
-        }
+		inline std::string getFullPath(std::string const &path)
+		{
+			Debug::PrintInfo(cwd + path);
+			return cwd + path;
+		}
 
         std::list<std::string>  getFilesInDir(const std::string &folder) {
             std::list<std::string>  files;
@@ -124,13 +126,11 @@ namespace SaltyEngine {
             WIN32_FIND_DATA findFileData;
 		    HANDLE hFind;
 
-			std::wstring s = std::wstring(folder.begin(), folder.end());
-		    hFind = FindFirstFile(s.c_str(), &findFileData);
-
+		    hFind = FindFirstFile(std::string(folder + "\\*").c_str(), &findFileData);
+			Debug::PrintInfo(folder);
 		    while (hFind != INVALID_HANDLE_VALUE)
 		    {
-				std::wstring fn = findFileData.cFileName;
-                std::string filename = std::string(fn.begin(), fn.end());
+                std::string filename = std::string(findFileData.cFileName);
                 if (filename != "."  && filename != "..") {
                     files.push_back(filename);
                 }

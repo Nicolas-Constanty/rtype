@@ -78,6 +78,9 @@
     <ClCompile Include="..\..\src\SaltyEngine\SFML\Sound.cpp">
       <Filter>Fichiers sources\SaltyEngine\SFML</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\ClientLauncher\Laser.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\SaltyEngine\GUI\IEventSystemHandler.hpp">
@@ -169,6 +172,9 @@
     </ClInclude>
     <ClInclude Include="..\..\include\SaltyEngine\SFML\Sound.hpp">
       <Filter>Fichiers d%27en-tête\SaltyEngine\SFML</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\ClientLauncher\Laser.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
