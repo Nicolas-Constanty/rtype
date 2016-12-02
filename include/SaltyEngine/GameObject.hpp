@@ -185,13 +185,11 @@ namespace SaltyEngine
 				GameObject	*obj = new GameObject(GetName() + "(Clone)");
 
 				obj->layer = layer;
+				obj->m_tag = m_tag;
 				obj->m_activeSelf = m_activeSelf;
-//                TODO copy m_behaviour
-				obj->m_behaviour = m_behaviour;
 				for (std::list<std::unique_ptr<Component>>::const_iterator it = m_components.begin(); it != m_components.end(); ++it) {
 					obj->AddComponent((*it)->CloneComponent(obj));
 				}
-				obj->m_tag = m_tag;
 				return std::unique_ptr<Object>(obj);
 			}
 	};
