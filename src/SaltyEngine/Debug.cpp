@@ -2,7 +2,7 @@
 
 namespace SaltyEngine
 {
-	// DEFAULT, ERROR, SUCCESS, WARNING, INFO
+	// DEFAULT, ERROR, SUCCESS, WARNING
 
 #if _WIN32
 	const WORD Debug::colors[] = { 0x07, 0x04, 0x02, 0x06, 0x09 };

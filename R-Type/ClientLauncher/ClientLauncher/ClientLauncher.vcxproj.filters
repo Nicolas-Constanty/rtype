@@ -27,6 +27,9 @@
     <ClCompile Include="..\..\..\src\SaltyEngine\SFML\Scene.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\SaltyEngine\SFML\AssetManager.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\ClientLauncher\PlayerController.hpp">
@@ -38,7 +41,7 @@
     <ClInclude Include="..\..\..\include\SaltyEngine\SFML\Scene.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\ClientLauncher\RtypeFactory.hpp">
+    <ClInclude Include="..\..\..\include\SaltyEngine\SFML\AssetManager.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>

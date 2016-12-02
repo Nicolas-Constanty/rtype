@@ -29,27 +29,27 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>NotSet</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>NotSet</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>NotSet</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>NotSet</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -76,7 +76,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>$(SolutionDir)..\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)..\Dependencies\SFML\Win\include</IncludePath>
-    <LibraryPath>$(SolutionDir)..\Dependencies\SFML\Win\x64\Debug;$(LibraryPath);$(SolutionDir)x64\Debug;$(SolutionDir)Monster\x64\Debug</LibraryPath>
+    <LibraryPath>$(SolutionDir)..\Dependencies\SFML\Win\x64\Debug;$(LibraryPath);$(SolutionDir)x64\Debug</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -88,8 +88,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -102,8 +101,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -112,14 +110,13 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Monster.obj;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-network-d.lib;sfml-system-d.lib;sfml-window-d.lib;SaltyEngine.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-audio-d.lib;sfml-graphics-d.lib;sfml-network-d.lib;sfml-system-d.lib;sfml-window-d.lib;SaltyEngine.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -136,8 +133,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -152,20 +148,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\ClientLauncher\Laser.cpp" />
     <ClCompile Include="..\..\src\SaltyEngine\GUI\UIBehaviour.cpp" />
     <ClCompile Include="..\..\src\ClientLauncher\PlayerController.cpp" />
     <ClCompile Include="..\..\src\SaltyEngine\Debug.cpp" />
     <ClCompile Include="..\..\src\SaltyEngine\GUI\Button.cpp" />
     <ClCompile Include="..\..\src\SaltyEngine\GUI\Event.cpp" />
     <ClCompile Include="..\..\src\SaltyEngine\GUI\Widget.cpp" />
+    <ClCompile Include="..\..\src\SaltyEngine\SFML\AssetManager.cpp" />
     <ClCompile Include="..\..\src\SaltyEngine\SFML\EventManager.cpp" />
+    <ClCompile Include="..\..\src\SaltyEngine\SFML\Music.cpp" />
     <ClCompile Include="..\..\src\SaltyEngine\SFML\Renderer.cpp" />
     <ClCompile Include="..\..\src\SaltyEngine\SFML\Scene.cpp" />
+    <ClCompile Include="..\..\src\SaltyEngine\SFML\Sound.cpp" />
     <ClCompile Include="..\..\Tests\GUI\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\ClientLauncher\Laser.hpp" />
     <ClInclude Include="..\..\include\ClientLauncher\PlayerController.hpp" />
-    <ClInclude Include="..\..\include\ClientLauncher\RtypeFactory.hpp" />
     <ClInclude Include="..\..\include\SaltyEngine\Debug.hpp" />
     <ClInclude Include="..\..\include\SaltyEngine\GUI\Button.hpp" />
     <ClInclude Include="..\..\include\SaltyEngine\GUI\Event.hpp" />
@@ -181,13 +181,16 @@
     <ClInclude Include="..\..\include\SaltyEngine\GUI\Selectable.hpp" />
     <ClInclude Include="..\..\include\SaltyEngine\GUI\UIBehaviour.hpp" />
     <ClInclude Include="..\..\include\SaltyEngine\GUI\Widget.hpp" />
+    <ClInclude Include="..\..\include\SaltyEngine\SFML\AssetManager.hpp" />
     <ClInclude Include="..\..\include\SaltyEngine\SFML\BoxCollider2D.hpp" />
     <ClInclude Include="..\..\include\SaltyEngine\SFML\Button.hpp" />
     <ClInclude Include="..\..\include\SaltyEngine\SFML\EventManager.hpp" />
     <ClInclude Include="..\..\include\SaltyEngine\SFML\Graphics.hpp" />
+    <ClInclude Include="..\..\include\SaltyEngine\SFML\Music.hpp" />
     <ClInclude Include="..\..\include\SaltyEngine\SFML\Rect.hpp" />
     <ClInclude Include="..\..\include\SaltyEngine\SFML\Renderer.hpp" />
     <ClInclude Include="..\..\include\SaltyEngine\SFML\Scene.hpp" />
+    <ClInclude Include="..\..\include\SaltyEngine\SFML\Sound.hpp" />
     <ClInclude Include="..\..\include\SaltyEngine\SFML\Sprite.hpp" />
     <ClInclude Include="..\..\include\SaltyEngine\SFML\SpriteRenderer.hpp" />
     <ClInclude Include="..\..\include\SaltyEngine\SFML\Texture.hpp" />

@@ -9,7 +9,7 @@
 #include <queue>
 #include <Network/Socket/UnixSocket.hpp>
 #elif _WIN32
-#include <queue>
+#include <c++/queue>
 #include <Network/Socket/WinSocket.hpp>
 #endif
 

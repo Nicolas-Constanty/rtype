@@ -11,6 +11,8 @@
 #include "SaltyEngine/ISound.hpp"
 #include "SaltyEngine/Texture.hpp"
 #include "SaltyEngine/Debug.hpp"
+#include "SaltyEngine/Constants.hpp"
+#include "SaltyEngine/Texture.hpp"
 
 #if _WIN32
 #include <direct.h>
@@ -19,7 +21,6 @@
 #include <dirent.h>
 #include <unistd.h>
 #include "Common/LibLoader.hpp"
-#include "SaltyEngine/Constants.hpp"
 #endif
 
 namespace SaltyEngine {
@@ -28,7 +29,7 @@ namespace SaltyEngine {
     protected:
         AAssetManager() {
             #if _WIN32
-                CHAR new *cwd = new char[256];
+                CHAR *cwd = new char[256];
                 _getcwd(cwd, 256);
                 this->cwd = std::string(cwd) + "\\";
             #else
@@ -112,9 +113,11 @@ namespace SaltyEngine {
         }
 
     protected:
-        inline std::string getFullPath(std::string const &path) {
-            return cwd + path;
-        }
+		inline std::string getFullPath(std::string const &path)
+		{
+			Debug::PrintInfo(cwd + path);
+			return cwd + path;
+		}
 
         std::list<std::string>  getFilesInDir(const std::string &folder) {
             std::list<std::string>  files;
@@ -123,16 +126,19 @@ namespace SaltyEngine {
             WIN32_FIND_DATA findFileData;
 		    HANDLE hFind;
 
-		    hFind = FindFirstFile(folder.c_str(), &findFileData);
-
+		    hFind = FindFirstFile(std::string(folder + "\\*").c_str(), &findFileData);
+			Debug::PrintInfo(folder);
 		    while (hFind != INVALID_HANDLE_VALUE)
 		    {
-                std::string filename = std::string(ent->d_name);
+                std::string filename = std::string(findFileData.cFileName);
                 if (filename != "."  && filename != "..") {
                     files.push_back(filename);
                 }
-    			if (FindNextFile(hFind, &findFileData) == FALSE)
-    				break;
+				if (FindNextFile(hFind, &findFileData) == FALSE)
+				{
+					Debug::PrintError("Cannnot open folder " + folder);
+					break;
+				}
     		}
     		FindClose(hFind);
 #else
@@ -150,8 +156,7 @@ namespace SaltyEngine {
                 }
                 closedir(dir);
             } else {
-                /* could not open directory */
-                perror("");
+                Debug::PrintError("Cannnot open folder " + folder);
             }
 #endif
         return files;

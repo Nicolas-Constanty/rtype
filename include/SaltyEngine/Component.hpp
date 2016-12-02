@@ -26,6 +26,10 @@ namespace SaltyEngine
 		std::string tag;
 		GameObject* const gameObject;
 
+		virtual Component *CloneComponent(GameObject* const obj) {
+			return new Component("Component", obj);
+		}
+
 //		template<class T>
 //		T GetComponent()
 //		{

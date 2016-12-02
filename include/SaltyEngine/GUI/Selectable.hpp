@@ -44,6 +44,11 @@ namespace SaltyEngine
 		public:
 			static std::list<Selectable> allSelectable;
 			bool interactable;
+
+		public:
+			virtual Component *CloneComponent(GameObject* const obj) {
+				return new Selectable(obj);
+			}
 		};
 	}
 }

@@ -78,6 +78,9 @@
     <ClCompile Include="..\..\..\src\SaltyEngine\RigidBody.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\SaltyEngine\AAssetManager.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\Common\Singleton.hpp">
@@ -124,6 +127,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\SaltyEngine\SaltyEngine.hpp">
       <Filter>Fichiers d%27en-tête\SaltyEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\Common\ICloneable.hpp">
       <Filter>Fichiers d%27en-tête\Common</Filter>
@@ -220,6 +226,15 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\SaltyEngine\DefaultScene.cpp">
       <Filter>Fichiers sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\SaltyEngine\AAssetManager.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\SaltyEngine\ISound.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\SaltyEngine\Constants.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

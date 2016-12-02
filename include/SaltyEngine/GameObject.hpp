@@ -76,6 +76,17 @@ namespace SaltyEngine
 			}
 			return (dynamic_cast<T *>(m_components.back().get()));
 		}
+		Component *AddComponent(Component *component)
+		{
+			m_components.push_back(std::unique_ptr<Component>(component));
+			SaltyBehaviour *tmp = dynamic_cast<SaltyBehaviour *>(m_components.back().get());
+			if (tmp)
+			{
+				++m_bcount;
+				m_behaviour.push_back(tmp);
+			}
+			return (dynamic_cast<Component *>(m_components.back().get()));
+		}
 		bool CompareTag(const std::string &tag) const;
 		template<class T>
 		T *GetComponent()
@@ -84,7 +95,7 @@ namespace SaltyEngine
 			{
 				if (dynamic_cast<T*>((*it).get()))
 				{
-					return (T*)(*it).get();
+					return (T*)((*it).get());
 				}
 			}
 			return (nullptr);
@@ -168,6 +179,18 @@ namespace SaltyEngine
 		public:
 			virtual std::unique_ptr<Object> Clone() {
 				return std::unique_ptr<Object>(new GameObject(GetName() + "(Clone)"));
+			}
+
+			virtual std::unique_ptr<Object> CloneMemberwise() {
+				GameObject	*obj = new GameObject(GetName() + "(Clone)");
+
+				obj->layer = layer;
+				obj->m_tag = m_tag;
+				obj->m_activeSelf = m_activeSelf;
+				for (std::list<std::unique_ptr<Component>>::const_iterator it = m_components.begin(); it != m_components.end(); ++it) {
+					obj->AddComponent((*it)->CloneComponent(obj));
+				}
+				return std::unique_ptr<Object>(obj);
 			}
 	};
 }

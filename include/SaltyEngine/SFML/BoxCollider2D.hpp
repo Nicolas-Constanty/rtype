@@ -3,7 +3,6 @@
 #ifndef BOXCOLLIDER2D_HPP_
 #define BOXCOLLIDER2D_HPP_
 
-#include <SFML/Graphics.hpp>
 #include "SaltyEngine/Collider.hpp"
 #include "SaltyEngine/SFML/Rect.hpp"
 #include "SaltyEngine/SFML/Renderer.hpp"
@@ -32,18 +31,22 @@ namespace SaltyEngine
 		public:
 			void Display(void) override
 			{
-				Sprite *spr = dynamic_cast<Sprite *>(gameObject->GetComponent<SpriteRenderer>()->GetSprite());
-				if (spr)
+				ASpriteRenderer<sf::Vector2i> *sprr = gameObject->GetComponent<ASpriteRenderer<sf::Vector2i>>();
+				if (sprr)
 				{
-					Rect *bounds = dynamic_cast<Rect *>(spr->GetBounds());
-					if (bounds)
+					Sprite *spr = dynamic_cast<Sprite *>(sprr->GetSprite());
+					if (spr)
 					{
-						m_bounds = bounds;
-						m_quad[0].position = sf::Vector2f((float)bounds->left, (float)bounds->top);
-						m_quad[1].position = sf::Vector2f((float)(bounds->left + bounds->width), (float)bounds->top);
-						m_quad[2].position = sf::Vector2f((float)(bounds->left + bounds->width), (float)(bounds->top + bounds->height));
-						m_quad[3].position = sf::Vector2f((float)bounds->left, (float)(bounds->top + bounds->height));
-						m_quad[4].position = sf::Vector2f((float)bounds->left, (float)bounds->top);
+						Rect *bounds = dynamic_cast<Rect *>(spr->GetBounds());
+						if (bounds)
+						{
+							m_bounds = bounds;
+							m_quad[0].position = sf::Vector2f((float)bounds->left, (float)bounds->top);
+							m_quad[1].position = sf::Vector2f((float)(bounds->left + bounds->width), (float)bounds->top);
+							m_quad[2].position = sf::Vector2f((float)(bounds->left + bounds->width), (float)(bounds->top + bounds->height));
+							m_quad[3].position = sf::Vector2f((float)bounds->left, (float)(bounds->top + bounds->height));
+							m_quad[4].position = sf::Vector2f((float)bounds->left, (float)bounds->top);
+						}
 					}
 				}
 			};
@@ -53,6 +56,11 @@ namespace SaltyEngine
 			{
 				return m_quad;
 			};
+
+		public:
+			virtual Component *CloneComponent(GameObject* const obj) {
+				return new BoxCollider2D(obj);
+			}
 		};
 	}
 }

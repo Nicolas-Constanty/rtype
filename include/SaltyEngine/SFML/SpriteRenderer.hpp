@@ -48,6 +48,11 @@ namespace SaltyEngine
 			{
 				return (m_window);
 			}
+
+		public:
+			virtual Component *CloneComponent(GameObject* const obj) {
+				return new SpriteRenderer(obj, (Sprite*)m_sprite, m_layer, (Window*)m_window);
+			}
 		};
 	}
 }

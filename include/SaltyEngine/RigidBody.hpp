@@ -76,6 +76,10 @@ namespace SaltyEngine
 	public:
 		void AddForce(const BaseVector2<T> &pos); // Apply a force to the rigidbody.
 		// void AddRelativeForce(const BaseVector2<T> &pos); //	Adds a force to the rigidbody2D relative to its coordinate system.
+
+		virtual Component *CloneComponent(GameObject* const obj) {
+			return new BaseRigidBody2D(obj);
+		}
 	};
 	typedef BaseRigidBody2D<float> RigidBody2D;
 }

@@ -17,6 +17,7 @@ namespace SaltyEngine
 
 		virtual ~Texture() {};
 		virtual T GetSize(void) const = 0;
+		virtual bool Create(unsigned int width, unsigned int height) = 0;
 
 	protected:
 		T	m_size;
