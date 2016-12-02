@@ -134,6 +134,7 @@ void RtypeGameServerTCPConnection::RemoveRoomService(RoomService *roomService) {
 
     while (it != roomServiceList.end()) {
         if ((*it).get() == roomService) {
+            (*it)->Close();
             this->roomServiceList.erase(it);
             return ;
         }

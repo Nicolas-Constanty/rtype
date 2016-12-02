@@ -88,3 +88,7 @@ void RoomService::Close() {
 bool RoomService::getLaunch() const {
     return launch;
 }
+
+RtypeGameServerTCPConnection *RoomService::getGameServer() const {
+    return (this->gameServerTCPConnection);
+}
