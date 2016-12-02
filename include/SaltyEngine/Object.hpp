@@ -10,14 +10,14 @@
 #include <utility>
 #include "Vector2.hpp"
 #include "Common/ICloneable.hpp"
-#include "SaltyEngine/Factory.hpp"
+#include "Factory.hpp"
 
 namespace SaltyEngine
 {
 	static std::string const Tag[] = { "NONE", "PLAYER", "ENEMY" };
 	typedef size_t uid;
 
-	class Object: public ICloneable<Object>
+	class Object: protected ICloneable<Object>
 	{
 	private:
 		static std::atomic<int> s_id;
@@ -40,15 +40,20 @@ namespace SaltyEngine
 
 	public:
 		static void Destroy(Object* original);
-
-		template <class U, typename ...Args>
-		static Object *Instantiate(std::string const& obj, Args... args)
+		static Object *Instantiate(std::string const& obj, Vector pos = Vector::zero(), double rot = 0)
 		{
-			return Factory::Create<U, Args...>(obj, args...);
+            (void)pos;
+            (void)rot;
+			return Factory::Create(obj);
 		}
 
 	public:
 		std::unique_ptr<Object> Clone() override
+		{
+			return (std::unique_ptr<Object>(new Object(m_name + "(Clone)")));
+        }
+
+		std::unique_ptr<Object> CloneMemberwise() override
 		{
 			return (std::unique_ptr<Object>(new Object(m_name + "(Clone)")));
         }

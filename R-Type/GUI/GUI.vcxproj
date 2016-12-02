@@ -76,7 +76,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>$(SolutionDir)..\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)..\Dependencies\SFML\Win\include</IncludePath>
-    <LibraryPath>$(SolutionDir)..\Dependencies\SFML\Win\x64\Debug;$(LibraryPath);$(SolutionDir)x64\Debug;$(SolutionDir)Monster\x64\Debug</LibraryPath>
+    <LibraryPath>$(SolutionDir)..\Dependencies\SFML\Win\x64\Debug;$(LibraryPath);$(SolutionDir)x64\Debug</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -112,7 +112,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Monster.obj;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-network-d.lib;sfml-system-d.lib;sfml-window-d.lib;SaltyEngine.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-audio-d.lib;sfml-graphics-d.lib;sfml-network-d.lib;sfml-system-d.lib;sfml-window-d.lib;SaltyEngine.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -165,7 +165,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\ClientLauncher\PlayerController.hpp" />
-    <ClInclude Include="..\..\include\ClientLauncher\RtypeFactory.hpp" />
     <ClInclude Include="..\..\include\SaltyEngine\Debug.hpp" />
     <ClInclude Include="..\..\include\SaltyEngine\GUI\Button.hpp" />
     <ClInclude Include="..\..\include\SaltyEngine\GUI\Event.hpp" />

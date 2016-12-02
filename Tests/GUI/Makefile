@@ -34,8 +34,6 @@ LDFLAGS	=   -lpthread -L$(PROJECT_DIR)/Dependencies/SFML/Linux/lib -lsfml-system
 
 LDFLAGS +=  -L ./ -lSaltyEngine -ldl
 
-LDFLAGS +=  ./Assets/Monsters/*.so
-
 OBJ		= 	$(SRC:.cpp=.o)
 
 $(NAME)	: 	$(OBJ)
