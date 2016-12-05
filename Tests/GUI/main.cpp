@@ -35,9 +35,9 @@ int main()
 	// Create Scene
 	SaltyEngine::SFML::Scene *scene = new SaltyEngine::SFML::Scene();
 
-	SaltyEngine::GameObject *player = new SaltyEngine::GameObject("Player");
-	player->AddComponent<SaltyEngine::PlayerController>();
-	player->AddComponent<SaltyEngine::SFML::SpriteRenderer>(spr, SaltyEngine::Layout::normal);
+	//SaltyEngine::GameObject *player = new SaltyEngine::GameObject("Player");
+	//player->AddComponent<SaltyEngine::PlayerController>();
+	//player->AddComponent<SaltyEngine::SFML::SpriteRenderer>(spr, SaltyEngine::Layout::normal);
 
 	/*SaltyEngine::GameObject *toto = (SaltyEngine::GameObject*)::SaltyEngine::Instantiate("Monster");
 	toto->AddComponent<SaltyEngine::SFML::BoxCollider2D>();*/
