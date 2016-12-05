@@ -152,7 +152,9 @@
     <ClCompile Include="..\..\..\src\SaltyEngine\SFML\AssetManager.cpp" />
     <ClCompile Include="..\..\..\src\Player\PlayerController.cpp" />
     <ClCompile Include="..\..\..\src\SaltyEngine\SFML\EventManager.cpp" />
+    <ClCompile Include="..\..\..\src\SaltyEngine\SFML\Music.cpp" />
     <ClCompile Include="..\..\..\src\SaltyEngine\SFML\Scene.cpp" />
+    <ClCompile Include="..\..\..\src\SaltyEngine\SFML\Sound.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\ClientLauncher\PlayerController.hpp" />
