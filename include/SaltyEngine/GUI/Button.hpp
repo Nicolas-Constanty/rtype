@@ -32,6 +32,11 @@ namespace SaltyEngine
 
 		public:
 			Event onClick;
+
+		public:
+			virtual Component *CloneComponent(GameObject* const obj) {
+				return new Button(obj);
+			}
 		};
 	}
 }

@@ -61,8 +61,11 @@ file(GLOB Commonsrc src/Common/*.cpp)
 file(GLOB Protocolsrc src/Protocol/*.cpp src/Protocol/*/*.cpp)
 file(GLOB Protocolinc include/Protocol/*.hpp include/Protocol/*/*.hpp)
 
-file(GLOB SaltyEnginesrc src/SaltyEngine/*.cpp src/SaltyEngine/GUI/*.cpp src/SaltyEngine/Input/*.cpp src/SaltyEngine/SFML/*.cpp src/Monster/*.cpp src/ClientLauncher/*.cpp)
-file(GLOB SaltyEngineinc include/SaltyEngine/*.hpp include/SaltyEngine/GUI/*.hpp include/SaltyEngine/Input/*.hpp include/SaltyEngine/SFML/*.hpp include/Monster/*.hpp include/ClientLauncher/*.hpp)
+file(GLOB SaltyEnginesrc src/SaltyEngine/*.cpp src/SaltyEngine/GUI/*.cpp src/SaltyEngine/Input/*.cpp)
+file(GLOB SaltyEngineinc include/SaltyEngine/*.hpp include/SaltyEngine/GUI/*.hpp include/SaltyEngine/Input/*.hpp)
+
+file(GLOB SFMLsrc src/SaltyEngine/SFML/*.cpp)
+file(GLOB SFMLinc include/SaltyEngine/SFML/*.hpp)
 
 file(GLOB srcGameServ src/ServerGame/*.cpp)
 file(GLOB incGameServ include/ServerGame/*.hpp)
@@ -82,7 +85,7 @@ add_executable(rtype-server
         ${SaltyEnginesrc} ${SaltyEngineinc})
 
 add_executable(udpserv-1 ${Networksrc} ${Networkinc} Tests/Network/udpserv-1.cpp Tests/Network/baseudp.hpp)
-add_executable(tcpserv-1 ${Networksrc} ${Networkinc} Tests/Network/tcpserv-1.cpp Tests/Network/basetcp.hpp)
+add_executable(tcpserv-1 ${Networksrc} ${Networkinc} Tests/Network/tcpserv-1.cpp Tests/Network/ClientRoomConnectionToServerRoom/basetcp.hpp)
 add_executable(udpserv-2 ${Networksrc} ${Networkinc} Tests/Network/udpserv-2.cpp Tests/Network/baseudp.hpp)
 add_executable(udpclient-1 ${Networksrc} ${Networkinc} Tests/Network/udpclient-1.cpp Tests/Network/baseudp.hpp)
 add_executable(gameserv-1
@@ -92,7 +95,8 @@ add_executable(gameserv-1
         ${srcGameServ} ${incGameServ}
         ${Protocolsrc} ${Protocolinc}
         Tests/GameServer/gameserv-1.cpp)
-add_executable(tcpclient-1 ${Networksrc} ${Networkinc} ${Protocolinc} ${Protocolsrc} Tests/Network/tcpclient-1.cpp Tests/Network/basetcp.hpp)
+add_executable(clientRoomTCPClient ${Networksrc} ${Networkinc} ${Protocolinc} ${Protocolsrc} Tests/Network/ClientRoomConnectionToServerRoom/tcpclient-1.cpp Tests/Network/ClientRoomConnectionToServerRoom/basetcp.hpp)
+add_executable(serverGameTCPClient ${Networksrc} ${Networkinc} ${Protocolinc} ${Protocolsrc} Tests/Network/ServerGameConnectionToServerRoom/serverGameTCP.cpp Tests/Network/ServerGameConnectionToServerRoom/serverGameClient.hpp)
 
 add_executable(serverRoom
         ${Networksrc} ${Networkinc}
@@ -101,9 +105,29 @@ add_executable(serverRoom
         ${serverRoomsrc} ${serverRoominc}
         src/ServerRoom/main.cpp)
 
+add_executable(gameserv-2
+        ${Networksrc} ${Networkinc}
+        ${Commonsrc} ${Commoninc}
+        ${Protocolsrc} ${Protocolinc}
+        ${SaltyEnginesrc} ${SaltyEngineinc}
+        ${srcGameServ} ${incGameServ}
+        Tests/GameServer/gameserv-2.cpp)
+
+add_executable(gameclient-1
+        ${Networksrc} ${Networkinc}
+        ${Commoninc} ${Commonsrc}
+        ${Protocolsrc} ${Protocolinc}
+        ${SaltyEnginesrc} ${SaltyEngineinc}
+        ${srcGameServ} ${incGameServ}
+        Tests/GameServer/gameclient-1.cpp)
+
+add_executable(udp-reception-status include/Network/UDP/ReceptionStatus.hpp Tests/Network/udpreception-status.cpp)
+
 #add_executable(toto Tests/SaltyEngine/main.cpp) #for color
 
 target_link_libraries(gameserv-1 -ldl)
+target_link_libraries(gameserv-2 -ldl)
+target_link_libraries(gameclient-1 -ldl)
 target_link_libraries(serverRoom -ldl)
 
 IF(${CMAKE_SYSTEM_NAME} MATCHES "Windows")

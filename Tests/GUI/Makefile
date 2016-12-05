@@ -14,21 +14,25 @@ SALTYENGINE_DIR         =   $(SRC_DIR)/SaltyEngine
 COMMON_DIR              =   $(SRC_DIR)/Common
 MONSTER_DIR             =   $(SRC_DIR)/Monster
 CLIENT_DIR              =   $(SRC_DIR)/ClientLauncher
-SFML_DIR              =   $(SALTYENGINE_DIR)/SFML
+SFML_DIR                =   $(SALTYENGINE_DIR)/SFML
 
-SRC		= 	main.cpp    \
+SRC		= 	$(SALTYENGINE_DIR)/SFML/AssetManager.cpp    \
+            $(SALTYENGINE_DIR)/SFML/EventManager.cpp    \
+            $(SALTYENGINE_DIR)/SFML/Music.cpp           \
+            $(SALTYENGINE_DIR)/SFML/Renderer.cpp        \
+            $(SALTYENGINE_DIR)/SFML/Scene.cpp           \
+            $(SALTYENGINE_DIR)/SFML/Sound.cpp           \
             $(CLIENT_DIR)/PlayerController.cpp      \
             $(MONSTER_DIR)/MonsterController.cpp    \
-		$(SFML_DIR)/Renderer.cpp		\
-		$(SFML_DIR)/EventManager.cpp		\
+            main.cpp                                \
 
 CPPFLAGS 	=   -W -Wall -g -Wextra -std=c++11 -fPIC
 
 CPPFLAGS    +=  -I $(INC_DIR) -I$(PROJECT_DIR)/Dependencies/SFML/Linux/include
 
-LDFLAGS	=   -lpthread -L$(PROJECT_DIR)/Dependencies/SFML/Linux/lib -lsfml-graphics -lsfml-window -lsfml-system -Wl,-rpath=$(PROJECT_DIR)/Dependencies/SFML/Linux/lib
+LDFLAGS	=   -lpthread -L$(PROJECT_DIR)/Dependencies/SFML/Linux/lib -lsfml-system -lsfml-window -lsfml-graphics -lsfml-audio -Wl,-rpath=$(PROJECT_DIR)/Dependencies/SFML/Linux/lib
 
-LDFLAGS +=  $(PROJECT_DIR)/R-Type/SaltyEngine/libSaltyEngine.a -ldl
+LDFLAGS +=  -L ./ -lSaltyEngine -ldl
 
 OBJ		= 	$(SRC:.cpp=.o)
 

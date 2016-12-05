@@ -7,6 +7,8 @@
 #include "Constants.hpp"
 #include "SaltyEngine/ASpriteRenderer.hpp"
 #include "Debug.hpp"
+#include "SaltyEngine/GameObject.hpp"
+#include "SaltyEngine/SaltyEngine.hpp"
 
 namespace SaltyEngine
 {
@@ -292,6 +294,11 @@ namespace SaltyEngine
         void FixedUpdate()
 		{
 			UpdateAnimations();
+		}
+
+	public:
+		virtual Component *CloneComponent(GameObject* const obj) {
+			return new Animation<T>(obj, m_playAuto, m_wrapMode);
 		}
 	};
 }

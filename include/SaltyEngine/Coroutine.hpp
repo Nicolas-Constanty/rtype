@@ -130,6 +130,7 @@ namespace coroutine {
 
 	inline void __stdcall entry(LPVOID lpParameter)
 	{
+		(void)lpParameter;
 		routine_t id = Singleton<Ordinator>::Instance().current;
 		Routine *routine = Singleton<Ordinator>::Instance().routines[id - 1];
 		assert(routine != nullptr);

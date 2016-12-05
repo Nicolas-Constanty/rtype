@@ -82,6 +82,10 @@ namespace Network
         public:
             virtual bool operator==(ISocket const &ref) const = 0;
             virtual ISocket &operator=(ISocket const &ref) = 0;
+
+        public:
+            virtual unsigned int getIP() const = 0;
+            virtual unsigned int getPort() const = 0;
         };
     }
 }

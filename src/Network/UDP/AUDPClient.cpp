@@ -104,4 +104,10 @@ void Network::UDP::AUDPClient::Connect(std::string const &ip, const uint16_t por
 {
     sock.Open();
     sock.Talk(ip, port);
+    OnStart();
+}
+
+void Network::UDP::AUDPClient::setServer(Network::Core::BasicConnection *server)
+{
+    serverStream = server;
 }

@@ -23,8 +23,10 @@ namespace SaltyEngine
 
 			~Widget();
 
-		private:
-
+		public:
+			virtual Component *CloneComponent(GameObject* const obj) {
+				return new Widget(obj);
+			}
 		};
 	}
 }

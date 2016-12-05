@@ -7,6 +7,7 @@
 #include "Protocol/Server/ProtocolPrintServerPackage.hpp"
 #include "Protocol/Room/RoomPackageFactory.hpp"
 #include "ServerRoom/RtypeRoomTCPConnection.hpp"
+#include "ServerRoom/RtypeGameServerTCPConnection.hpp"
 #include "Protocol/Server/ServerPackageFactory.hpp"
 
 DefaultTCPConnection::DefaultTCPConnection(Network::Core::NativeSocketIOOperationDispatcher &dispatcher)
@@ -32,6 +33,7 @@ void DefaultTCPConnection::OnDataReceived(unsigned int)
     if ((!protocolServerManager.handleProtocol(buff.buff(), buff.getLength()))) {
         if ((!protocolRoomManager.handleProtocol(buff.buff(), buff.getLength()))) {
             std::cout << "unknown command" << std::endl;
+            Disconnect();
         }
     }
 }
@@ -59,6 +61,14 @@ void DefaultTCPConnection::onGetFAILUREPackage(FAILUREPackageRoom const &failure
 
 void DefaultTCPConnection::onGetAUTHENTICATEPackage(AUTHENTICATEPackageServer const &authenticatePackageServer) {
     std::cout << authenticatePackageServer << std::endl;
+
+    static unsigned int userID = 1;
+
+    RtypeGameServerTCPConnection *newc = new RtypeGameServerTCPConnection(*this, userID, authenticatePackageServer.roomNumber);
+    clients->Move(this, newc);
+    newc->WantReceive();
+    newc->OnStart();
+    ++userID;
 }
 
 void DefaultTCPConnection::OnStart() {

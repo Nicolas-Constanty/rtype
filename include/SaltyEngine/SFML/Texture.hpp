@@ -38,6 +38,11 @@ namespace SaltyEngine
 				return (m_filename);
 			}
 
+			bool Create(unsigned int width, unsigned int height) override
+			{
+				return create(width, height);
+			}
+
 		protected:
 			sf::Vector2i	m_size;
 			std::string		m_filename;

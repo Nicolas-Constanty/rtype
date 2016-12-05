@@ -60,9 +60,8 @@ Network::Core::NetBuffer &Network::Core::NetBuffer::operator+=(const Network::Co
 {
     if (length + ref.length > NetBuffer::size)
         return *this;
-    memmove(data, buff(), length);
-    index = 0;
-    memcpy(buff(), ref.buff(), ref.length);
+    consume();
+    memcpy(&data[length], ref.buff(), ref.length);
     length += ref.length;
     return *this;
 }
@@ -140,6 +139,12 @@ bool Network::Core::NetBuffer::isFull()
 size_t Network::Core::NetBuffer::getAvailableSpace() const
 {
     return NetBuffer::size - length;
+}
+
+void Network::Core::NetBuffer::consume()
+{
+    memmove(data, buff(), length);
+    index = 0;
 }
 
 /**

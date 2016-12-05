@@ -17,6 +17,11 @@ namespace SaltyEngine
 			UIBehaviour(const std::string & name, GameObject * const gameObj);
 			virtual ~UIBehaviour() {};
 			bool IsActive() const;
+
+		public:
+			virtual Component *CloneComponent(GameObject* const obj) {
+				return new UIBehaviour(obj);
+			}
 		};
 	}
 }

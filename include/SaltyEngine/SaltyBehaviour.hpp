@@ -7,6 +7,7 @@
 #include <vector>
 #include "SaltyEngine/Coroutine.hpp"
 #include "SaltyEngine/Behaviour.hpp"
+#include "ICollider.hpp"
 
 namespace SaltyEngine
 {
@@ -47,13 +48,13 @@ namespace SaltyEngine
 
 		virtual void FixedUpdate() {};
 
-		virtual void OnTriggerEnter() {};
-		virtual void OnTriggerExit() {};
-		virtual void OnTriggerStay() {};
+		virtual void OnTriggerEnter(ICollider *) {};
+		virtual void OnTriggerExit(ICollider *) {};
+		virtual void OnTriggerStay(ICollider *) {};
 
-		virtual void OnCollisionEnter() {};
-		virtual void OnCollisionExit() {};
-		virtual void OnCollisionStay() {};
+		virtual void OnCollisionEnter(ICollider *) {};
+		virtual void OnCollisionExit(ICollider *) {};
+		virtual void OnCollisionStay(ICollider *) {};
 
 		virtual void OnMouseEnter() {};
 		virtual void OnMouseExit() {};
@@ -66,6 +67,11 @@ namespace SaltyEngine
 	private:
 		bool					m_status;
 		std::mutex				m_mutex;
+
+	public:
+		virtual Component *CloneComponent(GameObject* const obj) {
+			return new SaltyBehaviour(obj);
+		}
 	};
 }
 

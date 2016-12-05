@@ -19,6 +19,7 @@ namespace SaltyEngine
 				m_window->clear();
 				DrawGame(GetSprites());
 				DrawGUI(GetSprites());
+				DrawDebug();
 				m_window->display();
 			}
 			else
@@ -28,6 +29,15 @@ namespace SaltyEngine
 		sf::RenderWindow * Renderer::GetRenderWindow(void) const
 		{
 			return m_window.get();
+		}
+
+		void Renderer::DrawDebug() const
+		{
+			for (std::list<BoxCollider2D *>::const_iterator it = m_debug.begin(); it != m_debug.end(); it++)
+			{
+				(*it)->Display();
+				m_window->draw((*it)->GetVertex());
+			}
 		}
 
 		void Renderer::DrawGame(const SpriteMap &sprite_map) const
@@ -55,8 +65,14 @@ namespace SaltyEngine
 					Sprite *s = dynamic_cast<Sprite *>((*sprr)->GetSprite());
 					if (s != nullptr)
 					{
-						s->setPosition((*sprr)->gameObject->transform.position.x, (*sprr)->gameObject->transform.position.y);
-						m_window->draw(*s);
+						Rect *rect = dynamic_cast<Rect *>((*sprr)->gameObject->GetComponent<SpriteRenderer>()->GetSprite()->GetRect());
+						if (rect)
+						{
+							s->setPosition(
+								(*sprr)->gameObject->transform.position.x - (rect->width / 2),
+								(*sprr)->gameObject->transform.position.y - (rect->height / 2));
+							m_window->draw(*s);
+						}
 					}
 				}
 			}
@@ -66,10 +82,16 @@ namespace SaltyEngine
 		{
 			if (m_spriteRenderers.find(sprr->GetLayer()) == m_spriteRenderers.end())
 				m_spriteRenderers.emplace(std::make_pair(sprr->GetLayer(), SpriteList()));
-			m_spriteRenderers.at(sprr->GetLayer()).push_back(std::unique_ptr<SpriteRenderer>(sprr));
+			m_spriteRenderers.at(sprr->GetLayer()).push_back(sprr);
+		}
+
+		void Renderer::AddDebug(BoxCollider2D *box)
+		{
+			m_debug.push_back(box);
 		}
 
 		Renderer::SpriteMap  Renderer::m_spriteRenderers = {};
+		std::list<BoxCollider2D *> Renderer::m_debug = {};
 	}
 }
 

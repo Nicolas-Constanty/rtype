@@ -11,5 +11,10 @@ public:
 public:
 	void Start();
 	void Update();
+
+public:
+	virtual SaltyEngine::Component *CloneComponent(SaltyEngine::GameObject* const obj) {
+		return new MonsterController(obj);
+	}
 };
 

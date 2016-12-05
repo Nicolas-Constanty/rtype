@@ -25,9 +25,10 @@ public:
             return (this->purposeID == RoomID.purposeID && this->size == RoomID.size);
         }
 
-        bool operator=(RoomID const &RoomID) {
+        RoomID &operator=(RoomID const &RoomID) {
             this->size = RoomID.size;
             this->purposeID = RoomID.purposeID;
+            return (*this);
         }
 
         bool operator<(RoomID const &RoomID) const {
@@ -45,6 +46,8 @@ public:
     static const RoomID SWAPID;
     static const RoomID QUITID;
     static const RoomID LAUNCHID;
+    static const RoomID DELETEID;
+    static const RoomID CHATID;
 
 public:
     typedef void (IProtocolRoomHandler::*MFP)(PackageRoomHeader const &);

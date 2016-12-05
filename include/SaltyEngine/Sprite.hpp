@@ -39,10 +39,17 @@ namespace SaltyEngine
 			return m_rect;
 		}
 
+		Texture<T>* GetTexture(void) const
+		{
+			return m_texture;
+		}
+
 		virtual void SetRect(IRect<T>* const rect)
 		{
 			m_rect = rect;
 		}
+
+		virtual IRect<T> *GetBounds() const = 0;
 	};
 }
 

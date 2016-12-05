@@ -74,7 +74,7 @@ public:
     virtual void OnDataReceived(unsigned int len)
     {
         std::cout << "Receiving " << buff << std::endl;
-        if (!protocolRoomManager.handleProtocol(buff.buff(), buff.getLength())) {
+        while (protocolRoomManager.handleProtocol(buff.buff(), buff.getLength())) {
             std::cout << "unknown cmd" << std::endl;
         }
 //        if (buff.toString() == "change\n")
@@ -102,30 +102,52 @@ public:
 public:
     virtual void onGetAUTHENTICATEPackage(AUTHENTICATEPackageRoom const &obj) {
         std::cout << obj << std::endl;
+//        this->SendData(*(factory.create<CREATEPackageRoom>(0, 2, "koalas", 0, 1)));
+        buff += sizeof(obj);
+//        this->SendData(*(factory.create<JOINPackageRoom>(1)));
     }
+
     virtual void onGetCREATEPackage(CREATEPackageRoom const &obj) {
         std::cout << obj << std::endl;
+        buff += sizeof(obj);
     }
     virtual void onGetJOINPackage(JOINPackageRoom const &obj) {
         std::cout << obj << std::endl;
+        buff += sizeof(obj);
     }
     virtual void onGetQUITPackage(QUITPackageRoom const &obj) {
         std::cout << obj << std::endl;
+        buff += sizeof(obj);
     }
     virtual void onGetPLUGGEDPackage(PLUGGEDPackageRoom const &obj) {
         std::cout << obj << std::endl;
+        buff += sizeof(obj);
     }
     virtual void onGetSWAPPackage(SWAPPackageRoom const &obj) {
         std::cout << obj << std::endl;
+        buff += sizeof(obj);
     }
     virtual void onGetGETPackage(GETPackageRoom const &obj) {
         std::cout << obj << std::endl;
+        buff += sizeof(obj);
     }
     virtual void onGetFAILUREPackage(FAILUREPackageRoom const &obj) {
         std::cout << obj << std::endl;
+        buff += sizeof(obj);
     }
     virtual void onGetLAUNCHPackage(LAUNCHPackageRoom const &obj) {
         std::cout << obj << std::endl;
+        buff += sizeof(obj);
+    }
+
+    virtual void onGetDELETEPackage(DELETEPackageRoom const &obj) {
+        std::cout << obj << std::endl;
+        buff += sizeof(obj);
+    }
+
+    virtual void onGetCHATPackage(CHATPackageRoom const &obj) {
+        std::cout << obj << std::endl;
+        buff += sizeof(obj);
     }
 
 private:

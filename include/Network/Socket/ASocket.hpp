@@ -97,6 +97,10 @@ namespace Network
             virtual bool operator==(ISocket const &ref) const;
 
         public:
+            virtual unsigned int getIP() const;
+            virtual unsigned int getPort() const;
+
+        public:
             void print(std::ostream &output = std::cout) const;
 
         protected:

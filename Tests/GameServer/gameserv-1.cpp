@@ -13,7 +13,7 @@ int main()
     // Create player
     SaltyEngine::GameObject *serverGame = new SaltyEngine::GameObject("Server");
 
-    serverGame->AddComponent<RtypeGameServer>();
+    serverGame->AddComponent<Rtype::RtypeGameServer>();
 
     *scene << serverGame;
 

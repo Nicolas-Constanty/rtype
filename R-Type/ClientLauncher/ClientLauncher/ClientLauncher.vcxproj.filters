@@ -24,12 +24,24 @@
     <ClCompile Include="..\..\..\src\Player\PlayerController.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\SaltyEngine\SFML\Scene.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\SaltyEngine\SFML\AssetManager.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\ClientLauncher\PlayerController.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\SaltyEngine\SFML\EventManager.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\SaltyEngine\SFML\Scene.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\SaltyEngine\SFML\AssetManager.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>

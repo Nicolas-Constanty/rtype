@@ -3,6 +3,7 @@
 #include "SaltyEngine/GameObject.hpp"
 #include "Player/PlayerController.hpp"
 #include "SaltyEngine/Input.hpp"
+#include "SaltyEngine/SFML/Scene.hpp"
 
 #define GAME2D
 
@@ -11,7 +12,7 @@ int main()
 	Singleton<SaltyEngine::SaltyEngine>::Instance();
 	
 	// Create Scene
-	SaltyEngine::Scene *scene(new SaltyEngine::Scene());
+	SaltyEngine::SFML::Scene *scene = new SaltyEngine::SFML::Scene();
 
 	SaltyEngine::GameObject *player = new SaltyEngine::GameObject("Player");
 

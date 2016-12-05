@@ -17,20 +17,27 @@
  */
 namespace SaltyEngine
 {
-    namespace Asset
-    {
-        /**
-         * \var Library extension
-         */
+    namespace Asset {
 #ifdef _WIN32
-        const std::string LIB_EXTENSION = ".dll";
+		const std::string LIB_EXTENSION = ".dll";
         typedef DllLoader ASSET_LOADER;
+		const std::string	SEP = "\\";
 #else
-        const std::string LIB_EXTENSION = ".so";
-        typedef LibLoader ASSET_LOADER;
+		const std::string LIB_EXTENSION = ".so";
+		typedef LibLoader ASSET_LOADER;
+		const std::string	SEP = "/";
 #endif
 
-        const std::string ASSET_PATH = "/Assets";
+		const std::string    ASSET_PATH = "Assets" + SEP;
+		const std::string    SOUNDS_PATH = ASSET_PATH + "Sounds" + SEP;
+		const std::string    TEXTURES_PATH = ASSET_PATH + "Textures" + SEP;
+		const std::string    FONTS_PATH = ASSET_PATH + "Fonts" + SEP;
+		const std::string    MONSTERS_PATH = ASSET_PATH + "Monsters" + SEP;
+
+		const std::string    SOUND_EXTENSION = ".ogg";
+		const std::string    TEXTURE_EXTENSION = ".png";
+		const std::string    FONT_EXTENSION = ".ttf";
+		const std::string    MONSTER_EXTENSION = LIB_EXTENSION;
     }
 
 	namespace AnimationConstants

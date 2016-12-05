@@ -1,7 +1,8 @@
+#include <SaltyEngine/Debug.hpp>
 #include "SaltyEngine/Constants.hpp"
 #include "SaltyEngine/Factory.hpp"
-#include "SaltyEngine/Object.hpp"
 #include "SaltyEngine/GameObject.hpp"
+#include "SaltyEngine/Object.hpp"
 
 namespace SaltyEngine {
 
@@ -12,11 +13,12 @@ namespace SaltyEngine {
     }
 
     Object  *Factory::Create(std::string const &name) {
-		if (m_prefabs.find(name) == m_prefabs.end())
-		{
-			return nullptr;
-		}
-        m_objects.push_front(m_prefabs[name]->CloneMemberwise());
+		if (m_prefabs.find(name) == m_prefabs.end()) {
+            Debug::PrintWarning("Cannot find prefab " + name + " creating empty gameObject");
+            m_objects.push_front(Make_unique<GameObject>(name));
+		} else {
+            m_objects.push_front(m_prefabs[name]->CloneMemberwise());
+        }
         return m_objects.front().get();
     }
 

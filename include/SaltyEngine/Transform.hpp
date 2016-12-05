@@ -86,6 +86,11 @@ namespace SaltyEngine
 	private:
 		BaseTransform<T>					*m_parent;
 		std::vector<BaseTransform<T> *>		m_children;
+
+	public:
+		virtual Component *CloneComponent(GameObject* const obj) {
+			return new BaseTransform<T>(obj);
+		}
 	};
 }
 
