@@ -15,10 +15,10 @@ namespace Rtype
     {
         namespace Server
         {
-            class RtypeGameServer : public Network::UDP::AUDPServer<Rtype::Game::Server::RtypeServerGameClient>, public SaltyEngine::SaltyBehaviour
+            class RtypeGameServer : public Network::UDP::AUDPServer<Rtype::Game::Server::RtypeServerGameClient>
             {
             public:
-                RtypeGameServer(SaltyEngine::GameObject *obj, const uint16_t port = 4242, const int maxSize = 4);
+                RtypeGameServer(Network::Core::NativeSocketIOOperationDispatcher &dispatcher, const int maxSize = 4);
                 RtypeGameServer(RtypeGameServer const &ref) = delete;
                 virtual ~RtypeGameServer();
 
@@ -30,10 +30,6 @@ namespace Rtype
                 virtual void OnReadCheck();
 
             public:
-                void Start();
-                void Update();
-
-            public:
                 void setSecret(uint32_t secret);
                 bool Authenticate(uint32_t secret);
 
@@ -41,9 +37,7 @@ namespace Rtype
                 void setSecure(bool security = true);
 
             private:
-                Network::Core::NativeSocketIOOperationDispatcher dispatcher;
                 GamePackageFactory factory;
-                const uint16_t port;
                 const int maxSize;
                 uint32_t  secret;
                 bool secure;

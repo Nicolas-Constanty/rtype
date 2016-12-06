@@ -19,12 +19,9 @@ int main(int ac, char **av)
 
     signal(SIGINT, &catchbreak);
     if (ac > 1 && (port = static_cast<uint16_t >(atoi(av[1]))) != 0)
-        room.Start(port);
+        room.Start(port, 4, 42);
     else
         room.Start();
-    room.setSecure(true);
-    room.setSecret(42);
     room.Run();
-    room.Stop();
     return 0;
 }
