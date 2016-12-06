@@ -19,8 +19,7 @@ namespace SaltyEngine {
         }
 
         bool AssetManager::LoadISound(std::string const &name, bool isMusic) {
-            std::map<std::string, ::SaltyEngine::Sound::ISound*>::const_iterator it = m_sounds.find(name);
-            if (it == m_sounds.end()) {
+            if (m_sounds.find(name) == m_sounds.end()) {
                 Debug::PrintWarning("Sound " + name + " already loaded");
                 return false;
             }
@@ -38,6 +37,10 @@ namespace SaltyEngine {
         }
 
         bool AssetManager::LoadTexture(std::string const &name) {
+            if (m_textures.fin(name) != m_textures.end()) {
+                Debug::PrintWarning("Texture " + name + " already loaded");
+                return false;
+            }
             ::SaltyEngine::SFML::Texture *texture = new ::SaltyEngine::SFML::Texture();
             if (!texture->loadFromFile(path_textures + name + Asset::TEXTURE_EXTENSION)) {
                 Debug::PrintError("Failed to load texture " + name);

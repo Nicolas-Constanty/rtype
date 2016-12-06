@@ -139,6 +139,10 @@ namespace SaltyEngine {
         /// \param filename
         /// \return bool
         bool            LoadSprite(std::string const &filename) {
+            if (m_sprites.find(filename) != m_sprites.end()) {
+                Debug::PrintWarning("Sprite " + filename + " already loaded");
+                return false;
+            }
             std::string texture;
 
             LoadTexture(texture);
@@ -158,7 +162,6 @@ namespace SaltyEngine {
             std::string             lib;
 
             for (std::string sprite: sprites) {
-//                TODO check if exist
                 LoadSprite(sprite);
             }
             if (!lib.empty()) {
@@ -167,7 +170,7 @@ namespace SaltyEngine {
             return true;
         }
 
-        bool    LoadScene(std::string const &filename) {
+        std::list<std::pair<std::string, Vector2i>> LoadScene(std::string const &filename) {
             std::list<std::pair<std::string, Vector2i>> objects;
 //            for () {
                 std::string prefabName;
@@ -175,8 +178,8 @@ namespace SaltyEngine {
                 LoadPrefab(prefabName);
             objects.push_back(std::make_pair(prefabName, position));
 //            }
-            objects.sort(compare_position_objects);
-            return true;
+//            objects.sort(compare_position_objects);
+            return objects;
         }
 
     private:
