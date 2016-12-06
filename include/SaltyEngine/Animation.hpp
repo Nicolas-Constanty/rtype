@@ -1,6 +1,7 @@
 #pragma once
 
 #include <queue>
+#include "SaltyEngine.hpp"
 #include "SaltyBehaviour.hpp"
 #include "AnimationClip.hpp"
 #include "Constants.hpp"
