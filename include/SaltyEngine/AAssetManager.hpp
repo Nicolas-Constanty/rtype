@@ -203,8 +203,11 @@ namespace SaltyEngine {
         /// \param
         /// \return
         void    LoadSounds() {
-            for (std::string filename: getFilesInDir(getFullPath(Asset::SOUNDS_PATH))) {
+            for (std::string filename: getFilesInDir(path_sounds)) {
                 unsigned long dotPos = filename.find_last_of(".");
+                if (dotPos == filename.npos) {
+                    continue;
+                }
                 if (filename.substr(dotPos) == Asset::SOUND_EXTENSION) {
                     Debug::PrintSuccess("Loading sound [ " + filename + " ]");
                     LoadTexture(filename.substr(0, dotPos));
@@ -217,8 +220,11 @@ namespace SaltyEngine {
         /// \param
         /// \return
         void    LoadTextures() {
-            for (std::string filename: getFilesInDir(getFullPath(Asset::TEXTURES_PATH))) {
+            for (std::string filename: getFilesInDir(path_textures)) {
                 unsigned long dotPos = filename.find_last_of(".");
+                if (dotPos == filename.npos) {
+                    continue;
+                }
                 if (filename.substr(dotPos) == Asset::TEXTURE_EXTENSION) {
                     Debug::PrintSuccess("Loading texture [ " + filename + " ]");
                     LoadTexture(filename.substr(0, dotPos));
@@ -231,8 +237,11 @@ namespace SaltyEngine {
         /// \param
         /// \return
         void    LoadMonsters() {
-            for (std::string filename: getFilesInDir(getFullPath(Asset::MONSTERS_PATH))) {
+            for (std::string filename: getFilesInDir(path_monsters)) {
                 unsigned long dotPos = filename.find_last_of(".");
+                if (dotPos == filename.npos) {
+                    continue;
+                }
                 if (filename.substr(dotPos) == Asset::MONSTER_EXTENSION) {
                     Debug::PrintSuccess("Loading monster [ " + filename + " ]");
                     Factory::LoadAsset(path_monsters + filename);
