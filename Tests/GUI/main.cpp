@@ -80,13 +80,13 @@ int main()
 	std::cout << "Monster = " << monster << std::endl;
 	std::cout << "Player = " << player << std::endl;
 
-	rect = new SaltyEngine::SFML::Rect(100, 10, 100, 100);
-	spr = new SaltyEngine::SFML::Sprite(texture, rect);
-	SaltyEngine::GameObject *monster2 = (SaltyEngine::GameObject*)SaltyEngine::Instantiate("Monster");
-	monster2->AddComponent<SaltyEngine::SFML::SpriteRenderer>(spr, SaltyEngine::Layout::normal);
-	monster2->AddComponent<SaltyEngine::SFML::BoxCollider2D>();
-	monster2->transform.position.x = 800;
-	monster2->transform.position.y = 200;
+	//rect = new SaltyEngine::SFML::Rect(100, 10, 100, 100);
+	//spr = new SaltyEngine::SFML::Sprite(texture, rect);
+	//SaltyEngine::GameObject *monster2 = (SaltyEngine::GameObject*)SaltyEngine::Instantiate("Monster");
+	//monster2->AddComponent<SaltyEngine::SFML::SpriteRenderer>(spr, SaltyEngine::Layout::normal);
+	//monster2->AddComponent<SaltyEngine::SFML::BoxCollider2D>();
+	//monster2->transform.position.x = 800;
+	//monster2->transform.position.y = 200;
 
     //std::cout << "xx" << monster->GetComponent<MonsterController>() << std::endl;
     //std::cout << monster2->GetComponent<MonsterController>() << std::endl;
