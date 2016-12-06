@@ -78,6 +78,9 @@
     <ClCompile Include="..\..\src\Player\PlayerController.cpp">
       <Filter>Fichiers sources\SaltyEngine</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Player\PlayerController.cpp">
+      <Filter>Fichiers sources\SaltyEngine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\SaltyEngine\GUI\IEventSystemHandler.hpp">

@@ -75,6 +75,12 @@
     <ClCompile Include="..\..\..\src\SaltyEngine\RigidBody.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Tests\SaltyEngine\main.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\SaltyEngine\RigidBody.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\src\SaltyEngine\AAssetManager.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
