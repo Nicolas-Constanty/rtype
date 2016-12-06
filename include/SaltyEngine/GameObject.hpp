@@ -95,7 +95,7 @@ namespace SaltyEngine
 			{
 				if (dynamic_cast<T*>((*it).get()))
 				{
-					return (T*)(*it).get();
+					return (T*)((*it).get());
 				}
 			}
 			return (nullptr);

@@ -153,7 +153,6 @@ void RtypeRoomTCPConnection::onGetQUITPackage(QUITPackageRoom const &obj) {
 
         this->Broadcast<RtypeRoomTCPConnection>(*roomPackageFactory.create<DELETEPackageRoom>(roomService->getID()));
         this->roomService->getGameServer()->RemoveRoomService(roomService);
-//        roomService->Close();
 
     } else {
         OnQUITEvent(true);

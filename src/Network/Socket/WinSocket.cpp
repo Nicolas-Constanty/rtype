@@ -107,4 +107,40 @@ void Network::Socket::WinSocket::Close()
     closesocket(fd);
     fd = Network::Socket::DEFAULT;
 }
+
+///TOTO TESTER LA COMPILATION WINDOWS
+// SI MARCHE PAS C'EST NORMAL #pas testé
+unsigned short Network::Socket::WinSocket::GetAvailablePort() {
+    SOCKET sock = socket(AF_INET, SOCK_STREAM, 0);
+    if (sock < 0) {
+        throw std::runtime_error("socket failed !");
+    }
+
+    struct sockaddr_in serv_addr;
+    memset(&serv_addr, 1, sizeof(serv_addr));
+    serv_addr.sin_family = AF_INET;
+    serv_addr.sin_addr.s_addr = INADDR_ANY;
+    serv_addr.sin_port = 0;
+    if (bind(sock, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0) {
+        if (errno == EADDRINUSE) {
+            throw std::runtime_error("the port is not available. already to other process");
+        } else {
+            throw std::runtime_error("could not bind to process");
+        }
+    }
+
+    socklen_t len = sizeof(serv_addr);
+    if (getsockname(sock, (struct sockaddr *)&serv_addr, &len) == -1) {
+        throw std::runtime_error("getsockname failed !");
+    }
+
+    unsigned short port = ntohs(serv_addr.sin_port);
+
+    if (closesocket(sock) < 0 ) {
+        throw std::runtime_error("close has failed !");
+    }
+    return (port);
+}
+
+
 #endif

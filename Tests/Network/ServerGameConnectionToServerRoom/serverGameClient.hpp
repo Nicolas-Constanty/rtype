@@ -48,22 +48,22 @@ public:
 #include "Protocol/Server/IProtocolServerHandler.hpp"
 #include "Protocol/Server/RTypeProtocolServerManager.hpp"
 
-class BasicClient : public Network::TCP::ATCPClient, public IProtocolServerHandler
+class ClientGameRooms : public Network::TCP::ATCPClient, public IProtocolServerHandler
 {
 public:
-    BasicClient(Network::Core::NativeSocketIOOperationDispatcher &dispatcher) :
+    ClientGameRooms(Network::Core::NativeSocketIOOperationDispatcher &dispatcher) :
             Network::TCP::ATCPClient(dispatcher), protocolServerManager(*this)
     {
 
     }
 
-    BasicClient(Network::Core::BasicConnection &ref) :
+    ClientGameRooms(Network::Core::BasicConnection &ref) :
             Network::TCP::ATCPClient(ref.Dispatcher()), protocolServerManager(*this)
     {
 
     }
 
-    virtual ~BasicClient()
+    virtual ~ClientGameRooms()
     {
         std::cout << "\e[31mDestructor called\e[0m" << std::endl;
     }
@@ -108,11 +108,11 @@ private:
     ServerPackageFactory factory;
 };
 
-class BasicTCPServ : public Network::TCP::ATCPServer<BasicClient>
+class BasicTCPServ : public Network::TCP::ATCPServer<ClientGameRooms>
 {
 public:
     BasicTCPServ(Network::Core::NativeSocketIOOperationDispatcher &dispatcher) :
-            Network::TCP::ATCPServer<BasicClient>(dispatcher)
+            Network::TCP::ATCPServer<ClientGameRooms>(dispatcher)
     {
         Start(4242);
     }

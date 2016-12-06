@@ -12,13 +12,19 @@ namespace SaltyEngine {
     Factory::~Factory() {
     }
 
-    Object  *Factory::Create(std::string const &name) {
+    Object  *Factory::Create(std::string const &name, Vector const& pos, float rot) {
 		if (m_prefabs.find(name) == m_prefabs.end()) {
             Debug::PrintWarning("Cannot find prefab " + name + " creating empty gameObject");
             m_objects.push_front(Make_unique<GameObject>(name));
 		} else {
             m_objects.push_front(m_prefabs[name]->CloneMemberwise());
         }
+		if (m_objects.front().get() != nullptr)
+		{
+			GameObject *go = static_cast<GameObject*>(m_objects.front().get());
+			go->transform.position = pos;
+			go->transform.rotation = rot;
+		}
         return m_objects.front().get();
     }
 
