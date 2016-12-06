@@ -93,6 +93,7 @@ namespace SaltyEngine
 
 	void AScene::OnStart()
 	{
+
 		while (!m_init.empty())
 		{
             std::cout <<  m_init.front() << std::endl;

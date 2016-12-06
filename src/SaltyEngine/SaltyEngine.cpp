@@ -236,16 +236,20 @@ namespace SaltyEngine
 
 	void SaltyEngine::SetRenderer(IRenderer *renderer)
 	{
-		if (m_renderer)
+		if (m_renderer && m_renderer != renderer)
+		{
 			delete m_renderer;
-		m_renderer = renderer;
+			m_renderer = renderer;
+		}
 	}
 
 	void SaltyEngine::SetEventManager(Input::IEventManager * ev_manager)
 	{
-		if (m_even_manager)
+		if (m_even_manager && m_even_manager != ev_manager)
+		{
 			delete m_even_manager;
-		m_even_manager = ev_manager;
+			m_even_manager = ev_manager;
+		}
 	}
 
 	AScene * SaltyEngine::GetCurrentScene(void) const

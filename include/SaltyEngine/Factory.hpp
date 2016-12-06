@@ -22,6 +22,7 @@ namespace SaltyEngine
 		virtual ~Factory();
 
 	public:
+		static Object *Create();
 		static Object	*Create(std::string const& name, Vector const& pos, float rot);
 
 		/**

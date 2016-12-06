@@ -7,12 +7,17 @@ namespace SaltyEngine
 	{
 		void Scene::operator<<(GameObject * const gameobj)
 		{
+			if (gameobj == nullptr)
+			{
+				Debug::PrintWarning("Scene : NULL object");
+				return;
+			}
 			::SaltyEngine::AScene::operator<<(gameobj);
 			ACollider2D<sf::Vector2i> *col = dynamic_cast<ACollider2D<sf::Vector2i> *>(gameobj->GetComponent<ACollider2D<sf::Vector2i>>());
 			if (col)
 			{
 				m_collisions[col] = {};
-				Debug::PrintSuccess("Successfull add collider");
+				Debug::PrintSuccess("Successfully added collider");
 			}
 		}
 

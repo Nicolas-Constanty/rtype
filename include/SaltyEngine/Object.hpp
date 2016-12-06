@@ -42,9 +42,12 @@ namespace SaltyEngine
 		static void Destroy(Object* original);
 		static Object *Instantiate(std::string const& obj, Vector pos = Vector::zero(), double rot = 0)
 		{
-            //(void)pos;
-            //(void)rot;
 			return Factory::Create(obj, pos, rot);
+		}
+
+		static Object *Instantiate()
+		{
+			return Factory::Create();
 		}
 
 	public:
@@ -70,7 +73,7 @@ namespace SaltyEngine
 		}
 	};
 
-#define Instantiate(x, ...) Object::Instantiate(x, ## __VA_ARGS__)
+#define Instantiate(...) Object::Instantiate(## __VA_ARGS__)
 }
 
 #endif // !OBJECT_HPP_
