@@ -2,8 +2,9 @@
 // Created by gaspar_q on 11/30/16.
 //
 
-#include <ServerGame/Room.hpp>
+#include <Rtype/Game/Server/RtypeGameServer.hpp>
 #include <SaltyEngine/SaltyEngine.hpp>
+#include <Rtype/Game/Server/Room.hpp>
 
 void catchbreak(int)
 {
@@ -13,7 +14,7 @@ void catchbreak(int)
 
 int main(int ac, char **av)
 {
-    Rtype::Room room;
+    Rtype::Game::Server::Room room;
     uint16_t port;
 
     signal(SIGINT, &catchbreak);

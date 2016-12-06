@@ -3,10 +3,10 @@
 //
 
 #include <Protocol/Game/ProtocolPrintGamePackage.hpp>
-#include <ServerGame/RtypeServerGameClient.hpp>
-#include <ServerGame/RtypeGameServer.hpp>
+#include <Rtype/Game/Server/RtypeServerGameClient.hpp>
+#include <Rtype/Game/Server/RtypeGameServer.hpp>
 
-Rtype::RtypeServerGameClient::RtypeServerGameClient(Network::Core::NativeSocketIOOperationDispatcher &dispatcher) :
+Rtype::Game::Server::RtypeServerGameClient::RtypeServerGameClient(Network::Core::NativeSocketIOOperationDispatcher &dispatcher) :
         RtypeGameClient(dispatcher),
         factory(),
         server1(NULL),
@@ -17,23 +17,23 @@ Rtype::RtypeServerGameClient::RtypeServerGameClient(Network::Core::NativeSocketI
 
 }
 
-Rtype::RtypeServerGameClient::RtypeServerGameClient(const Rtype::RtypeServerGameClient &ref) :
+Rtype::Game::Server::RtypeServerGameClient::RtypeServerGameClient(const Rtype::Game::Server::RtypeServerGameClient &ref) :
     RtypeGameClient(ref)
 {
 
 }
 
-Rtype::RtypeServerGameClient::~RtypeServerGameClient()
+Rtype::Game::Server::RtypeServerGameClient::~RtypeServerGameClient()
 {
 
 }
 
-void Rtype::RtypeServerGameClient::onGetSTATUSPackage(STATUSPackageGame const &pack)
+void Rtype::Game::Server::RtypeServerGameClient::onGetSTATUSPackage(STATUSPackageGame const &pack)
 {
     OnDiscoveringPackage(pack);
 }
 
-void Rtype::RtypeServerGameClient::onGetPINGPackage(PINGPackageGame const &pack)
+void Rtype::Game::Server::RtypeServerGameClient::onGetPINGPackage(PINGPackageGame const &pack)
 {
     reply = false;
     OnDiscoveringPackage(pack);
@@ -49,7 +49,7 @@ void Rtype::RtypeServerGameClient::onGetPINGPackage(PINGPackageGame const &pack)
     }
 }
 
-void Rtype::RtypeServerGameClient::onGetAUTHENTICATEPackage(AUTHENTICATEPackageGame const &pack)
+void Rtype::Game::Server::RtypeServerGameClient::onGetAUTHENTICATEPackage(AUTHENTICATEPackageGame const &pack)
 {
     OnDiscoveringPackage(pack);
     if (!server1->Authenticate(pack.secret))
@@ -73,63 +73,63 @@ void Rtype::RtypeServerGameClient::onGetAUTHENTICATEPackage(AUTHENTICATEPackageG
     }
 }
 
-void Rtype::RtypeServerGameClient::onGetCREATEPackage(CREATEPackageGame const &pack)
+void Rtype::Game::Server::RtypeServerGameClient::onGetCREATEPackage(CREATEPackageGame const &pack)
 {
     OnDiscoveringPackage(pack);
     //todo notification des autres clients
 }
 
-void Rtype::RtypeServerGameClient::onGetBEAMPackage(BEAMPackageGame const &pack)
+void Rtype::Game::Server::RtypeServerGameClient::onGetBEAMPackage(BEAMPackageGame const &pack)
 {
     OnDiscoveringPackage(pack);
     //todo notification des autres clients
 }
 
-void Rtype::RtypeServerGameClient::onGetSHOTPackage(SHOTPackageGame const &pack)
+void Rtype::Game::Server::RtypeServerGameClient::onGetSHOTPackage(SHOTPackageGame const &pack)
 {
     OnDiscoveringPackage(pack);
     //todo notification des autres clients
 }
 
-void Rtype::RtypeServerGameClient::onGetDIEPackage(DIEPackageGame const &pack)
+void Rtype::Game::Server::RtypeServerGameClient::onGetDIEPackage(DIEPackageGame const &pack)
 {
     OnDiscoveringPackage(pack);
     //todo notification des autres clients
 }
 
-void Rtype::RtypeServerGameClient::onGetTAKEPackage(TAKEPackageGame const &pack)
+void Rtype::Game::Server::RtypeServerGameClient::onGetTAKEPackage(TAKEPackageGame const &pack)
 {
     OnDiscoveringPackage(pack);
     //todo notification des autres clients
 }
 
-void Rtype::RtypeServerGameClient::onGetDROPPackage(DROPPackageGame const &pack)
+void Rtype::Game::Server::RtypeServerGameClient::onGetDROPPackage(DROPPackageGame const &pack)
 {
     OnDiscoveringPackage(pack);
     //todo notification des autres clients
 }
 
-void Rtype::RtypeServerGameClient::onGetMOVEPackage(MOVEPackageGame const &pack)
+void Rtype::Game::Server::RtypeServerGameClient::onGetMOVEPackage(MOVEPackageGame const &pack)
 {
     OnDiscoveringPackage(pack);
     //todo notification des autres clients
 }
 
-void Rtype::RtypeServerGameClient::onGetLAUNCHPackage(LAUNCHPackageGame const &pack)
+void Rtype::Game::Server::RtypeServerGameClient::onGetLAUNCHPackage(LAUNCHPackageGame const &pack)
 {
     OnDiscoveringPackage(pack);
     //todo notification des autres clients
 }
 
-void Rtype::RtypeServerGameClient::onGetREBORNPackage(REBORNPackageGame const &pack)
+void Rtype::Game::Server::RtypeServerGameClient::onGetREBORNPackage(REBORNPackageGame const &pack)
 {
     OnDiscoveringPackage(pack);
     //todo notification des autres clients
 }
 
-bool Rtype::RtypeServerGameClient::OnStart()
+bool Rtype::Game::Server::RtypeServerGameClient::OnStart()
 {
-    server1 = dynamic_cast<Rtype::RtypeGameServer *>(serverStream);
+    server1 = dynamic_cast<Rtype::Game::Server::RtypeGameServer *>(serverStream);
     if (!server1)
     {
         Disconnect();
@@ -140,17 +140,17 @@ bool Rtype::RtypeServerGameClient::OnStart()
     return true;
 }
 
-const int Rtype::RtypeServerGameClient::getId() const
+const int Rtype::Game::Server::RtypeServerGameClient::getId() const
 {
     return id;
 }
 
-bool Rtype::RtypeServerGameClient::timedout() const
+bool Rtype::Game::Server::RtypeServerGameClient::timedout() const
 {
-    return std::chrono::steady_clock::now() - pingTime > Rtype::RtypeServerGameClient::timeout;
+    return std::chrono::steady_clock::now() - pingTime > Rtype::Game::Server::RtypeServerGameClient::timeout;
 }
 
-void Rtype::RtypeServerGameClient::ping()
+void Rtype::Game::Server::RtypeServerGameClient::ping()
 {
     pingSecret = rand();
     pingTime = std::chrono::steady_clock::now();
@@ -159,7 +159,7 @@ void Rtype::RtypeServerGameClient::ping()
         serverStream->WantSend();
 }
 
-bool Rtype::RtypeServerGameClient::pong() const
+bool Rtype::Game::Server::RtypeServerGameClient::pong() const
 {
 //    std::cout << "Pong: " << std::boolalpha << (pingSecret == -1) << std::endl;
     if (pingSecret == -1)

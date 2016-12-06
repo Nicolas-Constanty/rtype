@@ -2,11 +2,11 @@
 // Created by gaspar_q on 11/28/16.
 //
 
-#include <ServerGame/RtypeGameServer.hpp>
+#include <Rtype/Game/Server/RtypeGameServer.hpp>
 #include <SaltyEngine/SFML/Scene.hpp>
-#include <ServerGame/RtypeServerGameClient.hpp>
+#include <Rtype/Game/Server/RtypeServerGameClient.hpp>
 
-Rtype::RtypeGameServer::RtypeGameServer(SaltyEngine::GameObject *obj, const uint16_t port, const int maxSize) :
+Rtype::Game::Server::RtypeGameServer::RtypeGameServer(SaltyEngine::GameObject *obj, const uint16_t port, const int maxSize) :
         AUDPServer(dispatcher),
         SaltyBehaviour(obj),
         dispatcher(),
@@ -17,12 +17,12 @@ Rtype::RtypeGameServer::RtypeGameServer(SaltyEngine::GameObject *obj, const uint
 
 }
 
-Rtype::RtypeGameServer::~RtypeGameServer()
+Rtype::Game::Server::RtypeGameServer::~RtypeGameServer()
 {
 
 }
 
-bool Rtype::RtypeGameServer::OnDataReceived(unsigned int)
+bool Rtype::Game::Server::RtypeGameServer::OnDataReceived(unsigned int)
 {
     if (clients->Streams().size() > maxSize)
     {
@@ -40,30 +40,30 @@ bool Rtype::RtypeGameServer::OnDataReceived(unsigned int)
     return true;
 }
 
-bool Rtype::RtypeGameServer::OnDataSent(unsigned int len)
+bool Rtype::Game::Server::RtypeGameServer::OnDataSent(unsigned int len)
 {
     std::cout << "On send des choses: " << len << std::endl;
     return true;
 }
 
-void Rtype::RtypeGameServer::Start()
+void Rtype::Game::Server::RtypeGameServer::Start()
 {
     Network::UDP::AUDPServer<RtypeServerGameClient>::Start(port);
     dispatcher.Watch(this, Network::Core::NativeSocketIOOperationDispatcher::READ);
     dispatcher.setTimeout({0, 0});
 }
 
-void Rtype::RtypeGameServer::Update()
+void Rtype::Game::Server::RtypeGameServer::Update()
 {
     dispatcher.Poll();
 }
 
-void Rtype::RtypeGameServer::OnReadCheck()
+void Rtype::Game::Server::RtypeGameServer::OnReadCheck()
 {
-    Network::UDP::AUDPServer<Rtype::RtypeServerGameClient>::OnReadCheck();
+    Network::UDP::AUDPServer<Rtype::Game::Server::RtypeServerGameClient>::OnReadCheck();
     for (std::list<std::unique_ptr<Network::Socket::ISockStreamHandler>>::iterator it = clients->Streams().begin(); it != clients->Streams().end();)
     {
-        Rtype::RtypeServerGameClient *client = dynamic_cast<Rtype::RtypeServerGameClient *>(it->get());
+        Rtype::Game::Server::RtypeServerGameClient *client = dynamic_cast<Rtype::Game::Server::RtypeServerGameClient *>(it->get());
 
         if (client && client->timedout())
         {
@@ -83,19 +83,19 @@ void Rtype::RtypeGameServer::OnReadCheck()
     }
 }
 
-void Rtype::RtypeGameServer::setSecret(uint32_t secret)
+void Rtype::Game::Server::RtypeGameServer::setSecret(uint32_t secret)
 {
     this->secret = secret;
 }
 
-bool Rtype::RtypeGameServer::Authenticate(uint32_t secret)
+bool Rtype::Game::Server::RtypeGameServer::Authenticate(uint32_t secret)
 {
     if (!secure)
         return true;
     return this->secret == secret;
 }
 
-void Rtype::RtypeGameServer::setSecure(bool security)
+void Rtype::Game::Server::RtypeGameServer::setSecure(bool security)
 {
     secure = security;
 }

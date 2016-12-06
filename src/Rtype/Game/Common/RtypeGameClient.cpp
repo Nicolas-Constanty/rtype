@@ -3,13 +3,13 @@
 //
 
 #include <Network/Core/NativeSocketIOOperationDispatcher.hpp>
-#include <ServerGame/RtypeGameClient.hpp>
+#include <Rtype/Game/Common/RtypeGameClient.hpp>
 #include <SaltyEngine/SaltyEngine.hpp>
-#include <ServerGame/RtypeGameServer.hpp>
+#include <Rtype/Game/Server/RtypeGameServer.hpp>
 
-const std::chrono::milliseconds    Rtype::RtypeGameClient::timeout = std::chrono::milliseconds(5000);
+const std::chrono::milliseconds    Rtype::Game::Common::RtypeGameClient::timeout = std::chrono::milliseconds(5000);
 
-Rtype::RtypeGameClient::RtypeGameClient(Network::Core::NativeSocketIOOperationDispatcher &dispatcher) :
+Rtype::Game::Common::RtypeGameClient::RtypeGameClient(Network::Core::NativeSocketIOOperationDispatcher &dispatcher) :
         Network::UDP::AUDPClient::AUDPClient(dispatcher),
         manager(*this),
         recvstatus(),
@@ -20,7 +20,7 @@ Rtype::RtypeGameClient::RtypeGameClient(Network::Core::NativeSocketIOOperationDi
 
 }
 
-Rtype::RtypeGameClient::RtypeGameClient(const RtypeGameClient &ref) :
+Rtype::Game::Common::RtypeGameClient::RtypeGameClient(const RtypeGameClient &ref) :
     Network::UDP::AUDPClient(ref),
     manager(*this),
     recvstatus(),
@@ -31,12 +31,12 @@ Rtype::RtypeGameClient::RtypeGameClient(const RtypeGameClient &ref) :
 
 }
 
-Rtype::RtypeGameClient::~RtypeGameClient()
+Rtype::Game::Common::RtypeGameClient::~RtypeGameClient()
 {
 
 }
 
-bool Rtype::RtypeGameClient::OnDataReceived(unsigned int)
+bool Rtype::Game::Common::RtypeGameClient::OnDataReceived(unsigned int)
 {
     while (buff.getLength() >= sizeof(PackageGameHeader))
     {
@@ -82,7 +82,7 @@ bool Rtype::RtypeGameClient::OnDataReceived(unsigned int)
     return true;
 }
 
-bool Rtype::RtypeGameClient::OnDataSent(unsigned int len)
+bool Rtype::Game::Common::RtypeGameClient::OnDataSent(unsigned int len)
 {
     std::cout << "Sent: " << len << std::endl;
     return true;
