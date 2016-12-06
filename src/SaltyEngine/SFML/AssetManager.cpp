@@ -30,7 +30,7 @@ namespace SaltyEngine {
             } else {
                 sound = new ::SaltyEngine::SFML::Sound();
             }
-            if (!sound->LoadFromFile(getFullPath(Asset::SOUNDS_PATH) + name + Asset::SOUND_EXTENSION)) {
+            if (!sound->LoadFromFile(path_sounds + name + Asset::SOUND_EXTENSION)) {
                 return false;
             }
             m_sounds[name] = sound;
@@ -39,12 +39,27 @@ namespace SaltyEngine {
 
         bool AssetManager::LoadTexture(const std::string &name) {
             ::SaltyEngine::SFML::Texture *texture = new SaltyEngine::SFML::Texture();
-            if (!texture->loadFromFile(getFullPath(Asset::TEXTURES_PATH) + name + Asset::TEXTURE_EXTENSION)) {
+            if (!texture->loadFromFile(path_textures + name + Asset::TEXTURE_EXTENSION)) {
                 Debug::PrintError("Failed to load texture " + name);
                 return false;
             }
             m_textures[name] = texture;
             return true;
+        }
+
+        ::SaltyEngine::SFML::Sprite * AssetManager::GetSprite(std::string const &name) const {
+            typename std::map<std::string, SpriteDefault>::const_iterator it = m_sprites.find(name);
+            if (it == m_sprites.end()) {
+                if (!LoadSprite(name)) {
+                    Debug::PrintError("Cannot find sprite " + name);
+                    return nullptr;
+                }
+            }
+            ::SaltyEngine::SFML::Texture *texture = GetTexture(it->second.texture);
+            if (texture == nullptr) {
+                return nullptr;
+            }
+            return new ::SaltyEngine::SFML::Sprite(texture, new SaltyEngine::SFML::Rect(it->second.position,it->second.size));
         }
     }
 }

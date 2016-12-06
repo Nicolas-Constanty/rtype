@@ -10,7 +10,7 @@
 
 namespace SaltyEngine {
     namespace SFML {
-        class AssetManager: public AAssetManager<::SaltyEngine::SFML::Texture>, public Singleton<AssetManager> {
+        class AssetManager: public AAssetManager<::SaltyEngine::SFML::Texture, ::SaltyEngine::SFML::Sprite>, public Singleton<AssetManager> {
         public:
             friend class Singleton<AssetManager>;
 
@@ -21,6 +21,7 @@ namespace SaltyEngine {
         public:
             bool LoadISound(const std::string &name, bool isMusic);
             bool LoadTexture(const std::string &name);
+            ::SaltyEngine::SFML::Sprite *GetSprite(std::string const &name) const;
         };
     }
 }
