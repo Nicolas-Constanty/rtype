@@ -37,7 +37,7 @@ namespace SaltyEngine {
         }
 
         bool AssetManager::LoadTexture(std::string const &name) {
-            if (m_textures.fin(name) != m_textures.end()) {
+            if (m_textures.find(name) != m_textures.end()) {
                 Debug::PrintWarning("Texture " + name + " already loaded");
                 return false;
             }
