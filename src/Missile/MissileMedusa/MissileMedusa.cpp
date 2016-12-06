@@ -1,6 +1,7 @@
 #include "Missile/MissileMedusa/MissileMedusa.hpp"
 #include "SaltyEngine/SaltyEngine.hpp"
 #include "SaltyEngine/Debug.hpp"
+#include "Missile/MissileController.hpp"
 
 MissileMedusa::MissileMedusa() : GameObject("MissileMedusa")
 {
@@ -21,7 +22,7 @@ MissileMedusa::MissileMedusa() : GameObject("MissileMedusa")
 	//	this->AddComponent < SaltyEngine::Animation<sf::Vector2i> >(true, SaltyEngine::AnimationConstants::WrapMode::PING_PONG);
 	//	this->GetComponent<SaltyEngine::Animation<sf::Vector2i> >()->AddClip(clip, "Walk");
 	//}
-	//AddComponent<MissileController>();
+	AddComponent<MissileController>();
 }
 
 
