@@ -58,14 +58,8 @@ namespace SaltyEngine
 
         if (InputKey::GetKey(Input::KeyCode::Space)) {
 
-			GameObject *laser = (GameObject*)::SaltyEngine::Instantiate("laser");
-			::SaltyEngine::SFML::Texture *texture = ::SaltyEngine::SFML::AssetManager::Instance().GetTexture("Laser");
-			::SaltyEngine::SFML::Rect *rect = new ::SaltyEngine::SFML::Rect(201, 154, 64, 14);
-			::SaltyEngine::SFML::Sprite *spr = new ::SaltyEngine::SFML::Sprite(texture, rect);
+			GameObject *laser = (GameObject*)::SaltyEngine::Instantiate("laser", gameObject->transform.position);
 			laser->AddComponent<Laser>();
-			laser->AddComponent<::SaltyEngine::SFML::SpriteRenderer>(spr, ::SaltyEngine::Layout::normal);
-			laser->AddComponent<::SaltyEngine::SFML::BoxCollider2D>();
-			laser->transform.position = gameObject->transform.position;
 			*Singleton<::SaltyEngine::SaltyEngine>::Instance().GetCurrentScene() << laser;
         }
 	}

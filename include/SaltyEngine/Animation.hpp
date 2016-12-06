@@ -14,6 +14,7 @@ namespace SaltyEngine
 	template <class T>
 	class Animation : public SaltyBehaviour
 	{
+//		TODO check if gameObject->GetComponent<ASpriteRenderer<T>> is nullptr
     private:
 
         class AnimData
