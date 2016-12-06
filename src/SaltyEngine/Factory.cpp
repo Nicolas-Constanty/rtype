@@ -42,7 +42,8 @@ namespace SaltyEngine {
 
         if (loader.Load(path) == nullptr)
         {
-            std::cerr << "Factory: failed to load asset at path [" << path << "]" << std::endl;
+            std::cerr << "Factory: failed to load asset at path [" << path << "]. Error was: ";
+            perror("");
             return false;
         }
         Object *obj = (GameObject*)(loader.Call("GetObjectPrefab"));

@@ -5,7 +5,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wextra")
 
 include_directories("../include" "../Dependencies/SFML/Linux/include")
 
-set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/Assets)
+set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/../Assets/Monsters)
 
 # MONSTER
 file(GLOB MONSTER_SOURCE_FILE "../src/Monster/*.cpp")
@@ -21,3 +21,8 @@ target_link_libraries(missile_medusa ${PROJECT_SOURCE_DIR}/SaltyEngine/libSaltyE
 file(GLOB PLAYER_SOURCE_FILE "../src/Player/*.cpp")
 add_library(player SHARED ${PLAYER_SOURCE_FILE})
 target_link_libraries(player ${PROJECT_SOURCE_DIR}/SaltyEngine/libSaltyEngine.a -ldl)
+
+# GUI
+#file(GLOB GUI_SOURCE_FILE "../Tests/GUI/*.cpp")
+#add_executable(gui ${GUI_SOURCE_FILE})
+#target_link_libraries(gui ${PROJECT_SOURCE_DIR}/SaltyEngine/libSaltyEngine.a -ldl)
