@@ -4,7 +4,7 @@ RM 		=	rm -rf
 
 NAME	=	salty-engine
 
-LIBNAME =   libSaltyEngine.so
+LIBNAME =   libSaltyEngine.a
 
 PROJECT_DIR =   ../..
 
