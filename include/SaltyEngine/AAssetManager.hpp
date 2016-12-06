@@ -21,6 +21,8 @@
 #include <dirent.h>
 #include <unistd.h>
 #include "Common/LibLoader.hpp"
+#include "GameObject.hpp"
+
 #endif
 
 namespace SaltyEngine {
@@ -76,7 +78,7 @@ namespace SaltyEngine {
         /// \param name
         /// \param isMusic
         /// \return bool
-        virtual bool LoadISound(const std::string &name, bool isMusic) = 0;
+        virtual bool LoadISound(std::string const &name, bool isMusic) = 0;
 
         ///
         /// \brief Call LoadISound for Sound
@@ -90,7 +92,7 @@ namespace SaltyEngine {
         /// \brief Call LoadISound for Music
         /// \param name
         /// \return bool
-        bool LoadMusic(const std::string &name) {
+        bool LoadMusic(std::string const &name) {
             return LoadISound(name, true);
         }
 
@@ -98,7 +100,7 @@ namespace SaltyEngine {
         /// \brief Return Sound template parameter pointer
         /// \param name
         /// \return Sound*
-        Sound   *GetSound(const std::string &name) {
+        Sound   *GetSound(std::string const &name) {
             typename std::map<std::string, Sound*>::const_iterator it = m_sounds.find(name);
             if (it == m_sounds.end()) {
                 if (!LoadSound(name)) {
@@ -114,13 +116,13 @@ namespace SaltyEngine {
         /// \brief Load texture from child
         /// \param name
         /// \return
-        virtual bool LoadTexture(const std::string &name) = 0;
+        virtual bool LoadTexture(std::string const &name) = 0;
 
         ///
         /// \brief Return Texture template parameter pointer
         /// \param name
         /// \return Texture*
-        Texture *GetTexture(const std::string &name) {
+        Texture *GetTexture(std::string const &name) {
             typename std::map<std::string, Texture*>::const_iterator it = m_textures.find(name);
             if (it == m_textures.end()) {
                 if (!LoadTexture(name)) {
@@ -141,13 +143,14 @@ namespace SaltyEngine {
 
             LoadTexture(texture);
             m_sprites[filename] = SpriteDefault{};
+            return true;
         }
 
         ///
         /// \brief Return Sprite pointer
         /// \param name
         /// \return
-        virtual Sprite  *GetSprite(std::string const &name) const = 0;
+        virtual Sprite  *GetSprite(std::string const &name) = 0;
 
     public:
         bool    LoadPrefab(std::string const &filename) {
@@ -155,13 +158,33 @@ namespace SaltyEngine {
             std::string             lib;
 
             for (std::string sprite: sprites) {
+//                TODO check if exist
                 LoadSprite(sprite);
             }
             if (!lib.empty()) {
                 Factory::LoadAsset(path_monsters + filename);
             }
+            return true;
         }
 
+        bool    LoadScene(std::string const &filename) {
+            std::list<std::pair<std::string, Vector2i>> objects;
+//            for () {
+                std::string prefabName;
+                Vector2i    position;
+                LoadPrefab(prefabName);
+            objects.push_back(std::make_pair(prefabName, position));
+//            }
+            objects.sort(compare_position_objects);
+            return true;
+        }
+
+    private:
+        bool    compare_position_objects(std::pair<std::string, Vector2i> obj1, std::pair<std::string, Vector2i> obj2) {
+            return obj1.second.x < obj2.second.x;
+        }
+
+    public:
         ///
         /// \brief Load all Assets
         /// \param
@@ -227,7 +250,7 @@ namespace SaltyEngine {
         /// \brief list files in directory
         /// \param folder
         /// \return std::list<std::string>
-        std::list<std::string>  getFilesInDir(const std::string &folder) {
+        std::list<std::string>  getFilesInDir(std::string const &folder) {
             std::list<std::string>  files;
 
 #if _WIN32

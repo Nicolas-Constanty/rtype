@@ -5,8 +5,9 @@
 #ifndef RTYPE_ASSETMANAGER_HPP
 #define RTYPE_ASSETMANAGER_HPP
 
-#include <SFML/System.hpp>
 #include "SaltyEngine/AAssetManager.hpp"
+#include "SaltyEngine/SFML/Texture.hpp"
+#include "SaltyEngine/SFML/Sprite.hpp"
 
 namespace SaltyEngine {
     namespace SFML {
@@ -19,9 +20,9 @@ namespace SaltyEngine {
             virtual ~AssetManager();
 
         public:
-            bool LoadISound(const std::string &name, bool isMusic);
-            bool LoadTexture(const std::string &name);
-            ::SaltyEngine::SFML::Sprite *GetSprite(std::string const &name) const;
+            bool LoadISound(std::string const &name, bool isMusic);
+            bool LoadTexture(std::string const &name);
+            ::SaltyEngine::SFML::Sprite *GetSprite(std::string const &name);
         };
     }
 }
