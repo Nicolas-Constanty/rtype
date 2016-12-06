@@ -5,7 +5,7 @@
 #include "SaltyEngine/SFML/Button.hpp"
 #include "SaltyEngine/Debug.hpp"
 #include "SaltyEngine/Input.hpp"
-#include "ClientLauncher/PlayerController.hpp"
+#include "Player/PlayerController.hpp"
 #include "SaltyEngine/SFML/EventManager.hpp"
 #include "SaltyEngine/Animation.hpp"
 #include "Monster/MonsterController.hpp"
@@ -60,36 +60,33 @@ int main()
 	Singleton<SaltyEngine::SaltyEngine>::Instance().SetRenderer(renderer);
 	Singleton<SaltyEngine::SaltyEngine>::Instance().SetEventManager(event_manager);
 
-    ::SaltyEngine::AssetManager.LoadAssets();
-
-    SaltyEngine::SFML::Texture *texture = SaltyEngine::AssetManager.GetTexture("SpaceShips");
-
-	SaltyEngine::SFML::Rect *rect = new SaltyEngine::SFML::Rect(0, 70, 34, 16);
-	SaltyEngine::SFML::Sprite *spr = new SaltyEngine::SFML::Sprite(texture, rect);
-
+	// Set SFML Renderer
+	Singleton<SaltyEngine::SaltyEngine>::Instance().SetRenderer(renderer);
+	Singleton<SaltyEngine::SaltyEngine>::Instance().SetEventManager(event_manager);
 	// Create Scene
 	SaltyEngine::SFML::Scene *scene = new SaltyEngine::SFML::Scene();
 
-	SaltyEngine::GameObject *player = new SaltyEngine::GameObject("Player");
-	player->AddComponent<SaltyEngine::PlayerController>();
-	player->AddComponent<SaltyEngine::SFML::SpriteRenderer>(spr, SaltyEngine::Layout::normal);
+	//SaltyEngine::GameObject *player = new SaltyEngine::GameObject("Player");
+	//player->AddComponent<SaltyEngine::PlayerController>();
+	//player->AddComponent<SaltyEngine::SFML::SpriteRenderer>(spr, SaltyEngine::Layout::normal);
 
 	/*SaltyEngine::GameObject *toto = (SaltyEngine::GameObject*)::SaltyEngine::Instantiate("Monster");
 	toto->AddComponent<SaltyEngine::SFML::BoxCollider2D>();*/
 	//toto->transform.position = SaltyEngine::Vector2(300, 300);
 	// Create monster with sprites
-	/*SaltyEngine::GameObject *monster = (SaltyEngine::GameObject*)SaltyEngine::Instantiate("Monster");
-	monster->AddComponent<SaltyEngine::SFML::SpriteRenderer>(spr, SaltyEngine::Layout::normal);
-	monster->AddComponent<SaltyEngine::PlayerController>();
-	monster->AddComponent<SaltyEngine::SFML::BoxCollider2D>();*/
+	SaltyEngine::GameObject *monster = (SaltyEngine::GameObject*)SaltyEngine::Instantiate("Monster");
+	SaltyEngine::GameObject *player = (SaltyEngine::GameObject*)SaltyEngine::Instantiate("Player");
 
-	rect = new SaltyEngine::SFML::Rect(100, 10, 100, 100);
-	spr = new SaltyEngine::SFML::Sprite(texture, rect);
-	SaltyEngine::GameObject *monster2 = (SaltyEngine::GameObject*)SaltyEngine::Instantiate("Monster");
-	monster2->AddComponent<SaltyEngine::SFML::SpriteRenderer>(spr, SaltyEngine::Layout::normal);
-	monster2->AddComponent<SaltyEngine::SFML::BoxCollider2D>();
-	monster2->transform.position.x = 800;
-	monster2->transform.position.y = 200;
+	std::cout << "Monster = " << monster << std::endl;
+	std::cout << "Player = " << player << std::endl;
+
+	//rect = new SaltyEngine::SFML::Rect(100, 10, 100, 100);
+	//spr = new SaltyEngine::SFML::Sprite(texture, rect);
+	//SaltyEngine::GameObject *monster2 = (SaltyEngine::GameObject*)SaltyEngine::Instantiate("Monster");
+	//monster2->AddComponent<SaltyEngine::SFML::SpriteRenderer>(spr, SaltyEngine::Layout::normal);
+	//monster2->AddComponent<SaltyEngine::SFML::BoxCollider2D>();
+	//monster2->transform.position.x = 800;
+	//monster2->transform.position.y = 200;
 
     //std::cout << "xx" << monster->GetComponent<MonsterController>() << std::endl;
     //std::cout << monster2->GetComponent<MonsterController>() << std::endl;
@@ -100,7 +97,9 @@ int main()
 	// Push scene int SaltyEngine
 
 	*scene << player;
-	*scene << monster2;
+	*scene << monster;
+
+	// Push scene int SaltyEngine
 	Singleton<SaltyEngine::SaltyEngine>::Instance() << scene;
 
 	// Run the SaltyEngine with default Scene 0
