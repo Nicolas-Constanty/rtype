@@ -86,13 +86,12 @@
   <ItemDefinitionGroup>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Text Include="readme.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="..\..\src\Missile\MissileController.cpp" />
     <ClCompile Include="..\..\src\Missile\MissileMedusa\MissileMedusa.cpp" />
     <ClCompile Include="..\..\src\Monster\Monster.cpp" />
     <ClCompile Include="..\..\src\Monster\MonsterController.cpp" />
+    <ClCompile Include="..\..\src\Player\Player.cpp" />
+    <ClCompile Include="..\..\src\Player\PlayerController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\CommonPrefab\GenericController.hpp" />
@@ -100,6 +99,8 @@
     <ClInclude Include="..\..\include\Missile\MissileMedusa\MissileMedusa.hpp" />
     <ClInclude Include="..\..\include\Monster\Monster.hpp" />
     <ClInclude Include="..\..\include\Monster\MonsterController.hpp" />
+    <ClInclude Include="..\..\include\Player\Player.hpp" />
+    <ClInclude Include="..\..\include\Player\PlayerController.hpp" />
     <ClInclude Include="Makefile">
       <FileType>Makefile</FileType>
     </ClInclude>

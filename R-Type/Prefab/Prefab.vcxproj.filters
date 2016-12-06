@@ -28,9 +28,12 @@
     <Filter Include="Fichiers d%27en-tête\Common">
       <UniqueIdentifier>{f6a04ac2-f64b-4475-aec5-28c5b202e687}</UniqueIdentifier>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="readme.txt" />
+    <Filter Include="Fichiers d%27en-tête\Player">
+      <UniqueIdentifier>{33b42456-034b-4338-a50a-3471ff8aeffd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Player">
+      <UniqueIdentifier>{32b5fcd5-420a-46b3-ad19-117c8a04b3ae}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Makefile" />
@@ -49,6 +52,12 @@
     <ClInclude Include="..\..\include\Missile\MissileController.hpp">
       <Filter>Fichiers d%27en-tête\Common</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\Player\Player.hpp">
+      <Filter>Fichiers d%27en-tête\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Player\PlayerController.hpp">
+      <Filter>Fichiers d%27en-tête\Player</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Monster\Monster.cpp">
@@ -62,6 +71,12 @@
     </ClCompile>
     <ClCompile Include="..\..\src\Missile\MissileController.cpp">
       <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Player\Player.cpp">
+      <Filter>Fichiers sources\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Player\PlayerController.cpp">
+      <Filter>Fichiers sources\Player</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
