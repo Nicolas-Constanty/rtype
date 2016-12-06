@@ -51,7 +51,7 @@ const Network::Socket::ISocket &Network::UDP::AUDPConnection::getSocket() const
     return sock;
 }
 
-void Network::UDP::AUDPConnection::OnStart()
+bool Network::UDP::AUDPConnection::OnStart()
 {
-
+    return true;
 }

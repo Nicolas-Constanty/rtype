@@ -74,5 +74,18 @@ int main()
     std::cout << status1 << std::endl;
 
     std::cout << status1.sliceAt(30) << std::endl;
+
+    status1.reset();
+
+    status1.Receiving(0);
+
+    std::cout << status1 << std::endl;
+    std::cout << status1.sliceAt(0) << std::endl;
+    status1.IsSet(1);
+    status1.Receiving(1);
+    status1.Receiving(2);
+    std::cout << status1 << std::endl;
+    std::cout << status1.sliceAt(1) << std::endl;
+    status1.IsSet(1);
     return 0;
 }

@@ -38,6 +38,8 @@
 cmake_minimum_required(VERSION 3.6)
 project(rtype)
 
+execute_process(COMMAND ${CMAKE_COMMAND} -E tar xzf ${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/SFML.zip)
+
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 file(GLOB SOURCE_FILE
@@ -76,6 +78,8 @@ file(GLOB allinc include/*/*.hpp include/*/*/*.hpp)
 file(GLOB serverRoomsrc src/ServerRoom/*.cpp)
 file(GLOB serverRoominc include/ServerRoom/*.hpp)
 
+execute_process(COMMAND unzip -f ${CMAKE_SOURCE_DIR}/Dependencies/SFML.zip)
+link_directories(${CMAKE_BINARY_DIR}/SFML/Linux/lib)
 
 add_executable(rtype-server
         ${srcGameServ} ${incGameServ}
@@ -111,6 +115,7 @@ add_executable(gameserv-2
         ${Protocolsrc} ${Protocolinc}
         ${SaltyEnginesrc} ${SaltyEngineinc}
         ${srcGameServ} ${incGameServ}
+        ${SFMLsrc} ${SFMLinc}
         Tests/GameServer/gameserv-2.cpp)
 
 add_executable(gameclient-1
@@ -119,6 +124,7 @@ add_executable(gameclient-1
         ${Protocolsrc} ${Protocolinc}
         ${SaltyEnginesrc} ${SaltyEngineinc}
         ${srcGameServ} ${incGameServ}
+        ${SFMLsrc} ${SFMLinc}
         Tests/GameServer/gameclient-1.cpp)
 
 add_executable(udp-reception-status include/Network/UDP/ReceptionStatus.hpp Tests/Network/udpreception-status.cpp)
@@ -126,8 +132,8 @@ add_executable(udp-reception-status include/Network/UDP/ReceptionStatus.hpp Test
 #add_executable(toto Tests/SaltyEngine/main.cpp) #for color
 
 target_link_libraries(gameserv-1 -ldl)
-target_link_libraries(gameserv-2 -ldl)
-target_link_libraries(gameclient-1 -ldl)
+target_link_libraries(gameserv-2 -ldl libsfml-system.so libsfml-audio.so libsfml-graphics.so libsfml-window.so)
+target_link_libraries(gameclient-1 -ldl libsfml-system.so libsfml-audio.so libsfml-graphics.so libsfml-window.so)
 target_link_libraries(serverRoom -ldl)
 
 IF(${CMAKE_SYSTEM_NAME} MATCHES "Windows")

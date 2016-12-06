@@ -29,7 +29,8 @@ typedef enum : unsigned char {
     GAMELAUNCH = 8,
     GAMESTATUS = 9,
     GAMEAUTHENTICATE = 10,
-    GAMEPING = 11
+    GAMEPING = 11,
+    GAMEREBORN = 12
 } GamePurpose;
 
 class PackageGameHeader {
@@ -74,13 +75,15 @@ public:
 
 class AUTHENTICATEPackageGame : public PackageGameHeader {
 public:
-    AUTHENTICATEPackageGame(unsigned short sequenceID = 0, unsigned int secret = 0, unsigned short transactionID = 0)
+    AUTHENTICATEPackageGame(unsigned short sequenceID = 0, unsigned int secret = 0, unsigned char playerId = 0, unsigned short transactionID = 0)
             : PackageGameHeader(true, sizeof(AUTHENTICATEPackageGame), sequenceID, GamePurpose::GAMEAUTHENTICATE, transactionID) {
         this->secret = secret;
+        this->playerId = playerId;
     }
 
 public:
     unsigned int secret;
+    unsigned char playerId;
 };
 
 class ObjectIDPackageGame : public PackageGameHeader {
@@ -182,6 +185,13 @@ class LAUNCHPackageGame : public ObjectIDPackageGame {
 public:
     LAUNCHPackageGame(unsigned short sequenceID = 0, unsigned short objectID = 0, unsigned short transactionID = 0)
             : ObjectIDPackageGame(sizeof(LAUNCHPackageGame), GamePurpose::GAMELAUNCH, sequenceID, objectID, true, transactionID) {
+    }
+};
+
+class REBORNPackageGame : public ObjectIDPackageGame {
+public:
+    REBORNPackageGame(unsigned short sequenceID = 0, unsigned short objectID = 0, unsigned short transactionID = 0)
+            : ObjectIDPackageGame(sizeof(REBORNPackageGame), GamePurpose::GAMEREBORN, sequenceID, objectID, true, transactionID) {
     }
 };
 

@@ -10,7 +10,8 @@
 Network::UDP::AUDPClient::AUDPClient(Network::Core::NativeSocketIOOperationDispatcher &dispatcher) :
         AUDPConnection(dispatcher),
         buff(),
-        server(Socket::UDP)
+        server(Socket::UDP),
+        serverStream(NULL)
 {
 
 }
@@ -22,7 +23,8 @@ Network::UDP::AUDPClient::AUDPClient(Network::Core::NativeSocketIOOperationDispa
 Network::UDP::AUDPClient::AUDPClient(const Network::UDP::AUDPClient &ref) :
         AUDPConnection(ref),
         buff(ref.buff),
-        server(Network::Socket::UDP)
+        server(Network::Socket::UDP),
+        serverStream(NULL)
 {
 
 }
@@ -41,7 +43,7 @@ Network::UDP::AUDPClient::~AUDPClient()
  */
 void Network::UDP::AUDPClient::OnAllowedToRead()
 {
-    buff.reset();
+//    buff.reset();
     int ret = sock.ReceiveFrom(buff, server);
 
     if (ret > 0)

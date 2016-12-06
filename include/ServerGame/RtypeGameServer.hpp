@@ -7,11 +7,12 @@
 
 #include <Network/UDP/AUDPServer.hpp>
 #include <SaltyEngine/SaltyBehaviour.hpp>
-#include "RtypeGameClient.hpp"
+//#include "RtypeGameClient.hpp"
+#include "RtypeServerGameClient.hpp"
 
 namespace Rtype
 {
-    class RtypeGameServer : public Network::UDP::AUDPServer<RtypeGameClient>, public SaltyEngine::SaltyBehaviour
+    class RtypeGameServer : public Network::UDP::AUDPServer<Rtype::RtypeServerGameClient>, public SaltyEngine::SaltyBehaviour
     {
     public:
         RtypeGameServer(SaltyEngine::GameObject *obj, const uint16_t port = 4242, const int maxSize = 4);
@@ -19,18 +20,30 @@ namespace Rtype
         virtual ~RtypeGameServer();
 
     public:
-        virtual void OnDataReceived(unsigned int len);
-        virtual void OnDataSent(unsigned int len);
+        virtual bool OnDataReceived(unsigned int len);
+        virtual bool OnDataSent(unsigned int len);
+
+    public:
+        virtual void OnReadCheck();
 
     public:
         void Start();
         void Update();
+
+    public:
+        void setSecret(uint32_t secret);
+        bool Authenticate(uint32_t secret);
+
+    public:
+        void setSecure(bool security = true);
 
     private:
         Network::Core::NativeSocketIOOperationDispatcher dispatcher;
         GamePackageFactory factory;
         const uint16_t port;
         const int maxSize;
+        uint32_t  secret;
+        bool secure;
     };
 }
 

@@ -20,6 +20,10 @@ namespace Rtype
         void Run();
         void Stop();
 
+    public:
+        void setSecure(bool security = true);
+        void setSecret(uint32_t secret);
+
     private:
         RtypeGameServer *server;
         Network::Core::NativeSocketIOOperationDispatcher dispatcher;

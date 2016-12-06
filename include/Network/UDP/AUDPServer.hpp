@@ -106,6 +106,8 @@ namespace Network
             virtual ~AUDPServer()
             {
                 delete(clients);
+                if (newclient)
+                    delete(newclient);
             }
 
         public:
@@ -135,7 +137,8 @@ namespace Network
              */
             virtual void    OnAllowedToRead()
             {
-                newclient = new TimedUDPClient(Dispatcher());
+                if (newclient == NULL)
+                    newclient = new TimedUDPClient(Dispatcher());
                 buff.reset();
 
                 int ret;
@@ -152,6 +155,7 @@ namespace Network
                         if (clt == NULL)
                             continue;
 
+                        curr->OnReadCheck();
                         //And call the callback in case of matching
                         if (curr->getSocket() == newclient->getSocket())
                         {
@@ -167,12 +171,19 @@ namespace Network
                     clients->Add(newclient);
                     newclient->setServer(this);
                     newclient->setClients(clients);
-                    newclient->OnStart();
-                    //And call the callbacks
-                    newclient->setBuffer(buff);
-                    newclient->OnDataReceived(ret);
-                    WantReceive();
-                    OnDataReceived(0);
+                    if (newclient->OnStart())
+                    {
+                        //tells the server a new client join
+                        WantReceive();
+                        if (OnDataReceived(0))
+                        {
+                            //And call the callbacks
+                            newclient->setBuffer(buff);
+                            newclient->OnDataReceived(ret);
+                            //reset the pointer in order to reallocate it
+                            newclient = NULL;
+                        }
+                    }
                 }
                 else
                 {
@@ -191,6 +202,7 @@ namespace Network
                 {
                     TimedUDPClient  *clt = dynamic_cast<TimedUDPClient *>(it->get());
 
+                    clt->OnReadCheck();
                     if (clt->timedout())
                     {
                         clt->Disconnect();
@@ -198,6 +210,17 @@ namespace Network
                     }
                     else
                         ++it;
+                }
+            }
+
+            /**
+             * @brief Callback called when we are checking
+             */
+            virtual void OnWriteCheck()
+            {
+                for (std::unique_ptr<Socket::ISockStreamHandler> &curr : clients->Streams())
+                {
+                    curr->OnWriteCheck();
                 }
             }
 

@@ -23,13 +23,13 @@ namespace Network
             virtual ISocket const &getSocket() const = 0;
 
         public:
-            virtual void OnStart() = 0;
+            virtual bool OnStart() = 0;
             virtual void OnReadCheck() = 0;
             virtual void OnWriteCheck() = 0;
             virtual void OnAllowedToRead() = 0;
             virtual void OnAllowedToWrite() = 0;
-            virtual void OnDataReceived(unsigned int len) = 0;
-            virtual void OnDataSent(unsigned int len) = 0;
+            virtual bool OnDataReceived(unsigned int len) = 0;
+            virtual bool OnDataSent(unsigned int len) = 0;
             virtual void OnDisconnect() = 0;
         };
     }
