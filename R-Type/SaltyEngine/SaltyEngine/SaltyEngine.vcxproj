@@ -168,9 +168,6 @@
     <ClCompile Include="..\..\..\src\SaltyEngine\Input\Action.cpp" />
     <ClCompile Include="..\..\..\src\SaltyEngine\Input\Axis.cpp" />
     <ClCompile Include="..\..\..\src\SaltyEngine\Input\Mapping.cpp" />
-    <ClCompile Include="..\..\..\src\SaltyEngine\PlayerController.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\SaltyEngine\Component.cpp" />
     <ClCompile Include="..\..\..\src\SaltyEngine\GameObject.cpp" />
     <ClCompile Include="..\..\..\Tests\SaltyEngine\main.cpp">
@@ -217,9 +214,6 @@
     <ClInclude Include="..\..\..\include\SaltyEngine\RigidBody.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\Sprite.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\Texture.hpp" />
-    <ClInclude Include="..\..\..\include\SaltyEngine\PlayerController.hpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\SaltyEngine\Behaviour.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\Component.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\Coroutine.hpp" />

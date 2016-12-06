@@ -1,22 +1,9 @@
-// Monster.cpp�: d�finit les fonctions export�es pour l'application DLL.
-//
+#include "Missile/MissileMedusa/MissileMedusa.hpp"
+#include "SaltyEngine/SaltyEngine.hpp"
+#include "SaltyEngine/Debug.hpp"
+#include "Missile/MissileController.hpp"
 
-#include <SFML/Graphics.hpp>
-#include "Monster/Monster.hpp"
-#include "SaltyEngine/GameObject.hpp"
-#include "Monster/MonsterController.hpp"
-#include "SaltyEngine/Config.hpp"
-#include "SaltyEngine/AnimationClip.hpp"
-#include "SaltyEngine/SFML/SpriteRenderer.hpp"
-#include "SaltyEngine/Animation.hpp"
-
-// Il s'agit d'un exemple de variable export�e
-//MONSTER_API int nMonster=0;
-
-/**
- * \brief You can add your properties here
- */
-Monster::Monster() : GameObject("Monster")
+MissileMedusa::MissileMedusa() : GameObject("MissileMedusa")
 {
 	//SaltyEngine::SFML::Texture *texture = new SaltyEngine::SFML::Texture();
 	//if (!texture->loadFromFile("../../Assets/Textures/Image.png"))
@@ -35,14 +22,15 @@ Monster::Monster() : GameObject("Monster")
 	//	this->AddComponent < SaltyEngine::Animation<sf::Vector2i> >(true, SaltyEngine::AnimationConstants::WrapMode::PING_PONG);
 	//	this->GetComponent<SaltyEngine::Animation<sf::Vector2i> >()->AddClip(clip, "Walk");
 	//}
-	AddComponent<MonsterController>();
+	AddComponent<MissileController>();
 }
 
-Monster::~Monster()
+
+MissileMedusa::~MissileMedusa()
 {
 }
 
-MONSTER_API SaltyEngine::Object const*GetObjectPrefab()
+MISSILEMEDUSA_API SaltyEngine::Object const*GetObjectPrefab()
 {
-	return new Monster();
+	return new MissileMedusa();
 }

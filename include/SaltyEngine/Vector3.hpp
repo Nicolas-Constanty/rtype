@@ -34,6 +34,16 @@ namespace SaltyEngine
 		{
 			return BaseVector3<T>(static_cast<T>(0), static_cast<T>(0), static_cast<T>(0));
 		}
+
+		float magnitude() const
+		{
+			return sqrt(this->x * this->x + this->y * this->y + this->z * this->z);
+		}
+
+		BaseVector3<T> normalize() const
+		{
+			return BaseVector3<T>(this->x / this->magnitude(), this->y / this->magnitude(), this->z / this->magnitude());
+		}
 	};
 
 	typedef  BaseVector3<double> Vector3d;
