@@ -69,8 +69,14 @@ file(GLOB SaltyEngineinc include/SaltyEngine/*.hpp include/SaltyEngine/GUI/*.hpp
 file(GLOB SFMLsrc src/SaltyEngine/SFML/*.cpp)
 file(GLOB SFMLinc include/SaltyEngine/SFML/*.hpp)
 
-file(GLOB srcGameServ src/ServerGame/*.cpp)
-file(GLOB incGameServ include/ServerGame/*.hpp)
+file(GLOB srcGameServ src/Rtype/Game/Server/*.cpp)
+file(GLOB incGameServ include/Rtype/Game/Server/*.hpp)
+
+file(GLOB srcGameCommon src/Rtype/Game/Common/*.cpp)
+file(GLOB incGameCommon include/Rtype/Game/Common/*.hpp)
+
+file(GLOB srcGameClient src/Rtype/Game/Client/*.cpp)
+file(GLOB incGameClient include/Rtype/Game/Client/*.hpp)
 
 file(GLOB allsrc src/*/*.cpp src/*/*/*.cpp)
 file(GLOB allinc include/*/*.hpp include/*/*/*.hpp)
@@ -121,6 +127,7 @@ add_executable(gameserv-2
         ${Protocolsrc} ${Protocolinc}
         ${SaltyEnginesrc} ${SaltyEngineinc}
         ${srcGameServ} ${incGameServ}
+        ${srcGameCommon} ${incGameCommon}
         ${SFMLsrc} ${SFMLinc}
         Tests/GameServer/gameserv-2.cpp)
 
@@ -129,7 +136,8 @@ add_executable(gameclient-1
         ${Commoninc} ${Commonsrc}
         ${Protocolsrc} ${Protocolinc}
         ${SaltyEnginesrc} ${SaltyEngineinc}
-        ${srcGameServ} ${incGameServ}
+        ${srcGameClient} ${incGameClient}
+        ${srcGameCommon} ${incGameCommon}
         ${SFMLsrc} ${SFMLinc}
         Tests/GameServer/gameclient-1.cpp)
 
