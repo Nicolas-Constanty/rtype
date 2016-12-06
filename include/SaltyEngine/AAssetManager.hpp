@@ -233,7 +233,6 @@ namespace SaltyEngine {
 #if _WIN32
             WIN32_FIND_DATA findFileData;
 		    HANDLE hFind;
-
 		    hFind = FindFirstFile(std::string(folder + "\\*").c_str(), &findFileData);
 		    while (hFind != INVALID_HANDLE_VALUE)
 		    {

@@ -34,6 +34,9 @@ namespace Network
         public:
             void Open() throw(SocketException);
             void Close();
+
+            static unsigned short GetAvailablePort();
+
         };
 
         /**

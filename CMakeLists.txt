@@ -76,6 +76,11 @@ file(GLOB allinc include/*/*.hpp include/*/*/*.hpp)
 file(GLOB serverRoomsrc src/ServerRoom/*.cpp)
 file(GLOB serverRoominc include/ServerRoom/*.hpp)
 
+file(GLOB serverGameRoomssrc src/ServerGame/CreateRoomGameServer/*.cpp)
+file(GLOB serverGameRoomsinc include/ServerGame/CreateRoomGameServer/*.hpp)
+
+file(GLOB threadsrc src/Thread/*.cpp)
+file(GLOB threadinc include/Thread/*.hpp)
 
 add_executable(rtype-server
         ${srcGameServ} ${incGameServ}
@@ -97,6 +102,7 @@ add_executable(gameserv-1
         Tests/GameServer/gameserv-1.cpp)
 add_executable(clientRoomTCPClient ${Networksrc} ${Networkinc} ${Protocolinc} ${Protocolsrc} Tests/Network/ClientRoomConnectionToServerRoom/tcpclient-1.cpp Tests/Network/ClientRoomConnectionToServerRoom/basetcp.hpp)
 add_executable(serverGameTCPClient ${Networksrc} ${Networkinc} ${Protocolinc} ${Protocolsrc} Tests/Network/ServerGameConnectionToServerRoom/serverGameTCP.cpp Tests/Network/ServerGameConnectionToServerRoom/serverGameClient.hpp)
+add_executable(serverGameLauncher ${threadsrc} ${threadinc} ${serverGameRoomsinc} ${serverGameRoomssrc} ${Networksrc} ${Networkinc} ${Protocolinc} ${Protocolsrc} src/ServerGame/CreateRoomGameServer/main.cpp)
 
 add_executable(serverRoom
         ${Networksrc} ${Networkinc}
@@ -129,6 +135,7 @@ target_link_libraries(gameserv-1 -ldl)
 target_link_libraries(gameserv-2 -ldl)
 target_link_libraries(gameclient-1 -ldl)
 target_link_libraries(serverRoom -ldl)
+target_link_libraries(serverGameLauncher -ldl -lpthread)
 
 IF(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
     target_link_libraries(udpserv-1 -lWs2_32)

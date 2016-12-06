@@ -6,6 +6,7 @@
 #include <memory>
 #include <list>
 #include <map>
+#include "Vector2.hpp"
 
 namespace SaltyEngine
 {
@@ -21,7 +22,7 @@ namespace SaltyEngine
 		virtual ~Factory();
 
 	public:
-		static Object	*Create(std::string const& name);
+		static Object	*Create(std::string const& name, Vector const& pos, float rot);
 
 		/**
 		 * \brief Retrieves all the object of a certain type in the factory
