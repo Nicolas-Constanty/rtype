@@ -45,6 +45,11 @@ namespace SaltyEngine
 			return Factory::Create(obj, pos, rot);
 		}
 
+		static Object *Instantiate()
+		{
+			return Factory::Create();
+		}
+
 	public:
 		std::unique_ptr<Object> Clone() override
 		{
@@ -68,7 +73,7 @@ namespace SaltyEngine
 		}
 	};
 
-#define Instantiate(x, ...) Object::Instantiate(x, ## __VA_ARGS__)
+#define Instantiate(...) Object::Instantiate(## __VA_ARGS__)
 }
 
 #endif // !OBJECT_HPP_
