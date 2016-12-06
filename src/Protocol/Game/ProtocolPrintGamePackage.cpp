@@ -15,7 +15,7 @@ std::ostream &operator<<(std::ostream &ostream, PackageGameHeader const &package
     ostream << "reliable=" << packageGameHeader.headerGameInfo.reliable << std::endl;
     ostream << "length=" << packageGameHeader.length << std::endl;
     ostream << "sequenceID=" << packageGameHeader.sequenceID << std::endl;
-    ostream << "purpose=" << packageGameHeader.purpose << std::endl;
+    ostream << "purpose=" << static_cast<unsigned int>(packageGameHeader.purpose) << std::endl;
     ostream << "transactionID=" << packageGameHeader.transactionID << std::endl;
     return (ostream);
 }
@@ -158,4 +158,16 @@ std::ostream &operator<<(std::ostream &ostream, LAUNCHPackageGame const &launchP
     ostream << "objectID=" << launchPackageGame.objectID << std::endl;
     ostream << "}";
     return (ostream);
+}
+
+std::ostream &operator<<(std::ostream &ostream, REBORNPackageGame const &rebornPackageGame)
+{
+    ostream << "REBORNPackageGame = {" << std::endl;
+    PackageGameHeader const *header = dynamic_cast<PackageGameHeader const *>(&rebornPackageGame);
+    if (header)
+    {
+        ostream << *header;
+    }
+    ostream << "objectID=" << rebornPackageGame.objectID << std::endl << "}";
+    return ostream;
 }

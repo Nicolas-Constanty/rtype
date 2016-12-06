@@ -2,129 +2,88 @@
 // Created by gaspar_q on 11/28/16.
 //
 
-#include <Protocol/Game/ProtocolPrintGamePackage.hpp>
 #include <Network/Core/NativeSocketIOOperationDispatcher.hpp>
 #include <ServerGame/RtypeGameClient.hpp>
-#include <Protocol/Game/ProtocolGamePackage.hpp>
 #include <SaltyEngine/SaltyEngine.hpp>
+#include <ServerGame/RtypeGameServer.hpp>
 
-RtypeGameClient::RtypeGameClient(Network::Core::NativeSocketIOOperationDispatcher &dispatcher) :
+const std::chrono::milliseconds    Rtype::RtypeGameClient::timeout = std::chrono::milliseconds(5000);
+
+Rtype::RtypeGameClient::RtypeGameClient(Network::Core::NativeSocketIOOperationDispatcher &dispatcher) :
         Network::UDP::AUDPClient::AUDPClient(dispatcher),
         manager(*this),
-        id(0)
+        recvstatus(),
+        sendstatus(),
+        reply(false),
+        connected(false)
 {
 
 }
 
-RtypeGameClient::RtypeGameClient(const RtypeGameClient &ref) :
+Rtype::RtypeGameClient::RtypeGameClient(const RtypeGameClient &ref) :
     Network::UDP::AUDPClient(ref),
-    manager(*this)
+    manager(*this),
+    recvstatus(),
+    sendstatus(),
+    reply(false),
+    connected(false)
 {
 
 }
 
-RtypeGameClient::~RtypeGameClient()
+Rtype::RtypeGameClient::~RtypeGameClient()
 {
 
 }
 
-void RtypeGameClient::OnDataReceived(unsigned int)
+bool Rtype::RtypeGameClient::OnDataReceived(unsigned int)
 {
-    if (buff.getLength() < sizeof(PackageGameHeader))
-        return;
-
-    PackageGameHeader *head = buff.buff<PackageGameHeader>();
-
-//    buff.deserialize(head);// = buff. buff<PackageGameHeader>();
-
-    if (!status.IsSet(head->sequenceID))
+    while (buff.getLength() >= sizeof(PackageGameHeader))
     {
-        reply = status.Receiving(head->sequenceID);
-        if (reply)
-            head->transactionID = status.sliceAt(head->sequenceID).getStatus();
-        while (manager.handleProtocol(buff.buff(), buff.getLength()));//todo finish the merge of length
+        PackageGameHeader *head = buff.buff<PackageGameHeader>();
+
+        std::cout << "Buff: " << buff << std::endl << "\e[34mReceived\e[0m: " << *head << " with reply: " << std::boolalpha << reply << std::endl;
+        if (head->transactionID != 0)
+        {
+            //here you can check packet send by server which are lost
+            sendstatus.Receiving(head->sequenceID);
+            buff += head->length;
+            std::cout << "\e[31mAcknoledge\e[0m" << std::endl;
+        }
+        else if (!recvstatus.IsSet(head->sequenceID))
+        {
+            reply = recvstatus.Receiving(head->sequenceID);
+            std::cout << "\e[32mReceive status\e[0m: " << recvstatus << ", sliced at " << head->sequenceID << ": " << recvstatus.sliceAt(head->sequenceID) << " => " << recvstatus.sliceAt(head->sequenceID).getStatus() << std::endl;
+            std::cout << "\e[33mIs set\e[0m: " << std::boolalpha << recvstatus.IsSet(head->sequenceID) << std::endl;
+            if (reply)
+            {
+                head->transactionID = recvstatus.sliceAt(head->sequenceID).getStatus();
+            }
+            if (!manager.handleProtocol(buff.buff(), buff.getLength()))
+                break;
+            if (!connected)
+            {
+                std::cout << "Disconnected while reading" << std::endl;
+                Disconnect();
+                std::cout << "\e[31m ON A QUITTÉ LA FONCTION DATA RECEIVED \e[0m" << std::endl;
+                return false;
+            }
+        }
+        else
+        {
+            std::cout << "buff: " << buff << std::endl;
+            std::cout << "\e[31mReset\e[0m" << std::endl;
+            buff += head->length;
+//            return true;
+        }
     }
+    buff.consume();
+    std::cout << "\e[31m ON A QUITTÉ LA FONCTION DATA RECEIVED \e[0m" << std::endl;
+    return true;
 }
 
-void RtypeGameClient::OnDataSent(unsigned int len)
+bool Rtype::RtypeGameClient::OnDataSent(unsigned int len)
 {
     std::cout << "Sent: " << len << std::endl;
-}
-
-void RtypeGameClient::onGetSTATUSPackage(STATUSPackageGame const &pack)
-{
-    std::cout << pack << std::endl;
-    OnDiscoveringPackage(pack);
-}
-
-void RtypeGameClient::onGetPINGPackage(PINGPackageGame const &pack)
-{
-    std::cout << pack << std::endl;
-    OnDiscoveringPackage(pack);
-}
-
-void RtypeGameClient::onGetAUTHENTICATEPackage(AUTHENTICATEPackageGame const &pack)
-{
-    std::cout << pack << std::endl;
-    OnDiscoveringPackage(pack);
-}
-
-void RtypeGameClient::onGetCREATEPackage(CREATEPackageGame const &pack)
-{
-    std::cout << pack << std::endl;
-    OnDiscoveringPackage(pack);
-}
-
-void RtypeGameClient::onGetBEAMPackage(BEAMPackageGame const &pack)
-{
-    std::cout << pack << std::endl;
-    OnDiscoveringPackage(pack);
-}
-
-void RtypeGameClient::onGetSHOTPackage(SHOTPackageGame const &pack)
-{
-    std::cout << pack << std::endl;
-    OnDiscoveringPackage(pack);
-}
-
-void RtypeGameClient::onGetDIEPackage(DIEPackageGame const &pack)
-{
-    std::cout << pack << std::endl;
-    OnDiscoveringPackage(pack);
-}
-
-void RtypeGameClient::onGetTAKEPackage(TAKEPackageGame const &pack)
-{
-    std::cout << pack << std::endl;
-    OnDiscoveringPackage(pack);
-}
-
-void RtypeGameClient::onGetDROPPackage(DROPPackageGame const &pack)
-{
-    std::cout << pack << std::endl;
-    OnDiscoveringPackage(pack);
-}
-
-void RtypeGameClient::onGetMOVEPackage(MOVEPackageGame const &pack)
-{
-    std::cout << pack << std::endl;
-    OnDiscoveringPackage(pack);
-    buff.reset();
-}
-
-void RtypeGameClient::onGetLAUNCHPackage(LAUNCHPackageGame const &pack)
-{
-    std::cout << pack << std::endl;
-    OnDiscoveringPackage(pack);
-}
-
-void RtypeGameClient::OnStart()
-{
-    if (clients)
-        id = static_cast<int>(clients->Streams().size() + 1);
-}
-
-const int RtypeGameClient::getId() const
-{
-    return id;
+    return true;
 }

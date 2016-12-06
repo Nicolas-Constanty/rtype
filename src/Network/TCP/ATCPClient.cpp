@@ -56,7 +56,7 @@ void Network::TCP::ATCPClient::Connect(std::string const &ip, const uint16_t por
     OnStart();
 }
 
-void Network::TCP::ATCPClient::OnStart()
+bool Network::TCP::ATCPClient::OnStart()
 {
-
+    return true;
 }

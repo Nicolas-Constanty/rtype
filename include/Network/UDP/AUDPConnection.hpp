@@ -36,7 +36,44 @@ namespace Network
             virtual Socket::ISocket const &getSocket() const;
 
         public:
-            virtual void OnStart();
+            /**
+             * @brief Send a package reliably. With 30 packets, we are pretty sure that the packet is received
+             * @tparam T The type of the data to send
+             * @param ref The data to send
+             */
+            template <typename T>
+            void SendReliable(T const &ref)
+            {
+                for (size_t i = 0; i < 30; ++i)//todo reset to 30 loops
+                    SendData(ref);
+            }
+
+            /**
+             * @brief Broadcast a package reliably. With 30 packets, we are pretty sure that the packet is received
+             * @tparam T The type of the data to send
+             * @param ref The data to send
+             */
+            template <typename T>
+            void BroadcastReliable(T const &ref)
+            {
+                for (size_t i = 0; i < 30; ++i)//todo reset to 30 loops
+                    Broadcast(ref);
+            }
+
+            /**
+             * @brief Broadcast now and reliably. With 30 pakcet, we are pretty sure that the packet is received
+             * @tparam T The type of the data to send
+             * @param ref The data to send
+             */
+            template <typename T>
+            void BroadcastNowReliable(T const &ref)
+            {
+                for (size_t i = 0; i < 30; ++i)//todo reset to 30 loops
+                    BroadcastNow(ref);
+            }
+
+        public:
+            virtual bool OnStart();
 
         protected:
             Socket::OSSocket sock;

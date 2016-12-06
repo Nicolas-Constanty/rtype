@@ -53,6 +53,8 @@ namespace Network
 
             template <typename U = BasicConnection, typename T>
             void Broadcast(T const &towr) {
+                if (!clients)
+                    return;
                 for (std::unique_ptr<Socket::ISockStreamHandler> &curr : clients->Streams()) {
                     U *basicConnection;
 
@@ -64,6 +66,8 @@ namespace Network
 
             template <typename U = BasicConnection, typename T>
             void BroadcastNow(T const &towr) {
+                if (!clients)
+                    return;
                 for (std::unique_ptr<Socket::ISockStreamHandler> &curr : clients->Streams()) {
                     U *basicConnection;
 

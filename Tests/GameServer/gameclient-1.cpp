@@ -3,12 +3,14 @@
 //
 
 #include <ServerGame/RtypeGameClient.hpp>
+#include <SaltyEngine/SaltyEngine.hpp>
 
-class udpclient : public Network::UDP::AUDPClient
+class udpclient : public Rtype::RtypeGameClient
 {
 public:
     udpclient(Network::Core::NativeSocketIOOperationDispatcher &dispatcher) :
-            Network::UDP::AUDPClient(dispatcher)
+            Rtype::RtypeGameClient(dispatcher),
+            factory()
     {
 
     }
@@ -19,33 +21,87 @@ public:
     }
 
 public:
-    void OnDataReceived(unsigned int)
+    bool OnStart()
     {
-        std::cout << "Received: " << buff << std::endl;
-
-        Network::UDP::ReceptionStatus<uint16_t> status;
-
-        status.setStatus(buff.buff<MOVEPackageGame>()->transactionID);
-        status.Receiving(buff.buff<MOVEPackageGame>()->sequenceID);
-
-        std::cout << "Status: " << status << std::endl << std::endl;
-
-        static int i = 0;
-
-        if (i < 10)
-            SendData(*factory.create<MOVEPackageGame>(15, 42, 8, 0));
-        ++i;
+//        SendReliable(*factory.create<PINGPackageGame>(32, 0));
+        SendReliable(*factory.create<AUTHENTICATEPackageGame>(42));
+        connected = true;
+        return true;
     }
 
-    void OnDataSent(unsigned int)
+public:
+    virtual void onGetSTATUSPackage(STATUSPackageGame const &pack)
     {
+        OnDiscoveringPackage(pack);
 
     }
 
-    void OnStart()
+    virtual void onGetPINGPackage(PINGPackageGame const &pack)
     {
-        SendData(*factory.create<MOVEPackageGame>(15, 42, 8, 0));
+        reply = false;
+        OnDiscoveringPackage(pack);
+        SendReliable(*factory.create<PINGPackageGame>(pack.secret));
     }
+
+    virtual void onGetAUTHENTICATEPackage(AUTHENTICATEPackageGame const &pack)
+    {
+        std::cout << "\e[32mAuthenticated\e[0m" << std::endl;
+        OnDiscoveringPackage(pack);
+        //todo define in engine which player is controlled by user through gameobject id <pack.playerId>
+    }
+
+    virtual void onGetCREATEPackage(CREATEPackageGame const &pack)
+    {
+        OnDiscoveringPackage(pack);
+
+    }
+
+    virtual void onGetBEAMPackage(BEAMPackageGame const &pack)
+    {
+        OnDiscoveringPackage(pack);
+
+    }
+
+    virtual void onGetSHOTPackage(SHOTPackageGame const &pack)
+    {
+        OnDiscoveringPackage(pack);
+
+    }
+
+    virtual void onGetDIEPackage(DIEPackageGame const &pack)
+    {
+        OnDiscoveringPackage(pack);
+
+    }
+
+    virtual void onGetTAKEPackage(TAKEPackageGame const &pack)
+    {
+        OnDiscoveringPackage(pack);
+
+    }
+
+    virtual void onGetDROPPackage(DROPPackageGame const &pack)
+    {
+        OnDiscoveringPackage(pack);
+
+    }
+
+    virtual void onGetMOVEPackage(MOVEPackageGame const &pack)
+    {
+        OnDiscoveringPackage(pack);
+
+    }
+
+    virtual void onGetLAUNCHPackage(LAUNCHPackageGame const &pack)
+    {
+        OnDiscoveringPackage(pack);
+    }
+
+    virtual void onGetREBORNPackage(REBORNPackageGame const &pack)
+    {
+        OnDiscoveringPackage(pack);
+    }
+
 
 private:
     GamePackageFactory  factory;

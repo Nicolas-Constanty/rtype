@@ -4,6 +4,7 @@
 
 #include <ServerGame/Room.hpp>
 #include <SaltyEngine/SaltyEngine.hpp>
+#include <SaltyEngine/SFML/Scene.hpp>
 
 Rtype::Room::Room()
 {
@@ -18,7 +19,7 @@ Rtype::Room::~Room()
 void Rtype::Room::Start(const uint16_t port)
 {
     // Create Scene
-    SaltyEngine::Scene *scene(new SaltyEngine::Scene());
+    SaltyEngine::SFML::Scene *scene = new SaltyEngine::SFML::Scene();
 
     // Create player
     SaltyEngine::GameObject *serverGame = new SaltyEngine::GameObject("Server");
@@ -40,4 +41,14 @@ void Rtype::Room::Run()
 void Rtype::Room::Stop()
 {
     server->Disconnect();
+}
+
+void Rtype::Room::setSecure(bool security)
+{
+    server->setSecure(security);
+}
+
+void Rtype::Room::setSecret(uint32_t secret)
+{
+    server->setSecret(secret);
 }
