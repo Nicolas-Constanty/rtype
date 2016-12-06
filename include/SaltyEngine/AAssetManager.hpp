@@ -57,7 +57,9 @@ namespace SaltyEngine {
             path_sprites = getFullPath(Asset::SPRITES_PATH);
         }
 
-        virtual ~AAssetManager() {}
+        virtual ~AAssetManager() {
+
+        }
 
     protected:
         std::string                             cwd;
@@ -68,7 +70,7 @@ namespace SaltyEngine {
         std::string                             path_sprites;
 
         std::map<std::string, Sound*>           m_sounds;
-        std::map<std::string, Texture*>         m_textures;
+        std::map<std::string, std::unique_ptr<Texture>> m_textures;
         std::map<std::string, SpriteDefault>    m_sprites;
 
 
@@ -123,14 +125,14 @@ namespace SaltyEngine {
         /// \param name
         /// \return Texture*
         Texture *GetTexture(std::string const &name) {
-            typename std::map<std::string, Texture*>::const_iterator it = m_textures.find(name);
+            typename std::map<std::string, std::unique_ptr<Texture>>::const_iterator it = m_textures.find(name);
             if (it == m_textures.end()) {
                 if (!LoadTexture(name)) {
                     Debug::PrintError("Cannot find texture " + name);
                     return nullptr;
                 }
             }
-            return it->second;
+            return it->second.get();
         }
 
     public:

@@ -46,7 +46,7 @@ namespace SaltyEngine {
                 Debug::PrintError("Failed to load texture " + name);
                 return false;
             }
-            m_textures[name] = texture;
+            m_textures[name] = std::unique_ptr<::SaltyEngine::SFML::Texture>(texture);
             return true;
         }
 

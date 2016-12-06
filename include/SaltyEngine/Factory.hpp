@@ -17,7 +17,7 @@ namespace SaltyEngine
 	class Factory
 	{
 	private:
-		static std::map<std::string, Object*> m_prefabs;
+		static std::map<std::string, std::unique_ptr<Object>> m_prefabs;
 	private:
 		virtual ~Factory();
 

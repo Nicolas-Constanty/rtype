@@ -56,7 +56,7 @@ namespace SaltyEngine
             gameObject->transform.Translate(Vector(h, v) * speed);
         }
 
-        if (InputKey::GetKey(Input::KeyCode::Space)) {
+        if (InputKey::GetKeyDown(Input::KeyCode::Space)) {
 
 			GameObject *laser = (GameObject*)::SaltyEngine::Instantiate("laser", gameObject->transform.position);
 			laser->AddComponent<Laser>();

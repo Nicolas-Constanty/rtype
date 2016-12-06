@@ -21,7 +21,7 @@ SRC		= 	$(CLIENT_DIR)/PlayerController.cpp      \
             $(MONSTER_DIR)/MonsterController.cpp    \
             main.cpp                                \
 
-CPPFLAGS 	=   -W -Wall -g -Wextra -std=c++11 -fPIC
+CPPFLAGS 	=   -W -Wall -g -Wextra -std=c++11 -fPIC -g
 
 CPPFLAGS    +=  -I $(INC_DIR) #-I$(PROJECT_DIR)/Dependencies/SFML/Linux/include
 
