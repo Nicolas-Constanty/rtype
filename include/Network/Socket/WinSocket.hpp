@@ -22,7 +22,7 @@ namespace Network
             WinSocket(const Protocol &protocol = Socket::TCP, const sa_family_t domain = AF_INET, int option = 1);
             virtual ~WinSocket();
 
-            //IStream
+            //IStreamudpclient
         public:
             virtual int Receive(Core::NetBuffer &buff);
             virtual int Send(Core::NetBuffer const &buff) const;
@@ -33,6 +33,8 @@ namespace Network
         public:
             void Open() throw(SocketException);
             void Close();
+
+            static unsigned short GetAvailablePort();
         };
 
         using OSSocket = WinSocket;

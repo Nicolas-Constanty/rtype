@@ -45,7 +45,7 @@ std::vector<std::string> split(const std::string &s, char delim) {
 int main()
 {
     Network::Core::NativeSocketIOOperationDispatcher    dispatcher;
-    BasicClient client(dispatcher);
+    ClientGameRooms client(dispatcher);
 
     client.Connect("127.0.0.1", 4242);
     dispatcher.setTimeout((const struct timeval){0, 0});
