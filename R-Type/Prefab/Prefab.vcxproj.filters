@@ -25,6 +25,9 @@
     <Filter Include="Fichiers sources\MissileMedusa">
       <UniqueIdentifier>{5839e571-3682-4967-bf20-cc99f12d45d3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\Common">
+      <UniqueIdentifier>{f6a04ac2-f64b-4475-aec5-28c5b202e687}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="readme.txt" />
@@ -40,6 +43,12 @@
     <ClInclude Include="..\..\include\Missile\MissileMedusa\MissileMedusa.hpp">
       <Filter>Fichiers d%27en-tête\MissileMedusa</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\CommonPrefab\GenericController.hpp">
+      <Filter>Fichiers d%27en-tête\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Missile\MissileController.hpp">
+      <Filter>Fichiers d%27en-tête\Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Monster\Monster.cpp">
@@ -50,6 +59,9 @@
     </ClCompile>
     <ClCompile Include="..\..\src\Missile\MissileMedusa\MissileMedusa.cpp">
       <Filter>Fichiers sources\MissileMedusa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Missile\MissileController.cpp">
+      <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
