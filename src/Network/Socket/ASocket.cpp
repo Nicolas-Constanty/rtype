@@ -159,6 +159,15 @@ unsigned int Network::Socket::ASocket::getPort() const {
     return (static_cast<unsigned int>(sockaddr.sin_port));
 }
 
+unsigned int Network::Socket::ASocket::getIPFromString(std::string const &ip) {
+    struct in_addr addr;
+
+    if (inet_aton(ip.c_str(), &addr) == 0) {
+        return (0);
+    }
+    return addr.s_addr;
+}
+
 /**
  * @brief Basic write operator for ASocket that call print() method
  * @param output The output in which write

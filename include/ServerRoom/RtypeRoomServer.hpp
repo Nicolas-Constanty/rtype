@@ -16,8 +16,8 @@ public:
     virtual ~RtypeRoomServer();
 
 public:
-    virtual void OnDataReceived(unsigned int);
-    virtual void OnDataSent(unsigned int len);
+    virtual bool OnDataReceived(unsigned int);
+    virtual bool OnDataSent(unsigned int len);
 };
 
 

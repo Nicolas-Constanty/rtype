@@ -22,10 +22,11 @@ RtypeGameServerTCPConnection::~RtypeGameServerTCPConnection() {
 
 }
 
-void RtypeGameServerTCPConnection::OnDataReceived(unsigned int len) {
+bool RtypeGameServerTCPConnection::OnDataReceived(unsigned int len) {
     if (!protocolServerManager.handleProtocol(buff.buff(), buff.getLength())) {
         std::cout << "unknown cmd" << std::endl;
     }
+    return true;
 }
 
 void RtypeGameServerTCPConnection::OnDisconnect() {
@@ -40,13 +41,14 @@ void RtypeGameServerTCPConnection::OnDisconnect() {
     ServerGameDispatcher::Instance().Remove(this);
 }
 
-void RtypeGameServerTCPConnection::OnDataSent(unsigned int len) {
-
+bool RtypeGameServerTCPConnection::OnDataSent(unsigned int) {
+    return (true);
 }
 
-void RtypeGameServerTCPConnection::OnStart() {
+bool RtypeGameServerTCPConnection::OnStart() {
     ServerGameDispatcher::Instance().Add(this);
     this->SendData(*(serverPackageFactory.create<AUTHENTICATEPackageServer>(id, roomNumberMax)));
+    return (true);
 }
 
 void RtypeGameServerTCPConnection::onGetAUTHENTICATEPackage(const AUTHENTICATEPackageServer &obj) {

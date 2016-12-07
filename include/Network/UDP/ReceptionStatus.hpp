@@ -75,27 +75,26 @@ namespace Network
              */
             bool Receiving(SequenceType packetSeq)
             {
-                if (isSet && packetSeq == sequenceId)
-                    return false;
+                if (!isSet)
+                {
+                    isSet = true;
+                    sequenceId = packetSeq;
+                    return setReceived(packetSeq);
+                }
                 if (IsMoreRecent(packetSeq))
                 {
                     SequenceType save = sequenceId;
 
                     sequenceId = packetSeq;
-                    if (isSet)
-                    {
-                        int index = getSeqId(save);
+                    int index = getSeqId(save);
 
-                        if (index < 0)
-                            status = 0;
-                        else
-                        {
-                            status = status >> (-index + sizeof(StatusType) * 8);
-                            return setReceived(save);
-                        }
-                    }
+                    if (index < 0)
+                        status = 0;
                     else
-                        isSet = !isSet;
+                    {
+                        status = status >> (-index + sizeof(StatusType) * 8 - 1);
+                        return setReceived(sequenceId);
+                    }
                 }
                 else
                     return setReceived(packetSeq);
@@ -110,9 +109,13 @@ namespace Network
             bool IsSet(SequenceType packetSeq) const
             {
                 if (!isSet)
+                {
+                    std::cout << "Status not set" << std::endl;
                     return false;
+                }
                 int index = getSeqId(packetSeq);
 
+                std::cout << "Index of " << packetSeq << " = " << index << std::endl;
                 if (index < 0)
                     return false;
                 return packetSeq == sequenceId || (status & (1 << index));
@@ -149,8 +152,15 @@ namespace Network
                 if (index < 0 || index < (sizeof(StatusType) - sizeof(SequenceType)) * 8)
                     return stat;
                 stat.Receiving(sequenceid);
-                stat.setStatus((status >> (index - sizeof(SequenceType) * 8)) & (SequenceType)-1);
+                stat.setStatus((status >> (index - sizeof(SequenceType) * 8 + 1)) & (SequenceType)-1);
                 return stat;
+            }
+
+            void reset()
+            {
+                status = 0;
+                isSet = false;
+                sequenceId = 0;
             }
 
         private:
@@ -175,12 +185,12 @@ namespace Network
                 int index;
 
                 if (seq > sequenceId)
-                    index = std::numeric_limits<SequenceType>::max() - seq + sequenceId + 1;
+                    index = std::numeric_limits<SequenceType>::max() - seq + sequenceId;
                 else
                     index = sequenceId - seq;
                 if (index < 0 || index > sizeof(StatusType) * 8)
                     return -1;
-                return sizeof(StatusType) * 8 - index;
+                return sizeof(StatusType) * 8 - index - 1;
             }
 
             /**

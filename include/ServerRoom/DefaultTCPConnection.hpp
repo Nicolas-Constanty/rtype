@@ -21,9 +21,9 @@ public:
     virtual ~DefaultTCPConnection();
 
 public:
-    virtual void OnDataReceived(unsigned int len);
-    virtual void OnStart();
-    virtual void OnDataSent(unsigned int len);
+    virtual bool OnDataReceived(unsigned int len);
+    virtual bool OnStart();
+    virtual bool OnDataSent(unsigned int len);
 
 public:
     virtual void onGetAUTHENTICATEPackage(AUTHENTICATEPackageRoom const &);

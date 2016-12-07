@@ -38,6 +38,8 @@
 cmake_minimum_required(VERSION 2.8)
 project(rtype)
 
+execute_process(COMMAND ${CMAKE_COMMAND} -E tar xzf ${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/SFML.zip)
+
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 file(GLOB SOURCE_FILE
@@ -67,8 +69,14 @@ file(GLOB SaltyEngineinc include/SaltyEngine/*.hpp include/SaltyEngine/GUI/*.hpp
 file(GLOB SFMLsrc src/SaltyEngine/SFML/*.cpp)
 file(GLOB SFMLinc include/SaltyEngine/SFML/*.hpp)
 
-file(GLOB srcGameServ src/ServerGame/*.cpp)
-file(GLOB incGameServ include/ServerGame/*.hpp)
+file(GLOB srcGameServ src/Rtype/Game/Server/*.cpp)
+file(GLOB incGameServ include/Rtype/Game/Server/*.hpp)
+
+file(GLOB srcGameCommon src/Rtype/Game/Common/*.cpp)
+file(GLOB incGameCommon include/Rtype/Game/Common/*.hpp)
+
+file(GLOB srcGameClient src/Rtype/Game/Client/*.cpp)
+file(GLOB incGameClient include/Rtype/Game/Client/*.hpp)
 
 file(GLOB allsrc src/*/*.cpp src/*/*/*.cpp)
 file(GLOB allinc include/*/*.hpp include/*/*/*.hpp)
@@ -76,6 +84,16 @@ file(GLOB allinc include/*/*.hpp include/*/*/*.hpp)
 file(GLOB serverRoomsrc src/ServerRoom/*.cpp)
 file(GLOB serverRoominc include/ServerRoom/*.hpp)
 
+file(GLOB serverGameRoomssrc src/ServerGame/CreateRoomGameServer/*.cpp)
+file(GLOB serverGameRoomsinc include/ServerGame/CreateRoomGameServer/*.hpp)
+execute_process(COMMAND unzip -f ${CMAKE_SOURCE_DIR}/Dependencies/SFML.zip)
+link_directories(${CMAKE_BINARY_DIR}/SFML/Linux/lib)
+
+file(GLOB threadsrc src/Thread/*.cpp)
+file(GLOB threadinc include/Thread/*.hpp)
+
+file(GLOB processsrc src/Process/*.cpp)
+file(GLOB processinc include/Process/*.hpp)
 
 add_executable(rtype-server
         ${srcGameServ} ${incGameServ}
@@ -97,6 +115,7 @@ add_executable(gameserv-1
         Tests/GameServer/gameserv-1.cpp)
 add_executable(clientRoomTCPClient ${Networksrc} ${Networkinc} ${Protocolinc} ${Protocolsrc} Tests/Network/ClientRoomConnectionToServerRoom/tcpclient-1.cpp Tests/Network/ClientRoomConnectionToServerRoom/basetcp.hpp)
 add_executable(serverGameTCPClient ${Networksrc} ${Networkinc} ${Protocolinc} ${Protocolsrc} Tests/Network/ServerGameConnectionToServerRoom/serverGameTCP.cpp Tests/Network/ServerGameConnectionToServerRoom/serverGameClient.hpp)
+add_executable(serverGameLauncher ${processsrc} ${processinc} ${threadsrc} ${threadinc} ${serverGameRoomsinc} ${serverGameRoomssrc} ${Networksrc} ${Networkinc} ${Protocolinc} ${Protocolsrc} src/ServerGame/CreateRoomGameServer/main.cpp)
 
 add_executable(serverRoom
         ${Networksrc} ${Networkinc}
@@ -111,6 +130,8 @@ add_executable(gameserv-2
         ${Protocolsrc} ${Protocolinc}
         ${SaltyEnginesrc} ${SaltyEngineinc}
         ${srcGameServ} ${incGameServ}
+        ${srcGameCommon} ${incGameCommon}
+        ${SFMLsrc} ${SFMLinc}
         Tests/GameServer/gameserv-2.cpp)
 
 add_executable(gameclient-1
@@ -118,7 +139,9 @@ add_executable(gameclient-1
         ${Commoninc} ${Commonsrc}
         ${Protocolsrc} ${Protocolinc}
         ${SaltyEnginesrc} ${SaltyEngineinc}
-        ${srcGameServ} ${incGameServ}
+        ${srcGameClient} ${incGameClient}
+        ${srcGameCommon} ${incGameCommon}
+        ${SFMLsrc} ${SFMLinc}
         Tests/GameServer/gameclient-1.cpp)
 
 add_executable(udp-reception-status include/Network/UDP/ReceptionStatus.hpp Tests/Network/udpreception-status.cpp)
@@ -126,9 +149,10 @@ add_executable(udp-reception-status include/Network/UDP/ReceptionStatus.hpp Test
 #add_executable(toto Tests/SaltyEngine/main.cpp) #for color
 
 target_link_libraries(gameserv-1 -ldl)
-target_link_libraries(gameserv-2 -ldl)
-target_link_libraries(gameclient-1 -ldl)
+target_link_libraries(gameserv-2 -ldl libsfml-system.so libsfml-audio.so libsfml-graphics.so libsfml-window.so)
+target_link_libraries(gameclient-1 -ldl libsfml-system.so libsfml-audio.so libsfml-graphics.so libsfml-window.so)
 target_link_libraries(serverRoom -ldl)
+target_link_libraries(serverGameLauncher -ldl -lpthread)
 
 IF(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
     target_link_libraries(udpserv-1 -lWs2_32)

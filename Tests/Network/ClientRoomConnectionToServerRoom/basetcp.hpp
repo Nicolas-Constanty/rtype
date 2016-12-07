@@ -32,14 +32,16 @@ public:
     }
 
 public:
-    virtual void OnDataReceived(unsigned int len)
+    virtual bool OnDataReceived(unsigned int len)
     {
         std::cout << "Réception nouveau client: " << buff << std::endl;
+        return (true);
     }
 
-    virtual void OnDataSent(unsigned int len)
+    virtual bool OnDataSent(unsigned int len)
     {
         std::cout << len << " bytes sent" << std::endl;
+        return (true);
     }
 };
 
@@ -47,22 +49,22 @@ public:
 #include "Protocol/Room/IProtocolRoomHandler.hpp"
 #include "Protocol/Room/RTypeProtocolRoomManager.hpp"
 
-class BasicClient : public Network::TCP::ATCPClient, public IProtocolRoomHandler
+class ClientGameRooms : public Network::TCP::ATCPClient, public IProtocolRoomHandler
 {
 public:
-    BasicClient(Network::Core::NativeSocketIOOperationDispatcher &dispatcher) :
+    ClientGameRooms(Network::Core::NativeSocketIOOperationDispatcher &dispatcher) :
             Network::TCP::ATCPClient(dispatcher), protocolRoomManager(*this)
     {
 
     }
 
-    BasicClient(Network::Core::BasicConnection &ref) :
+    ClientGameRooms(Network::Core::BasicConnection &ref) :
             Network::TCP::ATCPClient(ref.Dispatcher()), protocolRoomManager(*this)
     {
 
     }
 
-    virtual ~BasicClient()
+    virtual ~ClientGameRooms()
     {
         std::cout << "\e[31mDestructor called\e[0m" << std::endl;
     }
@@ -71,12 +73,13 @@ private:
     RTypeProtocolRoomManager protocolRoomManager;
 
 public:
-    virtual void OnDataReceived(unsigned int len)
+    virtual bool OnDataReceived(unsigned int len)
     {
         std::cout << "Receiving " << buff << std::endl;
         while (protocolRoomManager.handleProtocol(buff.buff(), buff.getLength())) {
             std::cout << "unknown cmd" << std::endl;
         }
+        return true;
 //        if (buff.toString() == "change\n")
 //        {
 //            std::cout << "Changing client to Testswap client" << std::endl;
@@ -90,13 +93,15 @@ public:
 //        }
     }
 
-    virtual void OnDataSent(unsigned int len)
+    virtual bool OnDataSent(unsigned int len)
     {
         std::cout << "Number of bytes sent: " << len << std::endl;
+        return (true);
     }
 
-    virtual void OnStart() {
+    virtual bool OnStart() {
         this->SendData(*(factory.create<AUTHENTICATEPackageRoom>("toto", 0)));
+        return (true);
     }
 
 public:
@@ -154,13 +159,13 @@ private:
     RoomPackageFactory factory;
 };
 
-class BasicTCPServ : public Network::TCP::ATCPServer<BasicClient>
+class BasicTCPServ : public Network::TCP::ATCPServer<ClientGameRooms>
 {
 public:
-    BasicTCPServ(Network::Core::NativeSocketIOOperationDispatcher &dispatcher) :
-            Network::TCP::ATCPServer<BasicClient>(dispatcher)
+    BasicTCPServ(Network::Core::NativeSocketIOOperationDispatcher &dispatcher, unsigned short port) :
+            Network::TCP::ATCPServer<ClientGameRooms>(dispatcher)
     {
-        Start(4242);
+        Start(port);
     }
 
     virtual ~BasicTCPServ()
@@ -169,14 +174,16 @@ public:
     }
 
 public:
-    virtual void OnDataReceived(unsigned int)
+    virtual bool OnDataReceived(unsigned int)
     {
         std::cout << "New client accepted" << std::endl;
+        return (true);
     }
 
-    virtual void OnDataSent(unsigned int len)
+    virtual bool OnDataSent(unsigned int len)
     {
         std::cout << "Number of bytes sent: " << len << std::endl;
+        return (true);
     }
 };
 
