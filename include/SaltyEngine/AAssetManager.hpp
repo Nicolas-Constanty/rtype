@@ -197,7 +197,7 @@ namespace SaltyEngine {
         void    LoadAssets() {
             LoadSounds();
             LoadTextures();
-            LoadMonsters();
+            LoadPrefabs();
         }
 
         ///
@@ -238,14 +238,14 @@ namespace SaltyEngine {
         /// \brief Load all Monsters
         /// \param
         /// \return
-        void    LoadMonsters() {
+        void    LoadPrefabs() {
             for (std::string filename: getFilesInDir(path_prefabs)) {
                 unsigned long dotPos = filename.find_last_of(".");
                 if (dotPos == filename.npos) {
                     continue;
                 }
                 if (filename.substr(dotPos) == Asset::PREFAB_EXTENSION) {
-                    Debug::PrintSuccess("Loading monster [ " + filename + " ]");
+                    Debug::PrintSuccess("Loading prefab [ " + filename + " ]");
                     Factory::LoadAsset(path_prefabs + filename);
                 }
             }

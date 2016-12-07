@@ -126,7 +126,11 @@ include(${PROJECT_SOURCE_DIR}/R-Type/SFMLSaltyEngine/CMakeLists.txt)
 ############### TESTS ################
 include(${PROJECT_SOURCE_DIR}/Tests/Network/ClientRoomConnectionToServerRoom/CMakeLists.txt)
 include(${PROJECT_SOURCE_DIR}/Tests/Adrien/CMakeLists.txt)
+include(${PROJECT_SOURCE_DIR}/Tests/GUI/CMakeLists.txt)
 
 ############### PREFABS ##############
 include(${PROJECT_SOURCE_DIR}/R-Type/Prefab/CMakeLists.txt)
-add_custom_target(prefabs DEPENDS player missile_medusa monster)
+add_custom_target(prefabs DEPENDS player missile_medusa monster missile_laser)
+
+### FULL BUILD ###
+add_custom_target(BuildGUI DEPENDS BUILD_ENGINE prefabs)

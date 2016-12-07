@@ -16,4 +16,4 @@ set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
 add_library(SFMLSaltyEngine SHARED ${SOURCE_SALTYENGINE_SFML_FILE})
 target_link_libraries(SFMLSaltyEngine ${PROJECT_SOURCE_DIR}/lib/libSaltyEngine.a)
 
-add_custom_target(BUILD_SFMLSaltyEngine DEPENDS SaltyEngine SFMLSaltyEngine)
+add_custom_target(BUILD_ENGINE DEPENDS SaltyEngine SFMLSaltyEngine)

@@ -28,7 +28,12 @@ namespace SaltyEngine
 		const std::string	SEP = "/";
 #endif
 
+#ifdef CUSTOM_ASSET_PATH
+		const std::string    ASSET_PATH = CUSTOM_ASSET_PATH + SEP;
+#else
 		const std::string    ASSET_PATH = "Assets" + SEP;
+#endif
+
 		const std::string    SOUNDS_PATH = ASSET_PATH + "Sounds" + SEP;
 		const std::string    SPRITES_PATH = ASSET_PATH + "Sprites" + SEP;
 		const std::string    TEXTURES_PATH = ASSET_PATH + "Textures" + SEP;
