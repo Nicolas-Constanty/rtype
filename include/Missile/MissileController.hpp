@@ -1,5 +1,5 @@
 #pragma once
-#include "SaltyEngine.hpp"
+#include "SaltyEngine/SaltyEngine.hpp"
 
 class MissileController : public SaltyEngine::SaltyBehaviour
 {

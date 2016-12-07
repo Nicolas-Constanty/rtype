@@ -19,6 +19,7 @@ PlAYER_DIR              =   $(SRC_DIR)/Player
 SRC		= 	$(PlAYER_DIR)/PlayerController.cpp      \
             $(CLIENT_DIR)/Laser.cpp                 \
             $(MONSTER_DIR)/MonsterController.cpp    \
+            $(SALTYENGINE_DIR)/SFML/Sound.cpp           \
             main.cpp                                \
 
 CPPFLAGS 	=   -W -Wall -g -Wextra -std=c++11 -fPIC -g

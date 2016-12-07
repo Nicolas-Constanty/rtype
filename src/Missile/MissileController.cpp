@@ -16,5 +16,5 @@ void MissileController::SetTarget(SaltyEngine::Vector v)
 
 void MissileController::Update()
 {
-	this->gameObject->transform.Translate(SaltyEngine::Vector::zero());
+	this->gameObject->transform.Translate(SaltyEngine::Vector(-1, 0));
 }
