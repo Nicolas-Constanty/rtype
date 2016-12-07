@@ -18,7 +18,7 @@ namespace Rtype
             class RtypeGameServer : public Network::UDP::AUDPServer<Rtype::Game::Server::RtypeServerGameClient>
             {
             public:
-                RtypeGameServer(Network::Core::NativeSocketIOOperationDispatcher &dispatcher, const int maxSize = 4);
+                RtypeGameServer(Network::Core::NativeSocketIOOperationDispatcher &dispatcher, const size_t maxSize = 4);
                 RtypeGameServer(RtypeGameServer const &ref) = delete;
                 virtual ~RtypeGameServer();
 
@@ -38,7 +38,7 @@ namespace Rtype
 
             private:
                 GamePackageFactory factory;
-                const int maxSize;
+                const size_t maxSize;
                 uint32_t  secret;
                 bool secure;
             };

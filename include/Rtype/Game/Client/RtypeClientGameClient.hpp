@@ -36,6 +36,7 @@ namespace Rtype
                 virtual void onGetMOVEPackage(MOVEPackageGame const &pack);
                 virtual void onGetLAUNCHPackage(LAUNCHPackageGame const &pack);
                 virtual void onGetREBORNPackage(REBORNPackageGame const &pack);
+                virtual void onGetFAILUREPackage(FAILUREPackageGame const &pack);
 
             private:
                 GamePackageFactory  factory;

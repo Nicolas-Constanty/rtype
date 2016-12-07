@@ -6,7 +6,7 @@
 #include <SaltyEngine/SFML/Scene.hpp>
 #include <Rtype/Game/Server/RtypeServerGameClient.hpp>
 
-Rtype::Game::Server::RtypeGameServer::RtypeGameServer(Network::Core::NativeSocketIOOperationDispatcher &dispatcher, const int maxSize) :
+Rtype::Game::Server::RtypeGameServer::RtypeGameServer(Network::Core::NativeSocketIOOperationDispatcher &dispatcher, const size_t maxSize) :
         AUDPServer(dispatcher),
         factory(),
         maxSize(maxSize),

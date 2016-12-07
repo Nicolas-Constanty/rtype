@@ -11,7 +11,7 @@ int main()
     Network::Socket::WinSocket::Start();
 #endif
     Network::Core::NativeSocketIOOperationDispatcher    dispatcher((struct timeval){5, 0});
-    BasicTCPServ    server(dispatcher);
+    BasicTCPServ    server(dispatcher, 4242);
 
     dispatcher.Watch(server, Network::Core::NativeSocketIOOperationDispatcher::WatchMode::READ);
     dispatcher.Run();

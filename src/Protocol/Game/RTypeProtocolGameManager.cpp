@@ -17,6 +17,8 @@ const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::STATUSID = RTyp
 const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::AUTHENTICATEID = RTypeProtocolGameManager::GameID(GamePurpose::GAMEAUTHENTICATE, sizeof(AUTHENTICATEPackageGame));
 const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::PINGID = RTypeProtocolGameManager::GameID(GamePurpose::GAMEPING, sizeof(PINGPackageGame));
 const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::SHOTID = RTypeProtocolGameManager::GameID(GamePurpose::GAMESHOT, sizeof(SHOTPackageGame));
+const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::REBORNID = RTypeProtocolGameManager::GameID(GamePurpose::GAMEREBORN, sizeof(PINGPackageGame));
+const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::FAILUREID = RTypeProtocolGameManager::GameID(GamePurpose::GAMEFAILURE, sizeof(SHOTPackageGame));
 
 RTypeProtocolGameManager::RTypeProtocolGameManager(IProtocolGameHandler &protocolGameHandler)
         : protocolGameHandler(protocolGameHandler) {
@@ -31,6 +33,8 @@ RTypeProtocolGameManager::RTypeProtocolGameManager(IProtocolGameHandler &protoco
     fptr[STATUSID] = (MFP)&IProtocolGameHandler::onGetSTATUSPackage;
     fptr[AUTHENTICATEID] = (MFP)&IProtocolGameHandler::onGetAUTHENTICATEPackage;
     fptr[PINGID] = (MFP)&IProtocolGameHandler::onGetPINGPackage;
+    fptr[REBORNID] = (MFP)&IProtocolGameHandler::onGetREBORNPackage;
+    fptr[FAILUREID] = (MFP)&IProtocolGameHandler::onGetFAILUREPackage;
 }
 
 RTypeProtocolGameManager::~RTypeProtocolGameManager() {

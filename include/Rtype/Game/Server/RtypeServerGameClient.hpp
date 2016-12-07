@@ -28,7 +28,7 @@ namespace Rtype
                 virtual bool OnStart();
 
             public:
-                const int getId() const;
+                int getId() const;
 
             public:
                 virtual void onGetSTATUSPackage(STATUSPackageGame const &);
@@ -43,6 +43,7 @@ namespace Rtype
                 virtual void onGetMOVEPackage(MOVEPackageGame const &);
                 virtual void onGetLAUNCHPackage(LAUNCHPackageGame const &);
                 virtual void onGetREBORNPackage(REBORNPackageGame const &);
+                virtual void onGetFAILUREPackage(FAILUREPackageGame const &);
 
                 //todo implémenter dès que la classe de script saltybehaviour est codée
                 //public:

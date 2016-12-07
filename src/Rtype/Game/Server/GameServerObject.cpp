@@ -4,10 +4,11 @@
 
 #include <Rtype/Game/Server/GameServerObject.hpp>
 
-Rtype::Game::Server::GameServerObject::GameServerObject(SaltyEngine::GameObject *obj, const uint16_t port, const int maxClient, const uint32_t secret) :
+Rtype::Game::Server::GameServerObject::GameServerObject(SaltyEngine::GameObject *obj, const uint16_t port, const size_t maxClient, const uint32_t secret, uint16_t map) :
     SaltyEngine::SaltyBehaviour(obj),
     secret(secret),
     port(port),
+    map(map),
     server(new RtypeGameServer(dispatcher, maxClient)),
     dispatcher()
 {

@@ -30,7 +30,8 @@ typedef enum : unsigned char {
     GAMESTATUS = 9,
     GAMEAUTHENTICATE = 10,
     GAMEPING = 11,
-    GAMEREBORN = 12
+    GAMEREBORN = 12,
+    GAMEFAILURE = 13
 } GamePurpose;
 
 class PackageGameHeader {
@@ -153,6 +154,7 @@ public:
     }
 };
 
+//todo add power of shot
 class SHOTPackageGame : public ObjectIDPackageGame {
 public:
     SHOTPackageGame(unsigned short sequenceID = 0, unsigned short objectID = 0, unsigned short transactionID = 0)
@@ -193,6 +195,20 @@ public:
     REBORNPackageGame(unsigned short sequenceID = 0, unsigned short objectID = 0, unsigned short transactionID = 0)
             : ObjectIDPackageGame(sizeof(REBORNPackageGame), GamePurpose::GAMEREBORN, sequenceID, objectID, true, transactionID) {
     }
+};
+
+class FAILUREPackageGame : public PackageGameHeader {
+public:
+    FAILUREPackageGame(unsigned short sequenceID = 0, unsigned char failPurpose = 0, unsigned short failseq = 0, unsigned short transactionID = 0) :
+            PackageGameHeader(true, sizeof(FAILUREPackageGame), sequenceID, GAMEFAILURE, transactionID),
+            failPurpose(failPurpose),
+            failSequence(failseq)
+    {
+
+    }
+
+    unsigned char failPurpose;
+    unsigned short failSequence;
 };
 
 #endif //RTYPE_PROTOCOLGAMEPACKAGE_HPP

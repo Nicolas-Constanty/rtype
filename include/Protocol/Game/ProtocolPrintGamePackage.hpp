@@ -20,6 +20,7 @@ std::ostream &operator<<(std::ostream &ostream, DIEPackageGame const &diePackage
 std::ostream &operator<<(std::ostream &ostream, TAKEPackageGame const &takePackageGame);
 std::ostream &operator<<(std::ostream &ostream, DROPPackageGame const &dropPackageGame);
 std::ostream &operator<<(std::ostream &ostream, LAUNCHPackageGame const &launchPackageGame);
-std::ostream &operator<<(std::ostream &ostream, REBORNPackageGame const &launchPackageGame);
+std::ostream &operator<<(std::ostream &ostream, REBORNPackageGame const &rebornPackageGame);
+std::ostream &operator<<(std::ostream &ostream, FAILUREPackageGame const &failurePackageGame);
 
 #endif //RTYPE_PROTOCOLPRINTGAMEPACKAGE_HPP
