@@ -13,15 +13,21 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Fichiers sources\SaltyEngine">
+      <UniqueIdentifier>{19c4fccd-1569-455c-abe7-203b34cac8cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\SaltyEngine\SFML">
+      <UniqueIdentifier>{13f6939b-068c-4199-8a40-04be9900cad4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\ClientLauncher\main.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\ClientLauncher\PlayerController.cpp">
+    <ClCompile Include="..\..\..\src\SaltyEngine\SFML\EventManager.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\SaltyEngine\SFML\EventManager.cpp">
+    <ClCompile Include="..\..\..\src\Player\PlayerController.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\SaltyEngine\SFML\Scene.cpp">
@@ -29,6 +35,12 @@
     </ClCompile>
     <ClCompile Include="..\..\..\src\SaltyEngine\SFML\AssetManager.cpp">
       <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\SaltyEngine\SFML\Music.cpp">
+      <Filter>Fichiers sources\SaltyEngine\SFML</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\SaltyEngine\SFML\Sound.cpp">
+      <Filter>Fichiers sources\SaltyEngine\SFML</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

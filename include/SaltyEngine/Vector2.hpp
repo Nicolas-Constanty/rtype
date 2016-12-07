@@ -36,13 +36,22 @@ namespace SaltyEngine
 		{
 			return BaseVector2<T>(static_cast<T>(0), static_cast<T>(0));
 		}
+
+		float magnitude() const
+		{
+			return sqrt(this->x * this->x + this->y * this->y);
+		}
+
+		BaseVector2<T> normalize() const
+		{
+			return BaseVector2<T>(this->x / this->magnitude(), this->y / this->magnitude());
+		}
 		
 		friend std::ostream &operator<<(std::ostream &os, BaseVector2<T> const &obj) {
             return os << "(" << obj.x << ", " << obj.y << ")";
         }
 	};
 
-	;
 	typedef  BaseVector2<float> Vector2f;
 	typedef  BaseVector2<int> Vector2i;
 	typedef  BaseVector2<double> Vector2d;

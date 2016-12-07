@@ -150,7 +150,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\src\ClientLauncher\Laser.cpp" />
     <ClCompile Include="..\..\src\SaltyEngine\GUI\UIBehaviour.cpp" />
-    <ClCompile Include="..\..\src\ClientLauncher\PlayerController.cpp" />
+    <ClCompile Include="..\..\src\Player\PlayerController.cpp" />
     <ClCompile Include="..\..\src\SaltyEngine\Debug.cpp" />
     <ClCompile Include="..\..\src\SaltyEngine\GUI\Button.cpp" />
     <ClCompile Include="..\..\src\SaltyEngine\GUI\Event.cpp" />
@@ -164,8 +164,8 @@
     <ClCompile Include="..\..\Tests\GUI\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\Player\PlayerController.hpp" />
     <ClInclude Include="..\..\include\ClientLauncher\Laser.hpp" />
-    <ClInclude Include="..\..\include\ClientLauncher\PlayerController.hpp" />
     <ClInclude Include="..\..\include\SaltyEngine\Debug.hpp" />
     <ClInclude Include="..\..\include\SaltyEngine\GUI\Button.hpp" />
     <ClInclude Include="..\..\include\SaltyEngine\GUI\Event.hpp" />
