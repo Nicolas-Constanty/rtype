@@ -13,4 +13,5 @@ public:
 
 private:
 	SaltyEngine::Vector m_targetPos;
+    float m_vel = 10;
 };
