@@ -62,3 +62,13 @@ namespace SaltyEngine {
 		return true;
 	}
 }
+
+SaltyEngine::GameObject *SaltyEngine::Factory::Find(std::string const &name)
+{
+    std::list<std::unique_ptr<Object>>::iterator it = std::find_if(m_objects.begin(), m_objects.end(),
+                                                                   [&](const std::unique_ptr<Object> &obj)
+                                                                   {
+                                                                       return obj.get()->GetName() == name;
+                                                                   });
+    return (GameObject*)(*it).get();
+}

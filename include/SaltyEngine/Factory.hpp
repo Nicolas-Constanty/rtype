@@ -6,6 +6,7 @@
 #include <memory>
 #include <list>
 #include <map>
+#include <algorithm>
 #include "Vector2.hpp"
 
 namespace SaltyEngine
@@ -14,6 +15,7 @@ namespace SaltyEngine
 	 * \brief The factory allow the engine to clone objects
 	 */
 	class Object;
+    class GameObject;
 	class Factory
 	{
 	private:
@@ -47,15 +49,7 @@ namespace SaltyEngine
          * @param name
          * @return
          */
-		static Object* Find(std::string const& name)
-        {
-            std::list<std::unique_ptr<Object>>::iterator it = std::find_if(m_objects.begin(), m_objects.end(),
-                                                                           [&](const std::unique_ptr<Object> &obj)
-                                                                           {
-                                                                               return obj.get()->GetName() == name;
-                                                                           });
-            return (*it).get();
-        }
+		static GameObject* Find(std::string const& name);
 
 		/**
 		 * \brief Loads an asset into the memory from a path
