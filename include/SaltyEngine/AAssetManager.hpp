@@ -51,7 +51,7 @@ namespace SaltyEngine {
                 getcwd(cwd, 256);
                 this->cwd = std::string(cwd) + "/";
             #endif
-            path_monsters = getFullPath(Asset::MONSTERS_PATH);
+            path_prefabs = getFullPath(Asset::PREFABS_PATH);
             path_textures = getFullPath(Asset::TEXTURES_PATH);
             path_sounds = getFullPath(Asset::SOUNDS_PATH);
             path_sprites = getFullPath(Asset::SPRITES_PATH);
@@ -64,7 +64,7 @@ namespace SaltyEngine {
     protected:
         std::string                             cwd;
 
-        std::string                             path_monsters;
+        std::string                             path_prefabs;
         std::string                             path_textures;
         std::string                             path_sounds;
         std::string                             path_sprites;
@@ -167,7 +167,7 @@ namespace SaltyEngine {
                 LoadSprite(sprite);
             }
             if (!lib.empty()) {
-                Factory::LoadAsset(path_monsters + filename);
+                Factory::LoadAsset(path_prefabs + filename);
             }
             return true;
         }
@@ -239,14 +239,14 @@ namespace SaltyEngine {
         /// \param
         /// \return
         void    LoadMonsters() {
-            for (std::string filename: getFilesInDir(path_monsters)) {
+            for (std::string filename: getFilesInDir(path_prefabs)) {
                 unsigned long dotPos = filename.find_last_of(".");
                 if (dotPos == filename.npos) {
                     continue;
                 }
-                if (filename.substr(dotPos) == Asset::MONSTER_EXTENSION) {
+                if (filename.substr(dotPos) == Asset::PREFAB_EXTENSION) {
                     Debug::PrintSuccess("Loading monster [ " + filename + " ]");
-                    Factory::LoadAsset(path_monsters + filename);
+                    Factory::LoadAsset(path_prefabs + filename);
                 }
             }
         }
