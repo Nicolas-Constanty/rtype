@@ -23,8 +23,8 @@ RtypeGameServerTCPConnection::~RtypeGameServerTCPConnection() {
 }
 
 bool RtypeGameServerTCPConnection::OnDataReceived(unsigned int len) {
-    if (!protocolServerManager.handleProtocol(buff.buff(), buff.getLength())) {
-        std::cout << "unknown cmd" << std::endl;
+    while (protocolServerManager.handleProtocol(buff.buff(), buff.getLength())) {
+//        std::cout << "unknown cmd" << std::endl;
     }
     return true;
 }
@@ -53,6 +53,7 @@ bool RtypeGameServerTCPConnection::OnStart() {
 
 void RtypeGameServerTCPConnection::onGetAUTHENTICATEPackage(const AUTHENTICATEPackageServer &obj) {
     std::cout << obj << std::endl;
+    buff += sizeof(obj);
 }
 
 void RtypeGameServerTCPConnection::onGetLAUNCHPackage(const LAUNCHPackageServer &obj) {
@@ -78,11 +79,12 @@ void RtypeGameServerTCPConnection::onGetLAUNCHPackage(const LAUNCHPackageServer 
 //            (*it)->Close();
 //            this->Broadcast<RtypeRoomTCPConnection>(*roomPackageFactory.create<DELETEPackageRoom>((*it)->getID()));
 //            this->RemoveRoomService((*it).get());
-
+            buff += sizeof(obj);
             return ;
         }
         ++it;
     }
+    buff += sizeof(obj);
 }
 
 void RtypeGameServerTCPConnection::onGetSTATUSPackage(const STATUSPackageServer &obj) {
@@ -97,12 +99,13 @@ void RtypeGameServerTCPConnection::onGetSTATUSPackage(const STATUSPackageServer 
                 (*it)->Close();
                 this->Broadcast<RtypeRoomTCPConnection>(*roomPackageFactory.create<DELETEPackageRoom>((*it)->getID()));
                 this->RemoveRoomService((*it).get());
-
+                buff += sizeof(obj);
                 return;
             }
             ++it;
         }
     }
+    buff += sizeof(obj);
 
 }
 

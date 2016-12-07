@@ -22,8 +22,8 @@ RtypeRoomTCPConnection::~RtypeRoomTCPConnection() {
 }
 
 bool RtypeRoomTCPConnection::OnDataReceived(unsigned int) {
-    if (!protocolRoomManager.handleProtocol(buff.buff(), buff.getLength())) {
-        std::cout << "unknown command" << std::endl;
+    while (protocolRoomManager.handleProtocol(buff.buff(), buff.getLength())) {
+//        std::cout << "unknown command" << std::endl;
     }
     return (true);
 }
@@ -57,6 +57,7 @@ void RtypeRoomTCPConnection::BroadCastNowGETRoom() {
 
 void RtypeRoomTCPConnection::onGetAUTHENTICATEPackage(AUTHENTICATEPackageRoom const &obj) {
     std::cout << obj << std::endl;
+    buff += sizeof(obj);
 }
 
 void RtypeRoomTCPConnection::OnSendGetRooms() {
@@ -116,12 +117,14 @@ void RtypeRoomTCPConnection::onGetCREATEPackage(CREATEPackageRoom const &obj) {
         // La room n'a pas été créée par le ServerGameDispatcher.
         this->SendData(*roomPackageFactory.create<FAILUREPackageRoom>("roomFailOnCreate", RoomPurpose::ROOMCREATE));
     }
+    buff += sizeof(obj);
 }
 
 void RtypeRoomTCPConnection::onGetJOINPackage(JOINPackageRoom const &obj) {
     std::cout << obj << std::endl;
     if (roomService) {
         this->SendData(*roomPackageFactory.create<FAILUREPackageRoom>("already join", RoomPurpose::ROOMJOIN));
+        buff += sizeof(obj);
         return ;
     }
     roomService = ServerGameDispatcher::Instance().GetRoomServiceFromID(obj.roomID);
@@ -129,6 +132,7 @@ void RtypeRoomTCPConnection::onGetJOINPackage(JOINPackageRoom const &obj) {
         this->SendData(*roomPackageFactory.create<FAILUREPackageRoom>("joinFail", RoomPurpose::ROOMJOIN));
         roomService = NULL;
     }
+    buff += sizeof(obj);
 }
 
 void RtypeRoomTCPConnection::OnQUITEvent(bool canBroadcastGET) {
@@ -149,6 +153,7 @@ void RtypeRoomTCPConnection::onGetQUITPackage(QUITPackageRoom const &obj) {
         || (roomService && roomService->getID() != obj.roomID)
         || obj.userID != this->id) {
         this->SendData(*roomPackageFactory.create<FAILUREPackageRoom>("no room has been found", RoomPurpose::ROOMQUIT));
+        buff += sizeof(obj);
         return ;
     }
     if (roomService->getClientNbr() == 1) {
@@ -159,35 +164,43 @@ void RtypeRoomTCPConnection::onGetQUITPackage(QUITPackageRoom const &obj) {
     } else {
         OnQUITEvent(true);
     }
+    buff += sizeof(obj);
 }
 
 void RtypeRoomTCPConnection::onGetDELETEPackage(DELETEPackageRoom const &obj) {
     std::cout << obj << std::endl;
+    buff += sizeof(obj);
 }
 
 void RtypeRoomTCPConnection::onGetPLUGGEDPackage(PLUGGEDPackageRoom const &obj) {
     std::cout << obj << std::endl;
+    buff += sizeof(obj);
 }
 
 void RtypeRoomTCPConnection::onGetSWAPPackage(SWAPPackageRoom const &obj) {
     std::cout << obj << std::endl;
+    buff += sizeof(obj);
 }
 
 void RtypeRoomTCPConnection::onGetGETPackage(GETPackageRoom const &obj) {
     std::cout << obj << std::endl;
+    buff += sizeof(obj);
 }
 
 void RtypeRoomTCPConnection::onGetFAILUREPackage(FAILUREPackageRoom const &obj) {
     std::cout << obj << std::endl;
+    buff += sizeof(obj);
 }
 
 void RtypeRoomTCPConnection::onGetLAUNCHPackage(LAUNCHPackageRoom const &obj) {
     std::cout << obj << std::endl;
-    if (roomService && !roomService->isLaunch() && roomService->getID() == obj.roomID) {
+//    if (roomService && !roomService->isLaunch() && roomService->getID() == obj.roomID) {
+    if (roomService) {
         roomService->Launch();
     } else {
         this->SendData(*roomPackageFactory.create<FAILUREPackageRoom>("no room to launch", RoomPurpose::ROOMLAUNCH));
     }
+    buff += sizeof(obj);
 }
 
 void RtypeRoomTCPConnection::onGetCHATPackage(CHATPackageRoom const &chatPackageRoom) {
@@ -197,6 +210,7 @@ void RtypeRoomTCPConnection::onGetCHATPackage(CHATPackageRoom const &chatPackage
     } else {
         this->SendData(*roomPackageFactory.create<FAILUREPackageRoom>("no room to chat or bad id", RoomPurpose::ROOMCHAT));
     }
+    buff += sizeof(chatPackageRoom);
 }
 
 bool RtypeRoomTCPConnection::OnStart() {
@@ -207,9 +221,14 @@ bool RtypeRoomTCPConnection::OnStart() {
 
 void RtypeRoomTCPConnection::OnDisconnect() {
     if (roomService) {
-        roomService->RemovePlayer(this);
-        BroadCastNowGETRoom();
-        SendQUITToAllClientsInsideTheRoom();
+        if (roomService->getClientNbr() == 1) {
+            this->BroadcastNow<RtypeRoomTCPConnection>(*roomPackageFactory.create<DELETEPackageRoom>(roomService->getID()));
+            this->roomService->getGameServer()->RemoveRoomService(roomService);
+        } else {
+            roomService->RemovePlayer(this);
+            BroadCastNowGETRoom();
+            SendQUITToAllClientsInsideTheRoom();
+        }
         roomService = NULL;
     }
 }
