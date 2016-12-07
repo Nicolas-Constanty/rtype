@@ -42,6 +42,21 @@ namespace SaltyEngine
 			return objs;
 		}
 
+        /**
+         * @brief Find game object from its name
+         * @param name
+         * @return
+         */
+		static Object* Find(std::string const& name)
+        {
+            std::list<std::unique_ptr<Object>>::iterator it = std::find_if(m_objects.begin(), m_objects.end(),
+                                                                           [&](const std::unique_ptr<Object> &obj)
+                                                                           {
+                                                                               return obj.get()->GetName() == name;
+                                                                           });
+            return (*it).get();
+        }
+
 		/**
 		 * \brief Loads an asset into the memory from a path
 		 */

@@ -5,9 +5,9 @@ find_package(PkgConfig)
 
 pkg_check_modules(SFML sfml-all)
 
-#if($ENV{PROJECT})
+if($ENV{PROJECT})
     set(WD ../../)
-#endif()
+endif()
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wextra")
 
