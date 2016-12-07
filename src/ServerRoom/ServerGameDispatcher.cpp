@@ -32,7 +32,6 @@ RoomService *ServerGameDispatcher::CreateRoomService(std::string const &name, un
             if (!gameServerTCPConnection || gameServerTCPConnection->getActualRoomNumber() > (*it)->getActualRoomNumber()) {
                 gameServerTCPConnection = (*it);
             }
-//            size = (*it)->getActualRoomNumber();
 //            return ((*it)->AddRoomService(name, clientMaxNbr, mapID));
         }
         ++it;
