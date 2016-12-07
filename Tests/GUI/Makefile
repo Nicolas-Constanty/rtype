@@ -19,14 +19,13 @@ PlAYER_DIR              =   $(SRC_DIR)/Player
 SRC		= 	$(PlAYER_DIR)/PlayerController.cpp      \
             $(CLIENT_DIR)/Laser.cpp                 \
             $(MONSTER_DIR)/MonsterController.cpp    \
-            $(SALTYENGINE_DIR)/SFML/Sound.cpp           \
             main.cpp                                \
 
 CPPFLAGS 	=   -W -Wall -g -Wextra -std=c++11 -fPIC -g
 
-CPPFLAGS    +=  -I $(INC_DIR) #-I$(PROJECT_DIR)/Dependencies/SFML/Linux/include
+CPPFLAGS    +=  -I $(INC_DIR) -I$(PROJECT_DIR)/Dependencies/SFML/Linux/include
 
-#DFLAGS	    =   -L$(PROJECT_DIR)/Dependencies/SFML/Linux/lib -lsfml-system -lsfml-window -lsfml-graphics -lsfml-audio -Wl,-rpath=$(PROJECT_DIR)/Dependencies/SFML/Linux/lib
+LDFLAGS	    =   -L$(PROJECT_DIR)/Dependencies/SFML/Linux/lib -lsfml-system -lsfml-window -lsfml-graphics -lsfml-audio -Wl,-rpath=$(PROJECT_DIR)/Dependencies/SFML/Linux/lib
 
 LDFLAGS     +=  -lpthread -ldl -lsfml-system -lsfml-window -lsfml-graphics -lsfml-audio
 
