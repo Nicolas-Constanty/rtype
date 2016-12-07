@@ -5,6 +5,8 @@
 
 #include <string>
 #include <iostream>
+#include <cmath>
+#include <stdexcept>
 
 namespace SaltyEngine
 {
@@ -37,6 +39,16 @@ namespace SaltyEngine
 			return BaseVector2<T>(static_cast<T>(0), static_cast<T>(0));
 		}
 
+		static BaseVector2<T> up()
+		{
+			return BaseVector2<T>(static_cast<T>(0), static_cast<T>(1));
+		}
+
+        static BaseVector2<T> left()
+        {
+            return BaseVector2<T>(static_cast<T>(-1), static_cast<T>(0));
+        }
+
 		float magnitude() const
 		{
 			return sqrt(this->x * this->x + this->y * this->y);
@@ -46,6 +58,18 @@ namespace SaltyEngine
 		{
 			return BaseVector2<T>(this->x / this->magnitude(), this->y / this->magnitude());
 		}
+
+        /**
+         * @brief Return an angle from two vectors
+         * @param current
+         * @param target
+         * @return
+         */
+        static float RotateTowards(BaseVector2<T> current, BaseVector2<T> target)
+        {
+            throw std::runtime_error("RotateTowards not implemented");
+            return 0;
+        }
 		
 		friend std::ostream &operator<<(std::ostream &os, BaseVector2<T> const &obj) {
             return os << "(" << obj.x << ", " << obj.y << ")";

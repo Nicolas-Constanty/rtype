@@ -13,7 +13,7 @@ add_library(monster SHARED ${MONSTER_SOURCE_FILE})
 target_link_libraries(monster ${PROJECT_SOURCE_DIR}/SaltyEngine/libSaltyEngine.a -ldl)
 
 # MISSILE MEDUSA
-file(GLOB MISSILE_MEDUSA_SOURCE_FILE "../src/Missile/MissileMedusa/*.cpp")
+file(GLOB MISSILE_MEDUSA_SOURCE_FILE "../src/Missile/MissileMedusa/*.cpp" "../src/Missile/*.cpp")
 add_library(missile_medusa SHARED ${MISSILE_MEDUSA_SOURCE_FILE})
 target_link_libraries(missile_medusa ${PROJECT_SOURCE_DIR}/SaltyEngine/libSaltyEngine.a -ldl)
 

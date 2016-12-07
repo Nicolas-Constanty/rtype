@@ -1,4 +1,4 @@
-#include "Missile\MissileController.hpp"
+#include "Missile/MissileController.hpp"
 
 MissileController::MissileController(SaltyEngine::GameObject *go) : SaltyEngine::SaltyBehaviour(go)
 {
@@ -16,5 +16,5 @@ void MissileController::SetTarget(SaltyEngine::Vector v)
 
 void MissileController::Update()
 {
-	this->gameObject->transform.Translate(SaltyEngine::Vector(-1, 0));
+	this->gameObject->transform.Translate(this->gameObject->transform.up() * SaltyEngine::SaltyEngine::Instance().GetDeltaTime() * m_vel);
 }

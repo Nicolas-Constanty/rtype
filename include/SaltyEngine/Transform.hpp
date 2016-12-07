@@ -61,6 +61,16 @@ namespace SaltyEngine
 		{
 			throw std::runtime_error("RotateAround not implemented!");
 		}
+
+        T up() const
+        {
+            T vec = T(1, 0);
+            float x = vec.x * cos(rotation) - vec.y * sin(rotation);
+            float y = vec.x * cos(rotation) + vec.y * sin(rotation);
+            vec.x = x; vec.y = y;
+            return vec.normalize();
+        }
+
 		void SetParent(BaseTransform<T> * parent)
 		{
 			m_parent = parent;
