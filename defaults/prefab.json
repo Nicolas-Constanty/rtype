@@ -1,7 +1,0 @@
-{
-    "sprites": [
-        "{{sprite}}",
-        "{{sprite2}}"
-    ],
-    "lib": "{{monster{.dll, .so}}}"
-}

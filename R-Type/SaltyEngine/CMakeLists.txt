@@ -1,20 +1,27 @@
 cmake_minimum_required(VERSION 3.6)
 project(rtype)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wextra")
 
-file(GLOB SOURCE_FILE
-        "src/SaltyEngine/*.cpp"
-        "src/SaltyEngine/Input/*.cpp"
-        "src/SaltyEngine/SFML/*.cpp"
+#SET(WD ../../)
+
+file(GLOB SOURCE_SALTYENGINE_FILE
+        "${WD}src/SaltyEngine/*.cpp"
+        "${WD}src/SaltyEngine/GUI/*.cpp"
+        "${WD}src/SaltyEngine/Input/*.cpp"
+        "${WD}src/Common/LibLoader.cpp"
         )
-file(GLOB INCLUDE_FILE
-        "include/SaltyEngine/*.hpp"
-        "include/SaltyEngine/Input/*.hpp"
-        "include/SaltyEngine/SFML/*.hpp"
+
+file(GLOB INCLUDE_SALTYENGINE_FILE
+        "${WD}include/SaltyEngine/*.hpp"
+        "${WD}include/SaltyEngine/GUI/*.hpp"
+        "${WD}include/SaltyEngine/Input/*.hpp"
         )
 
-include_directories("include")
+include_directories("${WD}include")
 
-set(SOURCE_FILES INCLUDE_SRC)
-add_executable(rtype ${SOURCE_FILE} ${INCLUDE_FILE})
+set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib/)
+
+add_library(SaltyEngine STATIC ${SOURCE_SALTYENGINE_FILE})
+target_link_libraries(SaltyEngine)

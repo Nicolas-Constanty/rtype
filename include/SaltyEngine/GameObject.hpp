@@ -176,6 +176,11 @@ namespace SaltyEngine
 			return (os);
 		}
 
+		static GameObject *Find(std::string const& name)
+        {
+            return Factory::Find(name);
+        }
+
 		public:
 			virtual std::unique_ptr<Object> Clone() {
 				return std::unique_ptr<Object>(new GameObject(GetName() + "(Clone)"));
