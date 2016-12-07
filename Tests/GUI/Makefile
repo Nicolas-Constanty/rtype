@@ -14,9 +14,9 @@ SALTYENGINE_DIR         =   $(SRC_DIR)/SaltyEngine
 COMMON_DIR              =   $(SRC_DIR)/Common
 MONSTER_DIR             =   $(SRC_DIR)/Monster
 CLIENT_DIR              =   $(SRC_DIR)/ClientLauncher
-SFML_DIR                =   $(SALTYENGINE_DIR)/SFML
+PlAYER_DIR              =   $(SRC_DIR)/Player
 
-SRC		= 	$(CLIENT_DIR)/PlayerController.cpp      \
+SRC		= 	$(PlAYER_DIR)/PlayerController.cpp      \
             $(CLIENT_DIR)/Laser.cpp                 \
             $(MONSTER_DIR)/MonsterController.cpp    \
             main.cpp                                \
