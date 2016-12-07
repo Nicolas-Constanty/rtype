@@ -57,22 +57,26 @@ int main()
         if (inputAvailable()) {
             std::getline(std::cin, buffer);
             std::vector<std::string> cmds = split(buffer, ' ');
-            if (cmds[0] == "CREATE" && cmds.size() == 3) {
-                client.SendData(*(factory.create<CREATEPackageRoom>(0, (unsigned short)std::atoi(cmds[1].c_str()), cmds[2], 0, 1)));
-            } else if (cmds[0] == "JOIN" && cmds.size() == 2) {
-                client.SendData(*(factory.create<JOINPackageRoom>((unsigned short)std::atoi(cmds[1].c_str()))));
-            } else if (cmds[0] == "QUIT" && cmds.size() == 3) {
-                client.SendData(*(factory.create<QUITPackageRoom>((unsigned int)std::atoi(cmds[1].c_str()),
-                                                                  (unsigned short)std::atoi(cmds[2].c_str()))));
-            } else if (cmds[0] == "LAUNCH" && cmds.size() == 2) {
-                client.SendData(*(factory.create<LAUNCHPackageRoom>((unsigned short)std::atoi(cmds[1].c_str()))));
-            } else if (cmds[0] == "CHAT") {
-                client.SendData(*(factory.create<CHATPackageRoom>((unsigned short)std::atoi(cmds[1].c_str()), buffer)));
+            if (!cmds.empty()) {
+                if (cmds[0] == "CREATE" && cmds.size() == 3) {
+                    client.SendData(
+                            *(factory.create<CREATEPackageRoom>(0, (unsigned short) std::atoi(cmds[1].c_str()), cmds[2],
+                                                                0, 1)));
+                } else if (cmds[0] == "JOIN" && cmds.size() == 2) {
+                    client.SendData(*(factory.create<JOINPackageRoom>((unsigned short) std::atoi(cmds[1].c_str()))));
+                } else if (cmds[0] == "QUIT" && cmds.size() == 3) {
+                    client.SendData(*(factory.create<QUITPackageRoom>((unsigned int) std::atoi(cmds[1].c_str()),
+                                                                      (unsigned short) std::atoi(cmds[2].c_str()))));
+                } else if (cmds[0] == "LAUNCH" && cmds.size() == 2) {
+                    client.SendData(*(factory.create<LAUNCHPackageRoom>((unsigned short) std::atoi(cmds[1].c_str()))));
+                } else if (cmds[0] == "CHAT") {
+                    client.SendData(
+                            *(factory.create<CHATPackageRoom>((unsigned short) std::atoi(cmds[1].c_str()), buffer)));
+                } else {
+                    std::cout << "unknown cmd" << std::endl;
+                }
             }
-            else {
-                std::cout << "unknown cmd" << std::endl;
-            }
-            std::cout << buffer << std::endl;
+//            std::cout << buffer << std::endl;
         }
         usleep(3000);
 

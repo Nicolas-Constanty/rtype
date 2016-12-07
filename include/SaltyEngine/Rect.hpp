@@ -16,7 +16,7 @@ namespace SaltyEngine
 		~Rect() {};
 
 	public:
-		bool Contain(const T &vec) const override { return false; };
+		bool Contain(const T &) const override { return false; };
 		bool Intersect(IRect<T> *) const override { return false; };
 
 	public:

@@ -6,7 +6,7 @@
 
 namespace SaltyEngine {
 
-	std::map<std::string, Object *> Factory::m_prefabs;
+	std::map<std::string, std::unique_ptr<Object>> Factory::m_prefabs;
     std::list<std::unique_ptr<Object> > Factory::m_objects;
 
     Factory::~Factory() {
@@ -57,8 +57,18 @@ namespace SaltyEngine {
             std::cerr << "Prefab [" << obj->GetName() << "] already in prefab list." << std::endl;
             return false;
         }
-        m_prefabs[obj->GetName()] = obj;
+        m_prefabs[obj->GetName()] = std::unique_ptr<Object>(obj);
         //loader.Unload();
 		return true;
 	}
+}
+
+SaltyEngine::GameObject *SaltyEngine::Factory::Find(std::string const &name)
+{
+    std::list<std::unique_ptr<Object>>::iterator it = std::find_if(m_objects.begin(), m_objects.end(),
+                                                                   [&](const std::unique_ptr<Object> &obj)
+                                                                   {
+                                                                       return obj.get()->GetName() == name;
+                                                                   });
+    return (GameObject*)(*it).get();
 }

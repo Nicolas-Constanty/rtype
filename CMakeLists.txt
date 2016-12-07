@@ -119,11 +119,16 @@ ENDIF(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
 include(${PROJECT_SOURCE_DIR}/R-Type/ServerRoom/CMakeLists.txt)
 include(${PROJECT_SOURCE_DIR}/R-Type/ServerGameDispatcher/CMakeLists.txt)
 
-############### TESTS ###############
+############ SALTYENGINE ############
+include(${PROJECT_SOURCE_DIR}/R-Type/SaltyEngine/CMakeLists.txt)
+include(${PROJECT_SOURCE_DIR}/R-Type/SFMLSaltyEngine/CMakeLists.txt)
+
+############### TESTS ################
 include(${PROJECT_SOURCE_DIR}/Tests/Network/ClientRoomConnectionToServerRoom/CMakeLists.txt)
 include(${PROJECT_SOURCE_DIR}/Tests/GameServer/CMakeLists.txt)
 include(${PROJECT_SOURCE_DIR}/Tests/Network/CMakeLists.txt)
+include(${PROJECT_SOURCE_DIR}/Tests/Adrien/CMakeLists.txt)
 
-############### PREFABS ###############
+############### PREFABS ##############
 include(${PROJECT_SOURCE_DIR}/R-Type/Prefab/CMakeLists.txt)
 add_custom_target(prefabs DEPENDS player missile_medusa monster)

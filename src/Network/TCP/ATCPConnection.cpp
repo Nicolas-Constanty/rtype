@@ -43,7 +43,7 @@ void Network::TCP::ATCPConnection::OnAllowedToWrite()
 
     while (!toWrite.empty())
     {
-        std::cout << "Sending data: " << toWrite.front() << std::endl;
+//        std::cout << "Sending data: " << toWrite.front() << std::endl;
         int len = sock.Send(toWrite.front());
         if (len > 0)
             sent += len;

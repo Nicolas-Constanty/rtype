@@ -1,7 +1,7 @@
 #include "Player/PlayerController.hpp"
 #include "SaltyEngine/SFML/EventManager.hpp"
 #include "SaltyEngine/Input/InputManager.hpp"
-#include "ClientLauncher/Laser.hpp"
+#include "Missile/Laser/Laser.hpp"
 
 typedef SaltyEngine::Input::InputManager<SaltyEngine::SFML::EventManager>  InputKey;
 
@@ -51,8 +51,11 @@ namespace SaltyEngine
             gameObject->transform.Translate(Vector(h, v) * speed);
         }
 
-        if (InputKey::GetAction("Hello", Input::ActionType::Pressed)) {
-            std::cout << "hello" << std::endl;
+        if (InputKey::GetKeyDown(Input::KeyCode::Space)) {
+
+			GameObject *laser = (GameObject*)::SaltyEngine::Instantiate("laser", gameObject->transform.position);
+			laser->AddComponent<Laser>();
+			*Singleton<::SaltyEngine::SaltyEngine>::Instance().GetCurrentScene() << laser;
         }
 	}
 
