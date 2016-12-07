@@ -6,6 +6,7 @@
 #define RTYPE_ROOM_HPP
 
 #include "RtypeGameServer.hpp"
+#include "GameServerObject.hpp"
 
 namespace Rtype
 {
@@ -20,17 +21,11 @@ namespace Rtype
                 ~Room();
 
             public:
-                void Start(const uint16_t port = 4242);
+                void Start(const uint16_t port = 4242, const unsigned int max = 4, const uint32_t secret = 0);
                 void Run();
-                void Stop();
-
-            public:
-                void setSecure(bool security = true);
-                void setSecret(uint32_t secret);
 
             private:
-                RtypeGameServer *server;
-                Network::Core::NativeSocketIOOperationDispatcher dispatcher;
+                GameServerObject *server;
             };
         }
     }

@@ -5,6 +5,7 @@
 #include <Rtype/Game/Server/Room.hpp>
 #include <SaltyEngine/SaltyEngine.hpp>
 #include <SaltyEngine/SFML/Scene.hpp>
+#include <Rtype/Game/Server/GameServerObject.hpp>
 
 Rtype::Game::Server::Room::Room()
 {
@@ -16,15 +17,15 @@ Rtype::Game::Server::Room::~Room()
 
 }
 
-void Rtype::Game::Server::Room::Start(const uint16_t port)
+void Rtype::Game::Server::Room::Start(const uint16_t port, const unsigned int max, const uint32_t secret)
 {
     // Create Scene
     SaltyEngine::SFML::Scene *scene = new SaltyEngine::SFML::Scene();
 
     // Create player
-    SaltyEngine::GameObject *serverGame = new SaltyEngine::GameObject("Server");
+    SaltyEngine::GameObject *serverGame = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate("Server"));// new SaltyEngine::GameObject("Server");
 
-    server = serverGame->AddComponent<Rtype::Game::Server::RtypeGameServer>(port);
+    serverGame->AddComponent<Rtype::Game::Server::GameServerObject>(port, max > 4 ? 4 : max, secret);
 
     *scene << serverGame;
 
@@ -36,19 +37,4 @@ void Rtype::Game::Server::Room::Run()
 {
     // Run the SaltyEngine with default Scene 0
     Singleton<SaltyEngine::SaltyEngine>::Instance().Run();
-}
-
-void Rtype::Game::Server::Room::Stop()
-{
-    server->Disconnect();
-}
-
-void Rtype::Game::Server::Room::setSecure(bool security)
-{
-    server->setSecure(security);
-}
-
-void Rtype::Game::Server::Room::setSecret(uint32_t secret)
-{
-    server->setSecret(secret);
 }

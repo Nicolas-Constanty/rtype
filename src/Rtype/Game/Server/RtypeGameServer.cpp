@@ -6,12 +6,11 @@
 #include <SaltyEngine/SFML/Scene.hpp>
 #include <Rtype/Game/Server/RtypeServerGameClient.hpp>
 
-Rtype::Game::Server::RtypeGameServer::RtypeGameServer(SaltyEngine::GameObject *obj, const uint16_t port, const int maxSize) :
+Rtype::Game::Server::RtypeGameServer::RtypeGameServer(Network::Core::NativeSocketIOOperationDispatcher &dispatcher, const int maxSize) :
         AUDPServer(dispatcher),
-        SaltyBehaviour(obj),
-        dispatcher(),
-        port(port),
+        factory(),
         maxSize(maxSize),
+        secret(0),
         secure(false)
 {
 
@@ -44,18 +43,6 @@ bool Rtype::Game::Server::RtypeGameServer::OnDataSent(unsigned int len)
 {
     std::cout << "On send des choses: " << len << std::endl;
     return true;
-}
-
-void Rtype::Game::Server::RtypeGameServer::Start()
-{
-    Network::UDP::AUDPServer<RtypeServerGameClient>::Start(port);
-    dispatcher.Watch(this, Network::Core::NativeSocketIOOperationDispatcher::READ);
-    dispatcher.setTimeout({0, 0});
-}
-
-void Rtype::Game::Server::RtypeGameServer::Update()
-{
-    dispatcher.Poll();
 }
 
 void Rtype::Game::Server::RtypeGameServer::OnReadCheck()
