@@ -46,20 +46,22 @@ void Lobby::CreateServerGame() {
     UnixProcess    process;
 
     ///TODO changer le sleep 10 par le binaire du server Game
+    mutex.unlock();
     process.Launch("sleep 10");
     if (!process.IsChild()) {
         lobbyHandler.OnProcessBegin(lobbyInfo);
     }
-    mutex.unlock();
 
-    std::cout << "The Thread is waiting the server game ..." << std::endl;
+//    std::cout << "The Thread is waiting the server game ..." << std::endl;
     int status = process.WaitSon();
 
     ///TODO checker le status
     mutex.lock();
     unsigned int secret = lobbyInfo->GetSecret();
 
+    mutex.unlock();
     lobbyHandler.OnProcessEnd(status, &secret);
+    mutex.lock();
     if (lobbyInfo)
         delete lobbyInfo;
     lobbyInfo = NULL;

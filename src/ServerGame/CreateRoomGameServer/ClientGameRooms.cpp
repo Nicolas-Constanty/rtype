@@ -12,7 +12,7 @@ ClientGameRooms::ClientGameRooms(Network::Core::NativeSocketIOOperationDispatche
     __mutex = new StdMutex();
     mutex = new StdMutex();
     if ((this->ip = Network::Socket::ASocket::getIPFromString(ip)) == 0) {
-        std::cout << "FAILED" << std::endl;
+//        std::cout << "FAILED" << std::endl;
     }
     size_t idx = 0;
     while (idx < threadNbr) {
@@ -25,52 +25,57 @@ ClientGameRooms::ClientGameRooms(Network::Core::NativeSocketIOOperationDispatche
 
 ClientGameRooms::~ClientGameRooms()
 {
-    std::cout << "\e[31mDestructor called\e[0m" << std::endl;
+//    std::cout << "\e[31mDestructor called\e[0m" << std::endl;
 }
 
 bool ClientGameRooms::OnDataReceived(unsigned int len)
 {
-    std::cout << "Receiving " << buff << std::endl;
+//    std::cout << "Receiving " << buff << std::endl;
     while (protocolServerManager.handleProtocol(buff.buff(), buff.getLength())) {
-        std::cout << "unknown cmd" << std::endl;
+//        std::cout << "unknown cmd" << std::endl;
     }
     return (true);
 }
 
 void ClientGameRooms::onGetAUTHENTICATEPackage(AUTHENTICATEPackageServer const &obj) {
     __mutex->lock();
-    std::cout << obj << std::endl;
+//    std::cout << obj << std::endl;
     buff += sizeof(obj);
     __mutex->unlock();
 }
 
-//TODO
-// Ne pas utiliser la fonction SEND
-// A Stocker dans une queue et à pop dans une fonction utilisé dans le main thread pour send
+void ClientGameRooms::OnReadCheck() {
+    __mutex->lock();
+    while (!_packageToSendLAUNCH.empty()) {
+        this->SendData(*_packageToSendLAUNCH.front());
+        _packageToSendLAUNCH.pop();
+    }
+    while (!_packageToSendSTATUS.empty()) {
+        this->SendData(*_packageToSendSTATUS.front());
+        _packageToSendSTATUS.pop();
+    }
+    __mutex->unlock();
+}
+
 void ClientGameRooms::OnProcessBegin(void *data) {
     __mutex->lock();
 
-    std::cout << "The Server Game is Launched" << std::endl;
+//    std::cout << "The Server Game is Launched" << std::endl;
 
     Lobby::LobbyInfo *lobbyInfo = (Lobby::LobbyInfo *)data;
 
     LAUNCHPackageServer *launchPackageServer = factory.create<LAUNCHPackageServer>(lobbyInfo->GetMaxNbrClient(), lobbyInfo->GetMapID(),
                                                                             lobbyInfo->GetSecret(), this->ip, lobbyInfo->GetPort());
 
-//    _packageToSend.push(launchPackageServer);
-
     _packageToSendLAUNCH.push(launchPackageServer);
 
-
-    //TODO A ENLEVER
-    this->SendData(*launchPackageServer);
 
     __mutex->unlock();
 }
 
 void ClientGameRooms::onGetLAUNCHPackage(LAUNCHPackageServer const &obj) {
     __mutex->lock();
-    std::cout << obj << std::endl;
+//    std::cout << obj << std::endl;
     unsigned short port = Network::Socket::OSSocket::GetAvailablePort();
 
     for (std::unique_ptr<Lobby> &lobby : lobbies) {
@@ -89,27 +94,24 @@ void ClientGameRooms::onGetLAUNCHPackage(LAUNCHPackageServer const &obj) {
 
 void ClientGameRooms::onGetSTATUSPackage(STATUSPackageServer const &obj) {
     __mutex->lock();
-    std::cout << obj << std::endl;
+//    std::cout << obj << std::endl;
     buff += sizeof(obj);
     __mutex->unlock();
 }
 
 bool ClientGameRooms::OnDataSent(unsigned int len) {
-    std::cout << "Number of bytes sent: " << len << std::endl;
+//    std::cout << "Number of bytes sent: " << len << std::endl;
     return (true);
 }
 
 bool ClientGameRooms::OnStart() {
     __mutex->lock();
-    std::cout << "connected" << std::endl;
+//    std::cout << "connected" << std::endl;
     this->SendData(*(factory.create<AUTHENTICATEPackageServer>(0, 3)));
     __mutex->unlock();
     return (true);
 }
 
-//TODO
-// Ne pas utiliser la fonction SEND
-// A Stocker dans une queue et à pop dans une fonction utilisée dans le main thread pour send
 void ClientGameRooms::OnProcessEnd(int status, void *data) {
     __mutex->lock();
 
@@ -118,13 +120,10 @@ void ClientGameRooms::OnProcessEnd(int status, void *data) {
     (void)status;
     STATUSPackageServer *statusPackageServer = factory.create<STATUSPackageServer>(*secret, ServerInformation::SERVEROVER);
 
-//    _packageToSend.push(statusPackageServer);
 
     _packageToSendSTATUS.push(statusPackageServer);
 
-    //TODO A ENLEVER
-    this->SendData(*statusPackageServer);
 
-    std::cout << "The Server Game is over" << std::endl;
+//    std::cout << "The Server Game is over" << std::endl;
     __mutex->unlock();
 }

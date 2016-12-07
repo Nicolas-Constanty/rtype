@@ -36,6 +36,8 @@ public:
     virtual void onGetSTATUSPackage(STATUSPackageServer const &obj);
     virtual bool OnDataSent(unsigned int len);
     virtual bool OnStart();
+    virtual void OnReadCheck();
+
 
 public:
     virtual void OnProcessEnd(int status, void *data);
