@@ -10,7 +10,7 @@
 
 namespace SaltyEngine {
     namespace SFML {
-        AssetManager::AssetManager(): AAssetManager<::SaltyEngine::SFML::Texture>() {
+        AssetManager::AssetManager(): AAssetManager<::SaltyEngine::SFML::Texture, ::SaltyEngine::SFML::Sprite>() {
 
         }
 
@@ -18,9 +18,8 @@ namespace SaltyEngine {
 
         }
 
-        bool AssetManager::LoadISound(const std::string &name, bool isMusic) {
-            std::map<std::string, ::SaltyEngine::Sound::ISound*>::const_iterator it = m_sounds.find(name);
-            if (it == m_sounds.end()) {
+        bool AssetManager::LoadISound(std::string const &name, bool isMusic) {
+            if (m_sounds.find(name) == m_sounds.end()) {
                 Debug::PrintWarning("Sound " + name + " already loaded");
                 return false;
             }
@@ -30,21 +29,42 @@ namespace SaltyEngine {
             } else {
                 sound = new ::SaltyEngine::SFML::Sound();
             }
-            if (!sound->LoadFromFile(getFullPath(Asset::SOUNDS_PATH) + name + Asset::SOUND_EXTENSION)) {
+            if (!sound->LoadFromFile(path_sounds + name + Asset::SOUND_EXTENSION)) {
                 return false;
             }
             m_sounds[name] = sound;
             return true;
         }
 
-        bool AssetManager::LoadTexture(const std::string &name) {
-            ::SaltyEngine::SFML::Texture *texture = new SaltyEngine::SFML::Texture();
-            if (!texture->loadFromFile(getFullPath(Asset::TEXTURES_PATH) + name + Asset::TEXTURE_EXTENSION)) {
+        bool AssetManager::LoadTexture(std::string const &name) {
+            if (m_textures.find(name) != m_textures.end()) {
+                Debug::PrintWarning("Texture " + name + " already loaded");
+                return false;
+            }
+            ::SaltyEngine::SFML::Texture *texture = new ::SaltyEngine::SFML::Texture();
+            if (!texture->loadFromFile(path_textures + name + Asset::TEXTURE_EXTENSION)) {
                 Debug::PrintError("Failed to load texture " + name);
                 return false;
             }
-            m_textures[name] = texture;
+            m_textures[name] = std::unique_ptr<::SaltyEngine::SFML::Texture>(texture);
             return true;
+        }
+
+        ::SaltyEngine::SFML::Sprite * AssetManager::GetSprite(std::string const &name) {
+            typename std::map<std::string, SpriteDefault>::const_iterator it = m_sprites.find(name);
+            if (it == m_sprites.end()) {
+                if (!LoadSprite(name)) {
+                    Debug::PrintError("Cannot find sprite " + name);
+                    return nullptr;
+                }
+            }
+            ::SaltyEngine::SFML::Texture *texture = GetTexture(it->second.texture);
+            if (texture == nullptr) {
+                return nullptr;
+            }
+            ::SaltyEngine::Vector2i position = it->second.position;
+            ::SaltyEngine::Vector2i size = it->second.size;
+            return new ::SaltyEngine::SFML::Sprite(texture, new ::SaltyEngine::SFML::Rect(position.x, position.y, size.x, size.y));
         }
     }
 }
