@@ -15,8 +15,9 @@ namespace SaltyEngine {
 
 int main()
 {
-	SaltyEngine::AssetManager.LoadAssets();
-	SaltyEngine::SFML::Renderer *renderer = new SaltyEngine::SFML::Renderer(sf::VideoMode(1280, 720), "R-Type Launcher");
+    SaltyEngine::AssetManager.LoadAssets();
+
+    SaltyEngine::SFML::Renderer *renderer = new SaltyEngine::SFML::Renderer(sf::VideoMode(1280, 720), "R-Type Launcher");
 	SaltyEngine::SFML::EventManager *event_manager = new SaltyEngine::SFML::EventManager(renderer->GetRenderWindow());
 	// Set Renderer and EventManager
 	Singleton<SaltyEngine::SaltyEngine>::Instance().SetRenderer(renderer);
