@@ -20,9 +20,9 @@ public:
     virtual ~RtypeGameServerTCPConnection();
 
 public:
-    virtual void OnDataReceived(unsigned int len);
-    virtual void OnDataSent(unsigned int len);
-    virtual void OnStart();
+    virtual bool OnDataReceived(unsigned int len);
+    virtual bool OnDataSent(unsigned int len);
+    virtual bool OnStart();
     virtual void OnDisconnect();
 
 public:

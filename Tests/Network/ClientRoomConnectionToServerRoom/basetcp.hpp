@@ -32,14 +32,16 @@ public:
     }
 
 public:
-    virtual void OnDataReceived(unsigned int len)
+    virtual bool OnDataReceived(unsigned int len)
     {
         std::cout << "Réception nouveau client: " << buff << std::endl;
+        return (true);
     }
 
-    virtual void OnDataSent(unsigned int len)
+    virtual bool OnDataSent(unsigned int len)
     {
         std::cout << len << " bytes sent" << std::endl;
+        return (true);
     }
 };
 
@@ -71,12 +73,13 @@ private:
     RTypeProtocolRoomManager protocolRoomManager;
 
 public:
-    virtual void OnDataReceived(unsigned int len)
+    virtual bool OnDataReceived(unsigned int len)
     {
         std::cout << "Receiving " << buff << std::endl;
         while (protocolRoomManager.handleProtocol(buff.buff(), buff.getLength())) {
             std::cout << "unknown cmd" << std::endl;
         }
+        return true;
 //        if (buff.toString() == "change\n")
 //        {
 //            std::cout << "Changing client to Testswap client" << std::endl;
@@ -90,13 +93,15 @@ public:
 //        }
     }
 
-    virtual void OnDataSent(unsigned int len)
+    virtual bool OnDataSent(unsigned int len)
     {
         std::cout << "Number of bytes sent: " << len << std::endl;
+        return (true);
     }
 
-    virtual void OnStart() {
+    virtual bool OnStart() {
         this->SendData(*(factory.create<AUTHENTICATEPackageRoom>("toto", 0)));
+        return (true);
     }
 
 public:
@@ -169,14 +174,16 @@ public:
     }
 
 public:
-    virtual void OnDataReceived(unsigned int)
+    virtual bool OnDataReceived(unsigned int)
     {
         std::cout << "New client accepted" << std::endl;
+        return (true);
     }
 
-    virtual void OnDataSent(unsigned int len)
+    virtual bool OnDataSent(unsigned int len)
     {
         std::cout << "Number of bytes sent: " << len << std::endl;
+        return (true);
     }
 };
 

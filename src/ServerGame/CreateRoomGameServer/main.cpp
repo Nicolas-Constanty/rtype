@@ -1,8 +1,8 @@
 //
 // Created by victor on 05/12/16.
 //
-
-#include <ServerGame/RtypeGameClient.hpp>
+//
+//#include <ServerGame/CreateRoomGameServer/RtypeGameClient.hpp>
 #include "ServerGame/CreateRoomGameServer/ClientGameRooms.hpp"
 
 int main() {

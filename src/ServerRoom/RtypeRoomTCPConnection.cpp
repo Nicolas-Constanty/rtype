@@ -21,14 +21,16 @@ RtypeRoomTCPConnection::~RtypeRoomTCPConnection() {
 
 }
 
-void RtypeRoomTCPConnection::OnDataReceived(unsigned int) {
+bool RtypeRoomTCPConnection::OnDataReceived(unsigned int) {
     if (!protocolRoomManager.handleProtocol(buff.buff(), buff.getLength())) {
         std::cout << "unknown command" << std::endl;
     }
+    return (true);
 }
 
-void RtypeRoomTCPConnection::OnDataSent(unsigned int len) {
+bool RtypeRoomTCPConnection::OnDataSent(unsigned int len) {
     std::cout << "data sent : len" << len << std::endl;
+    return (true);
 }
 
 void RtypeRoomTCPConnection::BroadCastGETRoom() {
@@ -197,9 +199,10 @@ void RtypeRoomTCPConnection::onGetCHATPackage(CHATPackageRoom const &chatPackage
     }
 }
 
-void RtypeRoomTCPConnection::OnStart() {
+bool RtypeRoomTCPConnection::OnStart() {
     this->SendData(*(roomPackageFactory.create<AUTHENTICATEPackageRoom>(pseudo, id)));
     OnSendGetRooms();
+    return (true);
 }
 
 void RtypeRoomTCPConnection::OnDisconnect() {

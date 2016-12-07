@@ -30,12 +30,12 @@ public:
     virtual ~ClientGameRooms();
 
 public:
-    virtual void OnDataReceived(unsigned int len);
+    virtual bool OnDataReceived(unsigned int len);
     virtual void onGetAUTHENTICATEPackage(AUTHENTICATEPackageServer const &obj);
     virtual void onGetLAUNCHPackage(LAUNCHPackageServer const &obj);
     virtual void onGetSTATUSPackage(STATUSPackageServer const &obj);
-    virtual void OnDataSent(unsigned int len);
-    virtual void OnStart();
+    virtual bool OnDataSent(unsigned int len);
+    virtual bool OnStart();
 
 public:
     virtual void OnProcessEnd(int status, void *data);
@@ -50,7 +50,8 @@ private:
     std::vector<std::unique_ptr<Lobby> >    lobbies;
     IMutex                                  *mutex;
     IMutex                                  *__mutex;
-    std::queue<PackageServerHeader *>       _packageToSend;
+    std::queue<LAUNCHPackageServer *>       _packageToSendLAUNCH;
+    std::queue<STATUSPackageServer *>       _packageToSendSTATUS;
 };
 
 #endif //RTYPE_BASETCP_HPP

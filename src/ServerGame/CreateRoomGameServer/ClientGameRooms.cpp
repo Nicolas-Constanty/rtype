@@ -28,12 +28,13 @@ ClientGameRooms::~ClientGameRooms()
     std::cout << "\e[31mDestructor called\e[0m" << std::endl;
 }
 
-void ClientGameRooms::OnDataReceived(unsigned int len)
+bool ClientGameRooms::OnDataReceived(unsigned int len)
 {
     std::cout << "Receiving " << buff << std::endl;
     while (protocolServerManager.handleProtocol(buff.buff(), buff.getLength())) {
         std::cout << "unknown cmd" << std::endl;
     }
+    return (true);
 }
 
 void ClientGameRooms::onGetAUTHENTICATEPackage(AUTHENTICATEPackageServer const &obj) {
@@ -53,10 +54,13 @@ void ClientGameRooms::OnProcessBegin(void *data) {
 
     Lobby::LobbyInfo *lobbyInfo = (Lobby::LobbyInfo *)data;
 
-    PackageServerHeader *launchPackageServer = factory.create<LAUNCHPackageServer>(lobbyInfo->GetMaxNbrClient(), lobbyInfo->GetMapID(),
+    LAUNCHPackageServer *launchPackageServer = factory.create<LAUNCHPackageServer>(lobbyInfo->GetMaxNbrClient(), lobbyInfo->GetMapID(),
                                                                             lobbyInfo->GetSecret(), this->ip, lobbyInfo->GetPort());
 
-    _packageToSend.push(launchPackageServer);
+//    _packageToSend.push(launchPackageServer);
+
+    _packageToSendLAUNCH.push(launchPackageServer);
+
 
     //TODO A ENLEVER
     this->SendData(*launchPackageServer);
@@ -90,15 +94,17 @@ void ClientGameRooms::onGetSTATUSPackage(STATUSPackageServer const &obj) {
     __mutex->unlock();
 }
 
-void ClientGameRooms::OnDataSent(unsigned int len) {
+bool ClientGameRooms::OnDataSent(unsigned int len) {
     std::cout << "Number of bytes sent: " << len << std::endl;
+    return (true);
 }
 
-void ClientGameRooms::OnStart() {
+bool ClientGameRooms::OnStart() {
     __mutex->lock();
     std::cout << "connected" << std::endl;
     this->SendData(*(factory.create<AUTHENTICATEPackageServer>(0, 3)));
     __mutex->unlock();
+    return (true);
 }
 
 //TODO
@@ -110,9 +116,11 @@ void ClientGameRooms::OnProcessEnd(int status, void *data) {
     unsigned int *secret = (unsigned int *)data;
 
     (void)status;
-    PackageServerHeader *statusPackageServer = factory.create<STATUSPackageServer>(*secret, ServerInformation::SERVEROVER);
+    STATUSPackageServer *statusPackageServer = factory.create<STATUSPackageServer>(*secret, ServerInformation::SERVEROVER);
 
-    _packageToSend.push(statusPackageServer);
+//    _packageToSend.push(statusPackageServer);
+
+    _packageToSendSTATUS.push(statusPackageServer);
 
     //TODO A ENLEVER
     this->SendData(*statusPackageServer);
