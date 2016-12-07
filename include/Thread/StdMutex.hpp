@@ -13,7 +13,8 @@ public:
 	{};
 
 	explicit StdMutex()
-	{};
+	{
+	};
 
 	virtual void lock();
 	virtual void unlock();
