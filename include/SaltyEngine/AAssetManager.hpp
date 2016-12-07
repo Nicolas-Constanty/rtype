@@ -103,11 +103,11 @@ namespace SaltyEngine {
         }
 
         void    LoadMonsters() {
-            for (std::string filename: getFilesInDir(getFullPath(Asset::MONSTERS_PATH))) {
+            for (std::string filename: getFilesInDir(getFullPath(Asset::PREFABS_PATH))) {
                 unsigned long dotPos = filename.find_last_of(".");
-                if (filename.substr(dotPos) == Asset::MONSTER_EXTENSION) {
+                if (filename.substr(dotPos) == Asset::PREFAB_EXTENSION) {
                     Debug::PrintSuccess("Loading monster [ " + filename + " ]");
-                    Factory::LoadAsset(getFullPath(Asset::MONSTERS_PATH) + filename);
+                    Factory::LoadAsset(getFullPath(Asset::PREFABS_PATH) + filename);
                 }
             }
         }
