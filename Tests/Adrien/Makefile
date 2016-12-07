@@ -10,12 +10,6 @@ SRC_DIR =   $(PROJECT_DIR)/src
 
 INC_DIR =   $(PROJECT_DIR)/include
 
-SALTYENGINE_DIR         =   $(SRC_DIR)/SaltyEngine
-COMMON_DIR              =   $(SRC_DIR)/Common
-MONSTER_DIR             =   $(SRC_DIR)/Monster
-CLIENT_DIR              =   $(SRC_DIR)/ClientLauncher
-PlAYER_DIR              =   $(SRC_DIR)/Player
-
 SRC		= 	main.cpp    \
 
 CPPFLAGS 	=   -W -Wall -g -Wextra -std=c++11 -fPIC -g
@@ -24,7 +18,7 @@ CPPFLAGS    +=  -I $(INC_DIR)
 
 LDFLAGS     +=  -lpthread -ldl -lsfml-system -lsfml-window -lsfml-graphics -lsfml-audio
 
-LDFLAGS     +=  -L ./ -lSaltyEngine -lSFMLSaltyEngine
+LDFLAGS     +=  -L ../../lib -lSaltyEngine -lSFMLSaltyEngine
 
 OBJ		= 	$(SRC:.cpp=.o)
 
