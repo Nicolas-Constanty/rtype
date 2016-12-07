@@ -10,7 +10,7 @@ int main() {
 //    std::cout << port << std::endl;
 
     Network::Core::NativeSocketIOOperationDispatcher    dispatcher;
-    ClientGameRooms client(dispatcher, "167.56.231.233", 10);
+    ClientGameRooms client(dispatcher, "167.56.231.233", 40);
 
     client.Connect("127.0.0.1", 4242);
     dispatcher.setTimeout((const struct timeval){0, 0});

@@ -25,11 +25,20 @@ void ServerGameDispatcher::Remove(RtypeGameServerTCPConnection *serverTCPConnect
 RoomService *ServerGameDispatcher::CreateRoomService(std::string const &name, unsigned short clientMaxNbr,
                                                      unsigned short mapID) {
     std::list<RtypeGameServerTCPConnection *>::iterator it = serverList.begin();
+    RtypeGameServerTCPConnection *gameServerTCPConnection = NULL;
+
     while (it != serverList.end()) {
         if (!(*it)->isFull()) {
-            return ((*it)->AddRoomService(name, clientMaxNbr, mapID));
+            if (!gameServerTCPConnection || gameServerTCPConnection->getActualRoomNumber() > (*it)->getActualRoomNumber()) {
+                gameServerTCPConnection = (*it);
+            }
+//            size = (*it)->getActualRoomNumber();
+//            return ((*it)->AddRoomService(name, clientMaxNbr, mapID));
         }
         ++it;
+    }
+    if (gameServerTCPConnection) {
+        return (gameServerTCPConnection->AddRoomService(name, clientMaxNbr, mapID));
     }
     return (NULL);
 }
