@@ -28,14 +28,16 @@ int main()
 	// Create monster with sprites
 //	SaltyEngine::Instantiate();
 	SaltyEngine::GameObject *monster = (SaltyEngine::GameObject*)SaltyEngine::Instantiate("Monster");
-	SaltyEngine::GameObject *player = (SaltyEngine::GameObject*)SaltyEngine::Instantiate("Player");
+	//SaltyEngine::GameObject *player = (SaltyEngine::GameObject*)SaltyEngine::Instantiate("Player");
 
 	std::cout << "Monster = " << monster << std::endl;
-	std::cout << "Player = " << player << std::endl;
+	//std::cout << "Player = " << player << std::endl;
+
+    std::cout << "Pos = " << monster->transform.position << std::endl;
 
 	// Push scene int SaltyEngine
 
-	*scene << player;
+	//*scene << player;
 	*scene << monster;
 
 	// Push scene int SaltyEngine

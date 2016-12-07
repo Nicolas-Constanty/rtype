@@ -8,16 +8,6 @@
 
 Player::Player() : GameObject("Player")
 {
-	SaltyEngine::SFML::Texture *texture = new SaltyEngine::SFML::Texture();
-	if (!texture->loadFromFile("../../Assets/Textures/Image.png"))
-	{
-		SaltyEngine::Debug::PrintError("Failed to load texture");
-	}
-	else
-	{
-		SaltyEngine::SFML::Sprite *spr = new SaltyEngine::SFML::Sprite(texture);
-		this->AddComponent<SaltyEngine::GUI::SFML::Button>(spr);
-	}
 	this->AddComponent<SaltyEngine::PlayerController>();
 }
 
