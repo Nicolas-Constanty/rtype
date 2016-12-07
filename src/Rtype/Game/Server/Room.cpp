@@ -17,8 +17,6 @@ Rtype::Game::Server::Room::~Room()
 
 }
 
-#include <zconf.h>
-
 void Rtype::Game::Server::Room::Start(const uint16_t port, const size_t max, const uint32_t secret, uint16_t map)
 {
     // Create Scene
