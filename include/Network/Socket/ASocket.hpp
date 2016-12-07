@@ -101,6 +101,9 @@ namespace Network
             virtual unsigned int getPort() const;
 
         public:
+            static unsigned int getIPFromString(std::string const &);
+
+        public:
             void print(std::ostream &output = std::cout) const;
 
         protected:

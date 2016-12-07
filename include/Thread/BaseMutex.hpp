@@ -14,7 +14,7 @@ public:
 	virtual void lock() {};
 	virtual void unlock() {};
 
-	virtual void try_lock() {};
+	virtual int tryLock() {};
 
 protected:
 	BaseMutex()

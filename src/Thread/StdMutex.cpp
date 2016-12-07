@@ -10,7 +10,10 @@ void StdMutex::unlock()
 	m_mutex.unlock();
 }
 
-void StdMutex::try_lock()
+int StdMutex::tryLock()
 {
-	m_mutex.try_lock();
+    if (m_mutex.try_lock()) {
+        return 1;
+    }
+    return 0;
 }
