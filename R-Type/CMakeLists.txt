@@ -17,6 +17,11 @@ file(GLOB MISSILE_MEDUSA_SOURCE_FILE "../src/Missile/MissileMedusa/*.cpp" "../sr
 add_library(missile_medusa SHARED ${MISSILE_MEDUSA_SOURCE_FILE})
 target_link_libraries(missile_medusa ${PROJECT_SOURCE_DIR}/SaltyEngine/libSaltyEngine.a -ldl)
 
+# MISSILE LASER
+file(GLOB MISSILE_LASER_SOURCE_FILE "../src/Missile/Laser/*.cpp")
+add_library(missile_laser SHARED ${MISSILE_LASER_SOURCE_FILE})
+target_link_libraries(missile_laser ${PROJECT_SOURCE_DIR}/SaltyEngine/libSaltyEngine.a -ldl)
+
 # PLAYER
 file(GLOB PLAYER_SOURCE_FILE "../src/Player/*.cpp")
 add_library(player SHARED ${PLAYER_SOURCE_FILE})

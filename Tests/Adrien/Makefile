@@ -2,7 +2,7 @@ CC		=	g++
 
 RM 		=	rm -rf
 
-NAME	=	test_gui
+NAME	=	test_adrien
 
 PROJECT_DIR =   ../..
 
@@ -16,17 +16,11 @@ MONSTER_DIR             =   $(SRC_DIR)/Monster
 CLIENT_DIR              =   $(SRC_DIR)/ClientLauncher
 PlAYER_DIR              =   $(SRC_DIR)/Player
 
-SRC		= 	$(PlAYER_DIR)/PlayerController.cpp      \
-            $(CLIENT_DIR)/Laser.cpp                 \
-            $(MONSTER_DIR)/MonsterController.cpp    \
-            $(
-            main.cpp                                \
+SRC		= 	main.cpp    \
 
 CPPFLAGS 	=   -W -Wall -g -Wextra -std=c++11 -fPIC -g
 
-CPPFLAGS    +=  -I $(INC_DIR) #-I$(PROJECT_DIR)/Dependencies/SFML/Linux/include
-
-#LDFLAGS	    =   -L$(PROJECT_DIR)/Dependencies/SFML/Linux/lib -lsfml-system -lsfml-window -lsfml-graphics -lsfml-audio -Wl,-rpath=$(PROJECT_DIR)/Dependencies/SFML/Linux/lib
+CPPFLAGS    +=  -I $(INC_DIR)
 
 LDFLAGS     +=  -lpthread -ldl -lsfml-system -lsfml-window -lsfml-graphics -lsfml-audio
 

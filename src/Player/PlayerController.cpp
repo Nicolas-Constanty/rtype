@@ -1,7 +1,7 @@
 #include "Player/PlayerController.hpp"
 #include "SaltyEngine/SFML/EventManager.hpp"
 #include "SaltyEngine/Input/InputManager.hpp"
-#include "ClientLauncher/Laser.hpp"
+#include "Missile/Laser/Laser.hpp"
 
 typedef SaltyEngine::Input::InputManager<SaltyEngine::SFML::EventManager>  InputKey;
 
