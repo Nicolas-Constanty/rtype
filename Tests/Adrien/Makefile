@@ -18,7 +18,7 @@ CPPFLAGS    +=  -I $(INC_DIR)
 
 LDFLAGS     +=  -lpthread -ldl -lsfml-system -lsfml-window -lsfml-graphics -lsfml-audio
 
-LDFLAGS     +=  -L ../../lib -lSaltyEngine -lSFMLSaltyEngine
+LDFLAGS     +=  -L ../../lib -lSaltyEngine -lSFMLSaltyEngine -Wl,-rpath=$(PROJECT_DIR)/lib/
 
 OBJ		= 	$(SRC:.cpp=.o)
 
