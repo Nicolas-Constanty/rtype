@@ -102,14 +102,15 @@ namespace Network
             /**
              * @brief Callback called when data has been received
              */
-            virtual void OnDataReceived(unsigned int)
+            virtual bool OnDataReceived(unsigned int)
             {
                 WantReceive();
+                return (true);
             }
 
-            virtual void OnStart()
+            virtual bool OnStart()
             {
-
+                return (true);
             }
 
         protected:

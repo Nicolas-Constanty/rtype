@@ -27,7 +27,7 @@ DefaultTCPConnection::~DefaultTCPConnection()
     std::cout << "\e[31mDestructor called\e[0m" << std::endl;
 }
 
-void DefaultTCPConnection::OnDataReceived(unsigned int)
+bool DefaultTCPConnection::OnDataReceived(unsigned int)
 {
     std::cout << "Receiving " << buff << std::endl;
     if ((!protocolServerManager.handleProtocol(buff.buff(), buff.getLength()))) {
@@ -36,11 +36,13 @@ void DefaultTCPConnection::OnDataReceived(unsigned int)
             Disconnect();
         }
     }
+    return (true);
 }
 
-void DefaultTCPConnection::OnDataSent(unsigned int len)
+bool DefaultTCPConnection::OnDataSent(unsigned int len)
 {
     std::cout << "Number of bytes sent: " << len << std::endl;
+    return (true);
 }
 
 void DefaultTCPConnection::onGetAUTHENTICATEPackage(AUTHENTICATEPackageRoom const &authenticatePackageRoom) {
@@ -71,5 +73,6 @@ void DefaultTCPConnection::onGetAUTHENTICATEPackage(AUTHENTICATEPackageServer co
     ++userID;
 }
 
-void DefaultTCPConnection::OnStart() {
+bool DefaultTCPConnection::OnStart() {
+    return (true);
 }

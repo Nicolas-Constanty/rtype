@@ -15,6 +15,10 @@ public:
 
     }
 
+    ServerPackageFactory() {
+
+    }
+
     template <typename T, class ...Args>
     T *create(Args ...args) {
         T *package = new T(args...);

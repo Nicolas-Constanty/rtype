@@ -15,12 +15,14 @@ RtypeRoomServer::~RtypeRoomServer()
     Stop();
 }
 
-void RtypeRoomServer::OnDataReceived(unsigned int)
+bool RtypeRoomServer::OnDataReceived(unsigned int)
 {
     std::cout << "New client accepted" << std::endl;
+    return (true);
 }
 
-void RtypeRoomServer::OnDataSent(unsigned int len)
+bool RtypeRoomServer::OnDataSent(unsigned int len)
 {
     std::cout << "Number of bytes sent: " << len << std::endl;
+    return (true);
 }

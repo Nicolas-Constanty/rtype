@@ -18,8 +18,11 @@ public:
 
 public:
     template <class Func, class ... Args>
-    void AddThread(Func func, Args &&... args) {
-        pools.emplace_back(new ThreadType(func, args...));
+    ThreadType *AddThread(Func func, Args &&... args) {
+        ThreadType *threadType = new ThreadType(func, args...);
+
+        pools.emplace_back(threadType);
+        return threadType;
     }
 
     virtual void StopThreads() {
@@ -32,6 +35,10 @@ public:
         for (std::unique_ptr<ThreadType> &thread : pools) {
             thread->Join();
         }
+    }
+
+    std::vector<std::unique_ptr<ThreadPool> > const &GetPools() {
+        return (pools);
     }
 
     virtual size_t GetPoolSize() const {

@@ -92,6 +92,9 @@ link_directories(${CMAKE_BINARY_DIR}/SFML/Linux/lib)
 file(GLOB threadsrc src/Thread/*.cpp)
 file(GLOB threadinc include/Thread/*.hpp)
 
+file(GLOB processsrc src/Process/*.cpp)
+file(GLOB processinc include/Process/*.hpp)
+
 add_executable(rtype-server
         ${srcGameServ} ${incGameServ}
         ${Networksrc} ${Networkinc}
@@ -112,7 +115,7 @@ add_executable(gameserv-1
         Tests/GameServer/gameserv-1.cpp)
 add_executable(clientRoomTCPClient ${Networksrc} ${Networkinc} ${Protocolinc} ${Protocolsrc} Tests/Network/ClientRoomConnectionToServerRoom/tcpclient-1.cpp Tests/Network/ClientRoomConnectionToServerRoom/basetcp.hpp)
 add_executable(serverGameTCPClient ${Networksrc} ${Networkinc} ${Protocolinc} ${Protocolsrc} Tests/Network/ServerGameConnectionToServerRoom/serverGameTCP.cpp Tests/Network/ServerGameConnectionToServerRoom/serverGameClient.hpp)
-add_executable(serverGameLauncher ${threadsrc} ${threadinc} ${serverGameRoomsinc} ${serverGameRoomssrc} ${Networksrc} ${Networkinc} ${Protocolinc} ${Protocolsrc} src/ServerGame/CreateRoomGameServer/main.cpp)
+add_executable(serverGameLauncher ${processsrc} ${processinc} ${threadsrc} ${threadinc} ${serverGameRoomsinc} ${serverGameRoomssrc} ${Networksrc} ${Networkinc} ${Protocolinc} ${Protocolsrc} src/ServerGame/CreateRoomGameServer/main.cpp)
 
 add_executable(serverRoom
         ${Networksrc} ${Networkinc}
@@ -160,21 +163,5 @@ ENDIF(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
 
 
 ############### PREFABS ###############
-set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/Assets/Monsters)
-
-include_directories("include" "Dependencies/SFML/Linux/include")
-
-# MONSTER
-file(GLOB MONSTER_SOURCE_FILE "src/Monster/*.cpp")
-add_library(monster SHARED ${MONSTER_SOURCE_FILE})
-target_link_libraries(monster ${PROJECT_SOURCE_DIR}/R-Type/SaltyEngine/libSaltyEngine.a -ldl)
-
-# MISSILE MEDUSA
-file(GLOB MISSILE_MEDUSA_SOURCE_FILE "src/Missile/MissileMedusa/*.cpp" "src/Missile/*.cpp")
-add_library(missile_medusa SHARED ${MISSILE_MEDUSA_SOURCE_FILE})
-target_link_libraries(missile_medusa ${PROJECT_SOURCE_DIR}/R-Type/SaltyEngine/libSaltyEngine.a -ldl)
-
-# PLAYER
-file(GLOB PLAYER_SOURCE_FILE "src/Player/*.cpp")
-add_library(player SHARED ${PLAYER_SOURCE_FILE})
-target_link_libraries(player ${PROJECT_SOURCE_DIR}/R-Type/SaltyEngine/libSaltyEngine.a -ldl)
+include(${PROJECT_SOURCE_DIR}/R-Type/Prefab/CMakeLists.txt)
+add_custom_target(prefabs DEPENDS player missile_medusa monster)
