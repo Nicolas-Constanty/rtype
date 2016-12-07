@@ -58,6 +58,7 @@ namespace SaltyEngine {
             return false;
         }
         m_prefabs[obj->GetName()] = std::unique_ptr<Object>(obj);
+        Debug::PrintSuccess("Factory: loaded [" + obj->GetName() + "]");
         //loader.Unload();
 		return true;
 	}

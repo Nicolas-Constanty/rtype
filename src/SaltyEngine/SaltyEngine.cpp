@@ -217,7 +217,7 @@ namespace SaltyEngine
 
 	double SaltyEngine::GetDeltaTime(void) const
 	{
-		double res = m_delta_time.count() / 1000000000;
+		double res = m_delta_time.count() / 1000000000.0;
 		return res;
 	}
 

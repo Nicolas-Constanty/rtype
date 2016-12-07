@@ -34,7 +34,7 @@ public:
         func fp = (func)dlsym(m_inst, funcName.c_str());
 		if (fp == nullptr)
 		{
-			std::cerr << funcName << " not found in .so." << std::endl;
+			std::cerr << "LibLoader: " << funcName << " not found in .so." << std::endl;
 		}
 		else
 		{

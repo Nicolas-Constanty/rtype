@@ -27,6 +27,6 @@ private:
 	float m_maxShootInterval = 6;
 	float m_currDelay = 0;
 	bool m_isDead = false;
-	float m_vel = 10;
+	float m_vel = 100;
 };
 

@@ -25,7 +25,8 @@ void MonsterController::Update()
 	{
 //		m_currDelay = m_minShootInterval + (((m_maxShootInterval - m_minShootInterval) * rand()) / (RAND_MAX + 1));
         m_currDelay = m_minShootInterval + rand() % (int)(m_maxShootInterval - m_minShootInterval);
-//        SaltyEngine::GameObject *missile = (SaltyEngine::GameObject*)SaltyEngine::Instantiate("MissileMedusa", this->gameObject->transform.position);
+        std::cout << "SHOOT" << std::endl;
+        SaltyEngine::GameObject *missile = (SaltyEngine::GameObject*)SaltyEngine::Instantiate("MissileMedusa", this->gameObject->transform.position);
 //        MissileController *missileController = missile->GetComponent<MissileController>();
 //        if (missileController != nullptr)
 //        {
@@ -33,7 +34,7 @@ void MonsterController::Update()
 //            missileController->SetTarget(SaltyEngine::Vector(this->gameObject->transform.position.x * -100, this->gameObject->transform.position.y));
 //        }
 	}
-	this->gameObject->transform.Translate(SaltyEngine::Vector(0, -1) * SaltyEngine::SaltyEngine::Instance().GetDeltaTime() * m_vel);
+	this->gameObject->transform.Translate(SaltyEngine::Vector(-1, 0) * SaltyEngine::SaltyEngine::Instance().GetDeltaTime() * m_vel);
 }
 
 void MonsterController::Die() const
