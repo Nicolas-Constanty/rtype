@@ -107,7 +107,7 @@ bool ClientGameRooms::OnDataSent(unsigned int len) {
 bool ClientGameRooms::OnStart() {
     __mutex->lock();
 //    std::cout << "connected" << std::endl;
-    this->SendData(*(factory.create<AUTHENTICATEPackageServer>(0, 3)));
+    this->SendData(*(factory.create<AUTHENTICATEPackageServer>(0, this->threadNbr)));
     __mutex->unlock();
     return (true);
 }

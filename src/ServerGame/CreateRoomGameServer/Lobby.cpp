@@ -52,7 +52,6 @@ void Lobby::CreateServerGame() {
         lobbyHandler.OnProcessBegin(lobbyInfo);
     }
 
-//    std::cout << "The Thread is waiting the server game ..." << std::endl;
     int status = process.WaitSon();
 
     ///TODO checker le status

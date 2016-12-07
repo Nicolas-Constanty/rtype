@@ -9,6 +9,7 @@
 #include <Network/TCP/ATCPServer.hpp>
 #include <Network/TCP/ATCPClient.hpp>
 #include <Protocol/Room/RoomPackageFactory.hpp>
+#include <stdlib.h>
 #include "Protocol/Room/ProtocolPrintRoomPackage.hpp"
 
 class TestSwapClient : public Network::TCP::ATCPClient
@@ -118,6 +119,7 @@ public:
     }
     virtual void onGetJOINPackage(JOINPackageRoom const &obj) {
         std::cout << obj << std::endl;
+        roomID = obj.roomID;
         buff += sizeof(obj);
     }
     virtual void onGetQUITPackage(QUITPackageRoom const &obj) {
@@ -139,6 +141,7 @@ public:
     virtual void onGetFAILUREPackage(FAILUREPackageRoom const &obj) {
         std::cout << obj << std::endl;
         buff += sizeof(obj);
+        exit(0);
     }
     virtual void onGetLAUNCHPackage(LAUNCHPackageRoom const &obj) {
         std::cout << obj << std::endl;
@@ -148,12 +151,18 @@ public:
     virtual void onGetDELETEPackage(DELETEPackageRoom const &obj) {
         std::cout << obj << std::endl;
         buff += sizeof(obj);
+        if (obj.roomID == roomID) {
+            exit(0);
+        }
     }
 
     virtual void onGetCHATPackage(CHATPackageRoom const &obj) {
         std::cout << obj << std::endl;
         buff += sizeof(obj);
     }
+
+public:
+    unsigned short roomID = 0;
 
 private:
     RoomPackageFactory factory;

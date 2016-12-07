@@ -17,7 +17,7 @@ namespace Rtype
             class GameServerObject : public SaltyEngine::SaltyBehaviour
             {
             public:
-                GameServerObject(SaltyEngine::GameObject *obj, const uint16_t port = 4242, const int maxClient = 0, const uint32_t secret = 0);
+                GameServerObject(SaltyEngine::GameObject *obj, const uint16_t port = 4242, const size_t maxClient = 0, const uint32_t secret = 0, const uint16_t map = 0);
                 ~GameServerObject();
 
             public:
@@ -27,6 +27,7 @@ namespace Rtype
             private:
                 const uint32_t secret;
                 const uint16_t port;
+                const uint16_t map;
                 Rtype::Game::Server::RtypeGameServer    *server;
                 Network::Core::NativeSocketIOOperationDispatcher    dispatcher;
             };

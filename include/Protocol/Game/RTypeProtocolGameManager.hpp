@@ -48,6 +48,8 @@ public:
     static const GameID AUTHENTICATEID;// = GameID(AUTHENTICATE, sizeof(AUTHENTICATEPackageGame));
     static const GameID PINGID;// = GameID(PING, sizeof(PINGPackageGame));
     static const GameID SHOTID;// = GameID(SHOT, sizeof(SHOTPackageGame));
+    static const GameID REBORNID;// = GameID(SHOT, sizeof(SHOTPackageGame));
+    static const GameID FAILUREID;// = GameID(SHOT, sizeof(SHOTPackageGame));
 
 public:
     typedef void (IProtocolGameHandler::*MFP)(PackageGameHeader const &);

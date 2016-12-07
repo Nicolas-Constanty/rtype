@@ -89,7 +89,7 @@ namespace Network
             }
 
             void operator+=(unsigned int size) {
-                if (length - size < 0) {
+                if (static_cast<long>(length) - size < 0) {
                     return ;
                 }
                 index += size;
