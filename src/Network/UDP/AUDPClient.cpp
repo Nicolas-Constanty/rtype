@@ -10,8 +10,8 @@
 Network::UDP::AUDPClient::AUDPClient(Network::Core::NativeSocketIOOperationDispatcher &dispatcher) :
         AUDPConnection(dispatcher),
         buff(),
-        server(Socket::UDP),
-        serverStream(NULL)
+        serverStream(NULL),
+        server(Socket::UDP)
 {
 
 }
@@ -23,8 +23,8 @@ Network::UDP::AUDPClient::AUDPClient(Network::Core::NativeSocketIOOperationDispa
 Network::UDP::AUDPClient::AUDPClient(const Network::UDP::AUDPClient &ref) :
         AUDPConnection(ref),
         buff(ref.buff),
-        server(Network::Socket::UDP),
-        serverStream(NULL)
+        serverStream(NULL),
+        server(Network::Socket::UDP)
 {
 
 }

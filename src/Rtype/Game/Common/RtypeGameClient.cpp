@@ -60,7 +60,10 @@ bool Rtype::Game::Common::RtypeGameClient::OnDataReceived(unsigned int)
                 head->transactionID = recvstatus.sliceAt(head->sequenceID).getStatus();
             }
             if (!manager.handleProtocol(buff.buff(), buff.getLength()))
+            {
+                buff.reset();
                 break;
+            }
             if (!connected)
             {
                 std::cout << "Disconnected while reading" << std::endl;

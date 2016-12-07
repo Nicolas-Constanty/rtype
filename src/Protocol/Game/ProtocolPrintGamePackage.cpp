@@ -171,3 +171,16 @@ std::ostream &operator<<(std::ostream &ostream, REBORNPackageGame const &rebornP
     ostream << "objectID=" << rebornPackageGame.objectID << std::endl << "}";
     return ostream;
 }
+
+std::ostream &operator<<(std::ostream &ostream, FAILUREPackageGame const &failurePackageGame)
+{
+    ostream << "FAILUREPackageGame = {" << std::endl;
+    PackageGameHeader const *header = dynamic_cast<PackageGameHeader const *>(&failurePackageGame);
+    if (header) {
+        ostream << header;
+    }
+    ostream << "failPurpose=" << failurePackageGame.failPurpose << std::endl;
+    ostream << "failSequence=" << failurePackageGame.failSequence << std::endl;
+    ostream << "}" << std::endl;
+    return ostream;
+}

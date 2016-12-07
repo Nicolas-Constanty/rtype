@@ -31,6 +31,7 @@ Rtype::Game::Server::RtypeServerGameClient::~RtypeServerGameClient()
 void Rtype::Game::Server::RtypeServerGameClient::onGetSTATUSPackage(STATUSPackageGame const &pack)
 {
     OnDiscoveringPackage(pack);
+    //todo packet coffee resolve at the end
 }
 
 void Rtype::Game::Server::RtypeServerGameClient::onGetPINGPackage(PINGPackageGame const &pack)
@@ -51,6 +52,7 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetPINGPackage(PINGPackageGam
 
 void Rtype::Game::Server::RtypeServerGameClient::onGetAUTHENTICATEPackage(AUTHENTICATEPackageGame const &pack)
 {
+    reply = false;
     OnDiscoveringPackage(pack);
     if (!server1->Authenticate(pack.secret))
     {
@@ -59,72 +61,147 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetAUTHENTICATEPackage(AUTHEN
     }
     else
     {
-        CREATEPackageGame   *player = factory.create<CREATEPackageGame>();
-        //todo Instantiate player in engine
-
         connected = true;
+
+        //creation of a new player
+        CREATEPackageGame   *player = factory.create<CREATEPackageGame>();
+        //todo Instantiate player in engine with an object id
         //todo player->ID = correspondance prefab
         //todo player->objectID = correspondance gameobject engine
         player->objectID = 5;
+
+        //notify to all players the creation of a player
         BroadcastReliable(*player);
+
+        //notify to <this> player that he is authenticated
         SendReliable(*factory.create<AUTHENTICATEPackageGame>(pack.secret, player->objectID));
+
+        //notify to <this> player to create existing players
+        for (std::unique_ptr<Network::Socket::ISockStreamHandler> &curr : clients->Streams())
+        {
+            if (static_cast<void *>(&curr) != this)
+            {
+                //todo same shit as above for existing players
+                SendReliable(*factory.create<CREATEPackageGame>());
+            }
+        }
+
+        //ping <this> player in order to made him survive
         ping();
-        //notification de connection du client à tous les clients
     }
 }
 
+/**
+ * @brief Called when client send Create Package. We don't even answer him because don't have to send this packet
+ * @param pack The packet received
+ */
 void Rtype::Game::Server::RtypeServerGameClient::onGetCREATEPackage(CREATEPackageGame const &pack)
 {
+    //client can't create an object
+    reply = false;
     OnDiscoveringPackage(pack);
-    //todo notification des autres clients
 }
 
 void Rtype::Game::Server::RtypeServerGameClient::onGetBEAMPackage(BEAMPackageGame const &pack)
 {
     OnDiscoveringPackage(pack);
-    //todo notification des autres clients
+
+//    todo if (okay on gameside)
+//    {
+//        BroadcastReliable(*factory.create<BEAMPackageGame>(pack.objectID));
+//    }
+//    else
+//    {
+//        SendReliable(*factory.create<FAILUREPackageGame>(pack.purpose, pack.sequenceID));
+//    }
 }
 
 void Rtype::Game::Server::RtypeServerGameClient::onGetSHOTPackage(SHOTPackageGame const &pack)
 {
     OnDiscoveringPackage(pack);
-    //todo notification des autres clients
+
+//    todo if (okay on gameside)
+//    {
+//        BroadcastReliable(*factory.create<SHOTPackageGame>(pack.objectID));
+//    }
+//    else
+//    {
+//        SendReliable(*factory.create<FAILUREPackageGame>(pack.purpose, pack.sequenceID));
+//    }
 }
 
 void Rtype::Game::Server::RtypeServerGameClient::onGetDIEPackage(DIEPackageGame const &pack)
 {
+    reply = false;
     OnDiscoveringPackage(pack);
-    //todo notification des autres clients
 }
 
 void Rtype::Game::Server::RtypeServerGameClient::onGetTAKEPackage(TAKEPackageGame const &pack)
 {
     OnDiscoveringPackage(pack);
-    //todo notification des autres clients
+
+//    todo if (okay on gameside)
+//    {
+//        BroadcastReliable(*factory.create<TAKEPackageGame>(pack.objectID));
+//    }
+//    else
+//    {
+//        SendReliable(*factory.create<FAILUREPackageGame>(pack.purpose, pack.sequenceID));
+//    }
 }
 
 void Rtype::Game::Server::RtypeServerGameClient::onGetDROPPackage(DROPPackageGame const &pack)
 {
     OnDiscoveringPackage(pack);
-    //todo notification des autres clients
+
+//    todo if (okay on gameside)
+//    {
+//        BroadcastReliable(*factory.create<DROPPackageGame>(pack.objectID));
+//    }
+//    else
+//    {
+//        SendReliable(*factory.create<FAILUREPackageGame>(pack.purpose, pack.sequenceID));
+//    }
 }
 
 void Rtype::Game::Server::RtypeServerGameClient::onGetMOVEPackage(MOVEPackageGame const &pack)
 {
     OnDiscoveringPackage(pack);
-    //todo notification des autres clients
+
+//    todo if (okay on gameside)
+//    {
+//        Broadcast(*factory.create<MOVEPackageGame>(pack.posX, pack.posY, pack.objectID));
+//    }
+//    else
+//    {
+//        SendReliable(*factory.create<FAILUREPackageGame>(pack.purpose, pack.sequenceID));
+//    }
 }
 
 void Rtype::Game::Server::RtypeServerGameClient::onGetLAUNCHPackage(LAUNCHPackageGame const &pack)
 {
     OnDiscoveringPackage(pack);
-    //todo notification des autres clients
+
+//    todo if (okay on gameside)
+//    {
+//        BroadcastReliable(*factory.create<LAUNCHPackageGame>(pack.objectID));
+//    }
+//    else
+//    {
+//        SendReliable(*factory.create<FAILUREPackageGame>(pack.purpose, pack.sequenceID));
+//    }
 }
 
 void Rtype::Game::Server::RtypeServerGameClient::onGetREBORNPackage(REBORNPackageGame const &pack)
 {
+    reply = false;
     OnDiscoveringPackage(pack);
-    //todo notification des autres clients
+}
+
+void Rtype::Game::Server::RtypeServerGameClient::onGetFAILUREPackage(FAILUREPackageGame const &pack)
+{
+    reply = false;
+    OnDiscoveringPackage(pack);
 }
 
 bool Rtype::Game::Server::RtypeServerGameClient::OnStart()
@@ -140,7 +217,7 @@ bool Rtype::Game::Server::RtypeServerGameClient::OnStart()
     return true;
 }
 
-const int Rtype::Game::Server::RtypeServerGameClient::getId() const
+int Rtype::Game::Server::RtypeServerGameClient::getId() const
 {
     return id;
 }
@@ -161,8 +238,5 @@ void Rtype::Game::Server::RtypeServerGameClient::ping()
 
 bool Rtype::Game::Server::RtypeServerGameClient::pong() const
 {
-//    std::cout << "Pong: " << std::boolalpha << (pingSecret == -1) << std::endl;
-    if (pingSecret == -1)
-        std::cout << "\e[32mPong\e[0m" << std::endl;
     return pingSecret == -1;
 }

@@ -17,16 +17,23 @@ Rtype::Game::Server::Room::~Room()
 
 }
 
-void Rtype::Game::Server::Room::Start(const uint16_t port, const unsigned int max, const uint32_t secret)
+#include <zconf.h>
+
+void Rtype::Game::Server::Room::Start(const uint16_t port, const size_t max, const uint32_t secret, uint16_t map)
 {
     // Create Scene
     SaltyEngine::SFML::Scene *scene = new SaltyEngine::SFML::Scene();
 
     // Create player
-    SaltyEngine::GameObject *serverGame = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate("Server"));// new SaltyEngine::GameObject("Server");
+    SaltyEngine::GameObject *serverGame = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate());
 
-    serverGame->AddComponent<Rtype::Game::Server::GameServerObject>(port, max > 4 ? 4 : max, secret);
+    if (serverGame == NULL)
+        throw std::runtime_error("Fatal error: Cannot Instantiate a gameobject");
 
+    //Adding GameServerObject as component for network gestion
+    serverGame->AddComponent<Rtype::Game::Server::GameServerObject>(port, max > 4 ? 4 : max, secret, map);
+
+    //Adding object to scene
     *scene << serverGame;
 
     // Push scene int SaltyEngine
