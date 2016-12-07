@@ -4,7 +4,6 @@
 
 MonsterController::MonsterController(SaltyEngine::GameObject *obj) : SaltyEngine::SaltyBehaviour(obj)
 {
-	//m_currDelay = m_minShootInterval + ( ((m_maxShootInterval - m_minShootInterval) * rand()) / (RAND_MAX + 1) );
 	m_currDelay = m_minShootInterval + rand() % (int)(m_maxShootInterval - m_minShootInterval);
 }
 
@@ -23,16 +22,17 @@ void MonsterController::Update()
 
 	if (m_currDelay <= 0)
 	{
-//		m_currDelay = m_minShootInterval + (((m_maxShootInterval - m_minShootInterval) * rand()) / (RAND_MAX + 1));
         m_currDelay = m_minShootInterval + rand() % (int)(m_maxShootInterval - m_minShootInterval);
-        std::cout << "SHOOT" << std::endl;
+        std::cout << "SHOOT ! " << std::endl;
         SaltyEngine::GameObject *missile = (SaltyEngine::GameObject*)SaltyEngine::Instantiate("MissileMedusa", this->gameObject->transform.position);
-//        MissileController *missileController = missile->GetComponent<MissileController>();
-//        if (missileController != nullptr)
-//        {
-//			// TODO : target player
-//            missileController->SetTarget(SaltyEngine::Vector(this->gameObject->transform.position.x * -100, this->gameObject->transform.position.y));
-//        }
+        MissileController *missileController = nullptr;
+        if (missile)
+            missileController = missile->GetComponent<MissileController>();
+        if (missileController != nullptr)
+        {
+			// TODO : target player
+            missileController->SetTarget(SaltyEngine::Vector(this->gameObject->transform.position.x * -100, this->gameObject->transform.position.y));
+        }
 	}
 	this->gameObject->transform.Translate(SaltyEngine::Vector(-1, 0) * SaltyEngine::SaltyEngine::Instance().GetDeltaTime() * m_vel);
 }
