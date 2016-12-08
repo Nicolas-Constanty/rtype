@@ -23,7 +23,6 @@ UnixProcess::~UnixProcess() {
 
 void UnixProcess::Launch(std::string const &cmd) {
     std::string output;
-    int         status;
 
     if ((pid = fork()) == -1)
         throw std::runtime_error("fork has failed !");
