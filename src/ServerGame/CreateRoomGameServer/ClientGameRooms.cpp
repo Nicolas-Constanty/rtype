@@ -28,7 +28,7 @@ ClientGameRooms::~ClientGameRooms()
 //    std::cout << "\e[31mDestructor called\e[0m" << std::endl;
 }
 
-bool ClientGameRooms::OnDataReceived(unsigned int len)
+bool ClientGameRooms::OnDataReceived(unsigned int)
 {
 //    std::cout << "Receiving " << buff << std::endl;
     while (protocolServerManager.handleProtocol(buff.buff(), buff.getLength())) {
@@ -99,7 +99,7 @@ void ClientGameRooms::onGetSTATUSPackage(STATUSPackageServer const &obj) {
     __mutex->unlock();
 }
 
-bool ClientGameRooms::OnDataSent(unsigned int len) {
+bool ClientGameRooms::OnDataSent(unsigned int) {
 //    std::cout << "Number of bytes sent: " << len << std::endl;
     return (true);
 }

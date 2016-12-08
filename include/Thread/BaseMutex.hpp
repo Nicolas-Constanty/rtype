@@ -11,10 +11,10 @@ public:
 	virtual ~BaseMutex() {}
 
 public:
-	virtual void lock() {};
-	virtual void unlock() {};
+	virtual void lock() {}
+	virtual void unlock() {}
 
-	virtual int tryLock() {};
+	virtual int tryLock() { return 0; }
 
 protected:
 	BaseMutex()

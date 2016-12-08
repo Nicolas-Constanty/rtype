@@ -22,7 +22,7 @@ RtypeGameServerTCPConnection::~RtypeGameServerTCPConnection() {
 
 }
 
-bool RtypeGameServerTCPConnection::OnDataReceived(unsigned int len) {
+bool RtypeGameServerTCPConnection::OnDataReceived(unsigned int) {
     while (protocolServerManager.handleProtocol(buff.buff(), buff.getLength())) {
 //        std::cout << "unknown cmd" << std::endl;
     }
