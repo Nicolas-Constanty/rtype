@@ -133,6 +133,13 @@ include(${PROJECT_SOURCE_DIR}/Tests/GUI/CMakeLists.txt)
 ############### PREFABS ##############
 include(${PROJECT_SOURCE_DIR}/R-Type/Prefab/CMakeLists.txt)
 add_custom_target(prefabs DEPENDS player missile_medusa monster missile_laser)
+add_dependencies(SFMLSaltyEngine SaltyEngine)
+add_dependencies(player SFMLSaltyEngine)
+add_dependencies(missile_medusa SFMLSaltyEngine)
+add_dependencies(monster SFMLSaltyEngine)
+add_dependencies(missile_laser SFMLSaltyEngine)
+add_dependencies(prefabs player missile_medusa monster missile_laser)
 
 ### FULL BUILD ###
-add_custom_target(BuildGUI DEPENDS BUILD_ENGINE prefabs)
+add_custom_target(BuildGUI DEPENDS gui)
+add_dependencies(gui prefabs)
