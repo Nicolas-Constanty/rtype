@@ -34,17 +34,21 @@ namespace SaltyEngine
 		const std::string    ASSET_PATH = "Assets" + SEP;
 #endif
 
+		const std::string    SCENES_PATH = ASSET_PATH + "Scenes" + SEP;
+		const std::string    PREFABS_PATH = ASSET_PATH + "Prefabs" + SEP;
 		const std::string    SOUNDS_PATH = ASSET_PATH + "Sounds" + SEP;
 		const std::string    SPRITES_PATH = ASSET_PATH + "Sprites" + SEP;
 		const std::string    TEXTURES_PATH = ASSET_PATH + "Textures" + SEP;
 		const std::string    FONTS_PATH = ASSET_PATH + "Fonts" + SEP;
-		const std::string    PREFABS_PATH = ASSET_PATH + "Prefabs" + SEP;
+		const std::string    METAS_PATH = ASSET_PATH + "Metas" + SEP;
 
+		const std::string    SCENE_EXTENSION = ".scene";
+		const std::string    PREFAB_EXTENSION = ".prefab";
 		const std::string    SOUND_EXTENSION = ".ogg";
 		const std::string    SPRITE_EXTENSION = ".sprite";
 		const std::string    TEXTURE_EXTENSION = ".png";
 		const std::string    FONT_EXTENSION = ".ttf";
-		const std::string    PREFAB_EXTENSION = LIB_EXTENSION;
+		const std::string    META_EXTENSION = LIB_EXTENSION;
     }
 
 	namespace AnimationConstants

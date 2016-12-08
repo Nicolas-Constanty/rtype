@@ -19,7 +19,7 @@ public:
     ProducterStream();
     ~ProducterStream();
     std::string nextString();
-    bool loadFile(char *path);
+    bool loadFile(const char *path);
     bool loadStdin();
 };
 

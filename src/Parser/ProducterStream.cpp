@@ -30,7 +30,7 @@ std::string ProducterStream::nextString() {
     return res;
 }
 
-bool ProducterStream::loadFile(char *path)
+bool ProducterStream::loadFile(const char *path)
 {
     if (_ifs->is_open())
         _ifs->close();

@@ -24,11 +24,12 @@ int main()
 
 	// Create monster with sprites
 
-	std::list<std::pair<std::string, SaltyEngine::Vector2i>>	assets = SaltyEngine::SFML::AssetManager::Instance().LoadScene("scene1");
+    // Load scene
+	std::list<std::pair<std::string, SaltyEngine::Vector2f>>	assets = SaltyEngine::SFML::AssetManager::Instance().LoadScene("scene1");
 
-	for (std::list<std::pair<std::string, SaltyEngine::Vector2i>>::const_iterator it = assets.begin(); it != assets.end(); ++it) {
-		*scene << SaltyEngine::Object::Instantiate(it->first, it->second);
+	for (std::list<std::pair<std::string, SaltyEngine::Vector2f>>::const_iterator it = assets.begin(); it != assets.end(); ++it) {
 		std::cout << "Instantiate " << it->first << std::endl;
+		*scene << (SaltyEngine::GameObject*)SaltyEngine::Object::Instantiate(it->first, it->second);
 	}
 
 	// Push scene int SaltyEngine

@@ -19,7 +19,7 @@ private:
     AParser *_pc;
 public:
     Parser (int type);
-    Parser (int type, char *filename);
+    Parser (int type, const char *filename);
     virtual ~Parser ();
 
     void init_Conf();

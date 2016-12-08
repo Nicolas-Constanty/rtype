@@ -9,7 +9,7 @@ Parser::Parser (int type)
 }
 
 
-Parser::Parser (int type, char *filename)
+Parser::Parser (int type, const char *filename)
 {
     FP funcs[3] = {&Parser::init_Conf, &Parser::init_Http, &Parser::init_Json};
     if (!_ps.loadFile(filename))
@@ -78,9 +78,9 @@ std::ostream& operator<<(std::ostream& out, const JsonVariant::json_array* jsarr
 {
     static unsigned long indent = 0;
     ++indent;
-    for (int j = 0; j < jsarray->size(); ++j) {
+    for (unsigned int j = 0; j < jsarray->size(); ++j) {
         JsonVariant::json_pair *elem = (*jsarray)[j];
-        int n = 0;
+        unsigned int n = 0;
         for (JsonVariant::json_pair::const_iterator k = elem->begin(); k != elem->end(); ++k) {
             if (!n)
                 out << std::string(indent * 4, ' ');
@@ -101,7 +101,7 @@ std::ostream& operator<<(std::ostream& out, const JsonVariant::json_array* jsarr
 
 std::ostream& operator<<(std::ostream& out, const JsonVariant::json_pair* json)
 {
-    int n = 0;
+    unsigned int n = 0;
 	static size_t tab = 0;
 	++tab;
 	//out << "{" <<  std::endl;

@@ -119,7 +119,10 @@ ENDIF(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
 include(${PROJECT_SOURCE_DIR}/R-Type/ServerRoom/CMakeLists.txt)
 include(${PROJECT_SOURCE_DIR}/R-Type/ServerGameDispatcher/CMakeLists.txt)
 
-############ SALTYENGINE ############
+############### PARSER ###############
+include(${PROJECT_SOURCE_DIR}/R-Type/Parser/CMakeLists.txt)
+
+############ SALTYENGINE #############
 include(${PROJECT_SOURCE_DIR}/R-Type/SaltyEngine/CMakeLists.txt)
 include(${PROJECT_SOURCE_DIR}/R-Type/SFMLSaltyEngine/CMakeLists.txt)
 
@@ -142,4 +145,4 @@ add_dependencies(prefabs player missile_medusa monster missile_laser)
 
 ### FULL BUILD ###
 add_custom_target(BuildGUI DEPENDS gui)
-add_dependencies(gui prefabs)
+add_dependencies(gui prefabs Parser)

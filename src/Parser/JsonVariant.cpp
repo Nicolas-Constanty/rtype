@@ -8,7 +8,7 @@
 
 JsonVariant::JsonVariant()
 {
-	value;
+
 };
 
 JsonVariant::bvariant &JsonVariant::getValue()
@@ -36,7 +36,7 @@ std::map<std::string, JsonVariant> &JsonVariant::operator[](int key) const
 {
     try {
         json_array *a = boost::get<json_array *>(value);
-        if (key >= a->size())
+        if (key >= static_cast<int>(a->size()))
             throw JsonException("Out of Range");
 		std::map<std::string, JsonVariant> *p = (*a)[key];
 		return (*p);

@@ -19,4 +19,4 @@ include_directories(${WD}include)
 
 add_executable(gui ${TEST_SOURCE})
 
-target_link_libraries(gui ${PROJECT_SOURCE_DIR}/${WD}lib/libSaltyEngine.a ${PROJECT_SOURCE_DIR}/${WD}lib/libSFMLSaltyEngine.so -lpthread -ldl ${SFML_LIBRARIES} -lsfml-system -lsfml-window -lsfml-graphics -lsfml-audio)
+target_link_libraries(gui ${PROJECT_SOURCE_DIR}/${WD}lib/libSaltyEngine.a ${PROJECT_SOURCE_DIR}/${WD}lib/libSFMLSaltyEngine.so ${PROJECT_SOURCE_DIR}/${WD}lib/libParser.so -lpthread -ldl ${SFML_LIBRARIES} -lsfml-system -lsfml-window -lsfml-graphics -lsfml-audio)
