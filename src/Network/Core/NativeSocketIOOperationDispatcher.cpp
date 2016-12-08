@@ -3,12 +3,20 @@
 //
 
 #include <csignal>
-#include <unistd.h>
+
 #include <Network/Core/NativeSocketIOOperationDispatcher.hpp>
 #include <algorithm>
 #include <stack>
 #include <iomanip>
+
+
+#if _WIN32
+#include <winsock2.h>
+#else
 #include <poll.h>
+#include <unistd.h>
+#endif
+
 
 /**
  * \brief A Boolean variable used in <Run> method as conditional for the infinite server loop. Eq false on Crtl+C
@@ -118,8 +126,8 @@ void Network::Core::NativeSocketIOOperationDispatcher::HandleOperations()
 //        std::cout << "     - " << curr << std::endl;
 //    std::cout << std::endl;
 
-    if (select(std::max(bindFdsToSet(readset, m_readWatch), bindFdsToSet(writeset, m_writeWatch)) + 1, &readset, &writeset, NULL, timeout.get()) == -1)
-        throw std::runtime_error("Select fails");
+	if (select(std::max(bindFdsToSet(readset, m_readWatch), bindFdsToSet(writeset, m_writeWatch)) + 1, &readset, &writeset, NULL, timeout.get()) == -1)
+		throw std::runtime_error("Select fails");
     performOperations(readset, NativeSocketIOOperationDispatcher::read);
     performOperations(writeset, NativeSocketIOOperationDispatcher::write);
 //    std::cout << std::endl << std::endl;
@@ -189,7 +197,7 @@ void Network::Core::NativeSocketIOOperationDispatcher::Run()
             HandleOperations();
         }
         catch (std::runtime_error const &err){}
-        usleep(30);
+        //usleep(30);
     }
     signal(SIGINT, SIG_DFL);
 //    std::cout << "Leaving" << std::endl;
@@ -211,8 +219,13 @@ void Network::Core::NativeSocketIOOperationDispatcher::Poll(Network::Socket::ISo
 {
     struct pollfd   fd = {handler.getSocket().Native(), POLLIN | POLLOUT, 0};
 
-    if (poll(&fd, 1, 0) == -1)
-        return;
+#if _WIN32
+	if (WSAPoll(&fd, 1, 0) == -1)
+		return;
+#else
+	if (poll(&fd, 1, 0) == -1)
+		return;
+#endif
     if (fd.revents & POLLIN)
         handler.OnAllowedToRead();
     if (fd.revents & POLLOUT)
@@ -225,8 +238,13 @@ void Network::Core::NativeSocketIOOperationDispatcher::Poll(Network::Socket::ISo
  */
 void Network::Core::NativeSocketIOOperationDispatcher::Watch(Network::Socket::ISockStreamHandler &towatch, WatchMode mode)
 {
-    if (towatch.getSocket().Native() <= 2)
-        return;
+	std::cout << towatch.getSocket().Native() << std::endl;
+#if _WIN32
+	if (towatch.getSocket().Native() == INVALID_SOCKET)
+		return;
+#endif
+	if (towatch.getSocket().Native() <= 2)
+		return;
     if (mode & WatchMode::READ)
         m_readWatch.emplace_back(&towatch);
     if (mode & WatchMode::WRITE)

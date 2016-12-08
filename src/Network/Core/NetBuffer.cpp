@@ -157,7 +157,13 @@ bool Network::Core::NetBuffer::serialize<std::string>(std::string const &obj)
 {
     if (length + obj.size() > NetBuffer::size)
         return false;
-    strncpy(buff<char>(), obj.c_str(), obj.size());
+#if _WIN32
+	strncpy_s(buff<char>(), NetBuffer::size, obj.c_str(), obj.size());
+#else
+	strncpy(buff<char>(), obj.c_str(), obj.size());
+#endif // _WIN32
+
+    
     length += obj.size();
     return true;
 }

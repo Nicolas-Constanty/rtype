@@ -1,5 +1,5 @@
-#include <SaltyEngine/Debug.hpp>
 #include "SaltyEngine/AScene.hpp"
+#include "SaltyEngine/Debug.hpp"
 
 namespace SaltyEngine
 {

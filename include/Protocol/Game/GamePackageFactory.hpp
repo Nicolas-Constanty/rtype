@@ -7,7 +7,7 @@
 
 #include <list>
 #include <climits>
-#include <bits/unique_ptr.h>
+#include <memory>
 #include "ProtocolGamePackage.hpp"
 
 class GamePackageFactory {

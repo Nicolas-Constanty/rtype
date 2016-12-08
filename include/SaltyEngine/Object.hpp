@@ -75,6 +75,7 @@ namespace SaltyEngine
 
 #ifdef _WIN32
 //#define Instantiate(...) Object::Instantiate(## __VA_ARGS__)
+	#define Instantiate(...) Object::Instantiate(__VA_ARGS__)
 #else
 #define Instantiate(...) Object::Instantiate(__VA_ARGS__)
 #endif

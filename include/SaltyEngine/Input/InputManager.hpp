@@ -59,8 +59,8 @@ namespace SaltyEngine {
             }
 
         private:
-            static std::map<std::string, std::unique_ptr<Axis>>    m_axis;
-            static std::map<std::string, std::unique_ptr<Action>>  m_actions;
+            static std::map<std::string, std::unique_ptr<Axis> >    m_axis;
+            static std::map<std::string, std::unique_ptr<Action> >  m_actions;
 
         public:
             static void  AddAxis(std::string const &name, Axis *axis) {
@@ -112,10 +112,10 @@ namespace SaltyEngine {
             }
         };
         template <class T>
-        std::map<std::string, std::unique_ptr<Axis>>    InputManager<T>::m_axis;
+        std::map<std::string, std::unique_ptr<Axis> >    InputManager<T>::m_axis;
 
         template <class T>
-        std::map<std::string, std::unique_ptr<Action>>  InputManager<T>::m_actions;
+        std::map<std::string, std::unique_ptr<Action> >  InputManager<T>::m_actions;
     }
 }
 

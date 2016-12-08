@@ -118,10 +118,16 @@ void Network::Socket::ASocket::Talk(const std::string &ip, const uint16_t port) 
     sockaddr.sin_family = domain;
     sockaddr.sin_port = htons(port);
 //    sockaddr.sin_addr.s_addr = inet_addr(ip.c_str());
-    if ((protocol == Network::Socket::TCP && connect(fd, (struct sockaddr *)&sockaddr, len) == -1) ||
-            (protocol == Network::Socket::UDP && inet_aton(ip.c_str(), &sockaddr.sin_addr) == 0))
-        throw SocketException(strerror(errno));
-    std::cout << *this << std::endl;
+#if _WIN32
+	if ((protocol == Network::Socket::TCP && connect(fd, (struct sockaddr *)&sockaddr, len) == -1) ||
+		(protocol == Network::Socket::UDP && InetPton(AF_INET, ip.c_str(), &sockaddr.sin_addr) == 0))
+		throw SocketException(strerror(errno));
+#else
+	if ((protocol == Network::Socket::TCP && connect(fd, (struct sockaddr *)&sockaddr, len) == -1) ||
+		(protocol == Network::Socket::UDP && inet_aton(ip.c_str(), &sockaddr.sin_addr) == 0))
+		throw SocketException(strerror(errno));
+#endif // _WIN32
+    //std::cout << *this << std::endl;
 }
 
 /**
@@ -162,9 +168,15 @@ unsigned int Network::Socket::ASocket::getPort() const {
 unsigned int Network::Socket::ASocket::getIPFromString(std::string const &ip) {
     struct in_addr addr;
 
-    if (inet_aton(ip.c_str(), &addr) == 0) {
+#if _WIN32
+    if (InetPton(AF_INET, ip.c_str(), &addr) == 0) {
         return (0);
     }
+#else
+	if (inet_aton(ip.c_str(), &addr) == 0) {
+		return (0);
+	}
+#endif
     return addr.s_addr;
 }
 

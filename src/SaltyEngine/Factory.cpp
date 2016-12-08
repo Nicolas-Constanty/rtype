@@ -1,8 +1,8 @@
-#include <SaltyEngine/Debug.hpp>
 #include "SaltyEngine/Constants.hpp"
 #include "SaltyEngine/Factory.hpp"
 #include "SaltyEngine/GameObject.hpp"
 #include "SaltyEngine/Object.hpp"
+#include "SaltyEngine/Debug.hpp"
 
 namespace SaltyEngine {
 
@@ -42,7 +42,8 @@ namespace SaltyEngine {
 
         if (loader.Load(path) == nullptr)
         {
-            Debug::PrintError("Factory: failed to load asset at path [" + path + "]. Error was: " + dlerror());
+            Debug::PrintError("Factory: failed to load asset at path [" + path + "]. Error was: ");
+			perror("");
             return false;
         }
         Object *obj = (GameObject*)(loader.Call("GetObjectPrefab"));

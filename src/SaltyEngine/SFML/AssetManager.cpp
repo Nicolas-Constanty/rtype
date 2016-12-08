@@ -2,11 +2,11 @@
 // Created by wery_a on 30/11/16.
 //
 
-#include <SaltyEngine/Debug.hpp>
 #include <SaltyEngine/SFML/Music.hpp>
 #include <SaltyEngine/SFML/Sound.hpp>
 #include <SaltyEngine/SFML/Texture.hpp>
 #include "SaltyEngine/SFML/AssetManager.hpp"
+#include <SaltyEngine/Debug.hpp>
 
 namespace SaltyEngine {
     namespace SFML {
