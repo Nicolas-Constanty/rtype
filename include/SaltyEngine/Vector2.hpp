@@ -51,7 +51,7 @@ namespace SaltyEngine
 
 		float magnitude() const
 		{
-			return sqrt(this->x * this->x + this->y * this->y);
+			return (float) sqrt(this->x * this->x + this->y * this->y);
 		}
 
 		BaseVector2<T> normalize() const

@@ -42,14 +42,13 @@ namespace SaltyEngine {
 
         if (loader.Load(path) == nullptr)
         {
-            std::cerr << "Factory: failed to load asset at path [" << path << "]. Error was: " << std::endl;
-            std::cerr << dlerror() << std::endl;
+            Debug::PrintError("Factory: failed to load asset at path [" + path + "]. Error was: " + dlerror());
             return false;
         }
         Object *obj = (GameObject*)(loader.Call("GetObjectPrefab"));
         if (obj == nullptr)
         {
-            std::cerr << "Factory: failed to get asset." << std::endl;
+            Debug::PrintError("Factory: failed to get asset.");
             return false;
         }
         if (m_prefabs.find(obj->GetName()) != m_prefabs.end())
@@ -58,6 +57,7 @@ namespace SaltyEngine {
             return false;
         }
         m_prefabs[obj->GetName()] = std::unique_ptr<Object>(obj);
+        Debug::PrintSuccess("Factory: loaded [" + obj->GetName() + "]");
         //loader.Unload();
 		return true;
 	}

@@ -15,8 +15,9 @@ namespace SaltyEngine {
 
 int main()
 {
-	SaltyEngine::AssetManager.LoadAssets();
-	SaltyEngine::SFML::Renderer *renderer = new SaltyEngine::SFML::Renderer(sf::VideoMode(1280, 720), "R-Type Launcher");
+    SaltyEngine::AssetManager.LoadAssets();
+
+    SaltyEngine::SFML::Renderer *renderer = new SaltyEngine::SFML::Renderer(sf::VideoMode(1280, 720), "R-Type Launcher");
 	SaltyEngine::SFML::EventManager *event_manager = new SaltyEngine::SFML::EventManager(renderer->GetRenderWindow());
 	// Set Renderer and EventManager
 	Singleton<SaltyEngine::SaltyEngine>::Instance().SetRenderer(renderer);
@@ -26,8 +27,7 @@ int main()
 	SaltyEngine::SFML::Scene *scene = new SaltyEngine::SFML::Scene();
 
 	// Create monster with sprites
-//	SaltyEngine::Instantiate();
-	SaltyEngine::GameObject *monster = (SaltyEngine::GameObject*)SaltyEngine::Instantiate("Monster");
+	SaltyEngine::GameObject *monster = (SaltyEngine::GameObject*)SaltyEngine::Instantiate("Monster", SaltyEngine::Vector(1300, 400));
 	SaltyEngine::GameObject *player = (SaltyEngine::GameObject*)SaltyEngine::Instantiate("Player");
 
 	std::cout << "Monster = " << monster << std::endl;
