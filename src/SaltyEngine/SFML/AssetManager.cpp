@@ -32,6 +32,7 @@ namespace SaltyEngine {
             if (!sound->LoadFromFile(path_sounds + name + Asset::SOUND_EXTENSION)) {
                 return false;
             }
+            Debug::PrintSuccess("Sound " + name + " was successfuly loaded");
             m_sounds[name] = sound;
             return true;
         }
@@ -46,6 +47,7 @@ namespace SaltyEngine {
                 Debug::PrintError("Failed to load texture " + name);
                 return false;
             }
+            Debug::PrintSuccess("Texture " + name + " was successfuly loaded");
             m_textures[name] = std::unique_ptr<::SaltyEngine::SFML::Texture>(texture);
             return true;
         }

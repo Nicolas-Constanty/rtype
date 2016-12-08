@@ -42,12 +42,12 @@ namespace SaltyEngine
 		static void Destroy(Object* original);
 		static Object *Instantiate(std::string const& obj, Vector pos = Vector::zero(), float rot = 0)
 		{
-			return Factory::Create(obj, pos, rot);
+			return Factory::Instance().Create(obj, pos, rot);
 		}
 
 		static Object *Instantiate()
 		{
-			return Factory::Create();
+			return Factory::Instance().Create();
 		}
 
 	public:
@@ -69,7 +69,7 @@ namespace SaltyEngine
 		template <class Type>
 		static std::list<Object*> FindObjectsOfType()
 		{
-			return Factory::GetObjectsOfType<Type>();
+			return Factory::Instance().GetObjectsOfType<Type>();
 		}
 	};
 

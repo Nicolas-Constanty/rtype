@@ -178,7 +178,7 @@ namespace SaltyEngine
 
 		static GameObject *Find(std::string const& name)
         {
-            return Factory::Find(name);
+            return Factory::Instance().Find(name);
         }
 
 		public:

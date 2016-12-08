@@ -133,6 +133,7 @@ namespace SaltyEngine {
         /// \param name
         /// \return Texture*
         Texture *GetTexture(std::string const &name) {
+            std::cout << "AssetManager : " << this << std::endl;
             typename std::map<std::string, std::unique_ptr<Texture>>::const_iterator it = m_textures.find(name);
             if (it == m_textures.end()) {
                 if (!LoadTexture(name)) {
@@ -217,11 +218,10 @@ namespace SaltyEngine {
                         LoadSprite(sprite);
                     }
                     if (!lib.empty()) {
-                        Factory::LoadAsset(path_metas + lib + Asset::META_EXTENSION);
+                        Factory::Instance().LoadAsset(path_metas + lib + Asset::META_EXTENSION);
                     }
                     Debug::PrintSuccess("Prefab " + filename + " was successfuly loaded");
                 } else {
-                    std::cout << &map << std::endl;
                     Debug::PrintError("Cannot parse prefab " + filename);
                     return false;
                 }
@@ -325,7 +325,7 @@ namespace SaltyEngine {
                 }
                 if (filename.substr(dotPos) == Asset::META_EXTENSION) {
                     Debug::PrintSuccess("Loading prefab [ " + filename + " ]");
-                    Factory::LoadAsset(path_metas + filename);
+                    Factory::Instance().LoadAsset(path_metas + filename);
                 }
             }
         }
