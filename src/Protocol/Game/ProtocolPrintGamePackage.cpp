@@ -184,3 +184,15 @@ std::ostream &operator<<(std::ostream &ostream, FAILUREPackageGame const &failur
     ostream << "}" << std::endl;
     return ostream;
 }
+
+std::ostream &operator<<(std::ostream &ostream, INPUTPackageGame const &inputPackageGame)
+{
+    ostream << "INPUTPackageGame = {" << std::endl;
+    PackageGameHeader const *header = dynamic_cast<PackageGameHeader const *>(&inputPackageGame);
+    if (header) {
+        ostream << header;
+    }
+    ostream << "axes=" << std::string(inputPackageGame.axes) << std::endl;
+    ostream << "}" << std::endl;
+    return ostream;
+}

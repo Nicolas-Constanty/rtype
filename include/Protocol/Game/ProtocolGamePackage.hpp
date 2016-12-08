@@ -31,7 +31,8 @@ typedef enum : unsigned char {
     GAMEAUTHENTICATE = 10,
     GAMEPING = 11,
     GAMEREBORN = 12,
-    GAMEFAILURE = 13
+    GAMEFAILURE = 13,
+    GAMEINPUT = 14
 } GamePurpose;
 
 class PackageGameHeader {
@@ -209,6 +210,22 @@ public:
 
     unsigned char failPurpose;
     unsigned short failSequence;
+};
+
+class INPUTPackageGame : public PackageGameHeader {
+public:
+    INPUTPackageGame(unsigned short sequenceID = 0, std::string const &axes, float value, unsigned short transactionID = 0) :
+            PackageGameHeader(true, sizeof(INPUTPackageGame), sequenceID, GAMEINPUT, transactionID)
+    {
+        this->value = value;
+        memset(this->axes, 0, sizeof(this->axes));
+        if (axes.length() < sizeof(axes)) {
+            strncpy(this->axes, axes.c_str(), axes.length());
+        }
+    }
+
+    char axes[16];
+    float value;
 };
 
 #endif //RTYPE_PROTOCOLGAMEPACKAGE_HPP
