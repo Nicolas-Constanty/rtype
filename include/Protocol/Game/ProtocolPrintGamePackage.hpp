@@ -22,5 +22,6 @@ std::ostream &operator<<(std::ostream &ostream, DROPPackageGame const &dropPacka
 std::ostream &operator<<(std::ostream &ostream, LAUNCHPackageGame const &launchPackageGame);
 std::ostream &operator<<(std::ostream &ostream, REBORNPackageGame const &rebornPackageGame);
 std::ostream &operator<<(std::ostream &ostream, FAILUREPackageGame const &failurePackageGame);
+std::ostream &operator<<(std::ostream &ostream, INPUTPackageGame const &inputPackageGame);
 
 #endif //RTYPE_PROTOCOLPRINTGAMEPACKAGE_HPP
