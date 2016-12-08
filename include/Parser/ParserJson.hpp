@@ -5,6 +5,7 @@
 #ifndef PARSERJSON_H
 #define PARSERJSON_H
 
+#include <stack>
 #include "AParser.hpp"
 #include "ConsumerParser.hpp"
 #include "JsonVariant.hpp"
@@ -19,17 +20,28 @@ public:
 
 private:
     bool key;
+	bool m_key;
+	enum Type
+	{
+		NONE,
+		OBJECT,
+		ARRAY
+	};
+	Type m_type;
+	JsonVariant::json_pair *m_root;
+	std::stack<JsonVariant::json_pair *> m_parent;
+	std::string m_array;
 
 private:
-    bool save_key(JsonVariant::json_pair* json_node,  const std::string &context, bool ret, int index);
-    bool save_value(JsonVariant::json_pair* json_node,  const std::string &context, bool ret, int index);
-    bool members(JsonVariant::json_pair* json_node, const std::string &context = "", int index = 0);
-    bool pair(JsonVariant::json_pair* json_node, const std::string &context = "", int index = 0);
-    bool value(JsonVariant::json_pair* json_node, const std::string &context = "", int index = 0);
-    bool array(JsonVariant::json_pair* json_node, const std::string &context = "", int index = 0);
-    bool elements(JsonVariant::json_pair* json_node, const std::string &context = "", int index = 0);
-    bool object(JsonVariant::json_pair* json_node, const std::string &context = "", int index = 0);
-    bool string(JsonVariant::json_pair* json_node, const std::string &context = "", int index = 0);
+    bool save_key();
+    bool save_value();
+    bool members();
+    bool pair();
+    bool value();
+    bool array();
+    bool elements();
+    bool object();
+    bool string();
 };
 
 #endif //PARSERJSON_H

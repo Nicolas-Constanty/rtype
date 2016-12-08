@@ -2,11 +2,13 @@
 // Created by babiole on 17/10/16.
 //
 
+#include <iostream>
+#include <string>
 #include "Parser/JsonVariant.hpp"
 
 JsonVariant::JsonVariant()
 {
-    value = nullptr;
+	value;
 };
 
 JsonVariant::bvariant &JsonVariant::getValue()
@@ -36,12 +38,20 @@ std::map<std::string, JsonVariant> &JsonVariant::operator[](int key) const
         json_array *a = boost::get<json_array *>(value);
         if (key >= a->size())
             throw JsonException("Out of Range");
-        std::map<std::string, JsonVariant> *p = (*a)[key];
-        return (*p);
+		std::map<std::string, JsonVariant> *p = (*a)[key];
+		return (*p);
     }
     catch (boost::exception const &e) {
         throw JsonException("Element is not an array");
     }
+}
+
+const JsonVariant &JsonVariant::operator[](const std::string & name) const
+{
+	
+	std::map<std::string, JsonVariant> *p = boost::get<std::map<std::string, JsonVariant> *>(value);
+	//const std::string &s = boost::get<std::string>((*p)[name].get());
+	return (*p)[name];
 }
 
 size_t JsonVariant::size() const

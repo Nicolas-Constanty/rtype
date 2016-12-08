@@ -1,10 +1,10 @@
 {
-    "id": 0,
-    "maxPlayers": 4,
-    "difficulty": 2,
+    "id": "0",
+    "maxPlayers": "4",
+    "difficulty": "2",
     "stages": [
         {
-            "speed": 10,
+            "speed": "10",
             "fixed": false,
             "bonus": [
                 "laser",
@@ -13,13 +13,13 @@
             "monsters": [
                 {
                     "name": "toto",
-                    "position": {"x": 1, "y": 2},
-                    "rotation": {"x": 0, "y": 0}
+                    "position": {"x": "1", "y": "2"},
+                    "rotation": {"x": "0", "y": "0"}
                 },
                 {
                     "name": "toto",
-                    "position": {"x": 100, "y": 2},
-                    "rotation": {"x": 0, "y": 0}
+                    "position": {"x": "100", "y": "2"},
+                    "rotation": {"x": "0", "y": "0"}
                 }
             ]
         },
@@ -38,7 +38,7 @@
             ]
         },
         {
-            "fixed": true,
+            "fixed": "1",
             "bonus": [
                 "missiles",
                 "speed"

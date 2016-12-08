@@ -44,25 +44,33 @@ bool Parser::parse(JsonVariant::json_pair *content)
 
 std::ostream& operator<<(std::ostream& out, JsonVariant::bvariant var)
 {
-
+	static size_t tab = 0;
+	
     try {
-        out << "\"" << boost::get<std::string>(var) << "\"}";
+        out << "\"" << boost::get<std::string>(var) << "\"";
     }
     catch (std::exception const &e) {
-        try {
-            out << "[" << std::endl;
-            JsonVariant::json_array *a = boost::get<JsonVariant::json_array *>(var);
-            out << a;
-        }
-        catch (std::exception const &e) {
-            try {
-                JsonVariant::json_pair p = boost::get<JsonVariant::json_pair>(var);
-                out << &p;
-            }
-            catch (std::exception const &e) {
-                throw JsonException("Invalid map");
-            }
-        }
+		try {
+			++tab;
+			JsonVariant::json_pair *p = boost::get<JsonVariant::json_pair *>(var);
+			out << p;
+			for (size_t i = 0; i < tab; i++)
+			{
+				out << "\t";
+			}
+			out << "}";
+		}
+		catch (std::exception const &e) {
+			try {
+				out << "[" << std::endl;
+				JsonVariant::json_array *a = boost::get<JsonVariant::json_array *>(var);
+				out << a << "]";
+			}
+			catch (std::exception const &e) {
+				throw JsonException("Invalid map");
+			}
+		}
+        
     }
     return out;
 }
@@ -77,16 +85,16 @@ std::ostream& operator<<(std::ostream& out, const JsonVariant::json_array* jsarr
             if (!n)
                 out << std::string(indent * 4, ' ');
             ++n;
-            out << "{\"" << (*k).first << "\" : \"" << (*k).second.get();
+            out << "\"" << (*k).first << "\" : \"" << (*k).second.get();
             if (n != elem->size())
                 out << ", ";
         }
         if (j < jsarray->size() - 1)
             out << ", " << std::endl;
-        else if (indent != 1)
+        /*else if (indent != 1)
             out << std::string(--indent * 4, ' ') << "]}";
         else
-            out << std::endl << "]}";
+            out << std::endl << "]}";*/
     }
     return out;
 }
@@ -94,11 +102,21 @@ std::ostream& operator<<(std::ostream& out, const JsonVariant::json_array* jsarr
 std::ostream& operator<<(std::ostream& out, const JsonVariant::json_pair* json)
 {
     int n = 0;
+	static size_t tab = 0;
+	++tab;
+	//out << "{" <<  std::endl;
     for (JsonVariant::json_pair::const_iterator i = json->begin(); i != json->end(); i++) {
-        out << "{\"" << (*i).first << "\" : " << ((*i).second).get();
+		/*for (size_t i = 0; i < tab; i++)
+			out << "\t";*/
+        out << "\"" << (*i).first << "\" : " << ((*i).second).get();
         ++n;
-        if (n != json->size())
-            out << ", ";
+		if (n != json->size())
+			out << "," << std::endl;
+		else
+			out << std::endl;
     }
+	--tab;
+	/*if (tab == 0)
+		out << "}" << std::endl;*/
     return out;
 }
