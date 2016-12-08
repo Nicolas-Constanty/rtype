@@ -16,10 +16,7 @@ MONSTER_DIR             =   $(SRC_DIR)/Monster
 CLIENT_DIR              =   $(SRC_DIR)/ClientLauncher
 PlAYER_DIR              =   $(SRC_DIR)/Player
 
-SRC		= 	$(PlAYER_DIR)/PlayerController.cpp      \
-            $(CLIENT_DIR)/Laser.cpp                 \
-            $(MONSTER_DIR)/MonsterController.cpp    \
-            main.cpp                                \
+SRC		= 	main.cpp                                \
 
 CPPFLAGS 	=   -W -Wall -g -Wextra -std=c++11 -fPIC -g
 
