@@ -57,6 +57,10 @@ namespace SaltyEngine {
                     Debug::PrintError("Cannot find sprite " + name);
                     return nullptr;
                 }
+                it = m_sprites.find(name);
+                if (it == m_sprites.end()) {
+                    return nullptr;
+                }
             }
             ::SaltyEngine::SFML::Texture *texture = GetTexture(it->second.texture);
             if (texture == nullptr) {

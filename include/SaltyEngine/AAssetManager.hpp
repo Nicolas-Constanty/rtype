@@ -139,6 +139,10 @@ namespace SaltyEngine {
                     Debug::PrintError("Cannot find texture " + name);
                     return nullptr;
                 }
+                it = m_textures.find(name);
+                if (it == m_textures.end()) {
+                    return nullptr;
+                }
             }
             return it->second.get();
         }
