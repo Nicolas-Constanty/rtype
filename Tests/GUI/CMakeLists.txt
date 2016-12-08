@@ -15,7 +15,7 @@ file(GLOB TEST_SOURCE "${WD}Tests/GUI/*.cpp")
 
 include_directories(${WD}include)
 
-add_definitions(-DCUSTOM_ASSET_PATH="../Assets")
+#add_definitions(-DCUSTOM_ASSET_PATH="../Assets")
 
 add_executable(gui ${TEST_SOURCE})
 

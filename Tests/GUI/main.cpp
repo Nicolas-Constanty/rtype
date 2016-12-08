@@ -9,13 +9,9 @@
 #include "SaltyEngine/SFML/Scene.hpp"
 #include "SaltyEngine/SFML/AssetManager.hpp"
 
-namespace SaltyEngine {
-    #define AssetManager SFML::AssetManager::Instance()
-}
-
 int main()
 {
-    SaltyEngine::AssetManager.LoadAssets();
+//    SaltyEngine::SFML::AssetManager::Instance().LoadAssets();
 
     SaltyEngine::SFML::Renderer *renderer = new SaltyEngine::SFML::Renderer(sf::VideoMode(1280, 720), "R-Type Launcher");
 	SaltyEngine::SFML::EventManager *event_manager = new SaltyEngine::SFML::EventManager(renderer->GetRenderWindow());
@@ -27,16 +23,13 @@ int main()
 	SaltyEngine::SFML::Scene *scene = new SaltyEngine::SFML::Scene();
 
 	// Create monster with sprites
-	SaltyEngine::GameObject *monster = (SaltyEngine::GameObject*)SaltyEngine::Instantiate("Monster", SaltyEngine::Vector(1300, 400));
-	SaltyEngine::GameObject *player = (SaltyEngine::GameObject*)SaltyEngine::Instantiate("Player");
 
-	std::cout << "Monster = " << monster << std::endl;
-	std::cout << "Player = " << player << std::endl;
+	std::list<std::pair<std::string, SaltyEngine::Vector2i>>	assets = SaltyEngine::SFML::AssetManager::Instance().LoadScene("scene1");
 
-	// Push scene int SaltyEngine
-
-	*scene << player;
-	*scene << monster;
+	for (std::list<std::pair<std::string, SaltyEngine::Vector2i>>::const_iterator it = assets.begin(); it != assets.end(); ++it) {
+		*scene << SaltyEngine::Object::Instantiate(it->first, it->second);
+		std::cout << "Instantiate " << it->first << std::endl;
+	}
 
 	// Push scene int SaltyEngine
 	Singleton<SaltyEngine::SaltyEngine>::Instance() << scene;
