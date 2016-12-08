@@ -25,6 +25,7 @@ namespace Rtype
             public:
                 virtual bool OnDataReceived(unsigned int len);
                 virtual bool OnDataSent(unsigned int len);
+                virtual bool OnStart();
 
             public:
                 virtual void OnReadCheck();

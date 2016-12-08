@@ -117,6 +117,7 @@ namespace Network
              */
             void Start(const uint16_t port)
             {
+                std::cout << "\x1b[31mStarting server on port\x1b[0m: " << port << std::endl;
                 sock.Open();
                 sock.Listen(port);
                 OnStart();

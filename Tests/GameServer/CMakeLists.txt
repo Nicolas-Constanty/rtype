@@ -31,6 +31,17 @@ add_executable(gameclient-1
         ${SFMLsrc} ${SFMLinc}
         Tests/GameServer/gameclient-1.cpp)
 
+add_executable(gameserver-stable
+        ${Networksrc} ${Networkinc}
+        ${Commonsrc} ${Commoninc}
+        ${Protocolsrc} ${Protocolinc}
+        ${SaltyEnginesrc} ${SaltyEngineinc}
+        ${srcGameServ} ${incGameServ}
+        ${srcGameCommon} ${incGameCommon}
+        ${SFMLsrc} ${SFMLinc}
+        Tests/GameServer/gameserver-stable.cpp)
+
 target_link_libraries(gameserv-1 -ldl)
 target_link_libraries(gameserv-2 -ldl libsfml-system.so libsfml-audio.so libsfml-graphics.so libsfml-window.so)
 target_link_libraries(gameclient-1 -ldl libsfml-system.so libsfml-audio.so libsfml-graphics.so libsfml-window.so)
+target_link_libraries(gameserver-stable -ldl libsfml-system.so libsfml-audio.so libsfml-graphics.so libsfml-window.so)

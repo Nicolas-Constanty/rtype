@@ -30,6 +30,7 @@ namespace Rtype
                 const uint16_t map;
                 Rtype::Game::Server::RtypeGameServer    *server;
                 Network::Core::NativeSocketIOOperationDispatcher    dispatcher;
+                bool running;
             };
         }
     }

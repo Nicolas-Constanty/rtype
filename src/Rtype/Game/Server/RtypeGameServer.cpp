@@ -72,6 +72,7 @@ void Rtype::Game::Server::RtypeGameServer::OnReadCheck()
 
 void Rtype::Game::Server::RtypeGameServer::setSecret(uint32_t secret)
 {
+    std::cout << "\x1b[33mSetting secret to\x1b[0m: " << secret << std::endl;
     this->secret = secret;
 }
 
@@ -85,4 +86,10 @@ bool Rtype::Game::Server::RtypeGameServer::Authenticate(uint32_t secret)
 void Rtype::Game::Server::RtypeGameServer::setSecure(bool security)
 {
     secure = security;
+}
+
+bool Rtype::Game::Server::RtypeGameServer::OnStart()
+{
+    std::cout << "\x1b[32mServer started\x1b[0m: maximum number of players => " << maxSize << ", secure => " << std::boolalpha << secure << std::endl;
+    return true;
 }
