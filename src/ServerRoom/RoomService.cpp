@@ -12,8 +12,8 @@ RoomService::RoomService(const std::string &name,
                          unsigned short mapID,
                          unsigned short id,
                          RtypeGameServerTCPConnection *gameServerTCPConnection)
-        : name(name), clientMaxNbr(clientMaxNbr), mapID(mapID), id(id),
-          gameServerTCPConnection(gameServerTCPConnection), clientsList(), launch(false), secret(0) {
+        : name(name), clientMaxNbr(clientMaxNbr), mapID(mapID), id(id), clientsList(),
+          gameServerTCPConnection(gameServerTCPConnection), launch(false), secret(0) {
 
 }
 
