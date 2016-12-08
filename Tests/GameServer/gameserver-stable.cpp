@@ -15,10 +15,10 @@ int main(int ac, char **av)
     bool help;
     Rtype::Game::Server::Room   room;
 
-    flags.Var(port, 'p', "port", static_cast<uint16_t >(4242), "The port on which the room server will be binded", "Room port");
-    flags.Var(max, 'm', "max", static_cast<size_t >(4), "The maximum amount of players that are allowed to join the room server", "Maximum amount of players");
-    flags.Var(secret, 's', "secret", static_cast<uint32_t >(0), "The secret password of the room", "Secret password");
-    flags.Var(level, 'l', "level", static_cast<uint16_t >(0), "The ID of the level to load", "Level id");
+    flags.Var(port, 'p', "port", uint16_t(4242), "The port on which the room server will be binded", "Room port");
+    flags.Var(max, 'm', "max", size_t(4), "The maximum amount of players that are allowed to join the room server", "Maximum amount of players");
+    flags.Var(secret, 's', "secret", uint32_t(0), "The secret password of the room", "Secret password");
+    flags.Var(level, 'l', "level", uint16_t(0), "The ID of the level to load", "Level id");
 
     flags.Bool(help, 'h', "help", "Show this help message", "Help");
 

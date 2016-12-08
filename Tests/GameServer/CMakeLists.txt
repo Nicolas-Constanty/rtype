@@ -18,30 +18,30 @@ add_executable(gameserv-2
         ${SaltyEnginesrc} ${SaltyEngineinc}
         ${srcGameServ} ${incGameServ}
         ${srcGameCommon} ${incGameCommon}
-        ${SFMLsrc} ${SFMLinc}
+        ${SFMLinc}
         Tests/GameServer/gameserv-2.cpp)
 
 add_executable(gameclient-1
         ${Networksrc} ${Networkinc}
-        ${Commoninc} ${Commonsrc}
+        ${Commoninc}
         ${Protocolsrc} ${Protocolinc}
-        ${SaltyEnginesrc} ${SaltyEngineinc}
+        ${SaltyEngineinc}
         ${srcGameClient} ${incGameClient}
         ${srcGameCommon} ${incGameCommon}
-        ${SFMLsrc} ${SFMLinc}
+        ${SFMLinc}
         Tests/GameServer/gameclient-1.cpp)
 
 add_executable(gameserver-stable
         ${Networksrc} ${Networkinc}
-        ${Commonsrc} ${Commoninc}
+        ${Commoninc}
         ${Protocolsrc} ${Protocolinc}
-        ${SaltyEnginesrc} ${SaltyEngineinc}
+        ${SaltyEngineinc}
         ${srcGameServ} ${incGameServ}
         ${srcGameCommon} ${incGameCommon}
-        ${SFMLsrc} ${SFMLinc}
+        ${SFMLinc}
         Tests/GameServer/gameserver-stable.cpp)
 
 target_link_libraries(gameserv-1 -ldl)
-target_link_libraries(gameserv-2 -ldl libsfml-system.so libsfml-audio.so libsfml-graphics.so libsfml-window.so)
-target_link_libraries(gameclient-1 -ldl libsfml-system.so libsfml-audio.so libsfml-graphics.so libsfml-window.so)
-target_link_libraries(gameserver-stable -ldl libsfml-system.so libsfml-audio.so libsfml-graphics.so libsfml-window.so)
+target_link_libraries(gameserv-2 -ldl libsfml-system.so libsfml-audio.so libsfml-graphics.so libsfml-window.so -L${CMAKE_SOURCE_DIR}/lib/ -lSaltyEngine ${CMAKE_SOURCE_DIR}/lib/libSFMLSaltyEngine.so)
+target_link_libraries(gameclient-1 -ldl libsfml-system.so libsfml-audio.so libsfml-graphics.so libsfml-window.so -L${CMAKE_SOURCE_DIR}/lib/ -lSaltyEngine ${CMAKE_SOURCE_DIR}/lib/libSFMLSaltyEngine.so)
+target_link_libraries(gameserver-stable -ldl libsfml-system.so libsfml-audio.so libsfml-graphics.so libsfml-window.so -L${CMAKE_SOURCE_DIR}/lib/ -lSaltyEngine ${CMAKE_SOURCE_DIR}/lib/libSFMLSaltyEngine.so)

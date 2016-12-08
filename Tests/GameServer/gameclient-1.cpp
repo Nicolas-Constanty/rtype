@@ -10,7 +10,7 @@ int main()
     Network::Core::NativeSocketIOOperationDispatcher    dispatcher;
     Rtype::Game::Client::RtypeClientGameClient          client(dispatcher);
 
-    client.Connect("127.0.0.1", 4242);
+    client.Connect("10.10.253.107", 4242);
     dispatcher.Watch(client, Network::Core::NativeSocketIOOperationDispatcher::READ);
     dispatcher.Run();
     return 0;
