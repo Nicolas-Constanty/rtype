@@ -64,7 +64,7 @@ public:
         this->roomPlayer = roomPlayer;
         this->roomPlayerMax = roomPlayerMax;
         memset(this->name, 0, sizeof(this->name));
-        if (name.length() < sizeof(name)) {
+        if (name.length() < sizeof(this->name)) {
             strncpy(this->name, name.c_str(), name.length());
         }
         this->roomID = roomID;
@@ -108,7 +108,7 @@ public:
     AUTHENTICATEPackageRoom(std::string const &pseudo, unsigned int userID)
             : PackageRoomHeader(sizeof(AUTHENTICATEPackageRoom), RoomPurpose::ROOMAUTHENTICATE) {
         memset(this->name, 0, sizeof(this->name));
-        if (pseudo.length() < sizeof(name)) {
+        if (pseudo.length() < sizeof(this->name)) {
             strncpy(this->name, pseudo.c_str(), pseudo.length());
         }
         this->userID = userID;
@@ -124,7 +124,7 @@ public:
     PLUGGEDPackageRoom(std::string const &pseudo, unsigned int userID, unsigned short roomID)
             : PackageRoomHeader(sizeof(PLUGGEDPackageRoom), RoomPurpose::ROOMPLUGGED) {
         memset(this->name, 0, sizeof(this->name));
-        if (pseudo.length() < sizeof(name)) {
+        if (pseudo.length() < sizeof(this->name)) {
             strncpy(this->name, pseudo.c_str(), pseudo.length());
         }
         this->userID = userID;
@@ -158,7 +158,7 @@ public:
                    std::string const &pseudo, unsigned short roomID, unsigned short mapID, bool launch = false)
             : PackageRoomHeader(sizeof(GETPackageRoom), RoomPurpose::ROOMGET) {
         memset(this->name, 0, sizeof(this->name));
-        if (pseudo.length() < sizeof(name)) {
+        if (pseudo.length() < sizeof(this->name)) {
             strncpy(this->name, pseudo.c_str(), pseudo.length());
         }
         this->roomPlayer = roomPlayer;
@@ -182,7 +182,7 @@ public:
     FAILUREPackageRoom(std::string const &msg, unsigned char purposeFailed)
             : PackageRoomHeader(sizeof(FAILUREPackageRoom), RoomPurpose::ROOMFAILURE) {
         memset(this->msg, 0, sizeof(this->msg));
-        if (msg.length() < sizeof(msg)) {
+        if (msg.length() < sizeof(this->msg)) {
             strncpy(this->msg, msg.c_str(), msg.length());
         }
         this->purposeFailed = purposeFailed;
@@ -221,7 +221,7 @@ public:
             : PackageRoomHeader(sizeof(CHATPackageRoom), RoomPurpose::ROOMCHAT) {
         this->roomID = roomID;
         memset(this->msg, 0, sizeof(this->msg));
-        if (msg.length() < sizeof(msg)) {
+        if (msg.length() < sizeof(this->msg)) {
             strncpy(this->msg, msg.c_str(), msg.length());
         }
 
