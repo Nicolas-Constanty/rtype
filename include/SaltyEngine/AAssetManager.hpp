@@ -10,9 +10,9 @@
 #include <cstring>
 #include "SaltyEngine/ISound.hpp"
 #include "SaltyEngine/Texture.hpp"
-#include "SaltyEngine/Debug.hpp"
 #include "SaltyEngine/Constants.hpp"
 #include "SaltyEngine/Texture.hpp"
+#include "SaltyEngine/Debug.hpp"
 
 #if _WIN32
 #include <direct.h>

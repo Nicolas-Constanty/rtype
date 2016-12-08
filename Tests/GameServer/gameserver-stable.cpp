@@ -4,6 +4,9 @@
 
 #include <Common/Flags.hpp>
 #include <Rtype/Game/Server/Room.hpp>
+#if _WIN32
+#include "Network/Socket/WinSocket.hpp"
+#endif
 
 int main(int ac, char **av)
 {
@@ -29,6 +32,9 @@ int main(int ac, char **av)
         flags.PrintHelp(av[0]);
         return 1;
     }
+#if _WIN32
+	Network::Socket::WinSocket::Start();
+#endif
     try
     {
         room.Start(port, max, secret, level);
@@ -39,5 +45,8 @@ int main(int ac, char **av)
         return 1;
     }
     room.Run();
+#if _WIN32
+	Network::Socket::WinSocket::Stop();
+#endif
     return 0;
 }

@@ -6,7 +6,7 @@
 #define RTYPE_AUDPCLIENT_HPP
 
 #include <Network/Core/INetBufferContainer.hpp>
-#include <bits/unique_ptr.h>
+#include <memory>
 #include "AUDPConnection.hpp"
 
 namespace Network

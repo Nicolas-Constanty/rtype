@@ -5,10 +5,11 @@
 #ifndef RTYPE_RECEPTIONSTATUS_HPP
 #define RTYPE_RECEPTIONSTATUS_HPP
 
-#include <limits>
 #include <stdexcept>
 #include <fstream>
 #include <iostream>
+
+#include <limits>
 
 namespace Network
 {

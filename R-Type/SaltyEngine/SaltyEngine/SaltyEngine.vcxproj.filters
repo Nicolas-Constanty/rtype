@@ -254,6 +254,9 @@
     <ClInclude Include="..\..\..\include\SaltyEngine\Constants.hpp">
       <Filter>Fichiers d%27en-tête\SaltyEngine</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\SaltyEngine\SFML.hpp">
+      <Filter>Fichiers d%27en-tête\SaltyEngine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\include\SaltyEngine\defaultReflection.inl">

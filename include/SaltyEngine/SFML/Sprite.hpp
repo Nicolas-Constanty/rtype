@@ -3,7 +3,7 @@
 #ifndef SFMLSPRITE_HPP_
 #define SFMLSPRITE_HPP_
 
-#include <SFML/Graphics.hpp>
+//#include <SFML/Graphics.hpp>
 #include "SaltyEngine/Sprite.hpp"
 #include "SaltyEngine/SFML/Texture.hpp"
 #include "SaltyEngine/SFML/Rect.hpp"

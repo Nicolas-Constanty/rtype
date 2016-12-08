@@ -7,6 +7,7 @@
 
 #include <chrono>
 #include <iostream>
+#include <string>
 #include <Protocol/Game/ProtocolPrintGamePackage.hpp>
 #include <Network/UDP/AUDPClient.hpp>
 #include <Protocol/Game/RTypeProtocolGameManager.hpp>

@@ -97,9 +97,10 @@ int Network::Socket::WinSocket::SendTo(Network::Core::NetBuffer &buff, Network::
 
 void Network::Socket::WinSocket::Open() throw(SocketException)
 {
+
     fd = socket(domain, protocol.type, protocol.proto);
     if (fd == INVALID_SOCKET)
-        throw Network::Socket::SocketException(strerror(errno));
+        throw Network::Socket::SocketException(std::to_string(WSAGetLastError()));
 }
 
 void Network::Socket::WinSocket::Close()
