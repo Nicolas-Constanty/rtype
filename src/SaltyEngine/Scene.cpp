@@ -368,6 +368,16 @@ namespace SaltyEngine
 		}
         return nullptr;
     }
+
+    GameObject *AScene::FindById(size_t id) const
+    {
+		for (GameObject *curr : m_objects)
+		{
+			if (curr->GetInstanceID() == id)
+				return curr;
+		}
+		return nullptr;
+    }
 }
 
 /**

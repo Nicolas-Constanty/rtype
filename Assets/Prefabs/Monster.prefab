@@ -1,0 +1,6 @@
+{
+    "sprites": [
+    ],
+    "lib": "libmonster",
+    "dependencies": "Missile"
+}

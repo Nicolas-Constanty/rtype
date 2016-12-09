@@ -7,13 +7,10 @@
 
 #include <utility>
 #include "SaltyEngine/Input/KeyCodes.hpp"
+#include "SaltyEngine/Input/ActionType.hpp"
 
 namespace SaltyEngine {
     namespace Input {
-        enum ActionType {
-            Pressed,
-            Released
-        };
         class Action {
         public:
             Action(KeyCode::Key key, bool shift = false, bool ctrl = false, bool alt = false, bool cmd = false);

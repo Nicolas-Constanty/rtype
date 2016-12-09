@@ -22,6 +22,13 @@ namespace Rtype
 
 				void SendInput(std::string const &name, float const value);
 
+			public:
+				template <typename Pack, typename Send, typename ... Args>
+				void SendPackage(Send send1, Args ... args)
+				{
+                    m_rtypeclient->SendPackage<Pack>(send1, args...);
+				}
+
 			private:
 				uint16_t m_port;
 				std::string m_ip;

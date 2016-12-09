@@ -41,9 +41,6 @@ namespace Rtype
 
             public:
                 void SendInput(std::string const &axisName, float const value);
-
-            private:
-                GamePackageFactory  factory;
             };
         }
     }

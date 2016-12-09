@@ -5,18 +5,18 @@
 #include <Rtype/Game/Client/RtypeClientGameClient.hpp>
 #include <SaltyEngine/SaltyEngine.hpp>
 #include <SaltyEngine/SFML.hpp>
+#include <SaltyEngine/Input/VirtualInutManager.hpp>
+#include <Rtype/Game/Client/SpaceShipController.hpp>
 
 Rtype::Game::Client::RtypeClientGameClient::RtypeClientGameClient(
         Network::Core::NativeSocketIOOperationDispatcher &dispatcher) :
-        Rtype::Game::Common::RtypeGameClient(dispatcher),
-        factory()
+        Rtype::Game::Common::RtypeGameClient(dispatcher)
 {
 
 }
 
 Rtype::Game::Client::RtypeClientGameClient::RtypeClientGameClient(const Rtype::Game::Client::RtypeClientGameClient &ref) :
-    Rtype::Game::Common::RtypeGameClient(ref),
-    factory()
+    Rtype::Game::Common::RtypeGameClient(ref)
 {
 
 }
@@ -28,8 +28,9 @@ Rtype::Game::Client::RtypeClientGameClient::~RtypeClientGameClient()
 
 bool Rtype::Game::Client::RtypeClientGameClient::OnStart()
 {
-    //        SendReliable(*factory.create<PINGPackageGame>(32, 0));
-    SendReliable(*factory.create<AUTHENTICATEPackageGame>(42));
+//    SendReliable(*factory.create<PINGPackageGame>(32, 0));
+    SendPackage<AUTHENTICATEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<AUTHENTICATEPackageGame>, 42);
+//    SendReliable(*factory.create<AUTHENTICATEPackageGame>(42));
     connected = true;
     return true;
 }
@@ -43,12 +44,14 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetPINGPackage(PINGPackageGam
 {
     reply = false;
     OnDiscoveringPackage(pack);
-    SendReliable(*factory.create<PINGPackageGame>(pack.secret));
+    SendPackage<PINGPackageGame>(&Network::UDP::AUDPConnection::SendReliable<PINGPackageGame>, pack.secret);
+//    std::cout << "Receive ping => ok" << std::endl;
+//    SendReliable(*factory.create<PINGPackageGame>(pack.secret));
 }
 
 void Rtype::Game::Client::RtypeClientGameClient::onGetAUTHENTICATEPackage(AUTHENTICATEPackageGame const &pack)
 {
-    std::cout << "\e[32mAuthenticated\e[0m" << std::endl;
+    std::cout << "\e[32mAuthenticated\e[0m: " << pack << std::endl;
     reply = false;
     OnDiscoveringPackage(pack);
 
@@ -93,7 +96,15 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetDROPPackage(DROPPackageGam
 void Rtype::Game::Client::RtypeClientGameClient::onGetMOVEPackage(MOVEPackageGame const &pack)
 {
     OnDiscoveringPackage(pack);
-    //todo resolve move package
+    SaltyEngine::GameObject *obj = SaltyEngine::SaltyEngine::Instance().GetCurrentScene()->FindById(static_cast<size_t>(pack.objectID));
+    if (obj)
+    {
+        SaltyEngine::SpaceShipController *ship = obj->GetComponent<SaltyEngine::SpaceShipController>();
+        if (ship)
+        {
+            ship->Move(pack.posX, pack.posY);
+        }
+    }
 }
 
 void Rtype::Game::Client::RtypeClientGameClient::onGetLAUNCHPackage(LAUNCHPackageGame const &pack)
@@ -116,13 +127,15 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetFAILUREPackage(FAILUREPack
 
 void Rtype::Game::Client::RtypeClientGameClient::onGetINPUTPackage(INPUTPackageGame const &pack)
 {
-    std::cout << pack << std::endl;
+//    std::cout << pack << std::endl;
     OnDiscoveringPackage(pack);
+    SaltyEngine::Input::VirtualInputManager::SetAxis(pack.axes, pack.value);
     //todo resolve failure package
-    InputKey::SetAxis(pack.axes, pack.);
+//    InputKey::SetAxis(pack.axes, pack.);
 }
 
 void Rtype::Game::Client::RtypeClientGameClient::SendInput(std::string const &axisName, float const value)
 {
-    SendData(*factory.create<INPUTPackageGame>(axisName, value));
+    SendPackage<INPUTPackageGame>(&Network::Core::BasicConnection::SendData<INPUTPackageGame>, axisName, value);
+//    SendData(*factory.create<INPUTPackageGame>(axisName, value));
 }

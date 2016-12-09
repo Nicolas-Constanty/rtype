@@ -12,6 +12,7 @@ const std::chrono::milliseconds    Rtype::Game::Common::RtypeGameClient::timeout
 Rtype::Game::Common::RtypeGameClient::RtypeGameClient(Network::Core::NativeSocketIOOperationDispatcher &dispatcher) :
         Network::UDP::AUDPClient::AUDPClient(dispatcher),
         manager(*this),
+        factory(),
         recvstatus(),
         sendstatus(),
         reply(false),
@@ -23,6 +24,7 @@ Rtype::Game::Common::RtypeGameClient::RtypeGameClient(Network::Core::NativeSocke
 Rtype::Game::Common::RtypeGameClient::RtypeGameClient(const RtypeGameClient &ref) :
     Network::UDP::AUDPClient(ref),
     manager(*this),
+    factory(),
     recvstatus(),
     sendstatus(),
     reply(false),
@@ -66,9 +68,9 @@ bool Rtype::Game::Common::RtypeGameClient::OnDataReceived(unsigned int)
             }
             if (!connected)
             {
-                std::cout << "Disconnected while reading" << std::endl;
+//                std::cout << "Disconnected while reading" << std::endl;
                 Disconnect();
-                std::cout << "\e[31m ON A QUITTÉ LA FONCTION DATA RECEIVED \e[0m" << std::endl;
+//                std::cout << "\e[31m ON A QUITTÉ LA FONCTION DATA RECEIVED \e[0m" << std::endl;
                 return false;
             }
         }
@@ -87,6 +89,5 @@ bool Rtype::Game::Common::RtypeGameClient::OnDataReceived(unsigned int)
 
 bool Rtype::Game::Common::RtypeGameClient::OnDataSent(unsigned int len)
 {
-//    std::cout << "Sent: " << len << std::endl;
     return true;
 }

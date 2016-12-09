@@ -5,6 +5,7 @@
 #ifndef RTYPE_ASSETMANAGER_HPP
 #define RTYPE_ASSETMANAGER_HPP
 
+#include "Common/Singleton.hpp"
 #include "SaltyEngine/AAssetManager.hpp"
 #include "SaltyEngine/SFML/Texture.hpp"
 #include "SaltyEngine/SFML/Sprite.hpp"
@@ -26,5 +27,7 @@ namespace SaltyEngine {
         };
     }
 }
+
+template class Singleton<SaltyEngine::SFML::AssetManager>;
 
 #endif //RTYPE_ASSETMANAGER_HPP

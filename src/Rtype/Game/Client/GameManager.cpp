@@ -7,12 +7,13 @@ GameManager::GameManager(SaltyEngine::GameObject * const gamObj) : SaltyBehaviou
 {
 }
 
-GameManager::GameManager(const std::string & name, SaltyEngine::GameObject * const gamObj) : SaltyBehaviour("GameManager", gamObj)
+GameManager::GameManager(const std::string & name, SaltyEngine::GameObject * const gamObj) : SaltyBehaviour(name, gamObj)
 {
 }
 
 GameManager::~GameManager()
 {
+
 }
 
 void GameManager::Start()
