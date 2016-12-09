@@ -4,7 +4,7 @@
 #include "SaltyEngine/SaltyEngine.hpp"
 #include "SaltyEngine/Object.hpp"
 
-int main()
+int main(int ac, char **)
 {
 	SaltyEngine::SFML::AssetManager::Instance().LoadAssets();
 
@@ -25,13 +25,29 @@ int main()
 
 	*scene << server;
 
-	SaltyEngine::GameObject	*player = dynamic_cast<SaltyEngine::GameObject*>(SaltyEngine::Object::Instantiate());
+    SaltyEngine::GameObject	*player;
+    SaltyEngine::GameObject	*playerMoved;
+
+    if (ac > 1)
+    {
+        player = dynamic_cast<SaltyEngine::GameObject*>(SaltyEngine::Object::Instantiate());
+        playerMoved = dynamic_cast<SaltyEngine::GameObject*>(SaltyEngine::Object::Instantiate());
+    }
+    else
+    {
+        playerMoved = dynamic_cast<SaltyEngine::GameObject*>(SaltyEngine::Object::Instantiate());
+        player = dynamic_cast<SaltyEngine::GameObject*>(SaltyEngine::Object::Instantiate());
+    }
 
 	player->AddComponent<SaltyEngine::SpaceShipController>();
+	playerMoved->AddComponent<SaltyEngine::SpaceShipController>(false);
 
-	*scene << player;
+    *scene << player;
+	*scene << playerMoved;
 
 	SaltyEngine::SaltyEngine::Instance() << scene;
+
+//	SaltyEngine::SaltyEngine::Instance().SetFrameRate(2);
 
 	SaltyEngine::SaltyEngine::Instance().Run();
 

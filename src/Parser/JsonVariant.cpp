@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <string>
+#include <boost/exception/exception.hpp>
 #include "Parser/JsonVariant.hpp"
 
 JsonVariant::JsonVariant()

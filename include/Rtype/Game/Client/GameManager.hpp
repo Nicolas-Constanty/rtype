@@ -15,6 +15,13 @@ public:
 	void Start();
 	void SendInput(std::string const &axisName, const float value);
 
+public:
+	template <typename Pack, typename Send, typename ... Args>
+    void SendPackage(Send send1, Args ... args)
+    {
+        m_network->SendPackage<Pack>(send1, args...);
+    }
+
 private:
 	Rtype::Game::Client::GameClientObject *m_network;
     std::list<SaltyEngine::GameObject*> m_players;

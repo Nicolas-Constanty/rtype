@@ -48,26 +48,26 @@ bool Rtype::Game::Server::RtypeGameServer::OnDataSent(unsigned int len)
 void Rtype::Game::Server::RtypeGameServer::OnReadCheck()
 {
     Network::UDP::AUDPServer<Rtype::Game::Server::RtypeServerGameClient>::OnReadCheck();
-    for (std::list<std::unique_ptr<Network::Socket::ISockStreamHandler>>::iterator it = clients->Streams().begin(); it != clients->Streams().end();)
-    {
-        Rtype::Game::Server::RtypeServerGameClient *client = dynamic_cast<Rtype::Game::Server::RtypeServerGameClient *>(it->get());
+//    for (std::list<std::unique_ptr<Network::Socket::ISockStreamHandler>>::iterator it = clients->Streams().begin(); it != clients->Streams().end();)
+//    {
+//        Rtype::Game::Server::RtypeServerGameClient *client = dynamic_cast<Rtype::Game::Server::RtypeServerGameClient *>(it->get());
 
-        if (client && client->timedout())
-        {
-            client->Disconnect();
-            it = clients->Streams().begin();
-        }
-        else
-        {
+//        if (client && client->timedout())
+//        {
+//            client->Disconnect();
+//            it = clients->Streams().begin();
+//        }
+//        else
+//        {
 //            std::cout << "Checking ping: " << client << std::endl;
-            if (client && client->pong())
-            {
+//            if (client && client->pong())
+//            {
 //                std::cout << "===\e[32mPING\e[0m===" << std::endl;
-                client->ping();
-            }
-            ++it;
-        }
-    }
+//                client->ping();
+//            }
+//            ++it;
+//        }
+//    }
 }
 
 void Rtype::Game::Server::RtypeGameServer::setSecret(uint32_t secret)

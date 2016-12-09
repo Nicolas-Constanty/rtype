@@ -5,14 +5,16 @@
 #ifndef RTYPE_VIRTUALINUTMANAGER_HPP
 #define RTYPE_VIRTUALINUTMANAGER_HPP
 
+#include <string>
+#include <map>
 #include "SaltyEngine/Input/ActionType.hpp"
 
 namespace SaltyEngine {
     namespace Input {
         class VirtualInputManager {
         private:
-            std::map<std::string, float>        m_axis;
-            std::map<std::string, ActionType>   m_actions;
+            static std::map<std::string, float>        m_axis;
+            static std::map<std::string, ActionType>   m_actions;
         public:
             ///
             /// \brief Get Axis by name

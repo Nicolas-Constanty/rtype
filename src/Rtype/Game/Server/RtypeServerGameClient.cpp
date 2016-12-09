@@ -5,6 +5,7 @@
 #include <Protocol/Game/ProtocolPrintGamePackage.hpp>
 #include <Rtype/Game/Server/RtypeServerGameClient.hpp>
 #include <Rtype/Game/Server/RtypeGameServer.hpp>
+#include <SaltyEngine/Input/VirtualInutManager.hpp>
 
 Rtype::Game::Server::RtypeServerGameClient::RtypeServerGameClient(Network::Core::NativeSocketIOOperationDispatcher &dispatcher) :
         RtypeGameClient(dispatcher),
@@ -180,7 +181,18 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetDROPPackage(DROPPackageGam
 void Rtype::Game::Server::RtypeServerGameClient::onGetMOVEPackage(MOVEPackageGame const &pack)
 {
     OnDiscoveringPackage(pack);
+    for (std::unique_ptr<Network::Socket::ISockStreamHandler> &curr : clients->Streams())
+    {
+        if (curr.get() != this)
+        {
+            Rtype::Game::Server::RtypeServerGameClient *receiver = dynamic_cast<Rtype::Game::Server::RtypeServerGameClient *>(curr.get());
 
+            if (receiver)
+                receiver->SendPackage<MOVEPackageGame>(&Network::Core::BasicConnection::SendData<MOVEPackageGame>, pack.posX, pack.posY, pack.objectID);
+        }
+    }
+    if (serverStream)
+        serverStream->WantSend();
 //    todo if (okay on gameside)
 //    {
 //        Broadcast(*server1->create<MOVEPackageGame>(pack.posX, pack.posY, pack.objectID));
@@ -219,7 +231,7 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetFAILUREPackage(FAILUREPack
 
 void Rtype::Game::Server::RtypeServerGameClient::onGetINPUTPackage(INPUTPackageGame const &pack)
 {
-    std::cout << pack << std::endl;
+//    std::cout << pack << std::endl;
     OnDiscoveringPackage(pack);
     for (std::unique_ptr<Network::Socket::ISockStreamHandler> &curr : clients->Streams())
     {
@@ -228,11 +240,12 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetINPUTPackage(INPUTPackageG
             Rtype::Game::Server::RtypeServerGameClient *receiver = dynamic_cast<Rtype::Game::Server::RtypeServerGameClient *>(curr.get());
 
             if (receiver)
-                receiver->SendPackage<INPUTPackageGame>(&Network::UDP::AUDPConnection::SendReliable<INPUTPackageGame>, pack.axes, pack.value);
+                receiver->SendPackage<INPUTPackageGame>(&Network::Core::BasicConnection::SendData<INPUTPackageGame>, pack.axes, pack.value);
         }
     }
     if (serverStream)
         serverStream->WantSend();
+    SaltyEngine::Input::VirtualInputManager::SetAxis(pack.axes, pack.value);
 }
 
 bool Rtype::Game::Server::RtypeServerGameClient::OnStart()

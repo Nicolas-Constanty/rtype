@@ -1,11 +1,13 @@
 #include "Rtype/Game/Client/SpaceShipController.hpp"
 #include "SaltyEngine/Input.hpp"
 #include "SaltyEngine/SFML.hpp"
+#include "SaltyEngine/Input/VirtualInutManager.hpp"
 
-SaltyEngine::SpaceShipController::SpaceShipController(GameObject * const gamObj) :
+SaltyEngine::SpaceShipController::SpaceShipController(GameObject * const gamObj, bool playable) :
         SaltyBehaviour("SpaceShipController", gamObj),
-        speed(10),
-        manager(NULL)
+        speed(5),
+        manager(NULL),
+        playable(playable)
 {
 	::SaltyEngine::SFML::Texture *texture = ::SaltyEngine::SFML::AssetManager::Instance().GetTexture("SpaceShips");
 	if (texture != nullptr)
@@ -14,8 +16,13 @@ SaltyEngine::SpaceShipController::SpaceShipController(GameObject * const gamObj)
 	}
 }
 
-SaltyEngine::SpaceShipController::SpaceShipController(const std::string & name, GameObject * const gamObj) : SaltyBehaviour(name, gamObj)
+SaltyEngine::SpaceShipController::SpaceShipController(const std::string & name, GameObject * const gamObj, bool playable) :
+        SaltyBehaviour(name, gamObj),
+        speed(5),
+        manager(NULL),
+        playable(playable)
 {
+
 }
 
 void SaltyEngine::SpaceShipController::Start()
@@ -40,24 +47,47 @@ void SaltyEngine::SpaceShipController::Start()
     ));
     GameObject *gameman = SaltyEngine::Instance().GetCurrentScene()->FindByName("GameManager");
 
-    if (gameman)
+    if (gameman && playable)
         manager = gameman->GetComponent<GameManager>();
 }
 
 void SaltyEngine::SpaceShipController::FixedUpdate()
 {
-    float h = InputKey::GetAxis("Horizontal");
-    float v = InputKey::GetAxis("Vertical");
-    if (h != 0 || v != 0) {
-        gameObject->transform.Translate(Vector(h, v) * speed);
-        if (manager)
-        {
-            manager->SendInput("Horizontal", h);
-            manager->SendInput("Vertical", v);
+    float h, v;
+    if (playable)
+    {
+        h = InputKey::GetAxis("Horizontal");
+        v = InputKey::GetAxis("Vertical");
+        if (h != 0 || v != 0) {
+            gameObject->transform.Translate(Vector(h, v) * speed/* * SaltyEngine::Instance().GetDeltaTime()*/);
+            if (manager)
+            {
+                //todo fix object id parce que la flemme depuis le début du projet. #victorQuiRage
+                manager->SendPackage<MOVEPackageGame>(
+                        &Network::Core::BasicConnection::SendData<MOVEPackageGame>,
+                        gameObject->transform.position.x,
+                        gameObject->transform.position.y,
+                        static_cast<unsigned short>(gameObject->GetInstanceID())
+                );
+//                manager->SendInput("Horizontal", h);
+//                manager->SendInput("Vertical", v);
+            }
         }
     }
+//    else
+//    {
+//        h = Input::VirtualInputManager::GetAxis("Horizontal");
+//        v = Input::VirtualInputManager::GetAxis("Vertical");
+//    }
 }
+
+
 
 void SaltyEngine::SpaceShipController::DisplayCoroutine()
 {
+}
+
+void SaltyEngine::SpaceShipController::Move(int x, int y)
+{
+    gameObject->transform.position = Vector(x, y);
 }

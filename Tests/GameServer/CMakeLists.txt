@@ -54,5 +54,5 @@ add_executable(client-test-move-netork
 target_link_libraries(gameserv-1 -ldl)
 target_link_libraries(gameserv-2 -ldl libsfml-system.so libsfml-audio.so libsfml-graphics.so libsfml-window.so -L${CMAKE_SOURCE_DIR}/lib/ -lSaltyEngine ${CMAKE_SOURCE_DIR}/lib/libSFMLSaltyEngine.so)
 target_link_libraries(gameclient-1 -ldl libsfml-system.so libsfml-audio.so libsfml-graphics.so libsfml-window.so -L${CMAKE_SOURCE_DIR}/lib/ -lSaltyEngine ${CMAKE_SOURCE_DIR}/lib/libSFMLSaltyEngine.so)
-target_link_libraries(gameserver-stable -ldl libsfml-system.so libsfml-audio.so libsfml-graphics.so libsfml-window.so -L${CMAKE_SOURCE_DIR}/lib/ -lSaltyEngine ${CMAKE_SOURCE_DIR}/lib/libSFMLSaltyEngine.so)
-target_link_libraries(client-test-move-netork -ldl libsfml-system.so libsfml-audio.so libsfml-graphics.so libsfml-window.so -L${CMAKE_SOURCE_DIR}/lib/ -lSaltyEngine ${CMAKE_SOURCE_DIR}/lib/libSFMLSaltyEngine.so)
+target_link_libraries(gameserver-stable -ldl libsfml-system.so libsfml-audio.so libsfml-graphics.so libsfml-window.so -L${CMAKE_SOURCE_DIR}/lib/ -lSaltyEngine ${CMAKE_SOURCE_DIR}/lib/libSFMLSaltyEngine.so ${CMAKE_SOURCE_DIR}/lib/libParser.so)
+target_link_libraries(client-test-move-netork -ldl libsfml-system.so libsfml-audio.so libsfml-graphics.so libsfml-window.so -L${CMAKE_SOURCE_DIR}/lib/ -lSaltyEngine ${CMAKE_SOURCE_DIR}/lib/libSFMLSaltyEngine.so ${CMAKE_SOURCE_DIR}/lib/libParser.so)

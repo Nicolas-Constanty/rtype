@@ -5,6 +5,8 @@
 #include <Rtype/Game/Client/RtypeClientGameClient.hpp>
 #include <SaltyEngine/SaltyEngine.hpp>
 #include <SaltyEngine/SFML.hpp>
+#include <SaltyEngine/Input/VirtualInutManager.hpp>
+#include <Rtype/Game/Client/SpaceShipController.hpp>
 
 Rtype::Game::Client::RtypeClientGameClient::RtypeClientGameClient(
         Network::Core::NativeSocketIOOperationDispatcher &dispatcher) :
@@ -94,7 +96,15 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetDROPPackage(DROPPackageGam
 void Rtype::Game::Client::RtypeClientGameClient::onGetMOVEPackage(MOVEPackageGame const &pack)
 {
     OnDiscoveringPackage(pack);
-    //todo resolve move package
+    SaltyEngine::GameObject *obj = SaltyEngine::SaltyEngine::Instance().GetCurrentScene()->FindById(static_cast<size_t>(pack.objectID));
+    if (obj)
+    {
+        SaltyEngine::SpaceShipController *ship = obj->GetComponent<SaltyEngine::SpaceShipController>();
+        if (ship)
+        {
+            ship->Move(pack.posX, pack.posY);
+        }
+    }
 }
 
 void Rtype::Game::Client::RtypeClientGameClient::onGetLAUNCHPackage(LAUNCHPackageGame const &pack)
@@ -117,8 +127,9 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetFAILUREPackage(FAILUREPack
 
 void Rtype::Game::Client::RtypeClientGameClient::onGetINPUTPackage(INPUTPackageGame const &pack)
 {
-    std::cout << pack << std::endl;
+//    std::cout << pack << std::endl;
     OnDiscoveringPackage(pack);
+    SaltyEngine::Input::VirtualInputManager::SetAxis(pack.axes, pack.value);
     //todo resolve failure package
 //    InputKey::SetAxis(pack.axes, pack.);
 }

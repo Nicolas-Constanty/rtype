@@ -10,15 +10,20 @@ namespace SaltyEngine {
 	class SpaceShipController : public SaltyBehaviour
 	{
 	public:
-		explicit SpaceShipController(GameObject* const gamObj);
-		SpaceShipController(const std::string &name, GameObject* const gamObj);
+		explicit SpaceShipController(GameObject* const gamObj, bool playable = true);
+		SpaceShipController(const std::string &name, GameObject* const gamObj, bool playable = true);
 		void Start();
 		void FixedUpdate();
 		void DisplayCoroutine();
 
+		//Actions
+	public:
+		void Move(int x, int y);
+
 	private:
 		double speed;
 		GameManager    *manager;
+		bool playable;
 	};
 }
 
