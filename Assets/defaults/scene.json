@@ -1,8 +1,12 @@
 {
-    "{{prefab_name}}": {
-        "position": {
-            "x" : "0",
-            "y": "0"
+    "title": "{{scene_name}}",
+    "preview": "{{path_to_preview_image}}",
+    "prefabs": {
+        "{{prefabName}}": {
+            "position": {
+                "x" : "0",
+                "y": "0"
+            }
         }
     }
 }
