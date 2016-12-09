@@ -22,4 +22,6 @@ private:
     unsigned int secretBase;
 };
 
+template class Singleton<SecretGeneration>;
+
 #endif //RTYPE_SECRETGENERATION_HPP

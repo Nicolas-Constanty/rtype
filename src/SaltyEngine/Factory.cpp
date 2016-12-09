@@ -6,8 +6,9 @@
 
 namespace SaltyEngine {
 
-	std::map<std::string, std::unique_ptr<Object>> Factory::m_prefabs;
-    std::list<std::unique_ptr<Object> > Factory::m_objects;
+    Factory::Factory() {
+
+    }
 
     Factory::~Factory() {
     }
@@ -21,6 +22,7 @@ namespace SaltyEngine {
     }
 
     Object  *Factory::Create(std::string const &name, Vector const& pos, float rot) {
+        std::cout << "Factory : " << this << std::endl;
 		if (m_prefabs.find(name) == m_prefabs.end()) {
             Debug::PrintWarning("Cannot find prefab [" + name + "]");
 			return nullptr;

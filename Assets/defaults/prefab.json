@@ -3,5 +3,8 @@
         "{{sprite}}",
         "{{sprite2}}"
     ],
-    "lib": "{{monster{.dll, .so}}}"
+    "lib": "{{monster{.dll, .so}}}",
+    "dependencies": [
+        "{{prefabName}}"
+    ]
 }

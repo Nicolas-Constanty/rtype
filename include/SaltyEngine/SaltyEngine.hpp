@@ -66,6 +66,8 @@ namespace SaltyEngine
 	};
 }
 
+template class Singleton<SaltyEngine::SaltyEngine>;
+
 #include "SaltyEngine/AScene.hpp"
 
 #endif // !SALTYENGINE_HPP_

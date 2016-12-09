@@ -29,4 +29,6 @@ private:
     std::list<RtypeGameServerTCPConnection *>   serverList;
 };
 
+template class Singleton<ServerGameDispatcher>;
+
 #endif //RTYPE_SERVERGAMEDISPATCHER_HPP
