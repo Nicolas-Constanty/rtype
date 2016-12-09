@@ -18,13 +18,13 @@ void MonsterController::Start()
 
 void MonsterController::Update()
 {
-	m_currDelay -= SaltyEngine::SaltyEngine::Instance().GetDeltaTime();
+	m_currDelay -= static_cast<float>(SaltyEngine::SaltyEngine::Instance().GetDeltaTime());
 
 	if (m_currDelay <= 0)
 	{
         m_currDelay = m_minShootInterval + rand() % (int)(m_maxShootInterval - m_minShootInterval);
         std::cout << "SHOOT ! " << std::endl;
-        SaltyEngine::GameObject *missile = (SaltyEngine::GameObject*)SaltyEngine::Instantiate("MissileMedusa", this->gameObject->transform.position);
+        SaltyEngine::GameObject *missile = static_cast<SaltyEngine::GameObject*>(SaltyEngine::Instantiate("MissileMedusa", this->gameObject->transform.position));
         MissileController *missileController = nullptr;
         if (missile)
             missileController = missile->GetComponent<MissileController>();

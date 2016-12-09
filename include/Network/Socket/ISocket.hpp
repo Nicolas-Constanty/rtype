@@ -19,6 +19,7 @@ extern "C"
 #  include <cstdint>
 #  include <stdexcept>
 # elif _WIN32
+#pragma warning( disable : 4290 )  
 #  include <cstdint>
 #  include <stdexcept>
 # endif

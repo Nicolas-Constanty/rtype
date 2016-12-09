@@ -51,7 +51,7 @@ Network::Socket::WinSocket::~WinSocket()
  */
 int Network::Socket::WinSocket::Receive(Network::Core::NetBuffer &buff)
 {
-    int ret = recv(fd, buff.buff<char>(), buff.getAvailableSpace(), 0);
+    int ret = recv(fd, buff.buff<char>(), static_cast<int>(buff.getAvailableSpace()), 0);
 
     buff.setLength(static_cast<size_t>(ret));
     return ret;
@@ -64,7 +64,7 @@ int Network::Socket::WinSocket::Receive(Network::Core::NetBuffer &buff)
  */
 int Network::Socket::WinSocket::Send(Network::Core::NetBuffer const &buff) const
 {
-    return send(fd, buff.buff<char>(), buff.getLength(), 0);
+    return send(fd, buff.buff<char>(), static_cast<int>(buff.getLength()), 0);
 }
 
 int Network::Socket::WinSocket::ReceiveFrom(Network::Core::NetBuffer &buff, Network::Socket::ISockStream &sender)
@@ -75,7 +75,7 @@ int Network::Socket::WinSocket::ReceiveFrom(Network::Core::NetBuffer &buff, Netw
     {
         socklen_t len = sizeof(snd->sockaddr);
 
-        int ret = recvfrom(fd, buff.buff<char>(), buff.getAvailableSpace(), 0, (struct sockaddr *)&snd->sockaddr, &len);
+        int ret = recvfrom(fd, buff.buff<char>(), static_cast<int>(buff.getAvailableSpace()), 0, (struct sockaddr *)&snd->sockaddr, &len);
 
         buff.setLength(static_cast<size_t>(ret));
 
@@ -90,7 +90,7 @@ int Network::Socket::WinSocket::SendTo(Network::Core::NetBuffer &buff, Network::
 
     if (rcvr)
     {
-        return sendto(fd, buff.buff<char>(), buff.getLength(), 0, (struct sockaddr *)&rcvr->sockaddr, sizeof(rcvr->sockaddr));
+        return sendto(fd, buff.buff<char>(), static_cast<int>(buff.getLength()), 0, (struct sockaddr *)&rcvr->sockaddr, sizeof(rcvr->sockaddr));
     }
     return 0;
 }

@@ -1,5 +1,6 @@
 #include "SaltyEngine/SFML/Scene.hpp"
 #include "SaltyEngine/Debug.hpp"
+#include "SaltyEngine/SFML/SpriteRenderer.hpp"
 
 namespace SaltyEngine
 {
@@ -15,9 +16,20 @@ namespace SaltyEngine
 			::SaltyEngine::AScene::operator<<(gameobj);
 			ACollider2D<sf::Vector2i> *col = dynamic_cast<ACollider2D<sf::Vector2i> *>(gameobj->GetComponent<ACollider2D<sf::Vector2i>>());
 			if (col)
-			{
 				m_collisions[col] = {};
-				Debug::PrintSuccess("Successfully added collider");
+			SpriteRenderer *sprr = dynamic_cast<SpriteRenderer*>(gameobj->GetComponent<SpriteRenderer>());
+			if (sprr)
+			{
+				Renderer *r = dynamic_cast<Renderer *>(SaltyEngine::Instance().GetRenderer());
+				if (r)
+					r->AddSpriteRenderer(sprr);
+			}
+			GUI::Selectable *select = dynamic_cast<GUI::Selectable*>(gameobj->GetComponent<GUI::Selectable>());
+			if (select)
+			{
+				Renderer *r = dynamic_cast<Renderer *>(SaltyEngine::Instance().GetRenderer());
+				if (r)
+					r->AddSelectable(select);
 			}
 		}
 

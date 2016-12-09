@@ -6,7 +6,7 @@
 #define RTYPE_ROOMPACKAGEFACTORY_HPP
 
 #include <list>
-#include <bits/unique_ptr.h>
+#include <memory>
 #include "ProtocolRoomPackage.hpp"
 
 class RoomPackageFactory {

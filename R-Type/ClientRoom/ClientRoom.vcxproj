@@ -19,10 +19,22 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\Protocol\Room\IProtocolRoomHandler.hpp" />
+    <ClInclude Include="..\..\include\Protocol\Room\ProtocolPrintRoomPackage.hpp" />
+    <ClInclude Include="..\..\include\Protocol\Room\ProtocolRoomAuthenticateHandler.hpp" />
+    <ClInclude Include="..\..\include\Protocol\Room\ProtocolRoomPackage.hpp" />
+    <ClInclude Include="..\..\include\Protocol\Room\RoomPackageFactory.hpp" />
+    <ClInclude Include="..\..\include\Protocol\Room\RTypeProtocolRoomManager.hpp" />
+    <ClInclude Include="..\..\include\RoomNetworkSaltyEngine\ClientRoomNetworkManager.hpp" />
+    <ClInclude Include="..\..\include\RoomNetworkSaltyEngine\RoomNetworkManager.hpp" />
     <ClInclude Include="..\..\include\SaltyEngine\SFML\Image.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\ClientRoom\main.cpp" />
+    <ClCompile Include="..\..\src\Protocol\Room\ProtocolPrintRoomPackage.cpp" />
+    <ClCompile Include="..\..\src\Protocol\Room\RTypeProtocolRoomManager.cpp" />
+    <ClCompile Include="..\..\src\RoomNetworkSaltyEngine\ClientRoomNetworkManager.cpp" />
+    <ClCompile Include="..\..\src\RoomNetworkSaltyEngine\RoomNetworkManager.cpp" />
     <ClCompile Include="..\..\src\SaltyEngine\SFML\Image.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -109,12 +121,13 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>NOMINMAX;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32_LEAN_AND_MEAN;NOMINMAX;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>sfml-audio-d.lib;sfml-graphics-d.lib;sfml-network-d.lib;sfml-system-d.lib;sfml-window-d.lib;SFML.lib;SaltyEngine.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Network.lib;Ws2_32.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-network-d.lib;sfml-system-d.lib;sfml-window-d.lib;SFML.lib;SaltyEngine.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

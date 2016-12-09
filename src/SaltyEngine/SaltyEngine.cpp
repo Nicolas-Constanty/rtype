@@ -93,7 +93,6 @@ namespace SaltyEngine
 			// Control Frame Rate
 			while (lag >= m_frame_rate)
 			{
-				//std::cout << "FixedUpdate" << std::endl;
 				lag -= m_frame_rate;
 				if (!m_scenes.empty())
 				{

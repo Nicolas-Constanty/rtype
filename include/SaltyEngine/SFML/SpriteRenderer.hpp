@@ -24,7 +24,6 @@ namespace SaltyEngine
 			SpriteRenderer& operator=(SpriteRenderer &&) = delete;      // Move assign
 			explicit SpriteRenderer(const std::string &name, GameObject * const gameObj, Sprite * const sprite, Layout layer, Window * const w = nullptr) : ASpriteRenderer(name, gameObj, sprite, layer)
 			{
-				Renderer::AddSpriteRenderer(this);
 				m_window = w;
 				Rect *rect = dynamic_cast<Rect *>(GetSprite()->GetRect());
 				if (rect)
@@ -42,7 +41,6 @@ namespace SaltyEngine
 			}
 			explicit SpriteRenderer(GameObject* const gameObj, Sprite * const sprite, Layout layer, Window * const w = nullptr) : ASpriteRenderer("SpriteRenderer", gameObj, sprite, layer)
 			{
-				Renderer::AddSpriteRenderer(this);
 				m_window = w;
 				Rect *rect = dynamic_cast<Rect *>(GetSprite()->GetRect());
 				if (rect)

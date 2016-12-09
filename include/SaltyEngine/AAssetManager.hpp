@@ -206,7 +206,7 @@ namespace SaltyEngine {
         /// \return
         void    LoadSounds() {
             for (std::string filename: getFilesInDir(path_sounds)) {
-                unsigned long dotPos = filename.find_last_of(".");
+                unsigned long dotPos = static_cast<unsigned long>(filename.find_last_of("."));
                 if (dotPos == filename.npos) {
                     continue;
                 }
@@ -223,7 +223,7 @@ namespace SaltyEngine {
         /// \return
         void    LoadTextures() {
             for (std::string filename: getFilesInDir(path_textures)) {
-                unsigned long dotPos = filename.find_last_of(".");
+                unsigned long dotPos = static_cast<unsigned long>(filename.find_last_of("."));
                 if (dotPos == filename.npos) {
                     continue;
                 }
@@ -240,7 +240,7 @@ namespace SaltyEngine {
         /// \return
         void    LoadPrefabs() {
             for (std::string filename: getFilesInDir(path_prefabs)) {
-                unsigned long dotPos = filename.find_last_of(".");
+                unsigned long dotPos = static_cast<unsigned long>(filename.find_last_of("."));
                 if (dotPos == filename.npos) {
                     continue;
                 }

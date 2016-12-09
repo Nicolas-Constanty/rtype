@@ -20,7 +20,7 @@ namespace SaltyEngine
 			explicit Sprite(Texture* texture) :
 				::SaltyEngine::Sprite<sf::Vector2i>(texture ? dynamic_cast<::SaltyEngine::Texture<sf::Vector2i> *>(texture) : []() { ::SaltyEngine::Texture<sf::Vector2i> *t = new Texture(); t->Create(200, 200); return t; }(), "SFMLSprite"),
 				sf::Sprite(*dynamic_cast<Texture *>(GetTexture())) {
-				m_bounds = new Rect(getGlobalBounds().left, getGlobalBounds().top, getGlobalBounds().width, getGlobalBounds().height);
+				m_bounds = new Rect(static_cast<int>(getGlobalBounds().left), static_cast<int>(getGlobalBounds().top), static_cast<int>(getGlobalBounds().width), static_cast<int>(getGlobalBounds().height));
 			}
 
 			explicit Sprite(Texture* texture, Rect* const rect) :
@@ -28,7 +28,7 @@ namespace SaltyEngine
 				sf::Sprite(*dynamic_cast<Texture *>(GetTexture()))
 			{
 				setTextureRect(*rect);
-				m_bounds = new Rect(getGlobalBounds().left, getGlobalBounds().top, getGlobalBounds().width, getGlobalBounds().height);
+				m_bounds = new Rect(static_cast<int>(getGlobalBounds().left), static_cast<int>(getGlobalBounds().top), static_cast<int>(getGlobalBounds().width), static_cast<int>(getGlobalBounds().height));
 			}
 
 			virtual ~Sprite() {
@@ -37,10 +37,10 @@ namespace SaltyEngine
 
 			Rect *GetBounds() const override
 			{
-                m_bounds->left = getGlobalBounds().left;
-                m_bounds->top = getGlobalBounds().top;
-                m_bounds->width = getGlobalBounds().width;
-                m_bounds->height = getGlobalBounds().height;
+                m_bounds->left = static_cast<int>(getGlobalBounds().left);
+                m_bounds->top = static_cast<int>(getGlobalBounds().top);
+                m_bounds->width = static_cast<int>(getGlobalBounds().width);
+                m_bounds->height = static_cast<int>(getGlobalBounds().height);
 				return m_bounds;
 			}
 		};
