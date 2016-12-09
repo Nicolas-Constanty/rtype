@@ -63,6 +63,7 @@ namespace SaltyEngine
 		bool LoadAsset(std::string const& path);
 	};
 }
+template class Singleton<SaltyEngine::Factory>;
 
 #include "SaltyEngine/Object.hpp"
 

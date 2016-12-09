@@ -6,7 +6,6 @@
 #define RTYPE_AASSETMANAGER_HPP
 
 #include <memory>
-#include <Common/Singleton.hpp>
 #include <cstring>
 #include "SaltyEngine/ISound.hpp"
 #include "SaltyEngine/Texture.hpp"
