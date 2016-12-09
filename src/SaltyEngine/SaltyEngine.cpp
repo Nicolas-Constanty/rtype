@@ -8,6 +8,7 @@
 
 #include "SaltyEngine/SaltyEngine.hpp"
 #include <SaltyEngine/Constants.hpp>
+#include "SaltyEngine/Debug.hpp"
 
 namespace SaltyEngine
 {
@@ -73,6 +74,11 @@ namespace SaltyEngine
 
 	void SaltyEngine::Run()
 	{
+		if (m_scenes.size() == 0)
+		{
+			Debug::PrintError("Cannot run without scene!");
+			return;
+		}
 		Start();
 		std::chrono::nanoseconds lag(0);
 		std::chrono::time_point<std::chrono::high_resolution_clock> time_start = std::chrono::high_resolution_clock::now();
