@@ -224,7 +224,6 @@ public:
         if (msg.length() < sizeof(this->msg)) {
             strncpy(this->msg, msg.c_str(), msg.length());
         }
-
     }
 
 public:

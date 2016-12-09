@@ -214,7 +214,7 @@ public:
 
 class INPUTPackageGame : public PackageGameHeader {
 public:
-    INPUTPackageGame(unsigned short sequenceID = 0, std::string const &axes, float value, unsigned short transactionID = 0) :
+    INPUTPackageGame(unsigned short sequenceID = 0, std::string const &axes = "", float value = 0, unsigned short transactionID = 0) :
             PackageGameHeader(true, sizeof(INPUTPackageGame), sequenceID, GAMEINPUT, transactionID)
     {
         this->value = value;
