@@ -19,12 +19,14 @@ namespace Rtype
 				void Start();
 				void Update();
 				~GameClientObject();
+
+				void SendInput(std::string const &name, float const value);
+
 			private:
 				uint16_t m_port;
 				std::string m_ip;
 				Client::RtypeClientGameClient *m_rtypeclient;
 				Network::Core::NativeSocketIOOperationDispatcher m_dispatcher;
-				GamePackageFactory m_factory;
 			};
 		}
 	}

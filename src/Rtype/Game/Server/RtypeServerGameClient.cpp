@@ -8,7 +8,6 @@
 
 Rtype::Game::Server::RtypeServerGameClient::RtypeServerGameClient(Network::Core::NativeSocketIOOperationDispatcher &dispatcher) :
         RtypeGameClient(dispatcher),
-        factory(),
         server1(NULL),
         pingSecret(-1),
         pingTime(),
@@ -18,7 +17,11 @@ Rtype::Game::Server::RtypeServerGameClient::RtypeServerGameClient(Network::Core:
 }
 
 Rtype::Game::Server::RtypeServerGameClient::RtypeServerGameClient(const Rtype::Game::Server::RtypeServerGameClient &ref) :
-    RtypeGameClient(ref)
+    RtypeGameClient(ref),
+    server1(NULL),
+    pingSecret(-1),
+    pingTime(),
+    id(0)
 {
 
 }
@@ -46,7 +49,7 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetPINGPackage(PINGPackageGam
     else
     {
         pingSecret = -1;
-        std::cout << "\e[32mYou have been ponged\e[0m: " << pingSecret << std::endl;
+//        std::cout << "\e[32mYou have been ponged\e[0m: " << pingSecret << std::endl;
     }
 }
 
@@ -64,7 +67,7 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetAUTHENTICATEPackage(AUTHEN
         connected = true;
 
         //creation of a new player
-        CREATEPackageGame   *player = factory.create<CREATEPackageGame>();
+        CREATEPackageGame   *player = server1->create<CREATEPackageGame>();
         //todo Instantiate player in engine with an object id
         //todo player->ID = correspondance prefab
         //todo player->objectID = correspondance gameobject engine
@@ -74,7 +77,7 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetAUTHENTICATEPackage(AUTHEN
         BroadcastReliable(*player);
 
         //notify to <this> player that he is authenticated
-        SendReliable(*factory.create<AUTHENTICATEPackageGame>(pack.secret, player->objectID));
+        SendReliable(*server1->create<AUTHENTICATEPackageGame>(pack.secret, player->objectID));
 
         //notify to <this> player to create existing players
         for (std::unique_ptr<Network::Socket::ISockStreamHandler> &curr : clients->Streams())
@@ -82,7 +85,7 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetAUTHENTICATEPackage(AUTHEN
             if (static_cast<void *>(&curr) != this)
             {
                 //todo same shit as above for existing players
-                SendReliable(*factory.create<CREATEPackageGame>());
+                SendReliable(*server1->create<CREATEPackageGame>());
             }
         }
 
@@ -108,11 +111,11 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetBEAMPackage(BEAMPackageGam
 
 //    todo if (okay on gameside)
 //    {
-//        BroadcastReliable(*factory.create<BEAMPackageGame>(pack.objectID));
+//        BroadcastReliable(*server1->create<BEAMPackageGame>(pack.objectID));
 //    }
 //    else
 //    {
-//        SendReliable(*factory.create<FAILUREPackageGame>(pack.purpose, pack.sequenceID));
+//        SendReliable(*server1->create<FAILUREPackageGame>(pack.purpose, pack.sequenceID));
 //    }
 }
 
@@ -122,11 +125,11 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetSHOTPackage(SHOTPackageGam
 
 //    todo if (okay on gameside)
 //    {
-//        BroadcastReliable(*factory.create<SHOTPackageGame>(pack.objectID));
+//        BroadcastReliable(*server1->create<SHOTPackageGame>(pack.objectID));
 //    }
 //    else
 //    {
-//        SendReliable(*factory.create<FAILUREPackageGame>(pack.purpose, pack.sequenceID));
+//        SendReliable(*server1->create<FAILUREPackageGame>(pack.purpose, pack.sequenceID));
 //    }
 }
 
@@ -142,11 +145,11 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetTAKEPackage(TAKEPackageGam
 
 //    todo if (okay on gameside)
 //    {
-//        BroadcastReliable(*factory.create<TAKEPackageGame>(pack.objectID));
+//        BroadcastReliable(*server1->create<TAKEPackageGame>(pack.objectID));
 //    }
 //    else
 //    {
-//        SendReliable(*factory.create<FAILUREPackageGame>(pack.purpose, pack.sequenceID));
+//        SendReliable(*server1->create<FAILUREPackageGame>(pack.purpose, pack.sequenceID));
 //    }
 }
 
@@ -156,11 +159,11 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetDROPPackage(DROPPackageGam
 
 //    todo if (okay on gameside)
 //    {
-//        BroadcastReliable(*factory.create<DROPPackageGame>(pack.objectID));
+//        BroadcastReliable(*server1->create<DROPPackageGame>(pack.objectID));
 //    }
 //    else
 //    {
-//        SendReliable(*factory.create<FAILUREPackageGame>(pack.purpose, pack.sequenceID));
+//        SendReliable(*server1->create<FAILUREPackageGame>(pack.purpose, pack.sequenceID));
 //    }
 }
 
@@ -170,11 +173,11 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetMOVEPackage(MOVEPackageGam
 
 //    todo if (okay on gameside)
 //    {
-//        Broadcast(*factory.create<MOVEPackageGame>(pack.posX, pack.posY, pack.objectID));
+//        Broadcast(*server1->create<MOVEPackageGame>(pack.posX, pack.posY, pack.objectID));
 //    }
 //    else
 //    {
-//        SendReliable(*factory.create<FAILUREPackageGame>(pack.purpose, pack.sequenceID));
+//        SendReliable(*server1->create<FAILUREPackageGame>(pack.purpose, pack.sequenceID));
 //    }
 }
 
@@ -184,11 +187,11 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetLAUNCHPackage(LAUNCHPackag
 
 //    todo if (okay on gameside)
 //    {
-//        BroadcastReliable(*factory.create<LAUNCHPackageGame>(pack.objectID));
+//        BroadcastReliable(*server1->create<LAUNCHPackageGame>(pack.objectID));
 //    }
 //    else
 //    {
-//        SendReliable(*factory.create<FAILUREPackageGame>(pack.purpose, pack.sequenceID));
+//        SendReliable(*server1->create<FAILUREPackageGame>(pack.purpose, pack.sequenceID));
 //    }
 }
 
@@ -202,6 +205,23 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetFAILUREPackage(FAILUREPack
 {
     reply = false;
     OnDiscoveringPackage(pack);
+}
+
+void Rtype::Game::Server::RtypeServerGameClient::onGetINPUTPackage(INPUTPackageGame const &pack)
+{
+    std::cout << pack << std::endl;
+    OnDiscoveringPackage(pack);
+    INPUTPackageGame *reflect = server1->create<INPUTPackageGame>(pack.axes, pack.value);
+    for (std::unique_ptr<Network::Socket::ISockStreamHandler> &curr : clients->Streams())
+    {
+        if (curr.get() != this)
+        {
+            Network::Core::BasicConnection *receiver = dynamic_cast<Network::Core::BasicConnection *>(curr.get());
+
+            if (receiver)
+                receiver->SendData(*reflect);
+        }
+    }
 }
 
 bool Rtype::Game::Server::RtypeServerGameClient::OnStart()
@@ -231,7 +251,7 @@ void Rtype::Game::Server::RtypeServerGameClient::ping()
 {
     pingSecret = rand();
     pingTime = std::chrono::steady_clock::now();
-    SendReliable(*factory.create<PINGPackageGame>(pingSecret));
+    SendReliable(*server1->create<PINGPackageGame>(pingSecret));
     if (serverStream)
         serverStream->WantSend();
 }

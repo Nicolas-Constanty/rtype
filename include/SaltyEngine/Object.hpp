@@ -33,10 +33,11 @@ namespace SaltyEngine
 	public:
 		uid GetInstanceID(void) const;
 		const std::string &GetName(void) const;
+		void SetName(std::string const &name);
 
 	private:
 		uid m_uid;
-		const std::string m_name;
+		std::string m_name;
 
 	public:
 		static void Destroy(Object* original);

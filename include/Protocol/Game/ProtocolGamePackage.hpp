@@ -219,7 +219,7 @@ public:
     {
         this->value = value;
         memset(this->axes, 0, sizeof(this->axes));
-        if (axes.length() < sizeof(axes)) {
+        if (axes.length() < sizeof(this->axes)) {
             strncpy(this->axes, axes.c_str(), axes.length());
         }
     }

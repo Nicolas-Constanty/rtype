@@ -238,7 +238,7 @@ void Network::Core::NativeSocketIOOperationDispatcher::Poll(Network::Socket::ISo
  */
 void Network::Core::NativeSocketIOOperationDispatcher::Watch(Network::Socket::ISockStreamHandler &towatch, WatchMode mode)
 {
-	std::cout << towatch.getSocket().Native() << std::endl;
+//	std::cout << "Watch " << towatch.getSocket().Native() << " in " << mode << " mode" << std::endl;
 #if _WIN32
 	if (towatch.getSocket().Native() == INVALID_SOCKET)
 		return;
