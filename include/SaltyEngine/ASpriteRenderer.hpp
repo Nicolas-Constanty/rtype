@@ -32,10 +32,11 @@ namespace SaltyEngine
 		virtual IWindow *GetWindow() const = 0;
 		virtual int GetLayer() const { return (m_layer); }
 		virtual void SetSprite(Sprite<T> * const sprite) { m_sprite = sprite; }
+		virtual void SetLayout(Layout layout) { m_layer = layout; }
 
 	protected:
 		Sprite<T>		*m_sprite;
-		const Layout	m_layer;
+		Layout			m_layer;
 		IWindow			*m_window;
 	};
 }

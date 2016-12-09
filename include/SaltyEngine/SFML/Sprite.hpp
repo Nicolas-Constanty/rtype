@@ -17,13 +17,13 @@ namespace SaltyEngine
 		{
 			Rect	*m_bounds;
 		public:
-			explicit Sprite(Texture* const texture) :
+			explicit Sprite(Texture* texture) :
 				::SaltyEngine::Sprite<sf::Vector2i>(texture ? dynamic_cast<::SaltyEngine::Texture<sf::Vector2i> *>(texture) : []() { ::SaltyEngine::Texture<sf::Vector2i> *t = new Texture(); t->Create(200, 200); return t; }(), "SFMLSprite"),
 				sf::Sprite(*dynamic_cast<Texture *>(GetTexture())) {
 				m_bounds = new Rect(getGlobalBounds().left, getGlobalBounds().top, getGlobalBounds().width, getGlobalBounds().height);
 			}
 
-			explicit Sprite(Texture* const texture, Rect* const rect) :
+			explicit Sprite(Texture* texture, Rect* const rect) :
 				::SaltyEngine::Sprite<sf::Vector2i>(texture ? dynamic_cast<::SaltyEngine::Texture<sf::Vector2i> *>(texture) : []() { ::SaltyEngine::Texture<sf::Vector2i> *t = new Texture(); t->Create(200, 200); return t; }(), rect, "SFMLSprite"),
 				sf::Sprite(*dynamic_cast<Texture *>(GetTexture()))
 			{

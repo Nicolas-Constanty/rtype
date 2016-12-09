@@ -18,10 +18,17 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\SaltyEngine\SFML\Image.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\ClientRoom\main.cpp" />
+    <ClCompile Include="..\..\src\SaltyEngine\SFML\Image.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{94A2812C-5FD5-4368-A2A7-7316FA782038}</ProjectGuid>
+    <ProjectGuid>{B5F2B560-7C9F-4B2C-98F7-C05BC77CB65D}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>SFML</RootNamespace>
+    <RootNamespace>ClientRoom</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -39,10 +46,10 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>NotSet</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -74,8 +81,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)..\include;$(SolutionDir)..\Dependencies\SFML\Win\include;</IncludePath>
-    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;$(SolutionDir)x64\Debug</LibraryPath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)..\include;$(SolutionDir)..\Dependencies\SFML\Win\include</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;$(SolutionDir)x64\Debug;$(SolutionDir)..\Dependencies\SFML\Win\x64\Debug</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -90,7 +97,6 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -103,13 +109,12 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NOMINMAX;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SaltyEngine.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-audio-d.lib;sfml-graphics-d.lib;sfml-network-d.lib;sfml-system-d.lib;sfml-window-d.lib;SFML.lib;SaltyEngine.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -121,7 +126,6 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -139,7 +143,6 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -148,48 +151,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\src\SaltyEngine\GUI\Button.cpp" />
-    <ClCompile Include="..\..\src\SaltyEngine\GUI\Event.cpp" />
-    <ClCompile Include="..\..\src\SaltyEngine\GUI\UIBehaviour.cpp" />
-    <ClCompile Include="..\..\src\SaltyEngine\GUI\Widget.cpp" />
-    <ClCompile Include="..\..\src\SaltyEngine\SFML\AssetManager.cpp" />
-    <ClCompile Include="..\..\src\SaltyEngine\SFML\EventManager.cpp" />
-    <ClCompile Include="..\..\src\SaltyEngine\SFML\Music.cpp" />
-    <ClCompile Include="..\..\src\SaltyEngine\SFML\Renderer.cpp" />
-    <ClCompile Include="..\..\src\SaltyEngine\SFML\Scene.cpp" />
-    <ClCompile Include="..\..\src\SaltyEngine\SFML\Sound.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\include\SaltyEngine\GUI\Button.hpp" />
-    <ClInclude Include="..\..\include\SaltyEngine\GUI\Event.hpp" />
-    <ClInclude Include="..\..\include\SaltyEngine\GUI\IDeselectHandler.hpp" />
-    <ClInclude Include="..\..\include\SaltyEngine\GUI\IEventSystemHandler.hpp" />
-    <ClInclude Include="..\..\include\SaltyEngine\GUI\IMoveHandler.hpp" />
-    <ClInclude Include="..\..\include\SaltyEngine\GUI\IPointerDownHandler.hpp" />
-    <ClInclude Include="..\..\include\SaltyEngine\GUI\IPointerEnterHandler.hpp" />
-    <ClInclude Include="..\..\include\SaltyEngine\GUI\IPointerExitHandler.hpp" />
-    <ClInclude Include="..\..\include\SaltyEngine\GUI\IPointerUpHandler.hpp" />
-    <ClInclude Include="..\..\include\SaltyEngine\GUI\ISelectHandler.hpp" />
-    <ClInclude Include="..\..\include\SaltyEngine\GUI\ISubmitHandler.hpp" />
-    <ClInclude Include="..\..\include\SaltyEngine\GUI\Selectable.hpp" />
-    <ClInclude Include="..\..\include\SaltyEngine\GUI\UIBehaviour.hpp" />
-    <ClInclude Include="..\..\include\SaltyEngine\GUI\Widget.hpp" />
-    <ClInclude Include="..\..\include\SaltyEngine\SFML\AssetManager.hpp" />
-    <ClInclude Include="..\..\include\SaltyEngine\SFML\BoxCollider2D.hpp" />
-    <ClInclude Include="..\..\include\SaltyEngine\SFML\Button.hpp" />
-    <ClInclude Include="..\..\include\SaltyEngine\SFML\EventManager.hpp" />
-    <ClInclude Include="..\..\include\SaltyEngine\SFML\Music.hpp" />
-    <ClInclude Include="..\..\include\SaltyEngine\SFML\MyGraphics.hpp" />
-    <ClInclude Include="..\..\include\SaltyEngine\SFML\Rect.hpp" />
-    <ClInclude Include="..\..\include\SaltyEngine\SFML\Renderer.hpp" />
-    <ClInclude Include="..\..\include\SaltyEngine\SFML\Scene.hpp" />
-    <ClInclude Include="..\..\include\SaltyEngine\SFML\Sound.hpp" />
-    <ClInclude Include="..\..\include\SaltyEngine\SFML\Sprite.hpp" />
-    <ClInclude Include="..\..\include\SaltyEngine\SFML\SpriteRenderer.hpp" />
-    <ClInclude Include="..\..\include\SaltyEngine\SFML\Texture.hpp" />
-    <ClInclude Include="..\..\include\SaltyEngine\SFML\Window.hpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

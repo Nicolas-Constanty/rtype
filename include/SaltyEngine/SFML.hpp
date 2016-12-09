@@ -16,5 +16,6 @@
 #include "SFML/Window.hpp"
 #include "SFML/AssetManager.hpp"
 #include "SFML/EventManager.hpp"
+#include "SFML/Image.hpp"
 
 #endif //RTYPE_SFML_HPP
