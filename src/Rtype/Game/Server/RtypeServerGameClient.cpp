@@ -39,12 +39,14 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetSTATUSPackage(STATUSPackag
 
 void Rtype::Game::Server::RtypeServerGameClient::onGetPINGPackage(PINGPackageGame const &pack)
 {
+//    std::cout << pack << std::endl;
     reply = false;
     OnDiscoveringPackage(pack);
+//    std::cout << "pingSecret == " << pingSecret << " pack.secret == " << pack.secret << " pingSecret == " << pingSecret << std::endl;
     if (pingSecret != -1 && pack.secret != pingSecret)
     {
         connected = false;
-        std::cout << "Disconnection" << std::endl;
+//        std::cout << "Disconnection" << std::endl;
     }
     else
     {
@@ -56,6 +58,7 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetPINGPackage(PINGPackageGam
 void Rtype::Game::Server::RtypeServerGameClient::onGetAUTHENTICATEPackage(AUTHENTICATEPackageGame const &pack)
 {
     reply = false;
+    std::cout << "pack: " << pack << std::endl;
     OnDiscoveringPackage(pack);
     if (!server1->Authenticate(pack.secret))
     {
@@ -67,30 +70,37 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetAUTHENTICATEPackage(AUTHEN
         connected = true;
 
         //creation of a new player
-        CREATEPackageGame   *player = server1->create<CREATEPackageGame>();
+//        CREATEPackageGame   *player = server1->create<CREATEPackageGame>();
         //todo Instantiate player in engine with an object id
         //todo player->ID = correspondance prefab
         //todo player->objectID = correspondance gameobject engine
-        player->objectID = 5;
-
-        //notify to all players the creation of a player
-        BroadcastReliable(*player);
+//        player->objectID = 5;
 
         //notify to <this> player that he is authenticated
-        SendReliable(*server1->create<AUTHENTICATEPackageGame>(pack.secret, player->objectID));
+        SendPackage<AUTHENTICATEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<AUTHENTICATEPackageGame>, pack.secret, 5);
+
+        //notify to all players the creation of a player
+        BroadCastPackage<CREATEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>, 0, 0, 0, 5);
+
+//        SendReliable(*factory->create<AUTHENTICATEPackageGame>(pack.secret, player->objectID));
 
         //notify to <this> player to create existing players
         for (std::unique_ptr<Network::Socket::ISockStreamHandler> &curr : clients->Streams())
         {
-            if (static_cast<void *>(&curr) != this)
+            Rtype::Game::Common::RtypeGameClient *client = dynamic_cast<Rtype::Game::Common::RtypeGameClient *>(curr.get());
+
+            if (client && client != this)
             {
                 //todo same shit as above for existing players
-                SendReliable(*server1->create<CREATEPackageGame>());
+                client->SendPackage<CREATEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>);
+//                SendReliable(*server1->create<CREATEPackageGame>());
             }
         }
 
         //ping <this> player in order to made him survive
         ping();
+        if (serverStream)
+            serverStream->WantSend();
     }
 }
 
@@ -211,17 +221,18 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetINPUTPackage(INPUTPackageG
 {
     std::cout << pack << std::endl;
     OnDiscoveringPackage(pack);
-    INPUTPackageGame *reflect = server1->create<INPUTPackageGame>(pack.axes, pack.value);
     for (std::unique_ptr<Network::Socket::ISockStreamHandler> &curr : clients->Streams())
     {
         if (curr.get() != this)
         {
-            Network::Core::BasicConnection *receiver = dynamic_cast<Network::Core::BasicConnection *>(curr.get());
+            Rtype::Game::Server::RtypeServerGameClient *receiver = dynamic_cast<Rtype::Game::Server::RtypeServerGameClient *>(curr.get());
 
             if (receiver)
-                receiver->SendData(*reflect);
+                receiver->SendPackage<INPUTPackageGame>(&Network::UDP::AUDPConnection::SendReliable<INPUTPackageGame>, pack.axes, pack.value);
         }
     }
+    if (serverStream)
+        serverStream->WantSend();
 }
 
 bool Rtype::Game::Server::RtypeServerGameClient::OnStart()
@@ -251,7 +262,8 @@ void Rtype::Game::Server::RtypeServerGameClient::ping()
 {
     pingSecret = rand();
     pingTime = std::chrono::steady_clock::now();
-    SendReliable(*server1->create<PINGPackageGame>(pingSecret));
+//    SendReliable(*server1->create<PINGPackageGame>(pingSecret));
+    SendPackage<PINGPackageGame>(&Network::UDP::AUDPConnection::SendReliable<PINGPackageGame>, pingSecret);
     if (serverStream)
         serverStream->WantSend();
 }

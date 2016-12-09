@@ -49,8 +49,30 @@ namespace Rtype
                     buff += sizeof(Pack);
                 }
 
+            public:
+                template <typename Package, typename SendFunc, typename ... Args>
+                void SendPackage(SendFunc func, Args ... args)
+                {
+                    (this->*func)(*factory.create<Package>(args...));
+                }
+
+                template <typename Package, typename SendFunc, typename ... Args>
+                void BroadCastPackage(SendFunc func, Args ... args)
+                {
+                    if (!clients)
+                        return;
+                    for (std::unique_ptr<Network::Socket::ISockStreamHandler> &curr : clients->Streams())
+                    {
+                        RtypeGameClient *client = dynamic_cast<RtypeGameClient *>(curr.get());
+
+                        if (client)
+                            client->SendPackage<Package>(func, args...);
+                    }
+                };
+
             private:
                 RTypeProtocolGameManager    manager;
+                GamePackageFactory          factory;
 
             private:
                 Network::UDP::ReceptionStatus<uint16_t, uint32_t>   recvstatus;
