@@ -19,10 +19,8 @@ extern "C"
 #  include <cstdint>
 #  include <stdexcept>
 # elif _WIN32
-#  include <winsock2.h>
-#  include <ws2tcpip.h>
-#  include <c++/cstdint>
-#  include <c++/stdexcept>
+#  include <cstdint>
+#  include <stdexcept>
 # endif
 };
 

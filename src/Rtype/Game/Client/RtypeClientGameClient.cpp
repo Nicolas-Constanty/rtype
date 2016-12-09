@@ -3,6 +3,8 @@
 //
 
 #include <Rtype/Game/Client/RtypeClientGameClient.hpp>
+#include <SaltyEngine/SaltyEngine.hpp>
+#include <SaltyEngine/SFML.hpp>
 
 Rtype::Game::Client::RtypeClientGameClient::RtypeClientGameClient(
         Network::Core::NativeSocketIOOperationDispatcher &dispatcher) :
@@ -49,13 +51,13 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetAUTHENTICATEPackage(AUTHEN
     std::cout << "\e[32mAuthenticated\e[0m" << std::endl;
     reply = false;
     OnDiscoveringPackage(pack);
+
     //todo define in engine which player is controlled by user through gameobject id <pack.playerId>
 }
 
 void Rtype::Game::Client::RtypeClientGameClient::onGetCREATEPackage(CREATEPackageGame const &pack)
 {
     OnDiscoveringPackage(pack);
-    //todo create ingame object
 }
 
 void Rtype::Game::Client::RtypeClientGameClient::onGetBEAMPackage(BEAMPackageGame const &pack)
@@ -110,4 +112,17 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetFAILUREPackage(FAILUREPack
 {
     OnDiscoveringPackage(pack);
     //todo resolve failure package
+}
+
+void Rtype::Game::Client::RtypeClientGameClient::onGetINPUTPackage(INPUTPackageGame const &pack)
+{
+    std::cout << pack << std::endl;
+    OnDiscoveringPackage(pack);
+    //todo resolve failure package
+    InputKey::SetAxis(pack.axes, pack.);
+}
+
+void Rtype::Game::Client::RtypeClientGameClient::SendInput(std::string const &axisName, float const value)
+{
+    SendData(*factory.create<INPUTPackageGame>(axisName, value));
 }

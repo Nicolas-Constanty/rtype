@@ -1,8 +1,7 @@
 #include "Player/PlayerController.hpp"
 #include "SaltyEngine/SFML/EventManager.hpp"
 #include "SaltyEngine/Input/InputManager.hpp"
-
-typedef SaltyEngine::Input::InputManager<SaltyEngine::SFML::EventManager>  InputKey;
+#include "SaltyEngine/SFML.hpp"
 
 namespace SaltyEngine
 {

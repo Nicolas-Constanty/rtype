@@ -7,6 +7,7 @@
 
 #include <chrono>
 #include <iostream>
+#include <string>
 #include <Protocol/Game/ProtocolPrintGamePackage.hpp>
 #include <Network/UDP/AUDPClient.hpp>
 #include <Protocol/Game/RTypeProtocolGameManager.hpp>
@@ -38,7 +39,7 @@ namespace Rtype
                 template <typename Pack>
                 void OnDiscoveringPackage(Pack const &pack)
                 {
-                    std::cout << "\e[32mDicovering\e[0m: " << pack << std::endl;
+//                    std::cout << "\e[32mDicovering\e[0m: " << pack << std::endl;
                     if (reply)
                     {
                         SendData(pack);

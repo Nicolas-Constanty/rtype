@@ -5,7 +5,11 @@
 #ifndef FLAGS_HH
 #define FLAGS_HH
 
+#if _WIN32
+#include "Common/getopt.h"
+#else
 #include <getopt.h>
+#endif
 
 #include <string>
 #include <functional>

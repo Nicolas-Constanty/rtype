@@ -6,9 +6,9 @@
 #include "AnimationClip.hpp"
 #include "Constants.hpp"
 #include "SaltyEngine/ASpriteRenderer.hpp"
-#include "Debug.hpp"
 #include "SaltyEngine/GameObject.hpp"
 #include "SaltyEngine/SaltyEngine.hpp"
+#include "Debug.hpp"
 
 namespace SaltyEngine
 {

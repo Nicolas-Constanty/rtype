@@ -10,9 +10,9 @@
 #include <cstring>
 #include "SaltyEngine/ISound.hpp"
 #include "SaltyEngine/Texture.hpp"
-#include "SaltyEngine/Debug.hpp"
 #include "SaltyEngine/Constants.hpp"
 #include "SaltyEngine/Texture.hpp"
+#include "SaltyEngine/Debug.hpp"
 
 #include "Parser/ParserJson.hpp"
 #include "Parser/Parser.hpp"

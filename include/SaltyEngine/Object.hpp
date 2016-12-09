@@ -33,10 +33,11 @@ namespace SaltyEngine
 	public:
 		uid GetInstanceID(void) const;
 		const std::string &GetName(void) const;
+		void SetName(std::string const &name);
 
 	private:
 		uid m_uid;
-		const std::string m_name;
+		std::string m_name;
 
 	public:
 		static void Destroy(Object* original);
@@ -75,6 +76,7 @@ namespace SaltyEngine
 
 #ifdef _WIN32
 //#define Instantiate(...) Object::Instantiate(## __VA_ARGS__)
+	#define Instantiate(...) Object::Instantiate(__VA_ARGS__)
 #else
 #define Instantiate(...) Object::Instantiate(__VA_ARGS__)
 #endif

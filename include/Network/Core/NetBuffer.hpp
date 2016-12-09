@@ -67,7 +67,7 @@ namespace Network
                 } dest;
                 dest.dat = obj;
                 #if __BYTE_ORDER == __BIG_ENDIAN
-                    for (size_t i = sizeof(T) - 1; i >= 0; ++i)
+                    for (int i = sizeof(T) - 1; i >= 0; --i)
                     data[index + i] = dest.cvrt[i];
                 #elif __BYTE_ORDER == __LITTLE_ENDIAN
                     memcpy(&data[length], dest.cvrt, sizeof(T));

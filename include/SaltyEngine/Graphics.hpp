@@ -11,6 +11,5 @@
 #include "DefaultRenderer.hpp"
 #include "Sprite.hpp"
 #include "Texture.hpp"
-#include "SFML/Graphics.hpp"
 
 #endif // !GRAPHICS_HPP_

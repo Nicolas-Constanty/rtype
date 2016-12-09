@@ -3,7 +3,7 @@
 #ifndef SPRITERENDERER_HPP_
 #define SPRITERENDERER_HPP_
 
-#include <SFML/Graphics.hpp>
+//#include <SFML/Graphics.hpp>
 #include "SaltyEngine/Config.hpp"
 #include "SaltyEngine/ASpriteRenderer.hpp"
 #include "SaltyEngine/SFML/Sprite.hpp"

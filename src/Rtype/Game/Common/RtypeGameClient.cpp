@@ -42,19 +42,19 @@ bool Rtype::Game::Common::RtypeGameClient::OnDataReceived(unsigned int)
     {
         PackageGameHeader *head = buff.buff<PackageGameHeader>();
 
-        std::cout << "Buff: " << buff << std::endl << "\e[34mReceived\e[0m: " << *head << " with reply: " << std::boolalpha << reply << std::endl;
+//        std::cout << "Buff: " << buff << std::endl << "\e[34mReceived\e[0m: " << *head << " with reply: " << std::boolalpha << reply << std::endl;
         if (head->transactionID != 0)
         {
             //here you can check packet send by server which are lost
             sendstatus.Receiving(head->sequenceID);
             buff += head->length;
-            std::cout << "\e[31mAcknoledge\e[0m" << std::endl;
+//            std::cout << "\e[31mAcknoledge\e[0m" << std::endl;
         }
         else if (!recvstatus.IsSet(head->sequenceID))
         {
             reply = recvstatus.Receiving(head->sequenceID);
-            std::cout << "\e[32mReceive status\e[0m: " << recvstatus << ", sliced at " << head->sequenceID << ": " << recvstatus.sliceAt(head->sequenceID) << " => " << recvstatus.sliceAt(head->sequenceID).getStatus() << std::endl;
-            std::cout << "\e[33mIs set\e[0m: " << std::boolalpha << recvstatus.IsSet(head->sequenceID) << std::endl;
+//            std::cout << "\e[32mReceive status\e[0m: " << recvstatus << ", sliced at " << head->sequenceID << ": " << recvstatus.sliceAt(head->sequenceID) << " => " << recvstatus.sliceAt(head->sequenceID).getStatus() << std::endl;
+//            std::cout << "\e[33mIs set\e[0m: " << std::boolalpha << recvstatus.IsSet(head->sequenceID) << std::endl;
             if (reply)
             {
                 head->transactionID = recvstatus.sliceAt(head->sequenceID).getStatus();
@@ -74,19 +74,19 @@ bool Rtype::Game::Common::RtypeGameClient::OnDataReceived(unsigned int)
         }
         else
         {
-            std::cout << "buff: " << buff << std::endl;
-            std::cout << "\e[31mReset\e[0m" << std::endl;
+//            std::cout << "buff: " << buff << std::endl;
+//            std::cout << "\e[31mReset\e[0m" << std::endl;
             buff += head->length;
 //            return true;
         }
     }
     buff.consume();
-    std::cout << "\e[31m ON A QUITTÉ LA FONCTION DATA RECEIVED \e[0m" << std::endl;
+//    std::cout << "\e[31m ON A QUITTÉ LA FONCTION DATA RECEIVED \e[0m" << std::endl;
     return true;
 }
 
 bool Rtype::Game::Common::RtypeGameClient::OnDataSent(unsigned int len)
 {
-    std::cout << "Sent: " << len << std::endl;
+//    std::cout << "Sent: " << len << std::endl;
     return true;
 }

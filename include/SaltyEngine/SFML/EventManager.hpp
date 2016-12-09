@@ -6,11 +6,11 @@
 #define EVENTMANAGER_HPP
 
 
+#include <SFML/Graphics.hpp>
 #include <map>
 #include <vector>
 #include <queue>
-#include <SFML/Graphics.hpp>
-#include <SaltyEngine/Vector2.hpp>
+#include "SaltyEngine/Vector2.hpp"
 #include "SaltyEngine/Input/IEventManager.hpp"
 #include "SaltyEngine/Input/InputManager.hpp"
 
