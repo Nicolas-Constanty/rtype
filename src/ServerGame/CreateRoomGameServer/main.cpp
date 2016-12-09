@@ -41,7 +41,7 @@ int main(int ac, char **av) {
 
     while (12) {
         dispatcher.Poll();
-        usleep(3000);
+        usleep(5000);
     }
     return 0;
 }
