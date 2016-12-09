@@ -4,7 +4,7 @@
 #define SPACE_SHIP_CONTROLLER_HPP_
 
 #include "SaltyEngine/SaltyBehaviour.hpp"
-
+#include "GameManager.hpp"
 
 namespace SaltyEngine {
 	class SpaceShipController : public SaltyBehaviour
@@ -15,7 +15,10 @@ namespace SaltyEngine {
 		void Start();
 		void FixedUpdate();
 		void DisplayCoroutine();
+
+	private:
 		double speed;
+		GameManager    *manager;
 	};
 }
 

@@ -32,6 +32,11 @@ namespace SaltyEngine
 		return m_name;
 	}
 
+	void Object::SetName(std::string const &name)
+	{
+		m_name = name;
+	}
+
 	/**
 	 * @fn	void Object::Destroy(Object * original)
 	 *

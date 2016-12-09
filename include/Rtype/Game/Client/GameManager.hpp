@@ -13,8 +13,10 @@ public:
 	GameManager(const std::string &name, SaltyEngine::GameObject* const gamObj);
 	~GameManager();
 	void Start();
-	void Send();
+	void SendInput(std::string const &axisName, const float value);
+
 private:
 	Rtype::Game::Client::GameClientObject *m_network;
+    std::list<SaltyEngine::GameObject*> m_players;
 };
 

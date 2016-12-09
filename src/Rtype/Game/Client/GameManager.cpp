@@ -1,4 +1,6 @@
-#include "GameManager.hpp"
+#include <SaltyEngine/GameObject.hpp>
+#include <SaltyEngine/SaltyBehaviour.hpp>
+#include <Rtype/Game/Client/GameManager.hpp>
 
 
 GameManager::GameManager(SaltyEngine::GameObject * const gamObj) : SaltyBehaviour("GameManager", gamObj)
@@ -18,6 +20,7 @@ void GameManager::Start()
 	m_network = gameObject->GetComponent<Rtype::Game::Client::GameClientObject>();
 }
 
-void GameManager::Send()
+void GameManager::SendInput(std::string const &axisName, const float value)
 {
+    m_network->SendInput(axisName, value);
 }

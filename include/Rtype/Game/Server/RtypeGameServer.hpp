@@ -37,6 +37,12 @@ namespace Rtype
             public:
                 void setSecure(bool security = true);
 
+            public:
+                template <typename T, class ...Args>
+                T *create(Args ...args) {
+                    return factory.create<T>(args...);
+                }
+
             private:
                 GamePackageFactory factory;
                 const size_t maxSize;

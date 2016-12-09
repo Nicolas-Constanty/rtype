@@ -358,6 +358,16 @@ namespace SaltyEngine
         m_objects.push_back(gameobj);
         m_init.emplace(m_objects.size() - 1);
     }
+
+    GameObject *AScene::FindByName(std::string const &name) const
+    {
+		for (GameObject *curr : m_objects)
+		{
+			if (curr->GetName() == name)
+				return curr;
+		}
+        return nullptr;
+    }
 }
 
 /**

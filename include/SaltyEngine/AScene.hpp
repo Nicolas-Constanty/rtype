@@ -29,6 +29,7 @@ namespace SaltyEngine
 		std::ostream & print(std::ostream &os) const;
 		GameObject const &operator[](size_t index) const;
 		void Clear();
+		GameObject	*FindByName(std::string const &name) const;
 		virtual void operator<<(GameObject * const gameobj);
 
 	public:

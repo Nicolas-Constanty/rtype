@@ -1,4 +1,8 @@
+#include <Rtype/Game/Client/GameManager.hpp>
+#include <Rtype/Game/Client/SpaceShipController.hpp>
 #include "SaltyEngine/SFML.hpp"
+#include "SaltyEngine/SaltyEngine.hpp"
+#include "SaltyEngine/Object.hpp"
 
 int main()
 {
@@ -12,6 +16,24 @@ int main()
 
 	// Create Scene
 	SaltyEngine::SFML::Scene *scene = new SaltyEngine::SFML::Scene();
+
+	SaltyEngine::GameObject	*server = dynamic_cast<SaltyEngine::GameObject*>(SaltyEngine::Object::Instantiate());
+
+    server->SetName("GameManager");
+	server->AddComponent<Rtype::Game::Client::GameClientObject>("127.0.0.1", 4242);
+	server->AddComponent<GameManager>();
+
+	*scene << server;
+
+	SaltyEngine::GameObject	*player = dynamic_cast<SaltyEngine::GameObject*>(SaltyEngine::Object::Instantiate());
+
+	player->AddComponent<SaltyEngine::SpaceShipController>();
+
+	*scene << player;
+
+	SaltyEngine::SaltyEngine::Instance() << scene;
+
+	SaltyEngine::SaltyEngine::Instance().Run();
 
 	return (0);
 }

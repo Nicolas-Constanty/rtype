@@ -111,12 +111,12 @@ namespace Network
             {
                 if (!isSet)
                 {
-                    std::cout << "Status not set" << std::endl;
+//                    std::cout << "Status not set" << std::endl;
                     return false;
                 }
                 int index = getSeqId(packetSeq);
 
-                std::cout << "Index of " << packetSeq << " = " << index << std::endl;
+//                std::cout << "Index of " << packetSeq << " = " << index << std::endl;
                 if (index < 0)
                     return false;
                 return packetSeq == sequenceId || (status & (1 << index));

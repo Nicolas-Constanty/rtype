@@ -44,6 +44,7 @@ namespace Rtype
                 virtual void onGetLAUNCHPackage(LAUNCHPackageGame const &);
                 virtual void onGetREBORNPackage(REBORNPackageGame const &);
                 virtual void onGetFAILUREPackage(FAILUREPackageGame const &);
+                virtual void onGetINPUTPackage(INPUTPackageGame const &);
 
                 //todo implémenter dès que la classe de script saltybehaviour est codée
                 //public:
@@ -56,7 +57,6 @@ namespace Rtype
                 bool pong() const;
 
             private:
-                GamePackageFactory          factory;
                 Rtype::Game::Server::RtypeGameServer      *server1;
 
             private:
