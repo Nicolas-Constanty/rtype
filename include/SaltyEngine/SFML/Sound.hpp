@@ -13,7 +13,6 @@ namespace SaltyEngine {
         class Sound: public ::SaltyEngine::Sound::ISound, private sf::Sound {
         public:
             Sound();
-            Sound(sf::SoundBuffer &buffer);
             virtual ~Sound();
 
             bool    LoadFromFile(const std::string &filename);
@@ -29,7 +28,7 @@ namespace SaltyEngine {
             void    SetVolume(float volume);
             float   GetVolume(void) const;
 
-            ::SaltyEngine::Sound::ISound    *Get() const;
+            ::SaltyEngine::Sound::ISound const *Get() const;
 
         private:
             sf::SoundBuffer m_buffer;
