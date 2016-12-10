@@ -28,6 +28,7 @@ namespace SaltyEngine {
             void    SetVolume(float);
             float   GetVolume(void) const;
 
+            ::SaltyEngine::Sound::ISound    *Get() const;
         };
     }
 }

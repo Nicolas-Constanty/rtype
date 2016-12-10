@@ -29,6 +29,8 @@ namespace SaltyEngine {
 
             virtual void    SetVolume(float) = 0;
             virtual float   GetVolume(void) const = 0;
+
+            virtual ISound  *Get() const = 0;
         };
     }
 }

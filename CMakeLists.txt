@@ -146,3 +146,6 @@ add_dependencies(prefabs player missile_medusa monster missile_laser)
 ### FULL BUILD ###
 add_custom_target(BuildGUI DEPENDS gui)
 add_dependencies(gui prefabs Parser)
+
+
+add_dependencies(client-test-move-netork SaltyEngine SFMLSaltyEngine Parser)

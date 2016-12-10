@@ -11,6 +11,11 @@ namespace SaltyEngine {
 
         }
 
+        Sound::Sound(sf::SoundBuffer &buffer) {
+            m_buffer = buffer;
+            setBuffer(m_buffer);
+        }
+
         bool Sound::LoadFromFile(const std::string &filename) {
             if (!m_buffer.loadFromFile(filename)) {
                 return false;
@@ -61,6 +66,10 @@ namespace SaltyEngine {
 
         float Sound::GetVolume() const {
             return getVolume();
+        }
+
+        ::SaltyEngine::Sound::ISound* Sound::Get() const {
+            return new Sound(m_buffer);
         }
     }
 }

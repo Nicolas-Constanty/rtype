@@ -58,5 +58,9 @@ namespace SaltyEngine {
         float Music::GetVolume() const {
             return getVolume();
         }
+
+        ::SaltyEngine::Sound::ISound* Music::Get() const {
+            return this;
+        }
     }
 }
