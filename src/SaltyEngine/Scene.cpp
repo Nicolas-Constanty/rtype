@@ -113,7 +113,8 @@ namespace SaltyEngine
 
 	void AScene::Update()
 	{
-		for (std::vector<GameObject*>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); ++obj)
+		std::vector<GameObject*> objects = m_objects;
+		for (std::vector<GameObject*>::const_iterator obj = objects.begin(); obj != objects.end(); ++obj)
 		{
 			const std::list<SaltyBehaviour *> &Sb = (*obj)->GetSaltyBehaviour();
 			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
@@ -130,7 +131,7 @@ namespace SaltyEngine
 
 	void AScene::FixedUpdate()
 	{
-		auto objects = m_objects;
+		std::vector<GameObject*> objects = m_objects;
 		for (std::vector<GameObject*>::const_iterator obj = objects.begin(); obj != objects.end(); ++obj)
 		{
 			const std::list<SaltyBehaviour *> &Sb = (*obj)->GetSaltyBehaviour();

@@ -13,8 +13,11 @@ public:
 	virtual ~MissileController();
 
 public:
-	void SetTarget(SaltyEngine::Vector v);
+	void Start();
 	void Update();
+
+public:
+	void SetTarget(SaltyEngine::Vector v);
 
 private:
 	SaltyEngine::Vector m_targetPos;

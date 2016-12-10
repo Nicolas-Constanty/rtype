@@ -8,14 +8,15 @@
 
 LaserController::LaserController(SaltyEngine::GameObject *go) : SaltyEngine::SaltyBehaviour(go)
 {
+}
+
+void LaserController::Start() {
     SaltyEngine::SFML::Texture *texture = SaltyEngine::SFML::AssetManager::Instance().GetTexture("Laser");
-    SaltyEngine::SFML::Rect *rect = new ::SaltyEngine::SFML::Rect(201, 154, 64, 14);
-    SaltyEngine::SFML::Sprite *spr = new ::SaltyEngine::SFML::Sprite(texture, rect);
+    SaltyEngine::SFML::Sprite *spr = new ::SaltyEngine::SFML::Sprite(texture, new ::SaltyEngine::SFML::Rect(201, 154, 64, 14));
     gameObject->AddComponent<SaltyEngine::SFML::SpriteRenderer>(spr, ::SaltyEngine::Layout::normal);
     SaltyEngine::Sound::ISound *fire = SaltyEngine::SFML::AssetManager::Instance().GetSound("fire");
     fire->Play();
 }
-
 
 LaserController::~LaserController()
 {

@@ -1,9 +1,19 @@
+#include <Prefabs/Missile/MissileController.hpp>
 #include "Prefabs/Monster/MonsterController.hpp"
 #include "SaltyEngine/SFML/AssetManager.hpp"
 #include "SaltyEngine/SFML/SpriteRenderer.hpp"
 #include "SaltyEngine/Animation.hpp"
 
 MonsterController::MonsterController(SaltyEngine::GameObject *obj) : SaltyEngine::SaltyBehaviour(obj)
+{
+}
+
+
+MonsterController::~MonsterController()
+{
+}
+
+void MonsterController::Start()
 {
 	m_currDelay = m_minShootInterval + rand() % (int)(m_maxShootInterval - m_minShootInterval);
 	SaltyEngine::SFML::Texture *texture = SaltyEngine::SFML::AssetManager::Instance().GetTexture("monster");
@@ -24,15 +34,6 @@ MonsterController::MonsterController(SaltyEngine::GameObject *obj) : SaltyEngine
 	}
 }
 
-
-MonsterController::~MonsterController()
-{
-}
-
-void MonsterController::Start()
-{
-}
-
 void MonsterController::Update()
 {
 	m_currDelay -= SaltyEngine::SaltyEngine::Instance().GetDeltaTime();
@@ -43,14 +44,11 @@ void MonsterController::Update()
         std::cout << "SHOOT ! " << std::endl;
         SaltyEngine::GameObject *missile = (SaltyEngine::GameObject*)SaltyEngine::Instantiate("MissileMedusa", this->gameObject->transform.position);
         if (missile) {
-            SaltyEngine::Sound::ISound *fire = SaltyEngine::SFML::AssetManager::Instance().GetSound("fire");
-            fire->Play();
-//            MissileController *missileController = missile->GetComponent<MissileController>();
-//            if (missileController != nullptr) {
-//
-//                // TODO : target player
-//                missileController->SetTarget(SaltyEngine::Vector(this->gameObject->transform.position.x * -100, this->gameObject->transform.position.y));
-//            }
+            MissileController *missileController = missile->GetComponent<MissileController>();
+            if (missileController != nullptr) {
+                // TODO : target player
+                missileController->SetTarget(SaltyEngine::Vector(this->gameObject->transform.position.x * -100, this->gameObject->transform.position.y));
+            }
             *Singleton<::SaltyEngine::SaltyEngine>::Instance().GetCurrentScene() << missile;
         }
 	}

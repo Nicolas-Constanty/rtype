@@ -19,18 +19,6 @@ namespace SaltyEngine
 		::SaltyEngine::SFML::Texture *texture = ::SaltyEngine::SFML::AssetManager::Instance().GetTexture("SpaceShips");
 		gameObject->AddComponent<::SaltyEngine::SFML::SpriteRenderer>(new ::SaltyEngine::SFML::Sprite(texture, new ::SaltyEngine::SFML::Rect(34, 0, 33, 17)), ::SaltyEngine::Layout::normal);
 
-//    AddComponent < SaltyEngine::Animation<sf::Vector2i>>(true, SaltyEngine::AnimationConstants::WrapMode::LOOP);
-//    SaltyEngine::AnimationClip<sf::Vector2i> *clip = new SaltyEngine::AnimationClip<sf::Vector2i>();
-//    clip->AddSprite(new SaltyEngine::SFML::Sprite(texture, new ::SaltyEngine::SFML::Rect(0, 0, 33, 17)));
-//    clip->AddSprite(new SaltyEngine::SFML::Sprite(texture, new ::SaltyEngine::SFML::Rect(17, 0, 33, 17)));
-//    clip->AddSprite(new SaltyEngine::SFML::Sprite(texture, new ::SaltyEngine::SFML::Rect(34, 0, 33, 17)));
-//    clip->AddSprite(new SaltyEngine::SFML::Sprite(texture, new ::SaltyEngine::SFML::Rect(51, 0, 33, 17)));
-//    clip->AddSprite(new SaltyEngine::SFML::Sprite(texture, new ::SaltyEngine::SFML::Rect(68, 0, 33, 17)));
-//    clip->SetFrameRate(5);
-//    GetComponent<SaltyEngine::Animation<sf::Vector2i> >()->AddClip(clip, "Walk");
-
-		std::cout << "Je suis le Start, je ne suis appelé qu'une fois" << std::endl;
-		//StartCoroutine(&PlayerController::DisplayCoroutine);
 		InputKey::AddAxis("Horizontal", new Input::Axis(
 				{
 						{Input::KeyCode::Left, -1},

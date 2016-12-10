@@ -13,6 +13,7 @@ public:
     virtual ~LaserController();
 
 public:
+    void Start();
     void Update();
     void OnCollisionEnter(SaltyEngine::ICollider *);
 
