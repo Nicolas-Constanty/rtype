@@ -76,9 +76,9 @@ namespace SaltyEngine {
         std::string                             path_sounds;
         std::string                             path_sprites;
 
-        std::map<std::string, Sound*>           m_sounds;
+        std::map<std::string, std::unique_ptr<Sound>>   m_sounds;
         std::map<std::string, std::unique_ptr<Texture>> m_textures;
-        std::map<std::string, SpriteDefault>    m_sprites;
+        std::map<std::string, SpriteDefault>            m_sprites;
 
 
     public:
@@ -109,15 +109,19 @@ namespace SaltyEngine {
         /// \brief Return Sound template parameter pointer
         /// \param name
         /// \return Sound*
-        Sound   *GetSound(std::string const &name) {
-            typename std::map<std::string, Sound*>::const_iterator it = m_sounds.find(name);
+        virtual Sound *GetSound(std::string const &name) {
+            typename std::map<std::string, std::unique_ptr<Sound>>::const_iterator it = m_sounds.find(name);
             if (it == m_sounds.end()) {
                 if (!LoadSound(name)) {
                     Debug::PrintError("Cannot find sound " + name);
                     return nullptr;
                 }
+                it = m_sounds.find(name);
+                if (it == m_sounds.end()) {
+                    return nullptr;
+                }
             }
-            return it->second;
+            return it->second.get();
         }
 
     public:
@@ -132,7 +136,6 @@ namespace SaltyEngine {
         /// \param name
         /// \return Texture*
         Texture *GetTexture(std::string const &name) {
-            std::cout << "AssetManager : " << this << std::endl;
             typename std::map<std::string, std::unique_ptr<Texture>>::const_iterator it = m_textures.find(name);
             if (it == m_textures.end()) {
                 if (!LoadTexture(name)) {

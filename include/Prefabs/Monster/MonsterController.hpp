@@ -1,7 +1,7 @@
 #pragma once
 #include "SaltyEngine/SaltyBehaviour.hpp"
 #include "SaltyEngine/GameObject.hpp"
-#include "CommonPrefab/GenericController.hpp"
+#include "Prefabs/GenericController.hpp"
 
 class MonsterController : public SaltyEngine::SaltyBehaviour, public AGenericController
 {
@@ -27,6 +27,6 @@ private:
 	float m_maxShootInterval = 9;
 	float m_currDelay = 0;
 	bool m_isDead = false;
-	float m_vel = 100;
+	float m_vel = 10;
 };
 

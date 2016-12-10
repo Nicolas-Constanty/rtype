@@ -3,6 +3,10 @@
         "{{sprite}}",
         "{{sprite2}}"
     ],
+    "sounds": [
+        "{{sound1}}",
+        "{{sound2}}"
+    ],
     "lib": "{{monster{.dll, .so}}}",
     "dependencies": [
         "{{prefabName}}"

@@ -63,7 +63,7 @@ namespace SaltyEngine {
             return getVolume();
         }
 
-        ::SaltyEngine::Sound::ISound const *Sound::Get() const {
+        ::SaltyEngine::Sound::ISound *Sound::Get() {
             Sound   *sound = new Sound();
             sound->setBuffer(m_buffer);
             return sound;

@@ -59,7 +59,7 @@ namespace SaltyEngine {
             return getVolume();
         }
 
-        ::SaltyEngine::Sound::ISound const * Music::Get() const {
+        ::SaltyEngine::Sound::ISound *Music::Get() {
             return this;
         }
     }

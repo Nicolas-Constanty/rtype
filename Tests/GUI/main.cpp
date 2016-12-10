@@ -1,13 +1,7 @@
-#include <SFML/Graphics.hpp>
-#include "SaltyEngine/SaltyEngine.hpp"
 #include "SaltyEngine/SFML/Renderer.hpp"
-#include "SaltyEngine/SFML/Button.hpp"
-#include "SaltyEngine/Input.hpp"
-#include "Player/PlayerController.hpp"
 #include "SaltyEngine/SFML/EventManager.hpp"
-#include "SaltyEngine/Animation.hpp"
-#include "SaltyEngine/SFML/Scene.hpp"
 #include "SaltyEngine/SFML/AssetManager.hpp"
+#include "SaltyEngine/SFML/Scene.hpp"
 
 int main()
 {
@@ -28,7 +22,7 @@ int main()
 	std::list<std::pair<std::string, SaltyEngine::Vector2f>>	assets = SaltyEngine::SFML::AssetManager::Instance().LoadScene("scene1");
 
 	for (std::list<std::pair<std::string, SaltyEngine::Vector2f>>::const_iterator it = assets.begin(); it != assets.end(); ++it) {
-		std::cout << "Instantiate " << it->first << std::endl;
+		SaltyEngine::Debug::PrintInfo("Instantiate " + it->first);
 		*scene << (SaltyEngine::GameObject*)SaltyEngine::Object::Instantiate(it->first, it->second);
 	}
 

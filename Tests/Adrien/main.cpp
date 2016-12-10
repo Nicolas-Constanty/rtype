@@ -8,7 +8,7 @@
 #include "Player/PlayerController.hpp"
 #include "SaltyEngine/SFML/EventManager.hpp"
 #include "SaltyEngine/Animation.hpp"
-#include "Monster/MonsterController.hpp"
+#include "Prefabs/Monster/MonsterController.hpp"
 #include "SaltyEngine/SFML/Scene.hpp"
 
 #include "SaltyEngine/SFML/AssetManager.hpp"

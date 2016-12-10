@@ -22,7 +22,6 @@ namespace SaltyEngine {
     }
 
     Object  *Factory::Create(std::string const &name, Vector const& pos, float rot) {
-        std::cout << "Factory : " << this << std::endl;
 		if (m_prefabs.find(name) == m_prefabs.end()) {
             Debug::PrintWarning("Cannot find prefab [" + name + "]");
 			return nullptr;
@@ -44,7 +43,11 @@ namespace SaltyEngine {
 
         if (loader.Load(path) == nullptr)
         {
-            Debug::PrintError("Factory: failed to load asset at path [" + path + "]. Error was: ");
+            std::string error;
+#ifndef _WIN32
+            error = dlerror();
+#endif
+            Debug::PrintError("Factory: failed to load asset at path [" + path + "]. Error was: " + error);
 			perror("");
             return false;
         }

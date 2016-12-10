@@ -16,6 +16,11 @@ namespace SaltyEngine {
 		void FixedUpdate();
 		void DisplayCoroutine();
 		double speed;
+
+	public:
+		virtual Component *CloneComponent(GameObject* const obj) {
+			return new PlayerController(obj);
+		}
 	};
 }
 

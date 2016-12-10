@@ -5,7 +5,7 @@
 
 #include "SaltyBehaviour.hpp"
 #include "PlayerController.hpp"
-#include "Monster/MonsterController.hpp"
+#include "Prefabs/Monster/MonsterController.hpp"
 
 namespace SaltyEngine
 {

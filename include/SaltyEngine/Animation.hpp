@@ -148,7 +148,8 @@ namespace SaltyEngine
 				SaltyBehaviour(obj),
 				m_playAuto(playAuto),
 				m_wrapMode(mode)
-		{}
+		{
+		}
 		virtual ~Animation()
 		{
             if (animData != nullptr)
@@ -297,9 +298,13 @@ namespace SaltyEngine
 			UpdateAnimations();
 		}
 
-	public:
-		virtual Component *CloneComponent(GameObject* const obj) {
-			return new Animation<T>(obj, m_playAuto, m_wrapMode);
-		}
+//	public:
+//		virtual Component *CloneComponent(GameObject* const obj) {
+//			Animation<T> *anim = new Animation<T>(obj, m_playAuto, m_wrapMode);
+//			for (typename std::map<std::string, AnimationClip<T> *>::const_iterator it = m_clips.begin(); it != m_clips.end(); ++it) {
+//				anim->AddClip(it->second, it->first);
+//			}
+//			return anim;
+//		}
 	};
 }

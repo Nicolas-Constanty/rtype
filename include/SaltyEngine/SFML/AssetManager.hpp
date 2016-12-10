@@ -24,6 +24,7 @@ namespace SaltyEngine {
             bool LoadISound(std::string const &name, bool isMusic);
             bool LoadTexture(std::string const &name);
             ::SaltyEngine::SFML::Sprite *GetSprite(std::string const &name);
+            virtual ::SaltyEngine::Sound::ISound *GetSound(std::string const &name);
         };
     }
 }

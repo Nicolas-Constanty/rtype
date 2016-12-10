@@ -25,7 +25,7 @@ extern "C"
 		virtual ~Player();
 	};
 
-	//extern MONSTER_API int nMonster;
+	//extern PLAYER_API int nPlayer;
 
 	PLAYER_API SaltyEngine::Object const *GetObjectPrefab();
 }

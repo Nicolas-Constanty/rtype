@@ -19,7 +19,7 @@ namespace SaltyEngine {
         }
 
         bool AssetManager::LoadISound(std::string const &name, bool isMusic) {
-            if (m_sounds.find(name) == m_sounds.end()) {
+            if (m_sounds.find(name) != m_sounds.end()) {
                 Debug::PrintWarning("Sound " + name + " already loaded");
                 return false;
             }
@@ -33,7 +33,7 @@ namespace SaltyEngine {
                 return false;
             }
             Debug::PrintSuccess("Sound " + name + " was successfuly loaded");
-            m_sounds[name] = sound;
+            m_sounds[name] = std::unique_ptr<::SaltyEngine::Sound::ISound>(sound);
             return true;
         }
 
@@ -71,6 +71,14 @@ namespace SaltyEngine {
             ::SaltyEngine::Vector2i position = it->second.position;
             ::SaltyEngine::Vector2i size = it->second.size;
             return new ::SaltyEngine::SFML::Sprite(texture, new ::SaltyEngine::SFML::Rect(position.x, position.y, size.x, size.y));
+        }
+
+        ::SaltyEngine::Sound::ISound *AssetManager::GetSound(std::string const &name) {
+            ::SaltyEngine::Sound::ISound *sound = AAssetManager<::SaltyEngine::SFML::Texture, ::SaltyEngine::SFML::Sprite>::GetSound(name);
+            if (sound) {
+                return sound->Get();
+            }
+            return nullptr;
         }
     }
 }

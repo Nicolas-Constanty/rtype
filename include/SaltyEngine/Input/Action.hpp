@@ -46,6 +46,18 @@ namespace SaltyEngine {
             bool    Released() const {
                 return Input::IsKeyUp(m_key);
             }
+
+            template <class Input>
+            bool    Once() const {
+                bool ret = false;
+                if (m_key != KeyCode::Unknown) {
+                    ret = Input::IsKey(m_key);
+                }
+                if (m_joystick.second != -1 && Input::IsJoystickConnected(m_joystick.first) && Input::GetButtons(m_joystick.first) > (unsigned int)m_joystick.second) {
+                    ret = Input::IsButtonPressed(m_joystick.first, m_joystick.second);
+                }
+                return ret;
+            }
         };
     }
 }

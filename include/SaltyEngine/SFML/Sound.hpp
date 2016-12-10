@@ -28,7 +28,7 @@ namespace SaltyEngine {
             void    SetVolume(float volume);
             float   GetVolume(void) const;
 
-            ::SaltyEngine::Sound::ISound const *Get() const;
+            ::SaltyEngine::Sound::ISound *Get();
 
         private:
             sf::SoundBuffer m_buffer;

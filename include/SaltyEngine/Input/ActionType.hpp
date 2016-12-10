@@ -10,6 +10,7 @@ namespace SaltyEngine {
         enum ActionType {
             Pressed,
             Released,
+            Once,
             None
         };
     }
