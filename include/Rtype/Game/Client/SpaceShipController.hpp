@@ -18,7 +18,7 @@ namespace SaltyEngine {
 
 		//Actions
 	public:
-		void Move(int x, int y);
+		void Move(int x, int y) const;
 
 	private:
 		double speed;

@@ -132,7 +132,7 @@ namespace SaltyEngine {
         /// \param name
         /// \return Texture*
         Texture *GetTexture(std::string const &name) {
-            std::cout << "AssetManager : " << this << std::endl;
+            //std::cout << "AssetManager : " << this << std::endl;
             typename std::map<std::string, std::unique_ptr<Texture>>::const_iterator it = m_textures.find(name);
             if (it == m_textures.end()) {
                 if (!LoadTexture(name)) {
@@ -317,8 +317,8 @@ namespace SaltyEngine {
         /// \param
         /// \return
         void    LoadPrefabs() {
+			for (std::string filename : getFilesInDir(path_metas)) {
                 unsigned long dotPos = static_cast<unsigned long>(filename.find_last_of("."));
-            for (std::string filename: getFilesInDir(path_metas)) {
                 if (dotPos == filename.npos) {
                     continue;
                 }

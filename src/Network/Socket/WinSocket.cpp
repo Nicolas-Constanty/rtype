@@ -100,7 +100,10 @@ void Network::Socket::WinSocket::Open() throw(SocketException)
 
     fd = socket(domain, protocol.type, protocol.proto);
     if (fd == INVALID_SOCKET)
-        throw Network::Socket::SocketException(std::to_string(WSAGetLastError()));
+    {
+		std::cout << std::to_string(WSAGetLastError()) << std::endl;
+		throw Network::Socket::SocketException(std::to_string(WSAGetLastError()));
+    }
 }
 
 void Network::Socket::WinSocket::Close()

@@ -6,6 +6,10 @@
 
 int main(int ac, char **)
 {
+
+#if _WIN32
+	Network::Socket::WinSocket::Start();
+#endif
 	SaltyEngine::SFML::AssetManager::Instance().LoadAssets();
 
 	SaltyEngine::SFML::Renderer *renderer = new SaltyEngine::SFML::Renderer(sf::VideoMode(1280, 720), "R-Type Launcher");
@@ -51,5 +55,8 @@ int main(int ac, char **)
 
 	SaltyEngine::SaltyEngine::Instance().Run();
 
+#if _WIN32
+	Network::Socket::WinSocket::Stop();
+#endif
 	return (0);
 }

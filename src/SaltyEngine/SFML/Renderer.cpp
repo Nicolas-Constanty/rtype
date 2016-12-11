@@ -71,7 +71,6 @@ namespace SaltyEngine
 			sf::RenderWindow *w = dynamic_cast<sf::RenderWindow *>(sprr->GetWindow());
 			if (w == nullptr)
 				w = m_window.get();
-			std::cout << r << "   " << s << "   " << w << std::endl;
 			if (r && s && w)
 				m_spriteRenderers.at(sprr->GetLayer()).push_back(Drawable(s, r, w, sprr->gameObject));
 		}
