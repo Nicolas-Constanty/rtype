@@ -32,6 +32,12 @@ bool Rtype::Game::Client::RtypeClientGameClient::OnStart()
     SendPackage<AUTHENTICATEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<AUTHENTICATEPackageGame>, 42);
 //    SendReliable(*factory.create<AUTHENTICATEPackageGame>(42));
     connected = true;
+
+    SaltyEngine::GameObject *gameman = SaltyEngine::SaltyEngine::Instance().GetCurrentScene()->FindByName("GameManager");
+
+    if (gameman)
+        gameManager = gameman->GetComponent<GameManager>();
+
     return true;
 }
 
@@ -60,7 +66,27 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetAUTHENTICATEPackage(AUTHEN
 
 void Rtype::Game::Client::RtypeClientGameClient::onGetCREATEPackage(CREATEPackageGame const &pack)
 {
+    std::cout << pack << std::endl;
     OnDiscoveringPackage(pack);
+
+    //TODO URGENT
+    // FACTORY CORRESPONDANCE AVEC L'ID PLEASE
+    if (pack.ID == 0)  { // Ajout du player qu'on va jouer
+        SaltyEngine::GameObject	*player;
+        player = dynamic_cast<SaltyEngine::GameObject*>(SaltyEngine::Object::Instantiate());
+        player->AddComponent<SaltyEngine::SpaceShipController>();
+        *SaltyEngine::SaltyEngine::Instance().GetCurrentScene() << player;
+
+        gameManager->gameObjectContainer.Add(pack.objectID, player);
+    }
+    if (pack.ID == 1)  { // Ajout du player qu'on va jouer
+        SaltyEngine::GameObject	*player;
+        player = dynamic_cast<SaltyEngine::GameObject*>(SaltyEngine::Object::Instantiate());
+        player->AddComponent<SaltyEngine::SpaceShipController>(false);
+        *SaltyEngine::SaltyEngine::Instance().GetCurrentScene() << player;
+
+        gameManager->gameObjectContainer.Add(pack.objectID, player);
+    }
 }
 
 void Rtype::Game::Client::RtypeClientGameClient::onGetBEAMPackage(BEAMPackageGame const &pack)
@@ -95,16 +121,25 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetDROPPackage(DROPPackageGam
 
 void Rtype::Game::Client::RtypeClientGameClient::onGetMOVEPackage(MOVEPackageGame const &pack)
 {
+    std::cout << pack << std::endl;
     OnDiscoveringPackage(pack);
-    SaltyEngine::GameObject *obj = SaltyEngine::SaltyEngine::Instance().GetCurrentScene()->FindById(static_cast<size_t>(pack.objectID));
-    if (obj)
-    {
+    SaltyEngine::GameObject *obj = gameManager->gameObjectContainer[pack.objectID];
+    if (obj) {
         SaltyEngine::SpaceShipController *ship = obj->GetComponent<SaltyEngine::SpaceShipController>();
         if (ship)
         {
             ship->Move(pack.posX, pack.posY);
         }
     }
+ //   SaltyEngine::GameObject *obj = SaltyEngine::SaltyEngine::Instance().GetCurrentScene()->FindById(static_cast<size_t>(pack.objectID));
+ //   if (obj)
+ //   {
+ //       SaltyEngine::SpaceShipController *ship = obj->GetComponent<SaltyEngine::SpaceShipController>();
+    //       if (ship)
+    //       {
+    //           ship->Move(pack.posX, pack.posY);
+    //       }
+ //   }
 }
 
 void Rtype::Game::Client::RtypeClientGameClient::onGetLAUNCHPackage(LAUNCHPackageGame const &pack)

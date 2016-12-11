@@ -67,8 +67,7 @@ void SaltyEngine::SpaceShipController::FixedUpdate()
                         &Network::Core::BasicConnection::SendData<MOVEPackageGame>,
                         gameObject->transform.position.x,
                         gameObject->transform.position.y,
-                        static_cast<unsigned short>(gameObject->GetInstanceID())
-                );
+                        manager->gameObjectContainer.GetServerObjectID(gameObject));
 //                manager->SendInput("Horizontal", h);
 //                manager->SendInput("Vertical", v);
             }

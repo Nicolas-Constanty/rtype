@@ -11,7 +11,8 @@ Rtype::Game::Server::RtypeGameServer::RtypeGameServer(Network::Core::NativeSocke
         factory(),
         maxSize(maxSize),
         secret(0),
-        secure(false)
+        secure(false),
+        gameObjectContainer()
 {
 
 }
@@ -93,3 +94,11 @@ bool Rtype::Game::Server::RtypeGameServer::OnStart()
     std::cout << "\x1b[32mServer started\x1b[0m: maximum number of players => " << maxSize << ", secure => " << std::boolalpha << secure << std::endl;
     return true;
 }
+
+size_t Rtype::Game::Server::RtypeGameServer::GetMaxSize() const {
+    return (this->maxSize);
+}
+
+//GameObjectContainer &Rtype::Game::Server::RtypeGameServer::GameObjectContainer() {
+//    return gameObjectContainer;
+//}
