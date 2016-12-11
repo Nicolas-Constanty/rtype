@@ -45,8 +45,7 @@ void MonsterController::Update()
         if (missile) {
             MissileController *missileController = missile->GetComponent<MissileController>();
             if (missileController != nullptr) {
-                // TODO : target player
-                missileController->SetTarget(SaltyEngine::Vector(this->gameObject->transform.position.x * -100, this->gameObject->transform.position.y));
+                missileController->SetTarget(SaltyEngine::GameObject::FindGameObjectWithTag("Player"));
             }
             *Singleton<::SaltyEngine::SaltyEngine>::Instance().GetCurrentScene() << missile;
         }

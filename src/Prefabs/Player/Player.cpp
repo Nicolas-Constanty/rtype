@@ -4,7 +4,7 @@
 #include "SaltyEngine/SFML/AssetManager.hpp"
 #include "SaltyEngine/SFML/SpriteRenderer.hpp"
 
-Player::Player() : GameObject("Player")
+Player::Player() : GameObject("Player", "Player")
 {
     AddComponent<SaltyEngine::PlayerController>();
 }

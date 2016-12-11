@@ -76,5 +76,19 @@ SaltyEngine::GameObject *SaltyEngine::Factory::Find(std::string const &name)
                                                                    {
                                                                        return obj.get()->GetName() == name;
                                                                    });
-    return (GameObject*)(*it).get();
+    return dynamic_cast<GameObject*>((*it).get());
+}
+
+SaltyEngine::GameObject *SaltyEngine::Factory::FindByTag(std::string const &tag)
+{
+    std::list<std::unique_ptr<Object>>::iterator it = std::find_if(m_objects.begin(), m_objects.end(),
+                                                                   [&](const std::unique_ptr<Object> &obj)
+                                                                   {
+                                                                       GameObject *go = dynamic_cast<GameObject*>(obj.get());
+                                                                       std::cout << "Obj Tag = " << go->GetTag() << std::endl;
+                                                                       if (go != nullptr)
+                                                                           return go->GetTag() == tag;
+                                                                       return false;
+                                                                   });
+    return dynamic_cast<GameObject*>((*it).get());
 }

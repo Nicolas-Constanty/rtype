@@ -17,7 +17,7 @@ public:
 	void Update();
 
 public:
-	void SetTarget(SaltyEngine::Vector v);
+	void SetTarget(SaltyEngine::GameObject const* target);
 
 private:
 	SaltyEngine::Vector m_targetPos;

@@ -57,8 +57,15 @@ namespace SaltyEngine
          */
 		GameObject* Find(std::string const& name);
 
+        /**
+         * @brief Find game objects with a certain tag
+         * @param tag
+         * @return
+         */
+		GameObject* FindByTag(std::string const& tag);
+
 		/**
-         * \brief Loads an asset into the memory from a path
+         * @brief Loads an asset into the memory from a path
          */
 		bool LoadAsset(std::string const& path);
 	};

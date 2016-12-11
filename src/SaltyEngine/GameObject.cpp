@@ -2,7 +2,7 @@
 
 namespace SaltyEngine
 {
-	GameObject::GameObject(const std::string & name) : Object(name), transform(this), m_activeSelf(true), layer(0), scene(nullptr)
+	GameObject::GameObject(const std::string & name, const std::string& tag) : Object(name), transform(this), m_activeSelf(true), layer(0), scene(nullptr), m_tag(tag)
 	{
 		m_bcount = 0;
 	}
@@ -19,5 +19,10 @@ namespace SaltyEngine
 	void GameObject::SetActive(bool value)
 	{
 		m_activeSelf = value;
+	}
+
+	const string &GameObject::GetTag(void) const
+	{
+		return m_tag;
 	}
 }
