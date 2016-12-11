@@ -21,7 +21,7 @@ namespace SaltyEngine
 		GameObject(GameObject&&) = delete;                  // Move construct
 		GameObject& operator=(GameObject const&) = delete;  // Copy assign
 		GameObject& operator=(GameObject &&) = delete;      // Move assign
-		explicit GameObject(const std::string &name);
+		explicit GameObject(const std::string &name, const std::string &tag = "Untagged");
 		virtual ~GameObject() {};
 	public:
 		Transform transform;
@@ -170,6 +170,9 @@ namespace SaltyEngine
 		{
 			return (transform.GetParent()->gameObject->GetComponents<T>());
 		}
+
+        std::string const& GetTag(void) const;
+
 		void SetActive(bool value);
 		friend std::ostream &operator<<(std::ostream &os, GameObject const &object) {
 			os << object.GetName() << "(" << object.GetInstanceID() << ")" << std::endl;
@@ -180,6 +183,11 @@ namespace SaltyEngine
         {
             return Factory::Instance().Find(name);
         }
+
+		static GameObject *FindGameObjectWithTag(std::string const& tag)
+		{
+            return Factory::Instance().FindByTag(tag);
+		}
 
 		public:
 			virtual std::unique_ptr<Object> Clone() {

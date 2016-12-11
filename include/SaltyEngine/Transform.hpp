@@ -57,6 +57,10 @@ namespace SaltyEngine
 		{
 			throw std::runtime_error("Rotate not implemented!");
 		}
+        void Rotate(float angle)
+        {
+            rotation += angle;
+        }
 		void RotateAround(const T & point, const T & axis, float angle)
 		{
 			throw std::runtime_error("RotateAround not implemented!");
@@ -64,13 +68,13 @@ namespace SaltyEngine
 
         T up() const
         {
-            float rot = (rotation + 90.f) * 180.f / M_PI;
+            float rot = (rotation + 90.f) * M_PI / 180.f;
             return T(cos(rot), sin(rot));
         }
 
         T right() const
         {
-            float rot = rotation * 180.f / M_PI;
+            float rot = rotation * M_PI / 180.f;
             return T(cos(rot), sin(rot));
         }
 

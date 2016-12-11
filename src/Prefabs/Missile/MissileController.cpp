@@ -40,11 +40,13 @@ void MissileController::Start() {
 
 void MissileController::Update()
 {
-    gameObject->transform.Translate(-gameObject->transform.right() * m_vel * SaltyEngine::SaltyEngine::Instance().GetFixedDeltaTime());
+    gameObject->transform.Translate(gameObject->transform.right() * m_vel * SaltyEngine::SaltyEngine::Instance().GetFixedDeltaTime());
 }
 
 void MissileController::SetTarget(SaltyEngine::GameObject const* target)
 {
     if (target != nullptr)
-        m_targetPos = target->transform.position;
+    {
+        gameObject->transform.rotation = SaltyEngine::Vector::Angle(gameObject->transform.position, target->transform.position);
+    }
 }

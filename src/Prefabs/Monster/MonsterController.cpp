@@ -50,7 +50,7 @@ void MonsterController::Update()
             *Singleton<::SaltyEngine::SaltyEngine>::Instance().GetCurrentScene() << missile;
         }
 	}
-	this->gameObject->transform.Translate(SaltyEngine::Vector(-1, 0) * SaltyEngine::SaltyEngine::Instance().GetDeltaTime() * m_vel);
+	this->gameObject->transform.Translate(-gameObject->transform.right() * SaltyEngine::SaltyEngine::Instance().GetDeltaTime() * m_vel);
 }
 
 void MonsterController::Die() const

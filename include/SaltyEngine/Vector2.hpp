@@ -65,6 +65,19 @@ namespace SaltyEngine
 		}
 
         /**
+         * @brief Return the angle between two point in a 2D space
+         * @param from : the reference point
+         * @param to : the point we refer to
+         * @return the angle in degrees
+         */
+        static float Angle(BaseVector2<T> from, BaseVector2<T> to)
+        {
+            float delta_x = to.x - from.x;
+            float delta_y = to.y - from.y;
+            return atan2f(delta_y, delta_x) * 180.f / M_PI;
+        }
+
+        /**
          * @brief Return an angle from two vectors
          * @param current
          * @param target

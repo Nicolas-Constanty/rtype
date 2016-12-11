@@ -85,7 +85,6 @@ SaltyEngine::GameObject *SaltyEngine::Factory::FindByTag(std::string const &tag)
                                                                    [&](const std::unique_ptr<Object> &obj)
                                                                    {
                                                                        GameObject *go = dynamic_cast<GameObject*>(obj.get());
-                                                                       std::cout << "Obj Tag = " << go->GetTag() << std::endl;
                                                                        if (go != nullptr)
                                                                            return go->GetTag() == tag;
                                                                        return false;

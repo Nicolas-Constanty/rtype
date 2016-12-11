@@ -20,7 +20,6 @@ public:
 	void SetTarget(SaltyEngine::GameObject const* target);
 
 private:
-	SaltyEngine::Vector m_targetPos;
     float m_vel = 10;
 
 public:
