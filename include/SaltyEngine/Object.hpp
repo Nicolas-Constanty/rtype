@@ -40,7 +40,7 @@ namespace SaltyEngine
 		std::string m_name;
 
 	public:
-		static void Destroy(Object* original);
+		static void Destroy(Object const* original);
 		static Object *Instantiate(std::string const& obj, Vector pos = Vector::zero(), float rot = 0)
 		{
 			return Factory::Instance().Create(obj, pos, rot);

@@ -6,6 +6,8 @@
 
 MonsterController::MonsterController(SaltyEngine::GameObject *obj) : SaltyEngine::SaltyBehaviour(obj)
 {
+    gameObject->AddComponent<SaltyEngine::SFML::BoxCollider2D>();
+    m_health = 1;
 }
 
 
@@ -55,8 +57,8 @@ void MonsterController::Update()
 
 void MonsterController::Die() const
 {
-    SaltyEngine::Object::Destroy(this->gameObject);
     SaltyEngine::Instantiate("ExplosionMonster", this->gameObject->transform.position);
+	SaltyEngine::Object::Destroy(this->gameObject);
 }
 
 void MonsterController::TakeDamage(int amount)
@@ -68,4 +70,16 @@ void MonsterController::TakeDamage(int amount)
 		Die();
 		m_isDead = true;
 	}
+}
+
+void MonsterController::OnCollisionEnter(SaltyEngine::ICollider *col)
+{
+    if (col != nullptr)
+    {
+        SaltyEngine::SFML::BoxCollider2D *c = dynamic_cast<SaltyEngine::SFML::BoxCollider2D*>(col);
+        if (c->gameObject->GetTag() == "BulletPlayer")
+        {
+            TakeDamage(1);
+        }
+    }
 }

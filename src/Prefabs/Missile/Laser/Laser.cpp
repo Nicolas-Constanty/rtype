@@ -1,7 +1,7 @@
 #include "Prefabs/Missile/Laser/Laser.hpp"
 #include "Prefabs/Missile/Laser/LaserController.hpp"
 
-Laser::Laser() : GameObject("Laser") {
+Laser::Laser() : GameObject("Laser", "BulletPlayer") {
 	AddComponent<LaserController>();
 }
 

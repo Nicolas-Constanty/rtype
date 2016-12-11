@@ -8,6 +8,7 @@
 
 LaserController::LaserController(SaltyEngine::GameObject *go) : SaltyEngine::SaltyBehaviour(go)
 {
+    gameObject->AddComponent<SaltyEngine::SFML::BoxCollider2D>();
 }
 
 void LaserController::Start() {
@@ -24,7 +25,7 @@ LaserController::~LaserController()
 
 void LaserController::Update()
 {
-    gameObject->transform.Translate(SaltyEngine::Vector(1, 0) * m_vel * SaltyEngine::SaltyEngine::Instance().GetFixedDeltaTime());
+    gameObject->transform.Translate(gameObject->transform.right() * m_vel * SaltyEngine::SaltyEngine::Instance().GetFixedDeltaTime());
 }
 
 void LaserController::OnCollisionEnter(SaltyEngine::ICollider *)

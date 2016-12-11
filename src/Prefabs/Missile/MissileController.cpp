@@ -48,6 +48,5 @@ void MissileController::SetTarget(SaltyEngine::GameObject const* target)
     if (target != nullptr)
     {
         gameObject->transform.LookAt(target->transform);
-//        gameObject->transform.rotation = SaltyEngine::Vector::Angle(gameObject->transform.position, target->transform.position);
     }
 }

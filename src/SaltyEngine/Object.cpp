@@ -45,7 +45,7 @@ namespace SaltyEngine
 	 * @param [in,out]	original	If non-null, the original to destroy.
 	 */
 
-	void Object::Destroy(Object * original)
+	void Object::Destroy(Object const* original)
 	{
 		delete original;
 	}
