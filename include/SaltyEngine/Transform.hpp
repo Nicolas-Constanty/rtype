@@ -78,6 +78,11 @@ namespace SaltyEngine
             return T(cos(rot), sin(rot));
         }
 
+        void LookAt(BaseTransform<T> const& target)
+        {
+            rotation = Vector::Angle(position, target.position);
+        }
+
 		void SetParent(BaseTransform<T> * parent)
 		{
 			m_parent = parent;
