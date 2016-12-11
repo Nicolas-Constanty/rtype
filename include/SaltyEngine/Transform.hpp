@@ -64,11 +64,14 @@ namespace SaltyEngine
 
         T up() const
         {
-            T vec = T(1, 0);
-            float x = vec.x * cos(rotation) - vec.y * sin(rotation);
-            float y = vec.x * cos(rotation) + vec.y * sin(rotation);
-            vec.x = x; vec.y = y;
-            return vec.normalize();
+            float rot = (rotation + 90.f) * 180.f / M_PI;
+            return T(cos(rot), sin(rot));
+        }
+
+        T right() const
+        {
+            float rot = rotation * 180.f / M_PI;
+            return T(cos(rot), sin(rot));
         }
 
 		void SetParent(BaseTransform<T> * parent)
