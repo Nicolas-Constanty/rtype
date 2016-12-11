@@ -8,6 +8,7 @@
 #include <Network/UDP/AUDPClient.hpp>
 #include <Network/UDP/ReceptionStatus.hpp>
 #include <Rtype/Game/Common/RtypeGameClient.hpp>
+#include <Rtype/Game/Common/GameObjectContainer.hpp>
 
 namespace Rtype
 {
@@ -45,6 +46,9 @@ namespace Rtype
                 virtual void onGetREBORNPackage(REBORNPackageGame const &);
                 virtual void onGetFAILUREPackage(FAILUREPackageGame const &);
                 virtual void onGetINPUTPackage(INPUTPackageGame const &);
+
+            public:
+                void StartDisplayInformation();
 
                 //todo implémenter dès que la classe de script saltybehaviour est codée
                 //public:

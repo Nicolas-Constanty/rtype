@@ -5,6 +5,7 @@
 #include "Network/Core/NativeSocketIOOperationDispatcher.hpp"
 #include "Rtype/Game/Client/GameClientObject.hpp"
 #include "Rtype/Game/Client/GameClientObject.hpp"
+#include "Rtype/Game/Common/GameObjectContainer.hpp"
 
 class GameManager : public SaltyEngine::SaltyBehaviour
 {
@@ -25,5 +26,8 @@ public:
 private:
 	Rtype::Game::Client::GameClientObject *m_network;
     std::list<SaltyEngine::GameObject*> m_players;
+
+public:
+	GameObjectContainer				gameObjectContainer;
 };
 

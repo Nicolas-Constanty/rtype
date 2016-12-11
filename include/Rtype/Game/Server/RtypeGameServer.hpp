@@ -8,6 +8,7 @@
 #include <Network/UDP/AUDPServer.hpp>
 #include <SaltyEngine/SaltyBehaviour.hpp>
 #include "RtypeServerGameClient.hpp"
+#include "Rtype/Game/Common/GameObjectContainer.hpp"
 
 namespace Rtype
 {
@@ -43,11 +44,17 @@ namespace Rtype
                     return factory.create<T>(args...);
                 }
 
+            public:
+                size_t GetMaxSize() const;
+
             private:
                 GamePackageFactory factory;
                 const size_t maxSize;
                 uint32_t  secret;
                 bool secure;
+
+            public:
+                GameObjectContainer gameObjectContainer;
             };
         }
     }

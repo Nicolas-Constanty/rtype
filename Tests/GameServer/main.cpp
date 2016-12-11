@@ -25,25 +25,28 @@ int main(int ac, char **)
 
 	*scene << server;
 
-    SaltyEngine::GameObject	*player;
-    SaltyEngine::GameObject	*playerMoved;
+//    SaltyEngine::GameObject	*player;
+//    SaltyEngine::GameObject	*playerMoved;
 
-    if (ac > 1)
-    {
-        player = dynamic_cast<SaltyEngine::GameObject*>(SaltyEngine::Object::Instantiate());
-        playerMoved = dynamic_cast<SaltyEngine::GameObject*>(SaltyEngine::Object::Instantiate());
-    }
-    else
-    {
-        playerMoved = dynamic_cast<SaltyEngine::GameObject*>(SaltyEngine::Object::Instantiate());
-        player = dynamic_cast<SaltyEngine::GameObject*>(SaltyEngine::Object::Instantiate());
-    }
+//    if (ac > 1)
+//    {
+//        player = dynamic_cast<SaltyEngine::GameObject*>(SaltyEngine::Object::Instantiate());
+//        playerMoved = dynamic_cast<SaltyEngine::GameObject*>(SaltyEngine::Object::Instantiate());
+//    }
+//    else
+//    {
+//        playerMoved = dynamic_cast<SaltyEngine::GameObject*>(SaltyEngine::Object::Instantiate());
+//        player = dynamic_cast<SaltyEngine::GameObject*>(SaltyEngine::Object::Instantiate());
+//    }
 
-	player->AddComponent<SaltyEngine::SpaceShipController>();
-	playerMoved->AddComponent<SaltyEngine::SpaceShipController>(false);
+//    std::cout << "intanceID SERVER=" << server->GetInstanceID() << std::endl;
+//    std::cout << "intanceID=" << player->GetInstanceID() << std::endl;
 
-    *scene << player;
-	*scene << playerMoved;
+//    player->AddComponent<SaltyEngine::SpaceShipController>();
+//	playerMoved->AddComponent<SaltyEngine::SpaceShipController>(false);
+
+//    *scene << player;
+//	*scene << playerMoved;
 
 	SaltyEngine::SaltyEngine::Instance() << scene;
 

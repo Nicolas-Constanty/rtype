@@ -6,6 +6,9 @@
 #define RTYPE_RTYPECLIENTGAMECLIENT_HPP
 
 #include <Rtype/Game/Common/RtypeGameClient.hpp>
+//#include "GameManager.hpp"
+
+class GameManager;
 
 namespace Rtype
 {
@@ -41,6 +44,9 @@ namespace Rtype
 
             public:
                 void SendInput(std::string const &axisName, float const value);
+
+            private:
+                GameManager *gameManager;
             };
         }
     }
