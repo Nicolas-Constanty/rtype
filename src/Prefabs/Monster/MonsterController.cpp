@@ -41,7 +41,6 @@ void MonsterController::Update()
 	if (m_currDelay <= 0)
 	{
         m_currDelay = m_minShootInterval + rand() % (int)(m_maxShootInterval - m_minShootInterval);
-        std::cout << "SHOOT ! " << std::endl;
         SaltyEngine::GameObject *missile = (SaltyEngine::GameObject*)SaltyEngine::Instantiate("MissileMedusa", this->gameObject->transform.position);
         if (missile) {
             MissileController *missileController = missile->GetComponent<MissileController>();
