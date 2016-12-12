@@ -3,9 +3,10 @@
 #ifndef VECTOR2_HPP_
 #define VECTOR2_HPP_
 
+#define _USE_MATH_DEFINES
+#include <cmath>
 #include <string>
 #include <iostream>
-#include <cmath>
 #include <stdexcept>
 
 namespace SaltyEngine
@@ -54,9 +55,9 @@ namespace SaltyEngine
             return BaseVector2<T>(static_cast<T>(-1), static_cast<T>(0));
         }
 
-		float magnitude() const
+		T magnitude() const
 		{
-			return (float) sqrt(this->x * this->x + this->y * this->y);
+			return static_cast<T>(sqrt(this->x * this->x + this->y * this->y));
 		}
 
 		BaseVector2<T> normalize() const
@@ -70,10 +71,10 @@ namespace SaltyEngine
          * @param to : the point we refer to
          * @return the angle in degrees
          */
-        static float Angle(BaseVector2<T> from, BaseVector2<T> to)
+        static T Angle(BaseVector2<T> from, BaseVector2<T> to)
         {
-            float delta_x = to.x - from.x;
-            float delta_y = to.y - from.y;
+            T delta_x = to.x - from.x;
+            T delta_y = to.y - from.y;
             return atan2f(delta_y, delta_x) * 180.f / M_PI;
         }
 
@@ -83,7 +84,7 @@ namespace SaltyEngine
          * @param target
          * @return
          */
-        static float RotateTowards(BaseVector2<T> current, BaseVector2<T> target)
+        static T RotateTowards(BaseVector2<T> current, BaseVector2<T> target)
         {
             throw std::runtime_error("RotateTowards not implemented");
             return 0;

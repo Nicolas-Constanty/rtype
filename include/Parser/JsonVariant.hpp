@@ -21,13 +21,15 @@ public:
     const bvariant &get() const;
     json_array *get_array() const;
     const std::string &operator()() const;
-	std::map<std::string, JsonVariant> &operator[](int key) const;
+	JsonVariant operator[](int key) const;
 	const JsonVariant &operator[](const std::string &name) const;
     size_t size() const;
 	
 private:
     bvariant value;
 };
+
+
 //
 //class json_visitor_a : public boost::static_visitor<JsonVariant::json_array *>
 //{

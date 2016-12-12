@@ -14,7 +14,8 @@ int main(int ac, char **av)
 	if (parser.parse(&map))
 	{
 		std::cout << &map << std::endl;
-		std::cout << "SPEED " << map["stages"][0]["speed"]() << std::endl;
+		std::cout << "SPEED " << map["sprites"][0]() << std::endl;
+		std::cout << "SPEED " << map["sprites"][3]["aza"]() << std::endl;
 		//std::cout << map["rect"]["y"]() << std::endl;
 	}
 	else
