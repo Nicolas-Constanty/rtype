@@ -14,7 +14,6 @@
 
 namespace SaltyEngine
 {
-	static std::string const Tag[] = { "NONE", "PLAYER", "ENEMY" };
 	typedef size_t uid;
 
 	class Object: protected ICloneable<Object>

@@ -1,13 +1,14 @@
+#include "SaltyEngine/Constants.hpp"
 #include "SaltyEngine/Component.hpp"
 #include "SaltyEngine/GameObject.hpp"
 
 namespace SaltyEngine
 {
-	Component::Component(GameObject * const gameObj) : Object("Component"), tag(Tag[0]), gameObject(gameObj) {};
+	Component::Component(GameObject * const gameObj) : Object("Component"), tag(Layer::Tag::Untagged), gameObject(gameObj) {};
 
-	Component::Component(const std::string & name, GameObject * const gameObj) : Object(name), tag(Tag[0]), gameObject(gameObj) {};
+	Component::Component(const std::string & name, GameObject * const gameObj) : Object(name), tag(Layer::Tag::Untagged), gameObject(gameObj) {};
 
-	bool Component::CompareTag(const std::string & tag) const
+	bool Component::CompareTag(Layer::Tag tag) const
 	{
 		return gameObject->CompareTag(tag);
 	}
