@@ -25,9 +25,9 @@ MonsterWalker::MonsterWalker() : GameObject("MonsterWalker")
 
         // Jumping clip
         clip = new SaltyEngine::AnimationClip<sf::Vector2i>();
-        clip->AddSprite(new SaltyEngine::SFML::Sprite(texture, new SaltyEngine::SFML::Rect(0, 0, 34, 34)));
-        clip->AddSprite(new SaltyEngine::SFML::Sprite(texture, new SaltyEngine::SFML::Rect(34, 0, 34, 34)));
-        clip->AddSprite(new SaltyEngine::SFML::Sprite(texture, new SaltyEngine::SFML::Rect(68, 0, 34, 34)));
+        clip->AddSprite(new SaltyEngine::SFML::Sprite(texture, new SaltyEngine::SFML::Rect(68, 34, 34, 34)));
+        clip->AddSprite(new SaltyEngine::SFML::Sprite(texture, new SaltyEngine::SFML::Rect(34, 34, 34, 34)));
+        clip->AddSprite(new SaltyEngine::SFML::Sprite(texture, new SaltyEngine::SFML::Rect(0, 34, 34, 34)));
         clip->SetFrameRate(5);
         GetComponent<SaltyEngine::Animation<sf::Vector2i> >()->AddClip(clip, "Jump");
     }

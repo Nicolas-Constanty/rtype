@@ -1,0 +1,11 @@
+{
+    "sprites": [
+        "Monster/Monster1",
+        "Monster/Monster2",
+        "Monster/Monster3"
+    ],
+    "lib": "libmonster_walker",
+    "dependencies": [
+        "EnemyBullet"
+    ]
+}

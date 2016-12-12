@@ -20,6 +20,7 @@ namespace SaltyEngine
 
 	SaltyEngine::SaltyEngine(): m_current(0)
 	{
+		srand(time(nullptr));
 		m_renderer = new DefaultRenderer();
 		m_even_manager = new Input::DefaultEventManager();
 		m_status = EngineStatus::stop;
