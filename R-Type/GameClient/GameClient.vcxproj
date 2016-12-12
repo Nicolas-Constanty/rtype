@@ -74,7 +74,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)..\include;$(SolutionDir)..\Dependencies\SFML\Win\include</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)..\include;$(SolutionDir)..\Dependencies\SFML\Win\include;$(SolutionDir)..\Dependencies\Boost\Win\include</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;$(SolutionDir)x64\Debug;$(SolutionDir)..\Dependencies\SFML\Win\x64\Debug</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -107,7 +107,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>sfml-audio-d.lib;sfml-graphics-d.lib;sfml-network-d.lib;sfml-system-d.lib;sfml-window-d.lib;Ws2_32.lib;Network.lib;SaltyEngine.lib;SFML.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Parser.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-network-d.lib;sfml-system-d.lib;sfml-window-d.lib;Ws2_32.lib;Network.lib;SaltyEngine.lib;SFML.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -148,6 +148,7 @@
     <ClCompile Include="..\..\src\Player\PlayerController.cpp" />
     <ClCompile Include="..\..\src\Protocol\Game\ProtocolPrintGamePackage.cpp" />
     <ClCompile Include="..\..\src\Protocol\Game\RTypeProtocolGameManager.cpp" />
+    <ClCompile Include="..\..\src\Rtype\Game\Client\GameManager.cpp" />
     <ClCompile Include="..\..\src\Rtype\Game\Client\RtypeClientGameClient.cpp" />
     <ClCompile Include="..\..\src\Rtype\Game\Common\RtypeGameClient.cpp" />
     <ClCompile Include="..\..\Tests\GameServer\gameclient-1.cpp">
@@ -156,7 +157,6 @@
     <ClCompile Include="..\..\src\Rtype\Game\Client\GameClientObject.cpp" />
     <ClCompile Include="..\..\Tests\GameServer\main.cpp" />
     <ClCompile Include="..\..\src\Rtype\Game\Client\SpaceShipController.cpp" />
-    <ClCompile Include="GameManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\Player\PlayerController.hpp" />

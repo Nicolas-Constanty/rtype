@@ -134,7 +134,7 @@ SaltyEngine::Vector2 operator*(float val, T & vec)
 template<class T>
 SaltyEngine::Vector2 operator*(const SaltyEngine::Vector2 & vec, T val)
 {
-	return SaltyEngine::Vector2(val * vec.x, vec.y * val);
+	return SaltyEngine::Vector2(val * static_cast<T>(vec.x), static_cast<T>(vec.y) * val);
 }
 
 #endif // !VECTOR2_HPP_

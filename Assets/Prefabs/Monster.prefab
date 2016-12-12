@@ -1,6 +1,9 @@
 {
     "sprites": [
+        "toto"
     ],
     "lib": "libmonster",
-    "dependencies": "Missile"
+    "dependencies": [
+        "Missile"
+    ]
 }

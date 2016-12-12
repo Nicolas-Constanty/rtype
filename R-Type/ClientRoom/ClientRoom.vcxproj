@@ -18,10 +18,29 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\Protocol\Room\IProtocolRoomHandler.hpp" />
+    <ClInclude Include="..\..\include\Protocol\Room\ProtocolPrintRoomPackage.hpp" />
+    <ClInclude Include="..\..\include\Protocol\Room\ProtocolRoomAuthenticateHandler.hpp" />
+    <ClInclude Include="..\..\include\Protocol\Room\ProtocolRoomPackage.hpp" />
+    <ClInclude Include="..\..\include\Protocol\Room\RoomPackageFactory.hpp" />
+    <ClInclude Include="..\..\include\Protocol\Room\RTypeProtocolRoomManager.hpp" />
+    <ClInclude Include="..\..\include\RoomNetworkSaltyEngine\ClientRoomNetworkManager.hpp" />
+    <ClInclude Include="..\..\include\RoomNetworkSaltyEngine\RoomNetworkManager.hpp" />
+    <ClInclude Include="..\..\include\SaltyEngine\SFML\Image.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\ClientRoom\main.cpp" />
+    <ClCompile Include="..\..\src\Protocol\Room\ProtocolPrintRoomPackage.cpp" />
+    <ClCompile Include="..\..\src\Protocol\Room\RTypeProtocolRoomManager.cpp" />
+    <ClCompile Include="..\..\src\RoomNetworkSaltyEngine\ClientRoomNetworkManager.cpp" />
+    <ClCompile Include="..\..\src\RoomNetworkSaltyEngine\RoomNetworkManager.cpp" />
+    <ClCompile Include="..\..\src\SaltyEngine\SFML\Image.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{BF60C190-67AE-4C3C-ACDF-EC5CBC22419A}</ProjectGuid>
+    <ProjectGuid>{B5F2B560-7C9F-4B2C-98F7-C05BC77CB65D}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>GameServer</RootNamespace>
+    <RootNamespace>ClientRoom</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -74,7 +93,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)..\include;$(SolutionDir)..\Dependencies\SFML\Win\include;</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)..\include;$(SolutionDir)..\Dependencies\SFML\Win\include</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;$(SolutionDir)x64\Debug;$(SolutionDir)..\Dependencies\SFML\Win\x64\Debug</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -90,7 +109,6 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -104,13 +122,12 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32_LEAN_AND_MEAN;NOMINMAX;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <SDLCheck>true</SDLCheck>
       <BufferSecurityCheck>false</BufferSecurityCheck>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>sfml-audio-d.lib;sfml-graphics-d.lib;sfml-network-d.lib;sfml-system-d.lib;sfml-window-d.lib;Network.lib;SFML.lib;Ws2_32.lib;SaltyEngine.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Network.lib;Ws2_32.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-network-d.lib;sfml-system-d.lib;sfml-window-d.lib;SFML.lib;SaltyEngine.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -122,7 +139,6 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -140,7 +156,6 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -149,24 +164,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\src\Protocol\Game\ProtocolPrintGamePackage.cpp" />
-    <ClCompile Include="..\..\src\Protocol\Game\RTypeProtocolGameManager.cpp" />
-    <ClCompile Include="..\..\src\Rtype\Game\Common\RtypeGameClient.cpp" />
-    <ClCompile Include="..\..\src\Rtype\Game\Server\GameServerObject.cpp" />
-    <ClCompile Include="..\..\src\Rtype\Game\Server\Room.cpp" />
-    <ClCompile Include="..\..\src\Rtype\Game\Server\RtypeGameServer.cpp" />
-    <ClCompile Include="..\..\src\Rtype\Game\Server\RtypeServerGameClient.cpp" />
-    <ClCompile Include="..\..\Tests\GameServer\gameserver-stable.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\include\Common\getopt.h" />
-    <ClInclude Include="..\..\include\Rtype\Game\Common\RtypeGameClient.hpp" />
-    <ClInclude Include="..\..\include\Rtype\Game\Server\GameServerObject.hpp" />
-    <ClInclude Include="..\..\include\Rtype\Game\Server\Room.hpp" />
-    <ClInclude Include="..\..\include\Rtype\Game\Server\RtypeGameServer.hpp" />
-    <ClInclude Include="..\..\include\Rtype\Game\Server\RtypeServerGameClient.hpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

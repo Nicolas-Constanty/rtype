@@ -96,7 +96,6 @@ namespace SaltyEngine
 
 		while (!m_init.empty())
 		{
-            std::cout <<  m_init.front() << std::endl;
 			const std::list<SaltyBehaviour *> &Sb = m_objects[m_init.front()]->GetSaltyBehaviour();
 			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
 				if ((*it)->enabled)

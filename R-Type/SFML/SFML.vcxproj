@@ -74,7 +74,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)..\include;$(SolutionDir)..\Dependencies\SFML\Win\include;</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)..\include;$(SolutionDir)..\Dependencies\SFML\Win\include;$(SolutionDir)..\Dependencies\Boost\Win\include;</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;$(SolutionDir)x64\Debug</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -149,6 +149,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\SaltyEngine\GUI\Button.cpp" />
+    <ClCompile Include="..\..\src\SaltyEngine\GUI\Event.cpp" />
+    <ClCompile Include="..\..\src\SaltyEngine\GUI\UIBehaviour.cpp" />
+    <ClCompile Include="..\..\src\SaltyEngine\GUI\Widget.cpp" />
     <ClCompile Include="..\..\src\SaltyEngine\SFML\AssetManager.cpp" />
     <ClCompile Include="..\..\src\SaltyEngine\SFML\EventManager.cpp" />
     <ClCompile Include="..\..\src\SaltyEngine\SFML\Music.cpp" />
@@ -157,6 +161,20 @@
     <ClCompile Include="..\..\src\SaltyEngine\SFML\Sound.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\SaltyEngine\GUI\Button.hpp" />
+    <ClInclude Include="..\..\include\SaltyEngine\GUI\Event.hpp" />
+    <ClInclude Include="..\..\include\SaltyEngine\GUI\IDeselectHandler.hpp" />
+    <ClInclude Include="..\..\include\SaltyEngine\GUI\IEventSystemHandler.hpp" />
+    <ClInclude Include="..\..\include\SaltyEngine\GUI\IMoveHandler.hpp" />
+    <ClInclude Include="..\..\include\SaltyEngine\GUI\IPointerDownHandler.hpp" />
+    <ClInclude Include="..\..\include\SaltyEngine\GUI\IPointerEnterHandler.hpp" />
+    <ClInclude Include="..\..\include\SaltyEngine\GUI\IPointerExitHandler.hpp" />
+    <ClInclude Include="..\..\include\SaltyEngine\GUI\IPointerUpHandler.hpp" />
+    <ClInclude Include="..\..\include\SaltyEngine\GUI\ISelectHandler.hpp" />
+    <ClInclude Include="..\..\include\SaltyEngine\GUI\ISubmitHandler.hpp" />
+    <ClInclude Include="..\..\include\SaltyEngine\GUI\Selectable.hpp" />
+    <ClInclude Include="..\..\include\SaltyEngine\GUI\UIBehaviour.hpp" />
+    <ClInclude Include="..\..\include\SaltyEngine\GUI\Widget.hpp" />
     <ClInclude Include="..\..\include\SaltyEngine\SFML\AssetManager.hpp" />
     <ClInclude Include="..\..\include\SaltyEngine\SFML\BoxCollider2D.hpp" />
     <ClInclude Include="..\..\include\SaltyEngine\SFML\Button.hpp" />

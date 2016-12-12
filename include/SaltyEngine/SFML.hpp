@@ -15,6 +15,7 @@
 #include "SFML/Window.hpp"
 #include "SFML/AssetManager.hpp"
 #include "SFML/EventManager.hpp"
+#include "SFML/Image.hpp"
 
 typedef SaltyEngine::Input::InputManager<SaltyEngine::SFML::EventManager>  InputKey;
 

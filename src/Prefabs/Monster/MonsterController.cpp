@@ -1,12 +1,9 @@
 #include "Prefabs/Missile/MissileController.hpp"
 #include "Prefabs/Monster/MonsterController.hpp"
-#include "SaltyEngine/SFML/AssetManager.hpp"
-#include "SaltyEngine/SFML/SpriteRenderer.hpp"
-#include "SaltyEngine/Animation.hpp"
+#include "SaltyEngine/SFML.hpp"
 
 MonsterController::MonsterController(SaltyEngine::GameObject *obj) : SaltyEngine::SaltyBehaviour(obj)
 {
-    gameObject->AddComponent<SaltyEngine::SFML::BoxCollider2D>();
     m_health = 1;
 }
 
@@ -18,22 +15,6 @@ MonsterController::~MonsterController()
 void MonsterController::Start()
 {
 	m_currDelay = m_minShootInterval + rand() % (int)(m_maxShootInterval - m_minShootInterval);
-	SaltyEngine::SFML::Texture *texture = SaltyEngine::SFML::AssetManager::Instance().GetTexture("monster");
-	if (texture != nullptr)
-	{
-		gameObject->AddComponent<SaltyEngine::SFML::SpriteRenderer>(new SaltyEngine::SFML::Sprite(texture, new SaltyEngine::SFML::Rect(0, 0, 34, 34)), SaltyEngine::Layout::normal);
-		gameObject->AddComponent < SaltyEngine::Animation<sf::Vector2i>>(true, SaltyEngine::AnimationConstants::WrapMode::LOOP);
-		SaltyEngine::AnimationClip<sf::Vector2i> *clip = new SaltyEngine::AnimationClip<sf::Vector2i>();
-		clip->AddSprite(new SaltyEngine::SFML::Sprite(texture, new SaltyEngine::SFML::Rect(0, 0, 34, 34)));
-		clip->AddSprite(new SaltyEngine::SFML::Sprite(texture, new SaltyEngine::SFML::Rect(34, 0, 34, 34)));
-		clip->AddSprite(new SaltyEngine::SFML::Sprite(texture, new SaltyEngine::SFML::Rect(68, 0, 34, 34)));
-		clip->SetFrameRate(5);
-		gameObject->GetComponent<SaltyEngine::Animation<sf::Vector2i> >()->AddClip(clip, "Walk");
-	}
-	else
-	{
-		SaltyEngine::Debug::PrintWarning("Monster: could not load texture");
-	}
 }
 
 void MonsterController::Update()

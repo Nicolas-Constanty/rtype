@@ -101,7 +101,12 @@ void Network::Socket::ASocket::Listen(const uint16_t port, const int nbc) throw(
     sockaddr.sin_port = htons(port);
     sockaddr.sin_addr.s_addr = htonl(INADDR_ANY);
     if (bind(fd, (const struct sockaddr *)&sockaddr, len) == -1 || (protocol == Network::Socket::TCP && listen(fd, nbc) == -1))
-        throw SocketException(strerror(errno));
+    {
+		char err[256];
+		strerror_s(err, errno);
+		throw SocketException(err);
+    }
+        
 }
 
 /**
@@ -117,11 +122,18 @@ void Network::Socket::ASocket::Talk(const std::string &ip, const uint16_t port) 
     memset(&sockaddr, 0, len);
     sockaddr.sin_family = domain;
     sockaddr.sin_port = htons(port);
-//    sockaddr.sin_addr.s_addr = inet_addr(ip.c_str());
+    if (protocol == Network::Socket::TCP)
+    	sockaddr.sin_addr.s_addr = inet_addr(ip.c_str());
 #if _WIN32
+	std::cout << fd << std::endl;
 	if ((protocol == Network::Socket::TCP && connect(fd, (struct sockaddr *)&sockaddr, len) == -1) ||
-		(protocol == Network::Socket::UDP && InetPton(AF_INET, ip.c_str(), &sockaddr.sin_addr) == 0))
-		throw SocketException(strerror(errno));
+		(protocol == Network::Socket::UDP && inet_pton(AF_INET, ip.c_str(), &sockaddr.sin_addr) == 0))
+	{
+		std::cout << WSAGetLastError() << std::endl;
+		char err[256];
+		strerror_s(err, errno);
+		throw SocketException(err);
+	}
 #else
 	if ((protocol == Network::Socket::TCP && connect(fd, (struct sockaddr *)&sockaddr, len) == -1) ||
 		(protocol == Network::Socket::UDP && inet_aton(ip.c_str(), &sockaddr.sin_addr) == 0))
@@ -144,7 +156,11 @@ void Network::Socket::ASocket::Accept(ISocket &sock)
 
         if ((sck->fd = accept(fd, (struct sockaddr *)&sck->sockaddr, &len)) == -1 ||
                 getsockname(sck->fd, (struct sockaddr *)&sck->sockaddr, &len) == -1)
-            throw Network::Socket::SocketException(strerror(errno));
+        {
+			char err[256];
+			strerror_s(err, errno);
+			throw Network::Socket::SocketException(err);
+        }
     }
 }
 
@@ -169,7 +185,7 @@ unsigned int Network::Socket::ASocket::getIPFromString(std::string const &ip) {
     struct in_addr addr;
 
 #if _WIN32
-    if (InetPton(AF_INET, ip.c_str(), &addr) == 0) {
+    if (inet_pton(AF_INET, ip.c_str(), &addr) == 0) {
         return (0);
     }
 #else

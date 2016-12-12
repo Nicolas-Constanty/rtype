@@ -17,9 +17,6 @@ namespace SaltyEngine
 
 	void PlayerController::Start()
 	{
-		::SaltyEngine::SFML::Texture *texture = ::SaltyEngine::SFML::AssetManager::Instance().GetTexture("SpaceShips");
-		gameObject->AddComponent<::SaltyEngine::SFML::SpriteRenderer>(new ::SaltyEngine::SFML::Sprite(texture, new ::SaltyEngine::SFML::Rect(34, 0, 33, 17)), ::SaltyEngine::Layout::normal);
-
 		InputKey::AddAxis("Horizontal", new Input::Axis(
 				{
 						{Input::KeyCode::Left, -1},
@@ -70,15 +67,6 @@ namespace SaltyEngine
 			GameObject *laser = (GameObject*)::SaltyEngine::Instantiate("Laser", gameObject->transform.position);
 			*Singleton<::SaltyEngine::SaltyEngine>::Instance().GetCurrentScene() << laser;
 		}
-	}
-
-	void PlayerController::DisplayCoroutine()
-	{
-		for (;;) {
-			Debug::Print("Je suis dans la coroutine");
-			WaitForMillisecond(3);
-		}
-		std::cout << "Je m'affiche apr�s 3 seconde" << std::endl;
 	}
 }
 

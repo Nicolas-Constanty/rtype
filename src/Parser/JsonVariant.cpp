@@ -33,9 +33,8 @@ const std::string &JsonVariant::operator()() const
 		const std::string &s = boost::get<std::string>(value);
 		return (s);
 	}
-	catch(const std::exception &e)
+	catch(std::exception const &)
 	{
-		(void)e;
 		json_pair *p = boost::get<json_pair *>(value);
 		const std::string &s = boost::get<std::string>(p->begin()->second.getValue());
 		return (s);
@@ -52,8 +51,7 @@ JsonVariant JsonVariant::operator[](int key) const
 		p.getValue() = (*a)[key];
 		return p;
     }
-    catch (boost::exception const &e) {
-		(void)e;
+    catch (boost::exception const &) {
         throw JsonException("Element is not an array");
     }
 }
@@ -62,16 +60,15 @@ const JsonVariant &JsonVariant::operator[](const std::string & name) const
 {
 	
 	std::map<std::string, JsonVariant> *p = boost::get<std::map<std::string, JsonVariant> *>(value);
-	//const std::string &s = boost::get<std::string>((*p)[name].get());
 	return (*p)[name];
 }
 
 size_t JsonVariant::size() const
 {
-    return boost::get<json_array *>(value)->size();
-}
+	try {
+    	return boost::get<json_array *>(value)->size();
+	} catch (std::exception const &) {
+		return 0;
+	}
 
-//std::map<std::string, JsonVariant> operator()()
-//{
-//
-//}
+}

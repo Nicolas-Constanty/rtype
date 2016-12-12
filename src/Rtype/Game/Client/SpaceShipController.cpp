@@ -27,37 +27,40 @@ SaltyEngine::SpaceShipController::SpaceShipController(const std::string & name, 
 
 void SaltyEngine::SpaceShipController::Start()
 {
-    InputKey::AddAxis("Horizontal", new Input::Axis(
-            {
-                    {Input::KeyCode::Left, -1},
-                    {Input::KeyCode::Right, 1},
-                    {Input::KeyCode::Q, -1},
-                    {Input::KeyCode::D, 1}
-            },
-            std::make_pair<unsigned int, Input::MotionController::Axis>(0, Input::MotionController::X)
-    ));
-    InputKey::AddAxis("Vertical", new Input::Axis(
-            {
-                    {Input::KeyCode::Up, -1},
-                    {Input::KeyCode::Down, 1},
-                    {Input::KeyCode::Z, -1},
-                    {Input::KeyCode::S, 1}
-            },
-            std::make_pair<unsigned int, Input::MotionController::Axis>(0, Input::MotionController::Y)
-    ));
-    GameObject *gameman = SaltyEngine::Instance().GetCurrentScene()->FindByName("GameManager");
+	if (playable)
+	{
+		InputKey::AddAxis("Horizontal", new Input::Axis(
+		{
+			{ Input::KeyCode::Left, -1 },
+			{ Input::KeyCode::Right, 1 },
+			{ Input::KeyCode::Q, -1 },
+			{ Input::KeyCode::D, 1 }
+		},
+			std::make_pair<unsigned int, Input::MotionController::Axis>(0, Input::MotionController::X)
+		));
+		InputKey::AddAxis("Vertical", new Input::Axis(
+		{
+			{ Input::KeyCode::Up, -1 },
+			{ Input::KeyCode::Down, 1 },
+			{ Input::KeyCode::Z, -1 },
+			{ Input::KeyCode::S, 1 }
+		},
+			std::make_pair<unsigned int, Input::MotionController::Axis>(0, Input::MotionController::Y)
+		));
+		GameObject *gameman = SaltyEngine::Instance().GetCurrentScene()->FindByName("GameManager");
 
-    if (gameman && playable)
-        manager = gameman->GetComponent<GameManager>();
+		if (gameman)
+			manager = gameman->GetComponent<GameManager>();
+	}
 }
 
 void SaltyEngine::SpaceShipController::FixedUpdate()
 {
-    float h, v;
+    
     if (playable)
     {
-        h = InputKey::GetAxis("Horizontal");
-        v = InputKey::GetAxis("Vertical");
+        float h = InputKey::GetAxis("Horizontal");
+        float v = InputKey::GetAxis("Vertical");
         if (h != 0 || v != 0) {
             gameObject->transform.Translate(Vector(h, v) * speed/* * SaltyEngine::Instance().GetDeltaTime()*/);
             if (manager)
@@ -84,4 +87,9 @@ void SaltyEngine::SpaceShipController::FixedUpdate()
 
 void SaltyEngine::SpaceShipController::DisplayCoroutine()
 {
+}
+
+void SaltyEngine::SpaceShipController::Move(int x, int y) const
+{
+    gameObject->transform.position = Vector(x, y);
 }

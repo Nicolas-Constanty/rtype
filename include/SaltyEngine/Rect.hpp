@@ -17,7 +17,7 @@ namespace SaltyEngine
 
 	public:
 		bool Contain(const T &) const override { return false; };
-		bool Intersect(IRect<T> *) const override { return false; };
+		bool Intersect(IRect<T> * const ) const override { return false; };
 
 	public:
 		int left;
