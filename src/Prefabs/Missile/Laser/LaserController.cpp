@@ -23,7 +23,9 @@ void LaserController::Update()
     gameObject->transform.Translate(gameObject->transform.right() * m_vel * SaltyEngine::SaltyEngine::Instance().GetFixedDeltaTime());
 }
 
-void LaserController::OnCollisionEnter(SaltyEngine::ICollider *)
+void LaserController::OnCollisionEnter(SaltyEngine::ICollider *col)
 {
     SaltyEngine::Debug::PrintSuccess("Laser hit something");
+    std::cout << dynamic_cast<SaltyEngine::ACollider2D<sf::Vector2i>*>(col)->gameObject << std::endl;
+    std::cout << dynamic_cast<SaltyEngine::ACollider2D<sf::Vector2i>*>(col)->gameObject->GetName() << std::endl;
 }

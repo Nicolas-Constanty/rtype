@@ -77,11 +77,19 @@ namespace SaltyEngine
 
 		void Renderer::AddDebug(BoxCollider2D *box)
 		{
+			if (box == nullptr) {
+				Debug::PrintWarning("Cannot add empty box collider");
+				return;
+			}
 			m_debug.push_back(box);
 		}
 
 		void Renderer::AddSelectable(GUI::Selectable* const select)
 		{
+			if (select == nullptr) {
+				Debug::PrintWarning("Cannot add empty select");
+				return;
+			}
 			m_selectables.push_back(select);
 		}
 	}

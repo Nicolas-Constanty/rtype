@@ -9,22 +9,15 @@
  */
 Monster::Monster() : GameObject("Monster")
 {
-    SaltyEngine::SFML::Texture *texture = SaltyEngine::SFML::AssetManager::Instance().GetTexture("monster");
-    if (texture != nullptr)
-    {
-        AddComponent<SaltyEngine::SFML::SpriteRenderer>(new SaltyEngine::SFML::Sprite(texture, new SaltyEngine::SFML::Rect(0, 0, 34, 34)), SaltyEngine::Layout::normal);
-        AddComponent < SaltyEngine::Animation<sf::Vector2i>>(true, SaltyEngine::AnimationConstants::WrapMode::LOOP);
-        SaltyEngine::AnimationClip<sf::Vector2i> *clip = new SaltyEngine::AnimationClip<sf::Vector2i>();
-        clip->AddSprite(new SaltyEngine::SFML::Sprite(texture, new SaltyEngine::SFML::Rect(0, 0, 34, 34)));
-        clip->AddSprite(new SaltyEngine::SFML::Sprite(texture, new SaltyEngine::SFML::Rect(34, 0, 34, 34)));
-        clip->AddSprite(new SaltyEngine::SFML::Sprite(texture, new SaltyEngine::SFML::Rect(68, 0, 34, 34)));
-        clip->SetFrameRate(5);
-        GetComponent<SaltyEngine::Animation<sf::Vector2i> >()->AddClip(clip, "Walk");
-    }
-    else
-    {
-        SaltyEngine::Debug::PrintWarning("Monster: could not load texture");
-    }
+    AddComponent<SaltyEngine::SFML::SpriteRenderer>(SaltyEngine::SFML::AssetManager::Instance().GetSprite("Monster/Monster1"), SaltyEngine::Layout::normal);
+    AddComponent < SaltyEngine::Animation<sf::Vector2i>>(true, SaltyEngine::AnimationConstants::WrapMode::LOOP);
+    SaltyEngine::AnimationClip<sf::Vector2i> *clip = new SaltyEngine::AnimationClip<sf::Vector2i>();
+    clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite("Monster/Monster1"));
+    clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite("Monster/Monster2"));
+    clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite("Monster/Monster3"));
+    clip->SetFrameRate(5);
+    GetComponent<SaltyEngine::Animation<sf::Vector2i> >()->AddClip(clip, "Walk");
+
     AddComponent<MonsterController>();
     AddComponent<SaltyEngine::SFML::BoxCollider2D>();
 }
@@ -35,5 +28,5 @@ Monster::~Monster()
 
 MONSTER_API SaltyEngine::Object const*GetObjectPrefab()
 {
-	return new Monster();
+    return new Monster();
 }

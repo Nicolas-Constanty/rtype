@@ -28,7 +28,9 @@ namespace SaltyEngine
 			m_texture = texture;
 		}
 
-		virtual ~Sprite() {};
+		virtual ~Sprite() {
+			delete m_rect;
+		};
 
 	private:
 		IRect<T>		*m_rect;

@@ -70,7 +70,9 @@ namespace SaltyEngine {
             }
             ::SaltyEngine::Vector2i position = it->second.position;
             ::SaltyEngine::Vector2i size = it->second.size;
-            return new ::SaltyEngine::SFML::Sprite(texture, new ::SaltyEngine::SFML::Rect(position.x, position.y, size.x, size.y));
+            ::SaltyEngine::SFML::Sprite *sprite = new ::SaltyEngine::SFML::Sprite(texture, new ::SaltyEngine::SFML::Rect(position.x, position.y, size.x, size.y));
+            sprite->SetName(name);
+            return sprite;
         }
 
         ::SaltyEngine::Sound::ISound *AssetManager::GetSound(std::string const &name) {

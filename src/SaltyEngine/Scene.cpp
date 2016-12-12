@@ -63,7 +63,8 @@ namespace SaltyEngine
 
 	std::ostream &AScene::print(std::ostream &os) const
 	{
-		for (std::vector<GameObject*>::const_iterator it = m_objects.begin(); it != m_objects.end(); ++it)
+		std::vector<GameObject*> objects = m_objects;
+		for (std::vector<GameObject*>::const_iterator it = objects.begin(); it != objects.end(); ++it)
 		{
 			os << "\t" << (**it) << std::endl;
 		}
@@ -93,7 +94,6 @@ namespace SaltyEngine
 
 	void AScene::OnStart()
 	{
-
 		while (!m_init.empty())
 		{
 			const std::list<SaltyBehaviour *> &Sb = m_objects[m_init.front()]->GetSaltyBehaviour();
@@ -238,7 +238,8 @@ namespace SaltyEngine
 
 	void AScene::OnMouseEnter()
 	{
-		for (std::vector<GameObject*>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); ++obj)
+		std::vector<GameObject*> objects = m_objects;
+		for (std::vector<GameObject*>::const_iterator obj = objects.begin(); obj != objects.end(); ++obj)
 		{
 			const std::list<SaltyBehaviour *> &Sb = (*obj)->GetSaltyBehaviour();
 			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
@@ -255,7 +256,8 @@ namespace SaltyEngine
 
 	void AScene::OnMouseExit()
 	{
-		for (std::vector<GameObject*>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); ++obj)
+		std::vector<GameObject*> objects = m_objects;
+		for (std::vector<GameObject*>::const_iterator obj = objects.begin(); obj != objects.end(); ++obj)
 		{
 			const std::list<SaltyBehaviour *> &Sb = (*obj)->GetSaltyBehaviour();
 			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
@@ -272,7 +274,8 @@ namespace SaltyEngine
 
 	void AScene::OnMouseOver()
 	{
-		for (std::vector<GameObject*>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); ++obj)
+		std::vector<GameObject*> objects = m_objects;
+		for (std::vector<GameObject*>::const_iterator obj = objects.begin(); obj != objects.end(); ++obj)
 		{
 			const std::list<SaltyBehaviour *> &Sb = (*obj)->GetSaltyBehaviour();
 			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
@@ -289,7 +292,8 @@ namespace SaltyEngine
 
 	void AScene::OnGui()
 	{
-		for (std::vector<GameObject*>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); ++obj)
+		std::vector<GameObject*> objects = m_objects;
+		for (std::vector<GameObject*>::const_iterator obj = objects.begin(); obj != objects.end(); ++obj)
 		{
 			const std::list<SaltyBehaviour *> &Sb = (*obj)->GetSaltyBehaviour();
 			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
@@ -300,7 +304,8 @@ namespace SaltyEngine
 
 	void AScene::OnDestroy()
 	{
-		for (std::vector<GameObject*>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); ++obj)
+		std::vector<GameObject*> objects = m_objects;
+		for (std::vector<GameObject*>::const_iterator obj = objects.begin(); obj != objects.end(); ++obj)
 		{
 			const std::list<SaltyBehaviour *> &Sb = (*obj)->GetSaltyBehaviour();
 			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
@@ -317,7 +322,8 @@ namespace SaltyEngine
 
 	void AScene::CallCoroutines()
 	{
-		for (std::vector<GameObject*>::const_iterator obj = m_objects.begin(); obj != m_objects.end(); ++obj)
+		std::vector<GameObject*> objects = m_objects;
+		for (std::vector<GameObject*>::const_iterator obj = objects.begin(); obj != objects.end(); ++obj)
 		{
 			const std::list<SaltyBehaviour *> &Sb = (*obj)->GetSaltyBehaviour();
 			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
@@ -361,7 +367,8 @@ namespace SaltyEngine
 
     GameObject *AScene::FindByName(std::string const &name) const
     {
-		for (GameObject *curr : m_objects)
+		std::vector<GameObject*> objects = m_objects;
+		for (GameObject *curr : objects)
 		{
 			if (curr->GetName() == name)
 				return curr;
@@ -371,7 +378,8 @@ namespace SaltyEngine
 
     GameObject *AScene::FindById(size_t id) const
     {
-		for (GameObject *curr : m_objects)
+		std::vector<GameObject*> objects = m_objects;
+		for (GameObject *curr : objects)
 		{
 			if (curr->GetInstanceID() == id)
 				return curr;

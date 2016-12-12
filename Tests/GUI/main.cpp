@@ -16,18 +16,16 @@ int main()
 	// Create Scene
 	SaltyEngine::SFML::Scene *scene = new SaltyEngine::SFML::Scene();
 
-	// Create monster with sprites
+	// Push scene int SaltyEngine
+	Singleton<SaltyEngine::SaltyEngine>::Instance() << scene;
 
     // Load scene
 	std::list<std::pair<std::string, SaltyEngine::Vector2f>>	assets = SaltyEngine::SFML::AssetManager::Instance().LoadScene("scene1");
 
 	for (std::list<std::pair<std::string, SaltyEngine::Vector2f>>::const_iterator it = assets.begin(); it != assets.end(); ++it) {
 		SaltyEngine::Debug::PrintInfo("Instantiate " + it->first);
-		*scene << (SaltyEngine::GameObject*)SaltyEngine::Object::Instantiate(it->first, it->second);
+		(SaltyEngine::GameObject*)SaltyEngine::Object::Instantiate(it->first, it->second);
 	}
-
-	// Push scene int SaltyEngine
-	Singleton<SaltyEngine::SaltyEngine>::Instance() << scene;
 
 	// Run the SaltyEngine with default Scene 0
 	Singleton<SaltyEngine::SaltyEngine>::Instance().Run();

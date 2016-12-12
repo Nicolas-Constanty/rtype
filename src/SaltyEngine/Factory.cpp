@@ -3,6 +3,7 @@
 #include "SaltyEngine/GameObject.hpp"
 #include "SaltyEngine/Object.hpp"
 #include "SaltyEngine/Debug.hpp"
+#include "SaltyEngine/SaltyEngine.hpp"
 
 namespace SaltyEngine {
 
@@ -18,6 +19,7 @@ namespace SaltyEngine {
 		m_objects.push_front(Make_unique<GameObject>("GameObject"));
 		if (m_objects.front().get() == nullptr)
 			Debug::PrintWarning("Factory : could not create game object");
+        *Singleton<::SaltyEngine::SaltyEngine>::Instance().GetCurrentScene() << static_cast<GameObject*>(m_objects.front().get());
 		return m_objects.front().get();
     }
 
@@ -25,15 +27,15 @@ namespace SaltyEngine {
 		if (m_prefabs.find(name) == m_prefabs.end()) {
             Debug::PrintWarning("Cannot find prefab [" + name + "]");
 			return nullptr;
-		} else {
-            m_objects.push_front(m_prefabs[name]->CloneMemberwise());
-        }
+		}
+        m_objects.push_front(m_prefabs[name]->CloneMemberwise());
 		if (m_objects.front().get() != nullptr)
 		{
 			GameObject *go = static_cast<GameObject*>(m_objects.front().get());
 			go->transform.position = pos;
 			go->transform.rotation = rot;
 		}
+        *Singleton<::SaltyEngine::SaltyEngine>::Instance().GetCurrentScene() << static_cast<GameObject*>(m_objects.front().get());
         return m_objects.front().get();
     }
 

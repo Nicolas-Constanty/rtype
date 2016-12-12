@@ -259,8 +259,9 @@ namespace SaltyEngine
 
 	AScene * SaltyEngine::GetCurrentScene(void) const
 	{
-		if (m_scenes.empty())
-			return (nullptr);
+		if (m_scenes.empty()) {
+			throw std::runtime_error("Not Scene was added");
+		}
 		return m_scenes[m_current].get();
 	}
 

@@ -37,6 +37,7 @@ namespace SaltyEngine
 
 		void Scene::UpdatePhysics()
 		{
+			CollisionTab collisions = m_collisions;
 			for (CollisionTab::iterator me = m_collisions.begin(); me != m_collisions.end(); ++me)
 			{
 				for (CollisionTab::iterator other = m_collisions.begin(); other != m_collisions.end(); ++other)

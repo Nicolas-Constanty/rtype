@@ -160,7 +160,6 @@ namespace SaltyEngine {
                 Debug::PrintWarning("Sprite " + filename + " already loaded");
                 return false;
             }
-
             try {
                 Parser parser = Parser(JSON, (path_sprites + filename + Asset::SPRITE_EXTENSION).c_str());
                 JsonVariant::json_pair map;
@@ -184,6 +183,7 @@ namespace SaltyEngine {
                 }
             } catch (std::exception const &e) {
                 Debug::PrintError(std::string(e.what()) + " " + filename);
+                return false;
             }
             return true;
         }
@@ -216,7 +216,7 @@ namespace SaltyEngine {
                     }
 
                     for (unsigned int i = 0; i < sounds.size(); ++i) {
-                        LoadISound(sounds[i](), false);
+                        LoadSound(sounds[i]());
                     }
 
                     for (unsigned int i = 0; i < dependencies.size(); ++i) {
@@ -234,6 +234,7 @@ namespace SaltyEngine {
                 }
             } catch (std::exception const &e) {
                 Debug::PrintError(std::string(e.what()) + " " + filename);
+                return false;
             }
             return true;
         }
