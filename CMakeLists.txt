@@ -142,8 +142,9 @@ add_dependencies(player SFMLSaltyEngine)
 add_dependencies(mate SaltyEngine)
 add_dependencies(missile_medusa SFMLSaltyEngine)
 add_dependencies(monster SFMLSaltyEngine)
+add_dependencies(monster_walker SFMLSaltyEngine)
 add_dependencies(missile_laser SFMLSaltyEngine)
-add_dependencies(prefabs player mate missile_medusa monster missile_laser)
+add_dependencies(prefabs player mate missile_medusa monster missile_laser monster_walker)
 
 ### FULL BUILD ###
 add_custom_target(BuildGUI DEPENDS gui)
