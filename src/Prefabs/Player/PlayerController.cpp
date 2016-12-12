@@ -18,6 +18,7 @@ namespace SaltyEngine
 
 	void PlayerController::Start()
 	{
+
 		InputKey::AddAxis("Horizontal", new Input::Axis(
 				{
 						{Input::KeyCode::Left, -1},
