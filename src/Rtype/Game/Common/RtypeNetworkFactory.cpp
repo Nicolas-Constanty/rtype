@@ -9,7 +9,8 @@
 const std::map<unsigned short, std::string>  RtypeNetworkFactory::rtypeObjects = {
         {0, "Player"},
         {1, "Mate"},
-        {2, "Monster"}
+        {2, "Monster"},
+        {3, "Laser"}
 };
 
 SaltyEngine::GameObject *RtypeNetworkFactory::Create(unsigned short id, SaltyEngine::Vector const &pos)

@@ -7,7 +7,8 @@
 #include <Rtype/Game/Server/RtypeGameServer.hpp>
 #include <SaltyEngine/Input/VirtualInutManager.hpp>
 #include <Rtype/Game/Client/SpaceShipController.hpp>
-#include <Rtype/Game/Server/GameObjectID.hpp>
+#include <Rtype/Game/Common/GameObjectID.hpp>
+#include "SaltyEngine/Vector2.hpp"
 #include "Rtype/Game/Common/GameObjectContainer.hpp"
 
 Rtype::Game::Server::RtypeServerGameClient::RtypeServerGameClient(Network::Core::NativeSocketIOOperationDispatcher &dispatcher) :
@@ -107,6 +108,7 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetCREATEPackage(CREATEPackag
 {
     //client can't create an object
     reply = false;
+    std::cout << pack << std::endl;
     OnDiscoveringPackage(pack);
 }
 
@@ -128,6 +130,25 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetSHOTPackage(SHOTPackageGam
 {
     OnDiscoveringPackage(pack);
 
+    SaltyEngine::GameObject *gameObject;
+
+    if ((gameObject = server1->gameObjectContainer[pack.objectID])) {
+
+
+        SaltyEngine::GameObject *laser = dynamic_cast<SaltyEngine::GameObject *>(::SaltyEngine::Instantiate("Laser", gameObject->transform.position));
+
+        if (laser) {
+            this->server1->gameObjectContainer.Add(GameObjectID::NewID(), laser);
+
+            this->BroadCastPackage<CREATEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>,
+                                                      gameObject->transform.position.x,
+                                                      gameObject->transform.position.y,
+                                                      3,
+                                                      this->server1->gameObjectContainer.GetServerObjectID(laser));
+        } else {
+            std::cout << "laser is NULL" << std::endl;
+        }
+    }
 //    todo if (okay on gameside)
 //    {
 //        BroadcastReliable(*server1->create<SHOTPackageGame>(pack.objectID));
@@ -181,8 +202,15 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetMOVEPackage(MOVEPackageGam
         {
             Rtype::Game::Server::RtypeServerGameClient *receiver = dynamic_cast<Rtype::Game::Server::RtypeServerGameClient *>(curr.get());
 
-            if (receiver)
-                receiver->SendPackage<MOVEPackageGame>(&Network::Core::BasicConnection::SendData<MOVEPackageGame>, pack.posX, pack.posY, pack.objectID);
+            if (receiver) {
+                SaltyEngine::GameObject *gameObject;
+
+                if ((gameObject = this->server1->gameObjectContainer[pack.objectID])) {
+                    gameObject->transform.position = SaltyEngine::Vector(pack.posX, pack.posY);
+                }
+                receiver->SendPackage<MOVEPackageGame>(&Network::Core::BasicConnection::SendData<MOVEPackageGame>,
+                                                       pack.posX, pack.posY, pack.objectID);
+            }
         }
     }
     if (serverStream)

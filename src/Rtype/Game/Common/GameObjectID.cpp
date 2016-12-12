@@ -2,7 +2,7 @@
 // Created by gouet_v on 12/11/16.
 //
 
-#include <Rtype/Game/Server/GameObjectID.hpp>
+#include <Rtype/Game/Common/GameObjectID.hpp>
 
 unsigned short GameObjectID::NewID() {
     static unsigned short id = 1;

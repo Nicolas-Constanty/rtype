@@ -146,7 +146,6 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetMOVEPackage(MOVEPackageGam
     OnDiscoveringPackage(pack);
     SaltyEngine::GameObject *obj = gameManager->gameObjectContainer[pack.objectID];
     if (obj) {
-        std::cout << "MOVVVEE :: " << obj->GetName() << std::endl;
         obj->transform.position = SaltyEngine::Vector(pack.posX, pack.posY);
     }
  //   SaltyEngine::GameObject *obj = SaltyEngine::SaltyEngine::Instance().GetCurrentScene()->FindById(static_cast<size_t>(pack.objectID));

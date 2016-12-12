@@ -160,3 +160,4 @@ add_dependencies(gui prefabs Parser)
 
 
 add_dependencies(client-test-move-netork SaltyEngine SFMLSaltyEngine Parser)
+add_dependencies(gameserver-stable SaltyEngine SFMLSaltyEngine Parser)
