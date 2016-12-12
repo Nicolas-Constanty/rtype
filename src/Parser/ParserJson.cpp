@@ -4,9 +4,9 @@
 
 #include "Parser/ParserJson.hpp"
 
-ParserJson::ParserJson(ProducterStream &ps) : ConsumerParser(ps), m_type(NONE)
+ParserJson::ParserJson(ProducterStream &ps) : ConsumerParser(ps), m_type(NONE), m_root(nullptr)
 {
-    key = false;
+	key = false;
 	m_key = false;
 }
 
@@ -14,7 +14,7 @@ bool ParserJson::object()
 {
 	bool ret = readChar('{');
 	//std::cout << " ============ OBJECT =========== " << std::endl;
-	if (!_tmp_data.empty() && ret)
+	if (!_tmp_data.empty() && ret && m_array.empty())
 	{
 		//std::cout << "PARENT = " << _tmp_data << std::endl;
 		(*m_parent.top())[_tmp_data].getValue() = new JsonVariant::json_pair();
@@ -43,9 +43,6 @@ bool ParserJson::members()
 bool ParserJson::save_key()
 {
 	//std::cout << " ============ KEY =========== " << std::endl;
-	std::string last;
-	if (m_key)
-		last = _tmp_data;
     beginCapture("key");
     bool ret = ConsumerParser::readValue();
     endCapture("key", _tmp_data);
@@ -77,17 +74,24 @@ bool ParserJson::save_value()
 	//std::cout << " ============ VALUE =========== " << std::endl;
     std::string val;
     beginCapture("value");
-    bool ret = ConsumerParser::readValue();
+    bool ret = readValue();
     endCapture("value", val);
-	JsonVariant::json_array *a = nullptr;
+	JsonVariant::json_array *a;
 	if (!m_array.empty())
 	{
 		try
 		{
-			std::cout << "ADD ARRAY  "  << m_array << std::endl;
 			a = boost::get<JsonVariant::json_array *>((*m_parent.top())[m_array].getValue());
-			(*a).push_back(new JsonVariant::json_pair());
-			(*(*a).back())[_tmp_data].getValue() = val;
+			if (m_array != _tmp_data)
+			{
+				(*a).push_back(new JsonVariant::json_pair());
+				(*(*a).back())[_tmp_data].getValue() = val;
+			}
+			else
+			{
+				(*a).push_back(new JsonVariant::json_pair());
+				(*(*a).back())[std::to_string((*a).size() - 1)].getValue() = val;
+			}
 		}
 		catch (const std::exception&)
 		{
@@ -140,9 +144,9 @@ bool ParserJson::string()
 {
     bool ret = readChar('"');
     if (key)
-        ret = save_key();
+        ret = ret && save_key();
     else
-        ret = save_value();
+        ret = ret && save_value();
     return (ret && readChar('"'));
 }
 

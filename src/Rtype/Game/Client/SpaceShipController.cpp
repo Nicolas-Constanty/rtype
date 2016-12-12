@@ -85,8 +85,3 @@ void SaltyEngine::SpaceShipController::FixedUpdate()
 void SaltyEngine::SpaceShipController::DisplayCoroutine()
 {
 }
-
-void SaltyEngine::SpaceShipController::Move(int x, int y)
-{
-    gameObject->transform.position = Vector(x, y);
-}

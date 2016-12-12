@@ -50,6 +50,7 @@ std::ostream& operator<<(std::ostream& out, JsonVariant::bvariant var)
         out << "\"" << boost::get<std::string>(var) << "\"";
     }
     catch (std::exception const &e) {
+		(void)e;
 		try {
 			++tab;
 			JsonVariant::json_pair *p = boost::get<JsonVariant::json_pair *>(var);
@@ -60,13 +61,15 @@ std::ostream& operator<<(std::ostream& out, JsonVariant::bvariant var)
 			}
 			out << "}";
 		}
-		catch (std::exception const &e) {
+		catch (std::exception const &e1) {
+			(void)e1;
 			try {
 				out << "[" << std::endl;
 				JsonVariant::json_array *a = boost::get<JsonVariant::json_array *>(var);
 				out << a << "]";
 			}
-			catch (std::exception const &e) {
+			catch (std::exception const &e2) {
+				(void)e2;
 				throw JsonException("Invalid map");
 			}
 		}

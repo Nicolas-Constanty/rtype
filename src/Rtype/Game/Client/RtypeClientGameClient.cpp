@@ -6,6 +6,7 @@
 #include <SaltyEngine/SaltyEngine.hpp>
 #include <SaltyEngine/SFML.hpp>
 #include <SaltyEngine/Input/VirtualInutManager.hpp>
+#include <SaltyEngine/Vector2.hpp>
 #include <Rtype/Game/Client/SpaceShipController.hpp>
 
 Rtype::Game::Client::RtypeClientGameClient::RtypeClientGameClient(
@@ -125,11 +126,7 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetMOVEPackage(MOVEPackageGam
     OnDiscoveringPackage(pack);
     SaltyEngine::GameObject *obj = gameManager->gameObjectContainer[pack.objectID];
     if (obj) {
-        SaltyEngine::SpaceShipController *ship = obj->GetComponent<SaltyEngine::SpaceShipController>();
-        if (ship)
-        {
-            ship->Move(pack.posX, pack.posY);
-        }
+        obj->transform.position = SaltyEngine::Vector(pack.posX, pack.posY);
     }
  //   SaltyEngine::GameObject *obj = SaltyEngine::SaltyEngine::Instance().GetCurrentScene()->FindById(static_cast<size_t>(pack.objectID));
  //   if (obj)
