@@ -7,6 +7,7 @@
 #include <list>
 #include <map>
 #include <algorithm>
+#include "SaltyEngine/Constants.hpp"
 #include "Common/Singleton.hpp"
 #include "Vector2.hpp"
 
@@ -62,7 +63,7 @@ namespace SaltyEngine
          * @param tag
          * @return
          */
-		GameObject* FindByTag(std::string const& tag);
+		GameObject* FindByTag(Layer::Tag tag);
 
 		/**
          * @brief Loads an asset into the memory from a path

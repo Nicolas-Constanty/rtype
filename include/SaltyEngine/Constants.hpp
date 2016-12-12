@@ -60,6 +60,12 @@ namespace SaltyEngine
 			ONCE
 	    };
     }
+
+	namespace Layer
+	{
+//		static std::string const Tags[] = { "NONE", "PLAYER", "ENEMY", "BulletPlayer" };
+        enum class Tag : int { Untagged = 0, Player, Enemy, BulletPlayer };
+	}
 }
 
 #endif //RTYPE_CONSTANTS_HPP

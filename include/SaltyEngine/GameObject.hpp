@@ -9,6 +9,7 @@
 #include "SaltyEngine/Transform.hpp"
 #include "SaltyEngine/SaltyBehaviour.hpp"
 #include "Common/MakeUnique.hpp"
+#include "SaltyEngine/Constants.hpp"
 
 namespace SaltyEngine
 {
@@ -21,7 +22,7 @@ namespace SaltyEngine
 		GameObject(GameObject&&) = delete;                  // Move construct
 		GameObject& operator=(GameObject const&) = delete;  // Copy assign
 		GameObject& operator=(GameObject &&) = delete;      // Move assign
-		explicit GameObject(const std::string &name, const std::string &tag = "Untagged");
+		explicit GameObject(const std::string &name, Layer::Tag tag = Layer::Tag::Untagged);
 		virtual ~GameObject() {};
 	public:
 		Transform transform;
@@ -30,7 +31,7 @@ namespace SaltyEngine
 		bool m_activeSelf;
 		size_t layer;
 		Scene *scene;
-		std::string m_tag;
+		Layer::Tag m_tag;
 		std::list<std::unique_ptr<Component>> m_components;
 		std::list<SaltyBehaviour *> m_behaviour;
 		size_t						m_bcount;
@@ -87,7 +88,7 @@ namespace SaltyEngine
 			}
 			return (dynamic_cast<Component *>(m_components.back().get()));
 		}
-		bool CompareTag(const std::string &tag) const;
+		bool CompareTag(Layer::Tag tag) const;
 		template<class T>
 		T *GetComponent()
 		{
@@ -171,7 +172,7 @@ namespace SaltyEngine
 			return (transform.GetParent()->gameObject->GetComponents<T>());
 		}
 
-        std::string const& GetTag(void) const;
+        Layer::Tag GetTag(void) const;
 
 		void SetActive(bool value);
 		friend std::ostream &operator<<(std::ostream &os, GameObject const &object) {
@@ -184,7 +185,7 @@ namespace SaltyEngine
             return Factory::Instance().Find(name);
         }
 
-		static GameObject *FindGameObjectWithTag(std::string const& tag)
+		static GameObject *FindGameObjectWithTag(Layer::Tag tag)
 		{
             return Factory::Instance().FindByTag(tag);
 		}

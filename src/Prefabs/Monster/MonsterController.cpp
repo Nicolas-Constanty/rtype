@@ -1,4 +1,4 @@
-#include <Prefabs/Missile/MissileController.hpp>
+#include "Prefabs/Missile/MissileController.hpp"
 #include "Prefabs/Monster/MonsterController.hpp"
 #include "SaltyEngine/SFML/AssetManager.hpp"
 #include "SaltyEngine/SFML/SpriteRenderer.hpp"
@@ -47,7 +47,7 @@ void MonsterController::Update()
         if (missile) {
             MissileController *missileController = missile->GetComponent<MissileController>();
             if (missileController != nullptr) {
-                missileController->SetTarget(SaltyEngine::GameObject::FindGameObjectWithTag("Player"));
+                missileController->SetTarget(SaltyEngine::GameObject::FindGameObjectWithTag(SaltyEngine::Layer::Tag::Player));
             }
             *Singleton<::SaltyEngine::SaltyEngine>::Instance().GetCurrentScene() << missile;
         }
@@ -77,7 +77,7 @@ void MonsterController::OnCollisionEnter(SaltyEngine::ICollider *col)
     if (col != nullptr)
     {
         SaltyEngine::SFML::BoxCollider2D *c = dynamic_cast<SaltyEngine::SFML::BoxCollider2D*>(col);
-        if (c->gameObject->GetTag() == "BulletPlayer")
+        if (c->gameObject->GetTag() == SaltyEngine::Layer::Tag::BulletPlayer)
         {
             TakeDamage(1);
         }
