@@ -35,7 +35,6 @@ bool ProducterStream::loadFile(const char *path)
     if (_ifs->is_open())
         _ifs->close();
     _ifs->open (path);
-    //    throw std::runtime_error("Cannot open this file");
     _stream = _ifs;
     return (_ifs->is_open());
 }

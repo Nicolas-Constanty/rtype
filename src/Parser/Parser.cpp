@@ -94,10 +94,6 @@ std::ostream& operator<<(std::ostream& out, const JsonVariant::json_array* jsarr
         }
         if (j < jsarray->size() - 1)
             out << ", " << std::endl;
-        /*else if (indent != 1)
-            out << std::string(--indent * 4, ' ') << "]}";
-        else
-            out << std::endl << "]}";*/
     }
     return out;
 }
@@ -107,10 +103,7 @@ std::ostream& operator<<(std::ostream& out, const JsonVariant::json_pair* json)
     unsigned int n = 0;
 	static size_t tab = 0;
 	++tab;
-	//out << "{" <<  std::endl;
     for (JsonVariant::json_pair::const_iterator i = json->begin(); i != json->end(); i++) {
-		/*for (size_t i = 0; i < tab; i++)
-			out << "\t";*/
         out << "\"" << (*i).first << "\" : " << ((*i).second).get();
         ++n;
 		if (n != json->size())
@@ -119,7 +112,5 @@ std::ostream& operator<<(std::ostream& out, const JsonVariant::json_pair* json)
 			out << std::endl;
     }
 	--tab;
-	/*if (tab == 0)
-		out << "}" << std::endl;*/
     return out;
 }

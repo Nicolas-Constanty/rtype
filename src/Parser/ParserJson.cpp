@@ -13,13 +13,10 @@ ParserJson::ParserJson(ProducterStream &ps) : ConsumerParser(ps), m_type(NONE), 
 bool ParserJson::object()
 {
 	bool ret = readChar('{');
-	//std::cout << " ============ OBJECT =========== " << std::endl;
 	if (!_tmp_data.empty() && ret && m_array.empty())
 	{
-		//std::cout << "PARENT = " << _tmp_data << std::endl;
 		(*m_parent.top())[_tmp_data].getValue() = new JsonVariant::json_pair();
 		m_parent.push(boost::get<JsonVariant::json_pair *>((*m_parent.top())[_tmp_data].get()));
-		//std::cout << "CHILD = " << m_parent.top() << std::endl;
 	}
 	ret = ret &&
 		repeater([this] {
@@ -28,7 +25,6 @@ bool ParserJson::object()
 		readChar('}');
 	if (!m_parent.empty() && m_parent.top() != m_root)
 		m_parent.pop();
-	//_tmp_data.clear();
     return (ret);
 }
 
@@ -42,36 +38,15 @@ bool ParserJson::members()
 
 bool ParserJson::save_key()
 {
-	//std::cout << " ============ KEY =========== " << std::endl;
     beginCapture("key");
     bool ret = ConsumerParser::readValue();
     endCapture("key", _tmp_data);
-  //  if (!m_array.empty())
-  //  {
-		//std::cout << "FDP" << std::endl;
-  //      JsonVariant::json_array a = boost::get<JsonVariant::json_array>(
-  //              (*json_node)[m_array].get());
-		//std::cout << "FDP" << std::endl;
-  //      if (!a)
-  //          a = new std::vector<JsonVariant::json_pair *>();
-  //      /*if (a->size() >= index)
-  //      {
-  //          JsonVariant::json_pair *p = new JsonVariant::json_pair();
-  //          a->push_back(p);
-  //      }*/
-  //  }
-	/*if (!_tmp_data.empty() && m_key == true)
-	{
-		(*m_parent.front())[last].getValue() = new JsonVariant::json_pair();
-		m_current = boost::get<JsonVariant::json_pair *>((*m_parent.front())[last].get());
-	}*/
 	m_key = true;
     return (ret);
 }
 
 bool ParserJson::save_value()
 {
-	//std::cout << " ============ VALUE =========== " << std::endl;
     std::string val;
     beginCapture("value");
     bool ret = readValue();
@@ -95,47 +70,13 @@ bool ParserJson::save_value()
 		}
 		catch (const std::exception&)
 		{
-			std::cout << "Cannot add map " << _tmp_data << "     " << val << std::endl;
-			//if (!_tmp_data.empty())
-			//{
-			//	//std::cout << m_parent.top() << std::endl;
-			//	(*m_parent.top())[_tmp_data].getValue() = val;
-			//}
+			std::cout << "Cannot add map " << _tmp_data << " " << val << std::endl;
 		}
 	}
 	else if (!_tmp_data.empty())
 	{
-		//std::cout << m_parent.top() << std::endl;
 		(*m_parent.top())[_tmp_data].getValue() = val;
 	}
-    /*if (!m_array.empty())
-    {
-		JsonVariant::json_array *a = nullptr;
-		try
-		{
-
-			a = boost::get<JsonVariant::json_array *>(
-				(*m_parent.front())[m_array].getValue());
-		}
-		catch (const std::exception&)
-		{
-			(*m_parent.front())[m_array].getValue() = new JsonVariant::json_array();
-			a = boost::get<JsonVariant::json_array *>((*m_parent.front())[m_array].getValue());
-		}
-        
-        if (a)
-        {
-			if (m_current)
-			{
-				(*a).push_back(new JsonVariant::json_pair());
-				(*(*a).back())[_tmp_data].getValue() = val;
-			}
-        }
-        else
-            throw JsonException("Invalid array");
-    }
-	else 
-		*/
 	m_key = false;
     return (ret);
 }
@@ -180,7 +121,6 @@ bool ParserJson::array()
     if (ret)
     {
 		m_array = _tmp_data;
-		std::cout << "ARRAY" << m_array << std::endl;
 		(*m_parent.top())[_tmp_data].getValue() = new JsonVariant::json_array();
 		ret = ret &&
 			repeater([this]() {
@@ -188,23 +128,6 @@ bool ParserJson::array()
 		}, '?') &&
 			readChar(']');
 		m_array.clear();
-		std::cout << std::boolalpha << ret << std::endl;
-        /*std::string ctx = _tmp_data;
-        if (!context.empty())
-        {
-            ret = ret &&
-                  repeater([this, json_node, ctx, index, context] () {
-                      return (elements((*boost::get<JsonVariant::json_array *&>((*json_node)[context].getValue()))[index], ctx, index));
-                  }, '?') &&
-                  readChar(']');
-        }
-        else
-			std::cout << "ARRAY : " << ctx << std::endl;
-            ret = ret &&
-                    repeater([this, json_node, ctx, index] () {
-                        return (elements(json_node, ctx, index));
-                    }, '?') &&
-                    readChar(']');*/
     }
     else
         ret = ret &&
@@ -224,7 +147,6 @@ bool ParserJson::parse(JsonVariant::json_pair* content)
     {
 		m_root = content;
 		m_parent.push(m_root);
-		std::cout << "ROOT ====> " << m_root << std::endl;
         ret = object() && readUntilEOF();
     }
     catch (std::exception const &e)

@@ -161,10 +161,9 @@ namespace SaltyEngine {
                 return false;
             }
 
-            Parser parser = Parser(JSON, (path_sprites + filename + Asset::SPRITE_EXTENSION).c_str());
-            JsonVariant::json_pair map;
-
             try {
+                Parser parser = Parser(JSON, (path_sprites + filename + Asset::SPRITE_EXTENSION).c_str());
+                JsonVariant::json_pair map;
                 if (parser.parse(&map)) {
                     std::string texture = map["texture"]();
 
@@ -202,26 +201,32 @@ namespace SaltyEngine {
         /// \param filename
         /// \return bool
         bool    LoadPrefab(std::string const &filename) {
-            Parser parser = Parser(JSON, (path_prefabs + filename + Asset::PREFAB_EXTENSION).c_str());
-            JsonVariant::json_pair map;
-
             try {
+                Parser parser = Parser(JSON, (path_prefabs + filename + Asset::PREFAB_EXTENSION).c_str());
+                JsonVariant::json_pair map;
                 if (parser.parse(&map)) {
                     Debug::PrintInfo("Parsing Prefab " + filename);
-                    std::list<std::string> sprites;
-                    std::string lib = map["lib"]();
-                    std::string dependencies = map["dependencies"]();
+                    std::string const &lib = map["lib"]();
+                    JsonVariant const &sprites = map["sprites"];
+                    JsonVariant const &sounds = map["sounds"];
+                    JsonVariant const &dependencies = map["dependencies"];
 
-                    if (!dependencies.empty()) {
-                        LoadPrefab(dependencies);
+                    for (unsigned int i = 0; i < sprites.size(); ++i) {
+                        LoadSprite(sprites[i]());
                     }
 
-                    for (std::string sprite: sprites) {
-                        LoadSprite(sprite);
+                    for (unsigned int i = 0; i < sounds.size(); ++i) {
+                        LoadISound(sounds[i](), false);
                     }
+
+                    for (unsigned int i = 0; i < dependencies.size(); ++i) {
+                        LoadPrefab(dependencies[i]());
+                    }
+
                     if (!lib.empty()) {
                         Factory::Instance().LoadAsset(path_metas + lib + Asset::META_EXTENSION);
                     }
+
                     Debug::PrintSuccess("Prefab " + filename + " was successfuly loaded");
                 } else {
                     Debug::PrintError("Cannot parse prefab " + filename);
@@ -242,12 +247,16 @@ namespace SaltyEngine {
         std::list<std::pair<std::string, Vector2f>> LoadScene(std::string const &filename) {
             std::list<std::pair<std::string, Vector2f>> objects;
 
-            Parser parser = Parser(JSON, (path_scenes + filename + Asset::SCENE_EXTENSION).c_str());
-            JsonVariant::json_pair map;
             try {
+                Parser parser = Parser(JSON, (path_scenes + filename + Asset::SCENE_EXTENSION).c_str());
+                JsonVariant::json_pair map;
                 if (parser.parse(&map)) {
                     Debug::PrintInfo("Parsing Scene " + filename);
-                    for (JsonVariant::json_pair::const_iterator prefab = map.begin(); prefab != map.end(); ++prefab) {
+                    std::string const &title = map["title"]();
+                    std::string const &preview = map["preview"]();
+
+                    JsonVariant::json_pair *prefabs = boost::get<JsonVariant::json_pair *>(map["prefabs"].get());
+                    for (JsonVariant::json_pair::const_iterator prefab = prefabs->begin(); prefab != prefabs->end(); ++prefab) {
                         std::string prefabName = prefab->first;
                         Vector2f    position = Vector2f(std::stoi(prefab->second["position"]["x"]()), std::stoi(prefab->second["position"]["y"]()));
                         if (LoadPrefab(prefabName)) {

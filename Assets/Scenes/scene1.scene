@@ -1,14 +1,18 @@
 {
-    "Player": {
-        "position": {
-            "x" : "50",
-            "y": "500"
-        }
-    },
+    "title": "scene1",
+    "preview": "tot.png",
+    "prefabs": {
+        "Player": {
+            "position": {
+                "x" : "50",
+                "y": "500"
+            }
+        },
         "Monster": {
             "position": {
                 "x" : "1000",
                 "y": "500"
             }
         }
+    }
 }
