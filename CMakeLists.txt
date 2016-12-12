@@ -108,12 +108,12 @@ link_directories(${CMAKE_BINARY_DIR}/SFML/Linux/lib)
 #target_link_libraries(serverRoom -ldl)
 #target_link_libraries(serverGameLauncher -ldl -lpthread)
 
-IF(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
-    target_link_libraries(udpserv-1 -lWs2_32)
-    target_link_libraries(tcpserv-1 -lWs2_32)
-    target_link_libraries(udpserv-2 -lWs2_32)
-    target_link_libraries(udpserv-3 -lWs2_32)
-ENDIF(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+#IF(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+#    target_link_libraries(udpserv-1 -lWs2_32)
+#    target_link_libraries(tcpserv-1 -lWs2_32)
+#    target_link_libraries(udpserv-2 -lWs2_32)
+#    target_link_libraries(udpserv-3 -lWs2_32)
+#ENDIF(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
 
 ############### NETWORK ###############
 include(${PROJECT_SOURCE_DIR}/R-Type/Network/CMakeLIsts.txt)
