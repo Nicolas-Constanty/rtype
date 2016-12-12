@@ -1,4 +1,5 @@
 #include <SaltyEngine/Animation.hpp>
+#include <Rtype/Game/Common/GameObjectID.hpp>
 #include "Prefabs/Player/PlayerController.hpp"
 #include "SaltyEngine/SFML/EventManager.hpp"
 #include "SaltyEngine/Input/InputManager.hpp"
@@ -54,19 +55,36 @@ namespace SaltyEngine
 			gameObject->transform.Translate(Vector(h, v) * speed);
             if (manager && BINARY_ROLE == NetRole::CLIENT)
             {
-                //todo fix object id parce que la flemme depuis le début du projet. #victorQuiRage
-                manager->SendPackage<MOVEPackageGame>(
-                        &Network::Core::BasicConnection::SendData<MOVEPackageGame>,
-                        gameObject->transform.position.x,
-                        gameObject->transform.position.y,
-                        manager->gameObjectContainer.GetServerObjectID(gameObject));
-                //                manager->SendInput("Horizontal", h);
-                //                manager->SendInput("Vertical", v);
+				manager->SendPackage<MOVEPackageGame>(
+						&Network::Core::BasicConnection::SendData<MOVEPackageGame>,
+						gameObject->transform.position.x,
+						gameObject->transform.position.y,
+						manager->gameObjectContainer.GetServerObjectID(gameObject));
             }
 		}
 
 		if (InputKey::GetAction("Fire", Input::ActionType::Once)) {
-			GameObject *laser = (GameObject*)::SaltyEngine::Instantiate("Laser", gameObject->transform.position);
+			//GameObject *laser = (GameObject*)::SaltyEngine::Instantiate("Laser", gameObject->transform.position);
+
+			//manager->gameObjectContainer.Add(GameObjectID::NewID(), laser);
+			if (manager && BINARY_ROLE == NetRole::CLIENT) {
+				manager->SendPackage<SHOTPackageGame>(&Network::UDP::AUDPConnection::SendReliable<SHOTPackageGame>,
+														manager->gameObjectContainer.GetServerObjectID(gameObject));
+
+				//std::cout << "FIRE LASER LOL SEND" << std::endl;
+				//manager->SendPackage<CREATEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>,
+				//										gameObject->transform.position.x,
+				//										gameObject->transform.position.y,
+				//										3,
+				//										manager->gameObjectContainer.GetServerObjectID(laser));
+			}
+			//manager->SendPackage<CREATEPackageGame>(
+			//		&Network::Core::BasicConnection::SendData<CREATEPackageGame>,
+			///		gameObject->transform.position.x,
+				//	gameObject->transform.position.y,
+				//	3,
+				//	manager->gameObjectContainer.GetServerObjectID(laser));
+
 			//*Singleton<::SaltyEngine::SaltyEngine>::Instance().GetCurrentScene() << laser;
 		}
 	}

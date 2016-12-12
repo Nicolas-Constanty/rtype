@@ -4,6 +4,7 @@
 
 #include <Common/Flags.hpp>
 #include <Rtype/Game/Server/Room.hpp>
+#include "SaltyEngine/SFML.hpp"
 #if _WIN32
 #include "Network/Socket/WinSocket.hpp"
 #endif
@@ -37,6 +38,7 @@ int main(int ac, char **av)
 #endif
     try
     {
+        SaltyEngine::SFML::AssetManager::Instance().LoadAssets();
         room.Start(port, max, secret, level);
     }
     catch (std::runtime_error const &err)
