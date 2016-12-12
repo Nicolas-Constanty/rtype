@@ -174,7 +174,6 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetDROPPackage(DROPPackageGam
 
 void Rtype::Game::Server::RtypeServerGameClient::onGetMOVEPackage(MOVEPackageGame const &pack)
 {
-    std::cout << pack << std::endl;
     OnDiscoveringPackage(pack);
     for (std::unique_ptr<Network::Socket::ISockStreamHandler> &curr : clients->Streams())
     {

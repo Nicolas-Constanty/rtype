@@ -30,7 +30,7 @@ add_library(mate SHARED ${MATE_SOURCE_FILES} ${MATE_INC_FILES})
 target_link_libraries(mate ${PROJECT_SOURCE_DIR}/lib/libSaltyEngine.a -ldl)
 
 # PLAYER
-file(GLOB PLAYER_SOURCE_FILE "src/Prefabs/Player/*.cpp")
+file(GLOB PLAYER_SOURCE_FILE "src/Prefabs/Player/*.cpp" "src/Rtype/Game/Client/GameManager.cpp")
 file(GLOB PLAYER_INC_FILE "include/Prefabs/Player/*.hpp")
 add_library(player SHARED ${PLAYER_SOURCE_FILE} ${PLAYER_INC_FILE})
 target_link_libraries(player ${PROJECT_SOURCE_DIR}/lib/libSaltyEngine.a ${PROJECT_SOURCE_DIR}/lib/libnetwork.a -ldl)
