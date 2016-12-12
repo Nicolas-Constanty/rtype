@@ -17,6 +17,7 @@ void MonsterWalkerController::Start()
 	m_currDelay = m_minShootInterval + rand() % (int)(m_maxShootInterval - m_minShootInterval);
 }
 
+// TODO : add jump
 void MonsterWalkerController::Update()
 {
 	m_currDelay -= SaltyEngine::SaltyEngine::Instance().GetDeltaTime();
@@ -24,13 +25,12 @@ void MonsterWalkerController::Update()
 	if (m_currDelay <= 0)
 	{
         m_currDelay = m_minShootInterval + rand() % (int)(m_maxShootInterval - m_minShootInterval);
-        SaltyEngine::GameObject *missile = (SaltyEngine::GameObject*)SaltyEngine::Instantiate("MissileMedusa", this->gameObject->transform.position);
+        SaltyEngine::GameObject *missile = (SaltyEngine::GameObject*)SaltyEngine::Instantiate("EnemyBullet", this->gameObject->transform.position);
         if (missile) {
             MissileController *missileController = missile->GetComponent<MissileController>();
             if (missileController != nullptr) {
                 missileController->SetTarget(SaltyEngine::GameObject::FindGameObjectWithTag(SaltyEngine::Layer::Tag::Player));
             }
-            *Singleton<::SaltyEngine::SaltyEngine>::Instance().GetCurrentScene() << missile;
         }
 	}
 	this->gameObject->transform.Translate(-gameObject->transform.right() * SaltyEngine::SaltyEngine::Instance().GetDeltaTime() * m_vel);
