@@ -6,6 +6,7 @@
 #include <SFML/Graphics.hpp>
 #include "SaltyEngine/AScene.hpp"
 #include "SaltyEngine/Collider.hpp"
+#include "SaltyEngine/GUI/Selectable.hpp"
 
 namespace SaltyEngine
 {

@@ -89,7 +89,7 @@ void Network::Core::NativeSocketIOOperationDispatcher::HandleReadOperations()
 {
     fd_set  readset;
 
-    if (select(bindFdsToSet(readset, m_readWatch) + 1, &readset, NULL, NULL, m_timeout.get()) == -1)
+    if (select(static_cast<int>(bindFdsToSet(readset, m_readWatch)) + 1, &readset, nullptr, nullptr, m_timeout.get()) == -1)
         throw std::runtime_error("Select fails");
     performOperations(readset, NativeSocketIOOperationDispatcher::read);
 }
@@ -101,7 +101,7 @@ void Network::Core::NativeSocketIOOperationDispatcher::HandleWriteOperations()
 {
     fd_set  writeset;
 
-    if (select(bindFdsToSet(writeset, m_writeWatch) + 1, NULL, &writeset, NULL, m_timeout.get()) == -1)
+    if (select(static_cast<int>(bindFdsToSet(writeset, m_writeWatch)) + 1, nullptr, &writeset, nullptr, m_timeout.get()) == -1)
         throw std::runtime_error("Select fails");
     performOperations(writeset, NativeSocketIOOperationDispatcher::write);
 }
@@ -126,7 +126,7 @@ void Network::Core::NativeSocketIOOperationDispatcher::HandleOperations()
 //        std::cout << "     - " << curr << std::endl;
 //    std::cout << std::endl;
 
-	if (select(std::max(bindFdsToSet(readset, m_readWatch), bindFdsToSet(writeset, m_writeWatch)) + 1, &readset, &writeset, NULL, timeout.get()) == -1)
+	if (select(static_cast<int>(std::max(bindFdsToSet(readset, m_readWatch), bindFdsToSet(writeset, m_writeWatch))) + 1, &readset, &writeset, nullptr, timeout.get()) == -1)
 		throw std::runtime_error("Select fails");
     performOperations(readset, NativeSocketIOOperationDispatcher::read);
     performOperations(writeset, NativeSocketIOOperationDispatcher::write);
@@ -196,7 +196,10 @@ void Network::Core::NativeSocketIOOperationDispatcher::Run()
 //            std::cout << "===Handling operations(read: " << m_readWatch.size() << ", write: " << m_writeWatch.size() << ")===" << std::endl;
             HandleOperations();
         }
-        catch (std::runtime_error const &err){}
+        catch (std::runtime_error const &err)
+        {
+			(void)err;
+        }
         //usleep(30);
     }
     signal(SIGINT, SIG_DFL);

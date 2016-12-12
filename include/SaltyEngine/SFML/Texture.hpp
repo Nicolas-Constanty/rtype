@@ -30,7 +30,8 @@ namespace SaltyEngine
 
 			sf::Vector2i GetSize(void) const override
 			{
-				return m_size;
+				sf::Vector2i vec(getSize().x, getSize().y);
+				return vec;
 			}
 
 			const std::string &GetFileName(void) const

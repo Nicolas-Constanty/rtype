@@ -21,6 +21,12 @@ namespace SaltyEngine
 					m_sprr = gameObject->AddComponent<::SaltyEngine::SFML::SpriteRenderer>(m_normal, Layout::gui);
 				}
 
+				Button(GameObject* gameObj, ::SaltyEngine::SFML::Sprite * const norm, ::SaltyEngine::SFML::Sprite * const over)
+					: GUI::Button("SMFLButton", gameObj), m_normal(norm), m_over(over)
+				{
+					m_sprr = gameObject->AddComponent<::SaltyEngine::SFML::SpriteRenderer>(m_normal, Layout::gui);
+				}
+
 				Button(const std::string& name, GameObject* gameObj, ::SaltyEngine::SFML::Sprite * const sprite)
 					: GUI::Button(name, gameObj), m_normal(sprite), m_over(sprite)
 				{

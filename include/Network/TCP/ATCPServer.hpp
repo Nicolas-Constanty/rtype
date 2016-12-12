@@ -9,8 +9,8 @@
  #include <vector>
  #include <queue>
 #elif _WIN32
- #include <c++/vector>
-#include <c++/queue>
+ #include <vector>
+#include <queue>
 #endif
 
 #include <Network/Core/NativeSocketIOOperationDispatcher.hpp>

@@ -12,18 +12,21 @@
 class RoomNetworkManager : public SaltyEngine::SaltyBehaviour {
 public:
     RoomNetworkManager(SaltyEngine::GameObject * const gameObject, std::string const &ip, unsigned short port);
-    RoomNetworkManager(std::string const &name, SaltyEngine::GameObject * const gameObject, std::string const &ip, unsigned short port);
+    //RoomNetworkManager(std::string const &name, SaltyEngine::GameObject * const gameObject, std::string const &ip, unsigned short port);
     virtual ~RoomNetworkManager();
 
 public:
-    virtual void Start();
-    virtual void Update();
+    void Start();
+    void Update();
+	void SendAuthenticate(const std::string &name);
+
 
 private:
     std::string                                         ip;
     unsigned short                                      port;
     ClientRoomNetworkManager                            *clientRoomNetworkManager;
     Network::Core::NativeSocketIOOperationDispatcher    dispatcher;
+	RoomPackageFactory									factory;
 };
 
 #endif //RTYPE_ROOMNETWORKMANAGER_HPP
