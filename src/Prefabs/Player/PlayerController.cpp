@@ -4,6 +4,7 @@
 #include "SaltyEngine/Input/InputManager.hpp"
 #include "SaltyEngine/Constants.hpp"
 #include "SaltyEngine/SFML.hpp"
+#include "Rtype/Game/Client/GameManager.hpp"
 
 namespace SaltyEngine
 {
@@ -65,7 +66,7 @@ namespace SaltyEngine
 
 		if (InputKey::GetAction("Fire", Input::ActionType::Once)) {
 			GameObject *laser = (GameObject*)::SaltyEngine::Instantiate("Laser", gameObject->transform.position);
-			*Singleton<::SaltyEngine::SaltyEngine>::Instance().GetCurrentScene() << laser;
+			//*Singleton<::SaltyEngine::SaltyEngine>::Instance().GetCurrentScene() << laser;
 		}
 	}
 }
