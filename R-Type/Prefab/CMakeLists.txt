@@ -22,6 +22,10 @@ file(GLOB MISSILE_LASER_SOURCE_FILE "src/Prefabs/Missile/Laser/*.cpp")
 add_library(missile_laser SHARED ${MISSILE_LASER_SOURCE_FILE})
 target_link_libraries(missile_laser ${PROJECT_SOURCE_DIR}/lib/libSaltyEngine.a -ldl)
 
+# DEFAULT ENEMY BULLET
+file(GLOB MISSILE_ENEMY_BULLET "src/Prefabs/Missile/EnemyBullet/*.cpp")
+add_library(missile_enemy_bullet SHARED ${MISSILE_ENEMY_BULLET})
+target_link_libraries(missile_enemy_bullet ${PROJECT_SOURCE_DIR}/lib/libSaltyEngine.a -ldl)
 
 # MATE (network managed client)
 file(GLOB MATE_SOURCE_FILES "src/Prefabs/Mate/*.cpp")
