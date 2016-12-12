@@ -287,11 +287,12 @@ void Rtype::Game::Server::RtypeServerGameClient::StartDisplayInformation() {
     player = dynamic_cast<SaltyEngine::GameObject*>(SaltyEngine::Object::Instantiate());
     // player->AddComponent<SaltyEngine::SpaceShipController>();
 
-    *SaltyEngine::SaltyEngine::Instance().GetCurrentScene() << player;
+    //*SaltyEngine::SaltyEngine::Instance().GetCurrentScene() << player;
 
     server1->gameObjectContainer.Add(GameObjectID::NewID(), player);
 
     //notify to all players the creation of a player
+    //std::cout << "SENDING DATA !!" << std::endl;
     this->SendPackage<CREATEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>, 100, 100, 0, server1->gameObjectContainer.GetServerObjectID(player));
 
     //notify to <this> player to create existing players

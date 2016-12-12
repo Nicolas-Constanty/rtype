@@ -35,7 +35,7 @@ void Rtype::Game::Server::Room::Start(const uint16_t port, const size_t max, con
     serverGame->AddComponent<Rtype::Game::Server::GameServerObject>(port, max > 4 ? 4 : max, secret, map);
 
     //Adding object to scene
-    *scene << serverGame;
+    //*scene << serverGame;
 
 }
 

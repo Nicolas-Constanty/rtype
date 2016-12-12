@@ -29,7 +29,7 @@ int main(int ac, char **)
 	server->AddComponent<Rtype::Game::Client::GameClientObject>("127.0.0.1", 4242);
 	server->AddComponent<GameManager>();
 
-	*scene << server;
+	//*scene << server;
 
 //    SaltyEngine::GameObject	*player;
 //    SaltyEngine::GameObject	*playerMoved;
