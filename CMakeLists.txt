@@ -115,6 +115,9 @@ IF(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
     target_link_libraries(udpserv-3 -lWs2_32)
 ENDIF(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
 
+############### NETWORK ###############
+add_library(network STATIC ${Networksrc} ${Networkinc})
+
 ############### SERVER ###############
 include(${PROJECT_SOURCE_DIR}/R-Type/ServerRoom/CMakeLists.txt)
 include(${PROJECT_SOURCE_DIR}/R-Type/ServerGameDispatcher/CMakeLists.txt)
@@ -138,7 +141,7 @@ add_dependencies(client-test-move-netork prefabs)
 include(${PROJECT_SOURCE_DIR}/R-Type/Prefab/CMakeLists.txt)
 add_custom_target(prefabs DEPENDS player mate missile_medusa monster missile_laser)
 add_dependencies(SFMLSaltyEngine SaltyEngine)
-add_dependencies(player SFMLSaltyEngine)
+add_dependencies(player SFMLSaltyEngine network)
 add_dependencies(mate SaltyEngine)
 add_dependencies(missile_medusa SFMLSaltyEngine)
 add_dependencies(monster SFMLSaltyEngine)
