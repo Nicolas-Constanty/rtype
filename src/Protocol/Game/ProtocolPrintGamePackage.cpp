@@ -3,6 +3,7 @@
 //
 
 #include "Protocol/Game/ProtocolPrintGamePackage.hpp"
+#include <string>
 
 std::ostream &operator<<(std::ostream &ostream, PackageGameHeader const &packageGameHeader) {
     ostream << "verleft=" << packageGameHeader.headerGameInfo.verLeft << std::endl;

@@ -24,7 +24,7 @@ namespace SaltyEngine
 			{
 				return (contains(vec.x, vec.y));
 			}
-			bool Intersect(IRect<sf::Vector2i> * rect) const override
+			bool Intersect(IRect<sf::Vector2i> * const rect) const override
 			{
 				Rect *r = dynamic_cast<Rect *>(rect);
 				if (r)
@@ -46,6 +46,7 @@ namespace SaltyEngine
 			{
 				return (contains(vec.x, vec.y));
 			}
+
 			bool Intersect(IRect<sf::Vector2f> * const rect) const override
 			{
 				FRect *r = dynamic_cast<FRect *>(rect);

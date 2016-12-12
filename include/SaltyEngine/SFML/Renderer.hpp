@@ -6,6 +6,10 @@
 #include <SFML/Graphics.hpp>
 #include <memory>
 #include "SaltyEngine/ARenderer.hpp"
+#include "SaltyEngine/GUI/Selectable.hpp"
+#include "SaltyEngine/GameObject.hpp"
+#include "SaltyEngine/SFML/Rect.hpp"
+#include "SaltyEngine/SFML/SpriteRenderer.hpp"
 
 namespace SaltyEngine
 {
@@ -16,7 +20,16 @@ namespace SaltyEngine
 		class Renderer : public ARenderer<sf::Vector2i>
 		{
 		public:
-			typedef std::list<SpriteRenderer *> SpriteList;
+			struct Drawable
+			{
+				Drawable(Sprite *s, Rect *r, sf::RenderWindow *w, GameObject *g) : spr(s), rect(r), wind(w), gm(g) {}
+				Sprite *spr;
+				Rect   *rect;
+				sf::RenderWindow *wind;
+				GameObject *gm;
+			};
+		public:
+			typedef std::list<Drawable> SpriteList;
 			typedef  std::map<int, SpriteList> SpriteMap;
 		public:
 			Renderer(sf::VideoMode const &vm, const std::string &name);
@@ -30,21 +43,26 @@ namespace SaltyEngine
 			std::unique_ptr<sf::RenderWindow> m_window;
 
 		private:
-			void DrawGame(const SpriteMap &sprite_map) const;
-			void DrawGUI(const SpriteMap &sprite_map) const;
+			void DrawGame() const;
+			void DrawGUI() const;
 			void DrawSprites(const SpriteList &sprite_list) const;
 
 		public:
-			static SpriteMap m_spriteRenderers;
-			static std::list<BoxCollider2D *> m_debug;
+			SpriteMap m_spriteRenderers;
+			std::list<BoxCollider2D *> m_debug;
+			std::list<GUI::Selectable *> m_selectables;
+			std::list <Drawable> m_rects;
 		public:
-			static void AddSpriteRenderer(SpriteRenderer* const sprr);
-			static void AddDebug(BoxCollider2D *);
+			void AddSpriteRenderer(SpriteRenderer* const sprr);
+			void AddDebug(BoxCollider2D *);
 
-			static const SpriteMap &GetSprites(void)
+			const SpriteMap &GetSprites(void) const
 			{
 				return (m_spriteRenderers);
 			}
+
+		public:
+			void AddSelectable(GUI::Selectable* const select);
 		};
 	}
 }

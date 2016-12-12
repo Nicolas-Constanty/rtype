@@ -16,6 +16,10 @@ namespace SaltyEngine {
 		void FixedUpdate();
 		void DisplayCoroutine();
 
+		//Actions
+	public:
+		void Move(int x, int y) const;
+
 	private:
 		double speed;
 		GameManager    *manager;
