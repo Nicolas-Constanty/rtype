@@ -8,6 +8,7 @@
 #include <SaltyEngine/Input/VirtualInutManager.hpp>
 #include <SaltyEngine/Vector2.hpp>
 #include <Rtype/Game/Client/SpaceShipController.hpp>
+#include <Rtype/Game/Common/RtypeNetworkFactory.hpp>
 
 Rtype::Game::Client::RtypeClientGameClient::RtypeClientGameClient(
         Network::Core::NativeSocketIOOperationDispatcher &dispatcher) :
@@ -72,22 +73,34 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetCREATEPackage(CREATEPackag
 
     //TODO URGENT
     // FACTORY CORRESPONDANCE AVEC L'ID PLEASE
-    if (pack.ID == 0)  { // Ajout du player qu'on va jouer
-        SaltyEngine::GameObject	*player;
-        player = dynamic_cast<SaltyEngine::GameObject*>(SaltyEngine::Object::Instantiate());
-        player->AddComponent<SaltyEngine::SpaceShipController>();
-        *SaltyEngine::SaltyEngine::Instance().GetCurrentScene() << player;
+    try
+    {
+        SaltyEngine::GameObject *object = RtypeNetworkFactory::Create(pack.ID, SaltyEngine::Vector(pack.posX, pack.posY));
 
-        gameManager->gameObjectContainer.Add(pack.objectID, player);
+        gameManager->gameObjectContainer.Add(pack.objectID, object);
+        *SaltyEngine::SaltyEngine::Instance().GetCurrentScene() << object;
     }
-    if (pack.ID == 1)  { // Ajout du player qu'on va jouer
-        SaltyEngine::GameObject	*player;
-        player = dynamic_cast<SaltyEngine::GameObject*>(SaltyEngine::Object::Instantiate());
-        player->AddComponent<SaltyEngine::SpaceShipController>(false);
-        *SaltyEngine::SaltyEngine::Instance().GetCurrentScene() << player;
+    catch (std::runtime_error const &error)
+    {
+        std::cerr << "\e[31mCreate Package\e[0m: " << error.what() << std::endl;
+    }
 
-        gameManager->gameObjectContainer.Add(pack.objectID, player);
-    }
+//    if (pack.ID == 0)  { // Ajout du player qu'on va jouer
+//        SaltyEngine::GameObject	*player;
+//        player = dynamic_cast<SaltyEngine::GameObject*>(SaltyEngine::Object::Instantiate());
+//        player->AddComponent<SaltyEngine::SpaceShipController>();
+//        *SaltyEngine::SaltyEngine::Instance().GetCurrentScene() << player;
+//
+//        gameManager->gameObjectContainer.Add(pack.objectID, player);
+//    }
+//    if (pack.ID == 1)  { // Ajout du player qu'on va jouer
+//        SaltyEngine::GameObject	*player;
+//        player = dynamic_cast<SaltyEngine::GameObject*>(SaltyEngine::Object::Instantiate());
+//        player->AddComponent<SaltyEngine::SpaceShipController>(false);
+//        *SaltyEngine::SaltyEngine::Instance().GetCurrentScene() << player;
+//
+//        gameManager->gameObjectContainer.Add(pack.objectID, player);
+//    }
 }
 
 void Rtype::Game::Client::RtypeClientGameClient::onGetBEAMPackage(BEAMPackageGame const &pack)

@@ -291,7 +291,7 @@ void Rtype::Game::Server::RtypeServerGameClient::StartDisplayInformation() {
     server1->gameObjectContainer.Add(GameObjectID::NewID(), player);
 
     //notify to all players the creation of a player
-    this->SendPackage<CREATEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>, 0, 0, 0, server1->gameObjectContainer.GetServerObjectID(player));
+    this->SendPackage<CREATEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>, 100, 100, 0, server1->gameObjectContainer.GetServerObjectID(player));
 
     //notify to <this> player to create existing players
     for (std::unique_ptr<Network::Socket::ISockStreamHandler> &curr : clients->Streams())
@@ -300,8 +300,7 @@ void Rtype::Game::Server::RtypeServerGameClient::StartDisplayInformation() {
 
         if (client && client != this)
         {
-            //todo same shit as above for existing players
-            client->SendPackage<CREATEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>, 0, 0, 1, server1->gameObjectContainer.GetServerObjectID(player));
+            client->SendPackage<CREATEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>, 100, 100, 1, server1->gameObjectContainer.GetServerObjectID(player));
 //                SendReliable(*server1->create<CREATEPackageGame>());
         }
     }

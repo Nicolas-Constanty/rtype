@@ -4,8 +4,10 @@
 #include "SaltyEngine/SFML/AssetManager.hpp"
 #include "SaltyEngine/SFML/SpriteRenderer.hpp"
 
-Player::Player() : GameObject("Player", SaltyEngine::Layer::Tag::Player)
+Player::Player() :
+        GameObject("Player", SaltyEngine::Layer::Tag::Player)
 {
+    std::cout << "Instantiating Player" << std::endl;
     AddComponent<SaltyEngine::PlayerController>();
 }
 

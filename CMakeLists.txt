@@ -132,16 +132,18 @@ include(${PROJECT_SOURCE_DIR}/Tests/GameServer/CMakeLists.txt)
 include(${PROJECT_SOURCE_DIR}/Tests/Network/CMakeLists.txt)
 include(${PROJECT_SOURCE_DIR}/Tests/Adrien/CMakeLists.txt)
 include(${PROJECT_SOURCE_DIR}/Tests/GUI/CMakeLists.txt)
+add_dependencies(client-test-move-netork prefabs)
 
 ############### PREFABS ##############
 include(${PROJECT_SOURCE_DIR}/R-Type/Prefab/CMakeLists.txt)
-add_custom_target(prefabs DEPENDS player missile_medusa monster missile_laser)
+add_custom_target(prefabs DEPENDS player mate missile_medusa monster missile_laser)
 add_dependencies(SFMLSaltyEngine SaltyEngine)
 add_dependencies(player SFMLSaltyEngine)
+add_dependencies(mate SaltyEngine)
 add_dependencies(missile_medusa SFMLSaltyEngine)
 add_dependencies(monster SFMLSaltyEngine)
 add_dependencies(missile_laser SFMLSaltyEngine)
-add_dependencies(prefabs player missile_medusa monster missile_laser)
+add_dependencies(prefabs player mate missile_medusa monster missile_laser)
 
 ### FULL BUILD ###
 add_custom_target(BuildGUI DEPENDS gui)

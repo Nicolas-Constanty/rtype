@@ -22,7 +22,15 @@ file(GLOB MISSILE_LASER_SOURCE_FILE "src/Prefabs/Missile/Laser/*.cpp")
 add_library(missile_laser SHARED ${MISSILE_LASER_SOURCE_FILE})
 target_link_libraries(missile_laser ${PROJECT_SOURCE_DIR}/lib/libSaltyEngine.a -ldl)
 
+
+# MATE (network managed client)
+file(GLOB MATE_SOURCE_FILES "src/Prefabs/Mate/*.cpp")
+file(GLOB MATE_INC_FILES "include/Prefabs/Mate/*.hpp")
+add_library(mate SHARED ${MATE_SOURCE_FILES} ${MATE_INC_FILES})
+target_link_libraries(mate ${PROJECT_SOURCE_DIR}/lib/libSaltyEngine.a -ldl)
+
 # PLAYER
 file(GLOB PLAYER_SOURCE_FILE "src/Prefabs/Player/*.cpp")
-add_library(player SHARED ${PLAYER_SOURCE_FILE})
+file(GLOB PLAYER_INC_FILE "include/Prefabs/Player/*.hpp")
+add_library(player SHARED ${PLAYER_SOURCE_FILE} ${PLAYER_INC_FILE})
 target_link_libraries(player ${PROJECT_SOURCE_DIR}/lib/libSaltyEngine.a -ldl)

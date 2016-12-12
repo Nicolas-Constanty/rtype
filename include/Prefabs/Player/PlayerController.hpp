@@ -3,6 +3,7 @@
 #ifndef PLAYER_CONTROLLER_HPP_
 #define PLAYER_CONTROLLER_HPP_
 
+#include <Rtype/Game/Client/GameManager.hpp>
 #include "SaltyEngine/SaltyBehaviour.hpp"
 
 
@@ -21,6 +22,9 @@ namespace SaltyEngine {
 		virtual Component *CloneComponent(GameObject* const obj) {
 			return new PlayerController(obj);
 		}
+
+	private:
+		GameManager    *manager;
 	};
 }
 

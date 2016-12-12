@@ -66,6 +66,20 @@ namespace SaltyEngine
 //		static std::string const Tags[] = { "NONE", "PLAYER", "ENEMY", "BulletPlayer" };
         enum class Tag : int { Untagged = 0, Player, Enemy, BulletPlayer };
 	}
+
+	enum class NetRole
+	{
+		SERVER,
+		CLIENT
+	};
+
+	const NetRole			 BINARY_ROLE =
+        #ifdef RTYPESERVER
+            NetRole::SERVER;
+        #else
+            NetRole::CLIENT;
+        #endif
+
 }
 
 #endif //RTYPE_CONSTANTS_HPP

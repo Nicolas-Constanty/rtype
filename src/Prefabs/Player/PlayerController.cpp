@@ -2,6 +2,7 @@
 #include "Prefabs/Player/PlayerController.hpp"
 #include "SaltyEngine/SFML/EventManager.hpp"
 #include "SaltyEngine/Input/InputManager.hpp"
+#include "SaltyEngine/Constants.hpp"
 #include "SaltyEngine/SFML.hpp"
 
 namespace SaltyEngine
@@ -39,6 +40,11 @@ namespace SaltyEngine
 		));
 
 		InputKey::AddAction("Fire", new Input::Action(Input::KeyCode::Space, std::make_pair<unsigned int, int>(0, 1)));
+
+        GameObject *gameman = SaltyEngine::Instance().GetCurrentScene()->FindByName("GameManager");
+
+        if (gameman)
+            manager = gameman->GetComponent<GameManager>();
 	}
 
 	void PlayerController::FixedUpdate()
@@ -47,6 +53,17 @@ namespace SaltyEngine
 		float v = InputKey::GetAxis("Vertical");
 		if (h != 0 || v != 0) {
 			gameObject->transform.Translate(Vector(h, v) * speed);
+            if (manager && BINARY_ROLE == NetRole::CLIENT)
+            {
+                //todo fix object id parce que la flemme depuis le début du projet. #victorQuiRage
+                manager->SendPackage<MOVEPackageGame>(
+                        &Network::Core::BasicConnection::SendData<MOVEPackageGame>,
+                        gameObject->transform.position.x,
+                        gameObject->transform.position.y,
+                        manager->gameObjectContainer.GetServerObjectID(gameObject));
+                //                manager->SendInput("Horizontal", h);
+                //                manager->SendInput("Vertical", v);
+            }
 		}
 
 		if (InputKey::GetAction("Fire", Input::ActionType::Once)) {

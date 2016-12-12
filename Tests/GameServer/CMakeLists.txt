@@ -41,6 +41,8 @@ add_executable(gameserver-stable
         ${SFMLinc}
         Tests/GameServer/gameserver-stable.cpp)
 
+set_target_properties(gameserver-stable PROPERTIES COMPILE_FLAGS "-DRTYPESERVER")
+
 add_executable(client-test-move-netork
         ${Networksrc} ${Networkinc}
         ${Commoninc}
