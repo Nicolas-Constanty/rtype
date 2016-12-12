@@ -21,9 +21,6 @@ namespace SaltyEngine
 				m_quad[3].color = sf::Color::Green;
 				m_quad[4].color = sf::Color::Green;
 				Display();
-				Renderer * r = dynamic_cast<Renderer *>(SaltyEngine::Instance().GetRenderer());
-				if (r)
-					r->AddDebug(this);
 			};
 			virtual ~BoxCollider2D() {};
 
