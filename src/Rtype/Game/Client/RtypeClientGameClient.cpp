@@ -73,6 +73,7 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetCREATEPackage(CREATEPackag
 
     //TODO URGENT
     // FACTORY CORRESPONDANCE AVEC L'ID PLEASE
+    std::cout << pack << std::endl;
     try
     {
         SaltyEngine::GameObject *object = RtypeNetworkFactory::Create(pack.ID, SaltyEngine::Vector(pack.posX, pack.posY));

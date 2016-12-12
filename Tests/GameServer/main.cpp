@@ -21,6 +21,8 @@ int main(int ac, char **)
 	// Create Scene
 	SaltyEngine::SFML::Scene *scene = new SaltyEngine::SFML::Scene();
 
+	SaltyEngine::SaltyEngine::Instance() << scene;
+
 	SaltyEngine::GameObject	*server = dynamic_cast<SaltyEngine::GameObject*>(SaltyEngine::Object::Instantiate());
 
     server->SetName("GameManager");
@@ -51,8 +53,6 @@ int main(int ac, char **)
 
 //    *scene << player;
 //	*scene << playerMoved;
-
-	SaltyEngine::SaltyEngine::Instance() << scene;
 
 //	SaltyEngine::SaltyEngine::Instance().SetFrameRate(2);
 
