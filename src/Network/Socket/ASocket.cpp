@@ -102,9 +102,13 @@ void Network::Socket::ASocket::Listen(const uint16_t port, const int nbc) throw(
     sockaddr.sin_addr.s_addr = htonl(INADDR_ANY);
     if (bind(fd, (const struct sockaddr *)&sockaddr, len) == -1 || (protocol == Network::Socket::TCP && listen(fd, nbc) == -1))
     {
+#ifdef _WIN32
 		char err[256];
 		strerror_s(err, errno);
 		throw SocketException(err);
+#else
+        throw SocketException(strerror(errno));
+#endif
     }
         
 }
@@ -157,9 +161,13 @@ void Network::Socket::ASocket::Accept(ISocket &sock)
         if ((sck->fd = accept(fd, (struct sockaddr *)&sck->sockaddr, &len)) == -1 ||
                 getsockname(sck->fd, (struct sockaddr *)&sck->sockaddr, &len) == -1)
         {
+#ifdef _WIN32
 			char err[256];
 			strerror_s(err, errno);
 			throw Network::Socket::SocketException(err);
+#else
+            throw Network::Socket::SocketException(strerror(errno));
+#endif
         }
     }
 }

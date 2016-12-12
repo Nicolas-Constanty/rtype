@@ -65,7 +65,11 @@ public:
         this->roomPlayerMax = roomPlayerMax;
         memset(this->name, 0, sizeof(this->name));
         if (name.length() < sizeof(this->name)) {
+#ifdef _WIN32
             strncpy_s(this->name, sizeof(this->name), name.c_str(), name.length());
+#else
+            strncpy(this->name, name.c_str(), name.length());
+#endif
         }
         this->roomID = roomID;
         this->mapID = mapID;
@@ -109,7 +113,11 @@ public:
             : PackageRoomHeader(sizeof(AUTHENTICATEPackageRoom), RoomPurpose::ROOMAUTHENTICATE) {
         memset(this->name, 0, sizeof(this->name));
         if (pseudo.length() < sizeof(this->name)) {
+#ifdef _WIN32
             strncpy_s(this->name, sizeof(this->name), pseudo.c_str(), pseudo.length());
+#else
+            strncpy(this->name, pseudo.c_str(), pseudo.length());
+#endif
         }
         this->userID = userID;
     }
@@ -125,7 +133,11 @@ public:
             : PackageRoomHeader(sizeof(PLUGGEDPackageRoom), RoomPurpose::ROOMPLUGGED) {
         memset(this->name, 0, sizeof(this->name));
         if (pseudo.length() < sizeof(this->name)) {
+#ifdef _WIN32
             strncpy_s(this->name, sizeof(this->name), pseudo.c_str(), pseudo.length());
+#else
+            strncpy(this->name, pseudo.c_str(), pseudo.length());
+#endif
         }
         this->userID = userID;
         this->roomID = roomID;
@@ -159,7 +171,11 @@ public:
             : PackageRoomHeader(sizeof(GETPackageRoom), RoomPurpose::ROOMGET) {
         memset(this->name, 0, sizeof(this->name));
         if (pseudo.length() < sizeof(this->name)) {
+#ifdef _WIN32
             strncpy_s(this->name, sizeof(this->name), pseudo.c_str(), pseudo.length());
+#else
+            strncpy(this->name, pseudo.c_str(), pseudo.length());
+#endif
         }
         this->roomPlayer = roomPlayer;
         this->roomPlayerMax = roomPlayerMax;
@@ -183,7 +199,11 @@ public:
             : PackageRoomHeader(sizeof(FAILUREPackageRoom), RoomPurpose::ROOMFAILURE) {
         memset(this->msg, 0, sizeof(this->msg));
         if (msg.length() < sizeof(this->msg)) {
+#ifdef _WIN32
             strncpy_s(this->msg, sizeof(this->msg), msg.c_str(), msg.length());
+#else
+            strncpy(this->msg, msg.c_str(), msg.length());
+#endif
         }
         this->purposeFailed = purposeFailed;
     }
@@ -222,7 +242,11 @@ public:
         this->roomID = roomID;
         memset(this->msg, 0, sizeof(this->msg));
         if (msg.length() < sizeof(this->msg)) {
+#ifdef _WIN32
             strncpy_s(this->msg, sizeof(this->msg), msg.c_str(), msg.length());
+#else
+            strncpy(this->msg, msg.c_str(), msg.length());
+#endif
         }
     }
 
