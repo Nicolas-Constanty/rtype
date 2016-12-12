@@ -33,9 +33,9 @@ target_link_libraries(mate ${PROJECT_SOURCE_DIR}/lib/libSaltyEngine.a -ldl)
 file(GLOB PLAYER_SOURCE_FILE "src/Prefabs/Player/*.cpp")
 file(GLOB PLAYER_INC_FILE "include/Prefabs/Player/*.hpp")
 add_library(player SHARED ${PLAYER_SOURCE_FILE} ${PLAYER_INC_FILE})
-target_link_libraries(player ${PROJECT_SOURCE_DIR}/lib/libSaltyEngine.a -ldl)
+target_link_libraries(player ${PROJECT_SOURCE_DIR}/lib/libSaltyEngine.a ${PROJECT_SOURCE_DIR}/lib/libnetwork.a -ldl)
 
 # WALKING MONSTER
 file(GLOB WALKINGMONSTER_SOURCE_FILE "src/Prefabs/MonsterWalker/*.cpp")
 add_library(monster_walker SHARED ${WALKINGMONSTER_SOURCE_FILE})
-target_link_libraries(monster_walker ${PROJECT_SOURCE_DIR}/lib/libSaltyEngine.a -ldl)
+target_link_libraries(monster_walker ${PROJECT_SOURCE_DIR}/lib/libSaltyEngine.a ${PROJECT_SOURCE_DIR}/lib/libnetwork.a -ldl)

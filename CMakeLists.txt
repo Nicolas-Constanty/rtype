@@ -116,7 +116,7 @@ IF(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
 ENDIF(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
 
 ############### NETWORK ###############
-add_library(network STATIC ${Networksrc} ${Networkinc})
+include(${PROJECT_SOURCE_DIR}/R-Type/Network/CMakeLIsts.txt)
 
 ############### SERVER ###############
 include(${PROJECT_SOURCE_DIR}/R-Type/ServerRoom/CMakeLists.txt)
