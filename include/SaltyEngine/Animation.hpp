@@ -2,6 +2,7 @@
 
 #include <queue>
 #include <SaltyEngine/SFML/AssetManager.hpp>
+#include <SaltyEngine/SFML/SpriteRenderer.hpp>
 #include "SaltyEngine.hpp"
 #include "SaltyBehaviour.hpp"
 #include "AnimationClip.hpp"
@@ -155,6 +156,15 @@ namespace SaltyEngine
 		{
             if (animData != nullptr)
                 delete animData;
+            for (typename std::map<std::string, AnimationClip<T> *>::iterator it = m_clips.begin(); it != m_clips.end(); ++it)
+            {
+                if (it->second != nullptr)
+                {
+                    delete it->second;
+                    it->second = nullptr;
+                }
+            }
+            m_clips.clear();
         }
 
 		/**
@@ -298,7 +308,6 @@ namespace SaltyEngine
 		{
 			UpdateAnimations();
 		}
-
 	public:
 		virtual Component *CloneComponent(GameObject* const obj) {
 			Animation<T> *anim = new Animation<T>(obj, m_playAuto, m_wrapMode);
