@@ -62,6 +62,7 @@ namespace SaltyEngine {
                 }
                 it = m_sprites.find(name);
                 if (it == m_sprites.end()) {
+                    Debug::PrintWarning("Failed to get sprite " + name);
                     return nullptr;
                 }
             }
