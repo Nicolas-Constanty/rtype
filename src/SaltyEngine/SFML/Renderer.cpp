@@ -1,4 +1,5 @@
 #include "SaltyEngine/SFML/Renderer.hpp"
+#include "SaltyEngine/Sprite.hpp"
 
 namespace SaltyEngine
 {
@@ -53,12 +54,12 @@ namespace SaltyEngine
 
 		void Renderer::DrawSprites(const SpriteList &sprite_list) const
 		{
-			for (SpriteList::const_iterator spr = sprite_list.begin(); spr != sprite_list.end(); ++spr)
+			for (SpriteList::const_iterator it = sprite_list.begin(); it != sprite_list.end(); ++it)
 			{	
-				(*spr).spr->setPosition(
-					(*spr).gm->transform.position.x - ((*spr).rect->width / 2),
-					(*spr).gm->transform.position.y - ((*spr).rect->height / 2));
-				(*spr).wind->draw((*(*spr).spr));
+				(*(*it).spr)->setPosition(
+					(*it).gm->transform.position.x - ((*it).rect->width / 2),
+					(*it).gm->transform.position.y - ((*it).rect->height / 2));
+				(*it).wind->draw((*(*(*it).spr)));
 			}
 		}
 
@@ -66,13 +67,13 @@ namespace SaltyEngine
 		{
 			if (m_spriteRenderers.find(sprr->GetLayer()) == m_spriteRenderers.end())
 				m_spriteRenderers.emplace(std::make_pair(sprr->GetLayer(), SpriteList()));
-			Sprite *s = dynamic_cast<Sprite *>(sprr->GetSprite());
+			::SaltyEngine::Sprite<sf::Vector2i> **s = &sprr->m_sprite;
 			Rect *r = dynamic_cast<Rect *>(sprr->GetSprite()->GetRect());
 			sf::RenderWindow *w = dynamic_cast<sf::RenderWindow *>(sprr->GetWindow());
 			if (w == nullptr)
 				w = m_window.get();
 			if (r && s && w)
-				m_spriteRenderers.at(sprr->GetLayer()).push_back(Drawable(s, r, w, sprr->gameObject));
+				m_spriteRenderers.at(sprr->GetLayer()).push_back(Drawable((Sprite **)(s), r, w, sprr->gameObject));
 		}
 
 		void Renderer::AddDebug(BoxCollider2D *box)
@@ -91,6 +92,11 @@ namespace SaltyEngine
 				return;
 			}
 			m_selectables.push_back(select);
+		}
+
+		Renderer::~Renderer()
+		{
+
 		}
 	}
 }

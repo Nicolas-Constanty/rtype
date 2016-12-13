@@ -1,8 +1,6 @@
 cmake_minimum_required(VERSION 2.8)
 project(rtype)
 
-#execute_process(COMMAND ${CMAKE_COMMAND} -E tar xzf ${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/SFML.zip)
-
 if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wextra")
 elseif(MSVC)
@@ -14,12 +12,12 @@ pkg_check_modules(SFML sfml-all)
 
 if ("${SFML_LIBRARIES}" STREQUAL "")
     execute_process(COMMAND unzip -f ${CMAKE_SOURCE_DIR}/Dependencies/SFML.zip)
+    include_directories(include Dependencies/SFML/Linux/include)
     link_directories(${CMAKE_BINARY_DIR}/SFML/Linux/lib)
 else()
     message(WARNING "J'utilise la vrai SFML")
+    include_directories("include")
 endif()
-
-include_directories("include")
 
 file(GLOB Networksrc src/Network/*/*.cpp)
 file(GLOB Networkinc include/Network/*/*.hpp)
@@ -60,72 +58,6 @@ file(GLOB threadinc include/Thread/*.hpp)
 file(GLOB processsrc src/Process/*.cpp)
 file(GLOB processinc include/Process/*.hpp)
 
-#add_executable(rtype-server
-#        ${srcGameServ} ${incGameServ}
-#        ${Networksrc} ${Networkinc}
-#        ${Commoninc} ${Commonsrc}
-#        ${Protocolsrc} ${Protocolinc}
-#        ${SaltyEnginesrc} ${SaltyEngineinc})
-#
-#add_executable(udpserv-1 ${Networksrc} ${Networkinc} Tests/Network/udpserv-1.cpp Tests/Network/baseudp.hpp)
-#add_executable(tcpserv-1 ${Networksrc} ${Networkinc} Tests/Network/tcpserv-1.cpp Tests/Network/ClientRoomConnectionToServerRoom/basetcp.hpp)
-#add_executable(udpserv-2 ${Networksrc} ${Networkinc} Tests/Network/udpserv-2.cpp Tests/Network/baseudp.hpp)
-#add_executable(udpclient-1 ${Networksrc} ${Networkinc} Tests/Network/udpclient-1.cpp Tests/Network/baseudp.hpp)
-#add_executable(gameserv-1
-#        ${Networksrc} ${Networkinc}
-#        ${Commoninc} ${Commonsrc}
-#        ${SaltyEnginesrc} ${SaltyEngineinc}
-#        ${srcGameServ} ${incGameServ}
-#        ${Protocolsrc} ${Protocolinc}
-#        Tests/GameServer/gameserv-1.cpp)
-#add_executable(clientRoomTCPClient ${Networksrc} ${Networkinc} ${Protocolinc} ${Protocolsrc} Tests/Network/ClientRoomConnectionToServerRoom/tcpclient-1.cpp Tests/Network/ClientRoomConnectionToServerRoom/basetcp.hpp)
-#add_executable(serverGameTCPClient ${Networksrc} ${Networkinc} ${Protocolinc} ${Protocolsrc} Tests/Network/ServerGameConnectionToServerRoom/serverGameTCP.cpp Tests/Network/ServerGameConnectionToServerRoom/serverGameClient.hpp)
-#add_executable(serverGameLauncher ${processsrc} ${processinc} ${threadsrc} ${threadinc} ${serverGameRoomsinc} ${serverGameRoomssrc} ${Networksrc} ${Networkinc} ${Protocolinc} ${Protocolsrc} src/ServerGame/CreateRoomGameServer/main.cpp)
-#
-#add_executable(serverRoom
-#        ${Networksrc} ${Networkinc}
-#        ${Commoninc} ${Commonsrc}
-#        ${Protocolsrc} ${Protocolinc}
-#        ${serverRoomsrc} ${serverRoominc}
-#        src/ServerRoom/main.cpp)
-#
-#add_executable(gameserv-2
-#        ${Networksrc} ${Networkinc}
-#        ${Commonsrc} ${Commoninc}
-#        ${Protocolsrc} ${Protocolinc}
-#        ${SaltyEnginesrc} ${SaltyEngineinc}
-#        ${srcGameServ} ${incGameServ}
-#        ${srcGameCommon} ${incGameCommon}
-#        ${SFMLsrc} ${SFMLinc}
-#        Tests/GameServer/gameserv-2.cpp)
-#
-#add_executable(gameclient-1
-#        ${Networksrc} ${Networkinc}
-#        ${Commoninc} ${Commonsrc}
-#        ${Protocolsrc} ${Protocolinc}
-#        ${SaltyEnginesrc} ${SaltyEngineinc}
-#        ${srcGameClient} ${incGameClient}
-#        ${srcGameCommon} ${incGameCommon}
-#        ${SFMLsrc} ${SFMLinc}
-#        Tests/GameServer/gameclient-1.cpp)
-#
-#add_executable(udp-reception-status include/Network/UDP/ReceptionStatus.hpp Tests/Network/udpreception-status.cpp)
-
-#add_executable(toto Tests/SaltyEngine/main.cpp) #for color
-
-#target_link_libraries(gameserv-1 -ldl)
-#target_link_libraries(gameserv-2 -ldl libsfml-system.so libsfml-audio.so libsfml-graphics.so libsfml-window.so)
-#target_link_libraries(gameclient-1 -ldl libsfml-system.so libsfml-audio.so libsfml-graphics.so libsfml-window.so)
-#target_link_libraries(serverRoom -ldl)
-#target_link_libraries(serverGameLauncher -ldl -lpthread)
-
-#IF(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
-#    target_link_libraries(udpserv-1 -lWs2_32)
-#    target_link_libraries(tcpserv-1 -lWs2_32)
-#    target_link_libraries(udpserv-2 -lWs2_32)
-#    target_link_libraries(udpserv-3 -lWs2_32)
-#ENDIF(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
-
 ############### NETWORK ###############
 include(${PROJECT_SOURCE_DIR}/R-Type/Network/CMakeLists.txt)
 
@@ -144,7 +76,6 @@ include(${PROJECT_SOURCE_DIR}/R-Type/SFMLSaltyEngine/CMakeLists.txt)
 include(${PROJECT_SOURCE_DIR}/Tests/Network/ClientRoomConnectionToServerRoom/CMakeLists.txt)
 include(${PROJECT_SOURCE_DIR}/Tests/GameServer/CMakeLists.txt)
 include(${PROJECT_SOURCE_DIR}/Tests/Network/CMakeLists.txt)
-include(${PROJECT_SOURCE_DIR}/Tests/Adrien/CMakeLists.txt)
 include(${PROJECT_SOURCE_DIR}/Tests/GUI/CMakeLists.txt)
 
 
@@ -155,5 +86,5 @@ include(${PROJECT_SOURCE_DIR}/R-Type/Prefab/CMakeLists.txt)
 add_dependencies(SFMLSaltyEngine SaltyEngine)
 add_dependencies(client-test-move-netork prefabs)
 
-add_dependencies(gui network Parser SFMLSaltyEngine)
+add_dependencies(gui network Parser SFMLSaltyEngine prefabs)
 add_dependencies(gameserver-stable SaltyEngine SFMLSaltyEngine Parser)

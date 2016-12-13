@@ -1,6 +1,7 @@
 #pragma once
 #include <functional>
 #include <list>
+#include <SaltyEngine/SFML/AssetManager.hpp>
 #include "Object.hpp"
 #include "SaltyEngine/Sprite.hpp"
 
@@ -31,7 +32,10 @@ namespace SaltyEngine
 
 		void AddSprite(Sprite<T> * const sprite)
 		{
-			m_sprites.push_back(sprite);
+            if (sprite)
+                m_sprites.push_back(sprite);
+            else
+                Debug::PrintWarning("Cannot add nullptr");
 		}
 
 		double GetFrameRate() const
@@ -52,6 +56,20 @@ namespace SaltyEngine
 		void operator<<(Sprite<T> * const sprite)
 		{
 			AddSprite(sprite);
+		}
+
+	public:
+		AnimationClip *CopyClip()
+		{
+			AnimationClip *animationclip = new AnimationClip("Animation(Clone)", m_frameRate);
+			for (std::list<std::function<void()>>::const_iterator j = m_events.begin(); j != m_events.end(); ++j) {
+				animationclip->m_events.push_back(*j);
+			}
+			for (Sprite<T> *sprite : m_sprites) {
+                if (sprite)
+                    animationclip->AddSprite(SFML::AssetManager::Instance().GetSprite(sprite->GetName()));
+			}
+			return animationclip;
 		}
 	};
 }

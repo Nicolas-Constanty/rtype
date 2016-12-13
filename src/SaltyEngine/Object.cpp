@@ -47,6 +47,6 @@ namespace SaltyEngine
 
 	void Object::Destroy(Object const* original)
 	{
-		delete original;
+		//delete original;
 	}
 }

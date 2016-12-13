@@ -55,14 +55,14 @@ namespace SaltyEngine
 		void LoadAssets() noexcept;
 
 	private:
-		EngineStatus						m_status;
-		std::vector<std::unique_ptr<AScene>>	m_scenes;
-		size_t								m_current;
-		std::chrono::nanoseconds			m_frame_rate;
-		size_t								m_fps;
+		EngineStatus								m_status;
+		std::vector<std::unique_ptr<AScene>>		m_scenes;
+		size_t										m_current;
+		std::chrono::nanoseconds					m_frame_rate;
+		size_t										m_fps;
 		std::chrono::duration<long long, std::nano> m_delta_time;
-		IRenderer							*m_renderer;
-		Input::IEventManager				*m_even_manager;
+		IRenderer									*m_renderer;
+		Input::IEventManager						*m_even_manager;
 	};
 }
 

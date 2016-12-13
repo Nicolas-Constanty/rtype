@@ -11,6 +11,7 @@ namespace SaltyEngine {
             Pressed,
             Released,
             Once,
+            OnceReleased,
             None
         };
     }

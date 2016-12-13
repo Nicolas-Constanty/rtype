@@ -35,9 +35,12 @@ namespace SaltyEngine
 		virtual void SetLayout(Layout layout) { m_layer = layout; }
 
 	protected:
-		Sprite<T>		*m_sprite;
+
 		Layout			m_layer;
 		IWindow			*m_window;
+
+	public:
+		Sprite<T>		*m_sprite;
 	};
 }
 

@@ -37,6 +37,12 @@ namespace SaltyEngine
 
 	SaltyEngine::~SaltyEngine()
 	{
+		std::cout << "COUCOU" << std::endl;
+		if (m_renderer)
+			delete m_renderer;
+		if (m_even_manager)
+			delete m_even_manager;
+		m_scenes.clear();
 	}
 
 	/**
