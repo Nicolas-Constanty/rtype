@@ -19,7 +19,7 @@ file(GLOB INCLUDE_SALTYENGINE_FILE
 
 include_directories("include")
 
-set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib/)
+set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib/)
 
-add_library(SaltyEngine STATIC ${SOURCE_SALTYENGINE_FILE})
+add_library(SaltyEngine SHARED ${SOURCE_SALTYENGINE_FILE})
 target_link_libraries(SaltyEngine)
