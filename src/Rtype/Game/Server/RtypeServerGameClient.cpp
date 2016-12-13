@@ -311,7 +311,11 @@ bool Rtype::Game::Server::RtypeServerGameClient::pong() const
 void Rtype::Game::Server::RtypeServerGameClient::StartDisplayInformation() {
     SaltyEngine::GameObject	*player;
 
+    int x = 100;
+    int y = 100;
+
     player = dynamic_cast<SaltyEngine::GameObject*>(SaltyEngine::Object::Instantiate());
+    player->transform.position = SaltyEngine::Vector(x, y);
     // player->AddComponent<SaltyEngine::SpaceShipController>();
 
     //*SaltyEngine::SaltyEngine::Instance().GetCurrentScene() << player;
@@ -320,7 +324,7 @@ void Rtype::Game::Server::RtypeServerGameClient::StartDisplayInformation() {
 
     //notify to all players the creation of a player
     //std::cout << "SENDING DATA !!" << std::endl;
-    this->SendPackage<CREATEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>, 100, 100, 0, server1->gameObjectContainer.GetServerObjectID(player));
+    this->SendPackage<CREATEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>, player->transform.position.x, player->transform.position.y, 0, server1->gameObjectContainer.GetServerObjectID(player));
 
     //notify to <this> player to create existing players
     for (std::unique_ptr<Network::Socket::ISockStreamHandler> &curr : clients->Streams())
@@ -329,7 +333,7 @@ void Rtype::Game::Server::RtypeServerGameClient::StartDisplayInformation() {
 
         if (client && client != this)
         {
-            client->SendPackage<CREATEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>, 100, 100, 1, server1->gameObjectContainer.GetServerObjectID(player));
+            client->SendPackage<CREATEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>, player->transform.position.x, player->transform.position.y, 1, server1->gameObjectContainer.GetServerObjectID(player));
 //                SendReliable(*server1->create<CREATEPackageGame>());
         }
     }
