@@ -34,6 +34,10 @@ namespace Rtype
             public:
                 virtual bool OnDataReceived(unsigned int len);
                 virtual bool OnDataSent(unsigned int len);
+                virtual void OnDisconnect();
+
+            public:
+                virtual void onGetDISCONNECTPackage(DISCONNECTPackageGame const &);
 
             protected:
                 template <typename Pack>
@@ -70,6 +74,20 @@ namespace Rtype
                     }
                 }
 
+            public:
+                template <typename T>
+                void SendToServerReliablyNow(T &ref)
+                {
+                    Network::Core::NetBuffer    buffer(ref);
+                    for (int i = 0; i < 30; ++i)
+                    {
+                        if (serverStream)
+                            serverStream->giveSocket().SendTo(buffer, giveSocket());
+                        else
+                            sock.SendTo(buffer, sock);
+                    }
+                }
+
             private:
                 RTypeProtocolGameManager    manager;
                 GamePackageFactory          factory;
@@ -81,6 +99,7 @@ namespace Rtype
             protected:
                 bool reply;
                 bool connected;
+                unsigned char playerID;
             };
         }
     }

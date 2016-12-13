@@ -198,3 +198,12 @@ std::ostream &operator<<(std::ostream &ostream, INPUTPackageGame const &inputPac
     ostream << "}" << std::endl;
     return ostream;
 }
+
+std::ostream    &operator<<(std::ostream &output, DISCONNECTPackageGame const &disconnectPackageGame)
+{
+    output << "DISCONNECTPackageGame = {" << std::endl;
+    output << dynamic_cast<PackageGameHeader const &>(disconnectPackageGame);
+    output << "playerID=" << disconnectPackageGame.playerID << std::endl;
+    output << "}" << std::endl;
+    return output;
+}

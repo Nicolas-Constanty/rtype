@@ -44,7 +44,7 @@ bool Rtype::Game::Common::RtypeGameClient::OnDataReceived(unsigned int)
     {
         PackageGameHeader *head = buff.buff<PackageGameHeader>();
 
-//        std::cout << "Buff: " << buff << std::endl << "\e[34mReceived\e[0m: " << *head << " with reply: " << std::boolalpha << reply << std::endl;
+        std::cout << "Buff: " << buff << std::endl << "\e[34mReceived\e[0m: " << *head << " with reply: " << std::boolalpha << reply << std::endl;
         if (head->transactionID != 0)
         {
             //here you can check packet send by server which are lost
@@ -90,4 +90,17 @@ bool Rtype::Game::Common::RtypeGameClient::OnDataReceived(unsigned int)
 bool Rtype::Game::Common::RtypeGameClient::OnDataSent(unsigned int len)
 {
     return true;
+}
+
+void Rtype::Game::Common::RtypeGameClient::onGetDISCONNECTPackage(DISCONNECTPackageGame const &pack)
+{
+    OnDiscoveringPackage(pack);
+    std::cout << "Get disconnect: " << pack << std::endl;
+    Disconnect();
+}
+
+void Rtype::Game::Common::RtypeGameClient::OnDisconnect()
+{
+    std::cout << "\e[31mOn Disconnect called\e[0m" << std::endl;
+    SendPackage<DISCONNECTPackageGame>(&Rtype::Game::Common::RtypeGameClient::SendToServerReliablyNow<DISCONNECTPackageGame>, playerID);
 }

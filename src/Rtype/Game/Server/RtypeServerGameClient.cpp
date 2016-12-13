@@ -342,3 +342,10 @@ void Rtype::Game::Server::RtypeServerGameClient::StartDisplayInformation() {
         }
     }
 }
+
+void Rtype::Game::Server::RtypeServerGameClient::onGetDISCONNECTPackage(DISCONNECTPackageGame const &pack)
+{
+    reply = false;
+    OnDiscoveringPackage(pack);
+    Disconnect();
+}

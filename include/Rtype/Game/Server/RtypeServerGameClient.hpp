@@ -46,6 +46,7 @@ namespace Rtype
                 virtual void onGetREBORNPackage(REBORNPackageGame const &);
                 virtual void onGetFAILUREPackage(FAILUREPackageGame const &);
                 virtual void onGetINPUTPackage(INPUTPackageGame const &);
+                virtual void onGetDISCONNECTPackage(DISCONNECTPackageGame const &);
 
             public:
                 void StartDisplayInformation();

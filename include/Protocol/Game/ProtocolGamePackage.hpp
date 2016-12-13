@@ -32,7 +32,8 @@ typedef enum : unsigned char {
     GAMEPING = 11,
     GAMEREBORN = 12,
     GAMEFAILURE = 13,
-    GAMEINPUT = 14
+    GAMEINPUT = 14,
+    GAMEDISCONNECT = 15
 } GamePurpose;
 
 class PackageGameHeader {
@@ -86,6 +87,20 @@ public:
 public:
     unsigned int secret;
     unsigned char playerId;
+};
+
+class DISCONNECTPackageGame : public PackageGameHeader
+{
+public:
+    DISCONNECTPackageGame(unsigned short sequenceID = 0, unsigned char playerID = 0, unsigned short transactionID = 0) :
+            PackageGameHeader(true, sizeof(DISCONNECTPackageGame), sequenceID, GamePurpose::GAMEDISCONNECT, transactionID),
+            playerID(playerID)
+    {
+
+    }
+
+public:
+    unsigned char playerID;
 };
 
 class ObjectIDPackageGame : public PackageGameHeader {
