@@ -91,6 +91,7 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetAUTHENTICATEPackage(AUTHEN
                 RtypeServerGameClient *client = dynamic_cast<RtypeServerGameClient *>(curr.get());
                 client->StartDisplayInformation();
             }
+            server1->OnStartGame();
         }
 
         //ping <this> player in order to made him survive
