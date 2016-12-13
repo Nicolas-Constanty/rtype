@@ -314,7 +314,10 @@ void Rtype::Game::Server::RtypeServerGameClient::StartDisplayInformation() {
     int x = 100;
     int y = 100;
 
-    player = dynamic_cast<SaltyEngine::GameObject*>(SaltyEngine::Object::Instantiate("Player", SaltyEngine::Vector(x, y)));
+    if ((player = dynamic_cast<SaltyEngine::GameObject*>(SaltyEngine::Object::Instantiate("Player", SaltyEngine::Vector(x, y)))) == NULL)
+    {
+        throw std::runtime_error("player is NULL / pb Asset");
+    }
    // player->transform.position = SaltyEngine::Vector(x, y);
     // player->AddComponent<SaltyEngine::SpaceShipController>();
 

@@ -3,16 +3,17 @@
 //
 
 #include <Rtype/Game/Server/RtypeGameServer.hpp>
-#include <SaltyEngine/SFML/Scene.hpp>
+#include "SaltyEngine/SFML.hpp"
 #include <Rtype/Game/Server/RtypeServerGameClient.hpp>
 
-Rtype::Game::Server::RtypeGameServer::RtypeGameServer(Network::Core::NativeSocketIOOperationDispatcher &dispatcher, const size_t maxSize) :
+Rtype::Game::Server::RtypeGameServer::RtypeGameServer(Network::Core::NativeSocketIOOperationDispatcher &dispatcher, const size_t maxSize, u_int16_t level) :
         AUDPServer(dispatcher),
         factory(),
         maxSize(maxSize),
         secret(0),
         secure(false),
-        gameObjectContainer()
+        gameObjectContainer(),
+        level(level)
 {
 
 }
@@ -49,6 +50,7 @@ bool Rtype::Game::Server::RtypeGameServer::OnDataSent(unsigned int len)
 void Rtype::Game::Server::RtypeGameServer::OnReadCheck()
 {
     Network::UDP::AUDPServer<Rtype::Game::Server::RtypeServerGameClient>::OnReadCheck();
+  //  std::cout << "ALOS" << std::endl;
 //    for (std::list<std::unique_ptr<Network::Socket::ISockStreamHandler>>::iterator it = clients->Streams().begin(); it != clients->Streams().end();)
 //    {
 //        Rtype::Game::Server::RtypeServerGameClient *client = dynamic_cast<Rtype::Game::Server::RtypeServerGameClient *>(it->get());
@@ -91,6 +93,13 @@ void Rtype::Game::Server::RtypeGameServer::setSecure(bool security)
 
 bool Rtype::Game::Server::RtypeGameServer::OnStart()
 {
+    monsterMap = SaltyEngine::SFML::AssetManager::Instance().LoadScene("scene" + std::to_string(level));
+    /*monsterMap.sort([](std::pair<std::string, SaltyEngine::Vector2f> obj1, std::pair<std::string, SaltyEngine::Vector2f> obj2) {
+        return (obj1.second.x < obj2.second.x);
+    });*/
+    //for (std::pair<std::string, SaltyEngine::Vector2f> &obj : monsterMap) {
+    //
+    //}
     std::cout << "\x1b[32mServer started\x1b[0m: maximum number of players => " << maxSize << ", secure => " << std::boolalpha << secure << std::endl;
     return true;
 }
