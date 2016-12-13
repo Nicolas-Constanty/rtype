@@ -1,6 +1,7 @@
 #pragma once
 #include "SaltyEngine/SaltyBehaviour.hpp"
 #include "SaltyEngine/GameObject.hpp"
+#include "SaltyEngine/Animation.hpp"
 #include "Prefabs/GenericController.hpp"
 
 class MonsterWalkerController : public SaltyEngine::SaltyBehaviour, public AGenericController
@@ -29,5 +30,8 @@ private:
 	float m_currDelay = 0;
 	bool m_isDead = false;
 	float m_vel = 10;
+	float m_walkDistance = 100;
+    SaltyEngine::Vector m_startPoint;
+    SaltyEngine::Animation<sf::Vector2i> *m_anim;
 };
 

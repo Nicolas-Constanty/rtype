@@ -168,7 +168,7 @@ namespace SaltyEngine
         }
 
 		/**
-		 * \brief Animation functions
+		 * @brief Animation functions
 		 */
 	public:
 		bool IsPlaying() const
@@ -182,6 +182,7 @@ namespace SaltyEngine
 			{
 				return;
 			}
+            ClearAnimData();
             m_isPlaying = true;
             clip = m_clips.begin()->second;
 			//StartCoroutine(&Animation::PlayAnim);
@@ -193,6 +194,7 @@ namespace SaltyEngine
 			{
 				return;
 			}
+            ClearAnimData();
 			m_isPlaying = true;
 			clip = m_clips[name];
 			//StartCoroutine(&Animation::PlayAnim);
@@ -270,30 +272,37 @@ namespace SaltyEngine
 				{
                     animData->UpdateAnimTimeline(SaltyEngine::Instance().GetFixedDeltaTime());
                     if (animData->IsAnimOver()) {
-                        switch (m_wrapMode) {
-                            case AnimationConstants::ONCE:
-                                m_isPlaying = false;
-                                break;
-                            case AnimationConstants::LOOP:
-                                animData->Reset();
-                                break;
-                            case AnimationConstants::PING_PONG:
-                                animData->ReverseAndReset();
-                                break;
+                        // If we have some anims queued, play them
+                        if (m_queuedAnims.size() > 0)
+                        {
+                            Play(m_queuedAnims.back());
+                            m_queuedAnims.pop();
+                        }
+                        else
+                        {
+                            switch (m_wrapMode) {
+                                case AnimationConstants::ONCE:
+                                    m_isPlaying = false;
+                                    break;
+                                case AnimationConstants::LOOP:
+                                    animData->Reset();
+                                    break;
+                                case AnimationConstants::PING_PONG:
+                                    animData->ReverseAndReset();
+                                    break;
+                            }
                         }
                     }
 				}
 			}
 			else
 			{
-				if (animData != nullptr)
-					delete animData;
-				animData = nullptr;
+                ClearAnimData();
 			}
 		}
 
 		/**
-		 * \brief Behaviour functions
+		 * @brief Behaviour functions
 		 */
 	public:
 		void Start()
@@ -308,7 +317,7 @@ namespace SaltyEngine
 		{
 			UpdateAnimations();
 		}
-	public:
+
 		virtual Component *CloneComponent(GameObject* const obj) {
 			Animation<T> *anim = new Animation<T>(obj, m_playAuto, m_wrapMode);
 			for (typename std::map<std::string, AnimationClip<T> *>::const_iterator it = m_clips.begin(); it != m_clips.end(); ++it) {
@@ -317,5 +326,13 @@ namespace SaltyEngine
             anim->m_queuedAnims = m_queuedAnims;
 			return anim;
 		}
+
+    private:
+        void ClearAnimData(void)
+        {
+            if (animData != nullptr)
+                delete animData;
+            animData = nullptr;
+        }
 	};
 }

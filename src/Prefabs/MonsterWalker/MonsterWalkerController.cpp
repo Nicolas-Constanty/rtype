@@ -1,6 +1,7 @@
 #include "Prefabs/Missile/MissileController.hpp"
 #include "Prefabs/MonsterWalker/MonsterWalkerController.hpp"
 #include "SaltyEngine/SFML.hpp"
+#include "SaltyEngine/Animation.hpp"
 
 MonsterWalkerController::MonsterWalkerController(SaltyEngine::GameObject *obj) : SaltyEngine::SaltyBehaviour(obj)
 {
@@ -15,6 +16,9 @@ MonsterWalkerController::~MonsterWalkerController()
 void MonsterWalkerController::Start()
 {
 	m_currDelay = m_minShootInterval + rand() % (int)(m_maxShootInterval - m_minShootInterval);
+    m_anim = gameObject->GetComponent<SaltyEngine::Animation<sf::Vector2i> >();
+    m_anim->Play("WalkLeft");
+    m_startPoint = gameObject->transform.position;
 }
 
 // TODO : add jump
@@ -25,7 +29,10 @@ void MonsterWalkerController::Update()
 	if (m_currDelay <= 0)
 	{
         m_currDelay = m_minShootInterval + rand() % (int)(m_maxShootInterval - m_minShootInterval);
-        SaltyEngine::GameObject *missile = (SaltyEngine::GameObject*)SaltyEngine::Instantiate("EnemyBullet", this->gameObject->transform.position);
+        SaltyEngine::GameObject *missile = (SaltyEngine::GameObject*)SaltyEngine::Instantiate("EnemyBullet", this->gameObject->transform.position, 180);
+//        m_anim->Play("Jump");
+//        m_anim->PlayQueued("Walk");
+
         if (missile) {
             MissileController *missileController = missile->GetComponent<MissileController>();
             if (missileController != nullptr) {
@@ -34,6 +41,14 @@ void MonsterWalkerController::Update()
         }
 	}
 	this->gameObject->transform.Translate(-gameObject->transform.right() * SaltyEngine::SaltyEngine::Instance().GetDeltaTime() * m_vel);
+    if (fabsf(gameObject->transform.position.x - m_startPoint.x) > m_walkDistance)
+    {
+        gameObject->transform.Rotate(180);
+        if (gameObject->transform.right().x > 0)
+            m_anim->Play("WalkLeft");
+        else
+            m_anim->Play("WalkRight");
+    }
 }
 
 void MonsterWalkerController::Die() const
