@@ -314,8 +314,8 @@ void Rtype::Game::Server::RtypeServerGameClient::StartDisplayInformation() {
     int x = 100;
     int y = 100;
 
-    player = dynamic_cast<SaltyEngine::GameObject*>(SaltyEngine::Object::Instantiate());
-    player->transform.position = SaltyEngine::Vector(x, y);
+    player = dynamic_cast<SaltyEngine::GameObject*>(SaltyEngine::Object::Instantiate("Player", SaltyEngine::Vector(x, y)));
+   // player->transform.position = SaltyEngine::Vector(x, y);
     // player->AddComponent<SaltyEngine::SpaceShipController>();
 
     //*SaltyEngine::SaltyEngine::Instance().GetCurrentScene() << player;
