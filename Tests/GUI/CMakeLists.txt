@@ -14,10 +14,11 @@ endif()
 file(GLOB TEST_SOURCE "${WD}Tests/GUI/*.cpp")
 
 include_directories(${WD}include)
+link_directories(../../Dependencies/SFML/Linux/lib)
 
 #add_definitions(-DCUSTOM_ASSET_PATH="../Assets")
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_HOME_DIRECTORY})
 add_executable(gui ${TEST_SOURCE})
 
-target_link_libraries(gui ${PROJECT_SOURCE_DIR}/${WD}lib/libSaltyEngine.a ${PROJECT_SOURCE_DIR}/${WD}lib/libSFMLSaltyEngine.so ${PROJECT_SOURCE_DIR}/${WD}lib/libParser.so -lpthread -ldl -lsfml-system -lsfml-window -lsfml-graphics -lsfml-audio)
+target_link_libraries(gui  ${PROJECT_SOURCE_DIR}/${WD}lib/libSaltyEngine.a ${PROJECT_SOURCE_DIR}/${WD}lib/libParser.so ${PROJECT_SOURCE_DIR}/${WD}lib/libSFMLSaltyEngine.so -lsfml-graphics -lsfml-system -lsfml-window -lsfml-audio -lpthread -ldl)
