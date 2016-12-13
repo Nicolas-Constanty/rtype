@@ -38,3 +38,17 @@ SaltyEngine::GameObject *RtypeNetworkFactory::Create(unsigned short id, SaltyEng
     }
     throw std::runtime_error("No such object for id => " + std::to_string(id));
 }
+
+unsigned short RtypeNetworkFactory::GetIDFromName(std::string const &id) {
+
+    std::map<unsigned short, std::string>::const_iterator   it;
+
+    it = std::find_if(rtypeObjects.begin(), rtypeObjects.end(), [id](std::pair<unsigned short, std::string> const &pair){
+        return (id == pair.second);
+    });
+    if (it != rtypeObjects.end()) {
+        return (it->first);
+    }
+    throw std::runtime_error("No suck object for id =>" + id);
+    //return 0;
+}
