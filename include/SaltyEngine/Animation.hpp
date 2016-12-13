@@ -2,6 +2,7 @@
 
 #include <queue>
 #include <SaltyEngine/SFML/AssetManager.hpp>
+#include <SaltyEngine/SFML/SpriteRenderer.hpp>
 #include "SaltyEngine.hpp"
 #include "SaltyBehaviour.hpp"
 #include "AnimationClip.hpp"
@@ -155,6 +156,15 @@ namespace SaltyEngine
 		{
             if (animData != nullptr)
                 delete animData;
+            for (typename std::map<std::string, AnimationClip<T> *>::iterator it = m_clips.begin(); it != m_clips.end(); ++it)
+            {
+                if (it->second != nullptr)
+                {
+                    delete it->second;
+                    it->second = nullptr;
+                }
+            }
+            m_clips.clear();
         }
 
 		/**
@@ -299,15 +309,22 @@ namespace SaltyEngine
 			UpdateAnimations();
 		}
 
-	public:
-		virtual Component *CloneComponent(GameObject* const obj) {
-			Animation<T> *anim = new Animation<T>(obj, m_playAuto, m_wrapMode);
-			for (typename std::map<std::string, AnimationClip<T> *>::const_iterator it = m_clips.begin(); it != m_clips.end(); ++it) {
-//                std::cout << "Cloning Animation : " << (AnimationClip<T>*)it->second->CloneMemberwise().get() << " with name " << it->first << std::endl;
-//				anim->AddClip((AnimationClip<T>*)it->second->CloneMemberwise().get(), it->first);
-			}
-            std::cout << "Finished cloning anim " << GetName() << std::endl;
-			return anim;
-		}
+        // TODO : implementer le clone
+//	public:
+//		virtual Component *CloneComponent(GameObject* const obj) {
+//            std::cout << "Start cloning anim on obj " << obj->GetName() << " at pos " << obj->transform.position << std::endl;
+//			Animation<T> *anim = new Animation<T>(obj, m_playAuto, m_wrapMode);
+//            AnimationClip<T> *clip = new AnimationClip<T>();
+//            clip->AddSprite(::SaltyEngine::SFML::AssetManager::Instance().GetSprite("Monster/Monster1"));
+//            clip->AddSprite(::SaltyEngine::SFML::AssetManager::Instance().GetSprite("Monster/Monster2"));
+//            clip->AddSprite(::SaltyEngine::SFML::AssetManager::Instance().GetSprite("Monster/Monster3"));
+//            clip->SetFrameRate(5);
+//            anim->AddClip(clip, "Walk");
+//			for (typename std::map<std::string, AnimationClip<T> *>::const_iterator it = m_clips.begin(); it != m_clips.end(); ++it) {
+//				anim->AddClip(it->second, it->first);
+//			}
+//            std::cout << "Finished cloning anim " << GetName() << std::endl;
+//			return anim;
+//		}
 	};
 }

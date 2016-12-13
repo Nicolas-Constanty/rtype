@@ -32,7 +32,8 @@ namespace SaltyEngine
 
 		void AddSprite(Sprite<T> * const sprite)
 		{
-			m_sprites.push_back(sprite);
+            if (sprite)
+			    m_sprites.push_back(sprite);
 		}
 
 		double GetFrameRate() const
@@ -69,6 +70,23 @@ namespace SaltyEngine
                 animationClip->m_sprites.push_back(SFML::AssetManager::Instance().GetSprite(sprite->GetName()));
             }
             return std::unique_ptr<Object>(animationClip);
+        }
+
+        AnimationClip *CopyClip()
+        {
+            AnimationClip *animationClip = new AnimationClip("Animation(Clone)", m_frameRate);
+
+            for (std::list<std::function<void()>>::iterator it = m_events.begin(); it != m_events.end(); ++it)
+            {
+                animationClip->m_events.push_back(*it);
+            }
+            for (Sprite<T> *sprite : m_sprites)
+            {
+                std::cout << sprite << std::endl;
+//                animationClip->m_sprites.push_back(SFML::AssetManager::Instance().GetSprite(sprite->GetName()));
+//                animationClip->AddSprite(SFML::AssetManager::Instance().GetSprite(sprite->GetName()));
+            }
+            return animationClip;
         }
 	};
 }
