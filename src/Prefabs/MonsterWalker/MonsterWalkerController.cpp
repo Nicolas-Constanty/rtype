@@ -30,8 +30,8 @@ void MonsterWalkerController::Update()
 	{
         m_currDelay = m_minShootInterval + rand() % (int)(m_maxShootInterval - m_minShootInterval);
         SaltyEngine::GameObject *missile = (SaltyEngine::GameObject*)SaltyEngine::Instantiate("EnemyBullet", this->gameObject->transform.position, 180);
-//        m_anim->Play("Jump");
-//        m_anim->PlayQueued("Walk");
+        PlayAnim("Jump");
+        PlayAnim("Walk", true);
 
         if (missile) {
             MissileController *missileController = missile->GetComponent<MissileController>();
@@ -44,16 +44,13 @@ void MonsterWalkerController::Update()
     if (fabsf(gameObject->transform.position.x - m_startPoint.x) > m_walkDistance)
     {
         gameObject->transform.Rotate(180);
-        if (gameObject->transform.right().x > 0)
-            m_anim->Play("WalkLeft");
-        else
-            m_anim->Play("WalkRight");
+        PlayAnim("Walk");
     }
 }
 
 void MonsterWalkerController::Die() const
 {
-    SaltyEngine::Instantiate("ExplosionMonster", this->gameObject->transform.position);
+    SaltyEngine::Instantiate("Explosion", this->gameObject->transform.position);
 	SaltyEngine::Object::Destroy(this->gameObject);
 }
 
@@ -78,4 +75,12 @@ void MonsterWalkerController::OnCollisionEnter(SaltyEngine::ICollider *col)
             TakeDamage(1);
         }
     }
+}
+
+void MonsterWalkerController::PlayAnim(std::string const &anim, bool queued) const
+{
+    if (gameObject->transform.right().x > 0)
+        (!queued) ? m_anim->Play(anim + "Left") : m_anim->PlayQueued(anim + "Left");
+    else
+        (!queued) ? m_anim->Play(anim + "Right") : m_anim->PlayQueued(anim + "Right");
 }

@@ -25,6 +25,9 @@ public:
 	}
 
 private:
+    void PlayAnim(std::string const& anim, bool queued = false) const;
+
+private:
 	float m_minShootInterval = 4;
 	float m_maxShootInterval = 9;
 	float m_currDelay = 0;
