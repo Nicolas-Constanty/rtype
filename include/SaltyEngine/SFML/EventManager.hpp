@@ -22,6 +22,7 @@ namespace SaltyEngine {
 
         private:
             static std::map<sf::Keyboard::Key, bool> m_keys_down;
+            static std::map<sf::Keyboard::Key, bool> m_keys_up;
             static std::map<sf::Keyboard::Key, bool> m_keys_emited;
 
         protected:
@@ -31,6 +32,8 @@ namespace SaltyEngine {
             void Update();
 
             static bool IsKey(::SaltyEngine::Input::KeyCode::Key key);
+
+            static bool IsKeyReleased(::SaltyEngine::Input::KeyCode::Key key);
 
             static bool IsKeyDown(::SaltyEngine::Input::KeyCode::Key key);
 

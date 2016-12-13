@@ -31,6 +31,7 @@ bool Rtype::Game::Server::RtypeGameServer::OnDataReceived(unsigned int)
     {
         std::cout << "Room full" << std::endl;
         newclient->Disconnect();
+        newclient = NULL;
         return false;
     }
 
