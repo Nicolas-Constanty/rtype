@@ -35,8 +35,8 @@ namespace SaltyEngine
 			Renderer(sf::VideoMode const &vm, const std::string &name);
 			virtual ~Renderer();
 			void Display() const override;
+            virtual void RemoveSpriteRenderer(GameObject * const gm) override;
 			sf::RenderWindow *GetRenderWindow(void) const;
-
 			void DrawDebug() const;
 
 		protected:
@@ -51,7 +51,6 @@ namespace SaltyEngine
 			SpriteMap m_spriteRenderers;
 			std::list<BoxCollider2D *> m_debug;
 			std::list<GUI::Selectable *> m_selectables;
-			std::list <Drawable> m_rects;
 		public:
 			void AddSpriteRenderer(SpriteRenderer* const sprr);
 			void AddDebug(BoxCollider2D *);

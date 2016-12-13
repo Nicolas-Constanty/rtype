@@ -386,6 +386,23 @@ namespace SaltyEngine
 		}
 		return nullptr;
     }
+
+	// TODO fail if Destroy before Start
+	void AScene::Destroy() {
+
+		for (std::list<GameObject *>::iterator i = m_deleted.begin(); i != m_deleted.end(); ++i) {
+			GameObject *gm = (*i);
+			m_objects.erase(std::remove_if(m_objects.begin(), m_objects.end(), [gm](GameObject *obj){ return (gm == obj);}), m_objects.end());
+			gm->__Destroy();
+		}
+	}
+
+	void AScene::Destroy(GameObject *gm) {
+		if (gm)
+			m_deleted.push_back(gm);
+		else
+			Debug::PrintWarning("Cannot destroy null Object");
+	}
 }
 
 /**

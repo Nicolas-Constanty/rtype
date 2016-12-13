@@ -20,7 +20,7 @@ namespace SaltyEngine
 
 	SaltyEngine::SaltyEngine(): m_current(0)
 	{
-		srand(time(nullptr));
+		srand(static_cast<unsigned int>(time(nullptr)));
 		m_renderer = new DefaultRenderer();
 		m_even_manager = new Input::DefaultEventManager();
 		m_status = EngineStatus::stop;
@@ -134,6 +134,7 @@ namespace SaltyEngine
 			m_scenes[m_current]->OnGui();
 			m_scenes[m_current]->OnDestroy();
 			m_renderer->Display();
+			m_scenes[m_current]->Destroy();
 		}
 	}
 

@@ -12,6 +12,7 @@ namespace SaltyEngine
 	public:
 		virtual ~DefaultRenderer() {};
 		void Display() const override {};
+		virtual void RemoveSpriteRenderer(GameObject * const gm) { (void)gm; };
 	};
 }
 

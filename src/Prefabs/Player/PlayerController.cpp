@@ -65,7 +65,7 @@ namespace SaltyEngine
 		}
 
 		if (InputKey::GetAction("Fire", Input::ActionType::Once)) {
-			//GameObject *laser = (GameObject*)::SaltyEngine::Instantiate("Laser", gameObject->transform.position);
+			GameObject *laser = (GameObject*)::SaltyEngine::Instantiate("Laser", gameObject->transform.position);
 
 			//manager->gameObjectContainer.Add(GameObjectID::NewID(), laser);
 			if (manager && BINARY_ROLE == NetRole::CLIENT) {
