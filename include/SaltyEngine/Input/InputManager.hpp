@@ -109,6 +109,8 @@ namespace SaltyEngine {
                         return it->second.get()->Released<Input>();
                     case ActionType::Once :
                         return it->second.get()->Once<Input>();
+                    case ActionType::OnceReleased :
+                        return it->second.get()->OnceReleased<Input>();
                     default:
                         return false;
                 }
