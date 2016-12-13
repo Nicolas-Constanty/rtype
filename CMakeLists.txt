@@ -1,12 +1,22 @@
 cmake_minimum_required(VERSION 2.8)
 project(rtype)
 
-execute_process(COMMAND ${CMAKE_COMMAND} -E tar xzf ${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/SFML.zip)
+#execute_process(COMMAND ${CMAKE_COMMAND} -E tar xzf ${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/SFML.zip)
 
 if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wextra")
 elseif(MSVC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4")
+endif()
+
+find_package(PkgConfig)
+pkg_check_modules(SFML sfml-all)
+
+if ("${SFML_LIBRARIES}" STREQUAL "")
+    execute_process(COMMAND unzip -f ${CMAKE_SOURCE_DIR}/Dependencies/SFML.zip)
+    link_directories(${CMAKE_BINARY_DIR}/SFML/Linux/lib)
+else()
+    message(WARNING "J'utilise la vrai SFML")
 endif()
 
 include_directories("include")
@@ -50,9 +60,6 @@ file(GLOB threadinc include/Thread/*.hpp)
 file(GLOB processsrc src/Process/*.cpp)
 file(GLOB processinc include/Process/*.hpp)
 
-execute_process(COMMAND unzip -f ${CMAKE_SOURCE_DIR}/Dependencies/SFML.zip)
-link_directories(${CMAKE_BINARY_DIR}/SFML/Linux/lib)
-#
 #add_executable(rtype-server
 #        ${srcGameServ} ${incGameServ}
 #        ${Networksrc} ${Networkinc}
@@ -120,7 +127,7 @@ link_directories(${CMAKE_BINARY_DIR}/SFML/Linux/lib)
 #ENDIF(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
 
 ############### NETWORK ###############
-include(${PROJECT_SOURCE_DIR}/R-Type/Network/CMakeLIsts.txt)
+include(${PROJECT_SOURCE_DIR}/R-Type/Network/CMakeLists.txt)
 
 ############### SERVER ###############
 include(${PROJECT_SOURCE_DIR}/R-Type/ServerRoom/CMakeLists.txt)
@@ -139,23 +146,14 @@ include(${PROJECT_SOURCE_DIR}/Tests/GameServer/CMakeLists.txt)
 include(${PROJECT_SOURCE_DIR}/Tests/Network/CMakeLists.txt)
 include(${PROJECT_SOURCE_DIR}/Tests/Adrien/CMakeLists.txt)
 include(${PROJECT_SOURCE_DIR}/Tests/GUI/CMakeLists.txt)
-add_dependencies(client-test-move-netork prefabs)
+
 
 ############### PREFABS ##############
 include(${PROJECT_SOURCE_DIR}/R-Type/Prefab/CMakeLists.txt)
-add_custom_target(prefabs DEPENDS player mate missile_medusa monster missile_laser)
+
+############# DEPENDENCIES ############
 add_dependencies(SFMLSaltyEngine SaltyEngine)
-add_dependencies(player SFMLSaltyEngine network)
-add_dependencies(mate SaltyEngine)
-add_dependencies(missile_medusa SFMLSaltyEngine)
-add_dependencies(monster SFMLSaltyEngine)
-add_dependencies(monster_walker SFMLSaltyEngine)
-add_dependencies(missile_laser SFMLSaltyEngine)
-add_dependencies(prefabs player mate missile_medusa monster missile_laser monster_walker)
+add_dependencies(client-test-move-netork prefabs)
 
-### FULL BUILD ###
-add_custom_target(BuildGUI DEPENDS gui)
-add_dependencies(gui prefabs Parser)
-
-
-add_dependencies(client-test-move-netork SaltyEngine SFMLSaltyEngine Parser)
+add_dependencies(gui network Parser SFMLSaltyEngine)
+add_dependencies(gameserver-stable SaltyEngine SFMLSaltyEngine Parser)

@@ -9,7 +9,8 @@
 const std::map<unsigned short, std::string>  RtypeNetworkFactory::rtypeObjects = {
         {0, "Player"},
         {1, "Mate"},
-        {2, "Monster"}
+        {2, "Monster"},
+        {3, "Laser"}
 };
 
 SaltyEngine::GameObject *RtypeNetworkFactory::Create(unsigned short id, SaltyEngine::Vector const &pos)
@@ -36,4 +37,18 @@ SaltyEngine::GameObject *RtypeNetworkFactory::Create(unsigned short id, SaltyEng
             return object;
     }
     throw std::runtime_error("No such object for id => " + std::to_string(id));
+}
+
+unsigned short RtypeNetworkFactory::GetIDFromName(std::string const &id) {
+
+    std::map<unsigned short, std::string>::const_iterator   it;
+
+    it = std::find_if(rtypeObjects.begin(), rtypeObjects.end(), [id](std::pair<unsigned short, std::string> const &pair){
+        return (id == pair.second);
+    });
+    if (it != rtypeObjects.end()) {
+        return (it->first);
+    }
+    throw std::runtime_error("No suck object for id =>" + id);
+    //return 0;
 }

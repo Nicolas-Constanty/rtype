@@ -1,5 +1,5 @@
 {
-    "title": "scene1",
+    "title": "scene2Victor",
     "preview": "tot.png",
     "prefabs": {
         "Player": {
@@ -10,14 +10,8 @@
         },
         "Monster": {
             "position": {
-                "x" : "1000",
-                "y": "500"
-            }
-        },
-        "MonsterWalker": {
-            "position": {
-                "x" : "500",
-                "y": "700"
+                "x" : "200",
+                "y": "200"
             }
         }
     }

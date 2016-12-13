@@ -11,6 +11,7 @@ class RtypeNetworkFactory
 {
 public:
     static SaltyEngine::GameObject *Create(unsigned short id, SaltyEngine::Vector const &pos);
+    static unsigned short GetIDFromName(std::string const &);
 
 private:
     static const std::map<unsigned short, std::string>  rtypeObjects;

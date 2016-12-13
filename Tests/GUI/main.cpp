@@ -24,7 +24,7 @@ int main()
 
 	for (std::list<std::pair<std::string, SaltyEngine::Vector2f>>::const_iterator it = assets.begin(); it != assets.end(); ++it) {
 		SaltyEngine::Debug::PrintInfo("Instantiate " + it->first);
-		(SaltyEngine::GameObject*)SaltyEngine::Object::Instantiate(it->first, it->second);
+		SaltyEngine::Instantiate(it->first, it->second);
 	}
 
 	// Run the SaltyEngine with default Scene 0
