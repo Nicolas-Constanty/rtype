@@ -178,7 +178,7 @@ namespace SaltyEngine {
                             Vector2i(std::stoi(map["rect"]["width"]()), std::stoi(map["rect"]["heigth"]()))
                     };
                 } else {
-                    Debug::PrintError("Cannot parse prefab " + filename);
+                    Debug::PrintError("Cannot parse sprite " + filename);
                     return false;
                 }
             } catch (std::exception const &e) {
