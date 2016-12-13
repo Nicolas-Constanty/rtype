@@ -7,7 +7,7 @@ elseif(MSVC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4")
 endif()
 
-add_definitions(-DCUSTOM_ASSET_PATH="../Assets")
+#add_definitions(-DCUSTOM_ASSET_PATH="../Assets")
 
 add_executable(gameserv-1
         ${Networksrc} ${Networkinc}
