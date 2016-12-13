@@ -10,8 +10,6 @@ endif()
 
 file(GLOB SOURCE_SALTYENGINE_SFML_FILE "src/SaltyEngine/SFML/*.cpp")
 
-file(GLOB INCLUDE_SALTYENGINE_SFML_FILE "include/SaltyEngine/SFML/*.hpp")
-
 include_directories(include)
 
 set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
