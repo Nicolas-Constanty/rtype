@@ -4,11 +4,9 @@
 #include "SaltyEngine/SFML/AssetManager.hpp"
 #include "SaltyEngine/SFML/SpriteRenderer.hpp"
 
-Player::Player() :
-        GameObject("Player", SaltyEngine::Layer::Tag::Player)
+Player::Player() : GameObject("Player", SaltyEngine::Layer::Tag::Player)
 {
-    ::SaltyEngine::SFML::Texture *texture = ::SaltyEngine::SFML::AssetManager::Instance().GetTexture("SpaceShips");
-    AddComponent<::SaltyEngine::SFML::SpriteRenderer>(new ::SaltyEngine::SFML::Sprite(texture, new ::SaltyEngine::SFML::Rect(34, 0, 33, 17)), ::SaltyEngine::Layout::normal);
+    AddComponent<::SaltyEngine::SFML::SpriteRenderer>(SaltyEngine::SFML::AssetManager::Instance().GetSprite("Player/Player1"), ::SaltyEngine::Layout::normal);
     AddComponent<SaltyEngine::PlayerController>();
 }
 

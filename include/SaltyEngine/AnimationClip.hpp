@@ -1,6 +1,7 @@
 #pragma once
 #include <functional>
 #include <list>
+#include <SaltyEngine/SFML/AssetManager.hpp>
 #include "Object.hpp"
 #include "SaltyEngine/Sprite.hpp"
 
@@ -53,5 +54,21 @@ namespace SaltyEngine
 		{
 			AddSprite(sprite);
 		}
+
+	public:
+        virtual std::unique_ptr<Object> CloneMemberwise()
+        {
+            AnimationClip *animationClip = new AnimationClip("Animation(Clone)", m_frameRate);
+
+            for (std::list<std::function<void()>>::iterator it = m_events.begin(); it != m_events.end(); ++it)
+            {
+                animationClip->m_events.push_back(*it);
+            }
+            for (Sprite<T> *sprite : m_sprites)
+            {
+                animationClip->m_sprites.push_back(SFML::AssetManager::Instance().GetSprite(sprite->GetName()));
+            }
+            return std::unique_ptr<Object>(animationClip);
+        }
 	};
 }
