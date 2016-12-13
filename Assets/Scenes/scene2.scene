@@ -1,0 +1,18 @@
+{
+    "title": "scene2Victor",
+    "preview": "tot.png",
+    "prefabs": {
+        "Player": {
+            "position": {
+                "x" : "50",
+                "y": "500"
+            }
+        },
+        "Monster": {
+            "position": {
+                "x" : "300",
+                "y": "200"
+            }
+        }
+    }
+}

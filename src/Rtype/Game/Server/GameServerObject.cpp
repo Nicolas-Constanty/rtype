@@ -11,7 +11,7 @@ Rtype::Game::Server::GameServerObject::GameServerObject(SaltyEngine::GameObject 
     secret(secret),
     port(port),
     map(map),
-    server(new RtypeGameServer(dispatcher, maxClient)),
+    server(new RtypeGameServer(dispatcher, maxClient, map)),
     dispatcher(),
     running(false)
 {

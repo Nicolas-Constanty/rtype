@@ -19,7 +19,7 @@ namespace Rtype
             class RtypeGameServer : public Network::UDP::AUDPServer<Rtype::Game::Server::RtypeServerGameClient>
             {
             public:
-                RtypeGameServer(Network::Core::NativeSocketIOOperationDispatcher &dispatcher, const size_t maxSize = 4);
+                RtypeGameServer(Network::Core::NativeSocketIOOperationDispatcher &dispatcher, const size_t maxSize = 4, u_int16_t level = 1);
                 RtypeGameServer(RtypeGameServer const &ref) = delete;
                 virtual ~RtypeGameServer();
 
@@ -55,6 +55,10 @@ namespace Rtype
 
             public:
                 GameObjectContainer gameObjectContainer;
+
+            private:
+                u_int16_t level;
+                std::list<std::pair<std::string, SaltyEngine::Vector2f> >   monsterMap;
             };
         }
     }
