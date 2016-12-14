@@ -7,7 +7,7 @@
 /**
  * \brief You can add your properties here
  */
-Monster::Monster() : GameObject("Monster")
+Monster::Monster() : GameObject("Monster", SaltyEngine::Layer::Tag::Enemy)
 {
     AddComponent<SaltyEngine::SFML::SpriteRenderer>(SaltyEngine::SFML::AssetManager::Instance().GetSprite("Monster/Monster1"), SaltyEngine::Layout::normal);
     AddComponent < SaltyEngine::SFML::Animation>(true, SaltyEngine::AnimationConstants::WrapMode::LOOP);
