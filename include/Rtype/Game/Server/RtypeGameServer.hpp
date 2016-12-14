@@ -29,7 +29,7 @@ namespace Rtype
                 virtual bool OnDataSent(unsigned int len);
                 virtual bool OnStart();
 
-            private:
+            public:
                 template <typename Package, typename SendFunc, typename ... Args>
                 void BroadCastPackage(SendFunc func, Args ... args)
                 {

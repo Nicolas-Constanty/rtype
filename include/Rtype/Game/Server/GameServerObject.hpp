@@ -24,6 +24,12 @@ namespace Rtype
                 void Start();
                 void Update();
 
+            public:
+                template <typename Package, typename SendFunc, typename ... Args>
+                void BroadCastPackage(SendFunc func, Args ... args) {
+                    this->server->BroadCastPackage<Package>(func, args...);
+                }
+
             private:
                 const uint32_t secret;
                 const uint16_t port;

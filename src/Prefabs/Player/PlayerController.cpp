@@ -49,7 +49,7 @@ namespace SaltyEngine
 
         GameObject *gameman = SaltyEngine::Instance().GetCurrentScene()->FindByName("GameManager");
 
-		manager = NULL;
+        manager = NULL;
         if (gameman)
             manager = gameman->GetComponent<GameManager>();
 	}
