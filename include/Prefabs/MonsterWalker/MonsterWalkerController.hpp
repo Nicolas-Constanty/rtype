@@ -4,7 +4,7 @@
 #include "SaltyEngine/Animation.hpp"
 #include "Prefabs/GenericController.hpp"
 
-class MonsterWalkerController : public SaltyEngine::SaltyBehaviour, public AGenericController
+class MonsterWalkerController : public AGenericController
 {
 public:
 	MonsterWalkerController(SaltyEngine::GameObject *object);
@@ -17,7 +17,7 @@ public:
 public:
 	void Start();
 	void Update();
-	void OnCollisionEnter(SaltyEngine::ICollider *col);
+//	void OnCollisionEnter(SaltyEngine::ICollider *col);
 
 public:
 	virtual SaltyEngine::Component *CloneComponent(SaltyEngine::GameObject* const obj) {

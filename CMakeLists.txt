@@ -84,7 +84,7 @@ include(${PROJECT_SOURCE_DIR}/R-Type/Prefab/CMakeLists.txt)
 
 ############# DEPENDENCIES ############
 add_dependencies(SFMLSaltyEngine SaltyEngine)
-add_dependencies(client-test-move-netork prefabs)
+add_dependencies(client-test-move-netork prefabs Parser)
 
 add_dependencies(gui network Parser SFMLSaltyEngine prefabs)
 add_dependencies(gameserver-stable SaltyEngine SFMLSaltyEngine Parser)

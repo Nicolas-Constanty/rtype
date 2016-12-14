@@ -3,7 +3,7 @@
 #include "SaltyEngine/SFML.hpp"
 #include "SaltyEngine/Animation.hpp"
 
-MonsterWalkerController::MonsterWalkerController(SaltyEngine::GameObject *obj) : SaltyEngine::SaltyBehaviour(obj)
+MonsterWalkerController::MonsterWalkerController(SaltyEngine::GameObject *obj) : AGenericController(obj)
 {
     m_health = 1;
 }
@@ -50,7 +50,7 @@ void MonsterWalkerController::Update()
 
 void MonsterWalkerController::Die() const
 {
-    SaltyEngine::Instantiate("Explosion", this->gameObject->transform.position);
+    SaltyEngine::Instantiate("ExplosionBasic", this->gameObject->transform.position);
 	SaltyEngine::Object::Destroy(this->gameObject);
 }
 
@@ -65,17 +65,17 @@ void MonsterWalkerController::TakeDamage(int amount)
 	}
 }
 
-void MonsterWalkerController::OnCollisionEnter(SaltyEngine::ICollider *col)
-{
-    if (col != nullptr)
-    {
-        SaltyEngine::SFML::BoxCollider2D *c = dynamic_cast<SaltyEngine::SFML::BoxCollider2D*>(col);
-        if (c->gameObject->GetTag() == SaltyEngine::Layer::Tag::BulletPlayer)
-        {
-            TakeDamage(1);
-        }
-    }
-}
+//void MonsterWalkerController::OnCollisionEnter(SaltyEngine::ICollider *col)
+//{
+//    if (col != nullptr)
+//    {
+//        SaltyEngine::SFML::BoxCollider2D *c = dynamic_cast<SaltyEngine::SFML::BoxCollider2D*>(col);
+//        if (c->gameObject->GetTag() == SaltyEngine::Layer::Tag::BulletPlayer)
+//        {
+//            TakeDamage(1);
+//        }
+//    }
+//}
 
 void MonsterWalkerController::PlayAnim(std::string const &anim, bool queued) const
 {

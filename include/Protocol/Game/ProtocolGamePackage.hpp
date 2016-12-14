@@ -165,17 +165,27 @@ public:
 
 class BEAMPackageGame : public ObjectIDPackageGame {
 public:
-    BEAMPackageGame(unsigned short sequenceID = 0, unsigned short objectID = 0, unsigned short transactionID = 0)
+    BEAMPackageGame(unsigned short sequenceID = 0, unsigned short objectID = 0, unsigned int id = 0, unsigned short transactionID = 0)
             : ObjectIDPackageGame(sizeof(BEAMPackageGame), GamePurpose::GAMEBEAM, sequenceID, objectID, true, transactionID) {
+        this->id = id;
     }
+
+public:
+    unsigned int id;
 };
 
 //todo add power of shot
 class SHOTPackageGame : public ObjectIDPackageGame {
 public:
-    SHOTPackageGame(unsigned short sequenceID = 0, unsigned short objectID = 0, unsigned short transactionID = 0)
+    SHOTPackageGame(unsigned short sequenceID = 0, unsigned short objectID = 0, double power = 0.0, unsigned int id = 0, unsigned short transactionID = 0)
             : ObjectIDPackageGame(sizeof(SHOTPackageGame), GamePurpose::GAMESHOT, sequenceID, objectID, true, transactionID) {
+        this->power = power;
+        this->id = id;
     }
+
+public:
+    double power;
+    unsigned int id;
 };
 
 class DIEPackageGame : public ObjectIDPackageGame {

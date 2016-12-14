@@ -2,7 +2,7 @@
 #include "Prefabs/Monster/MonsterController.hpp"
 #include "SaltyEngine/SFML.hpp"
 
-MonsterController::MonsterController(SaltyEngine::GameObject *obj) : SaltyEngine::SaltyBehaviour(obj)
+MonsterController::MonsterController(SaltyEngine::GameObject *obj) : AGenericController(obj)
 {
     m_health = 1;
 }
@@ -37,9 +37,8 @@ void MonsterController::Update()
 
 void MonsterController::Die() const
 {
-    SaltyEngine::Instantiate("ExplosionMonster", this->gameObject->transform.position);
+    SaltyEngine::Instantiate("ExplosionBasic", this->gameObject->transform.position);
 	SaltyEngine::Object::Destroy(this->gameObject);
-    std::cout << "Ouch" << std::endl;
 }
 
 void MonsterController::TakeDamage(int amount)
