@@ -1,7 +1,7 @@
 #pragma once
 #include "SaltyEngine/SaltyBehaviour.hpp"
 #include "SaltyEngine/GameObject.hpp"
-#include "SaltyEngine/Animation.hpp"
+#include "SaltyEngine/SFML/Animation.hpp"
 #include "Prefabs/GenericController.hpp"
 #include <Rtype/Game/Server/GameServerObject.hpp>
 
@@ -36,7 +36,7 @@ private:
 	float m_vel = 10;
 	float m_walkDistance = 100;
     SaltyEngine::Vector m_startPoint;
-    SaltyEngine::Animation<sf::Vector2i> *m_anim;
 	Rtype::Game::Server::GameServerObject *gameServer;
+    SaltyEngine::SFML::Animation *m_anim;
 };
 

@@ -8,7 +8,9 @@
 
 #include "SaltyEngine/SaltyEngine.hpp"
 #include <SaltyEngine/Constants.hpp>
+#include "SaltyEngine/AScene.hpp"
 #include "SaltyEngine/Debug.hpp"
+
 
 namespace SaltyEngine
 {
@@ -18,7 +20,7 @@ namespace SaltyEngine
 	 * @brief	Default constructor init m_fps at DEFAULT_FRAME_RATE.
 	 */
 
-	SaltyEngine::SaltyEngine(): m_current(0)
+	Engine::Engine(): m_current(0)
 	{
 		srand(static_cast<unsigned int>(time(nullptr)));
 		m_renderer = new DefaultRenderer();
@@ -35,7 +37,7 @@ namespace SaltyEngine
 	 * @brief	Destructor.
 	 */
 
-	SaltyEngine::~SaltyEngine()
+	Engine::~Engine()
 	{
 		std::cout << "COUCOU" << std::endl;
 		if (m_renderer)
@@ -51,7 +53,7 @@ namespace SaltyEngine
 	 * @brief	Starts this object.
 	 */
 
-	void SaltyEngine::Start()
+	void Engine::Start()
 	{
 		m_status = EngineStatus::start;
 	}
@@ -65,7 +67,7 @@ namespace SaltyEngine
 	 * @date	20/11/2016
 	 */
 
-	void SaltyEngine::Stop()
+	void Engine::Stop()
 	{
 		m_status = EngineStatus::stop;
 	}
@@ -79,7 +81,7 @@ namespace SaltyEngine
 	 * @date	20/11/2016
 	 */
 
-	void SaltyEngine::Run()
+	void Engine::Run()
 	{
 		if (m_scenes.size() == 0)
 		{
@@ -149,7 +151,7 @@ namespace SaltyEngine
 	 * @return	The status.
 	 */
 
-	EngineStatus SaltyEngine::GetStatus(void) const
+	EngineStatus Engine::GetStatus(void) const
 	{
 		return m_status;
 	}
@@ -167,7 +169,7 @@ namespace SaltyEngine
 	 * @return	True if it succeeds, false if it fails.
 	 */
 
-	bool SaltyEngine::LoadScene(size_t index)
+	bool Engine::LoadScene(size_t index)
 	{
 		if (index < m_scenes.size())
 			m_current = index;
@@ -189,7 +191,7 @@ namespace SaltyEngine
 	 * @return	True if it succeeds, false if it fails.
 	 */
 
-	bool SaltyEngine::LoadScene(const std::string & name)
+	bool Engine::LoadScene(const std::string & name)
 	{
 		size_t index = 0;
 		for (std::vector<std::unique_ptr<AScene>>::const_iterator it = m_scenes.begin(); it < m_scenes.end(); ++it)
@@ -213,7 +215,7 @@ namespace SaltyEngine
 	 * @param	fr	The fr.
 	 */
 
-	void SaltyEngine::SetFrameRate(size_t fr)
+	void Engine::SetFrameRate(size_t fr)
 	{
 		m_fps = fr;
 		std::chrono::duration<double> d(1.0 / m_fps);
@@ -228,7 +230,7 @@ namespace SaltyEngine
 	 * @return	The delta time.
 	 */
 
-	double SaltyEngine::GetDeltaTime(void) const
+	double Engine::GetDeltaTime(void) const
 	{
 		double res = m_delta_time.count() / 1000000000.0;
 		return res;
@@ -242,12 +244,12 @@ namespace SaltyEngine
 	 * @return	The fixed delta time.
 	 */
 
-	double SaltyEngine::GetFixedDeltaTime(void) const
+	double Engine::GetFixedDeltaTime(void) const
 	{
 		return (1.0 / m_fps);
 	}
 
-	void SaltyEngine::SetRenderer(IRenderer *renderer)
+	void Engine::SetRenderer(IRenderer *renderer)
 	{
 		if (m_renderer && m_renderer != renderer)
 		{
@@ -256,7 +258,7 @@ namespace SaltyEngine
 		}
 	}
 
-	void SaltyEngine::SetEventManager(Input::IEventManager * ev_manager)
+	void Engine::SetEventManager(Input::IEventManager * ev_manager)
 	{
 		if (m_even_manager && m_even_manager != ev_manager)
 		{
@@ -265,7 +267,7 @@ namespace SaltyEngine
 		}
 	}
 
-	AScene * SaltyEngine::GetCurrentScene(void) const
+	AScene * Engine::GetCurrentScene(void) const
 	{
 		if (m_scenes.empty()) {
 			throw std::runtime_error("Not Scene was added");
@@ -273,7 +275,7 @@ namespace SaltyEngine
 		return m_scenes[m_current].get();
 	}
 
-	IRenderer * SaltyEngine::GetRenderer(void) const
+	IRenderer * Engine::GetRenderer(void) const
 	{
 		return m_renderer;
 	}
@@ -346,7 +348,7 @@ namespace SaltyEngine
 	 * @param [in,out]	scene	If non-null, the scene.
 	 */
 
-	void SaltyEngine::operator<<(AScene *scene)
+	void Engine::operator<<(AScene *scene)
 	{
 		if (scene != nullptr)
 			m_scenes.push_back(std::unique_ptr<AScene>(scene));

@@ -1,4 +1,4 @@
-#include <SaltyEngine/Animation.hpp>
+#include <SaltyEngine/SFML/Animation.hpp>
 #include <Rtype/Game/Common/GameObjectID.hpp>
 #include <Rtype/Game/Common/RtypeNetworkFactory.hpp>
 #include "Prefabs/Player/PlayerController.hpp"
@@ -47,7 +47,7 @@ namespace SaltyEngine
 
         InputKey::AddAction("Fire", new Input::Action(Input::KeyCode::Space, std::make_pair<unsigned int, int>(0, 1)));
 
-        GameObject *gameman = SaltyEngine::Instance().GetCurrentScene()->FindByName("GameManager");
+        GameObject *gameman = Engine::Instance().GetCurrentScene()->FindByName("GameManager");
 
         manager = NULL;
         if (gameman)

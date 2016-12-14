@@ -149,7 +149,7 @@
     <ClInclude Include="..\..\include\SaltyEngine\SFML\Graphics.hpp">
       <Filter>Fichiers d%27en-tête\SaltyEngine\SFML</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\SaltyEngine\SFML\Rect.hpp">
+    <ClInclude Include="..\..\include\SaltyEngine\SFML\BasicRect.hpp">
       <Filter>Fichiers d%27en-tête\SaltyEngine\GUI</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\SaltyEngine\SFML\EventManager.hpp">

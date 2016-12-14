@@ -8,7 +8,7 @@
 
 void catchbreak(int)
 {
-    Singleton<SaltyEngine::SaltyEngine>::Instance().Stop();
+    Singleton<SaltyEngine::Engine>::Instance().Stop();
 }
 
 

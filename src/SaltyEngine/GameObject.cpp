@@ -1,3 +1,4 @@
+#include <SaltyEngine/Debug.hpp>
 #include "SaltyEngine/Constants.hpp"
 #include "SaltyEngine/GameObject.hpp"
 #include "SaltyEngine/SaltyEngine.hpp"
@@ -29,12 +30,12 @@ namespace SaltyEngine
 	}
 
     void GameObject::Destroy() {
-        SaltyEngine::Instance().GetCurrentScene()->Destroy(this);
+        Engine::Instance().GetCurrentScene()->Destroy(this);
     }
 
     void GameObject::__Destroy()
     {
-        SaltyEngine::Instance().GetRenderer()->RemoveSpriteRenderer(this);
+        Engine::Instance().GetRenderer()->RemoveSpriteRenderer(this);
         m_behaviour.clear();
         m_components.clear();
     }

@@ -24,7 +24,7 @@ void Rtype::Game::Server::Room::Start(const uint16_t port, const size_t max, con
     SaltyEngine::SFML::Scene *scene = new SaltyEngine::SFML::Scene();
 
     // Push scene int SaltyEngine
-    Singleton<SaltyEngine::SaltyEngine>::Instance() << scene;
+    Singleton<SaltyEngine::Engine>::Instance() << scene;
 
     // Create player
     SaltyEngine::GameObject *serverGame = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate());
@@ -45,5 +45,5 @@ void Rtype::Game::Server::Room::Start(const uint16_t port, const size_t max, con
 void Rtype::Game::Server::Room::Run()
 {
     // Run the SaltyEngine with default Scene 0
-    Singleton<SaltyEngine::SaltyEngine>::Instance().Run();
+    Singleton<SaltyEngine::Engine>::Instance().Run();
 }

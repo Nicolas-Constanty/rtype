@@ -22,7 +22,7 @@ LaserController::~LaserController()
 
 void LaserController::Update()
 {
-    gameObject->transform.Translate(gameObject->transform.right() * m_vel * SaltyEngine::SaltyEngine::Instance().GetFixedDeltaTime());
+    gameObject->transform.Translate(gameObject->transform.right() * m_vel * SaltyEngine::Engine::Instance().GetFixedDeltaTime());
 }
 
 void LaserController::OnCollisionEnter(SaltyEngine::ICollider *col)
@@ -30,12 +30,14 @@ void LaserController::OnCollisionEnter(SaltyEngine::ICollider *col)
     SaltyEngine::ACollider2D<sf::Vector2i> *c = dynamic_cast<SaltyEngine::ACollider2D<sf::Vector2i>*>(col);
     if (!c)
         return;
-    if (c->CompareTag(SaltyEngine::Layer::Tag::Enemy))
-    {
+    if (c->CompareTag(SaltyEngine::Layer::Tag::Enemy)) {
         AGenericController *controller = c->gameObject->GetComponent<AGenericController>();
-        if (controller)
-        {
+        if (controller) {
             controller->TakeDamage(m_damage);
         }
+    }
+    else if (c->gameObject->GetTag() == SaltyEngine::Layer::Tag::Destroy)
+    {
+        SaltyEngine::Object::Destroy(this->gameObject);
     }
 }
