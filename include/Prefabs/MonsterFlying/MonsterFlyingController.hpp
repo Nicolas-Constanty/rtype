@@ -22,6 +22,10 @@ public:
 		return new MonsterFlyingController(obj);
 	}
 
+    void Move() override;
+
+    void Shot() override;
+
 private:
 	float m_minShootInterval = 4;
 	float m_maxShootInterval = 9;
