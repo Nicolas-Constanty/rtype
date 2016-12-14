@@ -8,10 +8,10 @@
 namespace SaltyEngine {
     namespace Input {
         enum ActionType {
+            Down,
+            Up,
             Pressed,
             Released,
-            Once,
-            OnceReleased,
             None
         };
     }

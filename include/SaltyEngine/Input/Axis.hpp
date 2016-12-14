@@ -31,7 +31,7 @@ namespace SaltyEngine {
 
                 if (!m_keys.empty()) {
                     for (std::map<KeyCode::Key, float>::const_iterator it = m_keys.begin(); it != m_keys.end(); ++it) {
-                        if (Input::IsKeyDown(it->first)) {
+                        if (Input::GetKey(it->first)) {
                             ret = it->second;
                         }
                     }

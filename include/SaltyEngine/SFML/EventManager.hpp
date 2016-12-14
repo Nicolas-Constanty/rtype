@@ -21,9 +21,10 @@ namespace SaltyEngine {
             EventManager(sf::RenderWindow *const window);
 
         private:
+            static std::map<sf::Keyboard::Key, ::SaltyEngine::Input::ActionType> m_keys;
+
             static std::map<sf::Keyboard::Key, bool> m_keys_down;
             static std::map<sf::Keyboard::Key, bool> m_keys_up;
-            static std::map<sf::Keyboard::Key, bool> m_keys_emited;
 
         protected:
             static sf::RenderWindow *m_window;
@@ -31,13 +32,11 @@ namespace SaltyEngine {
         public:
             void Update();
 
-            static bool IsKey(::SaltyEngine::Input::KeyCode::Key key);
+            static bool GetKey(::SaltyEngine::Input::KeyCode::Key key);
 
-            static bool IsKeyReleased(::SaltyEngine::Input::KeyCode::Key key);
+            static bool GetKeyDown(::SaltyEngine::Input::KeyCode::Key key);
 
-            static bool IsKeyDown(::SaltyEngine::Input::KeyCode::Key key);
-
-            static bool IsKeyUp(::SaltyEngine::Input::KeyCode::Key key);
+            static bool GetKeyUp(::SaltyEngine::Input::KeyCode::Key key);
 
             static std::vector<::SaltyEngine::Input::KeyCode::Key> GetCurrentKeys(void);
 
