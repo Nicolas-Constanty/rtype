@@ -8,9 +8,10 @@
 
 namespace SaltyEngine {
     namespace SFML {
+        std::map<sf::Keyboard::Key, ::SaltyEngine::Input::ActionType> EventManager::m_keys;
         std::map<sf::Keyboard::Key, bool>           EventManager::m_keys_down;
         std::map<sf::Keyboard::Key, bool>           EventManager::m_keys_up;
-        std::map<sf::Keyboard::Key, bool>           EventManager::m_keys_emited;
+
         sf::RenderWindow *                          EventManager::m_window = nullptr;
 
         EventManager::EventManager(sf::RenderWindow *const window) {
@@ -29,15 +30,14 @@ namespace SaltyEngine {
                         Singleton<SaltyEngine>::Instance().Stop();
                         break;
                     case sf::Event::EventType::KeyPressed:
-                        m_keys_down[event.key.code] = true;
-                        m_keys_up[event.key.code] = false;
+                        m_keys[event.key.code] = ::SaltyEngine::Input::ActionType::Pressed;
+                        m_keys_up[event.key.code] = true;
 //                        ::SaltyEngine::Input::Mapping::CallAxis(GetKeyCode(event.key.code));
 //                        ::SaltyEngine::Input::Mapping::CallAction(GetKeyCode(event.key.code), ::SaltyEngine::Input::ActionType::Pressed);
                         break;
                     case sf::Event::EventType::KeyReleased:
-                        m_keys_down[event.key.code] = false;
-                        m_keys_up[event.key.code] = true;
-                        m_keys_emited[event.key.code] = false;
+                        m_keys[event.key.code] = ::SaltyEngine::Input::ActionType::Released;
+                        m_keys_down[event.key.code] = true;
 //                        ::SaltyEngine::Input::Mapping::CallAction(GetKeyCode(event.key.code), ::SaltyEngine::Input::ActionType::Released);
                         break;
                     case sf::Event::EventType::JoystickButtonPressed:
@@ -49,34 +49,29 @@ namespace SaltyEngine {
                     default:
                         break;
                 }
-
             }
         }
 
-        bool EventManager::IsKey(::SaltyEngine::Input::KeyCode::Key key) {
+        bool EventManager::GetKey(::SaltyEngine::Input::KeyCode::Key key) {
+            return (m_keys[GetKeyCode(key)] == ::SaltyEngine::Input::ActionType::Pressed);
+        }
+
+        bool EventManager::GetKeyDown(::SaltyEngine::Input::KeyCode::Key key) {
             sf::Keyboard::Key sfKey = GetKeyCode(key);
-            if (!m_keys_emited[sfKey] && m_keys_down[sfKey]) {
-                m_keys_emited[sfKey] = true;
+            if (m_keys[sfKey] == ::SaltyEngine::Input::ActionType::Pressed && m_keys_down[sfKey]) {
+                m_keys_down[sfKey] = false;
                 return true;
             }
             return false;
         }
 
-        bool EventManager::IsKeyReleased(::SaltyEngine::Input::KeyCode::Key key) {
+        bool EventManager::GetKeyUp(::SaltyEngine::Input::KeyCode::Key key) {
             sf::Keyboard::Key sfKey = GetKeyCode(key);
-            if (!m_keys_emited[sfKey] && m_keys_up[sfKey]) {
-                m_keys_emited[sfKey] = true;
+            if (m_keys[sfKey] == ::SaltyEngine::Input::ActionType::Released && m_keys_up[sfKey]) {
+                m_keys_up[sfKey] = false;
                 return true;
             }
             return false;
-        }
-
-        bool EventManager::IsKeyDown(::SaltyEngine::Input::KeyCode::Key key) {
-            return (m_keys_down[GetKeyCode(key)] == true);
-        }
-
-        bool EventManager::IsKeyUp(::SaltyEngine::Input::KeyCode::Key key) {
-            return (m_keys_down[GetKeyCode(key)] == false);
         }
 
         std::vector<::SaltyEngine::Input::KeyCode::Key> EventManager::GetCurrentKeys() {

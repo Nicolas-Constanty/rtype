@@ -31,44 +31,34 @@ namespace SaltyEngine {
             const std::pair<unsigned int, int>   &getJoystick() const;
 
             template <class Input>
-            bool    Pressed() const {
+            bool    Down() const {
                 bool ret = false;
                 if (m_key != KeyCode::Unknown) {
-                    ret = Input::IsKeyDown(m_key);
+                    ret = Input::GetKeyDown(m_key);
                 }
                 if (m_joystick.second != -1 && Input::IsJoystickConnected(m_joystick.first) && Input::GetButtons(m_joystick.first) > (unsigned int)m_joystick.second) {
                     ret = Input::IsButtonPressed(m_joystick.first, m_joystick.second);
                 }
                 return ret;
+            }
+
+            template <class Input>
+            bool    Up() const {
+                bool ret = false;
+                if (m_key != KeyCode::Unknown) {
+                    ret = Input::GetKeyUp(m_key);
+                }
+                return ret;
+            }
+
+            template <class Input>
+            bool    Pressed() const {
+                return Input::GetKey(m_key);
             }
 
             template <class Input>
             bool    Released() const {
-                return Input::IsKeyUp(m_key);
-            }
-
-            template <class Input>
-            bool    OnceReleased() const {
-                bool ret = false;
-                if (m_key != KeyCode::Unknown) {
-                    ret = Input::IsKeyReleased(m_key);
-                }
-                if (m_joystick.second != -1 && Input::IsJoystickConnected(m_joystick.first) && Input::GetButtons(m_joystick.first) > (unsigned int)m_joystick.second) {
-                    ret = !Input::IsButtonPressed(m_joystick.first, m_joystick.second);
-                }
-                return ret;
-            }
-
-            template <class Input>
-            bool    Once() const {
-                bool ret = false;
-                if (m_key != KeyCode::Unknown) {
-                    ret = Input::IsKey(m_key);
-                }
-                if (m_joystick.second != -1 && Input::IsJoystickConnected(m_joystick.first) && Input::GetButtons(m_joystick.first) > (unsigned int)m_joystick.second) {
-                    ret = Input::IsButtonPressed(m_joystick.first, m_joystick.second);
-                }
-                return ret;
+                return !Input::GetKey(m_key);
             }
         };
     }

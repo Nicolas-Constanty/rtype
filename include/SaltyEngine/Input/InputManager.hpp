@@ -103,14 +103,14 @@ namespace SaltyEngine {
                     return false;
                 }
                 switch (actionType) {
+                    case ActionType::Down :
+                        return it->second.get()->Down<Input>();
+                    case ActionType::Up :
+                        return it->second.get()->Up<Input>();
                     case ActionType::Pressed :
                         return it->second.get()->Pressed<Input>();
                     case ActionType::Released :
                         return it->second.get()->Released<Input>();
-                    case ActionType::Once :
-                        return it->second.get()->Once<Input>();
-                    case ActionType::OnceReleased :
-                        return it->second.get()->OnceReleased<Input>();
                     default:
                         return false;
                 }
