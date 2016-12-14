@@ -51,6 +51,12 @@ namespace Network
                 WantSend();
             }
 
+            template <typename T>
+            void SendDataNow(T const &towr)
+            {
+                giveSocket().Send(towr);
+            }
+
             template <typename U = BasicConnection, typename T>
             void Broadcast(T const &towr) {
                 if (!clients)

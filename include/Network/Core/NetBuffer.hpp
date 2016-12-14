@@ -13,6 +13,8 @@
 
 #define MAX_MTU 1024
 
+#include <typeinfo>
+
 namespace Network
 {
     namespace Core
@@ -56,7 +58,10 @@ namespace Network
             bool serialize(T const &obj)
             {
                 if (length + sizeof(T) > size)
+                {
                     return false;
+                }
+                memset(buff(), 0, getAvailableSpace());
                 union swp
                 {
                     T dat;
@@ -73,6 +78,9 @@ namespace Network
                     memcpy(&data[length], dest.cvrt, sizeof(T));
                 #endif
                 length += sizeof(T);
+
+//                std::cout << "\e[32mData serialized\e[0m" << std::endl;
+//                std::cout << "Serializing => " << typeid(T).name() << " of size => " << sizeof(T) << std::endl;
                 return true;
             }
 

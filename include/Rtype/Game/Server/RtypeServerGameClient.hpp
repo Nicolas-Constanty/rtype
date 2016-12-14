@@ -46,6 +46,7 @@ namespace Rtype
                 virtual void onGetREBORNPackage(REBORNPackageGame const &);
                 virtual void onGetFAILUREPackage(FAILUREPackageGame const &);
                 virtual void onGetINPUTPackage(INPUTPackageGame const &);
+                virtual void onGetDISCONNECTPackage(DISCONNECTPackageGame const &);
 
             public:
                 void StartDisplayInformation();
@@ -56,7 +57,6 @@ namespace Rtype
                 //    TYPE getScript();
 
             public:
-                bool timedout() const;
                 void ping();
                 bool pong() const;
 
@@ -65,7 +65,6 @@ namespace Rtype
 
             private:
                 int pingSecret;
-                std::chrono::time_point<std::chrono::steady_clock>  pingTime;
 
             private:
                 int id;

@@ -24,6 +24,14 @@ namespace Rtype
             class RtypeGameClient : public Network::UDP::AUDPClient, public IProtocolGameHandler
             {
             public:
+                enum class DisconnectionCode : unsigned int
+                {
+                    NOERROR = 0,
+                    ROOMFULL = 1,
+                    TIMEOUT = 2
+                };
+
+            public:
                 static const std::chrono::milliseconds    timeout;
 
             public:
@@ -34,6 +42,10 @@ namespace Rtype
             public:
                 virtual bool OnDataReceived(unsigned int len);
                 virtual bool OnDataSent(unsigned int len);
+                virtual void OnDisconnect();
+
+            public:
+                virtual void onGetDISCONNECTPackage(DISCONNECTPackageGame const &);
 
             protected:
                 template <typename Pack>
@@ -70,6 +82,27 @@ namespace Rtype
                     }
                 }
 
+            public:
+                template <typename T>
+                void SendToServerReliablyNow(T const &ref)
+                {
+                    Network::Core::NetBuffer    tosend(ref);
+
+                    for (int i = 0; i < 30; ++i)
+                    {
+                        if (serverStream)
+                            serverStream->giveSocket().SendTo(tosend, giveSocket());
+                        else
+                            sock.SendTo(tosend, sock);
+                    }
+                }
+
+            public:
+                void setErrorCode(DisconnectionCode code)
+                {
+                    errcode = code;
+                }
+
             private:
                 RTypeProtocolGameManager    manager;
                 GamePackageFactory          factory;
@@ -81,6 +114,13 @@ namespace Rtype
             protected:
                 bool reply;
                 bool connected;
+
+            protected:
+                unsigned char playerID;
+                DisconnectionCode errcode;
+
+            protected:
+                bool getDisconnected;
             };
         }
     }

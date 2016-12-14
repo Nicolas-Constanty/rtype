@@ -25,6 +25,7 @@ namespace Rtype
 
             public:
                 virtual bool OnStart();
+                virtual void OnDisconnect();
 
             public:
                 virtual void onGetSTATUSPackage(STATUSPackageGame const &pack);
