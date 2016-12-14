@@ -1,4 +1,4 @@
-#include <SaltyEngine/Animation.hpp>
+#include <SaltyEngine/SFML/Animation.hpp>
 #include <Rtype/Game/Common/GameObjectID.hpp>
 #include <Rtype/Game/Common/RtypeNetworkFactory.hpp>
 #include "Prefabs/Player/PlayerController.hpp"
@@ -10,13 +10,13 @@
 
 namespace SaltyEngine
 {
-	PlayerController::PlayerController(GameObject* const gameObj) : SaltyBehaviour("PlayerController", gameObj) {
+	PlayerController::PlayerController(GameObject* const gameObj) : AGenericController("PlayerController", gameObj) {
 		speed = 20.0f;
         idShot = 1;
         power = 0;
 	};
 
-	PlayerController::PlayerController(const std::string &name, GameObject* const gameObj) : SaltyBehaviour(name, gameObj) {
+	PlayerController::PlayerController(const std::string &name, GameObject* const gameObj) : AGenericController(name, gameObj) {
 		speed = 20.0f;
         idShot = 1;
         power = 0;
@@ -46,7 +46,7 @@ namespace SaltyEngine
 
         InputKey::AddAction("Fire", new Input::Action(Input::KeyCode::Space, std::make_pair<unsigned int, int>(0, 1)));
 
-        GameObject *gameman = SaltyEngine::Instance().GetCurrentScene()->FindByName("GameManager");
+        GameObject *gameman = Engine::Instance().GetCurrentScene()->FindByName("GameManager");
 
 		manager = NULL;
         if (gameman)
@@ -127,6 +127,10 @@ namespace SaltyEngine
 
     unsigned int PlayerController::GetIDShot() const {
         return idShot;
+    }
+
+    void PlayerController::Die() const {
+        std::cout << "Player Died !" << std::endl;
     }
 }
 

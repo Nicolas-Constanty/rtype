@@ -1,5 +1,7 @@
 #include "SaltyEngine/AScene.hpp"
 #include "SaltyEngine/Debug.hpp"
+#include "SaltyEngine/GameObject.hpp"
+#include "SaltyEngine/SaltyBehaviour.hpp"
 
 namespace SaltyEngine
 {
@@ -395,6 +397,7 @@ namespace SaltyEngine
 			m_objects.erase(std::remove_if(m_objects.begin(), m_objects.end(), [gm](GameObject *obj){ return (gm == obj);}), m_objects.end());
 			gm->__Destroy();
 		}
+		m_deleted.clear();
 	}
 
 	void AScene::Destroy(GameObject *gm) {

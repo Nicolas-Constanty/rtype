@@ -65,7 +65,7 @@
     <ClInclude Include="..\..\include\SaltyEngine\SFML\MyGraphics.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\SaltyEngine\SFML\Rect.hpp">
+    <ClInclude Include="..\..\include\SaltyEngine\SFML\BasicRect.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\SaltyEngine\SFML\Renderer.hpp">

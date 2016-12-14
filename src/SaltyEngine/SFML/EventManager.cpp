@@ -27,7 +27,7 @@ namespace SaltyEngine {
                 switch (event.type) {
                     case sf::Event::EventType::Closed:
                         m_window->close();
-                        Singleton<SaltyEngine>::Instance().Stop();
+                        Singleton<Engine>::Instance().Stop();
                         break;
                     case sf::Event::EventType::KeyPressed:
                         m_keys[event.key.code] = ::SaltyEngine::Input::ActionType::Pressed;

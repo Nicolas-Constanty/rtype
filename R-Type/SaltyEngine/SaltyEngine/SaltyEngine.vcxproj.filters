@@ -233,7 +233,7 @@
     <ClInclude Include="..\..\..\include\SaltyEngine\Collider.hpp">
       <Filter>Fichiers d%27en-tête\SaltyEngine</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\SaltyEngine\Rect.hpp">
+    <ClInclude Include="..\..\..\include\SaltyEngine\BasicRect.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\SaltyEngine\ICollider.hpp">

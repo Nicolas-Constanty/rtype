@@ -1,4 +1,4 @@
-#include "SaltyEngine/Animation.hpp"
+#include "SaltyEngine/SFML/Animation.hpp"
 #include "Prefabs/Player/Player.hpp"
 #include "Prefabs/Player/PlayerController.hpp"
 #include "SaltyEngine/SFML/AssetManager.hpp"
