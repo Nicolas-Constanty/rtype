@@ -40,6 +40,11 @@ namespace SaltyEngine
 			return BaseVector2(-x, -y);
 		}
 
+		BaseVector2<T> operator+(BaseVector2<T> other)
+		{
+			return BaseVector2(x + other.x, y + other.y);
+		}
+
 		static BaseVector2<T> zero()
 		{
 			return BaseVector2<T>(static_cast<T>(0), static_cast<T>(0));

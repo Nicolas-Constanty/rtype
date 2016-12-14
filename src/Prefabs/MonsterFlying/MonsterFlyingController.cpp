@@ -30,7 +30,7 @@ void MonsterFlyingController::Update()
 }
 
 void MonsterFlyingController::Move() {
-    this->gameObject->transform.Translate(-gameObject->transform.right() * SaltyEngine::Engine::Instance().GetDeltaTime() * m_vel);
+    this->gameObject->transform.Translate(-(gameObject->transform.right() + SaltyEngine::Vector2(0, sin(gameObject->transform.position.x / 100.f)) ) * SaltyEngine::Engine::Instance().GetDeltaTime() * m_vel);
 }
 
 void MonsterFlyingController::Shot() {
@@ -50,14 +50,11 @@ void MonsterFlyingController::Die() const
 	SaltyEngine::Object::Destroy(this->gameObject);
 }
 
-//void MonsterFlyingController::OnCollisionEnter(SaltyEngine::ICollider *col)
-//{
-//    if (col != nullptr)
-//    {
-//        SaltyEngine::SFML::BoxCollider2D *c = dynamic_cast<SaltyEngine::SFML::BoxCollider2D*>(col);
-//        if (c->gameObject->GetTag() == SaltyEngine::Layer::Tag::BulletPlayer)
-//        {
-//            TakeDamage(1);
-//        }
-//    }
-//}
+void MonsterFlyingController::TakeDamage(int amount) {
+    AGenericController::TakeDamage(amount);
+
+    if (m_health <= 0 && !m_isDead) {
+        Die();
+        m_isDead = true;
+    }
+}
