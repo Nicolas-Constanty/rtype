@@ -35,7 +35,7 @@ public:
 	}
 
 public:
-    virtual Component* CloneComponent(SaltyEngine::GameObject* const obj) = 0;
+    virtual SaltyEngine::Component* CloneComponent(SaltyEngine::GameObject* const obj) = 0;
 
 protected:
 	int m_health = 0;
