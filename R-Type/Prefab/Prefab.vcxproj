@@ -89,7 +89,6 @@
     <ClCompile Include="..\..\src\Missile\MissileController.cpp" />
     <ClCompile Include="..\..\src\Missile\MissileMedusa\MissileMedusa.cpp" />
     <ClCompile Include="..\..\src\Monster\Monster.cpp" />
-    <ClCompile Include="..\..\src\Monster\MonsterController.cpp" />
     <ClCompile Include="..\..\src\Player\Player.cpp" />
     <ClCompile Include="..\..\src\Player\PlayerController.cpp" />
   </ItemGroup>

@@ -78,8 +78,8 @@
     <ClCompile Include="..\..\src\Player\PlayerController.cpp">
       <Filter>Fichiers sources\SaltyEngine</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Player\PlayerController.cpp">
-      <Filter>Fichiers sources\SaltyEngine</Filter>
+    <ClCompile Include="..\..\src\ClientLauncher\Laser.cpp">
+      <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

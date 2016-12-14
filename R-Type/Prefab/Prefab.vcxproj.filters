@@ -63,9 +63,6 @@
     <ClCompile Include="..\..\src\Monster\Monster.cpp">
       <Filter>Fichiers sources\Monster</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Monster\MonsterController.cpp">
-      <Filter>Fichiers sources\Monster</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\Missile\MissileMedusa\MissileMedusa.cpp">
       <Filter>Fichiers sources\MissileMedusa</Filter>
     </ClCompile>

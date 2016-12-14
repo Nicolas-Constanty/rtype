@@ -54,9 +54,6 @@
     <ClCompile Include="..\..\..\src\Common\DllLoader.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Monster\MonsterController.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\SaltyEngine\Input\Action.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
@@ -79,9 +76,6 @@
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\SaltyEngine\RigidBody.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\SaltyEngine\AAssetManager.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\SaltyEngine\Input\VirtualInputManager.cpp">
