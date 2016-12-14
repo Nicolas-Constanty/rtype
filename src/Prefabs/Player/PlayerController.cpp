@@ -25,6 +25,7 @@ namespace SaltyEngine
 	void PlayerController::Start()
 	{
 
+        start = clock::now();
 		InputKey::AddAxis("Horizontal", new Input::Axis(
 				{
 						{Input::KeyCode::Left, -1},
@@ -77,7 +78,7 @@ namespace SaltyEngine
             }
         }
         if (InputKey::GetAction("Fire", Input::ActionType::Up)) {
-            GameObject *laser = (GameObject*)::SaltyEngine::Instantiate("Laser", gameObject->transform.position);
+            //GameObject *laser = (GameObject*)::SaltyEngine::Instantiate("Laser", gameObject->transform.position);
 
             //manager->gameObjectContainer.Add(GameObjectID::NewID(), laser);
             std::cout << "titi" << std::endl;
