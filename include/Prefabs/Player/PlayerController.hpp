@@ -3,7 +3,8 @@
 #ifndef PLAYER_CONTROLLER_HPP_
 #define PLAYER_CONTROLLER_HPP_
 
-#include <Rtype/Game/Client/GameManager.hpp>
+#include "Rtype/Game/Client/GameManager.hpp"
+#include "Prefabs/GenericController.hpp"
 #include "SaltyEngine/SaltyBehaviour.hpp"
 
 typedef struct InformationPlayerShot {
@@ -13,7 +14,7 @@ typedef struct InformationPlayerShot {
 } InformationPlayerShot;
 
 namespace SaltyEngine {
-	class PlayerController : public SaltyBehaviour
+	class PlayerController : public AGenericController
 	{
 		typedef std::chrono::high_resolution_clock clock;
 
@@ -48,6 +49,10 @@ namespace SaltyEngine {
 		}
 
 	public:
+        void Die() const override;
+
+
+    public:
 		void IncIdShot() {
 			idShot += 1;
 		}

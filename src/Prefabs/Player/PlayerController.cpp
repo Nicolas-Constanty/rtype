@@ -10,13 +10,13 @@
 
 namespace SaltyEngine
 {
-	PlayerController::PlayerController(GameObject* const gameObj) : SaltyBehaviour("PlayerController", gameObj) {
+	PlayerController::PlayerController(GameObject* const gameObj) : AGenericController("PlayerController", gameObj) {
 		speed = 20.0f;
         idShot = 1;
         power = 0;
 	};
 
-	PlayerController::PlayerController(const std::string &name, GameObject* const gameObj) : SaltyBehaviour(name, gameObj) {
+	PlayerController::PlayerController(const std::string &name, GameObject* const gameObj) : AGenericController(name, gameObj) {
 		speed = 20.0f;
         idShot = 1;
         power = 0;
@@ -127,6 +127,10 @@ namespace SaltyEngine
 
     unsigned int PlayerController::GetIDShot() const {
         return idShot;
+    }
+
+    void PlayerController::Die() const {
+        std::cout << "Player Died !" << std::endl;
     }
 }
 

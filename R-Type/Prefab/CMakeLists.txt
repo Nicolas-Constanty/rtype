@@ -15,22 +15,22 @@ include_directories("include")
 set(PREFAB_LIBRARIES ${PROJECT_SOURCE_DIR}/lib/libSaltyEngine.so ${PROJECT_SOURCE_DIR}/lib/libnetwork.so -ldl)
 
 # MONSTER
-file(GLOB MONSTER_SOURCE_FILE "src/Prefabs/Monster/*.cpp")
+file(GLOB MONSTER_SOURCE_FILE "src/Prefabs/Monster/*.cpp" "include/Prefabs/GenericController.hpp" "include/Prefabs/Monster/*.hpp")
 add_library(monster SHARED ${MONSTER_SOURCE_FILE})
 target_link_libraries(monster ${PREFAB_LIBRARIES})
 
 # MISSILE MEDUSA
-file(GLOB MISSILE_MEDUSA_SOURCE_FILE "src/Prefabs/Missile/MissileMedusa/*.cpp" "src/Prefabs/Missile/*.cpp")
+file(GLOB MISSILE_MEDUSA_SOURCE_FILE "src/Prefabs/Missile/MissileMedusa/*.cpp" "src/Prefabs/Missile/*.cpp" "include/Prefabs/Missile/*.hpp" "include/Prefabs/Missile/MissileMedusa/*.hpp")
 add_library(missile_medusa SHARED ${MISSILE_MEDUSA_SOURCE_FILE})
 target_link_libraries(missile_medusa ${PREFAB_LIBRARIES})
 
 # MISSILE LASER
-file(GLOB MISSILE_LASER_SOURCE_FILE "src/Prefabs/Missile/Laser/*.cpp")
+file(GLOB MISSILE_LASER_SOURCE_FILE "src/Prefabs/Missile/Laser/*.cpp" include/Prefabs/Missile/Laser/*.hpp)
 add_library(missile_laser SHARED ${MISSILE_LASER_SOURCE_FILE})
 target_link_libraries(missile_laser ${PREFAB_LIBRARIES})
 
 # DEFAULT ENEMY BULLET
-file(GLOB MISSILE_ENEMY_BULLET "src/Prefabs/Missile/EnemyBullet/*.cpp")
+file(GLOB MISSILE_ENEMY_BULLET "src/Prefabs/Missile/EnemyBullet/*.cpp" "include/Prefabs/Missile/EnemyBullet/*.hpp")
 add_library(missile_enemy_bullet SHARED ${MISSILE_ENEMY_BULLET})
 target_link_libraries(missile_enemy_bullet ${PREFAB_LIBRARIES})
 
@@ -47,12 +47,12 @@ add_library(player SHARED ${PLAYER_SOURCE_FILE} ${PLAYER_INC_FILE})
 target_link_libraries(player ${PREFAB_LIBRARIES})
 
 # WALKING MONSTER
-file(GLOB WALKINGMONSTER_SOURCE_FILE "src/Prefabs/MonsterWalker/*.cpp")
+file(GLOB WALKINGMONSTER_SOURCE_FILE "src/Prefabs/MonsterWalker/*.cpp" "include/Prefabs/MonsterWalker/*.hpp")
 add_library(monster_walker SHARED ${WALKINGMONSTER_SOURCE_FILE})
 target_link_libraries(monster_walker ${PREFAB_LIBRARIES})
 
 # BASIC EXPLOSION
-file(GLOB EXPLOSIONBASIC_SOURCE_FILE "src/Prefabs/ExplosionBasic/*.cpp")
+file(GLOB EXPLOSIONBASIC_SOURCE_FILE "src/Prefabs/ExplosionBasic/*.cpp" include/Prefabs/ExplosionBasic/*.hpp)
 add_library(explosion_basic SHARED ${EXPLOSIONBASIC_SOURCE_FILE})
 target_link_libraries(explosion_basic ${PREFAB_LIBRARIES})
 

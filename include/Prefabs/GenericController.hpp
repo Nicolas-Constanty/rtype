@@ -16,7 +16,7 @@ public:
 class AGenericController : public SaltyEngine::SaltyBehaviour, public IGenericController
 {
 public:
-    AGenericController(SaltyEngine::GameObject *obj) : SaltyEngine::SaltyBehaviour("AGenericController", obj) {}
+    AGenericController(std::string const& name, SaltyEngine::GameObject *obj) : SaltyEngine::SaltyBehaviour(name, obj) {}
 	~AGenericController() {}
 
 public:
