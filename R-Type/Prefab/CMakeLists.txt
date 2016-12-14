@@ -8,6 +8,12 @@ elseif(MSVC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4")
 endif()
 
+file(GLOB NETWORK  "src/Rtype/Game/Client/*.cpp"
+        "src/Rtype/Game/Common/*.cpp"
+        "src/Protocol/Game/*.cpp"
+        "src/Rtype/Game/Server/*.cpp"
+        src/Prefabs/Player/PlayerController.cpp
+        include/Prefabs/Player/PlayerController.hpp)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/Assets/Metas)
 
 include_directories("include")
@@ -15,12 +21,12 @@ include_directories("include")
 set(PREFAB_LIBRARIES ${PROJECT_SOURCE_DIR}/lib/libSaltyEngine.so ${PROJECT_SOURCE_DIR}/lib/libnetwork.so -ldl)
 
 # MONSTER
-file(GLOB MONSTER_SOURCE_FILE "src/Prefabs/Monster/*.cpp" "include/Prefabs/GenericController.hpp" "include/Prefabs/Monster/*.hpp")
+file(GLOB MONSTER_SOURCE_FILE "src/Prefabs/Monster/*.cpp" "include/Prefabs/GenericController.hpp" "include/Prefabs/Monster/*.hpp" )
 add_library(monster SHARED ${MONSTER_SOURCE_FILE})
 target_link_libraries(monster ${PREFAB_LIBRARIES})
 
 # MISSILE MEDUSA
-file(GLOB MISSILE_MEDUSA_SOURCE_FILE "src/Prefabs/Missile/MissileMedusa/*.cpp" "src/Prefabs/Missile/*.cpp" "include/Prefabs/Missile/*.hpp" "include/Prefabs/Missile/MissileMedusa/*.hpp")
+file(GLOB MISSILE_MEDUSA_SOURCE_FILE "src/Prefabs/Missile/MissileMedusa/*.cpp" "src/Prefabs/Missile/*.cpp" "include/Prefabs/Missile/*.hpp" "include/Prefabs/Missile/MissileMedusa/*.hpp" ${NETWORK})
 add_library(missile_medusa SHARED ${MISSILE_MEDUSA_SOURCE_FILE})
 target_link_libraries(missile_medusa ${PREFAB_LIBRARIES})
 
@@ -30,7 +36,7 @@ add_library(missile_laser SHARED ${MISSILE_LASER_SOURCE_FILE})
 target_link_libraries(missile_laser ${PREFAB_LIBRARIES})
 
 # DEFAULT ENEMY BULLET
-file(GLOB MISSILE_ENEMY_BULLET "src/Prefabs/Missile/EnemyBullet/*.cpp" "include/Prefabs/Missile/EnemyBullet/*.hpp")
+file(GLOB MISSILE_ENEMY_BULLET "src/Prefabs/Missile/EnemyBullet/*.cpp" "include/Prefabs/Missile/EnemyBullet/*.hpp" ${NETWORK})
 add_library(missile_enemy_bullet SHARED ${MISSILE_ENEMY_BULLET})
 target_link_libraries(missile_enemy_bullet ${PREFAB_LIBRARIES})
 

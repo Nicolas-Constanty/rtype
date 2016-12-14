@@ -211,3 +211,11 @@ std::ostream    &operator<<(std::ostream &output, DISCONNECTPackageGame const &d
     output << "}" << std::endl;
     return output;
 }
+std::ostream    &operator<<(std::ostream &output, ENEMYSHOTPackageGame const &enemyshotPackageGame)
+{
+    output << "\e[32m" << static_cast<void const *>(&enemyshotPackageGame) << "\e[0m" << std::endl;
+    output << "ENEMYSHOTPackageGame = {" << std::endl;
+    output << *dynamic_cast<PackageGameHeader const *>(&enemyshotPackageGame);
+    output << "}" << std::endl;
+    return output;
+}

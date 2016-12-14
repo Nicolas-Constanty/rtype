@@ -17,7 +17,7 @@ public:
 
 public:
 	void Start();
-	void Update();
+	void FixedUpdate();
 //	void OnCollisionEnter(SaltyEngine::ICollider *col);
 
 public:
@@ -37,10 +37,10 @@ private:
 	float m_maxShootInterval = 9;
 	float m_currDelay = 0;
 	bool m_isDead = false;
-	float m_vel = 10;
+	float m_vel = 1;
 	float m_walkDistance = 100;
     SaltyEngine::Vector m_startPoint;
-	Rtype::Game::Server::GameServerObject *gameServer;
+    Rtype::Game::Server::GameServerObject *gameServer;
     SaltyEngine::SFML::Animation *m_anim;
 };
 

@@ -293,6 +293,12 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetDISCONNECTPackage(DISCONNE
     connected = false;
 }
 
+
+void Rtype::Game::Server::RtypeServerGameClient::onGetENEMYSHOTPackage(ENEMYSHOTPackageGame const &pack) {
+    std::cout << pack << std::endl;
+}
+
+
 bool Rtype::Game::Server::RtypeServerGameClient::OnStart()
 {
     server1 = dynamic_cast<Rtype::Game::Server::RtypeGameServer *>(serverStream);

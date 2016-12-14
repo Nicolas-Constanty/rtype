@@ -48,6 +48,7 @@ add_executable(gameserver-stable
         ${srcGameClient} ${incGameClient}
         src/Prefabs/Player/PlayerController.cpp
         include/Prefabs/Player/PlayerController.hpp
+        include/Prefabs/GenericController.hpp
         Tests/GameServer/gameserver-stable.cpp)
 
 set_target_properties(gameserver-stable PROPERTIES COMPILE_FLAGS "-DRTYPESERVER")

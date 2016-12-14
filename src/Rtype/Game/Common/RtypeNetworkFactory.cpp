@@ -11,16 +11,17 @@ const std::map<unsigned short, std::string>  RtypeNetworkFactory::rtypeObjects =
         {1, "Mate"},
         {2, "Monster"},
         {3, "Laser"},
-        {4, "MonsterWalker"}
+        {4, "MonsterWalker"},
+        {5, "EnemyBullet"}
 };
 
-SaltyEngine::GameObject *RtypeNetworkFactory::Create(unsigned short id, SaltyEngine::Vector const &pos)
+SaltyEngine::GameObject *RtypeNetworkFactory::Create(unsigned short id, SaltyEngine::Vector const &pos, float rotation)
 {
     std::map<unsigned short, std::string>::const_iterator   it = rtypeObjects.find(id);
 
     if (it != rtypeObjects.end())
     {
-        SaltyEngine::GameObject *object = dynamic_cast<SaltyEngine::GameObject*>(SaltyEngine::Instantiate(it->second, pos, 0));
+        SaltyEngine::GameObject *object = dynamic_cast<SaltyEngine::GameObject*>(SaltyEngine::Instantiate(it->second, pos, rotation));
 
 //        if (object)
 //        {

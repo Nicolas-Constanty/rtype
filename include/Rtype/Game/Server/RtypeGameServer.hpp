@@ -45,6 +45,7 @@ namespace Rtype
                         if (client)
                             client->SendPackage<Package>(func, args...);
                     }
+                    WantSend();
                 }
 
             public:

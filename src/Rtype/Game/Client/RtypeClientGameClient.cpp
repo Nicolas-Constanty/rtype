@@ -9,6 +9,7 @@
 #include <SaltyEngine/Vector2.hpp>
 #include <Rtype/Game/Client/SpaceShipController.hpp>
 #include <Rtype/Game/Common/RtypeNetworkFactory.hpp>
+#include <Prefabs/GenericController.hpp>
 
 Rtype::Game::Client::RtypeClientGameClient::RtypeClientGameClient(
         Network::Core::NativeSocketIOOperationDispatcher &dispatcher) :
@@ -75,7 +76,7 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetCREATEPackage(CREATEPackag
     // FACTORY CORRESPONDANCE AVEC L'ID PLEASE
     try
     {
-        SaltyEngine::GameObject *object = RtypeNetworkFactory::Create(pack.ID, SaltyEngine::Vector(pack.posX, pack.posY));
+        SaltyEngine::GameObject *object = RtypeNetworkFactory::Create(pack.ID, SaltyEngine::Vector(pack.posX, pack.posY), pack.rotation);
 
         gameManager->gameObjectContainer.Add(pack.objectID, object);
 
@@ -198,4 +199,15 @@ void Rtype::Game::Client::RtypeClientGameClient::OnDisconnect()
     Common::RtypeGameClient::OnDisconnect();
     SaltyEngine::Engine::Instance().Stop();
 
+}
+
+void Rtype::Game::Client::RtypeClientGameClient::onGetENEMYSHOTPackage(ENEMYSHOTPackageGame const &pack) {
+    std::cout << pack << std::endl;
+    SaltyEngine::GameObject *obj = gameManager->gameObjectContainer[pack.objectID];
+    if (obj) {
+        AGenericController *aGenericController = obj->GetComponent<AGenericController>();
+        if (aGenericController) {
+            aGenericController->Shot();
+        }
+    }
 }

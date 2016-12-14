@@ -33,7 +33,8 @@ typedef enum : unsigned char {
     GAMEREBORN = 12,
     GAMEFAILURE = 13,
     GAMEINPUT = 14,
-    GAMEDISCONNECT = 15
+    GAMEDISCONNECT = 15,
+    GAMEENEMYSHOT = 16
 } GamePurpose;
 
 class PackageGameHeader {
@@ -119,17 +120,19 @@ public:
 class CREATEPackageGame : public ObjectIDPackageGame {
 public:
     CREATEPackageGame(unsigned short sequenceID = 0, int posX = 0, int posY = 0, unsigned short ID = 0,
-                      unsigned short objectID = 0, unsigned short transactionID = 0)
+                      unsigned short objectID = 0, float rotation = 0, unsigned short transactionID = 0)
             : ObjectIDPackageGame(sizeof(CREATEPackageGame), GamePurpose::GAMECREATE, sequenceID, objectID, true, transactionID) {
         this->posX = posX;
         this->posY = posY;
         this->ID = ID;
+        this->rotation = rotation;
     }
 
 public:
     int posX;
     int posY;
     unsigned short ID;
+    float rotation;
 };
 
 class STATUSPackageGame : public ObjectIDPackageGame {
@@ -187,6 +190,14 @@ public:
     double power;
     unsigned int id;
 };
+
+class ENEMYSHOTPackageGame : public ObjectIDPackageGame {
+public:
+    ENEMYSHOTPackageGame(unsigned short sequenceID = 0, unsigned short objectID = 0, unsigned short transactionID = 0)
+            : ObjectIDPackageGame(sizeof(ENEMYSHOTPackageGame), GamePurpose::GAMEENEMYSHOT, sequenceID, objectID, true, transactionID) {
+    }
+};
+
 
 class DIEPackageGame : public ObjectIDPackageGame {
 public:

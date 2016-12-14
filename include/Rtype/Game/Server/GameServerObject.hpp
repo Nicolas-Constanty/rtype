@@ -30,6 +30,11 @@ namespace Rtype
                     this->server->BroadCastPackage<Package>(func, args...);
                 }
 
+            public:
+                Rtype::Game::Server::RtypeGameServer *Server() {
+                    return (server);
+                }
+
             private:
                 const uint32_t secret;
                 const uint16_t port;

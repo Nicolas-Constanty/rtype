@@ -62,11 +62,11 @@ namespace SaltyEngine
 			gameObject->transform.Translate(Vector(h, v) * speed);
             if (manager && BINARY_ROLE == NetRole::CLIENT)
             {
-				manager->SendPackage<MOVEPackageGame>(
-						&Network::Core::BasicConnection::SendData<MOVEPackageGame>,
-						gameObject->transform.position.x,
-						gameObject->transform.position.y,
-						manager->gameObjectContainer.GetServerObjectID(gameObject));
+                manager->SendPackage<MOVEPackageGame>(
+                        &Network::Core::BasicConnection::SendData<MOVEPackageGame>,
+                        gameObject->transform.position.x,
+                        gameObject->transform.position.y,
+                        manager->gameObjectContainer.GetServerObjectID(gameObject));
             }
 		}
 

@@ -24,5 +24,6 @@ std::ostream &operator<<(std::ostream &ostream, REBORNPackageGame const &rebornP
 std::ostream &operator<<(std::ostream &ostream, FAILUREPackageGame const &failurePackageGame);
 std::ostream &operator<<(std::ostream &ostream, INPUTPackageGame const &inputPackageGame);
 std::ostream &operator<<(std::ostream &ostream, DISCONNECTPackageGame const &disconnectPackageGame);
+std::ostream &operator<<(std::ostream &ostream, ENEMYSHOTPackageGame const &enemyshotPackageGame);
 
 #endif //RTYPE_PROTOCOLPRINTGAMEPACKAGE_HPP

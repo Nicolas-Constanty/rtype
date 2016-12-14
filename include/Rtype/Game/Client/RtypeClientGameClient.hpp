@@ -42,6 +42,7 @@ namespace Rtype
                 virtual void onGetREBORNPackage(REBORNPackageGame const &pack);
                 virtual void onGetFAILUREPackage(FAILUREPackageGame const &pack);
                 virtual void onGetINPUTPackage(INPUTPackageGame const &pack);
+                virtual void onGetENEMYSHOTPackage(ENEMYSHOTPackageGame const &pack);
 
             public:
                 void SendInput(std::string const &axisName, float const value);

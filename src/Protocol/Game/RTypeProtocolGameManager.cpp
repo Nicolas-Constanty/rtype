@@ -21,6 +21,7 @@ const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::REBORNID = RTyp
 const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::FAILUREID = RTypeProtocolGameManager::GameID(GamePurpose::GAMEFAILURE, sizeof(SHOTPackageGame));
 const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::INPUTID = RTypeProtocolGameManager::GameID(GamePurpose::GAMEINPUT, sizeof(INPUTPackageGame));
 const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::DISCONNECTID = RTypeProtocolGameManager::GameID(GamePurpose::GAMEDISCONNECT, sizeof(DISCONNECTPackageGame));
+const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::ENEMYSHOTID = RTypeProtocolGameManager::GameID(GamePurpose::GAMEENEMYSHOT, sizeof(ENEMYSHOTPackageGame));
 
 RTypeProtocolGameManager::RTypeProtocolGameManager(IProtocolGameHandler &protocolGameHandler)
         : protocolGameHandler(protocolGameHandler) {
@@ -39,6 +40,7 @@ RTypeProtocolGameManager::RTypeProtocolGameManager(IProtocolGameHandler &protoco
     fptr[FAILUREID] = (MFP)&IProtocolGameHandler::onGetFAILUREPackage;
     fptr[INPUTID] = (MFP)&IProtocolGameHandler::onGetINPUTPackage;
     fptr[DISCONNECTID] = (MFP)&IProtocolGameHandler::onGetDISCONNECTPackage;
+    fptr[ENEMYSHOTID] = (MFP)&IProtocolGameHandler::onGetENEMYSHOTPackage;
 }
 
 RTypeProtocolGameManager::~RTypeProtocolGameManager() {
