@@ -3,11 +3,10 @@
 #ifndef IRENDERER_HPP_
 #define IRENDERER_HPP_
 
-#include "GameObject.hpp"
-
 namespace SaltyEngine
 {
 	class Scene;
+	class GameObject;
 	class IRenderer
 	{
 	public:

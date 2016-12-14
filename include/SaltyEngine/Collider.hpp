@@ -5,9 +5,10 @@
 
 #include "SaltyEngine/Component.hpp"
 #include "SaltyEngine/RigidBody.hpp"
-#include "SaltyEngine/Rect.hpp"
+#include "SaltyEngine/BasicRect.hpp"
 #include "SaltyEngine/ASpriteRenderer.hpp"
 #include "SaltyEngine/ICollider.hpp"
+#include "Debug.hpp"
 
 namespace SaltyEngine
 {
@@ -23,9 +24,11 @@ namespace SaltyEngine
 				m_bounds = sprr->GetSprite()->GetBounds();
 			}
 			else
-				m_bounds = new Rect<T>(gameObject->transform.position.x -20,
-										gameObject->transform.position.y - 20,
-										40, 40);
+            {
+                m_bounds = new BasicRect<T>((int) (gameObject->transform.position.x - 20),
+                                       (int) (gameObject->transform.position.y - 20),
+                                       40, 40);
+            }
 		};
 		ACollider2D(const std::string &name, GameObject * const gameObj) : Component(name, gameObj), m_enabled(true), m_trigger(false) {
 			m_attachedRigidbody = gameObject->AddComponent<RigidBody2D>();
@@ -33,10 +36,16 @@ namespace SaltyEngine
 			if (sprr)
 				m_bounds = sprr->GetSprite()->GetBounds();
 			else
-				m_bounds = new Rect<T>((int)(gameObject->transform.position.x - 20),
-					(int)(gameObject->transform.position.y - 20),
-					40, 40);
+            {
+                m_bounds = new BasicRect<T>((int)(gameObject->transform.position.x - 50),
+                                       (int)(gameObject->transform.position.y - 50),
+                                       100, 100);
+            }
 		};
+        ACollider2D(const std::string &name, GameObject * const gameObj, BasicRect<T> *rect) : Component(name, gameObj), m_enabled(true), m_trigger(false) {
+            m_attachedRigidbody = gameObject->AddComponent<RigidBody2D>();
+            m_bounds = rect;
+        };
 		virtual ~ACollider2D() {};
 
 	protected:

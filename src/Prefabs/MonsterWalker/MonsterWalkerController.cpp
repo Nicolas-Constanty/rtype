@@ -24,7 +24,7 @@ void MonsterWalkerController::Start()
 // TODO : add jump
 void MonsterWalkerController::Update()
 {
-	m_currDelay -= SaltyEngine::SaltyEngine::Instance().GetDeltaTime();
+	m_currDelay -= SaltyEngine::Engine::Instance().GetDeltaTime();
 
 	if (m_currDelay <= 0)
 	{
@@ -40,7 +40,7 @@ void MonsterWalkerController::Update()
             }
         }
 	}
-	this->gameObject->transform.Translate(-gameObject->transform.right() * SaltyEngine::SaltyEngine::Instance().GetDeltaTime() * m_vel);
+	this->gameObject->transform.Translate(-gameObject->transform.right() * SaltyEngine::Engine::Instance().GetDeltaTime() * m_vel);
     if (fabsf(gameObject->transform.position.x - m_startPoint.x) > m_walkDistance)
     {
         gameObject->transform.Rotate(180);

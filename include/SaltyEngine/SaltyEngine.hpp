@@ -11,27 +11,22 @@
 #include "SaltyEngine/DefaultRenderer.hpp"
 #include "SaltyEngine/Input/DefaultEventManager.hpp"
 #include "Common/Singleton.hpp"
+#include "SaltyEngine/Object.hpp"
 
 
 #define DEFAULT_FRAME_RATE 60
 
 namespace SaltyEngine
 {
-	enum EngineStatus
-	{
-		start,
-		stop,
-		pause
-	};
 	class AScene;
 #define print_status(x) x
 
-	class SaltyEngine : public Singleton<SaltyEngine>
+	class Engine : public Singleton<Engine>
 	{
-		friend class Singleton<SaltyEngine>;
+		friend class Singleton<Engine>;
 	public:
-		SaltyEngine();
-		virtual ~SaltyEngine();
+		Engine();
+		virtual ~Engine();
 
 		void Start();
 		void Stop();
@@ -48,12 +43,6 @@ namespace SaltyEngine
 		AScene *GetCurrentScene(void) const;
 		IRenderer *GetRenderer(void) const;
 
-	/*public:
-		static std::string const Tag[];*/
-
-	private:
-		void LoadAssets() noexcept;
-
 	private:
 		EngineStatus								m_status;
 		std::vector<std::unique_ptr<AScene>>		m_scenes;
@@ -66,9 +55,7 @@ namespace SaltyEngine
 	};
 }
 
-template class Singleton<SaltyEngine::SaltyEngine>;
-
-#include "SaltyEngine/AScene.hpp"
+template class Singleton<SaltyEngine::Engine>;
 
 #endif // !SALTYENGINE_HPP_
 

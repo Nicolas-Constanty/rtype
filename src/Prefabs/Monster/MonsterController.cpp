@@ -4,7 +4,7 @@
 
 MonsterController::MonsterController(SaltyEngine::GameObject *obj) : AGenericController("MonsterController", obj)
 {
-    m_health = 1;
+    m_health = 3;
 }
 
 
@@ -19,7 +19,7 @@ void MonsterController::Start()
 
 void MonsterController::Update()
 {
-	m_currDelay -= SaltyEngine::SaltyEngine::Instance().GetDeltaTime();
+	m_currDelay -= SaltyEngine::Engine::Instance().GetDeltaTime();
 
 	if (m_currDelay <= 0)
 	{
@@ -32,7 +32,7 @@ void MonsterController::Update()
             }
         }
 	}
-	this->gameObject->transform.Translate(-gameObject->transform.right() * SaltyEngine::SaltyEngine::Instance().GetDeltaTime() * m_vel);
+	this->gameObject->transform.Translate(-gameObject->transform.right() * SaltyEngine::Engine::Instance().GetDeltaTime() * m_vel);
 }
 
 void MonsterController::Die() const

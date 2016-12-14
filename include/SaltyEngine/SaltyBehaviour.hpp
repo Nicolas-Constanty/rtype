@@ -11,7 +11,7 @@
 
 namespace SaltyEngine
 {
-	class SaltyEngine;
+	class Engine;
 #define WaitForSecond(x) coroutine::await(std::bind(&SaltyBehaviour::__Wait_For_Seconds, x))
 #define WaitForMillisecond(x) coroutine::await(std::bind(&SaltyBehaviour::__Wait_For_Milliseconds, x))
 #define WaitForMicrosecond(x) coroutine::await(std::bind(&SaltyBehaviour::__Wait_For_Microseconds, x))

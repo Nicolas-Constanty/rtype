@@ -14,6 +14,12 @@
 
 namespace SaltyEngine
 {
+	enum EngineStatus
+	{
+		start,
+		stop,
+		pause
+	};
 	typedef size_t uid;
 
 	class Object: protected ICloneable<Object>

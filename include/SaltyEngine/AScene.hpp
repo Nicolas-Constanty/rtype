@@ -9,15 +9,16 @@
 #include <iostream>
 #include <string>
 #include <memory>
-#include "SaltyEngine/SaltyBehaviour.hpp"
-#include "SaltyEngine/GameObject.hpp"
 #include "SaltyEngine/Object.hpp"
+#include "SaltyEngine/Component.hpp"
 
 namespace SaltyEngine
 {
+	class GameObject;
+    class SaltyBehaviour;
 	class AScene : public Object
 	{
-        friend class SaltyEngine;
+        friend class Engine;
 	public:
 		AScene();
 		explicit AScene(const std::string &name);
@@ -57,9 +58,10 @@ namespace SaltyEngine
 		void OnDestroy();
 
 		void CallCoroutines();
-		virtual void UpdatePhysics(void) = 0;
+		virtual void UpdatePhysics(void) {};
 
 		virtual void Destroy(GameObject *gm);
+        virtual void InitScene(Component *const component) { (void)component; };
 
 	protected:
 		virtual void Destroy();
@@ -85,6 +87,5 @@ namespace SaltyEngine
 		};
 	};
 };
-
 
 #endif // !SCENE_HPP_
