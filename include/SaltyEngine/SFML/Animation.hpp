@@ -29,7 +29,8 @@ namespace SaltyEngine
                         m_frames(frames),
                         m_frameRate(frameRate),
                         m_iterator(frames.begin()),
-                        m_reviterator(frames.rbegin()) {}
+                        m_reviterator(frames.rbegin())
+                {}
 
                 bool IsAnimOver() const {
                     if (!m_playBackwards)
