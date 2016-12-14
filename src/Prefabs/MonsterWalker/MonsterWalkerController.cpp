@@ -4,7 +4,7 @@
 #include "SaltyEngine/Constants.hpp"
 #include "SaltyEngine/Animation.hpp"
 
-MonsterWalkerController::MonsterWalkerController(SaltyEngine::GameObject *obj) : AGenericController(obj)
+MonsterWalkerController::MonsterWalkerController(SaltyEngine::GameObject *obj) : AGenericController("MonsterWalkerController", obj)
 {
     m_health = 1;
     gameServer = NULL;
