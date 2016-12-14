@@ -9,39 +9,20 @@
  */
 ExplosionBasic::ExplosionBasic() : GameObject("ExplosionBasic")
 {
-    AddComponent<SaltyEngine::SFML::SpriteRenderer>(SaltyEngine::SFML::AssetManager::Instance().GetSprite("MonsterWalker/Walker1L"), SaltyEngine::Layout::normal);
+    AddComponent<SaltyEngine::SFML::SpriteRenderer>(SaltyEngine::SFML::AssetManager::Instance().GetSprite("ExplosionBasic/explosion1"), SaltyEngine::Layout::normal);
     AddComponent<SaltyEngine::Animation<sf::Vector2i>>(true, SaltyEngine::AnimationConstants::WrapMode::ONCE);
     SaltyEngine::AnimationClip<sf::Vector2i> *clip;
 
     // Walking clip
     clip = new SaltyEngine::AnimationClip<sf::Vector2i>();
-    clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite("MonsterWalker/Walker1L"));
-    clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite("MonsterWalker/Walker2L"));
-    clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite("MonsterWalker/Walker3L"));
-    clip->SetFrameRate(5);
-    GetComponent<SaltyEngine::Animation<sf::Vector2i> >()->AddClip(clip, "WalkLeft");
-
-    clip = new SaltyEngine::AnimationClip<sf::Vector2i>();
-    clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite("MonsterWalker/Walker1R"));
-    clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite("MonsterWalker/Walker2R"));
-    clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite("MonsterWalker/Walker3R"));
-    clip->SetFrameRate(5);
-    GetComponent<SaltyEngine::Animation<sf::Vector2i> >()->AddClip(clip, "WalkRight");
-
-    // Jumping clip
-    clip = new SaltyEngine::AnimationClip<sf::Vector2i>();
-    clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite("MonsterWalker/Jump1L"));
-    clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite("MonsterWalker/Jump2L"));
-    clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite("MonsterWalker/Jump3L"));
-    clip->SetFrameRate(5);
-    GetComponent<SaltyEngine::Animation<sf::Vector2i> >()->AddClip(clip, "JumpLeft");
-
-    clip = new SaltyEngine::AnimationClip<sf::Vector2i>();
-    clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite("MonsterWalker/Jump1R"));
-    clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite("MonsterWalker/Jump2R"));
-    clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite("MonsterWalker/Jump3R"));
-    clip->SetFrameRate(5);
-    GetComponent<SaltyEngine::Animation<sf::Vector2i> >()->AddClip(clip, "JumpRight");
+    clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite("ExplosionBasic/explosion1"));
+    clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite("ExplosionBasic/explosion2"));
+    clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite("ExplosionBasic/explosion3"));
+    clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite("ExplosionBasic/explosion4"));
+    clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite("ExplosionBasic/explosion5"));
+    clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite("ExplosionBasic/explosion6"));
+    clip->SetFrameRate(16);
+    GetComponent<SaltyEngine::Animation<sf::Vector2i> >()->AddClip(clip, "Explode");
 
     AddComponent<ExplosionController>();
 }

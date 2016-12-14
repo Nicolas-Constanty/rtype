@@ -17,7 +17,7 @@ public:
 public:
 	void Start();
 	void Update();
-	void OnCollisionEnter(SaltyEngine::ICollider *col);
+//	void OnCollisionEnter(SaltyEngine::ICollider *col);
 
 public:
 	virtual SaltyEngine::Component *CloneComponent(SaltyEngine::GameObject* const obj) {

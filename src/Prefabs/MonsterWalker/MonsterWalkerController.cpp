@@ -65,8 +65,8 @@ void MonsterWalkerController::TakeDamage(int amount)
 	}
 }
 
-void MonsterWalkerController::OnCollisionEnter(SaltyEngine::ICollider *col)
-{
+//void MonsterWalkerController::OnCollisionEnter(SaltyEngine::ICollider *col)
+//{
 //    if (col != nullptr)
 //    {
 //        SaltyEngine::SFML::BoxCollider2D *c = dynamic_cast<SaltyEngine::SFML::BoxCollider2D*>(col);
@@ -75,7 +75,7 @@ void MonsterWalkerController::OnCollisionEnter(SaltyEngine::ICollider *col)
 //            TakeDamage(1);
 //        }
 //    }
-}
+//}
 
 void MonsterWalkerController::PlayAnim(std::string const &anim, bool queued) const
 {
