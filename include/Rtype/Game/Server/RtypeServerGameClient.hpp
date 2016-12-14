@@ -69,6 +69,7 @@ namespace Rtype
 
             private:
                 int id;
+                double power;
 
             private:
                 //ScriptRtypePLayerController *script;

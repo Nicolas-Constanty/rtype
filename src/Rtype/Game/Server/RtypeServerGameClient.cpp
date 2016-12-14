@@ -8,6 +8,8 @@
 #include <SaltyEngine/Input/VirtualInutManager.hpp>
 #include <Rtype/Game/Client/SpaceShipController.hpp>
 #include <Rtype/Game/Common/GameObjectID.hpp>
+#include <Prefabs/Player/PlayerController.hpp>
+#include <Rtype/Game/Common/RtypeNetworkFactory.hpp>
 #include "SaltyEngine/Vector2.hpp"
 #include "Rtype/Game/Common/GameObjectContainer.hpp"
 
@@ -16,7 +18,8 @@ Rtype::Game::Server::RtypeServerGameClient::RtypeServerGameClient(Network::Core:
         server1(NULL),
         pingSecret(-1),
         pingTime(),
-        id(0)
+        id(0),
+        power(0)
 {
 
 }
@@ -26,7 +29,8 @@ Rtype::Game::Server::RtypeServerGameClient::RtypeServerGameClient(const Rtype::G
     server1(NULL),
     pingSecret(-1),
     pingTime(),
-    id(0)
+    id(0),
+    power(0)
 {
 
 }
@@ -115,16 +119,22 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetCREATEPackage(CREATEPackag
 
 void Rtype::Game::Server::RtypeServerGameClient::onGetBEAMPackage(BEAMPackageGame const &pack)
 {
+    std::cout << pack << std::endl;
     OnDiscoveringPackage(pack);
 
-//    todo if (okay on gameside)
-//    {
-//        BroadcastReliable(*server1->create<BEAMPackageGame>(pack.objectID));
-//    }
-//    else
-//    {
-//        SendReliable(*server1->create<FAILUREPackageGame>(pack.purpose, pack.sequenceID));
-//    }
+    SaltyEngine::GameObject *gameObject;
+
+    if ((gameObject = server1->gameObjectContainer[pack.objectID])) {
+        SaltyEngine::PlayerController *playerController = gameObject->GetComponent<SaltyEngine::PlayerController>();
+        if (playerController) {
+
+            this->BroadCastPackage<BEAMPackageGame>(&Network::UDP::AUDPConnection::SendReliable<BEAMPackageGame>,
+                                                    pack.objectID, pack.id);
+            playerController->OnBeamAction();
+
+        }
+
+    }
 }
 
 void Rtype::Game::Server::RtypeServerGameClient::onGetSHOTPackage(SHOTPackageGame const &pack)
@@ -133,21 +143,28 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetSHOTPackage(SHOTPackageGam
 
     SaltyEngine::GameObject *gameObject;
 
+    std::cout << pack << std::endl;
+
     if ((gameObject = server1->gameObjectContainer[pack.objectID])) {
 
+        SaltyEngine::PlayerController *playerController = gameObject->GetComponent<SaltyEngine::PlayerController>();
 
-        SaltyEngine::GameObject *laser = dynamic_cast<SaltyEngine::GameObject *>(::SaltyEngine::Instantiate("Laser", gameObject->transform.position));
+        if (playerController) {
+            InformationPlayerShot *informationPlayerShot = playerController->OnShotAction();
+            if (playerController->GetIDShot() == pack.id) {
+                if (informationPlayerShot) {
+                    this->server1->gameObjectContainer.Add(GameObjectID::NewID(), informationPlayerShot->laser);
 
-        if (laser) {
-            this->server1->gameObjectContainer.Add(GameObjectID::NewID(), laser);
-
-            this->BroadCastPackage<CREATEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>,
-                                                      gameObject->transform.position.x,
-                                                      gameObject->transform.position.y,
-                                                      3,
-                                                      this->server1->gameObjectContainer.GetServerObjectID(laser));
-        } else {
-            std::cout << "laser is NULL" << std::endl;
+                    this->BroadCastPackage<CREATEPackageGame>(
+                            &Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>,
+                            gameObject->transform.position.x,
+                            gameObject->transform.position.y,
+                            RtypeNetworkFactory::GetIDFromName(informationPlayerShot->laserString),
+                            this->server1->gameObjectContainer.GetServerObjectID(informationPlayerShot->laser));
+                    playerController->IncIdShot();
+                    std::cout << "ENVOIE" << std::endl;
+                }
+            }
         }
     }
 //    todo if (okay on gameside)

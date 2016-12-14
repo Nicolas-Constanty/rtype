@@ -6,6 +6,7 @@
 #include <SaltyEngine/SaltyEngine.hpp>
 #include <SaltyEngine/SFML/Scene.hpp>
 #include <Rtype/Game/Server/GameServerObject.hpp>
+#include <Rtype/Game/Client/GameManager.hpp>
 
 Rtype::Game::Server::Room::Room()
 {
@@ -27,6 +28,7 @@ void Rtype::Game::Server::Room::Start(const uint16_t port, const size_t max, con
 
     // Create player
     SaltyEngine::GameObject *serverGame = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate());
+
 
     if (serverGame == NULL)
         throw std::runtime_error("Fatal error: Cannot Instantiate a gameobject");
