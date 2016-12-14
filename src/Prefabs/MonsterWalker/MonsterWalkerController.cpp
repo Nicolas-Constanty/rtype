@@ -38,11 +38,14 @@ void MonsterWalkerController::Update()
             //SaltyEngine::GameObject *missile = (SaltyEngine::GameObject *) SaltyEngine::Instantiate("EnemyBullet",
             //                                                                                        this->gameObject->transform.position,
             //                                                                                        180);
-            if (SaltyEngine::BINARY_ROLE == SaltyEngine::NetRole::SERVER) {
+            if (SaltyEngine::BINARY_ROLE == SaltyEngine::NetRole::SERVER && gameServer) {
                 //envoyer package create
                 SaltyEngine::GameObject *missile = (SaltyEngine::GameObject *) SaltyEngine::Instantiate("EnemyBullet",
                                                                                                         this->gameObject->transform.position,
                                                                                                         180);
+
+               // this->gameServer->BroadCastPackage<CREATEPackageGame>()
+
                 if (missile) {
                     // TODO FAIRE MOVE A LA MAIN LE MISSILE
                     MissileController *missileController = missile->GetComponent<MissileController>();
@@ -82,7 +85,7 @@ void MonsterWalkerController::Die() const
 
 void MonsterWalkerController::TakeDamage(int amount)
 {
-    if (BINARY_ROLE == NetRole::SERVER) {
+    if (SaltyEngine::BINARY_ROLE == SaltyEngine::NetRole::SERVER) {
         AGenericController::TakeDamage(amount);
 
         if (m_health <= 0 && !m_isDead) {

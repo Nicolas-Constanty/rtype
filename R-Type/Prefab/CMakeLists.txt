@@ -47,7 +47,7 @@ add_library(player SHARED ${PLAYER_SOURCE_FILE} ${PLAYER_INC_FILE})
 target_link_libraries(player ${PREFAB_LIBRARIES})
 
 # WALKING MONSTER
-file(GLOB WALKINGMONSTER_SOURCE_FILE "src/Prefabs/MonsterWalker/*.cpp" "include/Prefabs/MonsterWalker/*.hpp")
+file(GLOB WALKINGMONSTER_SOURCE_FILE "src/Prefabs/MonsterWalker/*.cpp" "include/Prefabs/MonsterWalker/*.hpp"  "src/Rtype/Game/Client/*.cpp" "src/Rtype/Game/Common/*.cpp" "src/Protocol/Game/*.cpp" "src/Rtype/Game/Server/*.cpp")
 add_library(monster_walker SHARED ${WALKINGMONSTER_SOURCE_FILE})
 target_link_libraries(monster_walker ${PREFAB_LIBRARIES})
 
