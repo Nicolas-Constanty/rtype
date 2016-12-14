@@ -3,7 +3,7 @@
 #include "SaltyEngine/SFML/AssetManager.hpp"
 #include "SaltyEngine/SaltyEngine.hpp"
 #include "SaltyEngine/SFML/SpriteRenderer.hpp"
-#include "SaltyEngine/Animation.hpp"
+#include "SaltyEngine/SFML/Animation.hpp"
 
 MissileController::MissileController(SaltyEngine::GameObject *go) : SaltyEngine::SaltyBehaviour(go)
 {

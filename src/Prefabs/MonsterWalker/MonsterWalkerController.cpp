@@ -1,7 +1,7 @@
 #include "Prefabs/Missile/MissileController.hpp"
 #include "Prefabs/MonsterWalker/MonsterWalkerController.hpp"
 #include "SaltyEngine/SFML.hpp"
-#include "SaltyEngine/Animation.hpp"
+#include "SaltyEngine/SFML/Animation.hpp"
 
 MonsterWalkerController::MonsterWalkerController(SaltyEngine::GameObject *obj) : AGenericController("MonsterWalkerController", obj)
 {
@@ -16,7 +16,7 @@ MonsterWalkerController::~MonsterWalkerController()
 void MonsterWalkerController::Start()
 {
 	m_currDelay = m_minShootInterval + rand() % (int)(m_maxShootInterval - m_minShootInterval);
-    m_anim = gameObject->GetComponent<SaltyEngine::Animation<sf::Vector2i> >();
+    m_anim = gameObject->GetComponent<SaltyEngine::SFML::Animation>();
     m_anim->Play("WalkLeft");
     m_startPoint = gameObject->transform.position;
 }

@@ -1,4 +1,4 @@
-#include <SaltyEngine/Animation.hpp>
+#include <SaltyEngine/SFML/Animation.hpp>
 #include <Rtype/Game/Common/GameObjectID.hpp>
 #include <Rtype/Game/Common/RtypeNetworkFactory.hpp>
 #include "Prefabs/Player/PlayerController.hpp"
