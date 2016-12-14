@@ -38,6 +38,7 @@ namespace SaltyEngine
                     if (re)
                         return intersects(sf::IntRect(re->_left, re->_top, re->_width, re->_height));
                 }
+				return false;
 			}
 		};
 		class FRect : public IRect<sf::Vector2f>, public sf::FloatRect

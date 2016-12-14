@@ -162,7 +162,7 @@ namespace SaltyEngine
                     }
                     // Update anim
                     if (animData != nullptr) {
-                        animData->UpdateAnimTimeline(SaltyEngine::Instance().GetFixedDeltaTime());
+                        animData->UpdateAnimTimeline(Engine::Instance().GetFixedDeltaTime());
                         if (animData->IsAnimOver()) {
                             // If we have some anims queued, play them
                             if (m_queuedAnims.size() > 0) {
