@@ -1,5 +1,5 @@
-#include "Prefabs/MonsterWalker/MonsterWalker.hpp"
-#include "Prefabs/MonsterWalker/MonsterWalkerController.hpp"
+#include "Prefabs/ExplosionBasic/ExplosionBasic.hpp"
+#include "Prefabs/ExplosionBasic/ExplosionController.hpp"
 #include "SaltyEngine/SFML/AssetManager.hpp"
 #include "SaltyEngine/SFML/SpriteRenderer.hpp"
 #include "SaltyEngine/Animation.hpp"
@@ -7,10 +7,10 @@
 /**
  * @brief You can add your properties here
  */
-MonsterWalker::MonsterWalker() : GameObject("MonsterWalker", SaltyEngine::Layer::Tag::Enemy)
+ExplosionBasic::ExplosionBasic() : GameObject("ExplosionBasic")
 {
     AddComponent<SaltyEngine::SFML::SpriteRenderer>(SaltyEngine::SFML::AssetManager::Instance().GetSprite("MonsterWalker/Walker1L"), SaltyEngine::Layout::normal);
-    AddComponent<SaltyEngine::Animation<sf::Vector2i>>(true, SaltyEngine::AnimationConstants::WrapMode::LOOP);
+    AddComponent<SaltyEngine::Animation<sf::Vector2i>>(true, SaltyEngine::AnimationConstants::WrapMode::ONCE);
     SaltyEngine::AnimationClip<sf::Vector2i> *clip;
 
     // Walking clip
@@ -43,15 +43,14 @@ MonsterWalker::MonsterWalker() : GameObject("MonsterWalker", SaltyEngine::Layer:
     clip->SetFrameRate(5);
     GetComponent<SaltyEngine::Animation<sf::Vector2i> >()->AddClip(clip, "JumpRight");
 
-    AddComponent<MonsterWalkerController>();
-    AddComponent<SaltyEngine::SFML::BoxCollider2D>();
+    AddComponent<ExplosionController>();
 }
 
-MonsterWalker::~MonsterWalker()
+ExplosionBasic::~ExplosionBasic()
 {
 }
 
-MONSTERWALKER_API SaltyEngine::Object const*GetObjectPrefab()
+EXPLOSIONBASIC_API SaltyEngine::Object const*GetObjectPrefab()
 {
-	return new MonsterWalker();
+	return new ExplosionBasic();
 }

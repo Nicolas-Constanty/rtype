@@ -2,7 +2,7 @@
 #include "Prefabs/Monster/MonsterController.hpp"
 #include "SaltyEngine/SFML.hpp"
 
-MonsterController::MonsterController(SaltyEngine::GameObject *obj) : SaltyEngine::SaltyBehaviour(obj)
+MonsterController::MonsterController(SaltyEngine::GameObject *obj) : AGenericController(obj)
 {
     m_health = 1;
 }

@@ -3,7 +3,7 @@
 #include "SaltyEngine/GameObject.hpp"
 #include "Prefabs/GenericController.hpp"
 
-class MonsterController : public SaltyEngine::SaltyBehaviour, public AGenericController
+class MonsterController : public AGenericController
 {
 public:
 	MonsterController(SaltyEngine::GameObject *object);

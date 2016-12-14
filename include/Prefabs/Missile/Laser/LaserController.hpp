@@ -19,6 +19,7 @@ public:
 
 private:
     float m_vel = 100;
+    int m_damage = 1;
 
 public:
     virtual SaltyEngine::Component *CloneComponent(SaltyEngine::GameObject* const obj) {

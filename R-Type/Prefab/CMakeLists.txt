@@ -51,6 +51,10 @@ file(GLOB WALKINGMONSTER_SOURCE_FILE "src/Prefabs/MonsterWalker/*.cpp")
 add_library(monster_walker SHARED ${WALKINGMONSTER_SOURCE_FILE})
 target_link_libraries(monster_walker ${PREFAB_LIBRARIES})
 
+# BASIC EXPLOSION
+file(GLOB EXPLOSIONBASIC_SOURCE_FILE "src/Prefabs/ExplosionBasic/*.cpp")
+add_library(explosion_basic SHARED ${EXPLOSIONBASIC_SOURCE_FILE})
+target_link_libraries(explosion_basic ${PREFAB_LIBRARIES})
 
 set(PREFAB_DEPENDENCIES SFMLSaltyEngine network)
 
@@ -59,7 +63,8 @@ add_dependencies(mate ${PREFAB_DEPENDENCIES})
 add_dependencies(missile_medusa ${PREFAB_DEPENDENCIES})
 add_dependencies(monster ${PREFAB_DEPENDENCIES})
 add_dependencies(missile_laser ${PREFAB_DEPENDENCIES})
+add_dependencies(explosion_basic ${PREFAB_DEPENDENCIES})
 add_dependencies(monster_walker ${PREFAB_DEPENDENCIES})
 add_dependencies(missile_enemy_bullet ${PREFAB_DEPENDENCIES})
-set(PREFABS_TARGET player mate missile_medusa monster missile_laser monster_walker missile_enemy_bullet)
+set(PREFABS_TARGET player mate missile_medusa monster missile_laser monster_walker missile_enemy_bullet explosion_basic)
 add_custom_target(prefabs DEPENDS ${PREFABS_TARGET})
