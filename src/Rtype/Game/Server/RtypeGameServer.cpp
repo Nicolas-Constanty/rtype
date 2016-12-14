@@ -8,6 +8,8 @@
 #include <Rtype/Game/Common/GameObjectID.hpp>
 #include <Rtype/Game/Common/RtypeNetworkFactory.hpp>
 
+const std::chrono::milliseconds   Rtype::Game::Server::RtypeGameServer::pingtimeout(15000);
+
 Rtype::Game::Server::RtypeGameServer::RtypeGameServer(Network::Core::NativeSocketIOOperationDispatcher &dispatcher, const size_t maxSize, u_int16_t level) :
         AUDPServer(dispatcher),
         factory(),
@@ -54,26 +56,25 @@ void Rtype::Game::Server::RtypeGameServer::OnReadCheck()
 {
     Network::UDP::AUDPServer<Rtype::Game::Server::RtypeServerGameClient>::OnReadCheck();
 
-    for (std::list<std::unique_ptr<Network::Socket::ISockStreamHandler>>::iterator it = clients->Streams().begin(); it != clients->Streams().end();)
+    for (std::unique_ptr<Network::Socket::ISockStreamHandler> &curr : clients->Streams())
     {
-        Rtype::Game::Server::RtypeServerGameClient *client = dynamic_cast<Rtype::Game::Server::RtypeServerGameClient *>(it->get());
+        TimedUDPClient *client = dynamic_cast<TimedUDPClient *>(curr.get());
 
-        if (client && client->timedout())
+        if (client && client->pong() && client->getTimer().timeout(pingtimeout))
         {
-            client->setErrorCode(Common::RtypeGameClient::DisconnectionCode::TIMEOUT);
-            client->Disconnect();
-            it = clients->Streams().begin();
+            client->ping();
         }
-        else
-        {
+//        else
+//        {
 //            std::cout << "Checking ping: " << client << std::endl;
-            if (client && client->pong())
-            {
+//            if (client && client->pong() && pingtimer.timeout(pingtimeout))
+//            {
 //                std::cout << "===\e[32mPING\e[0m===" << std::endl;
-                client->ping();
-            }
-            ++it;
-        }
+
+//                pingtimer.refresh();
+//            }
+//            ++it;
+//        }
     }
 }
 

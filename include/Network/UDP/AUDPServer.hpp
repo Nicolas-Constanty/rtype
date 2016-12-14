@@ -9,6 +9,7 @@
 #include <chrono>
 #include <memory>
 #include <Network/Socket/BasicSockStreamsContainer.hpp>
+#include <Network/Core/Timer.hpp>
 #include "AUDPConnection.hpp"
 
 namespace Network
@@ -27,6 +28,7 @@ namespace Network
         template <typename ClientType>
         class AUDPServer : public AUDPConnection
         {
+        protected:
             /**
              * @brief Nested private class that associates a timer to a client
              */
@@ -39,7 +41,7 @@ namespace Network
                  */
                 TimedUDPClient(ClientType const &ref) :
                     ClientType(ref),
-                    lastmsg(std::chrono::steady_clock::now())
+                    timer()
                 {
 
                 }
@@ -58,9 +60,7 @@ namespace Network
                  */
                 void refresh()
                 {
-                    if (timedout())
-                        std::cout << "Was timed out" << std::endl;
-                    lastmsg = std::chrono::steady_clock::now();
+                    timer.refresh();
                 }
 
                 /**
@@ -69,11 +69,16 @@ namespace Network
                  */
                 bool timedout()
                 {
-                    return std::chrono::steady_clock::now() - lastmsg > timeout;
+                    return timer.timeout(timeout);
+                }
+
+                Core::Timer const &getTimer() const
+                {
+                    return timer;
                 }
 
             private:
-                std::chrono::time_point<std::chrono::steady_clock>  lastmsg;
+                Core::Timer timer;
             };
 
         public:

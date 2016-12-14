@@ -196,6 +196,6 @@ void Rtype::Game::Client::RtypeClientGameClient::SendInput(std::string const &ax
 void Rtype::Game::Client::RtypeClientGameClient::OnDisconnect()
 {
     Common::RtypeGameClient::OnDisconnect();
-    SaltyEngine::SaltyEngine::Instance().Stop();
+    SaltyEngine::Engine::Instance().Stop();
 
 }
