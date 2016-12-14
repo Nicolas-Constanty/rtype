@@ -1,0 +1,9 @@
+{
+    "texture": "explosion",
+    "rect": {
+        "x": "586",
+        "y": "100",
+        "width": "65",
+        "heigth": "65"
+    }
+}
