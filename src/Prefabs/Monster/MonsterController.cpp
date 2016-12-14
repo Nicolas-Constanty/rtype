@@ -37,9 +37,8 @@ void MonsterController::Update()
 
 void MonsterController::Die() const
 {
-    SaltyEngine::Instantiate("ExplosionMonster", this->gameObject->transform.position);
+    SaltyEngine::Instantiate("ExplosionBasic", this->gameObject->transform.position);
 	SaltyEngine::Object::Destroy(this->gameObject);
-    std::cout << "Ouch" << std::endl;
 }
 
 void MonsterController::TakeDamage(int amount)
