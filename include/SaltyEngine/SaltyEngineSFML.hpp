@@ -7,7 +7,7 @@
 
 namespace SaltyEngine
 {
-	class SaltyEngineSFML : public SaltyEngine
+	class SaltyEngineSFML : public Engine
 	{
 	public:
 		SaltyEngineSFML();

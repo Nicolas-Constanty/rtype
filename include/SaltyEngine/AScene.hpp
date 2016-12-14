@@ -9,14 +9,16 @@
 #include <iostream>
 #include <string>
 #include <memory>
-#include "SaltyEngine/SaltyBehaviour.hpp"
-#include "SaltyEngine/GameObject.hpp"
 #include "SaltyEngine/Object.hpp"
+#include "SaltyEngine/Component.hpp"
 
 namespace SaltyEngine
 {
+	class GameObject;
+    class SaltyBehaviour;
 	class AScene : public Object
 	{
+        friend class Engine;
 	public:
 		AScene();
 		explicit AScene(const std::string &name);
@@ -32,6 +34,7 @@ namespace SaltyEngine
 		GameObject	*FindByName(std::string const &name) const;
 		GameObject	*FindById(size_t id) const;
 		virtual void operator<<(GameObject * const gameobj);
+
 
 	public:
 		void OnStart(void);
@@ -55,12 +58,19 @@ namespace SaltyEngine
 		void OnDestroy();
 
 		void CallCoroutines();
-		virtual void UpdatePhysics(void) = 0;
+		virtual void UpdatePhysics(void) {};
+
+		virtual void Destroy(GameObject *gm);
+        virtual void InitScene(Component *const component) { (void)component; };
+
+	protected:
+		virtual void Destroy();
 
 	protected:
 		std::vector<GameObject *>	m_objects;
 		std::queue<size_t>			m_init;
 		float						m_gravity;
+		std::list<GameObject *>		m_deleted;
 
 	protected:
 		std::queue<std::function<void()>>	m_onCollisionEnter;
@@ -77,6 +87,5 @@ namespace SaltyEngine
 		};
 	};
 };
-
 
 #endif // !SCENE_HPP_

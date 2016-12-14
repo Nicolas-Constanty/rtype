@@ -15,17 +15,17 @@ int main(int ac, char **)
 	SaltyEngine::SFML::Renderer *renderer = new SaltyEngine::SFML::Renderer(sf::VideoMode(1280, 720), "R-Type Launcher");
 	SaltyEngine::SFML::EventManager *event_manager = new SaltyEngine::SFML::EventManager(renderer->GetRenderWindow());
 	// Set Renderer and EventManager
-	Singleton<SaltyEngine::SaltyEngine>::Instance().SetRenderer(renderer);
-	Singleton<SaltyEngine::SaltyEngine>::Instance().SetEventManager(event_manager);
+	Singleton<SaltyEngine::Engine>::Instance().SetRenderer(renderer);
+	Singleton<SaltyEngine::Engine>::Instance().SetEventManager(event_manager);
 
 	// Create Scene
 	SaltyEngine::SFML::Scene *scene = new SaltyEngine::SFML::Scene();
 
-	SaltyEngine::SaltyEngine::Instance() << scene;
+	SaltyEngine::Engine::Instance() << scene;
 
 	SaltyEngine::GameObject	*server = dynamic_cast<SaltyEngine::GameObject*>(SaltyEngine::Object::Instantiate());
 
-    server->SetName("GameManager");
+	server->SetName("GameManager");
 	server->AddComponent<Rtype::Game::Client::GameClientObject>("127.0.0.1", 4242);
 	server->AddComponent<GameManager>();
 
@@ -56,7 +56,7 @@ int main(int ac, char **)
 
 //	SaltyEngine::SaltyEngine::Instance().SetFrameRate(2);
 
-	SaltyEngine::SaltyEngine::Instance().Run();
+	SaltyEngine::Engine::Instance().Run();
 
 #if _WIN32
 	Network::Socket::WinSocket::Stop();

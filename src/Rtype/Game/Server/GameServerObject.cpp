@@ -11,7 +11,7 @@ Rtype::Game::Server::GameServerObject::GameServerObject(SaltyEngine::GameObject 
     secret(secret),
     port(port),
     map(map),
-    server(new RtypeGameServer(dispatcher, maxClient)),
+    server(new RtypeGameServer(dispatcher, maxClient, map)),
     dispatcher(),
     running(false)
 {
@@ -40,7 +40,7 @@ void Rtype::Game::Server::GameServerObject::Start()
     catch (Network::Socket::SocketException const &err)
     {
         std::cout << "[\x1b[31mERROR\x1b[0m]: Cannot start server: " << err.what() << std::endl;
-        Singleton<SaltyEngine::SaltyEngine>::Instance().Stop();
+        Singleton<SaltyEngine::Engine>::Instance().Stop();
     }
 }
 

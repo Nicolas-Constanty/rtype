@@ -10,12 +10,16 @@
 #include "SaltyEngine/SaltyBehaviour.hpp"
 #include "Common/MakeUnique.hpp"
 #include "SaltyEngine/Constants.hpp"
+#include "SaltyEngine/AScene.hpp"
+#include "SaltyEngine/SaltyEngine.hpp"
 
 namespace SaltyEngine
 {
-	class Scene;
+
+	//class Scene;
 	class GameObject : public Object
 	{
+		friend class AScene;
 	public:
 		// delete copy and move constructors and assign operators
 		GameObject(GameObject const&) = delete;             // Copy construct
@@ -28,13 +32,13 @@ namespace SaltyEngine
 		Transform transform;
 
 	private:
-		bool m_activeSelf;
-		size_t layer;
-		Scene *scene;
-		Layer::Tag m_tag;
-		std::list<std::unique_ptr<Component>> m_components;
-		std::list<SaltyBehaviour *> m_behaviour;
-		size_t						m_bcount;
+		bool 											m_activeSelf;
+		size_t 											layer;
+		AScene 											*scene;
+		Layer::Tag 										m_tag;
+		std::list<std::unique_ptr<Component>> 			m_components;
+		std::list<SaltyBehaviour *>						m_behaviour;
+		size_t											m_bcount;
 
 	public:
 		bool GetActiveSelf(void) const;
@@ -50,6 +54,8 @@ namespace SaltyEngine
 				++m_bcount;
 				m_behaviour.push_back(tmp);
 			}
+            if (::SaltyEngine::Engine::Instance().GetStatus() == EngineStatus::start)
+                ::SaltyEngine::Engine::Instance().GetCurrentScene()->InitScene(m_components.back().get());
 			return (dynamic_cast<T *>(m_components.back().get()));
 		}
 		template<class T>
@@ -206,6 +212,12 @@ namespace SaltyEngine
 				}
 				return std::unique_ptr<Object>(obj);
 			}
+
+		public:
+            void Destroy() override;
+
+		private:
+			void __Destroy();
 	};
 }
 

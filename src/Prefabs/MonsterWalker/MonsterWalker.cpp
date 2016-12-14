@@ -2,39 +2,47 @@
 #include "Prefabs/MonsterWalker/MonsterWalkerController.hpp"
 #include "SaltyEngine/SFML/AssetManager.hpp"
 #include "SaltyEngine/SFML/SpriteRenderer.hpp"
-#include "SaltyEngine/Animation.hpp"
+#include "SaltyEngine/SFML/Animation.hpp"
 
 /**
  * @brief You can add your properties here
  */
-MonsterWalker::MonsterWalker() : GameObject("MonsterWalker")
+MonsterWalker::MonsterWalker() : GameObject("MonsterWalker", SaltyEngine::Layer::Tag::Enemy)
 {
-    SaltyEngine::SFML::Texture *texture = SaltyEngine::SFML::AssetManager::Instance().GetTexture("monsterwalker");
-    if (texture != nullptr)
-    {
-        AddComponent<SaltyEngine::SFML::SpriteRenderer>(new SaltyEngine::SFML::Sprite(texture, new SaltyEngine::SFML::Rect(0, 0, 34, 34)), SaltyEngine::Layout::normal);
-        AddComponent<SaltyEngine::Animation<sf::Vector2i>>(true, SaltyEngine::AnimationConstants::WrapMode::LOOP);
-        SaltyEngine::AnimationClip<sf::Vector2i> *clip = new SaltyEngine::AnimationClip<sf::Vector2i>();
+    AddComponent<SaltyEngine::SFML::SpriteRenderer>(SaltyEngine::SFML::AssetManager::Instance().GetSprite("MonsterWalker/Walker1L"), SaltyEngine::Layout::normal);
+    AddComponent<SaltyEngine::SFML::Animation>(true, SaltyEngine::AnimationConstants::WrapMode::LOOP);
+    SaltyEngine::SFML::AnimationClip *clip;
 
-        // Walking clip
-        clip->AddSprite(new SaltyEngine::SFML::Sprite(texture, new SaltyEngine::SFML::Rect(0, 0, 34, 34)));
-        clip->AddSprite(new SaltyEngine::SFML::Sprite(texture, new SaltyEngine::SFML::Rect(34, 0, 34, 34)));
-        clip->AddSprite(new SaltyEngine::SFML::Sprite(texture, new SaltyEngine::SFML::Rect(68, 0, 34, 34)));
-        clip->SetFrameRate(5);
-        GetComponent<SaltyEngine::Animation<sf::Vector2i> >()->AddClip(clip, "Walk");
+    // Walking clip
+    clip = new SaltyEngine::SFML::AnimationClip();
+    clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite("MonsterWalker/Walker1L"));
+    clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite("MonsterWalker/Walker2L"));
+    clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite("MonsterWalker/Walker3L"));
+    clip->SetFrameRate(8);
+    GetComponent<SaltyEngine::SFML::Animation >()->AddClip(clip, "WalkLeft");
 
-        // Jumping clip
-        clip = new SaltyEngine::AnimationClip<sf::Vector2i>();
-        clip->AddSprite(new SaltyEngine::SFML::Sprite(texture, new SaltyEngine::SFML::Rect(0, 0, 34, 34)));
-        clip->AddSprite(new SaltyEngine::SFML::Sprite(texture, new SaltyEngine::SFML::Rect(34, 0, 34, 34)));
-        clip->AddSprite(new SaltyEngine::SFML::Sprite(texture, new SaltyEngine::SFML::Rect(68, 0, 34, 34)));
-        clip->SetFrameRate(5);
-        GetComponent<SaltyEngine::Animation<sf::Vector2i> >()->AddClip(clip, "Jump");
-    }
-    else
-    {
-        SaltyEngine::Debug::PrintWarning("MonsterWalker: could not load texture");
-    }
+    clip = new SaltyEngine::SFML::AnimationClip();
+    clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite("MonsterWalker/Walker1R"));
+    clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite("MonsterWalker/Walker2R"));
+    clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite("MonsterWalker/Walker3R"));
+    clip->SetFrameRate(8);
+    GetComponent<SaltyEngine::SFML::Animation >()->AddClip(clip, "WalkRight");
+
+    // Jumping clip
+    clip = new SaltyEngine::SFML::AnimationClip();
+    clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite("MonsterWalker/Jump1L"));
+    clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite("MonsterWalker/Jump2L"));
+    clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite("MonsterWalker/Jump3L"));
+    clip->SetFrameRate(5);
+    GetComponent<SaltyEngine::SFML::Animation >()->AddClip(clip, "JumpLeft");
+
+    clip = new SaltyEngine::SFML::AnimationClip();
+    clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite("MonsterWalker/Jump1R"));
+    clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite("MonsterWalker/Jump2R"));
+    clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite("MonsterWalker/Jump3R"));
+    clip->SetFrameRate(5);
+    GetComponent<SaltyEngine::SFML::Animation >()->AddClip(clip, "JumpRight");
+
     AddComponent<MonsterWalkerController>();
     AddComponent<SaltyEngine::SFML::BoxCollider2D>();
 }

@@ -1,0 +1,22 @@
+{
+    "sprites": [
+        "MonsterWalker/Walker1L",
+        "MonsterWalker/Walker2L",
+        "MonsterWalker/Walker3L",
+        "MonsterWalker/Walker1R",
+        "MonsterWalker/Walker2R",
+        "MonsterWalker/Walker3R",
+        "MonsterWalker/Jump1L",
+        "MonsterWalker/Jump2L",
+        "MonsterWalker/Jump3L",
+        "MonsterWalker/Jump1R",
+        "MonsterWalker/Jump2R",
+        "MonsterWalker/Jump3R"
+    ],
+    "lib": "libmonster_walker",
+    "dependencies": [
+    	"Missile",
+        "EnemyBullet",
+        "ExplosionBasic"
+    ]
+}

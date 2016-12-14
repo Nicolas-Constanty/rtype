@@ -3,7 +3,7 @@
 #include "SaltyEngine/SFML/AssetManager.hpp"
 #include "SaltyEngine/SaltyEngine.hpp"
 #include "SaltyEngine/SFML/SpriteRenderer.hpp"
-#include "SaltyEngine/Animation.hpp"
+#include "SaltyEngine/SFML/Animation.hpp"
 
 MissileController::MissileController(SaltyEngine::GameObject *go) : SaltyEngine::SaltyBehaviour(go)
 {
@@ -21,7 +21,7 @@ void MissileController::Start() {
 
 void MissileController::Update()
 {
-    gameObject->transform.Translate(gameObject->transform.right() * m_vel * SaltyEngine::SaltyEngine::Instance().GetFixedDeltaTime());
+    gameObject->transform.Translate(gameObject->transform.right() * m_vel * SaltyEngine::Engine::Instance().GetFixedDeltaTime());
 }
 
 void MissileController::SetTarget(SaltyEngine::GameObject const* target)

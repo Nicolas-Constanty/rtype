@@ -1,3 +1,4 @@
+#include <SaltyEngine/Debug.hpp>
 #include "SaltyEngine/Object.hpp"
 #include "SaltyEngine/Factory.hpp"
 
@@ -45,8 +46,15 @@ namespace SaltyEngine
 	 * @param [in,out]	original	If non-null, the original to destroy.
 	 */
 
-	void Object::Destroy(Object const* original)
+	void Object::Destroy(Object *original)
 	{
-		delete original;
+		if (original)
+			original->Destroy();
+		else
+			Debug::PrintWarning("Cannot destrol null Object");
+	}
+
+	void Object::Destroy() {
+
 	}
 }

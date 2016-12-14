@@ -105,7 +105,7 @@ namespace Network
              */
             virtual ~AUDPServer()
             {
-                delete(clients);
+                    delete(clients);
                 if (newclient)
                     delete(newclient);
             }
@@ -140,6 +140,10 @@ namespace Network
             {
                 if (newclient == NULL)
                     newclient = new TimedUDPClient(Dispatcher());
+                if (newclient == NULL) {
+                    std::cout << "newClient still NULL" << std::endl;
+                    return;
+                }
                 buff.reset();
 
                 int ret;

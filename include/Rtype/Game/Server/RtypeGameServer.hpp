@@ -9,6 +9,7 @@
 #include <SaltyEngine/SaltyBehaviour.hpp>
 #include "RtypeServerGameClient.hpp"
 #include "Rtype/Game/Common/GameObjectContainer.hpp"
+#include "Rtype/Game/Common/RtypeGameClient.hpp"
 
 namespace Rtype
 {
@@ -19,7 +20,7 @@ namespace Rtype
             class RtypeGameServer : public Network::UDP::AUDPServer<Rtype::Game::Server::RtypeServerGameClient>
             {
             public:
-                RtypeGameServer(Network::Core::NativeSocketIOOperationDispatcher &dispatcher, const size_t maxSize = 4);
+                RtypeGameServer(Network::Core::NativeSocketIOOperationDispatcher &dispatcher, const size_t maxSize = 4, u_int16_t level = 1);
                 RtypeGameServer(RtypeGameServer const &ref) = delete;
                 virtual ~RtypeGameServer();
 
@@ -27,6 +28,24 @@ namespace Rtype
                 virtual bool OnDataReceived(unsigned int len);
                 virtual bool OnDataSent(unsigned int len);
                 virtual bool OnStart();
+
+            private:
+                template <typename Package, typename SendFunc, typename ... Args>
+                void BroadCastPackage(SendFunc func, Args ... args)
+                {
+                    if (!clients)
+                        return;
+                    for (std::unique_ptr<Network::Socket::ISockStreamHandler> &curr : clients->Streams())
+                    {
+                        Common::RtypeGameClient *client = dynamic_cast<Common::RtypeGameClient *>(curr.get());
+
+                        if (client)
+                            client->SendPackage<Package>(func, args...);
+                    }
+                }
+
+            public:
+                void OnStartGame();
 
             public:
                 virtual void OnReadCheck();
@@ -55,6 +74,10 @@ namespace Rtype
 
             public:
                 GameObjectContainer gameObjectContainer;
+
+            private:
+                u_int16_t level;
+                std::list<std::pair<std::string, SaltyEngine::Vector2f> >   monsterMap;
             };
         }
     }

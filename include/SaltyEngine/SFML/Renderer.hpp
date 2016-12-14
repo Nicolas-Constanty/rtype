@@ -22,8 +22,8 @@ namespace SaltyEngine
 		public:
 			struct Drawable
 			{
-				Drawable(Sprite *s, Rect *r, sf::RenderWindow *w, GameObject *g) : spr(s), rect(r), wind(w), gm(g) {}
-				Sprite *spr;
+				Drawable(Sprite **s, Rect *r, sf::RenderWindow *w, GameObject *g) : spr(s), rect(r), wind(w), gm(g) {}
+				Sprite **spr;
 				Rect   *rect;
 				sf::RenderWindow *wind;
 				GameObject *gm;
@@ -33,10 +33,10 @@ namespace SaltyEngine
 			typedef  std::map<int, SpriteList> SpriteMap;
 		public:
 			Renderer(sf::VideoMode const &vm, const std::string &name);
-			virtual ~Renderer() {};
+			virtual ~Renderer();
 			void Display() const override;
+            virtual void RemoveSpriteRenderer(GameObject * const gm) override;
 			sf::RenderWindow *GetRenderWindow(void) const;
-
 			void DrawDebug() const;
 
 		protected:
@@ -51,7 +51,6 @@ namespace SaltyEngine
 			SpriteMap m_spriteRenderers;
 			std::list<BoxCollider2D *> m_debug;
 			std::list<GUI::Selectable *> m_selectables;
-			std::list <Drawable> m_rects;
 		public:
 			void AddSpriteRenderer(SpriteRenderer* const sprr);
 			void AddDebug(BoxCollider2D *);

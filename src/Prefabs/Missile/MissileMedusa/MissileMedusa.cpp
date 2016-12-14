@@ -1,31 +1,22 @@
 #include "Prefabs/Missile/MissileMedusa/MissileMedusa.hpp"
 #include "Prefabs/Missile/MissileController.hpp"
 #include "SaltyEngine/SFML.hpp"
-#include "SaltyEngine/Animation.hpp"
+#include "SaltyEngine/SFML/Animation.hpp"
 
 MissileMedusa::MissileMedusa() : GameObject("MissileMedusa")
 {
-	SaltyEngine::SFML::Texture *texture = SaltyEngine::SFML::AssetManager::Instance().GetTexture("explosion");
-	if (texture != nullptr)
-	{
-		AddComponent<SaltyEngine::SFML::SpriteRenderer>(new SaltyEngine::SFML::Sprite(texture, new SaltyEngine::SFML::Rect(326, 100, 65, 65)), SaltyEngine::Layout::normal);
-		AddComponent < SaltyEngine::Animation<sf::Vector2i>>(true, SaltyEngine::AnimationConstants::WrapMode::LOOP);
-		SaltyEngine::AnimationClip<sf::Vector2i> *clip = new SaltyEngine::AnimationClip<sf::Vector2i>();
-		clip->AddSprite(new SaltyEngine::SFML::Sprite(texture, new SaltyEngine::SFML::Rect(326, 100, 65, 65)));
-		clip->AddSprite(new SaltyEngine::SFML::Sprite(texture, new SaltyEngine::SFML::Rect(326+65, 100, 65, 65)));
-		clip->AddSprite(new SaltyEngine::SFML::Sprite(texture, new SaltyEngine::SFML::Rect(326+65+65, 100, 65, 65)));
-		clip->AddSprite(new SaltyEngine::SFML::Sprite(texture, new SaltyEngine::SFML::Rect(326+65+65+65, 100, 65, 65)));
-		clip->AddSprite(new SaltyEngine::SFML::Sprite(texture, new SaltyEngine::SFML::Rect(326+65+65+65+65, 100, 65, 65)));
-		clip->SetFrameRate(5);
-		GetComponent<SaltyEngine::Animation<sf::Vector2i> >()->AddClip(clip, "Shoot");
-	}
-	else
-	{
-		SaltyEngine::Debug::PrintWarning("MissileMedusa: could not load texture");
-	}
+	AddComponent<SaltyEngine::SFML::SpriteRenderer>(SaltyEngine::SFML::AssetManager::Instance().GetSprite("MissileMedusa/Bullet1"), SaltyEngine::Layout::normal);
+	AddComponent < SaltyEngine::SFML::Animation>(true, SaltyEngine::AnimationConstants::WrapMode::LOOP);
+	SaltyEngine::SFML::AnimationClip *clip = new SaltyEngine::SFML::AnimationClip();
+	clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite("MissileMedusa/Bullet1"));
+	clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite("MissileMedusa/Bullet2"));
+	clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite("MissileMedusa/Bullet3"));
+	clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite("MissileMedusa/Bullet4"));
+	clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite("MissileMedusa/Bullet5"));
+	clip->SetFrameRate(5);
+	GetComponent<SaltyEngine::SFML::Animation >()->AddClip(clip, "Shoot");
 	AddComponent<MissileController>();
 }
-
 
 MissileMedusa::~MissileMedusa()
 {

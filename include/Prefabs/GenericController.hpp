@@ -1,4 +1,7 @@
 #pragma once
+
+#include "SaltyEngine/GameObject.hpp"
+
 class IGenericController
 {
 public:
@@ -10,9 +13,10 @@ public:
 	virtual void Die() const = 0;
 };
 
-class AGenericController : public IGenericController
+class AGenericController : public SaltyEngine::SaltyBehaviour, public IGenericController
 {
 public:
+    AGenericController(std::string const& name, SaltyEngine::GameObject *obj) : SaltyEngine::SaltyBehaviour(name, obj) {}
 	~AGenericController() {}
 
 public:
@@ -29,6 +33,9 @@ public:
 	{
 		return m_health;
 	}
+
+public:
+    virtual SaltyEngine::Component* CloneComponent(SaltyEngine::GameObject* const obj) = 0;
 
 protected:
 	int m_health = 0;

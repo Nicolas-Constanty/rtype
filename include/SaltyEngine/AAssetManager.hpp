@@ -178,7 +178,7 @@ namespace SaltyEngine {
                             Vector2i(std::stoi(map["rect"]["width"]()), std::stoi(map["rect"]["heigth"]()))
                     };
                 } else {
-                    Debug::PrintError("Cannot parse prefab " + filename);
+                    Debug::PrintError("Cannot parse sprite " + filename);
                     return false;
                 }
             } catch (std::exception const &e) {
@@ -271,13 +271,7 @@ namespace SaltyEngine {
             } catch (std::exception const &e) {
                 Debug::PrintError(std::string(e.what()) + " " + filename);
             }
-//            objects.sort(compare_position_objects);
             return objects;
-        }
-
-    private:
-        bool    compare_position_objects(std::pair<std::string, Vector2f> obj1, std::pair<std::string, Vector2f> obj2) {
-            return obj1.second.x < obj2.second.x;
         }
 
     public:

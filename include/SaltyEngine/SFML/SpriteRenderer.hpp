@@ -65,7 +65,9 @@ namespace SaltyEngine
                 }
 
             }
-            virtual ~SpriteRenderer() {};
+            virtual ~SpriteRenderer() {
+                delete m_sprite;
+            };
             Sprite* GetSprite(void) const override
             {
                 return (dynamic_cast<Sprite*>(m_sprite));

@@ -30,6 +30,7 @@ namespace SaltyEngine {
                 sound = new ::SaltyEngine::SFML::Sound();
             }
             if (!sound->LoadFromFile(path_sounds + name + Asset::SOUND_EXTENSION)) {
+                Debug::PrintWarning("Failed to load sound " + name);
                 return false;
             }
             Debug::PrintSuccess("Sound " + name + " was successfuly loaded");
@@ -44,7 +45,7 @@ namespace SaltyEngine {
             }
             ::SaltyEngine::SFML::Texture *texture = new ::SaltyEngine::SFML::Texture();
             if (!texture->loadFromFile(path_textures + name + Asset::TEXTURE_EXTENSION)) {
-                Debug::PrintError("Failed to load texture " + name);
+                Debug::PrintWarning("Failed to load texture " + name);
                 return false;
             }
             Debug::PrintSuccess("Texture " + name + " was successfuly loaded");
@@ -56,11 +57,12 @@ namespace SaltyEngine {
             typename std::map<std::string, SpriteDefault>::const_iterator it = m_sprites.find(name);
             if (it == m_sprites.end()) {
                 if (!LoadSprite(name)) {
-                    Debug::PrintError("Cannot find sprite " + name);
+                    Debug::PrintWarning("Cannot find sprite " + name);
                     return nullptr;
                 }
                 it = m_sprites.find(name);
                 if (it == m_sprites.end()) {
+                    Debug::PrintWarning("Failed to get sprite " + name);
                     return nullptr;
                 }
             }

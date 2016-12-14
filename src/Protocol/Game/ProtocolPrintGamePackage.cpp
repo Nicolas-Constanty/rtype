@@ -108,6 +108,7 @@ std::ostream &operator<<(std::ostream &ostream, SHOTPackageGame const &shotPacka
         ostream << *header;
     }
     ostream << "objectID=" << shotPackageGame.objectID << std::endl;
+    ostream << "power=" << shotPackageGame.power << std::endl;
     ostream << "}";
     return (ostream);
 }

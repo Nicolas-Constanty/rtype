@@ -23,6 +23,12 @@ public:
         m_network->SendPackage<Pack>(send1, args...);
     }
 
+	template <typename Package, typename SendFunc, typename ... Args>
+	void BroadCastPackage(SendFunc func, Args ... args)
+	{
+		m_network->BroadCastPackage<Package>(func, args...);
+	}
+
 private:
 	Rtype::Game::Client::GameClientObject *m_network;
     std::list<SaltyEngine::GameObject*> m_players;

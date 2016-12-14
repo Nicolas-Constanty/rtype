@@ -35,7 +35,7 @@ bool Rtype::Game::Client::RtypeClientGameClient::OnStart()
 //    SendReliable(*factory.create<AUTHENTICATEPackageGame>(42));
     connected = true;
 
-    SaltyEngine::GameObject *gameman = SaltyEngine::SaltyEngine::Instance().GetCurrentScene()->FindByName("GameManager");
+    SaltyEngine::GameObject *gameman = SaltyEngine::Engine::Instance().GetCurrentScene()->FindByName("GameManager");
 
     if (gameman)
         gameManager = gameman->GetComponent<GameManager>();
@@ -79,12 +79,12 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetCREATEPackage(CREATEPackag
 
         gameManager->gameObjectContainer.Add(pack.objectID, object);
 
-        std::cout << object->GetName() << std::endl;
-        SaltyEngine::GameObject *obj = gameManager->gameObjectContainer[pack.objectID];
-        if (obj) {
-            std::cout << "CREATE TROLOL :: " << obj->GetName() << std::endl;
-        }
-        std::cout << "ENDD" << std::endl;
+  //      std::cout << object->GetName() << std::endl;
+//        SaltyEngine::GameObject *obj = gameManager->gameObjectContainer[pack.objectID];
+        //if (obj) {
+          //  std::cout << "CREATE TROLOL :: " << obj->GetName() << std::endl;
+       // }
+        //std::cout << "ENDD" << std::endl;
       //  *SaltyEngine::SaltyEngine::Instance().GetCurrentScene() << object;
     }
     catch (std::runtime_error const &error)
@@ -112,6 +112,7 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetCREATEPackage(CREATEPackag
 
 void Rtype::Game::Client::RtypeClientGameClient::onGetBEAMPackage(BEAMPackageGame const &pack)
 {
+    std::cout << pack << std::endl;
     OnDiscoveringPackage(pack);
     //todo resolve beam on game. Check if it's <this> player that send the beam.
 }
@@ -146,7 +147,6 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetMOVEPackage(MOVEPackageGam
     OnDiscoveringPackage(pack);
     SaltyEngine::GameObject *obj = gameManager->gameObjectContainer[pack.objectID];
     if (obj) {
-        std::cout << "MOVVVEE :: " << obj->GetName() << std::endl;
         obj->transform.position = SaltyEngine::Vector(pack.posX, pack.posY);
     }
  //   SaltyEngine::GameObject *obj = SaltyEngine::SaltyEngine::Instance().GetCurrentScene()->FindById(static_cast<size_t>(pack.objectID));

@@ -14,6 +14,12 @@
 
 namespace SaltyEngine
 {
+	enum EngineStatus
+	{
+		start,
+		stop,
+		pause
+	};
 	typedef size_t uid;
 
 	class Object: protected ICloneable<Object>
@@ -39,7 +45,7 @@ namespace SaltyEngine
 		std::string m_name;
 
 	public:
-		static void Destroy(Object const* original);
+		static void Destroy(Object *original);
 		static Object *Instantiate(std::string const& obj, Vector pos = Vector::zero(), float rot = 0)
 		{
 			return Factory::Instance().Create(obj, pos, rot);
@@ -71,6 +77,8 @@ namespace SaltyEngine
 		{
 			return Factory::Instance().GetObjectsOfType<Type>();
 		}
+    private:
+        virtual void Destroy();
 	};
 
 #ifdef _WIN32
