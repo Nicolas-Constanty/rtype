@@ -59,7 +59,11 @@ namespace SaltyEngine {
 
 		unsigned int GetIDShot() const;
 
-	public:
+        void Move() override;
+
+        void Shot() override;
+
+    public:
 		clock::time_point start;
 
 	private:

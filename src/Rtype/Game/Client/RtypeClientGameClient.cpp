@@ -62,7 +62,7 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetAUTHENTICATEPackage(AUTHEN
     std::cout << "\e[32mAuthenticated\e[0m: " << pack << std::endl;
     reply = false;
     OnDiscoveringPackage(pack);
-
+    playerID = pack.playerId;
     //todo define in engine which player is controlled by user through gameobject id <pack.playerId>
 }
 
@@ -191,4 +191,11 @@ void Rtype::Game::Client::RtypeClientGameClient::SendInput(std::string const &ax
 {
     SendPackage<INPUTPackageGame>(&Network::Core::BasicConnection::SendData<INPUTPackageGame>, axisName, value);
 //    SendData(*factory.create<INPUTPackageGame>(axisName, value));
+}
+
+void Rtype::Game::Client::RtypeClientGameClient::OnDisconnect()
+{
+    Common::RtypeGameClient::OnDisconnect();
+    SaltyEngine::Engine::Instance().Stop();
+
 }

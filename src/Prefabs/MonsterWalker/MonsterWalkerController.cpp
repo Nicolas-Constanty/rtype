@@ -33,48 +33,34 @@ void MonsterWalkerController::Update()
 {
 	m_currDelay -= SaltyEngine::Engine::Instance().GetDeltaTime();
 
-        if (m_currDelay <= 0) {
-            m_currDelay = m_minShootInterval + rand() % (int) (m_maxShootInterval - m_minShootInterval);
-            //SaltyEngine::GameObject *missile = (SaltyEngine::GameObject *) SaltyEngine::Instantiate("EnemyBullet",
-            //                                                                                        this->gameObject->transform.position,
-            //                                                                                        180);
-            if (SaltyEngine::BINARY_ROLE == SaltyEngine::NetRole::SERVER && gameServer) {
-                //envoyer package create
-                SaltyEngine::GameObject *missile = (SaltyEngine::GameObject *) SaltyEngine::Instantiate("EnemyBullet",
-                                                                                                        this->gameObject->transform.position,
-                                                                                                        180);
-
-               // this->gameServer->BroadCastPackage<CREATEPackageGame>()
-
-                if (missile) {
-                    // TODO FAIRE MOVE A LA MAIN LE MISSILE
-                    MissileController *missileController = missile->GetComponent<MissileController>();
-                    if (missileController != nullptr) {
-                        missileController->SetTarget(
-                                SaltyEngine::GameObject::FindGameObjectWithTag(SaltyEngine::Layer::Tag::Player));
-                    }
-                }
-            }
-
-            PlayAnim("Jump");
-            PlayAnim("Walk", true);
-
-            //if (missile) {
-             //   MissileController *missileController = missile->GetComponent<MissileController>();
-             //   if (missileController != nullptr) {
-             //       missileController->SetTarget(
-             //               SaltyEngine::GameObject::FindGameObjectWithTag(SaltyEngine::Layer::Tag::Player));
-             //   }
-            //}
-        }
+	if (m_currDelay <= 0)
+	{
+        m_currDelay = m_minShootInterval + rand() % (int)(m_maxShootInterval - m_minShootInterval);
+        Shot();
 	}
-	this->gameObject->transform.Translate(-gameObject->transform.right() * SaltyEngine::Engine::Instance().GetDeltaTime() * m_vel);
+    Move();
+}
+
+void MonsterWalkerController::Move() {
+    this->gameObject->transform.Translate(-gameObject->transform.right() * SaltyEngine::Engine::Instance().GetDeltaTime() * m_vel);
     if (fabsf(gameObject->transform.position.x - m_startPoint.x) > m_walkDistance)
     {
         gameObject->transform.Rotate(180);
         PlayAnim("Walk");
     }
 }
+
+void MonsterWalkerController::Shot() {
+    SaltyEngine::GameObject *missile = (SaltyEngine::GameObject*)SaltyEngine::Instantiate("EnemyBullet", this->gameObject->transform.position, 180);
+    PlayAnim("Jump");
+    PlayAnim("Walk", true);
+
+    if (missile) {
+        MissileController *missileController = missile->GetComponent<MissileController>();
+        if (missileController != nullptr) {
+            missileController->SetTarget(SaltyEngine::GameObject::FindGameObjectWithTag(SaltyEngine::Layer::Tag::Player));
+        }
+    }}
 
 void MonsterWalkerController::Die() const
 {

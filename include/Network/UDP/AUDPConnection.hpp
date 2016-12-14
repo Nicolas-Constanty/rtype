@@ -48,6 +48,13 @@ namespace Network
                     SendData(ref);
             }
 
+            template <typename T>
+            void SendReliableNow(T const &ref)
+            {
+                for (size_t i = 0; i < 30; ++i)
+                    SendDataNow(ref);
+            }
+
             /**
              * @brief Broadcast a package reliably. With 30 packets, we are pretty sure that the packet is received
              * @tparam T The type of the data to send

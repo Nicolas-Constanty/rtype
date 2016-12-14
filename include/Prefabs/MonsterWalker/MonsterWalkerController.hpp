@@ -25,6 +25,10 @@ public:
 		return new MonsterWalkerController(obj);
 	}
 
+    void Move() override;
+
+    void Shot() override;
+
 private:
     void PlayAnim(std::string const& anim, bool queued = false) const;
 

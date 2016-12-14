@@ -24,15 +24,23 @@ void MonsterController::Update()
 	if (m_currDelay <= 0)
 	{
         m_currDelay = m_minShootInterval + rand() % (int)(m_maxShootInterval - m_minShootInterval);
-        SaltyEngine::GameObject *missile = (SaltyEngine::GameObject*)SaltyEngine::Instantiate("MissileMedusa", this->gameObject->transform.position);
-        if (missile) {
-            MissileController *missileController = missile->GetComponent<MissileController>();
-            if (missileController != nullptr) {
-                missileController->SetTarget(SaltyEngine::GameObject::FindGameObjectWithTag(SaltyEngine::Layer::Tag::Player));
-            }
-        }
+        Shot();
 	}
-	this->gameObject->transform.Translate(-gameObject->transform.right() * SaltyEngine::Engine::Instance().GetDeltaTime() * m_vel);
+    Move();
+}
+
+void MonsterController::Move() {
+    this->gameObject->transform.Translate(-gameObject->transform.right() * SaltyEngine::Engine::Instance().GetDeltaTime() * m_vel);
+}
+
+void MonsterController::Shot() {
+    SaltyEngine::GameObject *missile = (SaltyEngine::GameObject*)SaltyEngine::Instantiate("MissileMedusa", this->gameObject->transform.position);
+    if (missile) {
+        MissileController *missileController = missile->GetComponent<MissileController>();
+        if (missileController != nullptr) {
+            missileController->SetTarget(SaltyEngine::GameObject::FindGameObjectWithTag(SaltyEngine::Layer::Tag::Player));
+        }
+    }
 }
 
 void MonsterController::Die() const

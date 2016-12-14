@@ -1,26 +1,25 @@
 #pragma once
 #include "SaltyEngine/SaltyBehaviour.hpp"
 #include "SaltyEngine/GameObject.hpp"
+#include "SaltyEngine/SFML/Animation.hpp"
 #include "Prefabs/GenericController.hpp"
 
-class MonsterController : public AGenericController
+class MonsterFlyingController : public AGenericController
 {
 public:
-	MonsterController(SaltyEngine::GameObject *object);
-	virtual ~MonsterController();
+	MonsterFlyingController(SaltyEngine::GameObject *object);
+	virtual ~MonsterFlyingController();
 
 public:
 	virtual void Die() const;
-	virtual void TakeDamage(int amount);
 
 public:
 	void Start();
 	void Update();
-	void OnCollisionEnter(SaltyEngine::ICollider *col);
 
 public:
 	virtual SaltyEngine::Component *CloneComponent(SaltyEngine::GameObject* const obj) {
-		return new MonsterController(obj);
+		return new MonsterFlyingController(obj);
 	}
 
     void Move() override;
