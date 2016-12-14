@@ -1,6 +1,7 @@
 #include "Prefabs/Missile/MissileController.hpp"
 #include "Prefabs/MonsterWalker/MonsterWalkerController.hpp"
 #include "SaltyEngine/SFML.hpp"
+#include "SaltyEngine/Animation.hpp"
 
 MonsterWalkerController::MonsterWalkerController(SaltyEngine::GameObject *obj) : SaltyEngine::SaltyBehaviour(obj)
 {
@@ -15,6 +16,9 @@ MonsterWalkerController::~MonsterWalkerController()
 void MonsterWalkerController::Start()
 {
 	m_currDelay = m_minShootInterval + rand() % (int)(m_maxShootInterval - m_minShootInterval);
+    m_anim = gameObject->GetComponent<SaltyEngine::Animation<sf::Vector2i> >();
+    m_anim->Play("WalkLeft");
+    m_startPoint = gameObject->transform.position;
 }
 
 // TODO : add jump
@@ -25,7 +29,10 @@ void MonsterWalkerController::Update()
 	if (m_currDelay <= 0)
 	{
         m_currDelay = m_minShootInterval + rand() % (int)(m_maxShootInterval - m_minShootInterval);
-        SaltyEngine::GameObject *missile = (SaltyEngine::GameObject*)SaltyEngine::Instantiate("EnemyBullet", this->gameObject->transform.position);
+        SaltyEngine::GameObject *missile = (SaltyEngine::GameObject*)SaltyEngine::Instantiate("EnemyBullet", this->gameObject->transform.position, 180);
+        PlayAnim("Jump");
+        PlayAnim("Walk", true);
+
         if (missile) {
             MissileController *missileController = missile->GetComponent<MissileController>();
             if (missileController != nullptr) {
@@ -34,11 +41,16 @@ void MonsterWalkerController::Update()
         }
 	}
 	this->gameObject->transform.Translate(-gameObject->transform.right() * SaltyEngine::SaltyEngine::Instance().GetDeltaTime() * m_vel);
+    if (fabsf(gameObject->transform.position.x - m_startPoint.x) > m_walkDistance)
+    {
+        gameObject->transform.Rotate(180);
+        PlayAnim("Walk");
+    }
 }
 
 void MonsterWalkerController::Die() const
 {
-    SaltyEngine::Instantiate("ExplosionMonster", this->gameObject->transform.position);
+    SaltyEngine::Instantiate("Explosion", this->gameObject->transform.position);
 	SaltyEngine::Object::Destroy(this->gameObject);
 }
 
@@ -63,4 +75,12 @@ void MonsterWalkerController::OnCollisionEnter(SaltyEngine::ICollider *col)
             TakeDamage(1);
         }
     }
+}
+
+void MonsterWalkerController::PlayAnim(std::string const &anim, bool queued) const
+{
+    if (gameObject->transform.right().x > 0)
+        (!queued) ? m_anim->Play(anim + "Left") : m_anim->PlayQueued(anim + "Left");
+    else
+        (!queued) ? m_anim->Play(anim + "Right") : m_anim->PlayQueued(anim + "Right");
 }

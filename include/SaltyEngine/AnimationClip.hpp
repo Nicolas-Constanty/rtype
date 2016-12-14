@@ -33,7 +33,9 @@ namespace SaltyEngine
 		void AddSprite(Sprite<T> * const sprite)
 		{
             if (sprite)
-			    m_sprites.push_back(sprite);
+                m_sprites.push_back(sprite);
+            else
+                Debug::PrintWarning("Cannot add nullptr");
 		}
 
 		double GetFrameRate() const
@@ -57,36 +59,17 @@ namespace SaltyEngine
 		}
 
 	public:
-        virtual std::unique_ptr<Object> CloneMemberwise()
-        {
-            AnimationClip *animationClip = new AnimationClip("Animation(Clone)", m_frameRate);
-
-            for (std::list<std::function<void()>>::iterator it = m_events.begin(); it != m_events.end(); ++it)
-            {
-                animationClip->m_events.push_back(*it);
-            }
-            for (Sprite<T> *sprite : m_sprites)
-            {
-                animationClip->m_sprites.push_back(SFML::AssetManager::Instance().GetSprite(sprite->GetName()));
-            }
-            return std::unique_ptr<Object>(animationClip);
-        }
-
-        AnimationClip *CopyClip()
-        {
-            AnimationClip *animationClip = new AnimationClip("Animation(Clone)", m_frameRate);
-
-            for (std::list<std::function<void()>>::iterator it = m_events.begin(); it != m_events.end(); ++it)
-            {
-                animationClip->m_events.push_back(*it);
-            }
-            for (Sprite<T> *sprite : m_sprites)
-            {
-                std::cout << sprite << std::endl;
-//                animationClip->m_sprites.push_back(SFML::AssetManager::Instance().GetSprite(sprite->GetName()));
-//                animationClip->AddSprite(SFML::AssetManager::Instance().GetSprite(sprite->GetName()));
-            }
-            return animationClip;
-        }
+		AnimationClip *CopyClip()
+		{
+			AnimationClip *animationclip = new AnimationClip("Animation(Clone)", m_frameRate);
+			for (std::list<std::function<void()>>::const_iterator j = m_events.begin(); j != m_events.end(); ++j) {
+				animationclip->m_events.push_back(*j);
+			}
+			for (Sprite<T> *sprite : m_sprites) {
+                if (sprite)
+                    animationclip->AddSprite(SFML::AssetManager::Instance().GetSprite(sprite->GetName()));
+			}
+			return animationclip;
+		}
 	};
 }

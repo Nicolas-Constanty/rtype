@@ -168,7 +168,7 @@ namespace SaltyEngine
         }
 
 		/**
-		 * \brief Animation functions
+		 * @brief Animation functions
 		 */
 	public:
 		bool IsPlaying() const
@@ -182,8 +182,9 @@ namespace SaltyEngine
 			{
 				return;
 			}
-			m_isPlaying = true;
-			clip = m_clips.begin()->second;
+            ClearAnimData();
+            m_isPlaying = true;
+            clip = m_clips.begin()->second;
 			//StartCoroutine(&Animation::PlayAnim);
 		}
 
@@ -193,6 +194,7 @@ namespace SaltyEngine
 			{
 				return;
 			}
+            ClearAnimData();
 			m_isPlaying = true;
 			clip = m_clips[name];
 			//StartCoroutine(&Animation::PlayAnim);
@@ -253,7 +255,7 @@ namespace SaltyEngine
 		void UpdateAnimations()
 		{
 			// If we are playing animations and we have a clip
-			if (m_isPlaying && clip != nullptr)
+			if (m_isPlaying && clip != nullptr && clip->GetFrames().size())
 			{
 				// If we do not have animData yet
 				if (animData == nullptr)
@@ -270,30 +272,37 @@ namespace SaltyEngine
 				{
                     animData->UpdateAnimTimeline(SaltyEngine::Instance().GetFixedDeltaTime());
                     if (animData->IsAnimOver()) {
-                        switch (m_wrapMode) {
-                            case AnimationConstants::ONCE:
-                                m_isPlaying = false;
-                                break;
-                            case AnimationConstants::LOOP:
-                                animData->Reset();
-                                break;
-                            case AnimationConstants::PING_PONG:
-                                animData->ReverseAndReset();
-                                break;
+                        // If we have some anims queued, play them
+                        if (m_queuedAnims.size() > 0)
+                        {
+                            Play(m_queuedAnims.back());
+                            m_queuedAnims.pop();
+                        }
+                        else
+                        {
+                            switch (m_wrapMode) {
+                                case AnimationConstants::ONCE:
+                                    m_isPlaying = false;
+                                    break;
+                                case AnimationConstants::LOOP:
+                                    animData->Reset();
+                                    break;
+                                case AnimationConstants::PING_PONG:
+                                    animData->ReverseAndReset();
+                                    break;
+                            }
                         }
                     }
 				}
 			}
 			else
 			{
-				if (animData != nullptr)
-					delete animData;
-				animData = nullptr;
+                ClearAnimData();
 			}
 		}
 
 		/**
-		 * \brief Behaviour functions
+		 * @brief Behaviour functions
 		 */
 	public:
 		void Start()
@@ -309,22 +318,21 @@ namespace SaltyEngine
 			UpdateAnimations();
 		}
 
-        // TODO : implementer le clone
-//	public:
-//		virtual Component *CloneComponent(GameObject* const obj) {
-//            std::cout << "Start cloning anim on obj " << obj->GetName() << " at pos " << obj->transform.position << std::endl;
-//			Animation<T> *anim = new Animation<T>(obj, m_playAuto, m_wrapMode);
-//            AnimationClip<T> *clip = new AnimationClip<T>();
-//            clip->AddSprite(::SaltyEngine::SFML::AssetManager::Instance().GetSprite("Monster/Monster1"));
-//            clip->AddSprite(::SaltyEngine::SFML::AssetManager::Instance().GetSprite("Monster/Monster2"));
-//            clip->AddSprite(::SaltyEngine::SFML::AssetManager::Instance().GetSprite("Monster/Monster3"));
-//            clip->SetFrameRate(5);
-//            anim->AddClip(clip, "Walk");
-//			for (typename std::map<std::string, AnimationClip<T> *>::const_iterator it = m_clips.begin(); it != m_clips.end(); ++it) {
-//				anim->AddClip(it->second, it->first);
-//			}
-//            std::cout << "Finished cloning anim " << GetName() << std::endl;
-//			return anim;
-//		}
+		virtual Component *CloneComponent(GameObject* const obj) {
+			Animation<T> *anim = new Animation<T>(obj, m_playAuto, m_wrapMode);
+			for (typename std::map<std::string, AnimationClip<T> *>::const_iterator it = m_clips.begin(); it != m_clips.end(); ++it) {
+				anim->AddClip(it->second->CopyClip(), it->first);
+			}
+            anim->m_queuedAnims = m_queuedAnims;
+			return anim;
+		}
+
+    private:
+        void ClearAnimData(void)
+        {
+            if (animData != nullptr)
+                delete animData;
+            animData = nullptr;
+        }
 	};
 }

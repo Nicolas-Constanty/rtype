@@ -1,7 +1,7 @@
 {
     "texture": "missiles",
     "rect": {
-        "x": "170",
+        "x": "184",
         "y": "4",
         "width": "6",
         "heigth": "6"

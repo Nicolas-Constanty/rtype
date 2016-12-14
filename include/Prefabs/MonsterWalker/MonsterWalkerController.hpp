@@ -1,6 +1,7 @@
 #pragma once
 #include "SaltyEngine/SaltyBehaviour.hpp"
 #include "SaltyEngine/GameObject.hpp"
+#include "SaltyEngine/Animation.hpp"
 #include "Prefabs/GenericController.hpp"
 
 class MonsterWalkerController : public SaltyEngine::SaltyBehaviour, public AGenericController
@@ -24,10 +25,16 @@ public:
 	}
 
 private:
+    void PlayAnim(std::string const& anim, bool queued = false) const;
+
+private:
 	float m_minShootInterval = 4;
 	float m_maxShootInterval = 9;
 	float m_currDelay = 0;
 	bool m_isDead = false;
 	float m_vel = 10;
+	float m_walkDistance = 100;
+    SaltyEngine::Vector m_startPoint;
+    SaltyEngine::Animation<sf::Vector2i> *m_anim;
 };
 

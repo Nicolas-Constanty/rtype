@@ -1,5 +1,6 @@
 #include "SaltyEngine/Constants.hpp"
 #include "SaltyEngine/GameObject.hpp"
+#include "SaltyEngine/SaltyEngine.hpp"
 
 namespace SaltyEngine
 {
@@ -26,4 +27,15 @@ namespace SaltyEngine
 	{
 		return m_tag;
 	}
+
+    void GameObject::Destroy() {
+        SaltyEngine::Instance().GetCurrentScene()->Destroy(this);
+    }
+
+    void GameObject::__Destroy()
+    {
+        SaltyEngine::Instance().GetRenderer()->RemoveSpriteRenderer(this);
+        m_behaviour.clear();
+        m_components.clear();
+    }
 }

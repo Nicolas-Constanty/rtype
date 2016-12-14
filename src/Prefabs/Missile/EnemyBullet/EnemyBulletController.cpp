@@ -8,7 +8,9 @@ EnemyBulletController::EnemyBulletController(SaltyEngine::GameObject *go) : Salt
 void EnemyBulletController::Start() {
     SaltyEngine::Sound::ISound *fire = SaltyEngine::SFML::AssetManager::Instance().GetSound("fire");
     fire->Play();
-    gameObject->transform.LookAt(SaltyEngine::GameObject::FindGameObjectWithTag(SaltyEngine::Layer::Tag::Player)->transform);
+    SaltyEngine::GameObject *t = SaltyEngine::GameObject::FindGameObjectWithTag(SaltyEngine::Layer::Tag::Player);
+    if (t)
+        gameObject->transform.LookAt(t->transform);
 }
 
 EnemyBulletController::~EnemyBulletController()

@@ -30,7 +30,6 @@ void MonsterController::Update()
             if (missileController != nullptr) {
                 missileController->SetTarget(SaltyEngine::GameObject::FindGameObjectWithTag(SaltyEngine::Layer::Tag::Player));
             }
-            *Singleton<::SaltyEngine::SaltyEngine>::Instance().GetCurrentScene() << missile;
         }
 	}
 	this->gameObject->transform.Translate(-gameObject->transform.right() * SaltyEngine::SaltyEngine::Instance().GetDeltaTime() * m_vel);
@@ -40,6 +39,7 @@ void MonsterController::Die() const
 {
     SaltyEngine::Instantiate("ExplosionMonster", this->gameObject->transform.position);
 	SaltyEngine::Object::Destroy(this->gameObject);
+    std::cout << "Ouch" << std::endl;
 }
 
 void MonsterController::TakeDamage(int amount)

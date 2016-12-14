@@ -14,7 +14,7 @@ namespace SaltyEngine
 	{
 		class Scene : public AScene
 		{
-			typedef std::map <ACollider2D<sf::Vector2i> *, std::map<ACollider2D<sf::Vector2i> *, bool>> CollisionTab;
+			typedef std::map <::SaltyEngine::ACollider2D<sf::Vector2i> *, std::map<::SaltyEngine::ACollider2D<sf::Vector2i> *, bool>> CollisionTab;
 		public:
 			Scene() : AScene() {};
 			explicit Scene(const std::string &name) : AScene(name) {};
@@ -24,8 +24,10 @@ namespace SaltyEngine
 			void UpdatePhysics() override;
 			void operator<<(GameObject * const gameobj) override;
 
+
 		private:
 			CollisionTab m_collisions;
+			void Destroy() override ;
 		};
 	}
 }

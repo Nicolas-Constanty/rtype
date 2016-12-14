@@ -5,7 +5,7 @@
 
 MissileMedusa::MissileMedusa() : GameObject("MissileMedusa")
 {
-	AddComponent<SaltyEngine::SFML::SpriteRenderer>(SaltyEngine::SFML::AssetManager::Instance().GetSprite("missilemedusa"), SaltyEngine::Layout::normal);
+	AddComponent<SaltyEngine::SFML::SpriteRenderer>(SaltyEngine::SFML::AssetManager::Instance().GetSprite("MissileMedusa/Bullet1"), SaltyEngine::Layout::normal);
 	AddComponent < SaltyEngine::Animation<sf::Vector2i>>(true, SaltyEngine::AnimationConstants::WrapMode::LOOP);
 	SaltyEngine::AnimationClip<sf::Vector2i> *clip = new SaltyEngine::AnimationClip<sf::Vector2i>();
 	clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite("MissileMedusa/Bullet1"));

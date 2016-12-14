@@ -13,9 +13,11 @@
 
 namespace SaltyEngine
 {
+
 	class Scene;
 	class GameObject : public Object
 	{
+		friend class AScene;
 	public:
 		// delete copy and move constructors and assign operators
 		GameObject(GameObject const&) = delete;             // Copy construct
@@ -28,13 +30,13 @@ namespace SaltyEngine
 		Transform transform;
 
 	private:
-		bool m_activeSelf;
-		size_t layer;
-		Scene *scene;
-		Layer::Tag m_tag;
-		std::list<std::unique_ptr<Component>> m_components;
-		std::list<SaltyBehaviour *> m_behaviour;
-		size_t						m_bcount;
+		bool 											m_activeSelf;
+		size_t 											layer;
+		Scene 											*scene;
+		Layer::Tag 										m_tag;
+		std::list<std::unique_ptr<Component>> 			m_components;
+		std::list<SaltyBehaviour *>						m_behaviour;
+		size_t											m_bcount;
 
 	public:
 		bool GetActiveSelf(void) const;
@@ -206,6 +208,12 @@ namespace SaltyEngine
 				}
 				return std::unique_ptr<Object>(obj);
 			}
+
+		public:
+            void Destroy() override;
+
+		private:
+			void __Destroy();
 	};
 }
 
