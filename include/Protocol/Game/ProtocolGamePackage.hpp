@@ -92,14 +92,15 @@ public:
 class DISCONNECTPackageGame : public PackageGameHeader
 {
 public:
-    DISCONNECTPackageGame(unsigned short sequenceID = 0, unsigned char playerID = 0, unsigned short transactionID = 0) :
-            PackageGameHeader(true, sizeof(DISCONNECTPackageGame), sequenceID, GamePurpose::GAMEDISCONNECT, transactionID),
-            playerID(playerID)
+    DISCONNECTPackageGame(unsigned short sequenceID = 0, unsigned char playerID = 0, unsigned int errcode = 0, unsigned short transactionID = 0) :
+            PackageGameHeader(true, sizeof(DISCONNECTPackageGame), sequenceID, GamePurpose::GAMEDISCONNECT, transactionID)
     {
-
+        this->errcode = errcode;
+        this->playerID = playerID;
     }
 
 public:
+    unsigned int errcode;
     unsigned char playerID;
 };
 

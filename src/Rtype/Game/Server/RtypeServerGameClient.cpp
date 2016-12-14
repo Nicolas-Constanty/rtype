@@ -51,6 +51,7 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetPINGPackage(PINGPackageGam
 //    std::cout << pack << std::endl;
     reply = false;
     OnDiscoveringPackage(pack);
+//    std::cout << "\e[32mPonged\e[0m" << std::endl;
 //    std::cout << "pingSecret == " << pingSecret << " pack.secret == " << pack.secret << " pingSecret == " << pingSecret << std::endl;
     if (pingSecret != -1 && pack.secret != pingSecret)
     {
@@ -288,6 +289,12 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetINPUTPackage(INPUTPackageG
     SaltyEngine::Input::VirtualInputManager::SetAxis(pack.axes, pack.value);
 }
 
+void Rtype::Game::Server::RtypeServerGameClient::onGetDISCONNECTPackage(DISCONNECTPackageGame const &pack)
+{
+    Rtype::Game::Common::RtypeGameClient::onGetDISCONNECTPackage(pack);
+    connected = false;
+}
+
 bool Rtype::Game::Server::RtypeServerGameClient::OnStart()
 {
     server1 = dynamic_cast<Rtype::Game::Server::RtypeGameServer *>(serverStream);
@@ -358,11 +365,4 @@ void Rtype::Game::Server::RtypeServerGameClient::StartDisplayInformation() {
 //                SendReliable(*server1->create<CREATEPackageGame>());
         }
     }
-}
-
-void Rtype::Game::Server::RtypeServerGameClient::onGetDISCONNECTPackage(DISCONNECTPackageGame const &pack)
-{
-    reply = false;
-    OnDiscoveringPackage(pack);
-    Disconnect();
 }

@@ -24,6 +24,14 @@ namespace Rtype
             class RtypeGameClient : public Network::UDP::AUDPClient, public IProtocolGameHandler
             {
             public:
+                enum class DisconnectionCode : unsigned int
+                {
+                    NOERROR = 0,
+                    ROOMFULL = 1,
+                    TIMEOUT = 2
+                };
+
+            public:
                 static const std::chrono::milliseconds    timeout;
 
             public:
@@ -76,16 +84,23 @@ namespace Rtype
 
             public:
                 template <typename T>
-                void SendToServerReliablyNow(T &ref)
+                void SendToServerReliablyNow(T const &ref)
                 {
-                    Network::Core::NetBuffer    buffer(ref);
+                    Network::Core::NetBuffer    tosend(ref);
+
                     for (int i = 0; i < 30; ++i)
                     {
                         if (serverStream)
-                            serverStream->giveSocket().SendTo(buffer, giveSocket());
+                            serverStream->giveSocket().SendTo(tosend, giveSocket());
                         else
-                            sock.SendTo(buffer, sock);
+                            sock.SendTo(tosend, sock);
                     }
+                }
+
+            public:
+                void setErrorCode(DisconnectionCode code)
+                {
+                    errcode = code;
                 }
 
             private:
@@ -99,7 +114,13 @@ namespace Rtype
             protected:
                 bool reply;
                 bool connected;
+
+            protected:
                 unsigned char playerID;
+                DisconnectionCode errcode;
+
+            protected:
+                bool getDisconnected;
             };
         }
     }
