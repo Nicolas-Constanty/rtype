@@ -26,11 +26,13 @@ public:
 
     void Shot() override;
 
+    void TakeDamage(int amount) override;
+
 private:
 	float m_minShootInterval = 4;
 	float m_maxShootInterval = 9;
 	float m_currDelay = 0;
 	bool m_isDead = false;
-	float m_vel = 10;
+	float m_vel = 100;
 };
 

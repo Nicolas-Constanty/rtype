@@ -64,7 +64,6 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetAUTHENTICATEPackage(AUTHEN
     reply = false;
     OnDiscoveringPackage(pack);
     playerID = pack.playerId;
-    //todo define in engine which player is controlled by user through gameobject id <pack.playerId>
 }
 
 void Rtype::Game::Client::RtypeClientGameClient::onGetCREATEPackage(CREATEPackageGame const &pack)

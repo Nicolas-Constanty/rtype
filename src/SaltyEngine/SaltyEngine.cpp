@@ -39,7 +39,6 @@ namespace SaltyEngine
 
 	Engine::~Engine()
 	{
-		std::cout << "COUCOU" << std::endl;
 		if (m_renderer)
 			delete m_renderer;
 		if (m_even_manager)

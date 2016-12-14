@@ -102,13 +102,17 @@ void Rtype::Game::Common::RtypeGameClient::onGetDISCONNECTPackage(DISCONNECTPack
 {
     OnDiscoveringPackage(pack);
 //    std::cout << "Get disconnect: " << pack << std::endl;
-    getDisconnected = true;
+    if (playerID == pack.playerID)
+    {
+        getDisconnected = true;
+        //todo destroy gameobject
+    }
 }
 
 void Rtype::Game::Common::RtypeGameClient::OnDisconnect()
 {
 //    std::cout << "\e[31mOn Disconnect called\e[0m" << std::endl;
     if (!getDisconnected)
-        SendPackage<DISCONNECTPackageGame>(&Rtype::Game::Common::RtypeGameClient::SendToServerReliablyNow<DISCONNECTPackageGame>, playerID,
+        BroadCastPackage<DISCONNECTPackageGame>(&Rtype::Game::Common::RtypeGameClient::SendToServerReliablyNow<DISCONNECTPackageGame>, playerID,
                                            static_cast<unsigned int>(errcode));
 }

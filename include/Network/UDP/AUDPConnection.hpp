@@ -44,7 +44,7 @@ namespace Network
             template <typename T>
             void SendReliable(T const &ref)
             {
-                for (size_t i = 0; i < 30; ++i)//todo reset to 30 loops
+                for (size_t i = 0; i < 30; ++i)
                     SendData(ref);
             }
 
@@ -63,7 +63,7 @@ namespace Network
             template <typename T>
             void BroadcastReliable(T const &ref)
             {
-                for (size_t i = 0; i < 30; ++i)//todo reset to 30 loops
+                for (size_t i = 0; i < 30; ++i)
                     Broadcast(ref);
             }
 
@@ -75,7 +75,7 @@ namespace Network
             template <typename T>
             void BroadcastNowReliable(T const &ref)
             {
-                for (size_t i = 0; i < 30; ++i)//todo reset to 30 loops
+                for (size_t i = 0; i < 30; ++i)
                     BroadcastNow(ref);
             }
 
