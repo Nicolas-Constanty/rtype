@@ -132,6 +132,14 @@ namespace SaltyEngine
     void PlayerController::Die() const {
         std::cout << "Player Died !" << std::endl;
     }
+
+    void PlayerController::Move() {
+        // TODO
+    }
+
+    void PlayerController::Shot() {
+        // TODO
+    }
 }
 
 

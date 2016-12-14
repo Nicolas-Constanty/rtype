@@ -15,7 +15,6 @@
 
 extern "C"
 {
-	// Cette classe est export�e de Monster.dll
 	class MonsterWalker : public SaltyEngine::GameObject
 	{
 	public:
