@@ -10,11 +10,13 @@
 #include "SaltyEngine/SaltyBehaviour.hpp"
 #include "Common/MakeUnique.hpp"
 #include "SaltyEngine/Constants.hpp"
+#include "SaltyEngine/AScene.hpp"
+#include "SaltyEngine/SaltyEngine.hpp"
 
 namespace SaltyEngine
 {
 
-	class Scene;
+	//class Scene;
 	class GameObject : public Object
 	{
 		friend class AScene;
@@ -32,7 +34,7 @@ namespace SaltyEngine
 	private:
 		bool 											m_activeSelf;
 		size_t 											layer;
-		Scene 											*scene;
+		AScene 											*scene;
 		Layer::Tag 										m_tag;
 		std::list<std::unique_ptr<Component>> 			m_components;
 		std::list<SaltyBehaviour *>						m_behaviour;
@@ -52,6 +54,8 @@ namespace SaltyEngine
 				++m_bcount;
 				m_behaviour.push_back(tmp);
 			}
+            if (::SaltyEngine::Engine::Instance().GetStatus() == EngineStatus::start)
+                ::SaltyEngine::Engine::Instance().GetCurrentScene()->InitScene(m_components.back().get());
 			return (dynamic_cast<T *>(m_components.back().get()));
 		}
 		template<class T>

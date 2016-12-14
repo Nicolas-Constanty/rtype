@@ -47,7 +47,7 @@ void SaltyEngine::SpaceShipController::Start()
 		},
 			std::make_pair<unsigned int, Input::MotionController::Axis>(0, Input::MotionController::Y)
 		));
-		GameObject *gameman = SaltyEngine::Instance().GetCurrentScene()->FindByName("GameManager");
+		GameObject *gameman = Engine::Instance().GetCurrentScene()->FindByName("GameManager");
 
 		if (gameman)
 			manager = gameman->GetComponent<GameManager>();

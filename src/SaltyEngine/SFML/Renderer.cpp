@@ -25,7 +25,8 @@ namespace SaltyEngine
 
 		void Renderer::DrawDebug() const {
 			for (std::list<BoxCollider2D *>::const_iterator it = m_debug.begin(); it != m_debug.end(); ++it) {
-				(*it)->Display();
+                if ((*it)->IsDebug())
+				    (*it)->Display();
 				m_window->draw((*it)->GetVertex());
 			}
 		}
@@ -84,8 +85,13 @@ namespace SaltyEngine
 		}
 
 		void Renderer::RemoveSpriteRenderer(GameObject *const gm) {
+
             for (SpriteMap::iterator it = m_spriteRenderers.begin(); it != m_spriteRenderers.end(); ++it)
+            {
+                Debug::PrintInfo(std::to_string((*it).second.size()));
                 (*it).second.remove_if([gm](Drawable drawable) { return (gm == drawable.gm); });
+                Debug::PrintInfo(std::to_string((*it).second.size()));
+            }
             m_debug.remove_if([gm](BoxCollider2D *box) { return (gm == box->gameObject); });
         }
 	}

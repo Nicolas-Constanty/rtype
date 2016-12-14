@@ -35,7 +35,7 @@ bool Rtype::Game::Client::RtypeClientGameClient::OnStart()
 //    SendReliable(*factory.create<AUTHENTICATEPackageGame>(42));
     connected = true;
 
-    SaltyEngine::GameObject *gameman = SaltyEngine::SaltyEngine::Instance().GetCurrentScene()->FindByName("GameManager");
+    SaltyEngine::GameObject *gameman = SaltyEngine::Engine::Instance().GetCurrentScene()->FindByName("GameManager");
 
     if (gameman)
         gameManager = gameman->GetComponent<GameManager>();

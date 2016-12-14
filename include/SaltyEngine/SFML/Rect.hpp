@@ -4,20 +4,23 @@
 #define SFMLRECT_HPP_
 
 #include <SFML/Graphics.hpp>
-#include "SaltyEngine/IRect.hpp"
+#include "SaltyEngine/BasicRect.hpp"
 
 namespace SaltyEngine
 {
 	namespace SFML
 	{
-		class Rect : public IRect<sf::Vector2i>, public sf::IntRect
+		class Rect : public ::SaltyEngine::BasicRect<sf::Vector2i>, public sf::IntRect
 		{
 		public:
-			Rect(int rectLeft, int rectTop, int rectWidth, int rectHeight)
-				: sf::IntRect(rectLeft, rectTop, rectWidth, rectHeight) {}
-			Rect(const sf::Vector2<int>& position, const sf::Vector2<int>& size)
-				: sf::IntRect(position, size) {}
-			virtual ~Rect() {}
+            Rect(int rectLeft, int rectTop, int rectWidth, int rectHeight) :
+            BasicRect(rectLeft, rectTop, rectWidth, rectHeight),
+            sf::IntRect(rectLeft, rectTop, rectWidth, rectHeight) {}
+			Rect(const sf::Vector2<int>& position, const sf::Vector2<int>& size) :
+					BasicRect(position.x, position.y, size.x, size.y),
+				  	sf::IntRect(position, size) {}
+
+            virtual ~Rect() {}
 
 		public:
 			bool Contain(const sf::Vector2i &vec) const override
@@ -29,7 +32,12 @@ namespace SaltyEngine
 				Rect *r = dynamic_cast<Rect *>(rect);
 				if (r)
 					return intersects(*r);
-				return false;
+                else
+                {
+                    BasicRect<sf::Vector2i> *re = dynamic_cast<BasicRect<sf::Vector2i> *>(rect);
+                    if (re)
+                        return intersects(sf::IntRect(re->_left, re->_top, re->_width, re->_height));
+                }
 			}
 		};
 		class FRect : public IRect<sf::Vector2f>, public sf::FloatRect

@@ -21,7 +21,7 @@ void MissileController::Start() {
 
 void MissileController::Update()
 {
-    gameObject->transform.Translate(gameObject->transform.right() * m_vel * SaltyEngine::SaltyEngine::Instance().GetFixedDeltaTime());
+    gameObject->transform.Translate(gameObject->transform.right() * m_vel * SaltyEngine::Engine::Instance().GetFixedDeltaTime());
 }
 
 void MissileController::SetTarget(SaltyEngine::GameObject const* target)

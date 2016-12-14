@@ -211,7 +211,7 @@
     <ClInclude Include="..\..\..\include\SaltyEngine\IRenderer.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\ISound.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\IWindow.hpp" />
-    <ClInclude Include="..\..\..\include\SaltyEngine\Rect.hpp" />
+    <ClInclude Include="..\..\..\include\SaltyEngine\BasicRect.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\RigidBody.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\SFML.hpp" />
     <ClInclude Include="..\..\..\include\SaltyEngine\Sprite.hpp" />
