@@ -154,6 +154,7 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetDIEPackage(DIEPackageGame 
             std::cout << pack << std::endl;
             aGenericController->Die();
         } else {
+            SaltyEngine::Object::Destroy(obj);
             std::cout << "\e[43m Warning: No AGenericController set \e[0m" << std::endl;
         }
     }

@@ -134,14 +134,14 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetBEAMPackage(BEAMPackageGam
             pos.x += 30;
             SaltyEngine::GameObject *beam = dynamic_cast<SaltyEngine::GameObject*>(SaltyEngine::Object::Instantiate("Beam", pos));
 
-            server1->gameObjectContainer.Add(GameObjectID::NewID(), beam);
+            gameManager->gameObjectContainer.Add(GameObjectID::NewID(), beam);
 
             this->BroadCastPackage<CREATEPackageGame>(
                     &Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>,
                     gameObject->transform.position.x,
                     gameObject->transform.position.y,
                     RtypeNetworkFactory::GetIDFromName("Beam"),
-                    this->server1->gameObjectContainer.GetServerObjectID(beam));
+                    gameManager->gameObjectContainer.GetServerObjectID(beam));
             playerController->beamShot = beam;
             playerController->OnBeamAction();
 

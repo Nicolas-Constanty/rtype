@@ -71,18 +71,23 @@ namespace SaltyEngine
                         gameObject->transform.position.x,
                         gameObject->transform.position.y,
                         getManager()->gameObjectContainer.GetServerObjectID(gameObject));
-                if (beamShot) {
-                    beamShot->transform.position = gameObject->transform.position;
-                    beamShot->transform.position.x += 30;
-                }
             }
 		}
+        if (isServerSide()) {
+            if (beamShot) {
+                beamShot->transform.position = gameObject->transform.position;
+                beamShot->transform.position.x += 30;
+                BroadcastPackage<MOVEPackageGame>(
+                        beamShot->transform.position.x,
+                        beamShot->transform.position.y,
+                        getManager()->gameObjectContainer.GetServerObjectID(beamShot));
+            }
+        }
 
         if (InputKey::GetAction("Fire", Input::ActionType::Down)) {
             if (!isServerSide()) {
-                /*manager->*/SendPackage<BEAMPackageGame>(
-                        //                        &Network::UDP::AUDPConnection::SendReliable<BEAMPackageGame>,
-                        getManager()->gameObjectContainer.GetServerObjectID(gameObject), idShot);
+                std::cout << "CALLED ??" << std::endl;
+                SendPackage<BEAMPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(gameObject), idShot);
             }
         }
         if (InputKey::GetAction("Fire", Input::ActionType::Up)) {
@@ -91,7 +96,6 @@ namespace SaltyEngine
             //manager->gameObjectContainer.Add(GameObjectID::NewID(), laser);
             if (!isServerSide()) {
                 /*manager->*/SendPackage<SHOTPackageGame>(
-//                        &Network::UDP::AUDPConnection::SendReliable<SHOTPackageGame>,
                         getManager()->gameObjectContainer.GetServerObjectID(gameObject), power, idShot++);
             }
         }
@@ -120,7 +124,7 @@ namespace SaltyEngine
                 power = 4;
             } else if (tick >= 500) {
                 power = 3;
-            } else if (tick >= 100) {
+            } else if (tick >= 250) {
                 power = 2;
             }
 
@@ -132,7 +136,14 @@ namespace SaltyEngine
                 informationPlayerShot->power = power;
                 informationPlayerShot->laser = laser;
                 informationPlayerShot->laserString = laserString;
-                std::cout << "power => " << informationPlayerShot->power << std::endl;
+//                std::cout << "power => " << informationPlayerShot->power << std::endl;
+
+                if (beamShot && isServerSide()) {
+                    BroadcastPackage<DIEPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(beamShot));
+                    SaltyEngine::Object::Destroy(beamShot);
+                    beamShot = NULL;
+                }
+
                 return  informationPlayerShot;
             }
         }
