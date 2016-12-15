@@ -19,7 +19,6 @@ SaltyEngine::GameObject *GameObjectContainer::operator[](unsigned short serverID
     if (it != idsServer.end()) {
         SaltyEngine::AScene *scene = SaltyEngine::Engine::Instance().GetCurrentScene();
         if (scene) {
-            std::cout << "FIND scene !" << std::endl;
             return scene->FindById(it->second);
         }
     }

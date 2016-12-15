@@ -1,6 +1,7 @@
 #include <SaltyEngine/SFML/Animation.hpp>
 #include <Rtype/Game/Common/GameObjectID.hpp>
 #include <Rtype/Game/Common/RtypeNetworkFactory.hpp>
+#include <Prefabs/Missile/Laser/LaserController.hpp>
 #include "Prefabs/Player/PlayerController.hpp"
 #include "SaltyEngine/SFML/EventManager.hpp"
 #include "SaltyEngine/Input/InputManager.hpp"
@@ -60,7 +61,7 @@ namespace SaltyEngine
 		float v = InputKey::GetAxis("Vertical");
 		if (h != 0 || v != 0) {
 			gameObject->transform.Translate(Vector(h, v) * speed);
-            if (manager && BINARY_ROLE == NetRole::CLIENT)
+            if (manager)
             {
                 manager->SendPackage<MOVEPackageGame>(
                         &Network::Core::BasicConnection::SendData<MOVEPackageGame>,
@@ -71,8 +72,7 @@ namespace SaltyEngine
 		}
 
         if (InputKey::GetAction("Fire", Input::ActionType::Down)) {
-            std::cout << "toto" << std::endl;
-            if (manager && BINARY_ROLE == NetRole::CLIENT) {
+            if (manager) {
                 manager->SendPackage<BEAMPackageGame>(&Network::UDP::AUDPConnection::SendReliable<BEAMPackageGame>,
                                                       manager->gameObjectContainer.GetServerObjectID(gameObject), idShot);
             }
@@ -81,8 +81,7 @@ namespace SaltyEngine
             //GameObject *laser = (GameObject*)::SaltyEngine::Instantiate("Laser", gameObject->transform.position);
 
             //manager->gameObjectContainer.Add(GameObjectID::NewID(), laser);
-            std::cout << "titi" << std::endl;
-            if (manager && BINARY_ROLE == NetRole::CLIENT) {
+            if (manager) {
                 manager->SendPackage<SHOTPackageGame>(&Network::UDP::AUDPConnection::SendReliable<SHOTPackageGame>,
                                                       manager->gameObjectContainer.GetServerObjectID(gameObject), power, idShot++);
             }
@@ -99,7 +98,7 @@ namespace SaltyEngine
     InformationPlayerShot *PlayerController::OnShotAction() {
         if (BINARY_ROLE == NetRole::SERVER) {
 
-            std::string lasers[2] = {"Laser","Laser"};
+            int power = 1;
 
             std::string laserString;
             double tick = mticks();
@@ -107,19 +106,22 @@ namespace SaltyEngine
             tick = tick > 1000 ? 1000 : tick;
 
             if (tick >= 750) {
-                laserString = lasers[1];
-            } else {
-                laserString = lasers[0];
+                power = 4;
+            } else if (tick >= 500) {
+                power = 3;
+            } else if (tick >= 100) {
+                power = 2;
             }
 
-            GameObject *laser = dynamic_cast<GameObject *>(::SaltyEngine::Instantiate(laserString, gameObject->transform.position));
+            GameObject *laser = dynamic_cast<GameObject *>(::SaltyEngine::Instantiate("Laser", gameObject->transform.position));
+            laser->GetComponent<LaserController>()->Power(power);
 
             if (laser) {
                 InformationPlayerShot *informationPlayerShot = new InformationPlayerShot();
-                informationPlayerShot->power = tick;
+                informationPlayerShot->power = power;
                 informationPlayerShot->laser = laser;
                 informationPlayerShot->laserString = laserString;
-                std::cout << informationPlayerShot->power << std::endl;
+                std::cout << "power => " << informationPlayerShot->power << std::endl;
                 return  informationPlayerShot;
             }
         }

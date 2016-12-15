@@ -10,6 +10,7 @@
 #include <Rtype/Game/Client/SpaceShipController.hpp>
 #include <Rtype/Game/Common/RtypeNetworkFactory.hpp>
 #include <Prefabs/GenericController.hpp>
+#include <Prefabs/Missile/Laser/LaserController.hpp>
 
 Rtype::Game::Client::RtypeClientGameClient::RtypeClientGameClient(
         Network::Core::NativeSocketIOOperationDispatcher &dispatcher) :
@@ -112,20 +113,39 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetCREATEPackage(CREATEPackag
 
 void Rtype::Game::Client::RtypeClientGameClient::onGetBEAMPackage(BEAMPackageGame const &pack)
 {
-    std::cout << pack << std::endl;
     OnDiscoveringPackage(pack);
     //todo resolve beam on game. Check if it's <this> player that send the beam.
 }
 
 void Rtype::Game::Client::RtypeClientGameClient::onGetSHOTPackage(SHOTPackageGame const &pack)
 {
+    std::cout << pack << std::endl;
     OnDiscoveringPackage(pack);
+
+    SaltyEngine::GameObject *obj = gameManager->gameObjectContainer[pack.id];
+    if (obj) {
+        SaltyEngine::GameObject *laser = dynamic_cast<SaltyEngine::GameObject *>(::SaltyEngine::Instantiate("Laser", obj->transform.position));
+        gameManager->gameObjectContainer.Add(pack.objectID, laser);
+        laser->GetComponent<LaserController>()->Power(pack.power);
+    }
+
+    std::cout << "JE SUIS SENSE TIRER" << std::endl;
     //todo resolve shot package with power of shot
 }
 
 void Rtype::Game::Client::RtypeClientGameClient::onGetDIEPackage(DIEPackageGame const &pack)
 {
     OnDiscoveringPackage(pack);
+    SaltyEngine::GameObject *obj = gameManager->gameObjectContainer[pack.objectID];
+    if (obj) {
+        AGenericController *aGenericController = obj->GetComponent<AGenericController>();
+        if (aGenericController) {
+            std::cout << pack << std::endl;
+            aGenericController->Die();
+        } else {
+            std::cout << "\e[43m Warning: No AGenericController set \e[0m" << std::endl;
+        }
+    }
     //todo resolve die in the game
 }
 
@@ -143,7 +163,6 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetDROPPackage(DROPPackageGam
 
 void Rtype::Game::Client::RtypeClientGameClient::onGetMOVEPackage(MOVEPackageGame const &pack)
 {
-    std::cout << pack << std::endl;
     OnDiscoveringPackage(pack);
     SaltyEngine::GameObject *obj = gameManager->gameObjectContainer[pack.objectID];
     if (obj) {
