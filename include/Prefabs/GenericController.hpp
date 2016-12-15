@@ -1,6 +1,7 @@
 #pragma once
 
 #include "SaltyEngine/GameObject.hpp"
+#include "RtypePrefab.hpp"
 #include <Rtype/Game/Server/GameServerObject.hpp>
 
 class IGenericController
@@ -16,13 +17,16 @@ public:
     virtual void Shot() = 0;
 };
 
-class AGenericController : public SaltyEngine::SaltyBehaviour, public IGenericController
+class AGenericController : public RtypePrefab, public IGenericController
 {
 public:
-    AGenericController(std::string const& name, SaltyEngine::GameObject *obj) : SaltyEngine::SaltyBehaviour(name, obj) {
-        gameServer = NULL;
+    AGenericController(std::string const& name, SaltyEngine::GameObject *obj) : RtypePrefab(name, obj) {
+//        gameServer = NULL;
     }
 	~AGenericController() {}
+
+public:
+	virtual void Start() = 0;
 
 public:
 	virtual void TakeDamage(int amount)
@@ -44,5 +48,5 @@ public:
 
 protected:
 	int m_health = 0;
-	Rtype::Game::Server::GameServerObject *gameServer;
+//	Rtype::Game::Server::GameServerObject *gameServer;
 };

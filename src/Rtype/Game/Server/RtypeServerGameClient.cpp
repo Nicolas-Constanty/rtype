@@ -9,6 +9,7 @@
 #include <Rtype/Game/Client/SpaceShipController.hpp>
 #include <Rtype/Game/Common/GameObjectID.hpp>
 #include <Prefabs/Player/PlayerController.hpp>
+#include <Rtype/Game/Client/GameManager.hpp>
 #include <Rtype/Game/Common/RtypeNetworkFactory.hpp>
 #include "SaltyEngine/Vector2.hpp"
 #include "Rtype/Game/Common/GameObjectContainer.hpp"
@@ -123,7 +124,7 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetBEAMPackage(BEAMPackageGam
 
     SaltyEngine::GameObject *gameObject;
 
-    if ((gameObject = server1->gameObjectContainer[pack.objectID])) {
+    if ((gameObject = gameManager->gameObjectContainer[pack.objectID])) {
         SaltyEngine::PlayerController *playerController = gameObject->GetComponent<SaltyEngine::PlayerController>();
         if (playerController) {
 
@@ -144,7 +145,7 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetSHOTPackage(SHOTPackageGam
 
     std::cout << pack << std::endl;
 
-    if ((gameObject = server1->gameObjectContainer[pack.objectID])) {
+    if ((gameObject = gameManager->gameObjectContainer[pack.objectID])) {
 
         SaltyEngine::PlayerController *playerController = gameObject->GetComponent<SaltyEngine::PlayerController>();
 
@@ -152,13 +153,13 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetSHOTPackage(SHOTPackageGam
             InformationPlayerShot *informationPlayerShot = playerController->OnShotAction();
 //            if (playerController->GetIDShot() == pack.id) {
                 if (informationPlayerShot) {
-                    this->server1->gameObjectContainer.Add(GameObjectID::NewID(), informationPlayerShot->laser);
+                    gameManager->gameObjectContainer.Add(GameObjectID::NewID(), informationPlayerShot->laser);
 
                     this->BroadCastPackage<SHOTPackageGame>(
                             &Network::UDP::AUDPConnection::SendReliable<SHOTPackageGame>,
-                            this->server1->gameObjectContainer.GetServerObjectID(informationPlayerShot->laser),
+                            gameManager->gameObjectContainer.GetServerObjectID(informationPlayerShot->laser),
                             informationPlayerShot->power,
-                            this->server1->gameObjectContainer.GetServerObjectID(gameObject)
+                            gameManager->gameObjectContainer.GetServerObjectID(gameObject)
                     );
 
                     //TODO Ne pas envoyé CREATEPackage => SHOTPACKAGE
@@ -229,7 +230,7 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetMOVEPackage(MOVEPackageGam
             if (receiver) {
                 SaltyEngine::GameObject *gameObject;
 
-                if ((gameObject = this->server1->gameObjectContainer[pack.objectID])) {
+                if ((gameObject = gameManager->gameObjectContainer[pack.objectID])) {
                     gameObject->transform.position = SaltyEngine::Vector(pack.posX, pack.posY);
                 }
                 receiver->SendPackage<MOVEPackageGame>(&Network::Core::BasicConnection::SendData<MOVEPackageGame>,
@@ -353,11 +354,11 @@ void Rtype::Game::Server::RtypeServerGameClient::StartDisplayInformation() {
 
     //*SaltyEngine::SaltyEngine::Instance().GetCurrentScene() << player;
 
-    server1->gameObjectContainer.Add(GameObjectID::NewID(), player);
+    gameManager->gameObjectContainer.Add(GameObjectID::NewID(), player);
 
     //notify to all players the creation of a player
     //std::cout << "SENDING DATA !!" << std::endl;
-    this->SendPackage<CREATEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>, player->transform.position.x, player->transform.position.y, 0, server1->gameObjectContainer.GetServerObjectID(player));
+    this->SendPackage<CREATEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>, player->transform.position.x, player->transform.position.y, 0, gameManager->gameObjectContainer.GetServerObjectID(player));
 
     //notify to <this> player to create existing players
     for (std::unique_ptr<Network::Socket::ISockStreamHandler> &curr : clients->Streams())
@@ -366,7 +367,7 @@ void Rtype::Game::Server::RtypeServerGameClient::StartDisplayInformation() {
 
         if (client && client != this)
         {
-            client->SendPackage<CREATEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>, player->transform.position.x, player->transform.position.y, 1, server1->gameObjectContainer.GetServerObjectID(player));
+            client->SendPackage<CREATEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>, player->transform.position.x, player->transform.position.y, 1, gameManager->gameObjectContainer.GetServerObjectID(player));
 //                SendReliable(*server1->create<CREATEPackageGame>());
         }
     }

@@ -1,11 +1,12 @@
 #pragma once
+
 #include "SaltyEngine/SaltyBehaviour.hpp"
 #include "SaltyEngine/GameObject.hpp"
-#include "Rtype/Game/Client/RtypeClientGameClient.hpp"
+//#include "Rtype/Game/Client/RtypeClientGameClient.hpp"
 #include "Network/Core/NativeSocketIOOperationDispatcher.hpp"
-#include "Rtype/Game/Client/GameClientObject.hpp"
-#include "Rtype/Game/Client/GameClientObject.hpp"
 #include "Rtype/Game/Common/GameObjectContainer.hpp"
+#include "Rtype/Game/Client/GameClientObject.hpp"
+#include <Rtype/Game/Server/GameServerObject.hpp>
 
 class GameManager : public SaltyEngine::SaltyBehaviour
 {
@@ -20,17 +21,25 @@ public:
 	template <typename Pack, typename Send, typename ... Args>
     void SendPackage(Send send1, Args ... args)
     {
-        m_network->SendPackage<Pack>(send1, args...);
+		if (m_client)
+        	m_client->SendPackage<Pack>(send1, args...);
     }
 
 	template <typename Package, typename SendFunc, typename ... Args>
 	void BroadCastPackage(SendFunc func, Args ... args)
 	{
-		m_network->BroadCastPackage<Package>(func, args...);
+		if (m_server)
+            m_server->BroadCastPackage<Package>(func, args...);
+		else if (m_client)
+			m_client->BroadCastPackage<Package>(func, args...);
 	}
 
+public:
+    bool isServerSide() const;
+
 private:
-	Rtype::Game::Client::GameClientObject *m_network;
+	Rtype::Game::Server::GameServerObject *m_server;
+	Rtype::Game::Client::GameClientObject *m_client;
     std::list<SaltyEngine::GameObject*> m_players;
 
 public:

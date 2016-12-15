@@ -5,6 +5,7 @@
 #include <Common/Singleton.hpp>
 #include <SaltyEngine/SaltyEngine.hpp>
 #include <Rtype/Game/Server/GameServerObject.hpp>
+#include <Rtype/Game/Client/GameManager.hpp>
 
 Rtype::Game::Server::GameServerObject::GameServerObject(SaltyEngine::GameObject *obj, const uint16_t port, const size_t maxClient, const uint32_t secret, uint16_t map) :
     SaltyEngine::SaltyBehaviour(obj),
@@ -13,6 +14,7 @@ Rtype::Game::Server::GameServerObject::GameServerObject(SaltyEngine::GameObject 
     map(map),
     server(new RtypeGameServer(dispatcher, maxClient, map)),
     dispatcher(),
+    manager(NULL),
     running(false)
 {
 
@@ -42,6 +44,8 @@ void Rtype::Game::Server::GameServerObject::Start()
         std::cout << "[\x1b[31mERROR\x1b[0m]: Cannot start server: " << err.what() << std::endl;
         Singleton<SaltyEngine::Engine>::Instance().Stop();
     }
+    manager = gameObject->GetComponent<GameManager>();
+    server->setManager(manager);
 }
 
 void Rtype::Game::Server::GameServerObject::Update()

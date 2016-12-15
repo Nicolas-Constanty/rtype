@@ -70,7 +70,7 @@ namespace SaltyEngine {
 		double power;
 
 	private:
-		GameManager    *manager;
+//		GameManager    *manager;
 		unsigned int	idShot;
 	};
 }

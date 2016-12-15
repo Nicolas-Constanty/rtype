@@ -19,7 +19,8 @@ Rtype::Game::Common::RtypeGameClient::RtypeGameClient(Network::Core::NativeSocke
         connected(false),
         playerID(0),
         errcode(DisconnectionCode::NOERROR),
-        getDisconnected(false)
+        getDisconnected(false),
+        gameManager(NULL)
 {
 
 }
@@ -34,7 +35,8 @@ Rtype::Game::Common::RtypeGameClient::RtypeGameClient(const RtypeGameClient &ref
     connected(false),
     playerID(0),
     errcode(DisconnectionCode::NOERROR),
-    getDisconnected(false)
+    getDisconnected(false),
+    gameManager(NULL)
 {
 
 }
@@ -115,4 +117,10 @@ void Rtype::Game::Common::RtypeGameClient::OnDisconnect()
     if (!getDisconnected)
         BroadCastPackage<DISCONNECTPackageGame>(&Rtype::Game::Common::RtypeGameClient::SendToServerReliablyNow<DISCONNECTPackageGame>, playerID,
                                            static_cast<unsigned int>(errcode));
+}
+
+void Rtype::Game::Common::RtypeGameClient::setManager(GameManager *manager1)
+{
+    std::cout << "=====> Setting manager in RtypeGameClient" << std::endl;
+    gameManager = manager1;
 }

@@ -4,10 +4,11 @@
 #define RTYPE_EnemyBulletController_HPP
 
 #include <Rtype/Game/Server/GameServerObject.hpp>
+#include <Prefabs/RtypePrefab.hpp>
 #include "SaltyEngine/SaltyBehaviour.hpp"
 #include "SaltyEngine/GameObject.hpp"
 
-class EnemyBulletController : public SaltyEngine::SaltyBehaviour
+class EnemyBulletController : public RtypePrefab
 {
 public:
     EnemyBulletController(SaltyEngine::GameObject *go);
@@ -26,8 +27,8 @@ public:
         return new EnemyBulletController(obj);
     }
 
-private:
-    Rtype::Game::Server::GameServerObject *gameServer;
+//private:
+//    Rtype::Game::Server::GameServerObject *gameServer;
 };
 
 #endif

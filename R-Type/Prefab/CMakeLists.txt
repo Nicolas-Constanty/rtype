@@ -13,7 +13,10 @@ file(GLOB NETWORK  "src/Rtype/Game/Client/*.cpp"
         "src/Protocol/Game/*.cpp"
         "src/Rtype/Game/Server/*.cpp"
         src/Prefabs/Player/PlayerController.cpp
-        include/Prefabs/Player/PlayerController.hpp)
+        include/Prefabs/Player/PlayerController.hpp
+        src/Prefabs/RtypePrefab.cpp
+        include/Prefabs/RtypePrefab.hpp)
+
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/Assets/Metas)
 
 include_directories("include")
@@ -21,7 +24,7 @@ include_directories("include")
 set(PREFAB_LIBRARIES ${PROJECT_SOURCE_DIR}/lib/libSaltyEngine.so ${PROJECT_SOURCE_DIR}/lib/libnetwork.so -ldl)
 
 # MONSTER
-file(GLOB MONSTER_SOURCE_FILE "src/Prefabs/Monster/*.cpp" "include/Prefabs/GenericController.hpp" "include/Prefabs/Monster/*.hpp" ${NETWORK})
+file(GLOB MONSTER_SOURCE_FILE "src/Prefabs/Monster/*.cpp" "include/Prefabs/GenericController.hpp" "include/Prefabs/RtypePrefab.hpp" "src/Prefabs/RtypePrefab.cpp" "include/Prefabs/Monster/*.hpp" ${NETWORK})
 add_library(monster SHARED ${MONSTER_SOURCE_FILE})
 target_link_libraries(monster ${PREFAB_LIBRARIES})
 

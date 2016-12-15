@@ -25,6 +25,7 @@ namespace SaltyEngine
 
 	void PlayerController::Start()
 	{
+        LoadManager();
         start = clock::now();
 		InputKey::AddAxis("Horizontal", new Input::Axis(
 				{
@@ -47,11 +48,11 @@ namespace SaltyEngine
 
         InputKey::AddAction("Fire", new Input::Action(Input::KeyCode::Space, std::make_pair<unsigned int, int>(0, 1)));
 
-        GameObject *gameman = Engine::Instance().GetCurrentScene()->FindByName("GameManager");
-
-        manager = NULL;
-        if (gameman)
-            manager = gameman->GetComponent<GameManager>();
+//        GameObject *gameman = Engine::Instance().GetCurrentScene()->FindByName("GameManager");
+//
+//        manager = NULL;
+//        if (gameman)
+//            manager = gameman->GetComponent<GameManager>();
 	}
 
 	void PlayerController::FixedUpdate()
@@ -60,42 +61,44 @@ namespace SaltyEngine
 		float v = InputKey::GetAxis("Vertical");
 		if (h != 0 || v != 0) {
 			gameObject->transform.Translate(Vector(h, v) * speed);
-            if (manager)
+            if (!isServerSide())
             {
-                manager->SendPackage<MOVEPackageGame>(
-                        &Network::Core::BasicConnection::SendData<MOVEPackageGame>,
+                SendPackage<MOVEPackageGame>(
+//                        &Network::Core::BasicConnection::SendData<MOVEPackageGame>,
                         gameObject->transform.position.x,
                         gameObject->transform.position.y,
-                        manager->gameObjectContainer.GetServerObjectID(gameObject));
+                        getManager()->gameObjectContainer.GetServerObjectID(gameObject));
             }
 		}
 
         if (InputKey::GetAction("Fire", Input::ActionType::Down)) {
-            if (manager) {
-                manager->SendPackage<BEAMPackageGame>(&Network::UDP::AUDPConnection::SendReliable<BEAMPackageGame>,
-                                                      manager->gameObjectContainer.GetServerObjectID(gameObject), idShot);
+            if (!isServerSide()) {
+                /*manager->*/SendPackage<BEAMPackageGame>(
+                        //                        &Network::UDP::AUDPConnection::SendReliable<BEAMPackageGame>,
+                        getManager()->gameObjectContainer.GetServerObjectID(gameObject), idShot);
             }
         }
         if (InputKey::GetAction("Fire", Input::ActionType::Up)) {
             //GameObject *laser = (GameObject*)::SaltyEngine::Instantiate("Laser", gameObject->transform.position);
 
             //manager->gameObjectContainer.Add(GameObjectID::NewID(), laser);
-            if (manager) {
-                manager->SendPackage<SHOTPackageGame>(&Network::UDP::AUDPConnection::SendReliable<SHOTPackageGame>,
-                                                      manager->gameObjectContainer.GetServerObjectID(gameObject), power, idShot++);
+            if (!isServerSide()) {
+                /*manager->*/SendPackage<SHOTPackageGame>(
+//                        &Network::UDP::AUDPConnection::SendReliable<SHOTPackageGame>,
+                        getManager()->gameObjectContainer.GetServerObjectID(gameObject), power, idShot++);
             }
         }
 	}
 
     void PlayerController::OnBeamAction() {
-        if (BINARY_ROLE == NetRole::SERVER) {
+        if (isServerSide()) {
             start = clock::now();
             std::cout << "init beam" << std::endl;
         }
     }
 
     InformationPlayerShot *PlayerController::OnShotAction() {
-        if (BINARY_ROLE == NetRole::SERVER) {
+        if (isServerSide()) {
 
             int power = 1;
 

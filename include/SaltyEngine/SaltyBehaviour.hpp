@@ -44,7 +44,7 @@ namespace SaltyEngine
 		void CallCoroutines() const;
 
 	public:
-		virtual void Start() {};
+		virtual void Start() { std::cout << "On start of: " << GetName() << std::endl; };
 
 		virtual void FixedUpdate() {};
 

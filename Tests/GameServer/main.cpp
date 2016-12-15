@@ -25,7 +25,7 @@ int main(int, char **)
 
 	SaltyEngine::GameObject	*server = dynamic_cast<SaltyEngine::GameObject*>(SaltyEngine::Object::Instantiate());
 
-	server->SetName("GameManager");
+	server->SetName("Rtype");
 	server->AddComponent<Rtype::Game::Client::GameClientObject>("127.0.0.1", 4242);
 	server->AddComponent<GameManager>();
 

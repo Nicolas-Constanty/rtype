@@ -14,6 +14,7 @@
 #include <Protocol/Game/GamePackageFactory.hpp>
 #include <Network/UDP/ReceptionStatus.hpp>
 
+class GameManager;
 
 namespace Rtype
 {
@@ -46,6 +47,9 @@ namespace Rtype
 
             public:
                 virtual void onGetDISCONNECTPackage(DISCONNECTPackageGame const &);
+
+            public:
+                void setManager(GameManager *manager1);
 
             protected:
                 template <typename Pack>
@@ -121,6 +125,9 @@ namespace Rtype
 
             protected:
                 bool getDisconnected;
+
+            protected:
+                GameManager     *gameManager;
             };
         }
     }

@@ -16,10 +16,11 @@ MonsterController::~MonsterController()
 
 void MonsterController::Start()
 {
+    LoadManager();
 	m_currDelay = m_minShootInterval + rand() % (int)(m_maxShootInterval - m_minShootInterval);
-    SaltyEngine::GameObject *gameman = SaltyEngine::Engine::Instance().GetCurrentScene()->FindByName("GameServer");
-    if (gameman)
-        gameServer = gameman->GetComponent<Rtype::Game::Server::GameServerObject>();
+//    SaltyEngine::GameObject *gameman = SaltyEngine::Engine::Instance().GetCurrentScene()->FindByName("GameServer");
+//    if (gameman)
+//        gameServer = gameman->GetComponent<Rtype::Game::Server::GameServerObject>();
 }
 
 void MonsterController::Update()
@@ -38,22 +39,22 @@ void MonsterController::Move() {
 }
 
 void MonsterController::Shot() {
-    if (gameServer) {
+    if (isServerSide()) {
         SaltyEngine::GameObject *missile = (SaltyEngine::GameObject *) SaltyEngine::Instantiate("MissileMedusa",
                                                                                                 this->gameObject->transform.position);
 
-        this->gameServer->Server()->gameObjectContainer.Add(GameObjectID::NewID(), missile);
+        getManager()->gameObjectContainer.Add(GameObjectID::NewID(), missile);
 
-        this->gameServer->BroadCastPackage<ENEMYSHOTPackageGame>(
-                &Network::UDP::AUDPConnection::SendReliable<ENEMYSHOTPackageGame>,
-                this->gameServer->Server()->gameObjectContainer.GetServerObjectID(gameObject));
+        /*this->gameServer->*/BroadCastReliable<ENEMYSHOTPackageGame>(
+//                &Network::UDP::AUDPConnection::SendReliable<ENEMYSHOTPackageGame>,
+                getManager()->gameObjectContainer.GetServerObjectID(gameObject));
 
-        this->gameServer->BroadCastPackage<CREATEPackageGame>(
-                &Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>,
+        /*this->gameServer->*/BroadCastReliable<CREATEPackageGame>(
+//                &Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>,
                 gameObject->transform.position.x,
                 gameObject->transform.position.y,
                 RtypeNetworkFactory::GetIDFromName("MissileMedusa"),
-                this->gameServer->Server()->gameObjectContainer.GetServerObjectID(missile),
+                getManager()->gameObjectContainer.GetServerObjectID(missile),
                 gameObject->transform.rotation);
 
 
@@ -69,7 +70,7 @@ void MonsterController::Shot() {
 
 void MonsterController::Die() const
 {
-    if (!gameServer) {
+    if (!isServerSide()) {
         SaltyEngine::Instantiate("ExplosionBasic", this->gameObject->transform.position);
     }
 	SaltyEngine::Object::Destroy(this->gameObject);
@@ -81,10 +82,10 @@ void MonsterController::TakeDamage(int amount)
 
 	if (m_health <= 0 && !m_isDead)
 	{
-        if (gameServer) {
-            this->gameServer->BroadCastPackage<DIEPackageGame>(
-                    &Network::UDP::AUDPConnection::SendReliable<DIEPackageGame>,
-                    this->gameServer->Server()->gameObjectContainer.GetServerObjectID(gameObject));
+        if (isServerSide()) {
+            BroadCastReliable<DIEPackageGame>(
+//                    &Network::UDP::AUDPConnection::SendReliable<DIEPackageGame>,
+                    getManager()->gameObjectContainer.GetServerObjectID(gameObject));
             Die();
         }
 		m_isDead = true;
