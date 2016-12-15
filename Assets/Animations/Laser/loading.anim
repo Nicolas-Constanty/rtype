@@ -1,0 +1,14 @@
+{
+  "mode": "LOOP",
+  "framerate": "10",
+  "sprites": [
+    "Laser/loading1",
+    "Laser/loading2",
+    "Laser/loading3",
+    "Laser/loading4",
+    "Laser/loading5",
+    "Laser/loading6",
+    "Laser/loading7",
+    "Laser/loading8"
+  ]
+}
