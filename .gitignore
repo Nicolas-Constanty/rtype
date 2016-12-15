@@ -12,6 +12,7 @@ a.out
 *.db
 *.opendb
 .idea/*
+cmake-build-release/
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
