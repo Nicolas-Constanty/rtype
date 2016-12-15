@@ -5,20 +5,28 @@
 
 #include "SaltyEngine/SaltyBehaviour.hpp"
 #include "SaltyEngine/GameObject.hpp"
+#include <map>
 
 class LaserController : public SaltyEngine::SaltyBehaviour
 {
+public:
+    static const std::map<int, std::string> damageSprite;
+
 public:
     LaserController(SaltyEngine::GameObject *go);
     virtual ~LaserController();
 
 public:
     void Start();
-    void Update();
+    void FixedUpdate();
     void OnCollisionEnter(SaltyEngine::ICollider *);
 
+public:
+    void Power(int damage);
+
+
 private:
-    float m_vel = 100;
+    float m_vel = 50;
     int m_damage = 1;
 
 public:

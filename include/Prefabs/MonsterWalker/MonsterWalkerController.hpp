@@ -3,7 +3,6 @@
 #include "SaltyEngine/GameObject.hpp"
 #include "SaltyEngine/SFML/Animation.hpp"
 #include "Prefabs/GenericController.hpp"
-#include <Rtype/Game/Server/GameServerObject.hpp>
 
 class MonsterWalkerController : public AGenericController
 {
@@ -40,7 +39,6 @@ private:
 	float m_vel = 1;
 	float m_walkDistance = 100;
     SaltyEngine::Vector m_startPoint;
-    Rtype::Game::Server::GameServerObject *gameServer;
     SaltyEngine::SFML::Animation *m_anim;
 };
 

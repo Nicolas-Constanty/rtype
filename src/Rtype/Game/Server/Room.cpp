@@ -7,6 +7,7 @@
 #include <SaltyEngine/SFML/Scene.hpp>
 #include <Rtype/Game/Server/GameServerObject.hpp>
 #include <Rtype/Game/Client/GameManager.hpp>
+#include <SaltyEngine/SFML/Renderer.hpp>
 
 Rtype::Game::Server::Room::Room()
 {
@@ -21,6 +22,9 @@ Rtype::Game::Server::Room::~Room()
 void Rtype::Game::Server::Room::Start(const uint16_t port, const size_t max, const uint32_t secret, uint16_t map)
 {
     // Create Scene
+    SaltyEngine::SFML::Renderer *renderer = new SaltyEngine::SFML::Renderer(sf::VideoMode(1280, 720), "R-Type Launcher");
+    Singleton<SaltyEngine::Engine>::Instance().SetRenderer(renderer);
+
     SaltyEngine::SFML::Scene *scene = new SaltyEngine::SFML::Scene();
 
     // Push scene int SaltyEngine

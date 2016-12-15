@@ -180,14 +180,14 @@ public:
 
 class SHOTPackageGame : public ObjectIDPackageGame {
 public:
-    SHOTPackageGame(unsigned short sequenceID = 0, unsigned short objectID = 0, double power = 0.0, unsigned int id = 0, unsigned short transactionID = 0)
+    SHOTPackageGame(unsigned short sequenceID = 0, unsigned short objectID = 0, int power = 0, unsigned int id = 0, unsigned short transactionID = 0)
             : ObjectIDPackageGame(sizeof(SHOTPackageGame), GamePurpose::GAMESHOT, sequenceID, objectID, true, transactionID) {
         this->power = power;
         this->id = id;
     }
 
 public:
-    double power;
+    int power;
     unsigned int id;
 };
 
