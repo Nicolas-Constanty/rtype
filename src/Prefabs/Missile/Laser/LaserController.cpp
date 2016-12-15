@@ -17,15 +17,16 @@ const std::map<int, std::string> LaserController::damageSprite {
 
 LaserController::LaserController(SaltyEngine::GameObject *go) : SaltyEngine::SaltyBehaviour(go)
 {
+    soundFire = SaltyEngine::SFML::AssetManager::Instance().GetSound("Laser/fire");
 }
 
 void LaserController::Start() {
-    SaltyEngine::Sound::ISound *fire = SaltyEngine::SFML::AssetManager::Instance().GetSound("fire");
-    fire->Play();
+    soundFire->Play();
 }
 
 LaserController::~LaserController()
 {
+    delete soundFire;
 }
 
 void LaserController::FixedUpdate()

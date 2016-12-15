@@ -9,11 +9,15 @@
 
 BeamController::BeamController(SaltyEngine::GameObject *go) : SaltyEngine::SaltyBehaviour(go)
 {
+    soundLoad = SaltyEngine::SFML::AssetManager::Instance().GetSound("Laser/loading");
+    soundLoad->SetLoop(true);
 }
 
 void BeamController::Start() {
+    soundLoad->Play();
 }
 
 BeamController::~BeamController()
 {
+    delete soundLoad;
 }

@@ -29,6 +29,9 @@ private:
     float m_vel = 2; // 50
     int m_damage = 1;
 
+private:
+    SaltyEngine::Sound::ISound *soundFire;
+
 public:
     virtual SaltyEngine::Component *CloneComponent(SaltyEngine::GameObject* const obj) {
         return new LaserController(obj);
