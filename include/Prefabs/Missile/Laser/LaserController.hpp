@@ -14,11 +14,11 @@ public:
 
 public:
     void Start();
-    void Update();
+    void FixedUpdate();
     void OnCollisionEnter(SaltyEngine::ICollider *);
 
 private:
-    float m_vel = 100;
+    float m_vel = 50;
     int m_damage = 1;
 
 public:

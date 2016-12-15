@@ -8,7 +8,6 @@
 MonsterWalkerController::MonsterWalkerController(SaltyEngine::GameObject *obj) : AGenericController("MonsterWalkerController", obj)
 {
     m_health = 1;
-    gameServer = NULL;
 }
 
 
@@ -22,7 +21,6 @@ void MonsterWalkerController::Start()
     m_anim = gameObject->GetComponent<SaltyEngine::SFML::Animation>();
     m_anim->Play("WalkLeft");
     m_startPoint = gameObject->transform.position;
-
     SaltyEngine::GameObject *gameman = SaltyEngine::Engine::Instance().GetCurrentScene()->FindByName("GameServer");
     if (gameman)
         gameServer = gameman->GetComponent<Rtype::Game::Server::GameServerObject>();
@@ -36,7 +34,7 @@ void MonsterWalkerController::FixedUpdate()
 	if (m_currDelay <= 0)
 	{
         m_currDelay = m_minShootInterval + rand() % (int)(m_maxShootInterval - m_minShootInterval);
-        if (SaltyEngine::BINARY_ROLE == SaltyEngine::NetRole::SERVER || gameServer) {
+        if (gameServer) {
             Shot();
         }
 	}
@@ -49,33 +47,34 @@ void MonsterWalkerController::Move() {
             gameObject->transform.Rotate(180);
             PlayAnim("Walk");
         }
+   // std::cout << "MnsterWalkerController ==" << this->gameObject->transform.position << std::endl;
 }
 
 void MonsterWalkerController::Shot() {
-    if (SaltyEngine::BINARY_ROLE == SaltyEngine::NetRole::CLIENT) {
+    if (!gameServer) {
         PlayAnim("Jump");
         PlayAnim("Walk", true);
     }
 
-   if (SaltyEngine::BINARY_ROLE == SaltyEngine::NetRole::SERVER || gameServer) {
+   if (gameServer) {
        SaltyEngine::GameObject *missile = (SaltyEngine::GameObject *) SaltyEngine::Instantiate("EnemyBullet",
                                                                                                 this->gameObject->transform.position,
                                                                                                 180);
-    this->gameServer->Server()->gameObjectContainer.Add(GameObjectID::NewID(), missile);
-
-       this->gameServer->BroadCastPackage<CREATEPackageGame>(
-               &Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>,
-                gameObject->transform.position.x,
-                gameObject->transform.position.y,
-                RtypeNetworkFactory::GetIDFromName("EnemyBullet"),
-                this->gameServer->Server()->gameObjectContainer.GetServerObjectID(missile),
-                gameObject->transform.rotation);
+       this->gameServer->Server()->gameObjectContainer.Add(GameObjectID::NewID(), missile);
 
        this->gameServer->BroadCastPackage<ENEMYSHOTPackageGame>(
                &Network::UDP::AUDPConnection::SendReliable<ENEMYSHOTPackageGame>,
                this->gameServer->Server()->gameObjectContainer.GetServerObjectID(gameObject));
 
-        if (missile) {
+       this->gameServer->BroadCastPackage<CREATEPackageGame>(
+               &Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>,
+               gameObject->transform.position.x,
+               gameObject->transform.position.y,
+               RtypeNetworkFactory::GetIDFromName("EnemyBullet"),
+               this->gameServer->Server()->gameObjectContainer.GetServerObjectID(missile),
+               gameObject->transform.rotation);
+
+       if (missile) {
             MissileController *missileController = missile->GetComponent<MissileController>();
             if (missileController != nullptr) {
                 missileController->SetTarget(
@@ -88,8 +87,7 @@ void MonsterWalkerController::Shot() {
 
 void MonsterWalkerController::Die() const
 {
-    if (SaltyEngine::BINARY_ROLE == SaltyEngine::NetRole::CLIENT) {
-        std::cout << "DIE" << std::endl;
+    if (!gameServer) {
         SaltyEngine::Instantiate("ExplosionBasic", this->gameObject->transform.position);
     }
     SaltyEngine::Object::Destroy(this->gameObject);
@@ -101,7 +99,12 @@ void MonsterWalkerController::TakeDamage(int amount)
         AGenericController::TakeDamage(amount);
 
         if (m_health <= 0 && !m_isDead) {
-            Die();
+            if (gameServer) {
+                this->gameServer->BroadCastPackage<DIEPackageGame>(
+                        &Network::UDP::AUDPConnection::SendReliable<DIEPackageGame>,
+                        this->gameServer->Server()->gameObjectContainer.GetServerObjectID(gameObject));
+                Die();
+            }
             m_isDead = true;
         }
     //}

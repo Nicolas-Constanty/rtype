@@ -21,7 +21,7 @@ include_directories("include")
 set(PREFAB_LIBRARIES ${PROJECT_SOURCE_DIR}/lib/libSaltyEngine.so ${PROJECT_SOURCE_DIR}/lib/libnetwork.so -ldl)
 
 # MONSTER
-file(GLOB MONSTER_SOURCE_FILE "src/Prefabs/Monster/*.cpp" "include/Prefabs/GenericController.hpp" "include/Prefabs/Monster/*.hpp" )
+file(GLOB MONSTER_SOURCE_FILE "src/Prefabs/Monster/*.cpp" "include/Prefabs/GenericController.hpp" "include/Prefabs/Monster/*.hpp" ${NETWORK})
 add_library(monster SHARED ${MONSTER_SOURCE_FILE})
 target_link_libraries(monster ${PREFAB_LIBRARIES})
 

@@ -4,7 +4,7 @@
 #include "SaltyEngine/SaltyEngine.hpp"
 #include "SaltyEngine/Object.hpp"
 
-int main(int ac, char **)
+int main(int, char **)
 {
 
 #if _WIN32

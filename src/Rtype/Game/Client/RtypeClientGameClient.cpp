@@ -126,6 +126,16 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetSHOTPackage(SHOTPackageGam
 void Rtype::Game::Client::RtypeClientGameClient::onGetDIEPackage(DIEPackageGame const &pack)
 {
     OnDiscoveringPackage(pack);
+    SaltyEngine::GameObject *obj = gameManager->gameObjectContainer[pack.objectID];
+    if (obj) {
+        AGenericController *aGenericController = obj->GetComponent<AGenericController>();
+        if (aGenericController) {
+            std::cout << pack << std::endl;
+            aGenericController->Die();
+        } else {
+            std::cout << "\e[43m Warning: No AGenericController set \e[0m" << std::endl;
+        }
+    }
     //todo resolve die in the game
 }
 
@@ -143,7 +153,6 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetDROPPackage(DROPPackageGam
 
 void Rtype::Game::Client::RtypeClientGameClient::onGetMOVEPackage(MOVEPackageGame const &pack)
 {
-    std::cout << pack << std::endl;
     OnDiscoveringPackage(pack);
     SaltyEngine::GameObject *obj = gameManager->gameObjectContainer[pack.objectID];
     if (obj) {

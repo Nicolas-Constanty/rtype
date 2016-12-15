@@ -20,13 +20,18 @@ LaserController::~LaserController()
 {
 }
 
-void LaserController::Update()
+void LaserController::FixedUpdate()
 {
-    gameObject->transform.Translate(gameObject->transform.right() * m_vel * SaltyEngine::Engine::Instance().GetFixedDeltaTime());
+    gameObject->transform.Translate(gameObject->transform.right() * m_vel); //* SaltyEngine::Engine::Instance().GetFixedDeltaTime());
+//    std::cout << "LASER ==" << this->gameObject->transform.position << std::endl;
+//    if (this->gameObject->transform.position.x > 1000) {
+//        abort();
+//    }
 }
 
 void LaserController::OnCollisionEnter(SaltyEngine::ICollider *col)
 {
+    std::cout << "colid" << std::endl;
     SaltyEngine::ACollider2D<sf::Vector2i> *c = dynamic_cast<SaltyEngine::ACollider2D<sf::Vector2i>*>(col);
     if (!c)
         return;

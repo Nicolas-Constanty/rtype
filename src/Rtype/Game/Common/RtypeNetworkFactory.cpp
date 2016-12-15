@@ -12,7 +12,8 @@ const std::map<unsigned short, std::string>  RtypeNetworkFactory::rtypeObjects =
         {2, "Monster"},
         {3, "Laser"},
         {4, "MonsterWalker"},
-        {5, "EnemyBullet"}
+        {5, "EnemyBullet"},
+        {6, "MissileMedusa"}
 };
 
 SaltyEngine::GameObject *RtypeNetworkFactory::Create(unsigned short id, SaltyEngine::Vector const &pos, float rotation)

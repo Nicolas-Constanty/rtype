@@ -1,6 +1,7 @@
 #pragma once
 
 #include "SaltyEngine/GameObject.hpp"
+#include <Rtype/Game/Server/GameServerObject.hpp>
 
 class IGenericController
 {
@@ -18,7 +19,9 @@ public:
 class AGenericController : public SaltyEngine::SaltyBehaviour, public IGenericController
 {
 public:
-    AGenericController(std::string const& name, SaltyEngine::GameObject *obj) : SaltyEngine::SaltyBehaviour(name, obj) {}
+    AGenericController(std::string const& name, SaltyEngine::GameObject *obj) : SaltyEngine::SaltyBehaviour(name, obj) {
+        gameServer = NULL;
+    }
 	~AGenericController() {}
 
 public:
@@ -41,4 +44,5 @@ public:
 
 protected:
 	int m_health = 0;
+	Rtype::Game::Server::GameServerObject *gameServer;
 };
