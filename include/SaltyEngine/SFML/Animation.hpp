@@ -138,6 +138,10 @@ namespace SaltyEngine
             }
 
             void AddClip(AnimationClip *const clip, std::string const &name) {
+                if (clip == nullptr) {
+                    Debug::PrintError("AnimationClip " + name + " was null");
+                    return;
+                }
                 m_clips[name] = clip;
             }
 

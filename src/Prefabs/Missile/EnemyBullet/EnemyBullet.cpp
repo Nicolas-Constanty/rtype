@@ -9,17 +9,7 @@ EnemyBullet::EnemyBullet() : GameObject("EnemyBullet", SaltyEngine::Layer::Tag::
     AddComponent<SaltyEngine::SFML::BoxCollider2D>();
 
 	AddComponent < SaltyEngine::SFML::Animation>(true, SaltyEngine::AnimationConstants::WrapMode::LOOP);
-	SaltyEngine::SFML::AnimationClip *clip = new SaltyEngine::SFML::AnimationClip();
-	clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite("Missile/Bullet1"));
-	clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite("Missile/Bullet2"));
-	clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite("Missile/Bullet3"));
-	clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite("Missile/Bullet4"));
-	clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite("Missile/Bullet5"));
-	clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite("Missile/Bullet6"));
-	clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite("Missile/Bullet7"));
-	clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite("Missile/Bullet8"));
-	clip->SetFrameRate(5);
-	GetComponent<SaltyEngine::SFML::Animation >()->AddClip(clip, "Fire");
+	GetComponent<SaltyEngine::SFML::Animation>()->AddClip(SaltyEngine::SFML::AssetManager::Instance().GetAnimation("Missile/Fire"), "Fire");
 }
 
 EnemyBullet::~EnemyBullet() {
