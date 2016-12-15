@@ -20,6 +20,7 @@ public:
     void Start();
     void FixedUpdate();
     void OnCollisionEnter(SaltyEngine::ICollider *);
+    void OnCollisionExit(SaltyEngine::ICollider *);
 
 public:
     void Power(int damage);

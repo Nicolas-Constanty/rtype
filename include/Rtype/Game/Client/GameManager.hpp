@@ -14,8 +14,12 @@ public:
 	explicit GameManager(SaltyEngine::GameObject* const gamObj);
 	GameManager(const std::string &name, SaltyEngine::GameObject* const gamObj);
 	~GameManager();
+
+public:
 	void Start();
 	void SendInput(std::string const &axisName, const float value);
+    void OnCollisionExit(SaltyEngine::ICollider *collider);
+    void OnCollisionEnter(SaltyEngine::ICollider *collider);
 
 public:
 	template <typename Pack, typename Send, typename ... Args>

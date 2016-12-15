@@ -22,14 +22,21 @@ int main(int, char **)
 
 	SaltyEngine::Engine::Instance() << scene;
 
-	SaltyEngine::GameObject	*server = dynamic_cast<SaltyEngine::GameObject*>(SaltyEngine::Object::Instantiate());
+//	SaltyEngine::GameObject	*server = dynamic_cast<SaltyEngine::GameObject*>(SaltyEngine::Object::Instantiate(""));
 
-	server->SetName("Rtype");
+	SaltyEngine::GameObject *server;
+
+	server = new SaltyEngine::GameObject("Rtype", SaltyEngine::Layer::Tag::Destroy);
+//	server->SetName("Rtype");
 	SaltyEngine::SFML::AssetManager::Instance().LoadScene("scene2");
 	server->AddComponent<Rtype::Game::Client::GameClientObject>("127.0.0.1", 4242);
 	server->AddComponent<GameManager>();
+	server->AddComponent<SaltyEngine::SFML::BoxCollider2D>(
+			SaltyEngine::SFML::Rect(0, 0, 500, 500)
+	);
+	server->transform.position = SaltyEngine::Vector2(740, 360);
 
-	//*scene << server;
+	*scene << server;
 
 //    SaltyEngine::GameObject	*player;
 //    SaltyEngine::GameObject	*playerMoved;
