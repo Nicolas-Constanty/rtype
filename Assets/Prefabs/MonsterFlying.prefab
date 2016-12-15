@@ -1,18 +1,14 @@
 {
-  "sprites": [
-    "MonsterFlying/FlyR1",
-    "MonsterFlying/FlyR2",
-    "MonsterFlying/FlyR3",
-    "MonsterFlying/FlyR4",
-    "MonsterFlying/FlyR5",
-    "MonsterFlying/FlyR6",
-    "MonsterFlying/FlyR7",
-    "MonsterFlying/FlyR8"
-  ],
-  "lib": "libmonster_flying",
-  "dependencies": [
-    "Missile",
-    "EnemyBullet",
-    "ExplosionBasic"
-  ]
+    "sprites": [
+        "MonsterFlying/FlyR1"
+    ],
+    "animations": [
+        "MonsterFlying/FlyLeft"
+    ],
+    "lib": "libmonster_flying",
+    "dependencies": [
+    	"Missile",
+        "EnemyBullet",
+        "ExplosionBasic"
+    ]
 }

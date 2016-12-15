@@ -66,7 +66,7 @@ namespace SaltyEngine {
         }
         if (m_prefabs.find(obj->GetName()) != m_prefabs.end())
         {
-            std::cerr << "Prefab [" << obj->GetName() << "] already in prefab list." << std::endl;
+            Debug::PrintWarning("Prefab [" + obj->GetName() + "] already in prefab list.");
             return false;
         }
         m_prefabs[obj->GetName()] = std::unique_ptr<Object>(obj);

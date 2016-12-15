@@ -1,7 +1,8 @@
 #pragma once
 #include <functional>
 #include <list>
-#include "SaltyEngine/SFML/AssetManager.hpp"
+#include "SaltyEngine/SFML/Texture.hpp"
+#include "SaltyEngine/SFML/Sprite.hpp"
 #include "SaltyEngine/Object.hpp"
 #include "SaltyEngine/Sprite.hpp"
 #include "SaltyEngine/AAnimationClip.hpp"
@@ -15,8 +16,8 @@ namespace SaltyEngine
             std::list<Sprite *> m_sprites;
 
         public:
-            AnimationClip(std::string const &name = "Animation", int frameRate = 60) :
-                    AAnimationClip(name, frameRate)
+            AnimationClip(std::string const &name = "Animation", int frameRate = 60, AnimationConstants::WrapMode mode = AnimationConstants::WrapMode::ONCE) :
+                    AAnimationClip(name, frameRate, mode)
             {}
 
             virtual ~AnimationClip() {}
@@ -35,19 +36,6 @@ namespace SaltyEngine
 
             void operator<<(Sprite *const sprite) {
                 AddSprite(sprite);
-            }
-
-        public:
-            AnimationClip *CopyClip() {
-                AnimationClip *animationclip = new AnimationClip("Animation(Clone)", m_frameRate);
-                for (std::list<std::function<void()>>::const_iterator j = m_events.begin(); j != m_events.end(); ++j) {
-                    animationclip->m_events.push_back(*j);
-                }
-                for (Sprite *sprite : m_sprites) {
-                    if (sprite)
-                        animationclip->AddSprite(SFML::AssetManager::Instance().GetSprite(sprite->GetName()));
-                }
-                return animationclip;
             }
         };
     }

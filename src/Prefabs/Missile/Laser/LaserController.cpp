@@ -8,10 +8,11 @@
 #include "SaltyEngine/SFML.hpp"
 
 const std::map<int, std::string> LaserController::damageSprite {
-        {1, "Laser"},
-        {2, "Laser"},
-        {3, "Laser"},
-        {4, "Laser"}
+        {1, "Laser/simple"},
+        {2, "Laser/power1"},
+        {3, "Laser/power2"},
+        {4, "Laser/power3"},
+        {5, "Laser/power4"}
 };
 
 LaserController::LaserController(SaltyEngine::GameObject *go) : SaltyEngine::SaltyBehaviour(go)
@@ -59,6 +60,10 @@ void LaserController::Power(int damage) {
     it = damageSprite.find(damage);
     if (it != damageSprite.end()) {
         m_damage = it->first;
-        gameObject->GetComponent<SaltyEngine::SFML::SpriteRenderer>()->SetSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite(it->second));
+        SaltyEngine::SFML::Animation *animation = gameObject->GetComponent<SaltyEngine::SFML::Animation>();
+        animation->AddClip(SaltyEngine::SFML::AssetManager::Instance().GetAnimation(it->second), "Shoot");
+        animation->Play("Shoot");
+
+//        gameObject->GetComponent<SaltyEngine::SFML::SpriteRenderer>()->SetSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite(it->second));
     }
 }

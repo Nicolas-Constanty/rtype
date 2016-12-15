@@ -1,5 +1,9 @@
 {
-  "sprites": [
-  ],
-  "lib": "libmissile_enemy_bullet"
+    "sprites": [
+        "Missile/Bullet1"
+    ],
+    "animations": [
+        "Missile/Fire"
+    ],
+    "lib": "libmissile_enemy_bullet"
 }

@@ -62,8 +62,6 @@ namespace SaltyEngine
 
 		virtual void Stop(std::string const& name) = 0;
 
-//		virtual void AddClip(AAnimationClip<T> * const clip, std::string const& name) = 0;
-
 		virtual size_t GetClipCount() const = 0;
 
         AnimationConstants::WrapMode GetWrapMode() const {

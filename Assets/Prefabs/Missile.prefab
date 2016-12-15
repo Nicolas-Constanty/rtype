@@ -1,5 +1,6 @@
 {
-  "sprites": [
-  ],
-  "lib": "libmissile_medusa"
+    "sprites": [
+        "Missile/Bullet1"
+    ],
+    "lib": "libmissile_medusa"
 }

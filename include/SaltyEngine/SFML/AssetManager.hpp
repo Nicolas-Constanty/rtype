@@ -9,10 +9,11 @@
 #include "SaltyEngine/AAssetManager.hpp"
 #include "SaltyEngine/SFML/Texture.hpp"
 #include "SaltyEngine/SFML/Sprite.hpp"
+#include "SaltyEngine/SFML/AnimationClip.hpp"
 
 namespace SaltyEngine {
     namespace SFML {
-        class AssetManager: public AAssetManager<::SaltyEngine::SFML::Texture, ::SaltyEngine::SFML::Sprite>, public Singleton<AssetManager> {
+        class AssetManager: public AAssetManager<Texture, Sprite, AnimationClip>, public Singleton<AssetManager> {
         public:
             friend class Singleton<AssetManager>;
 
@@ -23,8 +24,9 @@ namespace SaltyEngine {
         public:
             bool LoadISound(std::string const &name, bool isMusic);
             bool LoadTexture(std::string const &name);
-            ::SaltyEngine::SFML::Sprite *GetSprite(std::string const &name);
-            virtual ::SaltyEngine::Sound::ISound *GetSound(std::string const &name);
+            Sprite *GetSprite(std::string const &name);
+            AnimationClip *GetAnimation(std::string const &name);
+            ::SaltyEngine::Sound::ISound *GetSound(std::string const &name);
         };
     }
 }
