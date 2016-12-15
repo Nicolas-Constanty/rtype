@@ -4,7 +4,6 @@ project(rtype)
 file(GLOB TEST_SOURCE "Tests/GUI/*.cpp")
 
 include_directories(include)
-link_directories(../../lib)
 
 #Linux
 if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)

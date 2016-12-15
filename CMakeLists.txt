@@ -12,10 +12,7 @@ if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 	if ("${SFML_LIBRARIES}" STREQUAL "")
 		execute_process(COMMAND unzip -f ${CMAKE_SOURCE_DIR}/Dependencies/SFML.zip)
 		include_directories(include Dependencies/SFML/Linux/include)
-		link_directories(../SFML/Linux/lib)
-		include_directories("include")
-	else()
-		include_directories("include ../../Dependencies/Boost/Win/include")
+		link_directories(${CMAKE_BINARY_DIR}/SFML/Linux/lib)
 	endif()
 
 #Windows
