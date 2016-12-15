@@ -74,6 +74,8 @@ namespace SaltyEngine {
 	private:
 		GameManager    *manager;
 		unsigned int	idShot;
+
+	public:
         GameObject     *beamShot;
 	};
 }

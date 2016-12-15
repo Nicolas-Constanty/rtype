@@ -153,8 +153,8 @@ namespace SaltyEngine
     }
 
     void PlayerController::Beam() {
-        Vector pos = Vector(gameObject->transform.position.x + 30, gameObject->transform.position.y);
-        beamShot = dynamic_cast<SaltyEngine::GameObject*>(SaltyEngine::Instantiate("Beam", pos));
+//        Vector pos = Vector(gameObject->transform.position.x + 30, gameObject->transform.position.y);
+//        beamShot = dynamic_cast<SaltyEngine::GameObject*>(SaltyEngine::Instantiate("Beam", pos));
         std::cout << "BEAM" << std::endl;
     }
 }
