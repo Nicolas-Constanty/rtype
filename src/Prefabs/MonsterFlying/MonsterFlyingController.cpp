@@ -14,6 +14,7 @@ MonsterFlyingController::~MonsterFlyingController()
 
 void MonsterFlyingController::Start()
 {
+    LoadManager();
 	m_currDelay = m_minShootInterval + rand() % (int)(m_maxShootInterval - m_minShootInterval);
 }
 
@@ -24,7 +25,7 @@ void MonsterFlyingController::Update()
 	if (m_currDelay <= 0)
 	{
         m_currDelay = m_minShootInterval + rand() % (int)(m_maxShootInterval - m_minShootInterval);
-        Shot();
+//        Shot();
 	}
     Move();
 }

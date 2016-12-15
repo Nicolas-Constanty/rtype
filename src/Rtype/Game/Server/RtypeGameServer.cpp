@@ -7,6 +7,7 @@
 #include <Rtype/Game/Server/RtypeServerGameClient.hpp>
 #include <Rtype/Game/Common/GameObjectID.hpp>
 #include <Rtype/Game/Common/RtypeNetworkFactory.hpp>
+#include <Rtype/Game/Client/GameManager.hpp>
 
 const std::chrono::milliseconds   Rtype::Game::Server::RtypeGameServer::pingtimeout(15000);
 
@@ -16,7 +17,6 @@ Rtype::Game::Server::RtypeGameServer::RtypeGameServer(Network::Core::NativeSocke
         maxSize(maxSize),
         secret(0),
         secure(false),
-        gameObjectContainer(),
         level(level)
 {
 
@@ -36,6 +36,11 @@ bool Rtype::Game::Server::RtypeGameServer::OnDataReceived(unsigned int)
         newclient = NULL;
         return false;
     }
+
+    Rtype::Game::Common::RtypeGameClient    *client = dynamic_cast<Rtype::Game::Common::RtypeGameClient *>(newclient);
+
+    if (client)
+        client->setManager(manager);
 
 //    SaltyEngine::GameObject *ship = new SaltyEngine::GameObject("Player " + std::to_string(newclient->getId()));
     //todo add script component to <ship> and set it to <newclient> in order to call script functions in each network callback
@@ -116,16 +121,22 @@ void Rtype::Game::Server::RtypeGameServer::OnStartGame() {
     for (std::pair<std::string, SaltyEngine::Vector2f> &obj : monsterMap) {
         if (obj.first != "Player") {
             SaltyEngine::GameObject *object = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate(obj.first, obj.second, 0));
-            gameObjectContainer.Add(GameObjectID::NewID(), object);
+            manager->gameObjectContainer.Add(GameObjectID::NewID(), object);
 
             this->BroadCastPackage<CREATEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>,
                                                       object->transform.position.x,
                                                       object->transform.position.y,
                                                       RtypeNetworkFactory::GetIDFromName(obj.first),
-                                                      gameObjectContainer.GetServerObjectID(object));
+                                                      manager->gameObjectContainer.GetServerObjectID(object));
             /*this-><CREATEPackageGame>();*/
         }
     }
+}
+
+void Rtype::Game::Server::RtypeGameServer::setManager(GameManager *manager)
+{
+    std::cout << "=====> Setting manager in RtypeGameServer" << std::endl;
+    this->manager = manager;
 }
 
 //GameObjectContainer &Rtype::Game::Server::RtypeGameServer::GameObjectContainer() {

@@ -52,6 +52,8 @@ add_executable(gameserver-stable
         include/Prefabs/Missile/Laser/Laser.hpp
         include/Prefabs/Missile/Laser/LaserController.hpp
         include/Prefabs/GenericController.hpp
+        include/Prefabs/RtypePrefab.hpp
+        src/Prefabs/RtypePrefab.cpp
         Tests/GameServer/gameserver-stable.cpp)
 
 set_target_properties(gameserver-stable PROPERTIES COMPILE_FLAGS "-DRTYPESERVER")
@@ -61,6 +63,7 @@ add_executable(client-test-move-netork
         ${Commoninc}
         ${Protocolsrc} ${Protocolinc}
         ${SaltyEngineinc}
+        ${srcGameServ} ${incGameServ}
         ${srcGameClient} ${incGameClient}
         ${srcGameCommon} ${incGameCommon}
         ${SFMLinc}
@@ -70,6 +73,9 @@ add_executable(client-test-move-netork
         include/Prefabs/Missile/Laser/LaserController.hpp
         src/Prefabs/Player/PlayerController.cpp
         include/Prefabs/Player/PlayerController.hpp
+        include/Prefabs/RtypePrefab.hpp
+        src/Prefabs/RtypePrefab.cpp
+        src/Prefabs/Player/PlayerController.cpp
         Tests/GameServer/main.cpp)
 
 #target_link_libraries(gameserv-1 -ldl)

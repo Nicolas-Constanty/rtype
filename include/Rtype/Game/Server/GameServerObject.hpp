@@ -8,6 +8,8 @@
 #include <SaltyEngine/SaltyBehaviour.hpp>
 #include "RtypeGameServer.hpp"
 
+class GameManager;
+
 namespace Rtype
 {
     namespace Game
@@ -41,6 +43,7 @@ namespace Rtype
                 const uint16_t map;
                 Rtype::Game::Server::RtypeGameServer    *server;
                 Network::Core::NativeSocketIOOperationDispatcher    dispatcher;
+                GameManager *manager;
                 bool running;
             };
         }

@@ -8,8 +8,9 @@
 #include <Network/UDP/AUDPServer.hpp>
 #include <SaltyEngine/SaltyBehaviour.hpp>
 #include "RtypeServerGameClient.hpp"
-#include "Rtype/Game/Common/GameObjectContainer.hpp"
 #include "Rtype/Game/Common/RtypeGameClient.hpp"
+
+class GameManager;
 
 namespace Rtype
 {
@@ -69,6 +70,7 @@ namespace Rtype
 
             public:
                 size_t GetMaxSize() const;
+                void setManager(GameManager *manager);
 
             private:
                 GamePackageFactory factory;
@@ -77,7 +79,7 @@ namespace Rtype
                 bool secure;
 
             public:
-                GameObjectContainer gameObjectContainer;
+                GameManager *manager;
 
             private:
                 u_int16_t level;
