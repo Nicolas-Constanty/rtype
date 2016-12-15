@@ -14,7 +14,7 @@ if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wextra -rdynamic")
 
 	#Create library
-	add_library(network SHARED ${Networksrc} ${Networkinc})
+	add_library(Network SHARED ${Networksrc} ${Networkinc})
 
 #Windows
 elseif(MSVC)

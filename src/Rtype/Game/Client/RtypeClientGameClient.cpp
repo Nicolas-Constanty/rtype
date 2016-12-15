@@ -5,7 +5,6 @@
 #include <Rtype/Game/Client/RtypeClientGameClient.hpp>
 #include <SaltyEngine/SaltyEngine.hpp>
 #include <SaltyEngine/SFML.hpp>
-#include <SaltyEngine/Input/VirtualInutManager.hpp>
 #include <SaltyEngine/Vector2.hpp>
 #include <Rtype/Game/Client/SpaceShipController.hpp>
 #include <Rtype/Game/Common/RtypeNetworkFactory.hpp>
@@ -201,7 +200,7 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetINPUTPackage(INPUTPackageG
 {
 //    std::cout << pack << std::endl;
     OnDiscoveringPackage(pack);
-    SaltyEngine::Input::VirtualInputManager::SetAxis(pack.axes, pack.value);
+    //SaltyEngine::Input::VirtualInputManager::SetAxis(pack.axes, pack.value);
     //todo resolve failure package
 //    InputKey::SetAxis(pack.axes, pack.);
 }

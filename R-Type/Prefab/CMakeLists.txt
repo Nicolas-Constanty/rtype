@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8)
-project(rtype)
+project(rtype CXX)
 
 include_directories("include")
 link_directories(../../lib)
@@ -13,7 +13,7 @@ if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wextra -g -rdynamic")
 
-	set(PREFAB_LIBRARIES SaltyEngine Network ldl)
+	set(PREFAB_LIBRARIES SaltyEngine Network dl)
 
 #Windows
 elseif(MSVC)
@@ -41,7 +41,7 @@ endif()
 	target_link_libraries(missile_laser ${PREFAB_LIBRARIES})
 
 	# DEFAULT ENEMY BULLET
-	file(GLOB MISSILE_ENEMY_BULLET "src/Rtype/Game/Common/*.cpp src/Prefabs/Missile/EnemyBullet/*.cpp" "include/Prefabs/Missile/EnemyBullet/*.hpp")
+	file(GLOB MISSILE_ENEMY_BULLET "src/Rtype/Game/Common/*.cpp" "src/Prefabs/Missile/EnemyBullet/*.cpp" "include/Prefabs/Missile/EnemyBullet/*.hpp")
 	add_library(missile_enemy_bullet SHARED ${MISSILE_ENEMY_BULLET})
 	target_link_libraries(missile_enemy_bullet ${PREFAB_LIBRARIES})
 
@@ -52,7 +52,7 @@ endif()
 
 # SPACESHIPS
 
-	#PLAYER
+	# PLAYER
 	file(GLOB PLAYER_SOURCE_FILE "src/Prefabs/Player/*.cpp" "src/Rtype/Game/Client/*.cpp" "src/Rtype/Game/Common/*.cpp" "src/Protocol/Game/*.cpp")
 	file(GLOB PLAYER_INC_FILE "include/Prefabs/Player/*.hpp")
 	add_library(player SHARED ${PLAYER_SOURCE_FILE} ${PLAYER_INC_FILE})
@@ -66,18 +66,18 @@ endif()
 
 # MONSTERS
 
-	#BASIC
-	file(GLOB MONSTER_SOURCE_FILE "src/Rtype/Game/Client/*.cpp src/Prefabs/Monster/*.cpp" "include/Prefabs/GenericController.hpp" "include/Prefabs/Monster/*.hpp")
+	# BASIC
+	file(GLOB MONSTER_SOURCE_FILE "src/Rtype/Game/Client/*.cpp" "src/Prefabs/Monster/*.cpp" "include/Prefabs/GenericController.hpp" "include/Prefabs/Monster/*.hpp")
 	add_library(monster SHARED ${MONSTER_SOURCE_FILE})
 	target_link_libraries(monster ${PREFAB_LIBRARIES} missile_medusa)
 
-	#WALKER
+	# WALKER
 	file(GLOB WALKINGMONSTER_SOURCE_FILE "src/Rtype/Game/Common/*.cpp src/Prefabs/MonsterWalker/*.cpp" "include/Prefabs/MonsterWalker/*.hpp"  "src/Rtype/Game/Client/*.cpp" "src/Rtype/Game/Common/*.cpp" "src/Protocol/Game/*.cpp" "src/Rtype/Game/Server/*.cpp")
 	add_library(monster_walker SHARED ${WALKINGMONSTER_SOURCE_FILE})
 	target_link_libraries(monster_walker ${PREFAB_LIBRARIES} missile_medusa missile_enemy_bullet explosion_basic player)
 
-	#FLYING
-	file(GLOB FLYINGMONSTER_SOURCE_FILE "src/Prefabs/MonsterFlying/*.cpp" "include/Prefabs/MonsterFlying/*.hpp")
+	# FLYING
+	file(GLOB FLYINGMONSTER_SOURCE_FILE "src/Prefabs/MonsterFlying/*.cpp" "include/Prefabs/MonsterFlying/*.hpp ")
 	add_library(monster_flying SHARED ${FLYINGMONSTER_SOURCE_FILE})
 	target_link_libraries(monster_flying ${PREFAB_LIBRARIES} missile_medusa missile_enemy_bullet explosion_basic)
 

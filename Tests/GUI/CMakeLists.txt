@@ -19,7 +19,7 @@ if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 	add_executable(gui ${TEST_SOURCE})
 
 	#Link libraries
-	target_link_libraries(gui lSaltyEngine lSFMLSaltyEngine lParser lpthread ldl lsfml-system lsfml-window lsfml-graphics lsfml-audio)
+	target_link_libraries(gui SaltyEngine SFMLSaltyEngine Parser pthread dl sfml-system sfml-window sfml-graphics sfml-audio)
 
 #Windows
 elseif(MSVC)

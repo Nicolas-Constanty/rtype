@@ -9,7 +9,7 @@
 #include <cstring>
 #include "SaltyEngine/ISound.hpp"
 #include "SaltyEngine/Constants.hpp"
-#include "SaltyEngine/Debug.hpp"
+#include "Common/Debug.hpp"
 
 #include "Parser/ParserJson.hpp"
 #include "Parser/Parser.hpp"

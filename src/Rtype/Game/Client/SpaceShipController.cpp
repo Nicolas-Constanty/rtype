@@ -1,7 +1,6 @@
 #include "Rtype/Game/Client/SpaceShipController.hpp"
 #include "SaltyEngine/Input.hpp"
 #include "SaltyEngine/SFML.hpp"
-#include "SaltyEngine/Input/VirtualInutManager.hpp"
 
 SaltyEngine::SpaceShipController::SpaceShipController(GameObject * const gamObj, bool playable) :
         SaltyBehaviour("SpaceShipController", gamObj),

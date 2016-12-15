@@ -22,7 +22,7 @@ if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 	add_library(SFMLSaltyEngine SHARED ${SOURCE_SALTYENGINE_SFML_FILE})
 
 	#Link libraries
-	target_link_libraries(SFMLSaltyEngine lSaltyEngine)
+	target_link_libraries(SFMLSaltyEngine Parser SaltyEngine sfml-system sfml-window sfml-graphics sfml-audio)
 
 	#Add custom target
 	add_custom_target(BUILD_ENGINE DEPENDS SaltyEngine SFMLSaltyEngine)
