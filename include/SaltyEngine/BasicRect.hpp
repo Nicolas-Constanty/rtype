@@ -31,7 +31,10 @@ namespace SaltyEngine
 		{
 			::SaltyEngine::BasicRect<T> *r = dynamic_cast<::SaltyEngine::BasicRect<T> *>(rect);
             if (!r)
-                return false;
+			{
+				std::cout << "Casts fail" << std::endl;
+				return false;
+			}
 			Vector2 topleft(static_cast<float>(r->_left), static_cast<float>(r->_top));
 			Vector2 topright(static_cast<float>(r->_left + r->_width), static_cast<float>(r->_top));
 			Vector2 downleft(static_cast<float>(r->_left), static_cast<float>(r->_top + r->_height));
@@ -39,7 +42,7 @@ namespace SaltyEngine
 
             bool ret = (_Contain(topleft) || _Contain(topright) ||
                         _Contain(downleft) || _Contain(downright));
-            //Istd::cout << topleft << " " <<  _left << " " << _top << std::endl;
+            std::cout << topleft << " " <<  _left << " " << _top << std::endl;
             if (ret)
             {
                 std::cout << "==========================================================" << std::endl;

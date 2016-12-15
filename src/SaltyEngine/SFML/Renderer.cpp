@@ -48,6 +48,10 @@ namespace SaltyEngine
 				(*(*it).spr)->setPosition(
 						(*it).gm->transform.position.x - ((*it).rect->width / 2),
 						(*it).gm->transform.position.y - ((*it).rect->height / 2));
+                (*it).rect->_left = (int) (*(*it).spr)->getGlobalBounds().left;
+                (*it).rect->_top = (int) (*(*it).spr)->getGlobalBounds().top;
+                (*it).rect->_width = (int) (*(*it).spr)->getGlobalBounds().width;
+                (*it).rect->_height = (int) (*(*it).spr)->getGlobalBounds().height;
 				(*it).wind->draw((*(*(*it).spr)));
 			}
 		}

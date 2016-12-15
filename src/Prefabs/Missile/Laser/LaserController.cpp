@@ -48,9 +48,17 @@ void LaserController::OnCollisionEnter(SaltyEngine::ICollider *col)
             controller->TakeDamage(m_damage);
         }
     }
-    else if (c->gameObject->GetTag() == SaltyEngine::Layer::Tag::Destroy)
+}
+
+void LaserController::OnCollisionExit(SaltyEngine::ICollider *collider)
+{
+    SaltyEngine::ACollider2D<sf::Vector2i> *c = dynamic_cast<SaltyEngine::ACollider2D<sf::Vector2i>*>(collider);
+
+    if (!c)
+        return;
+    if (c->gameObject->GetTag() == SaltyEngine::Layer::Tag::Destroy)
     {
-        SaltyEngine::Object::Destroy(this->gameObject);
+//        SaltyEngine::Object::Destroy(this->gameObject);
     }
 }
 
