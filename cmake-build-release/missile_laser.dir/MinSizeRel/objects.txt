@@ -1,2 +1,0 @@
-C:/Users/nicol/rtype/cmake-build-release/missile_laser.dir/MinSizeRel/Laser.obj
-C:/Users/nicol/rtype/cmake-build-release/missile_laser.dir/MinSizeRel/LaserController.obj

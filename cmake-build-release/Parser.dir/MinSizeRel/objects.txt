@@ -1,8 +1,0 @@
-C:/Users/nicol/rtype/cmake-build-release/Parser.dir/MinSizeRel/ConsumerParser.obj
-C:/Users/nicol/rtype/cmake-build-release/Parser.dir/MinSizeRel/JsonException.obj
-C:/Users/nicol/rtype/cmake-build-release/Parser.dir/MinSizeRel/JsonVariant.obj
-C:/Users/nicol/rtype/cmake-build-release/Parser.dir/MinSizeRel/Parser.obj
-C:/Users/nicol/rtype/cmake-build-release/Parser.dir/MinSizeRel/ParserConf.obj
-C:/Users/nicol/rtype/cmake-build-release/Parser.dir/MinSizeRel/ParserHttp.obj
-C:/Users/nicol/rtype/cmake-build-release/Parser.dir/MinSizeRel/ParserJson.obj
-C:/Users/nicol/rtype/cmake-build-release/Parser.dir/MinSizeRel/ProducterStream.obj

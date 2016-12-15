@@ -1,7 +1,0 @@
-C:/Users/nicol/rtype/cmake-build-release/SFMLSaltyEngine.dir/MinSizeRel/AssetManager.obj
-C:/Users/nicol/rtype/cmake-build-release/SFMLSaltyEngine.dir/MinSizeRel/EventManager.obj
-C:/Users/nicol/rtype/cmake-build-release/SFMLSaltyEngine.dir/MinSizeRel/Image.obj
-C:/Users/nicol/rtype/cmake-build-release/SFMLSaltyEngine.dir/MinSizeRel/Music.obj
-C:/Users/nicol/rtype/cmake-build-release/SFMLSaltyEngine.dir/MinSizeRel/Renderer.obj
-C:/Users/nicol/rtype/cmake-build-release/SFMLSaltyEngine.dir/MinSizeRel/Scene.obj
-C:/Users/nicol/rtype/cmake-build-release/SFMLSaltyEngine.dir/MinSizeRel/Sound.obj
