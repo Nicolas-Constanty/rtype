@@ -9,7 +9,7 @@
 #include "SaltyEngine/SaltyEngine.hpp"
 #include <SaltyEngine/Constants.hpp>
 #include "SaltyEngine/AScene.hpp"
-#include "SaltyEngine/Debug.hpp"
+#include "Common/Debug.hpp"
 
 
 namespace SaltyEngine

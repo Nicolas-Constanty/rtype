@@ -51,7 +51,7 @@ MonsterWalker::~MonsterWalker()
 {
 }
 
-MONSTERWALKER_API SaltyEngine::Object const*GetObjectPrefab()
+SaltyEngine::Object const*GetObjectPrefab()
 {
 	return new MonsterWalker();
 }

@@ -9,6 +9,9 @@
 #include <climits>
 #include <memory>
 #include "ProtocolGamePackage.hpp"
+#if _WIN32
+#pragma warning( disable : 4244 )
+#endif
 
 class GamePackageFactory {
 public:

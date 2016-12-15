@@ -21,7 +21,7 @@ extern "C" {
 		Laser();
 		virtual ~Laser();
 	};
-	LASER_API SaltyEngine::Object const *GetObjectPrefab();
+	SaltyEngine::Object const *GetObjectPrefab();
 }
 
 #endif

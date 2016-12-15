@@ -8,7 +8,7 @@
 #include "SaltyEngine/ASpriteRenderer.hpp"
 #include "SaltyEngine/GameObject.hpp"
 #include "SaltyEngine/SaltyEngine.hpp"
-#include "Debug.hpp"
+#include "Common/Debug.hpp"
 
 namespace SaltyEngine
 {

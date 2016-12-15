@@ -75,7 +75,7 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetCREATEPackage(CREATEPackag
     // FACTORY CORRESPONDANCE AVEC L'ID PLEASE
     try
     {
-        SaltyEngine::GameObject *object = RtypeNetworkFactory::Create(pack.ID, SaltyEngine::Vector(pack.posX, pack.posY), pack.rotation);
+        SaltyEngine::GameObject *object = RtypeNetworkFactory::Create(pack.ID, SaltyEngine::Vector((float)pack.posX, (float)pack.posY), pack.rotation);
 
         gameManager->gameObjectContainer.Add(pack.objectID, object);
 

@@ -19,7 +19,7 @@ void MonsterController::Start()
 
 void MonsterController::Update()
 {
-	m_currDelay -= SaltyEngine::Engine::Instance().GetDeltaTime();
+	m_currDelay -= static_cast<float>(SaltyEngine::Engine::Instance().GetDeltaTime());
 
 	if (m_currDelay <= 0)
 	{

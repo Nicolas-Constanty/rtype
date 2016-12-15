@@ -21,7 +21,7 @@ extern "C" {
 		EnemyBullet();
 		virtual ~EnemyBullet();
 	};
-	ENEMYBULLET_API SaltyEngine::Object const *GetObjectPrefab();
+	SaltyEngine::Object const *GetObjectPrefab();
 }
 
 #endif

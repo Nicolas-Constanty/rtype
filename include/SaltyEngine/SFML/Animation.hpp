@@ -11,7 +11,7 @@
 #include "SaltyEngine/GameObject.hpp"
 #include "SaltyEngine/SaltyEngine.hpp"
 #include "SaltyEngine/AAnimation.hpp"
-#include "SaltyEngine/Debug.hpp"
+#include "Common/Debug.hpp"
 
 namespace SaltyEngine
 {

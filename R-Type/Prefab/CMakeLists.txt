@@ -2,23 +2,27 @@ cmake_minimum_required(VERSION 2.8)
 project(rtype)
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ../../Assets/Metas)
 if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wextra -g -rdynamic")
+
+	set(PREFAB_LIBRARIES SaltyEngine network ldl)
 elseif(MSVC)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4")
+
+	set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/Assets/Metas)
+
+	#Export all symbol for dll
+	#set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS true)
+	
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3 -DWIN32_LEAN_AND_MEAN -D_CRT_SECURE_NO_WARNINGS -D_USE_MATH_DEFINES")
+
+	set(PREFAB_LIBRARIES SaltyEngine SFMLSaltyEngine Network)
 endif()
 
-file(GLOB NETWORK  "src/Rtype/Game/Client/*.cpp"
-        "src/Rtype/Game/Common/*.cpp"
-        "src/Protocol/Game/*.cpp"
-        "src/Rtype/Game/Server/*.cpp"
-        src/Prefabs/Player/PlayerController.cpp
-        include/Prefabs/Player/PlayerController.hpp)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/Assets/Metas)
-
 include_directories("include")
+link_directories(../../lib)
 
-set(PREFAB_LIBRARIES ${PROJECT_SOURCE_DIR}/lib/libSaltyEngine.so ${PROJECT_SOURCE_DIR}/lib/libnetwork.so -ldl)
+
 
 # MONSTER
 file(GLOB MONSTER_SOURCE_FILE "src/Prefabs/Monster/*.cpp" "include/Prefabs/GenericController.hpp" "include/Prefabs/Monster/*.hpp" )
@@ -67,16 +71,16 @@ file(GLOB EXPLOSIONBASIC_SOURCE_FILE "src/Prefabs/ExplosionBasic/*.cpp" include/
 add_library(explosion_basic SHARED ${EXPLOSIONBASIC_SOURCE_FILE})
 target_link_libraries(explosion_basic ${PREFAB_LIBRARIES})
 
-set(PREFAB_DEPENDENCIES SFMLSaltyEngine network)
+set(PREFAB_DEPENDENCIES SFMLSaltyEngine Network)
 
 add_dependencies(player ${PREFAB_DEPENDENCIES})
 add_dependencies(mate ${PREFAB_DEPENDENCIES})
 add_dependencies(missile_medusa ${PREFAB_DEPENDENCIES})
-add_dependencies(monster ${PREFAB_DEPENDENCIES})
 add_dependencies(missile_laser ${PREFAB_DEPENDENCIES})
 add_dependencies(explosion_basic ${PREFAB_DEPENDENCIES})
-add_dependencies(monster_walker ${PREFAB_DEPENDENCIES})
 add_dependencies(missile_enemy_bullet ${PREFAB_DEPENDENCIES})
-add_dependencies(monster_flying ${PREFAB_DEPENDENCIES})
+add_dependencies(monster ${PREFAB_DEPENDENCIES} missile_medusa)
+add_dependencies(monster_walker ${PREFAB_DEPENDENCIES} missile_medusa missile_enemy_bullet explosion_basic)
+add_dependencies(monster_flying ${PREFAB_DEPENDENCIES} missile_medusa missile_enemy_bullet explosion_basic)
 set(PREFABS_TARGET player mate missile_medusa monster missile_laser monster_walker missile_enemy_bullet explosion_basic monster_flying)
 add_custom_target(prefabs DEPENDS ${PREFABS_TARGET})

@@ -1,6 +1,6 @@
-#include <SaltyEngine/Debug.hpp>
 #include "SaltyEngine/Object.hpp"
 #include "SaltyEngine/Factory.hpp"
+#include "Common/Debug.hpp"
 
 namespace SaltyEngine
 {
@@ -8,12 +8,12 @@ namespace SaltyEngine
 	std::atomic<int> Object::s_id;
 
 	/**
-	 * @fn	uid Object::GetInstanceID() const
-	 *
-	 * @brief	Gets instance identifier.
-	 *
-	 * @return	The instance identifier.
-	 */
+	* @fn	uid Object::GetInstanceID() const
+	*
+	* @brief	Gets instance identifier.
+	*
+	* @return	The instance identifier.
+	*/
 
 	uid Object::GetInstanceID(void) const
 	{
@@ -21,12 +21,12 @@ namespace SaltyEngine
 	}
 
 	/**
-	 * @fn	const std::string & Object::GetName() const
-	 *
-	 * @brief	Gets the name.
-	 *
-	 * @return	The name.
-	 */
+	* @fn	const std::string & Object::GetName() const
+	*
+	* @brief	Gets the name.
+	*
+	* @return	The name.
+	*/
 
 	const std::string & Object::GetName(void) const
 	{
@@ -39,12 +39,12 @@ namespace SaltyEngine
 	}
 
 	/**
-	 * @fn	void Object::Destroy(Object * original)
-	 *
-	 * @brief	Destroys the given original.
-	 *
-	 * @param [in,out]	original	If non-null, the original to destroy.
-	 */
+	* @fn	void Object::Destroy(Object * original)
+	*
+	* @brief	Destroys the given original.
+	*
+	* @param [in,out]	original	If non-null, the original to destroy.
+	*/
 
 	void Object::Destroy(Object *original)
 	{

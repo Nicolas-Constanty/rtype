@@ -1,5 +1,5 @@
 #include "SaltyEngine/AScene.hpp"
-#include "SaltyEngine/Debug.hpp"
+#include "Common/Debug.hpp"
 #include "SaltyEngine/GameObject.hpp"
 #include "SaltyEngine/SaltyBehaviour.hpp"
 

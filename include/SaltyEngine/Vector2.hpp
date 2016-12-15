@@ -3,7 +3,6 @@
 #ifndef VECTOR2_HPP_
 #define VECTOR2_HPP_
 
-#define _USE_MATH_DEFINES
 #include <cmath>
 #include <string>
 #include <iostream>
@@ -136,6 +135,9 @@ SaltyEngine::Vector2 operator*(float val, T & vec)
 *
 * @return	The result of the operation.
 */
+#if _WIN32
+#pragma warning( disable : 4244 )
+#endif
 template<class T>
 SaltyEngine::Vector2 operator*(const SaltyEngine::Vector2 & vec, T val)
 {

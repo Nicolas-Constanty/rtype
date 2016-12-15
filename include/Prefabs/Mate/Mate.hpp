@@ -28,7 +28,7 @@ extern "C"
         Mate();
         virtual ~Mate();
     };
-    PLAYER_API SaltyEngine::Object const *GetObjectPrefab();
+    SaltyEngine::Object const *GetObjectPrefab();
 };
 
 #endif //RTYPE_MATE_HPP

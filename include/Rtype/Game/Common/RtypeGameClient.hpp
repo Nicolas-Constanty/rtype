@@ -13,7 +13,9 @@
 #include <Protocol/Game/RTypeProtocolGameManager.hpp>
 #include <Protocol/Game/GamePackageFactory.hpp>
 #include <Network/UDP/ReceptionStatus.hpp>
-
+#if _WIN32
+#undef NOERROR
+#endif
 
 namespace Rtype
 {

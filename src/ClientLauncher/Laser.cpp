@@ -1,8 +1,7 @@
-#include "SaltyEngine/SFML/SpriteRenderer.hpp"
-#include "SaltyEngine/SFML/AssetManager.hpp"
+#include "SaltyEngine/SFML.hpp"
 #include "ClientLauncher/Laser.hpp"
 #include "SaltyEngine/SaltyEngine.hpp"
-#include "SaltyEngine/Debug.hpp"
+#include "Common/Debug.hpp"
 
 Laser::Laser(SaltyEngine::GameObject * const gamObj) : SaltyEngine::SaltyBehaviour(gamObj)
 {
@@ -21,7 +20,7 @@ void Laser::FixedUpdate()
 
 void Laser::OnCollisionEnter(SaltyEngine::ICollider *col)
 {
-	SaltyEngine::Debug::PrintSuccess("Laser hit something");
+	Debug::PrintSuccess("Laser hit something");
 }
 
 Laser::~Laser()

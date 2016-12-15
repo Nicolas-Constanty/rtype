@@ -31,7 +31,7 @@ void MonsterWalkerController::Start()
 // TODO : add jump
 void MonsterWalkerController::FixedUpdate()
 {
-	m_currDelay -= SaltyEngine::Engine::Instance().GetFixedDeltaTime();
+	m_currDelay -= static_cast<float>(SaltyEngine::Engine::Instance().GetFixedDeltaTime());
 
 	if (m_currDelay <= 0)
 	{
