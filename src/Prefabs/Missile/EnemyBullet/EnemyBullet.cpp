@@ -15,7 +15,7 @@ EnemyBullet::EnemyBullet() : GameObject("EnemyBullet", SaltyEngine::Layer::Tag::
 EnemyBullet::~EnemyBullet() {
 }
 
-ENEMYBULLET_API SaltyEngine::Object const*GetObjectPrefab()
+SaltyEngine::Object const*GetObjectPrefab()
 {
 	return new EnemyBullet();
 }

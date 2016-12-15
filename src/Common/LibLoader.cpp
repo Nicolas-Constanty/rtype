@@ -1,3 +1,5 @@
+#if !_WIN32
+
 #include <unistd.h>
 #include "Common/LibLoader.hpp"
 
@@ -22,3 +24,4 @@ int LibLoader::Unload()
     dlclose(m_inst);
     return true;
 }
+#endif

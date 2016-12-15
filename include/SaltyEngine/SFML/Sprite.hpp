@@ -23,7 +23,7 @@ namespace SaltyEngine
 				m_bounds = new Rect(static_cast<int>(getGlobalBounds().left), static_cast<int>(getGlobalBounds().top), static_cast<int>(getGlobalBounds().width), static_cast<int>(getGlobalBounds().height));
 			}
 
-			explicit Sprite(Texture* texture, Rect* const rect) :
+			Sprite(Texture* texture, Rect* const rect) :
 				::SaltyEngine::Sprite<sf::Vector2i>(texture ? dynamic_cast<::SaltyEngine::Texture<sf::Vector2i> *>(texture) : []() { ::SaltyEngine::Texture<sf::Vector2i> *t = new Texture(); t->Create(200, 200); return t; }(), rect, "SFMLSprite"),
 				sf::Sprite(*dynamic_cast<Texture *>(GetTexture()))
 			{

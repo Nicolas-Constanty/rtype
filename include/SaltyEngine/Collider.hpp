@@ -8,7 +8,7 @@
 #include "SaltyEngine/BasicRect.hpp"
 #include "SaltyEngine/ASpriteRenderer.hpp"
 #include "SaltyEngine/ICollider.hpp"
-#include "Debug.hpp"
+#include "Common/Debug.hpp"
 
 namespace SaltyEngine
 {

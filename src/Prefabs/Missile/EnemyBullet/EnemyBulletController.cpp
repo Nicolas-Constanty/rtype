@@ -1,5 +1,5 @@
-#include "Prefabs/Missile/EnemyBullet/EnemyBulletController.hpp"
 #include "SaltyEngine/SFML.hpp"
+#include "Prefabs/Missile/EnemyBullet/EnemyBulletController.hpp"
 
 EnemyBulletController::EnemyBulletController(SaltyEngine::GameObject *go) : SaltyEngine::SaltyBehaviour(go)
 {

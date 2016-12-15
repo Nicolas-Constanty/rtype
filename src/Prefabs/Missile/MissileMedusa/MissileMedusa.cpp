@@ -1,7 +1,6 @@
+#include "SaltyEngine/SFML.hpp"
 #include "Prefabs/Missile/MissileMedusa/MissileMedusa.hpp"
 #include "Prefabs/Missile/MissileController.hpp"
-#include "SaltyEngine/SFML.hpp"
-#include "SaltyEngine/SFML/Animation.hpp"
 
 MissileMedusa::MissileMedusa() : GameObject("MissileMedusa")
 {
@@ -15,7 +14,7 @@ MissileMedusa::~MissileMedusa()
 {
 }
 
-MISSILEMEDUSA_API SaltyEngine::Object const*GetObjectPrefab()
+SaltyEngine::Object const*GetObjectPrefab()
 {
 	return new MissileMedusa();
 }

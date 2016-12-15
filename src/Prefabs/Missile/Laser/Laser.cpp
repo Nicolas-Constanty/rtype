@@ -13,7 +13,7 @@ Laser::Laser() : GameObject("Laser", SaltyEngine::Layer::Tag::BulletPlayer) {
 Laser::~Laser() {
 }
 
-LASER_API SaltyEngine::Object const*GetObjectPrefab()
+SaltyEngine::Object const*GetObjectPrefab()
 {
 	return new Laser();
 }

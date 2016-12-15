@@ -21,7 +21,7 @@ Monster::~Monster()
 {
 }
 
-MONSTER_API SaltyEngine::Object const*GetObjectPrefab()
+SaltyEngine::Object const*GetObjectPrefab()
 {
     return new Monster();
 }

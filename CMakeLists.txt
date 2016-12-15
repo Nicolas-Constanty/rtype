@@ -1,22 +1,28 @@
 cmake_minimum_required(VERSION 2.8)
 project(rtype)
 
+#Linux
 if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
+
+	#C++FLAGS
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wextra")
+
+	find_package(PkgConfig)
+	pkg_check_modules(SFML sfml-all)
+	if ("${SFML_LIBRARIES}" STREQUAL "")
+		execute_process(COMMAND unzip -f ${CMAKE_SOURCE_DIR}/Dependencies/SFML.zip)
+		include_directories(include Dependencies/SFML/Linux/include)
+		link_directories(../SFML/Linux/lib)
+		include_directories("include")
+	else()
+		include_directories("include ../../Dependencies/Boost/Win/include")
+	endif()
+
+#Windows
 elseif(MSVC)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4")
-endif()
 
-find_package(PkgConfig)
-pkg_check_modules(SFML sfml-all)
-
-if ("${SFML_LIBRARIES}" STREQUAL "")
-    execute_process(COMMAND unzip -f ${CMAKE_SOURCE_DIR}/Dependencies/SFML.zip)
-    include_directories(include Dependencies/SFML/Linux/include)
-    link_directories(${CMAKE_BINARY_DIR}/SFML/Linux/lib)
-else()
-    message(WARNING "J'utilise la vrai SFML")
-    include_directories("include")
+	#C++ FLAGS
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3")
 endif()
 
 file(GLOB Networksrc src/Network/*/*.cpp)
@@ -86,5 +92,5 @@ include(${PROJECT_SOURCE_DIR}/R-Type/Prefab/CMakeLists.txt)
 add_dependencies(SFMLSaltyEngine SaltyEngine)
 add_dependencies(client-test-move-netork prefabs Parser)
 
-add_dependencies(gui network Parser SFMLSaltyEngine prefabs)
+add_dependencies(gui Network Parser SFMLSaltyEngine prefabs)
 add_dependencies(gameserver-stable SaltyEngine SFMLSaltyEngine Parser)

@@ -18,7 +18,7 @@ Mate::~Mate()
 
 }
 
-PLAYER_API SaltyEngine::Object const *GetObjectPrefab()
+SaltyEngine::Object const *GetObjectPrefab()
 {
     return new Mate();
 }

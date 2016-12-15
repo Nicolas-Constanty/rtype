@@ -22,7 +22,7 @@ extern "C"
 		virtual ~MonsterWalker();
 	};
 
-	MONSTERWALKER_API SaltyEngine::Object const *GetObjectPrefab();
+	SaltyEngine::Object const *GetObjectPrefab();
 }
 
 #endif

@@ -20,7 +20,7 @@ int main()
 	std::list<std::pair<std::string, SaltyEngine::Vector2f> > assets = SaltyEngine::SFML::AssetManager::Instance().LoadScene("scene1");
 
 	for (std::list<std::pair<std::string, SaltyEngine::Vector2f>>::const_iterator it = assets.begin(); it != assets.end(); ++it) {
-		SaltyEngine::Debug::PrintInfo("Instantiate " + it->first);
+		Debug::PrintInfo("Instantiate " + it->first);
 		SaltyEngine::Instantiate(it->first, it->second);
 	}
 	SaltyEngine::GameObject *obj = new SaltyEngine::GameObject("Destroyer", SaltyEngine::Layer::Tag::Destroy);

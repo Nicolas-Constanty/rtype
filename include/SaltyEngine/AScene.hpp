@@ -11,6 +11,7 @@
 #include <memory>
 #include "SaltyEngine/Object.hpp"
 #include "SaltyEngine/Component.hpp"
+#include <functional>
 
 namespace SaltyEngine
 {

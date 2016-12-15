@@ -7,23 +7,23 @@
 
 #include <string>
 
-extern "C"
-{
-# ifdef __linux__
-#  include <sys/types.h>
-#  include <sys/socket.h>
-#  include <sys/select.h>
-#  include <netdb.h>
-#  include <netinet/in.h>
-#  include <arpa/inet.h>
-#  include <cstdint>
-#  include <stdexcept>
-# elif _WIN32
-#pragma warning( disable : 4290 )  
-#  include <cstdint>
-#  include <stdexcept>
-# endif
-};
+#if _WIN32
+	#pragma warning( disable : 4290 )  
+	#include <cstdint>
+	#include <stdexcept>
+	typedef uint8_t u_int8_t;
+	typedef uint16_t u_int16_t;
+	typedef uint32_t u_int32_t;
+#else
+	#include <sys/types.h>
+	#include <sys/socket.h>
+	#include <sys/select.h>
+	#include <netdb.h>
+	#include <netinet/in.h>
+	#include <arpa/inet.h>
+	#include <cstdint>
+	#include <stdexcept>
+#endif
 
 #include "INativeSocketContainer.hpp"
 #include "ISockStream.hpp"

@@ -1,5 +1,5 @@
 #ifdef _WIN32
-    #ifdef MONSTERFLYING_EXPORTS
+    #ifdef DLL_EXPORT
         #define MONSTERFLYING_API __declspec(dllexport)
     #else
         #define MONSTERFLYING_API __declspec(dllimport)
@@ -23,7 +23,7 @@ extern "C"
 		virtual ~MonsterFlying();
 	};
 
-	MONSTERFLYING_API SaltyEngine::Object const *GetObjectPrefab();
+	SaltyEngine::Object const *GetObjectPrefab();
 }
 
 #endif

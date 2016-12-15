@@ -1,10 +1,14 @@
 cmake_minimum_required(VERSION 2.8)
 project(rtype)
 
+
 if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
+	set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+	set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+	set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wextra")
 elseif(MSVC)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3")
 endif()
 
 #add_definitions(-DCUSTOM_ASSET_PATH="../Assets")
@@ -71,8 +75,10 @@ add_executable(client-test-move-netork
         include/Prefabs/Missile/Laser/LaserController.hpp
         Tests/GameServer/main.cpp)
 
+link_directories(../../lib)
+
 #target_link_libraries(gameserv-1 -ldl)
 #target_link_libraries(gameserv-2 -ldl libsfml-system.so libsfml-audio.so libsfml-graphics.so libsfml-window.so -L${CMAKE_SOURCE_DIR}/lib/ -lSaltyEngine ${CMAKE_SOURCE_DIR}/lib/libSFMLSaltyEngine.so)
 #target_link_libraries(gameclient-1 -ldl libsfml-system.so libsfml-audio.so libsfml-graphics.so libsfml-window.so -L${CMAKE_SOURCE_DIR}/lib/ -lSaltyEngine ${CMAKE_SOURCE_DIR}/lib/libSFMLSaltyEngine.so)
-target_link_libraries(gameserver-stable -ldl libsfml-system.so libsfml-audio.so libsfml-graphics.so libsfml-window.so -L${CMAKE_SOURCE_DIR}/lib/ -lSaltyEngine ${CMAKE_SOURCE_DIR}/lib/libSFMLSaltyEngine.so ${CMAKE_SOURCE_DIR}/lib/libParser.so)
-target_link_libraries(client-test-move-netork -ldl libsfml-system.so libsfml-audio.so libsfml-graphics.so libsfml-window.so -L${CMAKE_SOURCE_DIR}/lib/ -lSaltyEngine ${CMAKE_SOURCE_DIR}/lib/libSFMLSaltyEngine.so ${CMAKE_SOURCE_DIR}/lib/libParser.so)
+target_link_libraries(gameserver-stable dl sfml-system sfml-audio sfml-graphics sfml-window SaltyEngine SFMLSaltyEngine Parser)
+target_link_libraries(client-test-move-netork dl sfml-system sfml-audio sfml-graphics sfml-window SaltyEngine SFMLSaltyEngine Parser)

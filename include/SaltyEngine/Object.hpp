@@ -24,15 +24,16 @@ namespace SaltyEngine
 
 	class Object: protected ICloneable<Object>
 	{
-	private:
-		static std::atomic<int> s_id;
 	public:
 		// delete copy and move constructors and assign operators
 		Object(Object const&) = delete;             // Copy construct
 		Object(Object&&) = delete;                  // Move construct
 		Object& operator=(Object const&) = delete;  // Copy assign
 		Object& operator=(Object &&) = delete;      // Move assign
-		explicit Object(const std::string &name) : m_uid(++s_id), m_name(name) {};
+		explicit Object(const std::string &name) : m_name(name) {
+			static int s_id = 0;
+			m_uid = ++s_id;
+		};
 		virtual ~Object() {};
 
 	public:
@@ -60,30 +61,29 @@ namespace SaltyEngine
 		std::unique_ptr<Object> Clone() override
 		{
 			return (std::unique_ptr<Object>(new Object(m_name + "(Clone)")));
-        }
+		}
 
 		std::unique_ptr<Object> CloneMemberwise() override
 		{
 			return (std::unique_ptr<Object>(new Object(m_name + "(Clone)")));
-        }
+		}
 
 	public:
 		/**
-		 * _\brief : retrieves all the object of a certain type currently instantiated.
-		 * This is slow, so consider using it wisely
-		 */
+		* _\brief : retrieves all the object of a certain type currently instantiated.
+		* This is slow, so consider using it wisely
+		*/
 		template <class Type>
 		static std::list<Object*> FindObjectsOfType()
 		{
 			return Factory::Instance().GetObjectsOfType<Type>();
 		}
-    private:
-        virtual void Destroy();
+		virtual void Destroy();
 	};
 
 #ifdef _WIN32
-//#define Instantiate(...) Object::Instantiate(## __VA_ARGS__)
-	#define Instantiate(...) Object::Instantiate(__VA_ARGS__)
+	//#define Instantiate(...) Object::Instantiate(## __VA_ARGS__)
+#define Instantiate(...) Object::Instantiate(__VA_ARGS__)
 #else
 #define Instantiate(...) Object::Instantiate(__VA_ARGS__)
 #endif

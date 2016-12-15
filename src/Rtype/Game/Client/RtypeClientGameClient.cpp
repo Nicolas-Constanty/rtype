@@ -5,7 +5,6 @@
 #include <Rtype/Game/Client/RtypeClientGameClient.hpp>
 #include <SaltyEngine/SaltyEngine.hpp>
 #include <SaltyEngine/SFML.hpp>
-#include <SaltyEngine/Input/VirtualInutManager.hpp>
 #include <SaltyEngine/Vector2.hpp>
 #include <Rtype/Game/Client/SpaceShipController.hpp>
 #include <Rtype/Game/Common/RtypeNetworkFactory.hpp>
@@ -76,7 +75,7 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetCREATEPackage(CREATEPackag
     // FACTORY CORRESPONDANCE AVEC L'ID PLEASE
     try
     {
-        SaltyEngine::GameObject *object = RtypeNetworkFactory::Create(pack.ID, SaltyEngine::Vector(pack.posX, pack.posY), pack.rotation);
+        SaltyEngine::GameObject *object = RtypeNetworkFactory::Create(pack.ID, SaltyEngine::Vector((float)pack.posX, (float)pack.posY), pack.rotation);
 
         gameManager->gameObjectContainer.Add(pack.objectID, object);
 
@@ -201,7 +200,7 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetINPUTPackage(INPUTPackageG
 {
 //    std::cout << pack << std::endl;
     OnDiscoveringPackage(pack);
-    SaltyEngine::Input::VirtualInputManager::SetAxis(pack.axes, pack.value);
+    //SaltyEngine::Input::VirtualInputManager::SetAxis(pack.axes, pack.value);
     //todo resolve failure package
 //    InputKey::SetAxis(pack.axes, pack.);
 }

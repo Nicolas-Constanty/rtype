@@ -9,6 +9,7 @@
 #include <Network/UDP/ReceptionStatus.hpp>
 #include <Rtype/Game/Common/RtypeGameClient.hpp>
 #include <Rtype/Game/Common/GameObjectContainer.hpp>
+#include <cstdint>
 
 namespace Rtype
 {
