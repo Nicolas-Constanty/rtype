@@ -10,6 +10,7 @@
 #include <Rtype/Game/Common/RtypeNetworkFactory.hpp>
 #include <Prefabs/GenericController.hpp>
 #include <Prefabs/Missile/Laser/LaserController.hpp>
+#include <Prefabs/Player/PlayerController.hpp>
 
 Rtype::Game::Client::RtypeClientGameClient::RtypeClientGameClient(
         Network::Core::NativeSocketIOOperationDispatcher &dispatcher) :
@@ -113,6 +114,17 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetCREATEPackage(CREATEPackag
 void Rtype::Game::Client::RtypeClientGameClient::onGetBEAMPackage(BEAMPackageGame const &pack)
 {
     OnDiscoveringPackage(pack);
+    std::cout << pack << std::endl;
+    SaltyEngine::GameObject *gameObject;
+    if ((gameObject = gameManager->gameObjectContainer[pack.objectID])) {
+        SaltyEngine::PlayerController *playerController = gameObject->GetComponent<SaltyEngine::PlayerController>();
+        if (playerController) {
+            std::cout << "BEAM BADIBIM" << std::endl;
+            playerController->Beam();
+        }
+    }
+    std::cout << pack << std::endl;
+
     //todo resolve beam on game. Check if it's <this> player that send the beam.
 }
 

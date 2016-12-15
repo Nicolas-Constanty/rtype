@@ -15,16 +15,19 @@ namespace SaltyEngine
 		speed = 20.0f;
         idShot = 1;
         power = 0;
+        beamShot = NULL;
 	};
 
 	PlayerController::PlayerController(const std::string &name, GameObject* const gameObj) : AGenericController(name, gameObj) {
 		speed = 20.0f;
         idShot = 1;
         power = 0;
+        beamShot = NULL;
 	};
 
 	void PlayerController::Start()
 	{
+        beamShot = NULL;
         start = clock::now();
 		InputKey::AddAxis("Horizontal", new Input::Axis(
 				{
@@ -67,6 +70,10 @@ namespace SaltyEngine
                         gameObject->transform.position.x,
                         gameObject->transform.position.y,
                         manager->gameObjectContainer.GetServerObjectID(gameObject));
+                if (beamShot) {
+                    beamShot->transform.position = gameObject->transform.position;
+                    beamShot->transform.position.x += 30;
+                }
             }
 		}
 
@@ -144,6 +151,10 @@ namespace SaltyEngine
     void PlayerController::Shot() {
         // TODO
     }
+
+    void PlayerController::Beam() {
+        Vector pos = Vector(gameObject->transform.position.x + 30, gameObject->transform.position.y);
+        beamShot = dynamic_cast<SaltyEngine::GameObject*>(SaltyEngine::Instantiate("Beam", pos));
+        std::cout << "BEAM" << std::endl;
+    }
 }
-
-

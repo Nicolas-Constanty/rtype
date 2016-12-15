@@ -126,6 +126,7 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetBEAMPackage(BEAMPackageGam
         SaltyEngine::PlayerController *playerController = gameObject->GetComponent<SaltyEngine::PlayerController>();
         if (playerController) {
 
+            std::cout << "CALLED BEAM PackageGame" << std::endl;
             this->BroadCastPackage<BEAMPackageGame>(&Network::UDP::AUDPConnection::SendReliable<BEAMPackageGame>,
                                                     pack.objectID, pack.id);
             playerController->OnBeamAction();

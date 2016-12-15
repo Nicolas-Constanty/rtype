@@ -65,7 +65,5 @@ void LaserController::Power(int damage) {
             animation->AddClip(SaltyEngine::SFML::AssetManager::Instance().GetAnimation(it->second), "Shoot");
             animation->Play("Shoot");
         }
-
-//        gameObject->GetComponent<SaltyEngine::SFML::SpriteRenderer>()->SetSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite(it->second));
     }
 }

@@ -68,6 +68,8 @@ add_executable(client-test-move-netork
         src/Prefabs/Missile/Laser/LaserController.cpp
         include/Prefabs/Missile/Laser/Laser.hpp
         include/Prefabs/Missile/Laser/LaserController.hpp
+        src/Prefabs/Player/PlayerController.cpp
+        include/Prefabs/Player/PlayerController.hpp
         Tests/GameServer/main.cpp)
 
 #target_link_libraries(gameserv-1 -ldl)

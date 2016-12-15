@@ -39,6 +39,11 @@ file(GLOB SRC_COMMMUNICATION
 
 set(COMMON ${SRC_COMMON} ${SRC_COMMMUNICATION})
 
+# BEAM
+file(GLOB BEAM_SOURCE_FILE "src/Prefabs/Beam/*.cpp"  "include/Prefabs/Beam/*.hpp" ${COMMON})
+add_library(beam SHARED ${BEAM_SOURCE_FILE})
+target_link_libraries(beam ${PREFAB_LIBRARIES})
+
 # MISSILES
 
 	# MISSILE MEDUSA
@@ -94,6 +99,8 @@ set(COMMON ${SRC_COMMON} ${SRC_COMMMUNICATION})
 
 set(PREFAB_DEPENDENCIES SFMLSaltyEngine Network)
 
+#BEAM
+add_dependencies(beam ${PREFAB_DEPENDENCIES})
 
 #Missiles
 add_dependencies(missile_medusa ${PREFAB_DEPENDENCIES})
@@ -119,7 +126,7 @@ set(PREFABS_TARGET
 	mate
 	monster 
 	monster_walker 
-	monster_flying 
-	)
+	monster_flying
+	beam)
 
 add_custom_target(prefabs DEPENDS ${PREFABS_TARGET})
