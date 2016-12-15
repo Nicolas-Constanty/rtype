@@ -11,7 +11,8 @@ const std::map<int, std::string> LaserController::damageSprite {
         {1, "Laser"},
         {2, "Laser"},
         {3, "Laser"},
-        {4, "Laser"}
+        {4, "Laser"},
+        {5, "Laser"}
 };
 
 LaserController::LaserController(SaltyEngine::GameObject *go) : SaltyEngine::SaltyBehaviour(go)
