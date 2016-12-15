@@ -10,7 +10,6 @@ int main(int, char **)
 #if _WIN32
 	Network::Socket::WinSocket::Start();
 #endif
-	SaltyEngine::SFML::AssetManager::Instance().LoadAssets();
 
 	SaltyEngine::SFML::Renderer *renderer = new SaltyEngine::SFML::Renderer(sf::VideoMode(1280, 720), "R-Type Launcher");
 	SaltyEngine::SFML::EventManager *event_manager = new SaltyEngine::SFML::EventManager(renderer->GetRenderWindow());
