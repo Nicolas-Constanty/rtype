@@ -128,8 +128,21 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetBEAMPackage(BEAMPackageGam
         if (playerController) {
 
             std::cout << "CALLED BEAM PackageGame" << std::endl;
-            this->BroadCastPackage<BEAMPackageGame>(&Network::UDP::AUDPConnection::SendReliable<BEAMPackageGame>,
-                                                    pack.objectID, pack.id);
+//            this->BroadCastPackage<BEAMPackageGame>(&Network::UDP::AUDPConnection::SendReliable<BEAMPackageGame>,
+//                                                    pack.objectID, pack.id);
+            SaltyEngine::Vector pos = gameObject->transform.position;
+            pos.x += 30;
+            SaltyEngine::GameObject *beam = dynamic_cast<SaltyEngine::GameObject*>(SaltyEngine::Object::Instantiate("Beam", pos));
+
+            gameManager->gameObjectContainer.Add(GameObjectID::NewID(), beam);
+
+            this->BroadCastPackage<CREATEPackageGame>(
+                    &Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>,
+                    gameObject->transform.position.x,
+                    gameObject->transform.position.y,
+                    RtypeNetworkFactory::GetIDFromName("Beam"),
+                    gameManager->gameObjectContainer.GetServerObjectID(beam));
+            playerController->beamShot = beam;
             playerController->OnBeamAction();
 
         }
