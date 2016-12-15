@@ -150,7 +150,7 @@ namespace Network
                 ReceptionStatus<SequenceType>   stat;
                 int index = getSeqId(sequenceid);
 
-                if (index < 0 || index < (sizeof(StatusType) - sizeof(SequenceType)) * 8)
+                if (index < 0 || index < static_cast<int>((sizeof(StatusType) - sizeof(SequenceType)) * 8))
                     return stat;
                 stat.Receiving(sequenceid);
                 stat.setStatus((status >> (index - sizeof(SequenceType) * 8 + 1)) & (SequenceType)-1);
@@ -189,7 +189,7 @@ namespace Network
                     index = std::numeric_limits<SequenceType>::max() - seq + sequenceId;
                 else
                     index = sequenceId - seq;
-                if (index < 0 || index > sizeof(StatusType) * 8)
+                if (index < 0 || index > static_cast<int>(sizeof(StatusType) * 8))
                     return -1;
                 return sizeof(StatusType) * 8 - index - 1;
             }
