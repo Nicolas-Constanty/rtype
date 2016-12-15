@@ -25,6 +25,7 @@ namespace SaltyEngine
 	void PlayerController::Start()
 	{
 
+        start = clock::now();
 		InputKey::AddAxis("Horizontal", new Input::Axis(
 				{
 						{Input::KeyCode::Left, -1},
@@ -48,7 +49,7 @@ namespace SaltyEngine
 
         GameObject *gameman = Engine::Instance().GetCurrentScene()->FindByName("GameManager");
 
-		manager = NULL;
+        manager = NULL;
         if (gameman)
             manager = gameman->GetComponent<GameManager>();
 	}
@@ -61,11 +62,11 @@ namespace SaltyEngine
 			gameObject->transform.Translate(Vector(h, v) * speed);
             if (manager && BINARY_ROLE == NetRole::CLIENT)
             {
-				manager->SendPackage<MOVEPackageGame>(
-						&Network::Core::BasicConnection::SendData<MOVEPackageGame>,
-						gameObject->transform.position.x,
-						gameObject->transform.position.y,
-						manager->gameObjectContainer.GetServerObjectID(gameObject));
+                manager->SendPackage<MOVEPackageGame>(
+                        &Network::Core::BasicConnection::SendData<MOVEPackageGame>,
+                        gameObject->transform.position.x,
+                        gameObject->transform.position.y,
+                        manager->gameObjectContainer.GetServerObjectID(gameObject));
             }
 		}
 
@@ -77,7 +78,7 @@ namespace SaltyEngine
             }
         }
         if (InputKey::GetAction("Fire", Input::ActionType::Up)) {
-            GameObject *laser = (GameObject*)::SaltyEngine::Instantiate("Laser", gameObject->transform.position);
+            //GameObject *laser = (GameObject*)::SaltyEngine::Instantiate("Laser", gameObject->transform.position);
 
             //manager->gameObjectContainer.Add(GameObjectID::NewID(), laser);
             std::cout << "titi" << std::endl;
@@ -131,6 +132,14 @@ namespace SaltyEngine
 
     void PlayerController::Die() const {
         std::cout << "Player Died !" << std::endl;
+    }
+
+    void PlayerController::Move() {
+        // TODO
+    }
+
+    void PlayerController::Shot() {
+        // TODO
     }
 }
 

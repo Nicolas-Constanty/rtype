@@ -41,6 +41,7 @@ std::ostream &operator<<(std::ostream &ostream, AUTHENTICATEPackageGame const &a
         ostream << *header;
     }
     ostream << "secret=" << authenticatePackageGame.secret << std::endl;
+    ostream << "playerID=" << authenticatePackageGame.playerId << std::endl;
     ostream << "}";
     return (ostream);
 }
@@ -198,4 +199,23 @@ std::ostream &operator<<(std::ostream &ostream, INPUTPackageGame const &inputPac
     ostream << "value=" << inputPackageGame.value << std::endl;
     ostream << "}" << std::endl;
     return ostream;
+}
+
+std::ostream    &operator<<(std::ostream &output, DISCONNECTPackageGame const &disconnectPackageGame)
+{
+    output << "\e[32m" << static_cast<void const *>(&disconnectPackageGame) << "\e[0m" << std::endl;
+    output << "DISCONNECTPackageGame = {" << std::endl;
+    output << *dynamic_cast<PackageGameHeader const *>(&disconnectPackageGame);
+    output << "errcode=" << disconnectPackageGame.errcode << std::endl;
+    output << "playerID=" << disconnectPackageGame.playerID << std::endl;
+    output << "}" << std::endl;
+    return output;
+}
+std::ostream    &operator<<(std::ostream &output, ENEMYSHOTPackageGame const &enemyshotPackageGame)
+{
+    output << "\e[32m" << static_cast<void const *>(&enemyshotPackageGame) << "\e[0m" << std::endl;
+    output << "ENEMYSHOTPackageGame = {" << std::endl;
+    output << *dynamic_cast<PackageGameHeader const *>(&enemyshotPackageGame);
+    output << "}" << std::endl;
+    return output;
 }

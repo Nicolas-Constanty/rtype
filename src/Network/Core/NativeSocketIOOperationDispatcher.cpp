@@ -166,6 +166,8 @@ void Network::Core::NativeSocketIOOperationDispatcher::performOperations(fd_set 
     for (Socket::ISockStreamHandler *curr : tmp)
     {
 //        std::cout << "    \x1b[33mChecking fd\x1b[0m: " << curr->getSocket().Native() << " >> ";
+        if (std::find((this->*operation.watched).begin(), (this->*operation.watched).end(), curr) == (this->*operation.watched).end())
+            continue;
         (curr->*operation.check)();
         if (FD_ISSET(curr->getSocket().Native(), &set))
         {

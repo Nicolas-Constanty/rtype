@@ -32,7 +32,9 @@ typedef enum : unsigned char {
     GAMEPING = 11,
     GAMEREBORN = 12,
     GAMEFAILURE = 13,
-    GAMEINPUT = 14
+    GAMEINPUT = 14,
+    GAMEDISCONNECT = 15,
+    GAMEENEMYSHOT = 16
 } GamePurpose;
 
 class PackageGameHeader {
@@ -88,6 +90,21 @@ public:
     unsigned char playerId;
 };
 
+class DISCONNECTPackageGame : public PackageGameHeader
+{
+public:
+    DISCONNECTPackageGame(unsigned short sequenceID = 0, unsigned char playerID = 0, unsigned int errcode = 0, unsigned short transactionID = 0) :
+            PackageGameHeader(true, sizeof(DISCONNECTPackageGame), sequenceID, GamePurpose::GAMEDISCONNECT, transactionID)
+    {
+        this->errcode = errcode;
+        this->playerID = playerID;
+    }
+
+public:
+    unsigned int errcode;
+    unsigned char playerID;
+};
+
 class ObjectIDPackageGame : public PackageGameHeader {
 public:
     ObjectIDPackageGame(unsigned short size = 0, unsigned char purpose = 0, unsigned short sequenceID = 0,
@@ -103,17 +120,19 @@ public:
 class CREATEPackageGame : public ObjectIDPackageGame {
 public:
     CREATEPackageGame(unsigned short sequenceID = 0, int posX = 0, int posY = 0, unsigned short ID = 0,
-                      unsigned short objectID = 0, unsigned short transactionID = 0)
+                      unsigned short objectID = 0, float rotation = 0, unsigned short transactionID = 0)
             : ObjectIDPackageGame(sizeof(CREATEPackageGame), GamePurpose::GAMECREATE, sequenceID, objectID, true, transactionID) {
         this->posX = posX;
         this->posY = posY;
         this->ID = ID;
+        this->rotation = rotation;
     }
 
 public:
     int posX;
     int posY;
     unsigned short ID;
+    float rotation;
 };
 
 class STATUSPackageGame : public ObjectIDPackageGame {
@@ -159,7 +178,6 @@ public:
     unsigned int id;
 };
 
-//todo add power of shot
 class SHOTPackageGame : public ObjectIDPackageGame {
 public:
     SHOTPackageGame(unsigned short sequenceID = 0, unsigned short objectID = 0, double power = 0.0, unsigned int id = 0, unsigned short transactionID = 0)
@@ -172,6 +190,14 @@ public:
     double power;
     unsigned int id;
 };
+
+class ENEMYSHOTPackageGame : public ObjectIDPackageGame {
+public:
+    ENEMYSHOTPackageGame(unsigned short sequenceID = 0, unsigned short objectID = 0, unsigned short transactionID = 0)
+            : ObjectIDPackageGame(sizeof(ENEMYSHOTPackageGame), GamePurpose::GAMEENEMYSHOT, sequenceID, objectID, true, transactionID) {
+    }
+};
+
 
 class DIEPackageGame : public ObjectIDPackageGame {
 public:

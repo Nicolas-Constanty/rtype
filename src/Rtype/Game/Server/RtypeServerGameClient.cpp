@@ -17,7 +17,6 @@ Rtype::Game::Server::RtypeServerGameClient::RtypeServerGameClient(Network::Core:
         RtypeGameClient(dispatcher),
         server1(NULL),
         pingSecret(-1),
-        pingTime(),
         id(0),
         power(0)
 {
@@ -28,7 +27,6 @@ Rtype::Game::Server::RtypeServerGameClient::RtypeServerGameClient(const Rtype::G
     RtypeGameClient(ref),
     server1(NULL),
     pingSecret(-1),
-    pingTime(),
     id(0),
     power(0)
 {
@@ -51,6 +49,7 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetPINGPackage(PINGPackageGam
 //    std::cout << pack << std::endl;
     reply = false;
     OnDiscoveringPackage(pack);
+    std::cout << "\e[32mPonged\e[0m" << std::endl;
 //    std::cout << "pingSecret == " << pingSecret << " pack.secret == " << pack.secret << " pingSecret == " << pingSecret << std::endl;
     if (pingSecret != -1 && pack.secret != pingSecret)
     {
@@ -288,6 +287,18 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetINPUTPackage(INPUTPackageG
     SaltyEngine::Input::VirtualInputManager::SetAxis(pack.axes, pack.value);
 }
 
+void Rtype::Game::Server::RtypeServerGameClient::onGetDISCONNECTPackage(DISCONNECTPackageGame const &pack)
+{
+    Rtype::Game::Common::RtypeGameClient::onGetDISCONNECTPackage(pack);
+    connected = false;
+}
+
+
+void Rtype::Game::Server::RtypeServerGameClient::onGetENEMYSHOTPackage(ENEMYSHOTPackageGame const &pack) {
+    std::cout << pack << std::endl;
+}
+
+
 bool Rtype::Game::Server::RtypeServerGameClient::OnStart()
 {
     server1 = dynamic_cast<Rtype::Game::Server::RtypeGameServer *>(serverStream);
@@ -306,15 +317,9 @@ int Rtype::Game::Server::RtypeServerGameClient::getId() const
     return id;
 }
 
-bool Rtype::Game::Server::RtypeServerGameClient::timedout() const
-{
-    return std::chrono::steady_clock::now() - pingTime > Rtype::Game::Server::RtypeServerGameClient::timeout;
-}
-
 void Rtype::Game::Server::RtypeServerGameClient::ping()
 {
     pingSecret = rand();
-    pingTime = std::chrono::steady_clock::now();
 //    SendReliable(*server1->create<PINGPackageGame>(pingSecret));
     SendPackage<PINGPackageGame>(&Network::UDP::AUDPConnection::SendReliable<PINGPackageGame>, pingSecret);
     if (serverStream)

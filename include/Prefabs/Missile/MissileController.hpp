@@ -3,6 +3,7 @@
 #ifndef RTYPE_MISSILECONTROLLER_HPP
 #define RTYPE_MISSILECONTROLLER_HPP
 
+#include <Rtype/Game/Server/GameServerObject.hpp>
 #include "SaltyEngine/SaltyBehaviour.hpp"
 #include "SaltyEngine/GameObject.hpp"
 
@@ -26,6 +27,9 @@ public:
 	virtual SaltyEngine::Component *CloneComponent(SaltyEngine::GameObject* const obj) {
 		return new MissileController(obj);
 	}
+
+private:
+    Rtype::Game::Server::GameServerObject *gameServer;
 };
 
 #endif

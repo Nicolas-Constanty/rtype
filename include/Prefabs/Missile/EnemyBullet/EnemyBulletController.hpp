@@ -3,6 +3,7 @@
 #ifndef RTYPE_EnemyBulletController_HPP
 #define RTYPE_EnemyBulletController_HPP
 
+#include <Rtype/Game/Server/GameServerObject.hpp>
 #include "SaltyEngine/SaltyBehaviour.hpp"
 #include "SaltyEngine/GameObject.hpp"
 
@@ -14,16 +15,19 @@ public:
 
 public:
     void Start();
-    void Update();
+    void FixedUpdate();
     void OnCollisionEnter(SaltyEngine::ICollider *);
 
 private:
-    float m_vel = 10;
+    float m_vel = 4;
 
 public:
     virtual SaltyEngine::Component *CloneComponent(SaltyEngine::GameObject* const obj) {
         return new EnemyBulletController(obj);
     }
+
+private:
+    Rtype::Game::Server::GameServerObject *gameServer;
 };
 
 #endif

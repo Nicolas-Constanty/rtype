@@ -26,6 +26,8 @@ public:
     virtual void onGetREBORNPackage(REBORNPackageGame const &) = 0;
     virtual void onGetFAILUREPackage(FAILUREPackageGame const &) = 0;
     virtual void onGetINPUTPackage(INPUTPackageGame const &) = 0;
+    virtual void onGetDISCONNECTPackage(DISCONNECTPackageGame const &) = 0;
+    virtual void onGetENEMYSHOTPackage(ENEMYSHOTPackageGame const &) = 0;
 };
 
 #endif //RTYPE_IPROTOCOLGAMEHANDLER_HPP

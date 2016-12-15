@@ -10,7 +10,7 @@
 class RtypeNetworkFactory
 {
 public:
-    static SaltyEngine::GameObject *Create(unsigned short id, SaltyEngine::Vector const &pos);
+    static SaltyEngine::GameObject *Create(unsigned short id, SaltyEngine::Vector const &pos, float rotation);
     static unsigned short GetIDFromName(std::string const &);
 
 private:

@@ -1,3 +1,5 @@
+#include <Rtype/Game/Common/GameObjectID.hpp>
+#include <Rtype/Game/Common/RtypeNetworkFactory.hpp>
 #include "Prefabs/Missile/MissileController.hpp"
 #include "Prefabs/MonsterWalker/MonsterWalkerController.hpp"
 #include "SaltyEngine/SFML.hpp"
@@ -6,6 +8,7 @@
 MonsterWalkerController::MonsterWalkerController(SaltyEngine::GameObject *obj) : AGenericController("MonsterWalkerController", obj)
 {
     m_health = 1;
+    gameServer = NULL;
 }
 
 
@@ -19,50 +22,89 @@ void MonsterWalkerController::Start()
     m_anim = gameObject->GetComponent<SaltyEngine::SFML::Animation>();
     m_anim->Play("WalkLeft");
     m_startPoint = gameObject->transform.position;
+
+    SaltyEngine::GameObject *gameman = SaltyEngine::Engine::Instance().GetCurrentScene()->FindByName("GameServer");
+    if (gameman)
+        gameServer = gameman->GetComponent<Rtype::Game::Server::GameServerObject>();
 }
 
 // TODO : add jump
-void MonsterWalkerController::Update()
+void MonsterWalkerController::FixedUpdate()
 {
-	m_currDelay -= SaltyEngine::Engine::Instance().GetDeltaTime();
+	m_currDelay -= SaltyEngine::Engine::Instance().GetFixedDeltaTime();
 
 	if (m_currDelay <= 0)
 	{
         m_currDelay = m_minShootInterval + rand() % (int)(m_maxShootInterval - m_minShootInterval);
-        SaltyEngine::GameObject *missile = (SaltyEngine::GameObject*)SaltyEngine::Instantiate("EnemyBullet", this->gameObject->transform.position, 180);
+        if (SaltyEngine::BINARY_ROLE == SaltyEngine::NetRole::SERVER || gameServer) {
+            Shot();
+        }
+	}
+    Move();
+}
+
+void MonsterWalkerController::Move() {
+        this->gameObject->transform.Translate(-gameObject->transform.right() * m_vel);
+        if (fabsf(gameObject->transform.position.x - m_startPoint.x) > m_walkDistance) {
+            gameObject->transform.Rotate(180);
+            PlayAnim("Walk");
+        }
+}
+
+void MonsterWalkerController::Shot() {
+    if (SaltyEngine::BINARY_ROLE == SaltyEngine::NetRole::CLIENT) {
         PlayAnim("Jump");
         PlayAnim("Walk", true);
+    }
+
+   if (SaltyEngine::BINARY_ROLE == SaltyEngine::NetRole::SERVER || gameServer) {
+       SaltyEngine::GameObject *missile = (SaltyEngine::GameObject *) SaltyEngine::Instantiate("EnemyBullet",
+                                                                                                this->gameObject->transform.position,
+                                                                                                180);
+    this->gameServer->Server()->gameObjectContainer.Add(GameObjectID::NewID(), missile);
+
+       this->gameServer->BroadCastPackage<CREATEPackageGame>(
+               &Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>,
+                gameObject->transform.position.x,
+                gameObject->transform.position.y,
+                RtypeNetworkFactory::GetIDFromName("EnemyBullet"),
+                this->gameServer->Server()->gameObjectContainer.GetServerObjectID(missile),
+                gameObject->transform.rotation);
+
+       this->gameServer->BroadCastPackage<ENEMYSHOTPackageGame>(
+               &Network::UDP::AUDPConnection::SendReliable<ENEMYSHOTPackageGame>,
+               this->gameServer->Server()->gameObjectContainer.GetServerObjectID(gameObject));
 
         if (missile) {
             MissileController *missileController = missile->GetComponent<MissileController>();
             if (missileController != nullptr) {
-                missileController->SetTarget(SaltyEngine::GameObject::FindGameObjectWithTag(SaltyEngine::Layer::Tag::Player));
+                missileController->SetTarget(
+                        SaltyEngine::GameObject::FindGameObjectWithTag(SaltyEngine::Layer::Tag::Player));
+
             }
-        }
-	}
-	this->gameObject->transform.Translate(-gameObject->transform.right() * SaltyEngine::Engine::Instance().GetDeltaTime() * m_vel);
-    if (fabsf(gameObject->transform.position.x - m_startPoint.x) > m_walkDistance)
-    {
-        gameObject->transform.Rotate(180);
-        PlayAnim("Walk");
+       }
     }
 }
 
 void MonsterWalkerController::Die() const
 {
-    SaltyEngine::Instantiate("ExplosionBasic", this->gameObject->transform.position);
-	SaltyEngine::Object::Destroy(this->gameObject);
+    if (SaltyEngine::BINARY_ROLE == SaltyEngine::NetRole::CLIENT) {
+        std::cout << "DIE" << std::endl;
+        SaltyEngine::Instantiate("ExplosionBasic", this->gameObject->transform.position);
+    }
+    SaltyEngine::Object::Destroy(this->gameObject);
 }
 
 void MonsterWalkerController::TakeDamage(int amount)
 {
-	AGenericController::TakeDamage(amount);
+  //  if (SaltyEngine::BINARY_ROLE == SaltyEngine::NetRole::SERVER) {
+        AGenericController::TakeDamage(amount);
 
-	if (m_health <= 0 && !m_isDead)
-	{
-		Die();
-		m_isDead = true;
-	}
+        if (m_health <= 0 && !m_isDead) {
+            Die();
+            m_isDead = true;
+        }
+    //}
 }
 
 //void MonsterWalkerController::OnCollisionEnter(SaltyEngine::ICollider *col)

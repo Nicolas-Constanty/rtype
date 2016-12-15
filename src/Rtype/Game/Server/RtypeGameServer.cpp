@@ -8,6 +8,8 @@
 #include <Rtype/Game/Common/GameObjectID.hpp>
 #include <Rtype/Game/Common/RtypeNetworkFactory.hpp>
 
+const std::chrono::milliseconds   Rtype::Game::Server::RtypeGameServer::pingtimeout(15000);
+
 Rtype::Game::Server::RtypeGameServer::RtypeGameServer(Network::Core::NativeSocketIOOperationDispatcher &dispatcher, const size_t maxSize, u_int16_t level) :
         AUDPServer(dispatcher),
         factory(),
@@ -29,7 +31,7 @@ bool Rtype::Game::Server::RtypeGameServer::OnDataReceived(unsigned int)
 {
     if (clients->Streams().size() > maxSize)
     {
-        std::cout << "Room full" << std::endl;
+        newclient->setErrorCode(Common::RtypeGameClient::DisconnectionCode::ROOMFULL);
         newclient->Disconnect();
         newclient = NULL;
         return false;
@@ -53,27 +55,27 @@ bool Rtype::Game::Server::RtypeGameServer::OnDataSent(unsigned int len)
 void Rtype::Game::Server::RtypeGameServer::OnReadCheck()
 {
     Network::UDP::AUDPServer<Rtype::Game::Server::RtypeServerGameClient>::OnReadCheck();
-  //  std::cout << "ALOS" << std::endl;
-//    for (std::list<std::unique_ptr<Network::Socket::ISockStreamHandler>>::iterator it = clients->Streams().begin(); it != clients->Streams().end();)
-//    {
-//        Rtype::Game::Server::RtypeServerGameClient *client = dynamic_cast<Rtype::Game::Server::RtypeServerGameClient *>(it->get());
 
-//        if (client && client->timedout())
-//        {
-//            client->Disconnect();
-//            it = clients->Streams().begin();
-//        }
+    for (std::unique_ptr<Network::Socket::ISockStreamHandler> &curr : clients->Streams())
+    {
+        TimedUDPClient *client = dynamic_cast<TimedUDPClient *>(curr.get());
+
+        if (client && client->pong() && client->getTimer().timeout(pingtimeout))
+        {
+            client->ping();
+        }
 //        else
 //        {
 //            std::cout << "Checking ping: " << client << std::endl;
-//            if (client && client->pong())
+//            if (client && client->pong() && pingtimer.timeout(pingtimeout))
 //            {
 //                std::cout << "===\e[32mPING\e[0m===" << std::endl;
-//                client->ping();
+
+//                pingtimer.refresh();
 //            }
 //            ++it;
 //        }
-//    }
+    }
 }
 
 void Rtype::Game::Server::RtypeGameServer::setSecret(uint32_t secret)

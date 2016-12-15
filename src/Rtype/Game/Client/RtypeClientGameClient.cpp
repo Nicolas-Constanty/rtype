@@ -9,6 +9,7 @@
 #include <SaltyEngine/Vector2.hpp>
 #include <Rtype/Game/Client/SpaceShipController.hpp>
 #include <Rtype/Game/Common/RtypeNetworkFactory.hpp>
+#include <Prefabs/GenericController.hpp>
 
 Rtype::Game::Client::RtypeClientGameClient::RtypeClientGameClient(
         Network::Core::NativeSocketIOOperationDispatcher &dispatcher) :
@@ -62,8 +63,7 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetAUTHENTICATEPackage(AUTHEN
     std::cout << "\e[32mAuthenticated\e[0m: " << pack << std::endl;
     reply = false;
     OnDiscoveringPackage(pack);
-
-    //todo define in engine which player is controlled by user through gameobject id <pack.playerId>
+    playerID = pack.playerId;
 }
 
 void Rtype::Game::Client::RtypeClientGameClient::onGetCREATEPackage(CREATEPackageGame const &pack)
@@ -75,7 +75,7 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetCREATEPackage(CREATEPackag
     // FACTORY CORRESPONDANCE AVEC L'ID PLEASE
     try
     {
-        SaltyEngine::GameObject *object = RtypeNetworkFactory::Create(pack.ID, SaltyEngine::Vector(pack.posX, pack.posY));
+        SaltyEngine::GameObject *object = RtypeNetworkFactory::Create(pack.ID, SaltyEngine::Vector(pack.posX, pack.posY), pack.rotation);
 
         gameManager->gameObjectContainer.Add(pack.objectID, object);
 
@@ -191,4 +191,22 @@ void Rtype::Game::Client::RtypeClientGameClient::SendInput(std::string const &ax
 {
     SendPackage<INPUTPackageGame>(&Network::Core::BasicConnection::SendData<INPUTPackageGame>, axisName, value);
 //    SendData(*factory.create<INPUTPackageGame>(axisName, value));
+}
+
+void Rtype::Game::Client::RtypeClientGameClient::OnDisconnect()
+{
+    Common::RtypeGameClient::OnDisconnect();
+    SaltyEngine::Engine::Instance().Stop();
+
+}
+
+void Rtype::Game::Client::RtypeClientGameClient::onGetENEMYSHOTPackage(ENEMYSHOTPackageGame const &pack) {
+    std::cout << pack << std::endl;
+    SaltyEngine::GameObject *obj = gameManager->gameObjectContainer[pack.objectID];
+    if (obj) {
+        AGenericController *aGenericController = obj->GetComponent<AGenericController>();
+        if (aGenericController) {
+            aGenericController->Shot();
+        }
+    }
 }

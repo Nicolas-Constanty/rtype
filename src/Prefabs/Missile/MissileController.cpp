@@ -7,6 +7,7 @@
 
 MissileController::MissileController(SaltyEngine::GameObject *go) : SaltyEngine::SaltyBehaviour(go)
 {
+    gameServer = NULL;
 }
 
 
@@ -17,6 +18,10 @@ MissileController::~MissileController()
 void MissileController::Start() {
     SaltyEngine::Sound::ISound *fire = SaltyEngine::SFML::AssetManager::Instance().GetSound("fire");
 	fire->Play();
+
+    SaltyEngine::GameObject *gameman = SaltyEngine::Engine::Instance().GetCurrentScene()->FindByName("GameServer");
+    if (gameman)
+        gameServer = gameman->GetComponent<Rtype::Game::Server::GameServerObject>();
 }
 
 void MissileController::Update()

@@ -19,6 +19,9 @@ namespace Rtype
         {
             class RtypeGameServer : public Network::UDP::AUDPServer<Rtype::Game::Server::RtypeServerGameClient>
             {
+            private:
+                static const std::chrono::milliseconds   pingtimeout;
+
             public:
                 RtypeGameServer(Network::Core::NativeSocketIOOperationDispatcher &dispatcher, const size_t maxSize = 4, u_int16_t level = 1);
                 RtypeGameServer(RtypeGameServer const &ref) = delete;
@@ -29,7 +32,7 @@ namespace Rtype
                 virtual bool OnDataSent(unsigned int len);
                 virtual bool OnStart();
 
-            private:
+            public:
                 template <typename Package, typename SendFunc, typename ... Args>
                 void BroadCastPackage(SendFunc func, Args ... args)
                 {
@@ -42,6 +45,7 @@ namespace Rtype
                         if (client)
                             client->SendPackage<Package>(func, args...);
                     }
+                    WantSend();
                 }
 
             public:

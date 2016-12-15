@@ -11,6 +11,8 @@ public:
 	virtual void TakeDamage(int ammount) = 0;
 	virtual int GetHealth() const = 0;
 	virtual void Die() const = 0;
+    virtual void Move() = 0;
+    virtual void Shot() = 0;
 };
 
 class AGenericController : public SaltyEngine::SaltyBehaviour, public IGenericController

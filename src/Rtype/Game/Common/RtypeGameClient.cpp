@@ -16,7 +16,10 @@ Rtype::Game::Common::RtypeGameClient::RtypeGameClient(Network::Core::NativeSocke
         recvstatus(),
         sendstatus(),
         reply(false),
-        connected(false)
+        connected(false),
+        playerID(0),
+        errcode(DisconnectionCode::NOERROR),
+        getDisconnected(false)
 {
 
 }
@@ -28,7 +31,10 @@ Rtype::Game::Common::RtypeGameClient::RtypeGameClient(const RtypeGameClient &ref
     recvstatus(),
     sendstatus(),
     reply(false),
-    connected(false)
+    connected(false),
+    playerID(0),
+    errcode(DisconnectionCode::NOERROR),
+    getDisconnected(false)
 {
 
 }
@@ -52,7 +58,7 @@ bool Rtype::Game::Common::RtypeGameClient::OnDataReceived(unsigned int)
             buff += head->length;
 //            std::cout << "\e[31mAcknoledge\e[0m" << std::endl;
         }
-        else if (!recvstatus.IsSet(head->sequenceID))
+        else if (!recvstatus.IsSet(head->sequenceID) && !getDisconnected)
         {
             reply = recvstatus.Receiving(head->sequenceID);
 //            std::cout << "\e[32mReceive status\e[0m: " << recvstatus << ", sliced at " << head->sequenceID << ": " << recvstatus.sliceAt(head->sequenceID) << " => " << recvstatus.sliceAt(head->sequenceID).getStatus() << std::endl;
@@ -87,7 +93,26 @@ bool Rtype::Game::Common::RtypeGameClient::OnDataReceived(unsigned int)
     return true;
 }
 
-bool Rtype::Game::Common::RtypeGameClient::OnDataSent(unsigned int len)
+bool Rtype::Game::Common::RtypeGameClient::OnDataSent(unsigned int)
 {
     return true;
+}
+
+void Rtype::Game::Common::RtypeGameClient::onGetDISCONNECTPackage(DISCONNECTPackageGame const &pack)
+{
+    OnDiscoveringPackage(pack);
+//    std::cout << "Get disconnect: " << pack << std::endl;
+    if (playerID == pack.playerID)
+    {
+        getDisconnected = true;
+        //todo destroy gameobject
+    }
+}
+
+void Rtype::Game::Common::RtypeGameClient::OnDisconnect()
+{
+//    std::cout << "\e[31mOn Disconnect called\e[0m" << std::endl;
+    if (!getDisconnected)
+        BroadCastPackage<DISCONNECTPackageGame>(&Rtype::Game::Common::RtypeGameClient::SendToServerReliablyNow<DISCONNECTPackageGame>, playerID,
+                                           static_cast<unsigned int>(errcode));
 }
