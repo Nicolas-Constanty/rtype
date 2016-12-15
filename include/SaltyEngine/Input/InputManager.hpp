@@ -10,7 +10,7 @@
 #include <map>
 #include "SaltyEngine/Input/Axis.hpp"
 #include "SaltyEngine/Input/Action.hpp"
-#include "SaltyEngine/Debug.hpp"
+#include "Common/Debug.hpp"
 
 namespace SaltyEngine {
     namespace Input {

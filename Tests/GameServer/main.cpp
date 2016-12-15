@@ -10,7 +10,6 @@ int main(int, char **)
 #if _WIN32
 	Network::Socket::WinSocket::Start();
 #endif
-	SaltyEngine::SFML::AssetManager::Instance().LoadAssets();
 
 	SaltyEngine::SFML::Renderer *renderer = new SaltyEngine::SFML::Renderer(sf::VideoMode(1280, 720), "R-Type Launcher");
 	SaltyEngine::SFML::EventManager *event_manager = new SaltyEngine::SFML::EventManager(renderer->GetRenderWindow());
@@ -26,6 +25,7 @@ int main(int, char **)
 	SaltyEngine::GameObject	*server = dynamic_cast<SaltyEngine::GameObject*>(SaltyEngine::Object::Instantiate());
 
 	server->SetName("Rtype");
+	SaltyEngine::SFML::AssetManager::Instance().LoadScene("scene2");
 	server->AddComponent<Rtype::Game::Client::GameClientObject>("127.0.0.1", 4242);
 	server->AddComponent<GameManager>();
 

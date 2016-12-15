@@ -1,6 +1,6 @@
 #include "SaltyEngine/SFML/Scene.hpp"
-#include "SaltyEngine/Debug.hpp"
 #include "SaltyEngine/SFML/SpriteRenderer.hpp"
+#include "Common/Debug.hpp"
 
 namespace SaltyEngine
 {

@@ -26,6 +26,7 @@ SaltyEngine::GameObject *GameObjectContainer::operator[](unsigned short serverID
 }
 
 void GameObjectContainer::Add(unsigned short serverID, SaltyEngine::GameObject *gameObject) {
+
     idsServer[serverID] = static_cast<unsigned short>(gameObject->GetInstanceID());
     idsClient[static_cast<unsigned short>(gameObject->GetInstanceID())] = serverID;
 }

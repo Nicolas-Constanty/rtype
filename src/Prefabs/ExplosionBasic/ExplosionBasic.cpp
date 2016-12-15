@@ -11,18 +11,8 @@ ExplosionBasic::ExplosionBasic() : GameObject("ExplosionBasic")
 {
     AddComponent<SaltyEngine::SFML::SpriteRenderer>(SaltyEngine::SFML::AssetManager::Instance().GetSprite("ExplosionBasic/explosion1"), SaltyEngine::Layout::normal);
     AddComponent<SaltyEngine::SFML::Animation>(true, SaltyEngine::AnimationConstants::WrapMode::ONCE);
-    SaltyEngine::SFML::AnimationClip *clip;
 
-    // Walking clip
-    clip = new SaltyEngine::SFML::AnimationClip();
-    clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite("ExplosionBasic/explosion1"));
-    clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite("ExplosionBasic/explosion2"));
-    clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite("ExplosionBasic/explosion3"));
-    clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite("ExplosionBasic/explosion4"));
-    clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite("ExplosionBasic/explosion5"));
-    clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite("ExplosionBasic/explosion6"));
-    clip->SetFrameRate(16);
-    GetComponent<SaltyEngine::SFML::Animation >()->AddClip(clip, "Explode");
+    GetComponent<SaltyEngine::SFML::Animation>()->AddClip(SaltyEngine::SFML::AssetManager::Instance().GetAnimation("Explosion/basic"), "Explode");
 
     AddComponent<ExplosionController>();
 }
@@ -31,7 +21,7 @@ ExplosionBasic::~ExplosionBasic()
 {
 }
 
-EXPLOSIONBASIC_API SaltyEngine::Object const*GetObjectPrefab()
+SaltyEngine::Object const*GetObjectPrefab()
 {
 	return new ExplosionBasic();
 }

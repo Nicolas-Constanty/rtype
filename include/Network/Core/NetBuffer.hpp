@@ -96,12 +96,12 @@ namespace Network
                 return serialize<const char *>(&msg[0]);
             }
 
-            void operator+=(unsigned int size) {
-                if (static_cast<long>(length) - size < 0) {
+            void operator+=(unsigned int s) {
+                if (static_cast<long>(length) - s < 0) {
                     return ;
                 }
-                index += size;
-                length -= size;
+                index += s;
+                length -= s;
             }
 
             /**

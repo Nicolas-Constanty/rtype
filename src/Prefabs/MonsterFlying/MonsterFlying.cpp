@@ -22,7 +22,7 @@ MonsterFlying::~MonsterFlying()
 {
 }
 
-MONSTERFLYING_API SaltyEngine::Object const*GetObjectPrefab()
+SaltyEngine::Object const*GetObjectPrefab()
 {
 	return new MonsterFlying();
 }

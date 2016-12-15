@@ -27,7 +27,7 @@ extern "C"
 
 	//extern PLAYER_API int nPlayer;
 
-	PLAYER_API SaltyEngine::Object const *GetObjectPrefab();
+	SaltyEngine::Object const *GetObjectPrefab();
 }
 
 #endif

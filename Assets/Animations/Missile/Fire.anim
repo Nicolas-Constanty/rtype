@@ -1,0 +1,14 @@
+{
+  "mode": "LOOP",
+  "framerate": "5",
+  "sprites": [
+    "Missile/Bullet1",
+    "Missile/Bullet2",
+    "Missile/Bullet3",
+    "Missile/Bullet4",
+    "Missile/Bullet5",
+    "Missile/Bullet6",
+    "Missile/Bullet7",
+    "Missile/Bullet8"
+  ]
+}

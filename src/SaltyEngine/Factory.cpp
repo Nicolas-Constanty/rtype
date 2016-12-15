@@ -2,8 +2,8 @@
 #include "SaltyEngine/Factory.hpp"
 #include "SaltyEngine/GameObject.hpp"
 #include "SaltyEngine/Object.hpp"
-#include "SaltyEngine/Debug.hpp"
 #include "SaltyEngine/SaltyEngine.hpp"
+#include "Common/Debug.hpp"
 
 namespace SaltyEngine {
 

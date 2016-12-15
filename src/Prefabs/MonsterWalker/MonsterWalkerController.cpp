@@ -30,13 +30,13 @@ void MonsterWalkerController::Start()
 // TODO : add jump
 void MonsterWalkerController::FixedUpdate()
 {
-	m_currDelay -= SaltyEngine::Engine::Instance().GetFixedDeltaTime();
+	m_currDelay -= static_cast<float>(SaltyEngine::Engine::Instance().GetFixedDeltaTime());
 
 	if (m_currDelay <= 0)
 	{
         m_currDelay = m_minShootInterval + rand() % (int)(m_maxShootInterval - m_minShootInterval);
         if (isServerSide()) {
-            Shot();
+//            Shot();
         }
 	}
     Move();

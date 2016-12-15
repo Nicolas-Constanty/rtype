@@ -9,7 +9,7 @@ namespace SaltyEngine
 		class Image : public GUI::UIBehaviour
 		{
 		public:
-			Image(GameObject* gameObj, ::SaltyEngine::SFML::Sprite * const sprite);
+			explicit Image(GameObject* gameObj, ::SaltyEngine::SFML::Sprite * const sprite);
 			Image(const std::string& name, GameObject* gameObj, ::SaltyEngine::SFML::Sprite * const sprite);
 			~Image();
 		};

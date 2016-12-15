@@ -15,7 +15,7 @@ Player::~Player()
 {
 }
 
-PLAYER_API SaltyEngine::Object const*GetObjectPrefab()
+SaltyEngine::Object const*GetObjectPrefab()
 {
     return new Player();
 }

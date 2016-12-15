@@ -1,7 +1,7 @@
-#include <SaltyEngine/Debug.hpp>
 #include "SaltyEngine/Constants.hpp"
 #include "SaltyEngine/GameObject.hpp"
 #include "SaltyEngine/SaltyEngine.hpp"
+#include "Common/Debug.hpp"
 
 namespace SaltyEngine
 {

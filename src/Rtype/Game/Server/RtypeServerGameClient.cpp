@@ -5,7 +5,6 @@
 #include <Protocol/Game/ProtocolPrintGamePackage.hpp>
 #include <Rtype/Game/Server/RtypeServerGameClient.hpp>
 #include <Rtype/Game/Server/RtypeGameServer.hpp>
-#include <SaltyEngine/Input/VirtualInutManager.hpp>
 #include <Rtype/Game/Client/SpaceShipController.hpp>
 #include <Rtype/Game/Common/GameObjectID.hpp>
 #include <Prefabs/Player/PlayerController.hpp>
@@ -292,7 +291,7 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetINPUTPackage(INPUTPackageG
     }
     if (serverStream)
         serverStream->WantSend();
-    SaltyEngine::Input::VirtualInputManager::SetAxis(pack.axes, pack.value);
+//    SaltyEngine::Input::VirtualInputManager::SetAxis(pack.axes, pack.value);
 }
 
 void Rtype::Game::Server::RtypeServerGameClient::onGetDISCONNECTPackage(DISCONNECTPackageGame const &pack)

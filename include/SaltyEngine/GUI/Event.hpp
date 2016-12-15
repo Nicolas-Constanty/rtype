@@ -6,7 +6,7 @@
 #include <string>
 #include <functional>
 #include <map>
-#include "SaltyEngine/Debug.hpp"
+#include "Common/Debug.hpp"
 
 namespace SaltyEngine
 {

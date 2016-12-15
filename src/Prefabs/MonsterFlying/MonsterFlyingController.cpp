@@ -20,12 +20,12 @@ void MonsterFlyingController::Start()
 
 void MonsterFlyingController::Update()
 {
-	m_currDelay -= SaltyEngine::Engine::Instance().GetDeltaTime();
+	m_currDelay -= static_cast<float>(SaltyEngine::Engine::Instance().GetDeltaTime());
 
 	if (m_currDelay <= 0)
 	{
         m_currDelay = m_minShootInterval + rand() % (int)(m_maxShootInterval - m_minShootInterval);
-        Shot();
+//        Shot();
 	}
     Move();
 }

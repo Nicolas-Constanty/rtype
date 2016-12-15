@@ -11,7 +11,7 @@
 #include "SaltyEngine/GameObject.hpp"
 #include "SaltyEngine/SaltyEngine.hpp"
 #include "SaltyEngine/AAnimation.hpp"
-#include "SaltyEngine/Debug.hpp"
+#include "Common/Debug.hpp"
 
 namespace SaltyEngine
 {
@@ -30,7 +30,9 @@ namespace SaltyEngine
                         m_frameRate(frameRate),
                         m_iterator(frames.begin()),
                         m_reviterator(frames.rbegin())
-                {}
+                {
+                    m_sprite->SetSprite(*frames.begin());
+                }
 
                 bool IsAnimOver() const {
                     if (!m_playBackwards)
@@ -114,6 +116,7 @@ namespace SaltyEngine
 
             void Play(std::string const &name) {
                 if (m_clips.size() == 0 || m_clips.find(name) == m_clips.end()) {
+                    Debug::PrintWarning("Cannot Play clip " + name);
                     return;
                 }
                 ClearAnimData();
@@ -138,6 +141,10 @@ namespace SaltyEngine
             }
 
             void AddClip(AnimationClip *const clip, std::string const &name) {
+                if (clip == nullptr) {
+                    Debug::PrintError("AnimationClip " + name + " was null");
+                    return;
+                }
                 m_clips[name] = clip;
             }
 
@@ -170,7 +177,7 @@ namespace SaltyEngine
                                 Play(m_queuedAnims.back());
                                 m_queuedAnims.pop();
                             } else {
-                                switch (m_wrapMode) {
+                                switch (clip->GetWrapMode()) {
                                     case AnimationConstants::ONCE:
                                         m_isPlaying = false;
                                         break;

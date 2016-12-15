@@ -12,7 +12,7 @@
 #include "SaltyEngine/GUI/IPointerUpHandler.hpp"
 #include "SaltyEngine/GUI/ISelectHandler.hpp"
 #include "SaltyEngine/GUI/UIBehaviour.hpp"
-#include "SaltyEngine/Debug.hpp"
+#include "Common/Debug.hpp"
 
 namespace SaltyEngine
 {
