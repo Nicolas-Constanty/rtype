@@ -63,6 +63,8 @@ namespace SaltyEngine {
 
         void Shot() override;
 
+		void Beam();
+
     public:
 		clock::time_point start;
 
@@ -72,6 +74,7 @@ namespace SaltyEngine {
 	private:
 //		GameManager    *manager;
 		unsigned int	idShot;
+        GameObject     *beamShot;
 	};
 }
 

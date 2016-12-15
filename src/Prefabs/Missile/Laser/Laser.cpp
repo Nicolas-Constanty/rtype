@@ -4,10 +4,10 @@
 #include "SaltyEngine/SFML.hpp"
 
 Laser::Laser() : GameObject("Laser", SaltyEngine::Layer::Tag::BulletPlayer) {
-	AddComponent<SaltyEngine::SFML::SpriteRenderer>(SaltyEngine::SFML::AssetManager::Instance().GetSprite("Laser/simple"), ::SaltyEngine::Layout::normal);
-	AddComponent<LaserController>();
+    AddComponent<SaltyEngine::SFML::SpriteRenderer>(SaltyEngine::SFML::AssetManager::Instance().GetSprite("Laser/simple"), ::SaltyEngine::Layout::normal);
+    AddComponent<LaserController>();
     AddComponent<SaltyEngine::SFML::BoxCollider2D>();
-	AddComponent<SaltyEngine::SFML::Animation>();
+    AddComponent<SaltyEngine::SFML::Animation>();
 }
 
 Laser::~Laser() {
@@ -15,5 +15,5 @@ Laser::~Laser() {
 
 SaltyEngine::Object const*GetObjectPrefab()
 {
-	return new Laser();
+    return new Laser();
 }

@@ -71,6 +71,8 @@ add_executable(client-test-move-netork
         src/Prefabs/Missile/Laser/LaserController.cpp
         include/Prefabs/Missile/Laser/Laser.hpp
         include/Prefabs/Missile/Laser/LaserController.hpp
+        src/Prefabs/Player/PlayerController.cpp
+        include/Prefabs/Player/PlayerController.hpp
         include/Prefabs/RtypePrefab.hpp
         src/Prefabs/RtypePrefab.cpp
         src/Prefabs/Player/PlayerController.cpp
