@@ -31,13 +31,13 @@ namespace SaltyEngine {
                         break;
                     case sf::Event::EventType::KeyPressed:
                         m_keys[event.key.code] = ::SaltyEngine::Input::ActionType::Pressed;
-                        m_keys_up[event.key.code] = true;
+                        m_keys_up[event.key.code] = false;
 //                        ::SaltyEngine::Input::Mapping::CallAxis(GetKeyCode(event.key.code));
 //                        ::SaltyEngine::Input::Mapping::CallAction(GetKeyCode(event.key.code), ::SaltyEngine::Input::ActionType::Pressed);
                         break;
                     case sf::Event::EventType::KeyReleased:
                         m_keys[event.key.code] = ::SaltyEngine::Input::ActionType::Released;
-                        m_keys_down[event.key.code] = true;
+                        m_keys_down[event.key.code] = false;
 //                        ::SaltyEngine::Input::Mapping::CallAction(GetKeyCode(event.key.code), ::SaltyEngine::Input::ActionType::Released);
                         break;
                     case sf::Event::EventType::JoystickButtonPressed:
@@ -58,8 +58,8 @@ namespace SaltyEngine {
 
         bool EventManager::GetKeyDown(::SaltyEngine::Input::KeyCode::Key key) {
             sf::Keyboard::Key sfKey = GetKeyCode(key);
-            if (m_keys[sfKey] == ::SaltyEngine::Input::ActionType::Pressed && m_keys_down[sfKey]) {
-                m_keys_down[sfKey] = false;
+            if (m_keys[sfKey] == ::SaltyEngine::Input::ActionType::Pressed && !m_keys_down[sfKey]) {
+                m_keys_down[sfKey] = true;
                 return true;
             }
             return false;
@@ -67,8 +67,8 @@ namespace SaltyEngine {
 
         bool EventManager::GetKeyUp(::SaltyEngine::Input::KeyCode::Key key) {
             sf::Keyboard::Key sfKey = GetKeyCode(key);
-            if (m_keys[sfKey] == ::SaltyEngine::Input::ActionType::Released && m_keys_up[sfKey]) {
-                m_keys_up[sfKey] = false;
+            if (m_keys[sfKey] == ::SaltyEngine::Input::ActionType::Released && !m_keys_up[sfKey]) {
+                m_keys_up[sfKey] = true;
                 return true;
             }
             return false;
