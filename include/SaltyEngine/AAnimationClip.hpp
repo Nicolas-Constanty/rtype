@@ -1,7 +1,6 @@
 #pragma once
 #include <functional>
 #include <list>
-#include "SaltyEngine/SFML/AssetManager.hpp"
 #include "Object.hpp"
 #include "SaltyEngine/Sprite.hpp"
 
@@ -13,11 +12,13 @@ namespace SaltyEngine
 	protected:
 		std::list<std::function<void()>> m_events;
 		int m_frameRate = 60;
+        AnimationConstants::WrapMode m_wrapMode = AnimationConstants::WrapMode::ONCE;
 
 	public:
-		AAnimationClip(std::string const& name = "Animation", int frameRate = 60) :
+		AAnimationClip(std::string const& name = "Animation", int frameRate = 60, AnimationConstants::WrapMode mode = AnimationConstants::WrapMode::ONCE) :
 				Object(name),
-				m_frameRate(frameRate)
+				m_frameRate(frameRate),
+                m_wrapMode(mode)
 		{}
 
 		virtual ~AAnimationClip() {}
@@ -29,8 +30,6 @@ namespace SaltyEngine
 			m_events.push_back(event);
 		}
 
-//		virtual void AddSprite(Sprite<T> * const sprite) = 0;
-
 		double GetFrameRate() const
 		{
 			return m_frameRate;
@@ -40,23 +39,5 @@ namespace SaltyEngine
 		{
 			m_frameRate = frameRate;
 		}
-
-//		virtual const std::list<Sprite<T> *> &GetFrames() const = 0;
-
-//		virtual void operator<<(Sprite<T> * const sprite) = 0;
-
-//	public:
-//		AnimationClip *CopyClip()
-//		{
-//			AnimationClip *animationclip = new AnimationClip("Animation(Clone)", m_frameRate);
-//			for (std::list<std::function<void()>>::const_iterator j = m_events.begin(); j != m_events.end(); ++j) {
-//				animationclip->m_events.push_back(*j);
-//			}
-//			for (Sprite<T> *sprite : m_sprites) {
-//                if (sprite)
-//                    animationclip->AddSprite(SFML::AssetManager::Instance().GetSprite(sprite->GetName()));
-//			}
-//			return animationclip;
-//		}
 	};
 }

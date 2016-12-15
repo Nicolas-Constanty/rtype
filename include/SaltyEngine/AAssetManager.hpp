@@ -8,9 +8,7 @@
 #include <memory>
 #include <cstring>
 #include "SaltyEngine/ISound.hpp"
-#include "SaltyEngine/Texture.hpp"
 #include "SaltyEngine/Constants.hpp"
-#include "SaltyEngine/Texture.hpp"
 #include "SaltyEngine/Debug.hpp"
 
 #include "Parser/ParserJson.hpp"
@@ -29,6 +27,9 @@
 
 namespace SaltyEngine {
 
+    ///
+    /// \brief Struct of a Sprite
+    ///
     struct SpriteDefault {
         std::string texture;
         Vector2i    position;
@@ -36,11 +37,20 @@ namespace SaltyEngine {
     };
 
     ///
+    /// \brief Struct of an Animation
+    ///
+    struct AnimationDefault {
+        std::string             mode;
+        int                     framerate;
+        std::list<std::string>  sprites;
+    };
+
+    ///
     /// \brief AssetManager load and get all assets
     /// \tparam Texture
     /// \tparam Sprite
     /// \tparam Sound
-    template <class Texture, class Sprite, class Sound = ::SaltyEngine::Sound::ISound>
+    template <class Texture, class Sprite, class Animation, class Sound = ::SaltyEngine::Sound::ISound>
     class AAssetManager {
     protected:
         AAssetManager() {
@@ -59,7 +69,7 @@ namespace SaltyEngine {
             path_textures = getFullPath(Asset::TEXTURES_PATH);
             path_sounds = getFullPath(Asset::SOUNDS_PATH);
             path_sprites = getFullPath(Asset::SPRITES_PATH);
-
+            path_animations = getFullPath(Asset::ANIMS_PATH);
         }
 
         virtual ~AAssetManager() {
@@ -75,11 +85,13 @@ namespace SaltyEngine {
         std::string                             path_textures;
         std::string                             path_sounds;
         std::string                             path_sprites;
+        std::string                             path_animations;
 
         std::map<std::string, std::unique_ptr<Sound>>   m_sounds;
         std::map<std::string, std::unique_ptr<Texture>> m_textures;
         std::map<std::string, SpriteDefault>            m_sprites;
-
+        std::map<std::string, AnimationDefault>         m_animations;
+        std::list<std::string>                          m_prefabs;
 
     public:
         ///
@@ -118,6 +130,7 @@ namespace SaltyEngine {
                 }
                 it = m_sounds.find(name);
                 if (it == m_sounds.end()) {
+                    Debug::PrintWarning("Failed to get sound " + name);
                     return nullptr;
                 }
             }
@@ -144,6 +157,7 @@ namespace SaltyEngine {
                 }
                 it = m_textures.find(name);
                 if (it == m_textures.end()) {
+                    Debug::PrintWarning("Failed to get texture " + name);
                     return nullptr;
                 }
             }
@@ -177,6 +191,7 @@ namespace SaltyEngine {
                             Vector2i(std::stoi(map["rect"]["x"]()), std::stoi(map["rect"]["y"]())),
                             Vector2i(std::stoi(map["rect"]["width"]()), std::stoi(map["rect"]["heigth"]()))
                     };
+                    Debug::PrintSuccess("Sprite " + filename + " was successfuly loaded");
                 } else {
                     Debug::PrintError("Cannot parse sprite " + filename);
                     return false;
@@ -196,11 +211,61 @@ namespace SaltyEngine {
 
     public:
         ///
+        /// \brief LoadAnimation by filename
+        /// \param filename
+        /// \return bool
+        bool            LoadAnimation(std::string const &filename) {
+            if (m_animations.find(filename) != m_animations.end()) {
+                Debug::PrintWarning("Animation " + filename + " already loaded");
+                return false;
+            }
+            try {
+                Parser parser = Parser(JSON, (path_animations + filename + Asset::ANIM_EXTENSION).c_str());
+                JsonVariant::json_pair map;
+                if (parser.parse(&map)) {
+                    std::string const &mode = map["mode"]();
+                    int      framrate = std::stoi(map["framerate"]());
+                    JsonVariant const &spritesJSON = map["sprites"];
+                    std::list<std::string>  sprites;
+
+                    for (unsigned int i = 0; i < spritesJSON.size(); ++i) {
+                        const std::string sprite = spritesJSON[i]();
+                        LoadSprite(sprite);
+                        sprites.push_back(sprite);
+                    }
+                    m_animations[filename] = AnimationDefault {
+                            mode,
+                            framrate,
+                            sprites
+                    };
+                    Debug::PrintSuccess("Animation " + filename + " was successfuly loaded");
+                } else {
+                    Debug::PrintError("Cannot parse animation " + filename);
+                    return false;
+                }
+            } catch (std::exception const &e) {
+                Debug::PrintError(std::string(e.what()) + " " + filename);
+                return false;
+            }
+            return true;
+        }
+
+        ///
+        /// \brief Return Animation pointer
+        /// \param name
+        /// \return
+        virtual Animation   *GetAnimation(std::string const &name) = 0;
+    public:
+        ///
         /// \brief Load Prefab from filename
         /// \brief Load sprites dependencies
         /// \param filename
         /// \return bool
         bool    LoadPrefab(std::string const &filename) {
+            if (std::find(m_prefabs.begin(), m_prefabs.end(), filename) != m_prefabs.end()) {
+                Debug::PrintWarning("Prefab " + filename + " already loaded");
+                return false;
+            }
             try {
                 Parser parser = Parser(JSON, (path_prefabs + filename + Asset::PREFAB_EXTENSION).c_str());
                 JsonVariant::json_pair map;
@@ -210,6 +275,7 @@ namespace SaltyEngine {
                     JsonVariant const &sprites = map["sprites"];
                     JsonVariant const &sounds = map["sounds"];
                     JsonVariant const &dependencies = map["dependencies"];
+                    JsonVariant const &animations = map["animations"];
 
                     for (unsigned int i = 0; i < sprites.size(); ++i) {
                         LoadSprite(sprites[i]());
@@ -223,10 +289,15 @@ namespace SaltyEngine {
                         LoadPrefab(dependencies[i]());
                     }
 
+                    for (unsigned int i = 0; i < animations.size(); ++i) {
+                        LoadAnimation(animations[i]());
+                    }
+
                     if (!lib.empty()) {
                         Factory::Instance().LoadAsset(path_metas + lib + Asset::META_EXTENSION);
                     }
 
+                    m_prefabs.push_back(filename);
                     Debug::PrintSuccess("Prefab " + filename + " was successfuly loaded");
                 } else {
                     Debug::PrintError("Cannot parse prefab " + filename);
@@ -324,7 +395,7 @@ namespace SaltyEngine {
         /// \param
         /// \return
         void    LoadPrefabs() {
-			for (std::string filename : getFilesInDir(path_metas)) {
+            for (std::string filename : getFilesInDir(path_metas)) {
                 unsigned long dotPos = static_cast<unsigned long>(filename.find_last_of("."));
                 if (dotPos == filename.npos) {
                     continue;

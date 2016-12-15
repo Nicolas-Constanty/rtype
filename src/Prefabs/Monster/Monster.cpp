@@ -11,12 +11,7 @@ Monster::Monster() : GameObject("Monster", SaltyEngine::Layer::Tag::Enemy)
 {
     AddComponent<SaltyEngine::SFML::SpriteRenderer>(SaltyEngine::SFML::AssetManager::Instance().GetSprite("Monster/Monster1"), SaltyEngine::Layout::normal);
     AddComponent < SaltyEngine::SFML::Animation>(true, SaltyEngine::AnimationConstants::WrapMode::LOOP);
-    SaltyEngine::SFML::AnimationClip *clip = new SaltyEngine::SFML::AnimationClip();
-    clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite("Monster/Monster1"));
-    clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite("Monster/Monster2"));
-    clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite("Monster/Monster3"));
-    clip->SetFrameRate(5);
-    GetComponent<SaltyEngine::SFML::Animation >()->AddClip(clip, "Walk");
+    GetComponent<SaltyEngine::SFML::Animation>()->AddClip(SaltyEngine::SFML::AssetManager::Instance().GetAnimation("Monster/Walk"), "Walk");
 
     AddComponent<MonsterController>();
     AddComponent<SaltyEngine::SFML::BoxCollider2D>();

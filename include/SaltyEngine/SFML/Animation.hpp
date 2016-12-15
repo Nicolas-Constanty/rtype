@@ -205,9 +205,8 @@ namespace SaltyEngine
 
             virtual Component *CloneComponent(GameObject *const obj) {
                 Animation *anim = new Animation(obj, m_playAuto, m_wrapMode);
-                for (typename std::map<std::string, AnimationClip *>::const_iterator it = m_clips.begin();
-                     it != m_clips.end(); ++it) {
-                    anim->AddClip(it->second->CopyClip(), it->first);
+                for (typename std::map<std::string, AnimationClip *>::const_iterator it = m_clips.begin(); it != m_clips.end(); ++it) {
+                    anim->AddClip(AssetManager::Instance().GetAnimation(it->second->GetName()), it->first);
                 }
                 anim->m_queuedAnims = m_queuedAnims;
                 anim->m_isPlaying = m_isPlaying;

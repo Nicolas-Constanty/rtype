@@ -1,0 +1,8 @@
+{
+  "mode": "{{mode}}",
+  "framerate": "{{framerate}}",
+  "sprites": [
+    "{{sprite1}}",
+    "{{sprite2}}"
+  ]
+}
