@@ -26,7 +26,7 @@ public:
 
 
 private:
-    float m_vel = 50;
+    float m_vel = 2; // 50
     int m_damage = 1;
 
 public:
