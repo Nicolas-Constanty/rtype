@@ -1,0 +1,12 @@
+C:/Users/nicol/rtype/cmake-build-release/player.dir/MinSizeRel/Player.obj
+C:/Users/nicol/rtype/cmake-build-release/player.dir/MinSizeRel/PlayerController.obj
+C:/Users/nicol/rtype/cmake-build-release/player.dir/MinSizeRel/GameClientObject.obj
+C:/Users/nicol/rtype/cmake-build-release/player.dir/MinSizeRel/GameManager.obj
+C:/Users/nicol/rtype/cmake-build-release/player.dir/MinSizeRel/RtypeClientGameClient.obj
+C:/Users/nicol/rtype/cmake-build-release/player.dir/MinSizeRel/SpaceShipController.obj
+C:/Users/nicol/rtype/cmake-build-release/player.dir/MinSizeRel/GameObjectContainer.obj
+C:/Users/nicol/rtype/cmake-build-release/player.dir/MinSizeRel/GameObjectID.obj
+C:/Users/nicol/rtype/cmake-build-release/player.dir/MinSizeRel/RtypeGameClient.obj
+C:/Users/nicol/rtype/cmake-build-release/player.dir/MinSizeRel/RtypeNetworkFactory.obj
+C:/Users/nicol/rtype/cmake-build-release/player.dir/MinSizeRel/ProtocolPrintGamePackage.obj
+C:/Users/nicol/rtype/cmake-build-release/player.dir/MinSizeRel/RTypeProtocolGameManager.obj

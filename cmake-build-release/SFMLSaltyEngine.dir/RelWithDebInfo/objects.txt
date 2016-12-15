@@ -1,0 +1,7 @@
+C:/Users/nicol/rtype/cmake-build-release/SFMLSaltyEngine.dir/RelWithDebInfo/AssetManager.obj
+C:/Users/nicol/rtype/cmake-build-release/SFMLSaltyEngine.dir/RelWithDebInfo/EventManager.obj
+C:/Users/nicol/rtype/cmake-build-release/SFMLSaltyEngine.dir/RelWithDebInfo/Image.obj
+C:/Users/nicol/rtype/cmake-build-release/SFMLSaltyEngine.dir/RelWithDebInfo/Music.obj
+C:/Users/nicol/rtype/cmake-build-release/SFMLSaltyEngine.dir/RelWithDebInfo/Renderer.obj
+C:/Users/nicol/rtype/cmake-build-release/SFMLSaltyEngine.dir/RelWithDebInfo/Scene.obj
+C:/Users/nicol/rtype/cmake-build-release/SFMLSaltyEngine.dir/RelWithDebInfo/Sound.obj

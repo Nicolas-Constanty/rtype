@@ -1,0 +1,2 @@
+C:/Users/nicol/rtype/cmake-build-release/monster.dir/MinSizeRel/Monster.obj
+C:/Users/nicol/rtype/cmake-build-release/monster.dir/MinSizeRel/MonsterController.obj

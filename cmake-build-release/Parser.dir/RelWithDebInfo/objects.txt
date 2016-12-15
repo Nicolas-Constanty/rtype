@@ -1,0 +1,8 @@
+C:/Users/nicol/rtype/cmake-build-release/Parser.dir/RelWithDebInfo/ConsumerParser.obj
+C:/Users/nicol/rtype/cmake-build-release/Parser.dir/RelWithDebInfo/JsonException.obj
+C:/Users/nicol/rtype/cmake-build-release/Parser.dir/RelWithDebInfo/JsonVariant.obj
+C:/Users/nicol/rtype/cmake-build-release/Parser.dir/RelWithDebInfo/Parser.obj
+C:/Users/nicol/rtype/cmake-build-release/Parser.dir/RelWithDebInfo/ParserConf.obj
+C:/Users/nicol/rtype/cmake-build-release/Parser.dir/RelWithDebInfo/ParserHttp.obj
+C:/Users/nicol/rtype/cmake-build-release/Parser.dir/RelWithDebInfo/ParserJson.obj
+C:/Users/nicol/rtype/cmake-build-release/Parser.dir/RelWithDebInfo/ProducterStream.obj

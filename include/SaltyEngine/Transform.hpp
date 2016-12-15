@@ -3,7 +3,6 @@
 #ifndef TRANSFORM_HPP_
 #define TRANSFORM_HPP_
 
-
 #include <vector>
 #include <cmath>
 #include "SaltyEngine/Vector3.hpp"

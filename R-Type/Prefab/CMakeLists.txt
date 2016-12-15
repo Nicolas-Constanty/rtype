@@ -9,6 +9,7 @@ if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 	set(PREFAB_LIBRARIES SaltyEngine network ldl)
 elseif(MSVC)
 
+<<<<<<< Updated upstream
 	set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/Assets/Metas)
 
 	#Export all symbol for dll
@@ -17,12 +18,23 @@ elseif(MSVC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3 -DWIN32_LEAN_AND_MEAN -D_CRT_SECURE_NO_WARNINGS -D_USE_MATH_DEFINES")
 
 	set(PREFAB_LIBRARIES SaltyEngine SFMLSaltyEngine Network)
+=======
+	#Export all symbol for dll
+	set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS true)
+	
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3 -DWIN32_LEAN_AND_MEAN")
+>>>>>>> Stashed changes
 endif()
 
 include_directories("include")
 link_directories(../../lib)
+<<<<<<< Updated upstream
 
 
+=======
+
+set(PREFAB_LIBRARIES lSaltyEngine lnetwork ldl)
+>>>>>>> Stashed changes
 
 # MONSTER
 file(GLOB MONSTER_SOURCE_FILE "src/Prefabs/Monster/*.cpp" "include/Prefabs/GenericController.hpp" "include/Prefabs/Monster/*.hpp" ${NETWORK})

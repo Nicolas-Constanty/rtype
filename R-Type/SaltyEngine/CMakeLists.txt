@@ -53,6 +53,7 @@ elseif(MSVC)
 
 	#Create library
 	add_library(SaltyEngine STATIC ${SOURCE_SALTYENGINE_FILE})
+
 endif()
 
 

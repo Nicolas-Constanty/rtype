@@ -1,0 +1,250 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGUID>{B3C1316A-38AA-3865-8364-5A54930A078B}</ProjectGUID>
+    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>x64</Platform>
+    <ProjectName>prefabs</ProjectName>
+    <VisualStudioCMakeGeneratedProject>3.6.20160606-g836e2-dirty-MSVC</VisualStudioCMakeGeneratedProject>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+    <PropertyGroup>
+      <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\nicol\rtype\include;C:\Users\nicol\rtype\include ..\..\Dependencies\Boost\Win\include;C:\Users\nicol\rtype\include ..\..\Dependencies\SFML\Win\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\nicol\rtype\include;C:\Users\nicol\rtype\include ..\..\Dependencies\Boost\Win\include;C:\Users\nicol\rtype\include ..\..\Dependencies\SFML\Win\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\nicol\rtype\include;C:\Users\nicol\rtype\include ..\..\Dependencies\Boost\Win\include;C:\Users\nicol\rtype\include ..\..\Dependencies\SFML\Win\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\nicol\rtype\include;C:\Users\nicol\rtype\include ..\..\Dependencies\Boost\Win\include;C:\Users\nicol\rtype\include ..\..\Dependencies\SFML\Win\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\nicol\rtype\CMakeLists.txt">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Users/nicol/rtype/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\ENTERPRISE\COMMON7\IDE\COMMONEXTENSIONS\MICROSOFT\CMAKE\CMake\bin\cmake.exe" -HC:/Users/nicol/rtype -BC:/Users/nicol/rtype/cmake-build-release --check-stamp-file C:\Users\nicol\rtype\cmake-build-release\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:/Users/nicol/rtype/CMakeLists.txt;C:\Users\nicol\rtype\CMakeLists.txt;C:\Users\nicol\rtype\cmake-build-release\CMakeFiles\3.6.20160606-g836e2-dirty-MSVC\CMakeSystem.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\CMakeSystemSpecificInitialize.cmake;C:\Users\nicol\rtype\cmake-build-release\CMakeFiles\3.6.20160606-g836e2-dirty-MSVC\CMakeCCompiler.cmake;C:\Users\nicol\rtype\cmake-build-release\CMakeFiles\3.6.20160606-g836e2-dirty-MSVC\CMakeCXXCompiler.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\CMakeGenericSystem.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\Platform\Windows.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\Platform\WindowsPaths.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\CMakeCInformation.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\CMakeLanguageInformation.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\Platform\Windows-MSVC.cmake;C:\Users\nicol\rtype\cmake-build-release\CMakeFiles\3.6.20160606-g836e2-dirty-MSVC\CMakeRCCompiler.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\CMakeRCInformation.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\CMakeCXXInformation.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\CMakeLanguageInformation.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\Platform\Windows-MSVC.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\CMakeCommonLanguageInclude.cmake;C:\Users\nicol\rtype\R-Type\Network\CMakeLists.txt;C:\Users\nicol\rtype\R-Type\ServerRoom\CMakeLists.txt;C:\Users\nicol\rtype\R-Type\ServerGameDispatcher\CMakeLists.txt;C:\Users\nicol\rtype\R-Type\Parser\CMakeLists.txt;C:\Users\nicol\rtype\R-Type\SaltyEngine\CMakeLists.txt;C:\Users\nicol\rtype\R-Type\SFMLSaltyEngine\CMakeLists.txt;C:\Users\nicol\rtype\Tests\Network\ClientRoomConnectionToServerRoom\CMakeLists.txt;C:\Users\nicol\rtype\Tests\GameServer\CMakeLists.txt;C:\Users\nicol\rtype\Tests\Network\CMakeLists.txt;C:\Users\nicol\rtype\Tests\GUI\CMakeLists.txt;C:\Users\nicol\rtype\R-Type\Prefab\CMakeLists.txt;C:\Users\nicol\rtype\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\nicol\rtype\cmake-build-release\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Users/nicol/rtype/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\ENTERPRISE\COMMON7\IDE\COMMONEXTENSIONS\MICROSOFT\CMAKE\CMake\bin\cmake.exe" -HC:/Users/nicol/rtype -BC:/Users/nicol/rtype/cmake-build-release --check-stamp-file C:\Users\nicol\rtype\cmake-build-release\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:/Users/nicol/rtype/CMakeLists.txt;C:\Users\nicol\rtype\CMakeLists.txt;C:\Users\nicol\rtype\cmake-build-release\CMakeFiles\3.6.20160606-g836e2-dirty-MSVC\CMakeSystem.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\CMakeSystemSpecificInitialize.cmake;C:\Users\nicol\rtype\cmake-build-release\CMakeFiles\3.6.20160606-g836e2-dirty-MSVC\CMakeCCompiler.cmake;C:\Users\nicol\rtype\cmake-build-release\CMakeFiles\3.6.20160606-g836e2-dirty-MSVC\CMakeCXXCompiler.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\CMakeGenericSystem.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\Platform\Windows.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\Platform\WindowsPaths.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\CMakeCInformation.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\CMakeLanguageInformation.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\Platform\Windows-MSVC.cmake;C:\Users\nicol\rtype\cmake-build-release\CMakeFiles\3.6.20160606-g836e2-dirty-MSVC\CMakeRCCompiler.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\CMakeRCInformation.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\CMakeCXXInformation.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\CMakeLanguageInformation.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\Platform\Windows-MSVC.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\CMakeCommonLanguageInclude.cmake;C:\Users\nicol\rtype\R-Type\Network\CMakeLists.txt;C:\Users\nicol\rtype\R-Type\ServerRoom\CMakeLists.txt;C:\Users\nicol\rtype\R-Type\ServerGameDispatcher\CMakeLists.txt;C:\Users\nicol\rtype\R-Type\Parser\CMakeLists.txt;C:\Users\nicol\rtype\R-Type\SaltyEngine\CMakeLists.txt;C:\Users\nicol\rtype\R-Type\SFMLSaltyEngine\CMakeLists.txt;C:\Users\nicol\rtype\Tests\Network\ClientRoomConnectionToServerRoom\CMakeLists.txt;C:\Users\nicol\rtype\Tests\GameServer\CMakeLists.txt;C:\Users\nicol\rtype\Tests\Network\CMakeLists.txt;C:\Users\nicol\rtype\Tests\GUI\CMakeLists.txt;C:\Users\nicol\rtype\R-Type\Prefab\CMakeLists.txt;C:\Users\nicol\rtype\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\nicol\rtype\cmake-build-release\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule C:/Users/nicol/rtype/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\ENTERPRISE\COMMON7\IDE\COMMONEXTENSIONS\MICROSOFT\CMAKE\CMake\bin\cmake.exe" -HC:/Users/nicol/rtype -BC:/Users/nicol/rtype/cmake-build-release --check-stamp-file C:\Users\nicol\rtype\cmake-build-release\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:/Users/nicol/rtype/CMakeLists.txt;C:\Users\nicol\rtype\CMakeLists.txt;C:\Users\nicol\rtype\cmake-build-release\CMakeFiles\3.6.20160606-g836e2-dirty-MSVC\CMakeSystem.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\CMakeSystemSpecificInitialize.cmake;C:\Users\nicol\rtype\cmake-build-release\CMakeFiles\3.6.20160606-g836e2-dirty-MSVC\CMakeCCompiler.cmake;C:\Users\nicol\rtype\cmake-build-release\CMakeFiles\3.6.20160606-g836e2-dirty-MSVC\CMakeCXXCompiler.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\CMakeGenericSystem.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\Platform\Windows.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\Platform\WindowsPaths.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\CMakeCInformation.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\CMakeLanguageInformation.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\Platform\Windows-MSVC.cmake;C:\Users\nicol\rtype\cmake-build-release\CMakeFiles\3.6.20160606-g836e2-dirty-MSVC\CMakeRCCompiler.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\CMakeRCInformation.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\CMakeCXXInformation.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\CMakeLanguageInformation.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\Platform\Windows-MSVC.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\CMakeCommonLanguageInclude.cmake;C:\Users\nicol\rtype\R-Type\Network\CMakeLists.txt;C:\Users\nicol\rtype\R-Type\ServerRoom\CMakeLists.txt;C:\Users\nicol\rtype\R-Type\ServerGameDispatcher\CMakeLists.txt;C:\Users\nicol\rtype\R-Type\Parser\CMakeLists.txt;C:\Users\nicol\rtype\R-Type\SaltyEngine\CMakeLists.txt;C:\Users\nicol\rtype\R-Type\SFMLSaltyEngine\CMakeLists.txt;C:\Users\nicol\rtype\Tests\Network\ClientRoomConnectionToServerRoom\CMakeLists.txt;C:\Users\nicol\rtype\Tests\GameServer\CMakeLists.txt;C:\Users\nicol\rtype\Tests\Network\CMakeLists.txt;C:\Users\nicol\rtype\Tests\GUI\CMakeLists.txt;C:\Users\nicol\rtype\R-Type\Prefab\CMakeLists.txt;C:\Users\nicol\rtype\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\nicol\rtype\cmake-build-release\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule C:/Users/nicol/rtype/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\ENTERPRISE\COMMON7\IDE\COMMONEXTENSIONS\MICROSOFT\CMAKE\CMake\bin\cmake.exe" -HC:/Users/nicol/rtype -BC:/Users/nicol/rtype/cmake-build-release --check-stamp-file C:\Users\nicol\rtype\cmake-build-release\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:/Users/nicol/rtype/CMakeLists.txt;C:\Users\nicol\rtype\CMakeLists.txt;C:\Users\nicol\rtype\cmake-build-release\CMakeFiles\3.6.20160606-g836e2-dirty-MSVC\CMakeSystem.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\CMakeSystemSpecificInitialize.cmake;C:\Users\nicol\rtype\cmake-build-release\CMakeFiles\3.6.20160606-g836e2-dirty-MSVC\CMakeCCompiler.cmake;C:\Users\nicol\rtype\cmake-build-release\CMakeFiles\3.6.20160606-g836e2-dirty-MSVC\CMakeCXXCompiler.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\CMakeGenericSystem.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\Platform\Windows.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\Platform\WindowsPaths.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\CMakeCInformation.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\CMakeLanguageInformation.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\Platform\Windows-MSVC.cmake;C:\Users\nicol\rtype\cmake-build-release\CMakeFiles\3.6.20160606-g836e2-dirty-MSVC\CMakeRCCompiler.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\CMakeRCInformation.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\CMakeCXXInformation.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\CMakeLanguageInformation.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\Platform\Windows-MSVC.cmake;C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.6\Modules\CMakeCommonLanguageInclude.cmake;C:\Users\nicol\rtype\R-Type\Network\CMakeLists.txt;C:\Users\nicol\rtype\R-Type\ServerRoom\CMakeLists.txt;C:\Users\nicol\rtype\R-Type\ServerGameDispatcher\CMakeLists.txt;C:\Users\nicol\rtype\R-Type\Parser\CMakeLists.txt;C:\Users\nicol\rtype\R-Type\SaltyEngine\CMakeLists.txt;C:\Users\nicol\rtype\R-Type\SFMLSaltyEngine\CMakeLists.txt;C:\Users\nicol\rtype\Tests\Network\ClientRoomConnectionToServerRoom\CMakeLists.txt;C:\Users\nicol\rtype\Tests\GameServer\CMakeLists.txt;C:\Users\nicol\rtype\Tests\Network\CMakeLists.txt;C:\Users\nicol\rtype\Tests\GUI\CMakeLists.txt;C:\Users\nicol\rtype\R-Type\Prefab\CMakeLists.txt;C:\Users\nicol\rtype\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\nicol\rtype\cmake-build-release\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\nicol\rtype\cmake-build-release\CMakeFiles\ae0c21d7da4b336eb5c11d02f22cde41\prefabs.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'"></Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:/Users/nicol/rtype/cmake-build-release/CMakeFiles/ae0c21d7da4b336eb5c11d02f22cde41/prefabs.rule;C:\Users\nicol\rtype\Debug\player.dll;C:\Users\nicol\rtype\Debug\mate.dll;C:\Users\nicol\rtype\Debug\missile_medusa.dll;C:\Users\nicol\rtype\Debug\monster.dll;C:\Users\nicol\rtype\Debug\missile_laser.dll;C:\Users\nicol\rtype\Debug\monster_walker.dll;C:\Users\nicol\rtype\Debug\missile_enemy_bullet.dll;C:\Users\nicol\rtype\Debug\explosion_basic.dll;C:\Users\nicol\rtype\Debug\monster_flying.dll;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\nicol\rtype\cmake-build-release\CMakeFiles\prefabs</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'"></Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:/Users/nicol/rtype/cmake-build-release/CMakeFiles/ae0c21d7da4b336eb5c11d02f22cde41/prefabs.rule;C:\Users\nicol\rtype\Release\player.dll;C:\Users\nicol\rtype\Release\mate.dll;C:\Users\nicol\rtype\Release\missile_medusa.dll;C:\Users\nicol\rtype\Release\monster.dll;C:\Users\nicol\rtype\Release\missile_laser.dll;C:\Users\nicol\rtype\Release\monster_walker.dll;C:\Users\nicol\rtype\Release\missile_enemy_bullet.dll;C:\Users\nicol\rtype\Release\explosion_basic.dll;C:\Users\nicol\rtype\Release\monster_flying.dll;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\nicol\rtype\cmake-build-release\CMakeFiles\prefabs</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'"></Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:/Users/nicol/rtype/cmake-build-release/CMakeFiles/ae0c21d7da4b336eb5c11d02f22cde41/prefabs.rule;C:\Users\nicol\rtype\MinSizeRel\player.dll;C:\Users\nicol\rtype\MinSizeRel\mate.dll;C:\Users\nicol\rtype\MinSizeRel\missile_medusa.dll;C:\Users\nicol\rtype\MinSizeRel\monster.dll;C:\Users\nicol\rtype\MinSizeRel\missile_laser.dll;C:\Users\nicol\rtype\MinSizeRel\monster_walker.dll;C:\Users\nicol\rtype\MinSizeRel\missile_enemy_bullet.dll;C:\Users\nicol\rtype\MinSizeRel\explosion_basic.dll;C:\Users\nicol\rtype\MinSizeRel\monster_flying.dll;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\nicol\rtype\cmake-build-release\CMakeFiles\prefabs</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'"></Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:/Users/nicol/rtype/cmake-build-release/CMakeFiles/ae0c21d7da4b336eb5c11d02f22cde41/prefabs.rule;C:\Users\nicol\rtype\RelWithDebInfo\player.dll;C:\Users\nicol\rtype\RelWithDebInfo\mate.dll;C:\Users\nicol\rtype\RelWithDebInfo\missile_medusa.dll;C:\Users\nicol\rtype\RelWithDebInfo\monster.dll;C:\Users\nicol\rtype\RelWithDebInfo\missile_laser.dll;C:\Users\nicol\rtype\RelWithDebInfo\monster_walker.dll;C:\Users\nicol\rtype\RelWithDebInfo\missile_enemy_bullet.dll;C:\Users\nicol\rtype\RelWithDebInfo\explosion_basic.dll;C:\Users\nicol\rtype\RelWithDebInfo\monster_flying.dll;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\nicol\rtype\cmake-build-release\CMakeFiles\prefabs</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\nicol\rtype\cmake-build-release\CMakeFiles\prefabs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="C:/Users/nicol/rtype/cmake-build-release/ZERO_CHECK.vcxproj">
+      <Project>96588305-C62D-3729-AA48-C5843AD7CF3E</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/nicol/rtype/cmake-build-release/explosion_basic.vcxproj">
+      <Project>9F6A4816-A397-3652-B828-E8179E7D5CAD</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/nicol/rtype/cmake-build-release/mate.vcxproj">
+      <Project>671ACCA8-599C-333C-B0FE-678E78C7DF9D</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/nicol/rtype/cmake-build-release/missile_enemy_bullet.vcxproj">
+      <Project>FE160B04-AC14-37CB-97F2-754034B7F1BF</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/nicol/rtype/cmake-build-release/missile_laser.vcxproj">
+      <Project>6722B1EF-EAFD-30F2-AC67-CB00A0C652AE</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/nicol/rtype/cmake-build-release/missile_medusa.vcxproj">
+      <Project>2131CD9B-4A46-38C4-B6A6-22A81283CD3B</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/nicol/rtype/cmake-build-release/monster.vcxproj">
+      <Project>5CB72DB5-79C0-37FB-9716-B57ABDFCF03C</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/nicol/rtype/cmake-build-release/monster_flying.vcxproj">
+      <Project>C3FA112A-99A4-3781-967B-5D2487883358</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/nicol/rtype/cmake-build-release/monster_walker.vcxproj">
+      <Project>B5514E98-7184-3CC8-B087-E2B1A5E2ECAC</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/nicol/rtype/cmake-build-release/player.vcxproj">
+      <Project>98F55D43-3E1F-36D9-8F73-78239EA6E3F8</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

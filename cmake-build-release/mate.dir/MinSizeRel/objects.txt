@@ -1,0 +1,2 @@
+C:/Users/nicol/rtype/cmake-build-release/mate.dir/MinSizeRel/Mate.obj
+C:/Users/nicol/rtype/cmake-build-release/mate.dir/MinSizeRel/MateComponent.obj

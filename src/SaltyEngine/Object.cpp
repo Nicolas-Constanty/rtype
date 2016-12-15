@@ -5,7 +5,7 @@
 namespace SaltyEngine
 {
 	/** @brief	Identifier for the object s. */
-	std::atomic<int> Object::s_id;
+	 //int Object::s_id;
 
 	/**
 	* @fn	uid Object::GetInstanceID() const

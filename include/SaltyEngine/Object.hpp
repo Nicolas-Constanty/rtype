@@ -24,15 +24,16 @@ namespace SaltyEngine
 
 	class Object: protected ICloneable<Object>
 	{
-	private:
-		static std::atomic<int> s_id;
 	public:
 		// delete copy and move constructors and assign operators
 		Object(Object const&) = delete;             // Copy construct
 		Object(Object&&) = delete;                  // Move construct
 		Object& operator=(Object const&) = delete;  // Copy assign
 		Object& operator=(Object &&) = delete;      // Move assign
-		explicit Object(const std::string &name) : m_uid(++s_id), m_name(name) {};
+		explicit Object(const std::string &name) : m_name(name) {
+			static int s_id = 0;
+			m_uid = ++s_id;
+		};
 		virtual ~Object() {};
 
 	public:
@@ -77,7 +78,6 @@ namespace SaltyEngine
 		{
 			return Factory::Instance().GetObjectsOfType<Type>();
 		}
-	private:
 		virtual void Destroy();
 	};
 
