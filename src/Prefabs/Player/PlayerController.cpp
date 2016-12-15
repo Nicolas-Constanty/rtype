@@ -105,7 +105,9 @@ namespace SaltyEngine
 
             tick = tick > 1000 ? 1000 : tick;
 
-            if (tick >= 750) {
+            if (tick == 10000) {
+                power = 5;
+            } else if (tick >= 750) {
                 power = 4;
             } else if (tick >= 500) {
                 power = 3;
