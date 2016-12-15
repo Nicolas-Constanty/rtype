@@ -25,7 +25,6 @@ namespace SaltyEngine
 
 	void PlayerController::Start()
 	{
-
         start = clock::now();
 		InputKey::AddAxis("Horizontal", new Input::Axis(
 				{
@@ -105,7 +104,7 @@ namespace SaltyEngine
 
             tick = tick > 1000 ? 1000 : tick;
 
-            if (tick == 10000) {
+            if (tick == 1000) {
                 power = 5;
             } else if (tick >= 750) {
                 power = 4;
