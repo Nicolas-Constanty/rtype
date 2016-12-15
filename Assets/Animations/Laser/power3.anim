@@ -1,0 +1,8 @@
+{
+  "mode": "LOOP",
+  "framerate": "5",
+  "sprites": [
+    "Laser/power3-1",
+    "Laser/power3-2"
+  ]
+}
