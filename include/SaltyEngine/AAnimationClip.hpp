@@ -24,6 +24,11 @@ namespace SaltyEngine
 		virtual ~AAnimationClip() {}
 
 	public:
+		AnimationConstants::WrapMode GetWrapMode() const {
+			return (m_wrapMode);
+		}
+
+	public:
 		template<class U>
 		void AddEvent(U event)
 		{

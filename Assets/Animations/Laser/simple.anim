@@ -1,6 +1,6 @@
 {
   "mode": "ONCE",
-  "framerate": "0",
+  "framerate": "1",
   "sprites": [
     "Laser/simple"
   ]
