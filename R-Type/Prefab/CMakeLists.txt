@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 2.8)
 project(rtype CXX)
 
 include_directories("include")
-link_directories(../../lib)
 
 #Linux
 if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
