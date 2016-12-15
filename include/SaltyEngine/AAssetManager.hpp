@@ -9,6 +9,7 @@
 #include <cstring>
 #include "SaltyEngine/ISound.hpp"
 #include "SaltyEngine/Constants.hpp"
+#include "SaltyEngine/GameObject.hpp"
 #include "Common/Debug.hpp"
 
 #include "Parser/ParserJson.hpp"
@@ -21,7 +22,6 @@
 #include <dirent.h>
 #include <unistd.h>
 #include "Common/LibLoader.hpp"
-#include "GameObject.hpp"
 
 #endif
 

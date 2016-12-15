@@ -75,11 +75,17 @@ include(${PROJECT_SOURCE_DIR}/R-Type/Parser/CMakeLists.txt)
 include(${PROJECT_SOURCE_DIR}/R-Type/SaltyEngine/CMakeLists.txt)
 include(${PROJECT_SOURCE_DIR}/R-Type/SFMLSaltyEngine/CMakeLists.txt)
 
+############ GAMESERVER ##############
+include(${PROJECT_SOURCE_DIR}/R-Type/GameServer/CMakeLists.txt)
+
+############ GAMECLIENT ##############
+include(${PROJECT_SOURCE_DIR}/R-Type/GameClient/CMakeLists.txt)
+
 ############### TESTS ################
-include(${PROJECT_SOURCE_DIR}/Tests/Network/ClientRoomConnectionToServerRoom/CMakeLists.txt)
-include(${PROJECT_SOURCE_DIR}/Tests/GameServer/CMakeLists.txt)
-include(${PROJECT_SOURCE_DIR}/Tests/Network/CMakeLists.txt)
-include(${PROJECT_SOURCE_DIR}/Tests/GUI/CMakeLists.txt)
+# include(${PROJECT_SOURCE_DIR}/Tests/Network/ClientRoomConnectionToServerRoom/CMakeLists.txt)
+# include(${PROJECT_SOURCE_DIR}/Tests/GameServer/CMakeLists.txt)
+# include(${PROJECT_SOURCE_DIR}/Tests/Network/CMakeLists.txt)
+# include(${PROJECT_SOURCE_DIR}/Tests/GUI/CMakeLists.txt)
 
 
 ############### PREFABS ##############
@@ -87,7 +93,9 @@ include(${PROJECT_SOURCE_DIR}/R-Type/Prefab/CMakeLists.txt)
 
 ############# DEPENDENCIES ############
 add_dependencies(SFMLSaltyEngine SaltyEngine)
-add_dependencies(client-test-move-netork prefabs Parser)
+#add_dependencies(client-test-move-netork prefabs Parser)
 
-add_dependencies(gui Network Parser SFMLSaltyEngine prefabs)
-add_dependencies(gameserver-stable SaltyEngine SFMLSaltyEngine Parser)
+#add_dependencies(gui Network Parser SFMLSaltyEngine prefabs)
+#add_dependencies(gameserver-stable SaltyEngine SFMLSaltyEngine Parser)
+
+add_dependencies(GameServer Parser SaltyEngine SFMLSaltyEngine Network player Prefab)
