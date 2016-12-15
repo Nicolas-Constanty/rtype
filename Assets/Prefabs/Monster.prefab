@@ -1,8 +1,9 @@
 {
     "sprites": [
-        "Monster/Monster1",
-        "Monster/Monster2",
-        "Monster/Monster3"
+        "Monster/Monster1"
+    ],
+    "animations": [
+        "Monster/Walk"
     ],
     "lib": "libmonster",
     "dependencies": [

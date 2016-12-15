@@ -1,5 +1,6 @@
 {
     "sprites": [
+        "Missile/Bullet1"
     ],
     "lib": "libmissile_medusa"
 }
