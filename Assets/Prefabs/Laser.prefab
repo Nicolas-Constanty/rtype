@@ -1,8 +1,8 @@
 {
-    "sprites": [
-	    "sprA",
-	    "sprB",
-	    "sprC"
-    ],
-    "lib": "libmissile_laser"
+  "sprites": [
+    "sprA",
+    "sprB",
+    "sprC"
+  ],
+  "lib": "libmissile_laser"
 }

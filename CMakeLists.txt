@@ -1,9 +1,10 @@
 cmake_minimum_required(VERSION 2.8)
 project(rtype)
 
-
+#Linux
 if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 
+	#C++FLAGS
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wextra")
 
 	find_package(PkgConfig)
@@ -16,7 +17,11 @@ if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 	else()
 		include_directories("include ../../Dependencies/Boost/Win/include")
 	endif()
+
+#Windows
 elseif(MSVC)
+
+	#C++ FLAGS
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3")
 endif()
 
@@ -87,5 +92,5 @@ include(${PROJECT_SOURCE_DIR}/R-Type/Prefab/CMakeLists.txt)
 add_dependencies(SFMLSaltyEngine SaltyEngine)
 add_dependencies(client-test-move-netork prefabs Parser)
 
-add_dependencies(gui network Parser SFMLSaltyEngine prefabs)
+add_dependencies(gui Network Parser SFMLSaltyEngine prefabs)
 add_dependencies(gameserver-stable SaltyEngine SFMLSaltyEngine Parser)

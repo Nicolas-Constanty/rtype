@@ -79,7 +79,7 @@ namespace SaltyEngine
         {
             T delta_x = to.x - from.x;
             T delta_y = to.y - from.y;
-            return atan2f(delta_y, delta_x) * 180.f / M_PI;
+            return static_cast<T>(atan2f(delta_y, delta_x) * 180.f / M_PI);
         }
 
         /**

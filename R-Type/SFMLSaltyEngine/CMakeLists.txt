@@ -1,8 +1,6 @@
 cmake_minimum_required(VERSION 2.8)
 project(rtype)
 
-
-
 #Linux
 if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 
@@ -33,9 +31,6 @@ elseif(MSVC)
 
 	#Export all symbol for dll
 	set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS true)
-	
-	#Set Output directory
-	set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}../../lib)
 
 	#C++ FLAGS
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3")

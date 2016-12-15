@@ -29,9 +29,6 @@ elseif(MSVC)
 	#Include
 	include_directories("include ../../Dependencies/Boost/Win/include")
 
-	#Set Output Directories
-	set(CMAKE_LIBRARY_OUTPUT_DIRECTORY lib)
-
 	#C++FLAGS
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3")
 

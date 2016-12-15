@@ -1,8 +1,8 @@
 {
-    "sprites": [
-    ],
-    "lib": "libplayer",
-    "dependencies": [
-        "Laser"
-    ]
+  "sprites": [
+  ],
+  "lib": "libplayer",
+  "dependencies": [
+    "Laser"
+  ]
 }

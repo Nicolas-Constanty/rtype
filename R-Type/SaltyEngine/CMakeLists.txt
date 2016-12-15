@@ -36,9 +36,6 @@ elseif(MSVC)
 	#Export all symbol for dll
 	set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS true)
 
-	#Set Output Directories
-	set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}../../lib)
-
 	#C++ FLAGS
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3 -DWIN32_LEAN_AND_MEAN -D_USE_MATH_DEFINES")
 
