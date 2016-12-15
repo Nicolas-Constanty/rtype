@@ -10,6 +10,7 @@
 #include <Rtype/Game/Client/SpaceShipController.hpp>
 #include <Rtype/Game/Common/RtypeNetworkFactory.hpp>
 #include <Prefabs/GenericController.hpp>
+#include <Prefabs/Missile/Laser/LaserController.hpp>
 
 Rtype::Game::Client::RtypeClientGameClient::RtypeClientGameClient(
         Network::Core::NativeSocketIOOperationDispatcher &dispatcher) :
@@ -112,14 +113,23 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetCREATEPackage(CREATEPackag
 
 void Rtype::Game::Client::RtypeClientGameClient::onGetBEAMPackage(BEAMPackageGame const &pack)
 {
-    std::cout << pack << std::endl;
     OnDiscoveringPackage(pack);
     //todo resolve beam on game. Check if it's <this> player that send the beam.
 }
 
 void Rtype::Game::Client::RtypeClientGameClient::onGetSHOTPackage(SHOTPackageGame const &pack)
 {
+    std::cout << pack << std::endl;
     OnDiscoveringPackage(pack);
+
+    SaltyEngine::GameObject *obj = gameManager->gameObjectContainer[pack.id];
+    if (obj) {
+        SaltyEngine::GameObject *laser = dynamic_cast<SaltyEngine::GameObject *>(::SaltyEngine::Instantiate("Laser", obj->transform.position));
+        gameManager->gameObjectContainer.Add(pack.objectID, laser);
+        laser->GetComponent<LaserController>()->Power(pack.power);
+    }
+
+    std::cout << "JE SUIS SENSE TIRER" << std::endl;
     //todo resolve shot package with power of shot
 }
 

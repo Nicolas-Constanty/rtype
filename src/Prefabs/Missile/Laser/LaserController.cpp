@@ -7,6 +7,13 @@
 #include "Prefabs/Missile/Laser/LaserController.hpp"
 #include "SaltyEngine/SFML.hpp"
 
+const std::map<int, std::string> LaserController::damageSprite {
+        {1, "Laser"},
+        {2, "Laser"},
+        {3, "Laser"},
+        {4, "Laser"}
+};
+
 LaserController::LaserController(SaltyEngine::GameObject *go) : SaltyEngine::SaltyBehaviour(go)
 {
 }
@@ -31,7 +38,6 @@ void LaserController::FixedUpdate()
 
 void LaserController::OnCollisionEnter(SaltyEngine::ICollider *col)
 {
-    std::cout << "colid" << std::endl;
     SaltyEngine::ACollider2D<sf::Vector2i> *c = dynamic_cast<SaltyEngine::ACollider2D<sf::Vector2i>*>(col);
     if (!c)
         return;
@@ -44,5 +50,15 @@ void LaserController::OnCollisionEnter(SaltyEngine::ICollider *col)
     else if (c->gameObject->GetTag() == SaltyEngine::Layer::Tag::Destroy)
     {
         SaltyEngine::Object::Destroy(this->gameObject);
+    }
+}
+
+void LaserController::Power(int damage) {
+    std::map<int, std::string>::const_iterator it;
+
+    it = damageSprite.find(damage);
+    if (it != damageSprite.end()) {
+        m_damage = it->first;
+        gameObject->GetComponent<SaltyEngine::SFML::SpriteRenderer>()->SetSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite(it->second));
     }
 }

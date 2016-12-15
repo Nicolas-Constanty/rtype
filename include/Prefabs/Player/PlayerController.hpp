@@ -8,7 +8,7 @@
 #include "SaltyEngine/SaltyBehaviour.hpp"
 
 typedef struct InformationPlayerShot {
-    double power;
+    int power;
     SaltyEngine::GameObject *laser;
     std::string laserString;
 } InformationPlayerShot;

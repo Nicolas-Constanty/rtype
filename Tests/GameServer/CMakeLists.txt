@@ -48,6 +48,10 @@ add_executable(gameserver-stable
         ${srcGameClient} ${incGameClient}
         src/Prefabs/Player/PlayerController.cpp
         include/Prefabs/Player/PlayerController.hpp
+        src/Prefabs/Missile/Laser/Laser.cpp
+        src/Prefabs/Missile/Laser/LaserController.cpp
+        include/Prefabs/Missile/Laser/Laser.hpp
+        include/Prefabs/Missile/Laser/LaserController.hpp
         include/Prefabs/GenericController.hpp
         Tests/GameServer/gameserver-stable.cpp)
 
@@ -61,6 +65,10 @@ add_executable(client-test-move-netork
         ${srcGameClient} ${incGameClient}
         ${srcGameCommon} ${incGameCommon}
         ${SFMLinc}
+        src/Prefabs/Missile/Laser/Laser.cpp
+        src/Prefabs/Missile/Laser/LaserController.cpp
+        include/Prefabs/Missile/Laser/Laser.hpp
+        include/Prefabs/Missile/Laser/LaserController.hpp
         Tests/GameServer/main.cpp)
 
 #target_link_libraries(gameserv-1 -ldl)

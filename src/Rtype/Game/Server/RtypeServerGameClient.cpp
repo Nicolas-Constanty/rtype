@@ -150,20 +150,27 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetSHOTPackage(SHOTPackageGam
 
         if (playerController) {
             InformationPlayerShot *informationPlayerShot = playerController->OnShotAction();
-            if (playerController->GetIDShot() == pack.id) {
+//            if (playerController->GetIDShot() == pack.id) {
                 if (informationPlayerShot) {
                     this->server1->gameObjectContainer.Add(GameObjectID::NewID(), informationPlayerShot->laser);
 
-                    this->BroadCastPackage<CREATEPackageGame>(
-                            &Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>,
-                            gameObject->transform.position.x,
-                            gameObject->transform.position.y,
-                            RtypeNetworkFactory::GetIDFromName(informationPlayerShot->laserString),
-                            this->server1->gameObjectContainer.GetServerObjectID(informationPlayerShot->laser));
+                    this->BroadCastPackage<SHOTPackageGame>(
+                            &Network::UDP::AUDPConnection::SendReliable<SHOTPackageGame>,
+                            this->server1->gameObjectContainer.GetServerObjectID(informationPlayerShot->laser),
+                            informationPlayerShot->power,
+                            this->server1->gameObjectContainer.GetServerObjectID(gameObject)
+                    );
+
+                    //TODO Ne pas envoyé CREATEPackage => SHOTPACKAGE
+//                    this->BroadCastPackage<CREATEPackageGame>(
+//                            &Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>,
+//                            gameObject->transform.position.x,
+//                            gameObject->transform.position.y,
+//                            RtypeNetworkFactory::GetIDFromName(informationPlayerShot->laserString),
+//                            this->server1->gameObjectContainer.GetServerObjectID(informationPlayerShot->laser));
                     playerController->IncIdShot();
-                    std::cout << "ENVOIE" << std::endl;
                 }
-            }
+//            }
         }
     }
 //    todo if (okay on gameside)
