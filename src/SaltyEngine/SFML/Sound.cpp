@@ -7,7 +7,9 @@
 namespace SaltyEngine {
     namespace SFML {
 
-        Sound::Sound() {
+        Sound::Sound() :
+            m_buffer(nullptr)
+        {
 
         }
 
@@ -21,7 +23,8 @@ namespace SaltyEngine {
         }
 
         Sound::~Sound() {
-
+            if (m_buffer)
+                delete(m_buffer);
         }
 
         void Sound::Play() {

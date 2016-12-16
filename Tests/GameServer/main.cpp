@@ -24,9 +24,9 @@ int main(int, char **)
 
 //	SaltyEngine::GameObject	*server = dynamic_cast<SaltyEngine::GameObject*>(SaltyEngine::Object::Instantiate(""));
 
-	SaltyEngine::GameObject *server;
+	std::unique_ptr<SaltyEngine::GameObject> server;
 
-	server = new SaltyEngine::GameObject("Rtype", SaltyEngine::Layer::Tag::Destroy);
+	server.reset(new SaltyEngine::GameObject("Rtype", SaltyEngine::Layer::Tag::Destroy));
 //	server->SetName("Rtype");
 	SaltyEngine::SFML::AssetManager::Instance().LoadScene("scene2");
 	server->AddComponent<Rtype::Game::Client::GameClientObject>("127.0.0.1", 4242);
@@ -36,7 +36,7 @@ int main(int, char **)
 	);
 	server->transform.position = SaltyEngine::Vector2(740, 360);
 
-	*scene << server;
+	*scene << server.get();
 
 //    SaltyEngine::GameObject	*player;
 //    SaltyEngine::GameObject	*playerMoved;

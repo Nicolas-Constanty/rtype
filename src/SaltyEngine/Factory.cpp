@@ -45,11 +45,11 @@ namespace SaltyEngine {
         return m_objects.front().get();
     }
 
-	bool Factory::LoadAsset(std::string const& path)
+	Asset::ASSET_LOADER *Factory::LoadAsset(std::string const& path)
 	{
-        static Asset::ASSET_LOADER loader;
+        Asset::ASSET_LOADER *loader = new Asset::ASSET_LOADER();
 
-        if (loader.Load(path) == nullptr)
+        if (loader->Load(path) == nullptr)
         {
             std::string error;
 #ifndef _WIN32
@@ -57,23 +57,28 @@ namespace SaltyEngine {
 #endif
             Debug::PrintError("Factory: failed to load asset at path [" + path + "]. Error was: " + error);
 			perror("");
-            return false;
+            delete(loader);
+            return nullptr;
         }
-        Object *obj = (GameObject*)(loader.Call("GetObjectPrefab"));
+        Object *obj = (GameObject*)(loader->Call("GetObjectPrefab"));
         if (obj == nullptr)
         {
             Debug::PrintError("Factory: failed to get asset.");
-            return false;
+            loader->Unload();
+            delete(loader);
+            return nullptr;
         }
         if (m_prefabs.find(obj->GetName()) != m_prefabs.end())
         {
             Debug::PrintWarning("Prefab [" + obj->GetName() + "] already in prefab list.");
-            return false;
+            loader->Unload();
+            delete(loader);
+            return nullptr;
         }
         m_prefabs[obj->GetName()] = std::unique_ptr<Object>(obj);
         Debug::PrintSuccess("Factory: loaded [" + obj->GetName() + "]");
         //loader.Unload();
-		return true;
+		return loader;
 	}
 }
 

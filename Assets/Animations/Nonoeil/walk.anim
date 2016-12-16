@@ -1,0 +1,12 @@
+{
+  "mode": "LOOP",
+  "framerate": "2",
+  "sprites": [
+    "Nonoeil/open",
+    "Nonoeil/close"
+  ],
+  "scale": {
+    "width": "1",
+    "height": "1"
+  }
+}

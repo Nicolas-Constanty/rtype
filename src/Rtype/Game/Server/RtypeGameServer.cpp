@@ -109,7 +109,8 @@ bool Rtype::Game::Server::RtypeGameServer::OnStart()
         ++i;
     }
     monsterMap = SaltyEngine::SFML::AssetManager::Instance().LoadScene("scene" + std::to_string(level));
-    monsterMap.sort([](std::pair<std::string, SaltyEngine::Vector2f> obj1, std::pair<std::string, SaltyEngine::Vector2f> obj2) {
+
+    monsterMap->objects.sort([](std::pair<std::string, SaltyEngine::Vector2f> obj1, std::pair<std::string, SaltyEngine::Vector2f> obj2) {
         return (obj1.second.x < obj2.second.x);
     });
     std::cout << "\x1b[32mServer started\x1b[0m: maximum number of players => " << maxSize << ", secure => " << std::boolalpha << secure << std::endl;
@@ -165,7 +166,7 @@ void Rtype::Game::Server::RtypeGameServer::OnStartGame(Rtype::Game::Common::Rtyp
 
 void Rtype::Game::Server::RtypeGameServer::OnStartGame() {
     launch = true;
-    for (std::pair<std::string, SaltyEngine::Vector2f> &obj : monsterMap) {
+    for (std::pair<std::string, SaltyEngine::Vector2f> &obj : monsterMap->objects) {
         if (obj.first != "Player") {
             SaltyEngine::GameObject *object = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate(obj.first, obj.second, 0));
             manager->gameObjectContainer.Add(GameObjectID::NewID(), object);
