@@ -77,6 +77,7 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetAUTHENTICATEPackage(AUTHEN
     }
     else
     {
+        bool check = false;
         connected = true;
 
         __playerID = server1->PlayerID();
@@ -97,11 +98,16 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetAUTHENTICATEPackage(AUTHEN
                 }
             }
 
-            if (!server1->IsLaunch())
+            if (!server1->IsLaunch()) {
                 server1->OnStartGame();
-            else
-                server1->OnStartGame(this, __playerID);
+                check = true;
+            }
+//            else
+//                server1->OnStartGame(this, __playerID);
 //            std::cout << "oui oui oui" << std::endl;
+        }
+        if (server1->IsLaunch() && !check) {
+            server1->OnStartGame(this, __playerID);
         }
 
         ping();
