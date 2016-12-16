@@ -70,10 +70,11 @@ namespace SaltyEngine {
             }
             ::SaltyEngine::Vector2i position = it->second.position;
             ::SaltyEngine::Vector2i size = it->second.size;
-            Sprite *sprite(new Sprite(texture, new Rect(position.x, position.y, size.x, size.y)));
-            sprite->SetName(name);
-            sprite->scale(it->second.scale.x, it->second.scale.y);
-            return sprite;
+            m_createdsprites.emplace(new Sprite(texture, new Rect(position.x, position.y, size.x, size.y)));
+//            Sprite *sprite();
+            m_createdsprites.top()->SetName(name);
+            m_createdsprites.top()->scale(it->second.scale.x, it->second.scale.y);
+            return m_createdsprites.top().get();
         }
 
         AnimationClip* AssetManager::GetAnimation(std::string const &name) {

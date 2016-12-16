@@ -84,7 +84,6 @@ namespace SaltyEngine {
             while (!m_loaders.empty())
             {
                 m_loaders.top()->Unload();
-                delete(m_loaders.top());
                 m_loaders.pop();
             }
         }
@@ -106,7 +105,8 @@ namespace SaltyEngine {
         std::map<std::string, AnimationDefault>         m_animations;
         std::list<std::string>                          m_prefabs;
 
-        std::stack<SaltyEngine::Asset::ASSET_LOADER *>  m_loaders;
+        std::stack<std::unique_ptr<SaltyEngine::Asset::ASSET_LOADER> >  m_loaders;
+        std::stack<std::unique_ptr<Sprite>>                             m_createdsprites;
 
     public:
         ///
@@ -339,7 +339,7 @@ namespace SaltyEngine {
                         SaltyEngine::Asset::ASSET_LOADER *loader = Factory::Instance().LoadAsset(path_metas + lib + Asset::META_EXTENSION);
 
                         if (loader)
-                            m_loaders.push(loader);
+                            m_loaders.emplace(loader);
                     }
 
                     m_prefabs.push_back(filename);
@@ -454,7 +454,7 @@ namespace SaltyEngine {
                     SaltyEngine::Asset::ASSET_LOADER *loader = Factory::Instance().LoadAsset(path_metas + filename);
 
                     if (loader)
-                        m_loaders.push(loader);
+                        m_loaders.emplace(loader);
                 }
             }
         }
