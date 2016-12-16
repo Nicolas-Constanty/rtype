@@ -147,7 +147,7 @@ void Rtype::Game::Server::RtypeGameServer::OnStartGame(Rtype::Game::Common::Rtyp
                             name = "Player";
                         }
                     }
-//                    std::cout << name << " CREATED" << std::endl;
+//                 std::cout << name << " CREATED" << std::endl;
                 }
 
                 client->SendPackage<CREATEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>,
