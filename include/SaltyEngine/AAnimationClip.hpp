@@ -28,6 +28,10 @@ namespace SaltyEngine
 			return (m_wrapMode);
 		}
 
+		void	SetWrapMode(AnimationConstants::WrapMode wrapMode) {
+			m_wrapMode = wrapMode;
+		}
+
 	public:
 		template<class U>
 		void AddEvent(U event)

@@ -85,6 +85,7 @@ include(${PROJECT_SOURCE_DIR}/Tests/Network/ClientRoomConnectionToServerRoom/CMa
 include(${PROJECT_SOURCE_DIR}/Tests/GameServer/CMakeLists.txt)
 include(${PROJECT_SOURCE_DIR}/Tests/Network/CMakeLists.txt)
 include(${PROJECT_SOURCE_DIR}/Tests/GUI/CMakeLists.txt)
+include(${PROJECT_SOURCE_DIR}/Tests/Animations/CMakeLists.txt)
 
 
 ############### PREFABS ##############

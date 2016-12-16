@@ -19,7 +19,8 @@ namespace SaltyEngine {
 		m_objects.push_front(Make_unique<GameObject>("GameObject"));
 		if (m_objects.front().get() == nullptr)
 			Debug::PrintWarning("Factory : could not create game object");
-        *Singleton<::SaltyEngine::Engine>::Instance().GetCurrentScene() << static_cast<GameObject*>(m_objects.front().get());
+        // TODO add to scene not WORKING
+//        *Singleton<::SaltyEngine::Engine>::Instance().GetCurrentScene() << static_cast<GameObject*>(m_objects.front().get());
 		return m_objects.front().get();
     }
 
