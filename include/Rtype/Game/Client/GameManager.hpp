@@ -17,7 +17,6 @@ public:
 
 public:
 	void Start();
-	void SendInput(std::string const &axisName, const float value);
     void OnCollisionExit(SaltyEngine::ICollider *collider);
     void OnCollisionEnter(SaltyEngine::ICollider *collider);
 
@@ -41,10 +40,21 @@ public:
 public:
     bool isServerSide() const;
 
+public:
+	void addPlayer(SaltyEngine::GameObject *player);
+	std::list<SaltyEngine::GameObject *> const &getPlayers() const;
+
+	void OnPlayerDeath();
+
+public:
+	void addPod(SaltyEngine::GameObject *pod);
+	std::list<SaltyEngine::GameObject*> const &getPods() const;
+
 private:
 	Rtype::Game::Server::GameServerObject *m_server;
 	Rtype::Game::Client::GameClientObject *m_client;
     std::list<SaltyEngine::GameObject*> m_players;
+	std::list<SaltyEngine::GameObject*> m_pods;
 
 public:
 	GameObjectContainer				gameObjectContainer;

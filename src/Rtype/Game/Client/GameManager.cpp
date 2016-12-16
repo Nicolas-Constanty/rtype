@@ -2,6 +2,7 @@
 #include <SaltyEngine/SaltyBehaviour.hpp>
 #include <Rtype/Game/Client/GameManager.hpp>
 #include <SaltyEngine/SFML/BoxCollider2D.hpp>
+#include <Prefabs/Player/PlayerController.hpp>
 
 GameManager::GameManager(SaltyEngine::GameObject * const gamObj) : SaltyBehaviour("GameManager", gamObj)
 {
@@ -22,11 +23,6 @@ void GameManager::Start()
     m_server = gameObject->GetComponent<Rtype::Game::Server::GameServerObject>();
 }
 
-void GameManager::SendInput(std::string const &axisName, const float value)
-{
-
-}
-
 bool GameManager::isServerSide() const
 {
     return m_server != NULL;
@@ -43,7 +39,41 @@ void GameManager::OnCollisionExit(SaltyEngine::ICollider *collider)
 //    }
 }
 
-void GameManager::OnCollisionEnter(SaltyEngine::ICollider *collider)
+void GameManager::OnCollisionEnter(SaltyEngine::ICollider *)
 {
     std::cout << "\e[32m======ENTER=======\e[0m" << std::endl;
+}
+
+void GameManager::addPlayer(SaltyEngine::GameObject *player)
+{
+    m_players.push_back(player);
+}
+
+std::list<SaltyEngine::GameObject *> const &GameManager::getPlayers() const
+{
+    return m_players;
+}
+
+void GameManager::OnPlayerDeath()
+{
+    for (SaltyEngine::GameObject *curr : m_players)
+    {
+        SaltyEngine::PlayerController *player = curr->GetComponent<SaltyEngine::PlayerController>();
+
+        if (player && player->GetHealth() > 0)
+        {
+            return;
+        }
+    }
+    //todo handle end of the game
+}
+
+void GameManager::addPod(SaltyEngine::GameObject *pod)
+{
+    m_pods.push_back(pod);
+}
+
+std::list<SaltyEngine::GameObject *> const &GameManager::getPods() const
+{
+    return m_pods;
 }

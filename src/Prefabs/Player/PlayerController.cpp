@@ -8,6 +8,7 @@
 #include "SaltyEngine/Constants.hpp"
 #include "SaltyEngine/SFML.hpp"
 #include "Rtype/Game/Client/GameManager.hpp"
+#include <Prefabs/Pod/PodController.hpp>
 
 namespace SaltyEngine
 {
@@ -17,6 +18,7 @@ namespace SaltyEngine
         power = 0;
         beamShot = NULL;
         playerID = 0;
+        pod = NULL;
 	};
 
 	PlayerController::PlayerController(const std::string &name, GameObject* const gameObj) : AGenericController(name, gameObj) {
@@ -25,6 +27,7 @@ namespace SaltyEngine
         power = 0;
         beamShot = NULL;
         playerID = 0;
+        pod = NULL;
 	};
 
 	void PlayerController::Start()
@@ -53,6 +56,7 @@ namespace SaltyEngine
 
         InputKey::AddAction("Fire", new Input::Action(Input::KeyCode::Space, std::make_pair<unsigned int, int>(0, 1)));
 
+        InputKey::AddAction("Pod", new Input::Action(Input::KeyCode::LShift, std::make_pair<unsigned int, int>(0, 2))); //todo koi t'est-ce qui fo fer
 //        GameObject *gameman = Engine::Instance().GetCurrentScene()->FindByName("GameManager");
 //
 //        manager = NULL;
@@ -97,6 +101,26 @@ namespace SaltyEngine
             if (!isServerSide()) {
                 SendPackage<SHOTPackageGame>(
                         getManager()->gameObjectContainer.GetServerObjectID(gameObject), power, idShot++);
+            }
+        }
+
+        if (InputKey::GetAction("Pod", Input::ActionType::Down))
+        {
+            if (!isServerSide())
+            {
+                if (pod)
+                {
+                    SendPackage<LAUNCHPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(pod->gameObject), playerID);
+                }
+                else
+                {
+                    PodController   *tocall = FindFirstAvailablePod();
+
+                    SendPackage<CALLPackageGame>(
+                            getManager()->gameObjectContainer.GetServerObjectID(tocall->gameObject),
+                            gameObject->transform.position.x,
+                            gameObject->transform.position.y);
+                }
             }
         }
 	}
@@ -179,5 +203,55 @@ namespace SaltyEngine
     void PlayerController::SetPlayerID(int id) {
         this->playerID = id;
         std::cout << "setting playerID == " << id << std::endl;
+    }
+
+    bool PlayerController::Attach(PodController *toattach)
+    {
+        if (pod)
+            return false;
+        pod = toattach;
+        return true;
+    }
+
+    bool PlayerController::Launch()
+    {
+        if (pod)
+        {
+            bool res = pod->Launch();
+            if (res)
+                pod = NULL;
+            return res;
+        }
+        return false;
+    }
+
+    bool PlayerController::Call()
+    {
+        if (!pod)
+        {
+            pod = FindFirstAvailablePod();
+            if (pod)
+                return pod->Call(gameObject->transform.position);
+        }
+        return false;
+    }
+
+    bool PlayerController::HasPod() const
+    {
+        return pod != NULL;
+    }
+
+    PodController *PlayerController::FindFirstAvailablePod()
+    {
+        for (SaltyEngine::GameObject *curr : getManager()->getPods())
+        {
+            PodController   *podController = curr->GetComponent<PodController>();
+
+            if (podController && !podController->isAttached())
+            {
+                return podController;
+            }
+        }
+        return nullptr;
     }
 }

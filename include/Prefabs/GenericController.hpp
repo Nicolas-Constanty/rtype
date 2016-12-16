@@ -26,9 +26,6 @@ public:
 	~AGenericController() {}
 
 public:
-	virtual void Start() = 0;
-
-public:
 	virtual void TakeDamage(int amount)
 	{
 		m_health -= amount;

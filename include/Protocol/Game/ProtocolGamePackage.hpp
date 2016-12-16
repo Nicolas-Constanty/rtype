@@ -23,7 +23,7 @@ typedef enum : unsigned char {
     GAMESHOT = 2,
     GAMETAKE = 3,
     GAMEBEAM = 4,
-    GAMEDROP = 5,
+    GAMECALL = 5,
     GAMEDIE = 6,
     GAMECREATE = 7,
     GAMELAUNCH = 8,
@@ -34,7 +34,8 @@ typedef enum : unsigned char {
     GAMEFAILURE = 13,
     GAMEINPUT = 14,
     GAMEDISCONNECT = 15,
-    GAMEENEMYSHOT = 16
+    GAMEENEMYSHOT = 16,
+    GAMEUPGRADE = 17
 } GamePurpose;
 
 class PackageGameHeader {
@@ -208,23 +209,45 @@ public:
 
 class TAKEPackageGame : public ObjectIDPackageGame {
 public:
-    TAKEPackageGame(unsigned short sequenceID = 0, unsigned short objectID = 0, unsigned short transactionID = 0)
-            : ObjectIDPackageGame(sizeof(TAKEPackageGame), GamePurpose::GAMETAKE, sequenceID, objectID, true, transactionID) {
+    TAKEPackageGame(unsigned short sequenceID = 0, unsigned short podID = 0, unsigned char playerId = 0, unsigned short transactionID = 0) :
+            ObjectIDPackageGame(sizeof(TAKEPackageGame), GamePurpose::GAMETAKE, sequenceID, podID, true, transactionID),
+            playerID(playerId)
+    {
+
     }
+
+public:
+    unsigned char playerID;
 };
 
-class DROPPackageGame : public ObjectIDPackageGame {
+class CALLPackageGame : public ObjectIDPackageGame {
 public:
-    DROPPackageGame(unsigned short sequenceID = 0, unsigned short objectID = 0, unsigned short transactionID = 0)
-            : ObjectIDPackageGame(sizeof(DROPPackageGame), GamePurpose::GAMEDROP, sequenceID, objectID, true, transactionID) {
+    CALLPackageGame(unsigned short sequenceID = 0, unsigned short podID = 0, unsigned char playerID = 0, int posX = 0, int posY = 0, unsigned short transactionID = 0) :
+            ObjectIDPackageGame(sizeof(CALLPackageGame), GamePurpose::GAMECALL, sequenceID, podID, true, transactionID),
+            posX(posX),
+            posY(posY),
+            playerID(playerID)
+    {
+
     }
+
+public:
+    int posX;
+    int posY;
+    unsigned char playerID;
 };
 
 class LAUNCHPackageGame : public ObjectIDPackageGame {
 public:
-    LAUNCHPackageGame(unsigned short sequenceID = 0, unsigned short objectID = 0, unsigned short transactionID = 0)
-            : ObjectIDPackageGame(sizeof(LAUNCHPackageGame), GamePurpose::GAMELAUNCH, sequenceID, objectID, true, transactionID) {
+    LAUNCHPackageGame(unsigned short sequenceID = 0, unsigned short podID = 0, unsigned char playerID = 0, unsigned short transactionID = 0)
+            : ObjectIDPackageGame(sizeof(LAUNCHPackageGame), GamePurpose::GAMELAUNCH, sequenceID, podID, true, transactionID),
+              playerID(playerID)
+    {
+
     }
+
+public:
+    unsigned char playerID;
 };
 
 class REBORNPackageGame : public ObjectIDPackageGame {
@@ -262,6 +285,16 @@ public:
 
     char axes[16];
     float value;
+};
+
+class UPGRADEPackageGame : public ObjectIDPackageGame
+{
+public:
+    UPGRADEPackageGame(unsigned short sequenceID = 0, unsigned short podID = 0, unsigned short transactionID = 0) :
+            ObjectIDPackageGame(sizeof(UPGRADEPackageGame), GamePurpose::GAMEUPGRADE, sequenceID, podID, true, transactionID)
+    {
+
+    }
 };
 
 #endif //RTYPE_PROTOCOLGAMEPACKAGE_HPP

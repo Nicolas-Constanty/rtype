@@ -11,6 +11,7 @@ Mate::Mate() :
 {
     AddComponent<::SaltyEngine::SFML::SpriteRenderer>(SaltyEngine::SFML::AssetManager::Instance().GetSprite("Player/Player1"), ::SaltyEngine::Layout::normal);
     AddComponent<MateComponent>();
+    AddComponent<SaltyEngine::SFML::BoxCollider2D>();
 }
 
 Mate::~Mate()

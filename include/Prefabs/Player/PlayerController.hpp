@@ -7,12 +7,15 @@
 #include "Prefabs/GenericController.hpp"
 #include "SaltyEngine/SaltyBehaviour.hpp"
 
+class PodController;
+
 typedef struct InformationPlayerShot {
     int power;
     SaltyEngine::GameObject *laser;
     std::string laserString;
 } InformationPlayerShot;
 
+//todo add method to check if a pod is already attached to it
 namespace SaltyEngine {
 	class PlayerController : public AGenericController
 	{
@@ -39,6 +42,9 @@ namespace SaltyEngine {
         InformationPlayerShot *OnShotAction();
 
 	public:
+		PodController	*FindFirstAvailablePod();
+
+	public:
 		double mticks()
 		{
 			typedef std::chrono::duration<float, std::milli> duration;
@@ -50,7 +56,6 @@ namespace SaltyEngine {
 
 	public:
         void Die() const override;
-
 
     public:
 		void IncIdShot() {
@@ -68,6 +73,12 @@ namespace SaltyEngine {
 
 		void Beam();
 
+	public:
+		bool Attach(PodController *toattach);
+		bool Launch();
+		bool Call();
+		bool HasPod() const;
+
     public:
 		clock::time_point start;
 
@@ -79,7 +90,10 @@ namespace SaltyEngine {
 
 	public:
         GameObject     *beamShot;
+
+	private:
 		int				playerID;
+		PodController	*pod;
 	};
 }
 

@@ -11,6 +11,7 @@
 #include <Prefabs/GenericController.hpp>
 #include <Prefabs/Missile/Laser/LaserController.hpp>
 #include <Prefabs/Player/PlayerController.hpp>
+#include <Prefabs/Pod/PodController.hpp>
 
 Rtype::Game::Client::RtypeClientGameClient::RtypeClientGameClient(
         Network::Core::NativeSocketIOOperationDispatcher &dispatcher) :
@@ -165,11 +166,33 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetTAKEPackage(TAKEPackageGam
 {
     OnDiscoveringPackage(pack);
     //todo resolve take in the game
+    SaltyEngine::GameObject *object = gameManager->gameObjectContainer[pack.objectID];
+
+    if (object)
+    {
+        PodController   *podController = object->GetComponent<PodController>();
+
+        if (podController && !podController->isAttached())
+        {
+            podController->getAttachedPlayer()->Attach(podController);
+        }
+    }
 }
 
-void Rtype::Game::Client::RtypeClientGameClient::onGetDROPPackage(DROPPackageGame const &pack)
+void Rtype::Game::Client::RtypeClientGameClient::onGetCALLPackage(CALLPackageGame const &pack)
 {
     OnDiscoveringPackage(pack);
+    SaltyEngine::GameObject *object = gameManager->gameObjectContainer[pack.objectID];
+
+    if (object)
+    {
+        PodController   *podController = object->GetComponent<PodController>();
+
+        if (podController && podController->isAttached())
+        {
+            podController->getAttachedPlayer()->Call();
+        }
+    }
     //todo resolve drop package
 }
 
@@ -199,7 +222,17 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetMOVEPackage(MOVEPackageGam
 void Rtype::Game::Client::RtypeClientGameClient::onGetLAUNCHPackage(LAUNCHPackageGame const &pack)
 {
     OnDiscoveringPackage(pack);
-    //todo resolve launch package
+    SaltyEngine::GameObject *object = gameManager->gameObjectContainer[pack.objectID];
+
+    if (object)
+    {
+        PodController   *podController = object->GetComponent<PodController>();
+
+        if (podController && podController->isAttached())
+        {
+            podController->getAttachedPlayer()->Launch();
+        }
+    }
 }
 
 void Rtype::Game::Client::RtypeClientGameClient::onGetREBORNPackage(REBORNPackageGame const &pack)
@@ -221,6 +254,11 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetINPUTPackage(INPUTPackageG
     //SaltyEngine::Input::VirtualInputManager::SetAxis(pack.axes, pack.value);
     //todo resolve failure package
 //    InputKey::SetAxis(pack.axes, pack.);
+}
+
+void Rtype::Game::Client::RtypeClientGameClient::onGetUPGRADEPackage(UPGRADEPackageGame const &pack)
+{
+    OnDiscoveringPackage(pack);
 }
 
 void Rtype::Game::Client::RtypeClientGameClient::SendInput(std::string const &axisName, float const value)

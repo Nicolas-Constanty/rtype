@@ -40,7 +40,7 @@ public:
     static const GameID MOVEID;// = GameID(MOVE, sizeof(MOVEPackageGame));
     static const GameID TAKEID;// = GameID(GAMETAKE, sizeof(TAKEPackageGame));
     static const GameID BEAMID;// = GameID(GAMEBEAM, sizeof(BEAMPackageGame));
-    static const GameID DROPID;// = GameID(DROP, sizeof(DROPPackageGame));
+    static const GameID CALLID;// = GameID(DROP, sizeof(CALLPackageGame));
     static const GameID DIEID;// = GameID(DIE, sizeof(DIEPackageGame));
     static const GameID CREATEID;// = GameID(CREATE, sizeof(CREATEPackageGame));
     static const GameID LAUNCHID;// = GameID(LAUNCH, sizeof(LAUNCHPackageGame));
@@ -53,6 +53,7 @@ public:
     static const GameID INPUTID;
     static const GameID DISCONNECTID;
     static const GameID ENEMYSHOTID;
+    static const GameID UPGRADE;
 
 public:
     typedef void (IProtocolGameHandler::*MFP)(PackageGameHeader const &);
