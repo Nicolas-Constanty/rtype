@@ -44,6 +44,7 @@ namespace SaltyEngine {
         std::string             mode;
         int                     framerate;
         std::list<std::string>  sprites;
+        Vector2f                scale;
     };
 
     struct SceneDefault {
@@ -260,10 +261,24 @@ namespace SaltyEngine {
                         LoadSprite(sprite);
                         sprites.push_back(sprite);
                     }
+
+                    Vector2f scale = Vector2f(1, 1);
+                    try {
+                        if (!map["scale"]["width"]().empty()) {
+                            scale.x = std::stof(map["scale"]["width"]());
+                        }
+                        if (!map["scale"]["height"]().empty()) {
+                            scale.y = std::stof(map["scale"]["height"]());
+                        }
+                    } catch (std::exception const &) {
+
+                    }
+
                     m_animations[filename] = AnimationDefault {
                             mode,
                             framrate,
-                            sprites
+                            sprites,
+                            scale
                     };
                     Debug::PrintSuccess("Animation " + filename + " was successfuly loaded");
                 } else {

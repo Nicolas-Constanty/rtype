@@ -1,0 +1,9 @@
+{
+  "texture": "SpaceShips",
+  "rect": {
+    "x": "66",
+    "y": "17",
+    "width": "33",
+    "heigth": "17"
+  }
+}

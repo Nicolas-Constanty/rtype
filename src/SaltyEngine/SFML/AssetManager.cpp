@@ -99,8 +99,10 @@ namespace SaltyEngine {
             }
 
             AnimationClip *clip = new SaltyEngine::SFML::AnimationClip(name, it->second.framerate, mode);
-            for (std::string const &sprite: it->second.sprites) {
-                clip->AddSprite(GetSprite(sprite));
+            for (std::string const &spriteName: it->second.sprites) {
+                Sprite  *sprite = GetSprite(spriteName);
+                sprite->scale(it->second.scale.x, it->second.scale.y);
+                clip->AddSprite(sprite);
             }
             return clip;
         }

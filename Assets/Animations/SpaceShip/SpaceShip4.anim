@@ -1,0 +1,15 @@
+{
+  "mode": "LOOP",
+  "framerate": "5",
+  "sprites": [
+    "SpaceShip/SpaceShip4-1",
+    "SpaceShip/SpaceShip4-2",
+    "SpaceShip/SpaceShip4-3",
+    "SpaceShip/SpaceShip4-4",
+    "SpaceShip/SpaceShip4-5"
+  ],
+  "scale": {
+    "width": "2",
+    "height": "2"
+  }
+}

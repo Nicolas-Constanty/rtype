@@ -1,0 +1,15 @@
+{
+  "mode": "LOOP",
+  "framerate": "5",
+  "sprites": [
+    "Nonoeil/bullet_explode1",
+    "Nonoeil/bullet_explode2",
+    "Nonoeil/bullet_explode3",
+    "Nonoeil/bullet_explode4",
+    "Nonoeil/bullet_explode5"
+  ],
+  "scale": {
+    "width": "1",
+    "height": "1"
+  }
+}
