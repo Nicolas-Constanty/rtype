@@ -186,7 +186,7 @@ namespace coroutine {
 	{
 		auto future = std::async(std::launch::async, func);
 		std::future_status status = future.wait_for(std::chrono::milliseconds(100));
-		while (status == std::future_status::timeout)
+		while (status == std::future_status::default_timeout)
 		{
 			if (Singleton<Ordinator>::Instance().current != 0)
 				yield();
@@ -204,7 +204,7 @@ namespace coroutine {
 		auto future = std::async(std::launch::async, func);
 		std::future_status status = future.wait_for(std::chrono::milliseconds(100));
 
-		while (status == std::future_status::timeout)
+		while (status == std::future_status::default_timeout)
 		{
 			if (Singleton<Ordinator>::Instance().current != 0)
 				yield();

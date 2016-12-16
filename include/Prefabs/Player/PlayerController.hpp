@@ -57,7 +57,10 @@ namespace SaltyEngine {
 			idShot += 1;
 		}
 
+		void SetPlayerID(int id);
+
 		unsigned int GetIDShot() const;
+		int GetPlayerID() const;
 
         void Move() override;
 
@@ -72,11 +75,11 @@ namespace SaltyEngine {
 		double power;
 
 	private:
-//		GameManager    *manager;
 		unsigned int	idShot;
 
 	public:
         GameObject     *beamShot;
+		int				playerID;
 	};
 }
 

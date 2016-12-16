@@ -76,7 +76,7 @@ bool Rtype::Game::Common::RtypeGameClient::OnDataReceived(unsigned int)
             }
             if (!connected)
             {
-//                std::cout << "Disconnected while reading" << std::endl;
+                std::cout << "Disconnected while reading" << std::endl;
                 Disconnect();
 //                std::cout << "\e[31m ON A QUITTÉ LA FONCTION DATA RECEIVED \e[0m" << std::endl;
                 return false;
@@ -103,7 +103,7 @@ bool Rtype::Game::Common::RtypeGameClient::OnDataSent(unsigned int)
 void Rtype::Game::Common::RtypeGameClient::onGetDISCONNECTPackage(DISCONNECTPackageGame const &pack)
 {
     OnDiscoveringPackage(pack);
-//    std::cout << "Get disconnect: " << pack << std::endl;
+    std::cout << "Get disconnect: " << pack << std::endl;
     if (playerID == pack.playerID)
     {
         getDisconnected = true;
@@ -113,7 +113,7 @@ void Rtype::Game::Common::RtypeGameClient::onGetDISCONNECTPackage(DISCONNECTPack
 
 void Rtype::Game::Common::RtypeGameClient::OnDisconnect()
 {
-//    std::cout << "\e[31mOn Disconnect called\e[0m" << std::endl;
+    std::cout << "\e[31mOn Disconnect called\e[0m" << std::endl;
     if (!getDisconnected)
         BroadCastPackage<DISCONNECTPackageGame>(&Rtype::Game::Common::RtypeGameClient::SendToServerReliablyNow<DISCONNECTPackageGame>, playerID,
                                            static_cast<unsigned int>(errcode));

@@ -53,6 +53,9 @@ namespace Rtype
             public:
                 void StartDisplayInformation();
 
+            public:
+                virtual void OnDisconnect();
+
                 //todo implémenter dès que la classe de script saltybehaviour est codée
                 //public:
                 //    void setScript(TYPE toset);
@@ -73,6 +76,7 @@ namespace Rtype
                 double power;
 
             private:
+                int __playerID;
                 //ScriptRtypePLayerController *script;
             };
         }
