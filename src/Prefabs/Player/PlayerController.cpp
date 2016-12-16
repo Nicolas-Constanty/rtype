@@ -91,7 +91,6 @@ namespace SaltyEngine
 
         if (InputKey::GetAction("Fire", Input::ActionType::Down)) {
             if (!isServerSide()) {
-                std::cout << "CALLED ??" << std::endl;
                 SendPackage<BEAMPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(gameObject), idShot);
             }
         }
@@ -100,7 +99,7 @@ namespace SaltyEngine
 
             //manager->gameObjectContainer.Add(GameObjectID::NewID(), laser);
             if (!isServerSide()) {
-                /*manager->*/SendPackage<SHOTPackageGame>(
+                SendPackage<SHOTPackageGame>(
                         getManager()->gameObjectContainer.GetServerObjectID(gameObject), power, idShot++);
             }
         }
