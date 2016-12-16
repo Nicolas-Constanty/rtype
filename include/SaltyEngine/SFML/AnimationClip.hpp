@@ -20,7 +20,14 @@ namespace SaltyEngine
                     AAnimationClip(name, frameRate, mode)
             {}
 
-            virtual ~AnimationClip() {}
+            virtual ~AnimationClip() {
+                for (Sprite *curr : m_sprites)
+                {
+                    if (curr)
+                        delete(curr);
+                }
+                m_sprites.clear();
+            }
 
         public:
             void AddSprite(::SaltyEngine::SFML::Sprite *const sprite) {

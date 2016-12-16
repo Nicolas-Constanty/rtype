@@ -67,8 +67,8 @@ namespace SaltyEngine {
                 _getcwd(cwd, 256);
                 this->cwd = std::string(cwd) + "\\";
 #else
-            char *cwd = new char[256];
-            getcwd(cwd, 256);
+            char cwd[256];// = new char[256];
+            getcwd(&cwd[0], 256);
             this->cwd = std::string(cwd) + "/";
 #endif
             path_scenes = getFullPath(Asset::SCENES_PATH);
@@ -235,7 +235,7 @@ namespace SaltyEngine {
         /// \brief Return Sprite pointer
         /// \param name
         /// \return
-        virtual Sprite  *GetSprite(std::string const &name) = 0;
+        virtual Sprite *GetSprite(std::string const &name) = 0;
 
     public:
         ///

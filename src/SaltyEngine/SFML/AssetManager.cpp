@@ -51,7 +51,7 @@ namespace SaltyEngine {
             return true;
         }
 
-        Sprite * AssetManager::GetSprite(std::string const &name) {
+        Sprite *AssetManager::GetSprite(std::string const &name) {
             typename std::map<std::string, SpriteDefault>::const_iterator it = m_sprites.find(name);
             if (it == m_sprites.end()) {
                 if (!LoadSprite(name)) {
@@ -70,7 +70,7 @@ namespace SaltyEngine {
             }
             ::SaltyEngine::Vector2i position = it->second.position;
             ::SaltyEngine::Vector2i size = it->second.size;
-            Sprite *sprite = new Sprite(texture, new Rect(position.x, position.y, size.x, size.y));
+            Sprite *sprite(new Sprite(texture, new Rect(position.x, position.y, size.x, size.y)));
             sprite->SetName(name);
             sprite->scale(it->second.scale.x, it->second.scale.y);
             return sprite;

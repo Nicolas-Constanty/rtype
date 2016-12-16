@@ -66,7 +66,7 @@ namespace SaltyEngine
 
             }
             virtual ~SpriteRenderer() {
-                delete m_sprite;
+
             };
             Sprite* GetSprite(void) const override
             {
