@@ -73,6 +73,7 @@ int main()
 		anim->AddClip(animClip, "Walk");
 		gameObject->transform.position = pos;
 		pos.x += sprr->GetSprite()->GetBounds()->width + 100;
+		gameObject->transform.position.y += sprr->GetSprite()->GetBounds()->height / 2;
 		minY = (sprr->GetSprite()->GetBounds()->height > minY) ? sprr->GetSprite()->GetBounds()->height : minY;
 		if (pos.x > renderer->GetRenderWindow()->getSize().x - 100) {
 			pos.x = 50;
