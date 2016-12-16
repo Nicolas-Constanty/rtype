@@ -52,6 +52,7 @@ namespace Rtype
 
             public:
                 void OnStartGame();
+                void OnStartGame(Common::RtypeGameClient *, int playerID);
 
             public:
                 virtual void OnReadCheck();
@@ -70,8 +71,16 @@ namespace Rtype
                 }
 
             public:
+                int PlayerID();
+                void DisconnectConnectedPlayer(int playerID);
+
+            public:
+                std::map<int, bool> const &GetConnectedPlayers() const;
+
+            public:
                 size_t GetMaxSize() const;
                 void setManager(GameManager *manager);
+                bool IsLaunch() const;
 
             private:
                 GamePackageFactory factory;
@@ -84,6 +93,8 @@ namespace Rtype
 
             private:
                 u_int16_t level;
+                std::map<int, bool> playersConnected;
+                bool launch;
                 std::unique_ptr<SaltyEngine::SceneDefault>   monsterMap;
             };
         }

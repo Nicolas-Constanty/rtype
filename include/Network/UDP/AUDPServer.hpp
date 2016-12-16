@@ -19,7 +19,7 @@ namespace Network
         /**
          * @brief The timeout after which disconnet user
          */
-        constexpr static const std::chrono::milliseconds    timeout = std::chrono::milliseconds(30000);
+        constexpr static const std::chrono::milliseconds    default_timeout = std::chrono::milliseconds(30000);
 
         /**
          * @brief Class that corresponds to an UDP server
@@ -69,7 +69,7 @@ namespace Network
                  */
                 bool timedout()
                 {
-                    return timer.timeout(timeout);
+                    return timer.timeout(default_timeout);
                 }
 
                 Core::Timer const &getTimer() const
@@ -181,6 +181,7 @@ namespace Network
                     clients->Add(newclient);
                     newclient->setServer(this);
                     newclient->setClients(clients);
+                    newclient->refresh();
                     if (newclient->OnStart())
                     {
                         //tells the server a new client join
@@ -274,7 +275,7 @@ namespace Network
 
         protected:
             Core::NetBuffer             buff;
-            ClientType                  *newclient;
+            TimedUDPClient              *newclient;
         };
     }
 }

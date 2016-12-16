@@ -16,6 +16,7 @@ namespace SaltyEngine
         idShot = 1;
         power = 0;
         beamShot = NULL;
+        playerID = 0;
 	};
 
 	PlayerController::PlayerController(const std::string &name, GameObject* const gameObj) : AGenericController(name, gameObj) {
@@ -23,6 +24,7 @@ namespace SaltyEngine
         idShot = 1;
         power = 0;
         beamShot = NULL;
+        playerID = 0;
 	};
 
 	void PlayerController::Start()
@@ -67,7 +69,6 @@ namespace SaltyEngine
             if (!isServerSide())
             {
                 SendPackage<MOVEPackageGame>(
-//                        &Network::Core::BasicConnection::SendData<MOVEPackageGame>,
                         gameObject->transform.position.x,
                         gameObject->transform.position.y,
                         getManager()->gameObjectContainer.GetServerObjectID(gameObject));
@@ -170,5 +171,14 @@ namespace SaltyEngine
 //        Vector pos = Vector(gameObject->transform.position.x + 30, gameObject->transform.position.y);
 //        beamShot = dynamic_cast<SaltyEngine::GameObject*>(SaltyEngine::Instantiate("Beam", pos));
         std::cout << "BEAM" << std::endl;
+    }
+
+    int PlayerController::GetPlayerID() const {
+        return (playerID);
+    }
+
+    void PlayerController::SetPlayerID(int id) {
+        this->playerID = id;
+        std::cout << "setting playerID == " << id << std::endl;
     }
 }

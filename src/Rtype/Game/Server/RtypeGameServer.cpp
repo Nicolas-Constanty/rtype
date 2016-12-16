@@ -8,6 +8,7 @@
 #include <Rtype/Game/Common/GameObjectID.hpp>
 #include <Rtype/Game/Common/RtypeNetworkFactory.hpp>
 #include <Rtype/Game/Client/GameManager.hpp>
+#include <Prefabs/Player/PlayerController.hpp>
 
 const std::chrono::milliseconds   Rtype::Game::Server::RtypeGameServer::pingtimeout(15000);
 
@@ -19,12 +20,11 @@ Rtype::Game::Server::RtypeGameServer::RtypeGameServer(Network::Core::NativeSocke
         secure(false),
         level(level)
 {
-
+    launch = false;
 }
 
 Rtype::Game::Server::RtypeGameServer::~RtypeGameServer()
 {
-
 }
 
 bool Rtype::Game::Server::RtypeGameServer::OnDataReceived(unsigned int)
@@ -72,7 +72,7 @@ void Rtype::Game::Server::RtypeGameServer::OnReadCheck()
 //        else
 //        {
 //            std::cout << "Checking ping: " << client << std::endl;
-//            if (client && client->pong() && pingtimer.timeout(pingtimeout))
+//            if (client && client->pong() && pingtimer.default_timeout(pingtimeout))
 //            {
 //                std::cout << "===\e[32mPING\e[0m===" << std::endl;
 
@@ -103,6 +103,11 @@ void Rtype::Game::Server::RtypeGameServer::setSecure(bool security)
 
 bool Rtype::Game::Server::RtypeGameServer::OnStart()
 {
+    size_t i = 0;
+    while (i < this->maxSize) {
+        playersConnected[i] = false;
+        ++i;
+    }
     monsterMap = SaltyEngine::SFML::AssetManager::Instance().LoadScene("scene" + std::to_string(level));
 
     monsterMap->objects.sort([](std::pair<std::string, SaltyEngine::Vector2f> obj1, std::pair<std::string, SaltyEngine::Vector2f> obj2) {
@@ -116,9 +121,51 @@ size_t Rtype::Game::Server::RtypeGameServer::GetMaxSize() const {
     return (this->maxSize);
 }
 
+void Rtype::Game::Server::RtypeGameServer::OnStartGame(Rtype::Game::Common::RtypeGameClient *client, int playerID) {
+//    for (std::pair<std::string, SaltyEngine::Vector2f> &obj : monsterMap) {
+//        if (obj.first != "Player") {
+    std::list<SaltyEngine::Object *> list = SaltyEngine::Factory::Instance().GetObjectsOfType<SaltyEngine::GameObject>();
+    std::cout << "size==" << list.size() << std::endl;
+    for (SaltyEngine::Object *obj : list) {
+        SaltyEngine::GameObject *gameObject;
 
+        if ((gameObject = dynamic_cast<SaltyEngine::GameObject *>(obj))) {
+            std::string name = gameObject->GetName();
+            std::string::size_type size = name.find("(Clone)");
+            if (size != std::string::npos) {
+                name.erase(size, sizeof("(Clone)"));
+            }
+            if (gameObject->GetTag() != SaltyEngine::Layer::Tag::Untagged) {
+//                std::cout << "CREATE " << name << " obj !"  <<  std::endl;
+
+                if (gameObject->GetTag() == SaltyEngine::Layer::Tag::Player) {
+                    name = "Mate";
+                    SaltyEngine::PlayerController *playerController;
+                    playerController = gameObject->GetComponent<SaltyEngine::PlayerController>();
+                    if (playerController) {
+                        if (playerID == playerController->GetPlayerID()) {
+                            name = "Player";
+                        }
+                    }
+//                 std::cout << name << " CREATED" << std::endl;
+                }
+
+                client->SendPackage<CREATEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>,
+                                                       gameObject->transform.position.x,
+                                                       gameObject->transform.position.y,
+                                                       RtypeNetworkFactory::GetIDFromName(name),
+                                                       manager->gameObjectContainer.GetServerObjectID(gameObject));
+            }
+        }
+    }
+//            SaltyEngine::GameObject *object = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate(obj.first, obj.second, 0));
+            //manager->gameObjectContainer.Add(GameObjectID::NewID(), object);
+
+
+}
 
 void Rtype::Game::Server::RtypeGameServer::OnStartGame() {
+    launch = true;
     for (std::pair<std::string, SaltyEngine::Vector2f> &obj : monsterMap->objects) {
         if (obj.first != "Player") {
             SaltyEngine::GameObject *object = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate(obj.first, obj.second, 0));
@@ -129,7 +176,6 @@ void Rtype::Game::Server::RtypeGameServer::OnStartGame() {
                                                       object->transform.position.y,
                                                       RtypeNetworkFactory::GetIDFromName(obj.first),
                                                       manager->gameObjectContainer.GetServerObjectID(object));
-            /*this-><CREATEPackageGame>();*/
         }
     }
 }
@@ -138,6 +184,36 @@ void Rtype::Game::Server::RtypeGameServer::setManager(GameManager *manager)
 {
     std::cout << "=====> Setting manager in RtypeGameServer" << std::endl;
     this->manager = manager;
+}
+
+std::map<int, bool> const &Rtype::Game::Server::RtypeGameServer::GetConnectedPlayers() const {
+    return (playersConnected);
+}
+
+int Rtype::Game::Server::RtypeGameServer::PlayerID() {
+    size_t i = 0;
+    while (i < GetMaxSize()) {
+        std::map<int, bool>::iterator it = playersConnected.find(static_cast<int>(i));
+        if (it != playersConnected.end()) {
+            if (!it->second) {
+                it->second = true;
+                return (it->first);
+            }
+        }
+        ++i;
+    }
+    return (-1);
+}
+
+void Rtype::Game::Server::RtypeGameServer::DisconnectConnectedPlayer(int playerID) {
+    std::map<int, bool>::iterator it = playersConnected.find(playerID);
+    if (it != playersConnected.end()) {
+        it->second = false;
+    }
+}
+
+bool Rtype::Game::Server::RtypeGameServer::IsLaunch() const {
+    return launch;
 }
 
 //GameObjectContainer &Rtype::Game::Server::RtypeGameServer::GameObjectContainer() {
