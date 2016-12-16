@@ -34,6 +34,7 @@ namespace SaltyEngine {
         std::string texture;
         Vector2i    position;
         Vector2i    size;
+        Vector2f    scale;
     };
 
     ///
@@ -185,11 +186,24 @@ namespace SaltyEngine {
                         return false;
                     }
 
+                    Vector2f scale = Vector2f(1, 1);
+                    try {
+                        if (!map["scale"]["width"]().empty()) {
+                            scale.x = std::stof(map["scale"]["width"]());
+                        }
+                        if (!map["scale"]["height"]().empty()) {
+                            scale.y = std::stof(map["scale"]["height"]());
+                        }
+                    } catch (std::exception const &) {
+
+                    }
+
                     LoadTexture(texture);
                     m_sprites[filename] = SpriteDefault {
                             texture,
                             Vector2i(std::stoi(map["rect"]["x"]()), std::stoi(map["rect"]["y"]())),
-                            Vector2i(std::stoi(map["rect"]["width"]()), std::stoi(map["rect"]["heigth"]()))
+                            Vector2i(std::stoi(map["rect"]["width"]()), std::stoi(map["rect"]["heigth"]())),
+                            scale
                     };
                     Debug::PrintSuccess("Sprite " + filename + " was successfuly loaded");
                 } else {

@@ -72,6 +72,7 @@ namespace SaltyEngine {
             ::SaltyEngine::Vector2i size = it->second.size;
             Sprite *sprite = new Sprite(texture, new Rect(position.x, position.y, size.x, size.y));
             sprite->SetName(name);
+            sprite->scale(it->second.scale.x, it->second.scale.y);
             return sprite;
         }
 

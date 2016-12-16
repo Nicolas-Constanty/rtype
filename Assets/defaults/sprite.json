@@ -5,5 +5,9 @@
         "y": "0",
         "width": "10",
         "heigth": "10"
+    },
+    "scale": {
+        "width": "1",
+        "heigth": "1"
     }
 }
