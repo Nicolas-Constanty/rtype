@@ -47,7 +47,7 @@ std::list<std::string>  getAllFilesRecurive(std::string const &folder, std::stri
 
 int main()
 {
-    SaltyEngine::SFML::Renderer *renderer = new SaltyEngine::SFML::Renderer(sf::VideoMode(1280, 720), "R-Type Launcher");
+    SaltyEngine::SFML::Renderer *renderer = new SaltyEngine::SFML::Renderer(sf::VideoMode(1920, 1080), "R-Type Launcher");
 	SaltyEngine::SFML::EventManager *event_manager = new SaltyEngine::SFML::EventManager(renderer->GetRenderWindow());
 	// Set Renderer and EventManager
 	Singleton<SaltyEngine::Engine>::Instance().SetRenderer(renderer);
@@ -60,7 +60,7 @@ int main()
 	Singleton<SaltyEngine::Engine>::Instance() << scene;
 
     // Load scene
-	auto pos = SaltyEngine::BaseVector2<float>(50, 50);
+	auto pos = SaltyEngine::BaseVector2<float>(50, 100);
 	int minY = 0;
 
 	std::list<std::string> animations = getAllFilesRecurive(SaltyEngine::Asset::ANIMS_PATH);
@@ -73,7 +73,7 @@ int main()
 		anim->AddClip(animClip, "Walk");
 		gameObject->transform.position = pos;
 		pos.x += sprr->GetSprite()->GetBounds()->width + 100;
-		gameObject->transform.position.y += sprr->GetSprite()->GetBounds()->height / 2;
+//		gameObject->transform.position.y += sprr->GetSprite()->GetBounds()->height / 2;
 		minY = (sprr->GetSprite()->GetBounds()->height > minY) ? sprr->GetSprite()->GetBounds()->height : minY;
 		if (pos.x > renderer->GetRenderWindow()->getSize().x - 100) {
 			pos.x = 50;
