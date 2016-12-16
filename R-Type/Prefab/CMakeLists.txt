@@ -80,6 +80,12 @@ target_link_libraries(beam ${PREFAB_LIBRARIES})
 	add_library(mate SHARED ${MATE_SOURCE_FILES} ${MATE_INC_FILES})
 	target_link_libraries(mate ${PREFAB_LIBRARIES} missile_laser)
 
+	# POD
+	file(GLOB POD_SOURCE_FILES "src/Prefabs/Pod/*.cpp" ${COMMON})
+	file(GLOB POD_INC_FILES "include/Prefabs/Pod/*.hpp")
+	add_library(pod SHARED ${POD_SOURCE_FILES} ${POD_INC_FILES})
+	target_link_libraries(pod ${PREFAB_LIBRARIES})
+
 # MONSTERS
 
 	# BASIC

@@ -167,7 +167,7 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetTAKEPackage(TAKEPackageGam
     //todo resolve take in the game
 }
 
-void Rtype::Game::Client::RtypeClientGameClient::onGetDROPPackage(DROPPackageGame const &pack)
+void Rtype::Game::Client::RtypeClientGameClient::onGetDROPPackage(CALLPackageGame const &pack)
 {
     OnDiscoveringPackage(pack);
     //todo resolve drop package
@@ -216,6 +216,11 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetINPUTPackage(INPUTPackageG
     //SaltyEngine::Input::VirtualInputManager::SetAxis(pack.axes, pack.value);
     //todo resolve failure package
 //    InputKey::SetAxis(pack.axes, pack.);
+}
+
+void Rtype::Game::Client::RtypeClientGameClient::onGetUPGRADEPackage(UPGRADEPackageGame const &pack)
+{
+    OnDiscoveringPackage(pack);
 }
 
 void Rtype::Game::Client::RtypeClientGameClient::SendInput(std::string const &axisName, float const value)

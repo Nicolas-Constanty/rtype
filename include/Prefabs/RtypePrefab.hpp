@@ -21,7 +21,6 @@ protected:
     void LoadManager();
     bool isServerSide() const;
     GameManager *getManager();
-    virtual void Start() = 0;
 
 protected:
     /**

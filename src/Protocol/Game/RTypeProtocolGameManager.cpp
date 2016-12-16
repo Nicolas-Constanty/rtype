@@ -9,7 +9,7 @@
 const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::MOVEID = RTypeProtocolGameManager::GameID(GamePurpose::GAMEMOVE, sizeof(MOVEPackageGame));
 const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::TAKEID = RTypeProtocolGameManager::GameID(GamePurpose::GAMETAKE, sizeof(TAKEPackageGame));
 const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::BEAMID = RTypeProtocolGameManager::GameID(GamePurpose::GAMEBEAM, sizeof(BEAMPackageGame));
-const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::DROPID = RTypeProtocolGameManager::GameID(GamePurpose::GAMEDROP, sizeof(DROPPackageGame));
+const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::DROPID = RTypeProtocolGameManager::GameID(GamePurpose::GAMECALL, sizeof(CALLPackageGame));
 const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::DIEID = RTypeProtocolGameManager::GameID(GamePurpose::GAMEDIE, sizeof(DIEPackageGame));
 const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::CREATEID = RTypeProtocolGameManager::GameID(GamePurpose::GAMECREATE, sizeof(CREATEPackageGame));
 const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::LAUNCHID = RTypeProtocolGameManager::GameID(GamePurpose::GAMELAUNCH, sizeof(LAUNCHPackageGame));
@@ -22,6 +22,7 @@ const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::FAILUREID = RTy
 const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::INPUTID = RTypeProtocolGameManager::GameID(GamePurpose::GAMEINPUT, sizeof(INPUTPackageGame));
 const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::DISCONNECTID = RTypeProtocolGameManager::GameID(GamePurpose::GAMEDISCONNECT, sizeof(DISCONNECTPackageGame));
 const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::ENEMYSHOTID = RTypeProtocolGameManager::GameID(GamePurpose::GAMEENEMYSHOT, sizeof(ENEMYSHOTPackageGame));
+const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::UPGRADE = RTypeProtocolGameManager::GameID(GamePurpose::GAMEUPGRADE, sizeof(UPGRADEPackageGame));
 
 RTypeProtocolGameManager::RTypeProtocolGameManager(IProtocolGameHandler &protocolGameHandler)
         : protocolGameHandler(protocolGameHandler) {
@@ -41,6 +42,7 @@ RTypeProtocolGameManager::RTypeProtocolGameManager(IProtocolGameHandler &protoco
     fptr[INPUTID] = (MFP)&IProtocolGameHandler::onGetINPUTPackage;
     fptr[DISCONNECTID] = (MFP)&IProtocolGameHandler::onGetDISCONNECTPackage;
     fptr[ENEMYSHOTID] = (MFP)&IProtocolGameHandler::onGetENEMYSHOTPackage;
+    fptr[UPGRADE] = (MFP)&IProtocolGameHandler::onGetUPGRADEPackage;
 }
 
 RTypeProtocolGameManager::~RTypeProtocolGameManager() {

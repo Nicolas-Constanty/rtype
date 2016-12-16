@@ -41,6 +41,13 @@ public:
 public:
     bool isServerSide() const;
 
+public:
+	void addPlayer(SaltyEngine::GameObject *player);
+	std::list<SaltyEngine::GameObject *> const &getPlayers() const;
+
+public:
+	void OnPlayerDeath();
+
 private:
 	Rtype::Game::Server::GameServerObject *m_server;
 	Rtype::Game::Client::GameClientObject *m_client;

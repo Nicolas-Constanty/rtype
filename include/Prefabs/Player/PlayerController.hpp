@@ -13,6 +13,7 @@ typedef struct InformationPlayerShot {
     std::string laserString;
 } InformationPlayerShot;
 
+//todo add method to check if a pod is already attached to it
 namespace SaltyEngine {
 	class PlayerController : public AGenericController
 	{

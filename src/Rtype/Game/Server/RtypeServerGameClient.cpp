@@ -217,13 +217,13 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetTAKEPackage(TAKEPackageGam
 //    }
 }
 
-void Rtype::Game::Server::RtypeServerGameClient::onGetDROPPackage(DROPPackageGame const &pack)
+void Rtype::Game::Server::RtypeServerGameClient::onGetDROPPackage(CALLPackageGame const &pack)
 {
     OnDiscoveringPackage(pack);
 
 //    todo if (okay on gameside)
 //    {
-//        BroadcastReliable(*server1->create<DROPPackageGame>(pack.objectID));
+//        BroadcastReliable(*server1->create<CALLPackageGame>(pack.objectID));
 //    }
 //    else
 //    {
@@ -319,6 +319,11 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetENEMYSHOTPackage(ENEMYSHOT
     std::cout << pack << std::endl;
 }
 
+
+void Rtype::Game::Server::RtypeServerGameClient::onGetUPGRADEPackage(UPGRADEPackageGame const &pack)
+{
+    OnDiscoveringPackage(pack);
+}
 
 bool Rtype::Game::Server::RtypeServerGameClient::OnStart()
 {

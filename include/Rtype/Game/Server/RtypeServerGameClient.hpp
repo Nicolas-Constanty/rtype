@@ -41,7 +41,7 @@ namespace Rtype
                 virtual void onGetSHOTPackage(SHOTPackageGame const &);
                 virtual void onGetDIEPackage(DIEPackageGame const &);
                 virtual void onGetTAKEPackage(TAKEPackageGame const &);
-                virtual void onGetDROPPackage(DROPPackageGame const &);
+                virtual void onGetDROPPackage(CALLPackageGame const &);
                 virtual void onGetMOVEPackage(MOVEPackageGame const &);
                 virtual void onGetLAUNCHPackage(LAUNCHPackageGame const &);
                 virtual void onGetREBORNPackage(REBORNPackageGame const &);
@@ -49,6 +49,7 @@ namespace Rtype
                 virtual void onGetINPUTPackage(INPUTPackageGame const &);
                 virtual void onGetDISCONNECTPackage(DISCONNECTPackageGame const &);
                 virtual void onGetENEMYSHOTPackage(ENEMYSHOTPackageGame const &);
+                virtual void onGetUPGRADEPackage(UPGRADEPackageGame const &);
 
             public:
                 void StartDisplayInformation();
