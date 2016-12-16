@@ -38,8 +38,7 @@ namespace SaltyEngine
 
 		};
 		virtual ~ASpriteRenderer() {
-            if (m_sprite)
-                delete m_sprite;
+
         };
 		virtual Sprite<T>  *GetSprite() const = 0;
 		virtual IWindow *GetWindow() const = 0;

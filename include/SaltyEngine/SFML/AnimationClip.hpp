@@ -21,12 +21,7 @@ namespace SaltyEngine
             {}
 
             virtual ~AnimationClip() {
-                for (Sprite *curr : m_sprites)
-                {
-                    if (curr)
-                        delete(curr);
-                }
-                m_sprites.clear();
+
             }
 
         public:
