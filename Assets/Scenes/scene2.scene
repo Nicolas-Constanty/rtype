@@ -4,13 +4,13 @@
     "prefabs": {
         "Player": {
             "position": {
-                "x" : "50",
+                "x" : "1200",
                 "y": "500"
             }
         },
         "Monster": {
             "position": {
-                "x" : "300",
+                "x" : "900",
                 "y": "200"
             }
         },

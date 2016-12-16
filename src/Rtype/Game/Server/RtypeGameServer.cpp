@@ -124,12 +124,12 @@ size_t Rtype::Game::Server::RtypeGameServer::GetMaxSize() const {
 void Rtype::Game::Server::RtypeGameServer::OnStartGame(Rtype::Game::Common::RtypeGameClient *client, int playerID) {
 //    for (std::pair<std::string, SaltyEngine::Vector2f> &obj : monsterMap) {
 //        if (obj.first != "Player") {
-    std::list<SaltyEngine::Object *> list = SaltyEngine::Factory::Instance().GetObjectsOfType<SaltyEngine::GameObject>();
+    std::vector<SaltyEngine::GameObject *> const &list = SaltyEngine::Engine::Instance().GetCurrentScene()->GetAllGameObject();
     std::cout << "size==" << list.size() << std::endl;
-    for (SaltyEngine::Object *obj : list) {
-        SaltyEngine::GameObject *gameObject;
+    for (SaltyEngine::GameObject *gameObject : list) {
+//        SaltyEngine::GameObject *gameObject;
 
-        if ((gameObject = dynamic_cast<SaltyEngine::GameObject *>(obj))) {
+//        if ((gameObject = dynamic_cast<SaltyEngine::GameObject *>(obj))) {
             std::string name = gameObject->GetName();
             std::string::size_type size = name.find("(Clone)");
             if (size != std::string::npos) {
@@ -156,7 +156,7 @@ void Rtype::Game::Server::RtypeGameServer::OnStartGame(Rtype::Game::Common::Rtyp
                                                        gameObject->transform.position.y,
                                                        RtypeNetworkFactory::GetIDFromName(name),
                                                        manager->gameObjectContainer.GetServerObjectID(gameObject));
-            }
+//            }
         }
     }
 //            SaltyEngine::GameObject *object = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate(obj.first, obj.second, 0));

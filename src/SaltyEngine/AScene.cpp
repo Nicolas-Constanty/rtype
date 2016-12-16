@@ -406,6 +406,10 @@ namespace SaltyEngine
 		else
 			Debug::PrintWarning("Cannot destroy null Object");
 	}
+
+    std::vector<SaltyEngine::GameObject *> const &AScene::GetAllGameObject() const {
+        return (m_objects);
+    }
 }
 
 /**

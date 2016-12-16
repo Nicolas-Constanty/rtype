@@ -35,6 +35,7 @@ namespace SaltyEngine
 		GameObject	*FindByName(std::string const &name) const;
 		GameObject	*FindById(size_t id) const;
 		virtual void operator<<(GameObject * const gameobj);
+		std::vector<SaltyEngine::GameObject *> const &GetAllGameObject() const;
 
 
 	public:
