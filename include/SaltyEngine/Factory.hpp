@@ -68,7 +68,7 @@ namespace SaltyEngine
 		/**
          * @brief Loads an asset into the memory from a path
          */
-		bool LoadAsset(std::string const& path);
+		Asset::ASSET_LOADER *LoadAsset(std::string const& path);
 	};
 }
 template class Singleton<SaltyEngine::Factory>;

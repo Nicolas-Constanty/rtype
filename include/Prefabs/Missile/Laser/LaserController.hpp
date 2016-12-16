@@ -10,9 +10,6 @@
 class LaserController : public SaltyEngine::SaltyBehaviour
 {
 public:
-    static const std::map<int, std::string> damageSprite;
-
-public:
     LaserController(SaltyEngine::GameObject *go);
     virtual ~LaserController();
 

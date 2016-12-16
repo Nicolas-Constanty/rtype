@@ -46,6 +46,12 @@ namespace SaltyEngine {
         std::list<std::string>  sprites;
     };
 
+    struct SceneDefault {
+        std::string title;
+        std::string preview;
+        std::list<std::pair<std::string, Vector2f> > objects;
+    };
+
     ///
     /// \brief AssetManager load and get all assets
     /// \tparam Texture
@@ -74,7 +80,12 @@ namespace SaltyEngine {
         }
 
         virtual ~AAssetManager() {
-
+            while (!m_loaders.empty())
+            {
+                m_loaders.top()->Unload();
+                delete(m_loaders.top());
+                m_loaders.pop();
+            }
         }
 
     protected:
@@ -93,6 +104,8 @@ namespace SaltyEngine {
         std::map<std::string, SpriteDefault>            m_sprites;
         std::map<std::string, AnimationDefault>         m_animations;
         std::list<std::string>                          m_prefabs;
+
+        std::stack<SaltyEngine::Asset::ASSET_LOADER *>  m_loaders;
 
     public:
         ///
@@ -308,7 +321,10 @@ namespace SaltyEngine {
                     }
 
                     if (!lib.empty()) {
-                        Factory::Instance().LoadAsset(path_metas + lib + Asset::META_EXTENSION);
+                        SaltyEngine::Asset::ASSET_LOADER *loader = Factory::Instance().LoadAsset(path_metas + lib + Asset::META_EXTENSION);
+
+                        if (loader)
+                            m_loaders.push(loader);
                     }
 
                     m_prefabs.push_back(filename);
@@ -330,23 +346,26 @@ namespace SaltyEngine {
         /// \brief Return list of pair of prefabName and position
         /// \param filename
         /// \return std::list<std::pair<std::string, Vector2f>>
-        std::list<std::pair<std::string, Vector2f>> LoadScene(std::string const &filename) {
-            std::list<std::pair<std::string, Vector2f>> objects;
+        std::unique_ptr<SceneDefault> LoadScene(std::string const &filename) { /*std::list<std::pair<std::string, Vector2f>>*/
+            std::unique_ptr<SceneDefault>    sceneDefault;
+
+            sceneDefault.reset(new SceneDefault());
+//            std::list<std::pair<std::string, Vector2f>> objects;
 
             try {
                 Parser parser = Parser(JSON, (path_scenes + filename + Asset::SCENE_EXTENSION).c_str());
                 JsonVariant::json_pair map;
                 if (parser.parse(&map)) {
                     Debug::PrintInfo("Parsing Scene " + filename);
-                    std::string const &title = map["title"]();
-                    std::string const &preview = map["preview"]();
+                    sceneDefault->title = map["title"](); //std::string const &title
+                    sceneDefault->preview = map["preview"]();//std::string const &preview
 
-                    JsonVariant::json_pair *prefabs = boost::get<JsonVariant::json_pair *>(map["prefabs"].get());
+                    const JsonVariant::json_pair *prefabs = boost::get<JsonVariant::json_pair *>(map["prefabs"].get());
                     for (JsonVariant::json_pair::const_iterator prefab = prefabs->begin(); prefab != prefabs->end(); ++prefab) {
                         std::string prefabName = prefab->first;
                         Vector2f    position = Vector2f(std::stoi(prefab->second["position"]["x"]()), std::stoi(prefab->second["position"]["y"]()));
                         if (LoadPrefab(prefabName)) {
-                            objects.push_back(std::make_pair(prefabName, position));
+                            sceneDefault->objects.push_back(std::make_pair(prefabName, position));
                         }
                     }
                     Debug::PrintSuccess("Scene " + filename + " was successfuly loaded");
@@ -355,8 +374,9 @@ namespace SaltyEngine {
                 }
             } catch (std::exception const &e) {
                 Debug::PrintError(std::string(e.what()) + " " + filename);
+                return nullptr;
             }
-            return objects;
+            return sceneDefault;
         }
 
     public:
@@ -416,7 +436,10 @@ namespace SaltyEngine {
                 }
                 if (filename.substr(dotPos) == Asset::META_EXTENSION) {
                     Debug::PrintSuccess("Loading prefab [ " + filename + " ]");
-                    Factory::Instance().LoadAsset(path_metas + filename);
+                    SaltyEngine::Asset::ASSET_LOADER *loader = Factory::Instance().LoadAsset(path_metas + filename);
+
+                    if (loader)
+                        m_loaders.push(loader);
                 }
             }
         }

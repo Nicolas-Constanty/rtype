@@ -7,6 +7,7 @@
 
 #include <Network/UDP/AUDPServer.hpp>
 #include <SaltyEngine/SaltyBehaviour.hpp>
+#include <SaltyEngine/AAssetManager.hpp>
 #include "RtypeServerGameClient.hpp"
 #include "Rtype/Game/Common/RtypeGameClient.hpp"
 
@@ -83,7 +84,7 @@ namespace Rtype
 
             private:
                 u_int16_t level;
-                std::list<std::pair<std::string, SaltyEngine::Vector2f> >   monsterMap;
+                std::unique_ptr<SaltyEngine::SceneDefault>   monsterMap;
             };
         }
     }
