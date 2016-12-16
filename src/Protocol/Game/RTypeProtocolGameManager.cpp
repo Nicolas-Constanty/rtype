@@ -9,7 +9,7 @@
 const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::MOVEID = RTypeProtocolGameManager::GameID(GamePurpose::GAMEMOVE, sizeof(MOVEPackageGame));
 const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::TAKEID = RTypeProtocolGameManager::GameID(GamePurpose::GAMETAKE, sizeof(TAKEPackageGame));
 const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::BEAMID = RTypeProtocolGameManager::GameID(GamePurpose::GAMEBEAM, sizeof(BEAMPackageGame));
-const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::DROPID = RTypeProtocolGameManager::GameID(GamePurpose::GAMECALL, sizeof(CALLPackageGame));
+const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::CALLID = RTypeProtocolGameManager::GameID(GamePurpose::GAMECALL, sizeof(CALLPackageGame));
 const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::DIEID = RTypeProtocolGameManager::GameID(GamePurpose::GAMEDIE, sizeof(DIEPackageGame));
 const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::CREATEID = RTypeProtocolGameManager::GameID(GamePurpose::GAMECREATE, sizeof(CREATEPackageGame));
 const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::LAUNCHID = RTypeProtocolGameManager::GameID(GamePurpose::GAMELAUNCH, sizeof(LAUNCHPackageGame));
@@ -30,7 +30,7 @@ RTypeProtocolGameManager::RTypeProtocolGameManager(IProtocolGameHandler &protoco
     fptr[SHOTID] = (MFP)&IProtocolGameHandler::onGetSHOTPackage;
     fptr[TAKEID] = (MFP)&IProtocolGameHandler::onGetTAKEPackage;
     fptr[BEAMID] = (MFP)&IProtocolGameHandler::onGetBEAMPackage;
-    fptr[DROPID] = (MFP)&IProtocolGameHandler::onGetDROPPackage;
+    fptr[CALLID] = (MFP)&IProtocolGameHandler::onGetCALLPackage;
     fptr[DIEID] = (MFP)&IProtocolGameHandler::onGetDIEPackage;
     fptr[CREATEID] = (MFP)&IProtocolGameHandler::onGetCREATEPackage;
     fptr[LAUNCHID] = (MFP)&IProtocolGameHandler::onGetLAUNCHPackage;

@@ -12,6 +12,7 @@
 #include <Rtype/Game/Common/RtypeNetworkFactory.hpp>
 #include "SaltyEngine/Vector2.hpp"
 #include "Rtype/Game/Common/GameObjectContainer.hpp"
+#include <Prefabs/Pod/PodController.hpp>
 
 Rtype::Game::Server::RtypeServerGameClient::RtypeServerGameClient(Network::Core::NativeSocketIOOperationDispatcher &dispatcher) :
         RtypeGameClient(dispatcher),
@@ -211,10 +212,23 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetTAKEPackage(TAKEPackageGam
 //    }
 }
 
-void Rtype::Game::Server::RtypeServerGameClient::onGetDROPPackage(CALLPackageGame const &pack)
+void Rtype::Game::Server::RtypeServerGameClient::onGetCALLPackage(CALLPackageGame const &pack)
 {
     OnDiscoveringPackage(pack);
+    if (pack.playerID == playerID)
+    {
+        SaltyEngine::GameObject *object = gameManager->gameObjectContainer[pack.objectID];
 
+        if (object)
+        {
+            PodController   *podController = object->GetComponent<PodController>();
+
+            if (podController && podController->isAttachedTo(pack.playerID))
+            {
+                podController->Call(podController->getAttachedPlayer()->gameObject->transform.position);
+            }
+        }
+    }
 //    todo if (okay on gameside)
 //    {
 //        BroadcastReliable(*server1->create<CALLPackageGame>(pack.objectID));
@@ -260,7 +274,20 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetMOVEPackage(MOVEPackageGam
 void Rtype::Game::Server::RtypeServerGameClient::onGetLAUNCHPackage(LAUNCHPackageGame const &pack)
 {
     OnDiscoveringPackage(pack);
+    if (pack.playerID == playerID)
+    {
+        SaltyEngine::GameObject *object = gameManager->gameObjectContainer[pack.objectID];
+        PodController   *controller;
 
+        if (object)
+        {
+            controller = object->GetComponent<PodController>();
+            if (controller && controller->isAttachedTo(pack.playerID))
+            {
+                controller->Launch();
+            }
+        }
+    }
 //    todo if (okay on gameside)
 //    {
 //        BroadcastReliable(*server1->create<LAUNCHPackageGame>(pack.objectID));
@@ -316,6 +343,7 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetENEMYSHOTPackage(ENEMYSHOT
 
 void Rtype::Game::Server::RtypeServerGameClient::onGetUPGRADEPackage(UPGRADEPackageGame const &pack)
 {
+    //client can't say to server when upgrade pod
     OnDiscoveringPackage(pack);
 }
 

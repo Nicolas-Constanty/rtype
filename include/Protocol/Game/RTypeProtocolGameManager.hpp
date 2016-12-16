@@ -40,7 +40,7 @@ public:
     static const GameID MOVEID;// = GameID(MOVE, sizeof(MOVEPackageGame));
     static const GameID TAKEID;// = GameID(GAMETAKE, sizeof(TAKEPackageGame));
     static const GameID BEAMID;// = GameID(GAMEBEAM, sizeof(BEAMPackageGame));
-    static const GameID DROPID;// = GameID(DROP, sizeof(CALLPackageGame));
+    static const GameID CALLID;// = GameID(DROP, sizeof(CALLPackageGame));
     static const GameID DIEID;// = GameID(DIE, sizeof(DIEPackageGame));
     static const GameID CREATEID;// = GameID(CREATE, sizeof(CREATEPackageGame));
     static const GameID LAUNCHID;// = GameID(LAUNCH, sizeof(LAUNCHPackageGame));

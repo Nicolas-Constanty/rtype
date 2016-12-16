@@ -20,7 +20,7 @@ public:
     virtual void onGetSHOTPackage(SHOTPackageGame const &) = 0;
     virtual void onGetDIEPackage(DIEPackageGame const &) = 0;
     virtual void onGetTAKEPackage(TAKEPackageGame const &) = 0;
-    virtual void onGetDROPPackage(CALLPackageGame const &) = 0;
+    virtual void onGetCALLPackage(CALLPackageGame const &) = 0;
     virtual void onGetMOVEPackage(MOVEPackageGame const &) = 0;
     virtual void onGetLAUNCHPackage(LAUNCHPackageGame const &) = 0;
     virtual void onGetREBORNPackage(REBORNPackageGame const &) = 0;

@@ -36,7 +36,7 @@ namespace Rtype
                 virtual void onGetSHOTPackage(SHOTPackageGame const &pack);
                 virtual void onGetDIEPackage(DIEPackageGame const &pack);
                 virtual void onGetTAKEPackage(TAKEPackageGame const &pack);
-                virtual void onGetDROPPackage(CALLPackageGame const &pack);
+                virtual void onGetCALLPackage(CALLPackageGame const &pack);
                 virtual void onGetMOVEPackage(MOVEPackageGame const &pack);
                 virtual void onGetLAUNCHPackage(LAUNCHPackageGame const &pack);
                 virtual void onGetREBORNPackage(REBORNPackageGame const &pack);

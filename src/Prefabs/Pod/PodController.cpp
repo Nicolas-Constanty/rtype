@@ -68,7 +68,7 @@ void PodController::OnTriggerEnter(SaltyEngine::ICollider *collider)
                     unsigned short podid = 0;
 
                     podid = getManager()->gameObjectContainer.GetServerObjectID(gameObject);
-                    //                BroadCastReliable<TAKEPackageGame>(podid, player); todo uncomment when getPlayerID will be implemented
+                    BroadCastReliable<TAKEPackageGame>(podid, player->GetPlayerID());
                 }
                 catch (std::runtime_error const &err)
                 {
@@ -145,10 +145,27 @@ bool PodController::Call(SaltyEngine::Vector const &to)
 
 bool PodController::Attach(SaltyEngine::PlayerController *player)
 {
-    if (attachedPlayer != NULL)
-        return false;
-    //todo handle attachment of the pod
-    //  -> check if a player already has a pod attached to him
-    attachedPlayer = player;
+    if (attachedPlayer && !attachedPlayer->HasPod())
+    {
+        //todo handle attachment of the pod
+        //  ---> set as child of player
+        attachedPlayer = player;
+        return attachedPlayer->Attach(this);
+    }
     return true;
+}
+
+bool PodController::isAttached() const
+{
+    return attachedPlayer != NULL;
+}
+
+bool PodController::isAttachedTo(unsigned char playerID) const
+{
+    return isAttached() && attachedPlayer->GetPlayerID() == playerID;
+}
+
+SaltyEngine::PlayerController *PodController::getAttachedPlayer() const
+{
+    return attachedPlayer;
 }

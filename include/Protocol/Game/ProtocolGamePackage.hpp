@@ -222,10 +222,11 @@ public:
 
 class CALLPackageGame : public ObjectIDPackageGame {
 public:
-    CALLPackageGame(unsigned short sequenceID = 0, unsigned short podID = 0, int posX = 0, int posY = 0, unsigned short transactionID = 0) :
+    CALLPackageGame(unsigned short sequenceID = 0, unsigned short podID = 0, unsigned char playerID = 0, int posX = 0, int posY = 0, unsigned short transactionID = 0) :
             ObjectIDPackageGame(sizeof(CALLPackageGame), GamePurpose::GAMECALL, sequenceID, podID, true, transactionID),
             posX(posX),
-            posY(posY)
+            posY(posY),
+            playerID(playerID)
     {
 
     }
@@ -233,13 +234,20 @@ public:
 public:
     int posX;
     int posY;
+    unsigned char playerID;
 };
 
 class LAUNCHPackageGame : public ObjectIDPackageGame {
 public:
-    LAUNCHPackageGame(unsigned short sequenceID = 0, unsigned short objectID = 0, unsigned short transactionID = 0)
-            : ObjectIDPackageGame(sizeof(LAUNCHPackageGame), GamePurpose::GAMELAUNCH, sequenceID, objectID, true, transactionID) {
+    LAUNCHPackageGame(unsigned short sequenceID = 0, unsigned short podID = 0, unsigned char playerID = 0, unsigned short transactionID = 0)
+            : ObjectIDPackageGame(sizeof(LAUNCHPackageGame), GamePurpose::GAMELAUNCH, sequenceID, podID, true, transactionID),
+              playerID(playerID)
+    {
+
     }
+
+public:
+    unsigned char playerID;
 };
 
 class REBORNPackageGame : public ObjectIDPackageGame {

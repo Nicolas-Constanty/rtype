@@ -30,6 +30,11 @@ public:
     bool Call(SaltyEngine::Vector const &to);
     bool Attach(SaltyEngine::PlayerController *player);
 
+public:
+    bool isAttached() const;
+    bool isAttachedTo(unsigned char playerID) const;
+    SaltyEngine::PlayerController   *getAttachedPlayer() const;
+
 private:
     SaltyEngine::PlayerController *attachedPlayer;
 //    SaltyEngine::AAnimationClip *anim;

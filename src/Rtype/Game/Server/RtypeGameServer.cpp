@@ -51,7 +51,7 @@ bool Rtype::Game::Server::RtypeGameServer::OnDataReceived(unsigned int)
     return true;
 }
 
-bool Rtype::Game::Server::RtypeGameServer::OnDataSent(unsigned int len)
+bool Rtype::Game::Server::RtypeGameServer::OnDataSent(unsigned int)
 {
 //    std::cout << "On send des choses: " << len << std::endl;
     return true;

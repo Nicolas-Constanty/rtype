@@ -23,11 +23,6 @@ void GameManager::Start()
     m_server = gameObject->GetComponent<Rtype::Game::Server::GameServerObject>();
 }
 
-void GameManager::SendInput(std::string const &axisName, const float value)
-{
-
-}
-
 bool GameManager::isServerSide() const
 {
     return m_server != NULL;
@@ -44,7 +39,7 @@ void GameManager::OnCollisionExit(SaltyEngine::ICollider *collider)
 //    }
 }
 
-void GameManager::OnCollisionEnter(SaltyEngine::ICollider *collider)
+void GameManager::OnCollisionEnter(SaltyEngine::ICollider *)
 {
     std::cout << "\e[32m======ENTER=======\e[0m" << std::endl;
 }
@@ -71,4 +66,14 @@ void GameManager::OnPlayerDeath()
         }
     }
     //todo handle end of the game
+}
+
+void GameManager::addPod(SaltyEngine::GameObject *pod)
+{
+    m_pods.push_back(pod);
+}
+
+std::list<SaltyEngine::GameObject *> const &GameManager::getPods() const
+{
+    return m_pods;
 }
