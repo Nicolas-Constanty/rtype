@@ -42,7 +42,7 @@ namespace SaltyEngine
 
             bool ret = (_Contain(topleft) || _Contain(topright) ||
                         _Contain(downleft) || _Contain(downright));
-            std::cout << topleft << " " <<  _left << " " << _top << std::endl;
+          //  std::cout << topleft << " " <<  _left << " " << _top << std::endl;
             if (ret)
             {
                 std::cout << "==========================================================" << std::endl;

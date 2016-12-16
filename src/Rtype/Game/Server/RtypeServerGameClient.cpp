@@ -68,7 +68,7 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetPINGPackage(PINGPackageGam
 void Rtype::Game::Server::RtypeServerGameClient::onGetAUTHENTICATEPackage(AUTHENTICATEPackageGame const &pack)
 {
     reply = false;
-    std::cout << "pack: " << pack << std::endl;
+//    std::cout << "pack: " << pack << std::endl;
     OnDiscoveringPackage(pack);
     if (!server1->Authenticate(pack.secret))
     {
@@ -83,7 +83,8 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetAUTHENTICATEPackage(AUTHEN
         if (__playerID == -1) {
             __playerID = 0;
         }
-        std::cout << "PLAYERID== " << __playerID << std::endl;
+        playerID = static_cast<unsigned char>(__playerID);
+//        std::cout << "PLAYERID== " << __playerID << std::endl;
 
         SendPackage<AUTHENTICATEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<AUTHENTICATEPackageGame>, pack.secret, __playerID);
 
@@ -100,7 +101,7 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetAUTHENTICATEPackage(AUTHEN
                 server1->OnStartGame();
             else
                 server1->OnStartGame(this, __playerID);
-            std::cout << "oui oui oui" << std::endl;
+//            std::cout << "oui oui oui" << std::endl;
         }
 
         ping();
@@ -227,7 +228,15 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetDROPPackage(DROPPackageGam
 
 void Rtype::Game::Server::RtypeServerGameClient::onGetMOVEPackage(MOVEPackageGame const &pack)
 {
+//    std::cout << pack << std::endl;
     OnDiscoveringPackage(pack);
+
+    SaltyEngine::GameObject *gameObject;
+
+    if ((gameObject = gameManager->gameObjectContainer[pack.objectID])) {
+        gameObject->transform.position = SaltyEngine::Vector(pack.posX, pack.posY);
+    }
+
     for (std::unique_ptr<Network::Socket::ISockStreamHandler> &curr : clients->Streams())
     {
         if (curr.get() != this)
@@ -235,11 +244,7 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetMOVEPackage(MOVEPackageGam
             Rtype::Game::Server::RtypeServerGameClient *receiver = dynamic_cast<Rtype::Game::Server::RtypeServerGameClient *>(curr.get());
 
             if (receiver) {
-                SaltyEngine::GameObject *gameObject;
-
-                if ((gameObject = gameManager->gameObjectContainer[pack.objectID])) {
-                    gameObject->transform.position = SaltyEngine::Vector(pack.posX, pack.posY);
-                }
+//                std::cout << " Rtype::Game::Server::RtypeServerGameClient::onGetMOVEPackage(MOVEPackageGame const &pack) OBJECTID IS == " << pack.objectID << std::endl;
                 receiver->SendPackage<MOVEPackageGame>(&Network::Core::BasicConnection::SendData<MOVEPackageGame>,
                                                        pack.posX, pack.posY, pack.objectID);
             }

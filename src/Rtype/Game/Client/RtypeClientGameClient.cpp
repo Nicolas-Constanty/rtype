@@ -175,10 +175,15 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetDROPPackage(DROPPackageGam
 
 void Rtype::Game::Client::RtypeClientGameClient::onGetMOVEPackage(MOVEPackageGame const &pack)
 {
+//    std::cout << "void Rtype::Game::Client::RtypeClientGameClient::onGetMOVEPackage(MOVEPackageGame const &pack) objectID IS == " << pack.objectID << std::endl;
+    std::cout << pack << std::endl;
     OnDiscoveringPackage(pack);
     SaltyEngine::GameObject *obj = gameManager->gameObjectContainer[pack.objectID];
     if (obj) {
+        std::cout << "obj found !" << std::endl;
         obj->transform.position = SaltyEngine::Vector(pack.posX, pack.posY);
+    } else {
+        std::cout << "obj not found !!" << std::endl;
     }
  //   SaltyEngine::GameObject *obj = SaltyEngine::SaltyEngine::Instance().GetCurrentScene()->FindById(static_cast<size_t>(pack.objectID));
  //   if (obj)

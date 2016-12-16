@@ -145,6 +145,7 @@ void Rtype::Game::Server::RtypeGameServer::OnStartGame(Rtype::Game::Common::Rtyp
                     if (playerController) {
                         if (playerID == playerController->GetPlayerID()) {
                             name = "Player";
+                            std::cout << "FIND player == " << playerID << " !" << std::endl;
                         }
                     }
 //                 std::cout << name << " CREATED" << std::endl;
@@ -206,6 +207,7 @@ int Rtype::Game::Server::RtypeGameServer::PlayerID() {
 }
 
 void Rtype::Game::Server::RtypeGameServer::DisconnectConnectedPlayer(int playerID) {
+    std::cout << "DISCONNECT player ID == " << playerID << std::endl;
     std::map<int, bool>::iterator it = playersConnected.find(playerID);
     if (it != playersConnected.end()) {
         it->second = false;
