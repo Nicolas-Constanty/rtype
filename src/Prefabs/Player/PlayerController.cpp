@@ -72,7 +72,7 @@ namespace SaltyEngine
 			gameObject->transform.Translate(Vector(h, v) * speed);
             if (!isServerSide())
             {
-                SendPackageReliable<MOVEPackageGame>(
+                SendPackage<MOVEPackageGame>(
                         gameObject->transform.position.x,
                         gameObject->transform.position.y,
                         getManager()->gameObjectContainer.GetServerObjectID(gameObject));
