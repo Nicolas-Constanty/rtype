@@ -1,4 +1,5 @@
 
+#include <Rtype/Game/Common/RtypeNetworkFactory.hpp>
 #include "SaltyEngine/GameObject.hpp"
 #include "Prefabs/Missile/MissileController.hpp"
 #include "SaltyEngine/SFML/AssetManager.hpp"
@@ -25,6 +26,15 @@ void MissileController::Start() {
 
 //    if (missileController != nullptr) {
         this->SetTarget(SaltyEngine::GameObject::FindGameObjectWithTag(SaltyEngine::Layer::Tag::Player));
+
+    if (isServerSide()) {
+        BroadCastReliable<CREATEPackageGame>(
+                gameObject->transform.position.x,
+                gameObject->transform.position.y,
+                RtypeNetworkFactory::GetIDFromName("MissileMedusa"),
+                getManager()->gameObjectContainer.GetServerObjectID(gameObject),
+                gameObject->transform.rotation);
+    }
 
 //    SaltyEngine::GameObject *gameman = SaltyEngine::Engine::Instance().GetCurrentScene()->FindByName("GameServer");
 //    if (gameman)

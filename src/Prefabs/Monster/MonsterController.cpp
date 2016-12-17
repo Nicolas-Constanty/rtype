@@ -54,21 +54,21 @@ void MonsterController::Shot() {
         BroadCastReliable<ENEMYSHOTPackageGame>(
                 getManager()->gameObjectContainer.GetServerObjectID(gameObject));
 
-        BroadCastReliable<CREATEPackageGame>(
-                gameObject->transform.position.x,
-                gameObject->transform.position.y,
-                RtypeNetworkFactory::GetIDFromName("MissileMedusa"),
-                getManager()->gameObjectContainer.GetServerObjectID(missile),
-                gameObject->transform.rotation);
+//        BroadCastReliable<CREATEPackageGame>(
+//                gameObject->transform.position.x,
+//                gameObject->transform.position.y,
+//                RtypeNetworkFactory::GetIDFromName("MissileMedusa"),
+//                getManager()->gameObjectContainer.GetServerObjectID(missile),
+//                gameObject->transform.rotation);
 
 
-        if (missile) {
-            MissileController *missileController = missile->GetComponent<MissileController>();
-            if (missileController != nullptr) {
-                missileController->SetTarget(
-                        SaltyEngine::GameObject::FindGameObjectWithTag(SaltyEngine::Layer::Tag::Player));
-            }
-        }
+//        if (missile) {
+//            MissileController *missileController = missile->GetComponent<MissileController>();
+//            if (missileController != nullptr) {
+//                missileController->SetTarget(
+//                        SaltyEngine::GameObject::FindGameObjectWithTag(SaltyEngine::Layer::Tag::Player));
+//            }
+//        }
     }
 }
 
