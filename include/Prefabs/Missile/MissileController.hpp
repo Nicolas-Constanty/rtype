@@ -5,9 +5,9 @@
 
 #include "Rtype/Game/Server/GameServerObject.hpp"
 #include "Prefabs/GenericController.hpp"
-#include "Prefabs/Missile/EnemyBullet/EnemyBulletController.hpp"
 #include "SaltyEngine/SaltyBehaviour.hpp"
 #include "SaltyEngine/GameObject.hpp"
+#include "Prefabs/Missile/AEnemyBulletController.hpp"
 
 class MissileController : public AEnemyBulletController
 {

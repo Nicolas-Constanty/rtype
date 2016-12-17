@@ -2,6 +2,7 @@
 // Created by veyrie_f on 17/12/16.
 //
 
+#include <Prefabs/GenericController.hpp>
 #include "Rtype/Game/Common/RtypeNetworkFactory.hpp"
 #include "SaltyEngine/SFML.hpp"
 #include "Prefabs/Missile/AEnemyBulletController.hpp"
@@ -34,7 +35,6 @@ void AEnemyBulletController::Start()
             this->SetTarget(*std::next(players.begin(), rand() % players.size()));
         }
 
-        std::cout << "Instatiating object -> " << m_objectNameReplication << std::endl;
         BroadCastReliable<CREATEPackageGame>(
                 gameObject->transform.position.x,
                 gameObject->transform.position.y,
@@ -54,11 +54,16 @@ void AEnemyBulletController::OnCollisionEnter(SaltyEngine::ICollider *col)
     SaltyEngine::ACollider2D<sf::Vector2i> *c = dynamic_cast<SaltyEngine::ACollider2D<sf::Vector2i>*>(col);
     if (c)
     {
-        if (c->gameObject->GetTag() == SaltyEngine::Layer::Tag::Player)
-            std::cout << "Player should take damage " << m_damage << std::endl;
-        if (c->gameObject->GetTag() != SaltyEngine::Layer::Tag::Enemy
-                && c->gameObject->GetTag() != SaltyEngine::Layer::Tag::BulletEnemy)
-            SaltyEngine::Object::Destroy(this->gameObject);
+        if (c->gameObject->GetTag() == SaltyEngine::Layer::Tag::Player) {
+            AGenericController *controller = c->gameObject->GetComponent<AGenericController>();
+            if (controller)
+                controller->TakeDamage(m_damage);
+        }
+        if (c->gameObject != this->gameObject && c->gameObject->GetTag() != SaltyEngine::Layer::Tag::Enemy
+                && c->gameObject->GetTag() != SaltyEngine::Layer::Tag::BulletEnemy) {
+            // TODO : uncomment when objects are removed server side
+//            SaltyEngine::Object::Destroy(this->gameObject);
+        }
     }
 }
 
