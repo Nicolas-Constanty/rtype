@@ -64,6 +64,13 @@
                                 "x" : "1320",
                                 "y": "300"
                                 }
-                              }
+                              },
+                              "MonsterNeunoeil": {
+                                    "prefabName": "MonsterNeunoeil",
+                                    "position": {
+                                      "x" : "1350",
+                                      "y": "500"
+                                    }
+                                  }
    }
 }
