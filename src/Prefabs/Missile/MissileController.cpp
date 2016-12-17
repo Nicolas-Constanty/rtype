@@ -1,5 +1,6 @@
 
-#include <Rtype/Game/Common/RtypeNetworkFactory.hpp>
+#include <algorithm>
+#include "Rtype/Game/Common/RtypeNetworkFactory.hpp"
 #include "SaltyEngine/GameObject.hpp"
 #include "Prefabs/Missile/MissileController.hpp"
 #include "SaltyEngine/SFML/AssetManager.hpp"
@@ -25,9 +26,16 @@ void MissileController::Start() {
     }
 
 //    if (missileController != nullptr) {
-        this->SetTarget(SaltyEngine::GameObject::FindGameObjectWithTag(SaltyEngine::Layer::Tag::Player));
 
     if (isServerSide()) {
+
+        std::list<SaltyEngine::GameObject*> players = SaltyEngine::GameObject::FindGameObjectsWithTag(SaltyEngine::Layer::Tag::Player);
+
+        if (players.size() > 0)
+        {
+            this->SetTarget(*std::next(players.begin(), rand() % players.size()));
+        }
+
         BroadCastReliable<CREATEPackageGame>(
                 gameObject->transform.position.x,
                 gameObject->transform.position.y,
