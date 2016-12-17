@@ -100,7 +100,7 @@ target_link_libraries(beam ${PREFAB_LIBRARIES})
 	target_link_libraries(monster_walker ${PREFAB_LIBRARIES} missile_medusa missile_enemy_bullet explosion_basic player)
 
 	# FLYING
-	file(GLOB FLYINGMONSTER_SOURCE_FILE "src/Prefabs/MonsterFlying/*.cpp" "include/Prefabs/MonsterFlying/*.hpp ")
+	file(GLOB FLYINGMONSTER_SOURCE_FILE "src/Prefabs/MonsterFlying/*.cpp" "include/Prefabs/MonsterFlying/*.hpp")
 	add_library(monster_flying SHARED ${FLYINGMONSTER_SOURCE_FILE})
 	target_link_libraries(monster_flying ${PREFAB_LIBRARIES} missile_medusa missile_enemy_bullet explosion_basic)
 

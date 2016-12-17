@@ -23,6 +23,9 @@ void MissileController::Start() {
         fire->Play();
     }
 
+//    if (missileController != nullptr) {
+        this->SetTarget(SaltyEngine::GameObject::FindGameObjectWithTag(SaltyEngine::Layer::Tag::Player));
+
 //    SaltyEngine::GameObject *gameman = SaltyEngine::Engine::Instance().GetCurrentScene()->FindByName("GameServer");
 //    if (gameman)
 //        gameServer = gameman->GetComponent<Rtype::Game::Server::GameServerObject>();
@@ -42,12 +45,12 @@ void MissileController::SetTarget(SaltyEngine::GameObject const* target)
 }
 
 void MissileController::Move() {
-    if (isServerSide()) {
+//    if (isServerSide()) {
         gameObject->transform.Translate(
                 gameObject->transform.right() * m_vel * SaltyEngine::Engine::Instance().GetFixedDeltaTime());
-        BroadcastPackage<MOVEPackageGame>(
-                gameObject->transform.position.x,
-                gameObject->transform.position.y,
-                getManager()->gameObjectContainer.GetServerObjectID(gameObject));
-    }
+//        BroadcastPackage<MOVEPackageGame>(
+//                gameObject->transform.position.x,
+//                gameObject->transform.position.y,
+//                getManager()->gameObjectContainer.GetServerObjectID(gameObject));
+//    }
 }

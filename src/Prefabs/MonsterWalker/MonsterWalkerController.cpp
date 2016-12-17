@@ -77,14 +77,14 @@ void MonsterWalkerController::Shot() {
                getManager()->gameObjectContainer.GetServerObjectID(missile),
                gameObject->transform.rotation);
 
-       if (missile) {
-            MissileController *missileController = missile->GetComponent<MissileController>();
-            if (missileController != nullptr) {
-                missileController->SetTarget(
-                        SaltyEngine::GameObject::FindGameObjectWithTag(SaltyEngine::Layer::Tag::Player));
-
-            }
-       }
+//       if (missile) {
+//            MissileController *missileController = missile->GetComponent<MissileController>();
+//            if (missileController != nullptr) {
+//                missileController->SetTarget(
+//                        SaltyEngine::GameObject::FindGameObjectWithTag(SaltyEngine::Layer::Tag::Player));
+//
+//            }
+//       }
     }
 }
 
@@ -104,7 +104,6 @@ void MonsterWalkerController::TakeDamage(int amount)
         if (m_health <= 0 && !m_isDead) {
             if (isServerSide()) {
                 BroadCastReliable<DIEPackageGame>(
-//                        &Network::UDP::AUDPConnection::SendReliable<DIEPackageGame>,
                         getManager()->gameObjectContainer.GetServerObjectID(gameObject));
                 Die();
             }
