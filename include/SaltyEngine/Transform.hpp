@@ -88,9 +88,20 @@ namespace SaltyEngine
 		{
 			m_parent = parent;
 		}
+
+		/**
+		 * @brief Translate the object according to a given vector
+		 * @param translation to be done
+		 * @note Will also move all the attached children
+		 */
 		void Translate(const T & translation)
 		{
 			position += translation;
+
+            for (BaseTransform *tr : m_children)
+            {
+                tr->position += translation;
+            }
 		}
 		const std::vector<BaseTransform<T> *> &GetChildren()
 		{
