@@ -19,12 +19,17 @@ void MonsterWalkerController::Start()
 {
     LoadManager();
 	m_currDelay = m_minShootInterval + rand() % (int)(m_maxShootInterval - m_minShootInterval);
-    m_anim = gameObject->GetComponent<SaltyEngine::SFML::Animation>();
-    m_anim->Play("WalkLeft");
+    if (!isServerSide()) {
+        m_anim = gameObject->GetComponent<SaltyEngine::SFML::Animation>();
+        m_anim->Play("WalkLeft");
+    }
     m_startPoint = gameObject->transform.position;
-//    SaltyEngine::GameObject *gameman = SaltyEngine::Engine::Instance().GetCurrentScene()->FindByName("GameServer");
-//    if (gameman)
-//        gameServer = gameman->GetComponent<Rtype::Game::Server::GameServerObject>();
+    if (isServerSide()) {
+        BroadCastReliable<CREATEPackageGame>(gameObject->transform.position.x,
+                                             gameObject->transform.position.y,
+                                             RtypeNetworkFactory::GetIDFromName("MonsterWalker"),
+                                             getManager()->gameObjectContainer.GetServerObjectID(gameObject));
+    }
 }
 
 // TODO : add jump
@@ -70,12 +75,12 @@ void MonsterWalkerController::Shot() {
        BroadCastReliable<ENEMYSHOTPackageGame>(
                getManager()->gameObjectContainer.GetServerObjectID(gameObject));
 
-       BroadCastReliable<CREATEPackageGame>(
-               gameObject->transform.position.x,
-               gameObject->transform.position.y,
-               RtypeNetworkFactory::GetIDFromName("EnemyBullet"),
-               getManager()->gameObjectContainer.GetServerObjectID(missile),
-               gameObject->transform.rotation);
+//       BroadCastReliable<CREATEPackageGame>(
+//               gameObject->transform.position.x,
+//               gameObject->transform.position.y,
+//               RtypeNetworkFactory::GetIDFromName("EnemyBullet"),
+//               getManager()->gameObjectContainer.GetServerObjectID(missile),
+//               gameObject->transform.rotation);
 
 //       if (missile) {
 //            MissileController *missileController = missile->GetComponent<MissileController>();

@@ -18,6 +18,13 @@ void MonsterFlyingController::Start()
 {
     LoadManager();
 	m_currDelay = m_minShootInterval + rand() % (int)(m_maxShootInterval - m_minShootInterval);
+    if (isServerSide()) {
+        BroadCastReliable<CREATEPackageGame>(gameObject->transform.position.x,
+                                             gameObject->transform.position.y,
+                                             RtypeNetworkFactory::GetIDFromName("MonsterFlying"),
+                                             getManager()->gameObjectContainer.GetServerObjectID(gameObject));
+    }
+
 }
 
 void MonsterFlyingController::FixedUpdate()
@@ -50,20 +57,20 @@ void MonsterFlyingController::Shot() {
 
         getManager()->gameObjectContainer.Add(GameObjectID::NewID(), missile);
 
-        BroadCastReliable<CREATEPackageGame>(
-                gameObject->transform.position.x,
-                gameObject->transform.position.y,
-                RtypeNetworkFactory::GetIDFromName("EnemyBullet"),
-                getManager()->gameObjectContainer.GetServerObjectID(missile),
-                gameObject->transform.rotation);
-
-        if (missile) {
-            MissileController *missileController = missile->GetComponent<MissileController>();
-            if (missileController != nullptr) {
-                missileController->SetTarget(
-                        SaltyEngine::GameObject::FindGameObjectWithTag(SaltyEngine::Layer::Tag::Player));
-            }
-        }
+//        BroadCastReliable<CREATEPackageGame>(
+//                gameObject->transform.position.x,
+//                gameObject->transform.position.y,
+//                RtypeNetworkFactory::GetIDFromName("EnemyBullet"),
+//                getManager()->gameObjectContainer.GetServerObjectID(missile),
+//                gameObject->transform.rotation);
+//
+//        if (missile) {
+//            MissileController *missileController = missile->GetComponent<MissileController>();
+//            if (missileController != nullptr) {
+//                missileController->SetTarget(
+//                        SaltyEngine::GameObject::FindGameObjectWithTag(SaltyEngine::Layer::Tag::Player));
+//            }
+//        }
     }
 }
 

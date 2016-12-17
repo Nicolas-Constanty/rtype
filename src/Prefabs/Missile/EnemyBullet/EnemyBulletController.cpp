@@ -1,3 +1,4 @@
+#include <Rtype/Game/Common/RtypeNetworkFactory.hpp>
 #include "SaltyEngine/SFML.hpp"
 #include "Prefabs/Missile/EnemyBullet/EnemyBulletController.hpp"
 
@@ -16,6 +17,15 @@ void EnemyBulletController::Start() {
     SaltyEngine::GameObject *t = SaltyEngine::GameObject::FindGameObjectWithTag(SaltyEngine::Layer::Tag::Player);
     if (t)
         gameObject->transform.LookAt(t->transform);
+
+    if (isServerSide()) {
+        BroadCastReliable<CREATEPackageGame>(
+                gameObject->transform.position.x,
+                gameObject->transform.position.y,
+                RtypeNetworkFactory::GetIDFromName("EnemyBullet"),
+                getManager()->gameObjectContainer.GetServerObjectID(gameObject),
+                gameObject->transform.rotation);
+    }
 
 //    SaltyEngine::GameObject *gameman = SaltyEngine::Engine::Instance().GetCurrentScene()->FindByName("GameServer");
 //    if (gameman)
