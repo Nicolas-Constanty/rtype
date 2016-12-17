@@ -15,7 +15,7 @@ public:
 
 public:
 	void Start();
-	void Update();
+	void FixedUpdate();
 
 public:
 	virtual SaltyEngine::Component *CloneComponent(SaltyEngine::GameObject* const obj) {

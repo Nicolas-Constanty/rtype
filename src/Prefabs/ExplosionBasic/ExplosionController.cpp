@@ -5,6 +5,17 @@ ExplosionController::ExplosionController(SaltyEngine::GameObject *obj) : SaltyEn
 {
 }
 
+void ExplosionController::Start() {
+    SaltyEngine::SFML::Animation *animation = gameObject->GetComponent<SaltyEngine::SFML::Animation>();
+    if (animation)
+    {
+        SaltyEngine::SFML::AnimationClip *clip = animation->GetClip(0);
+        if (clip)
+        {
+            clip->AddEvent([&](){ SaltyEngine::Object::Destroy(gameObject); });
+        }
+    }
+}
 
 ExplosionController::~ExplosionController()
 {

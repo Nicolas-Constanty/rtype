@@ -30,24 +30,28 @@ void MonsterWalkerController::Start()
 // TODO : add jump
 void MonsterWalkerController::FixedUpdate()
 {
-	m_currDelay -= static_cast<float>(SaltyEngine::Engine::Instance().GetFixedDeltaTime());
+    if (isServerSide()) {
+        m_currDelay -= static_cast<float>(SaltyEngine::Engine::Instance().GetFixedDeltaTime());
 
-	if (m_currDelay <= 0)
-	{
-        m_currDelay = m_minShootInterval + rand() % (int)(m_maxShootInterval - m_minShootInterval);
-        if (isServerSide()) {
-//            Shot();
+        if (m_currDelay <= 0) {
+            m_currDelay = m_minShootInterval + rand() % (int) (m_maxShootInterval - m_minShootInterval);
+            Shot();
         }
-	}
-    Move();
+        Move();
+    }
+//    Move();
 }
 
 void MonsterWalkerController::Move() {
-        this->gameObject->transform.Translate(-gameObject->transform.right() * m_vel);
-        if (fabsf(gameObject->transform.position.x - m_startPoint.x) > m_walkDistance) {
-            gameObject->transform.Rotate(180);
-            PlayAnim("Walk");
-        }
+    this->gameObject->transform.Translate(-gameObject->transform.right() * m_vel);
+    BroadcastPackage<MOVEPackageGame>(
+            gameObject->transform.position.x,
+            gameObject->transform.position.y,
+            getManager()->gameObjectContainer.GetServerObjectID(gameObject));
+//        if (fabsf(gameObject->transform.position.x - m_startPoint.x) > m_walkDistance) {
+//            gameObject->transform.Rotate(180);
+//            PlayAnim("Walk");
+//        }
    // std::cout << "MnsterWalkerController ==" << this->gameObject->transform.position << std::endl;
 }
 
@@ -64,25 +68,23 @@ void MonsterWalkerController::Shot() {
        getManager()->gameObjectContainer.Add(GameObjectID::NewID(), missile);
 
        BroadCastReliable<ENEMYSHOTPackageGame>(
-//               &Network::UDP::AUDPConnection::SendReliable<ENEMYSHOTPackageGame>,
                getManager()->gameObjectContainer.GetServerObjectID(gameObject));
 
        BroadCastReliable<CREATEPackageGame>(
-//               &Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>,
                gameObject->transform.position.x,
                gameObject->transform.position.y,
                RtypeNetworkFactory::GetIDFromName("EnemyBullet"),
                getManager()->gameObjectContainer.GetServerObjectID(missile),
                gameObject->transform.rotation);
 
-       if (missile) {
-            MissileController *missileController = missile->GetComponent<MissileController>();
-            if (missileController != nullptr) {
-                missileController->SetTarget(
-                        SaltyEngine::GameObject::FindGameObjectWithTag(SaltyEngine::Layer::Tag::Player));
-
-            }
-       }
+//       if (missile) {
+//            MissileController *missileController = missile->GetComponent<MissileController>();
+//            if (missileController != nullptr) {
+//                missileController->SetTarget(
+//                        SaltyEngine::GameObject::FindGameObjectWithTag(SaltyEngine::Layer::Tag::Player));
+//
+//            }
+//       }
     }
 }
 
@@ -102,7 +104,6 @@ void MonsterWalkerController::TakeDamage(int amount)
         if (m_health <= 0 && !m_isDead) {
             if (isServerSide()) {
                 BroadCastReliable<DIEPackageGame>(
-//                        &Network::UDP::AUDPConnection::SendReliable<DIEPackageGame>,
                         getManager()->gameObjectContainer.GetServerObjectID(gameObject));
                 Die();
             }

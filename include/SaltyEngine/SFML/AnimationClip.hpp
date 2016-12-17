@@ -16,29 +16,16 @@ namespace SaltyEngine
             std::list<Sprite *> m_sprites;
 
         public:
-            AnimationClip(std::string const &name = "Animation", int frameRate = 60, AnimationConstants::WrapMode mode = AnimationConstants::WrapMode::ONCE) :
-                    AAnimationClip(name, frameRate, mode)
-            {}
+            AnimationClip(std::string const &name = "Animation", int frameRate = 60, AnimationConstants::WrapMode mode = AnimationConstants::WrapMode::ONCE);
 
-            virtual ~AnimationClip() {
-
-            }
+            virtual ~AnimationClip();
 
         public:
-            void AddSprite(::SaltyEngine::SFML::Sprite *const sprite) {
-                if (sprite)
-                    m_sprites.push_back(sprite);
-                else
-                    Debug::PrintWarning("Cannot add nullptr");
-            }
+            void AddSprite(::SaltyEngine::SFML::Sprite *const sprite);
 
-            const std::list<Sprite*> &GetFrames() const {
-                return m_sprites;
-            }
+            const std::list<Sprite*> &GetFrames() const;
 
-            void operator<<(Sprite *const sprite) {
-                AddSprite(sprite);
-            }
+            void operator<<(Sprite *const sprite);
         };
     }
 }

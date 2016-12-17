@@ -23,19 +23,25 @@ void MonsterController::Start()
 //        gameServer = gameman->GetComponent<Rtype::Game::Server::GameServerObject>();
 }
 
-void MonsterController::Update()
+void MonsterController::FixedUpdate()
 {
-	m_currDelay -= static_cast<float>(SaltyEngine::Engine::Instance().GetDeltaTime());
+    if (isServerSide()) {
+        m_currDelay -= static_cast<float>(SaltyEngine::Engine::Instance().GetFixedDeltaTime());
 
-    if (m_currDelay <= 0) {
-        m_currDelay = m_minShootInterval + rand() % (int) (m_maxShootInterval - m_minShootInterval);
-//        Shot();
+        if (m_currDelay <= 0) {
+            m_currDelay = m_minShootInterval + rand() % (int) (m_maxShootInterval - m_minShootInterval);
+            Shot();
+        }
+        Move();
     }
-    Move();
 }
 
 void MonsterController::Move() {
-    this->gameObject->transform.Translate(-gameObject->transform.right() * SaltyEngine::Engine::Instance().GetDeltaTime() * m_vel);
+    this->gameObject->transform.Translate(-gameObject->transform.right() * SaltyEngine::Engine::Instance().GetFixedDeltaTime() * m_vel);
+    BroadcastPackage<MOVEPackageGame>(
+            gameObject->transform.position.x,
+            gameObject->transform.position.y,
+            getManager()->gameObjectContainer.GetServerObjectID(gameObject));
 }
 
 void MonsterController::Shot() {
@@ -45,12 +51,10 @@ void MonsterController::Shot() {
 
         getManager()->gameObjectContainer.Add(GameObjectID::NewID(), missile);
 
-        /*this->gameServer->*/BroadCastReliable<ENEMYSHOTPackageGame>(
-//                &Network::UDP::AUDPConnection::SendReliable<ENEMYSHOTPackageGame>,
+        BroadCastReliable<ENEMYSHOTPackageGame>(
                 getManager()->gameObjectContainer.GetServerObjectID(gameObject));
 
-        /*this->gameServer->*/BroadCastReliable<CREATEPackageGame>(
-//                &Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>,
+        BroadCastReliable<CREATEPackageGame>(
                 gameObject->transform.position.x,
                 gameObject->transform.position.y,
                 RtypeNetworkFactory::GetIDFromName("MissileMedusa"),

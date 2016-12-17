@@ -9,8 +9,10 @@ EnemyBulletController::EnemyBulletController(SaltyEngine::GameObject *go) :
 
 void EnemyBulletController::Start() {
     LoadManager();
-    SaltyEngine::Sound::ISound *fire = SaltyEngine::SFML::AssetManager::Instance().GetSound("fire");
-    fire->Play();
+    if (!isServerSide()) {
+        SaltyEngine::Sound::ISound *fire = SaltyEngine::SFML::AssetManager::Instance().GetSound("fire");
+        fire->Play();
+    }
     SaltyEngine::GameObject *t = SaltyEngine::GameObject::FindGameObjectWithTag(SaltyEngine::Layer::Tag::Player);
     if (t)
         gameObject->transform.LookAt(t->transform);
@@ -26,14 +28,14 @@ EnemyBulletController::~EnemyBulletController()
 
 void EnemyBulletController::FixedUpdate()
 {
-    if (isServerSide()) {
-        gameObject->transform.Translate(gameObject->transform.right() * m_vel);
-        BroadcastPackage<MOVEPackageGame>(
-//                &Network::Core::BasicConnection::SendData<MOVEPackageGame>,
-                gameObject->transform.position.x,
-                gameObject->transform.position.y,
-                getManager()->gameObjectContainer.GetServerObjectID(gameObject));
-    }
+    gameObject->transform.Translate(gameObject->transform.right() * m_vel);
+//    if (!isServerSide()) {
+//        gameObject->transform.Translate(gameObject->transform.right() * m_vel);
+//        BroadcastPackage<MOVEPackageGame>(
+//                gameObject->transform.position.x,
+//                gameObject->transform.position.y,
+//                getManager()->gameObjectContainer.GetServerObjectID(gameObject));
+//    }
 }
 
 void EnemyBulletController::OnCollisionEnter(SaltyEngine::ICollider *col)

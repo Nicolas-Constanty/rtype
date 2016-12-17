@@ -141,6 +141,7 @@ void Rtype::Game::Server::RtypeGameServer::OnStartGame(Rtype::Game::Common::Rtyp
                         if (playerID == playerController->GetPlayerID()) {
                             name = "Player";
                         }
+
                         if (name == "Mate") {
                             client->SendPackage<MATEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<MATEPackageGame>,
                                                                  gameObject->transform.position.x, gameObject->transform.position.y, playerController->GetPlayerID(),
@@ -167,6 +168,7 @@ void Rtype::Game::Server::RtypeGameServer::OnStartGame(Rtype::Game::Common::Rtyp
 void Rtype::Game::Server::RtypeGameServer::OnStartGame() {
     launch = true;
     for (std::pair<std::string, SaltyEngine::Vector2f> &obj : monsterMap->objects) {
+        std::cout << obj.first << std::endl;
         if (obj.first != "Player") {
             SaltyEngine::GameObject *object = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate(obj.first, obj.second, 0));
             manager->gameObjectContainer.Add(GameObjectID::NewID(), object);
