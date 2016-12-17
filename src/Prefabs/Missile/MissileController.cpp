@@ -1,3 +1,4 @@
+
 #include "SaltyEngine/GameObject.hpp"
 #include "Prefabs/Missile/MissileController.hpp"
 #include "SaltyEngine/SFML/AssetManager.hpp"
@@ -5,9 +6,9 @@
 #include "SaltyEngine/SFML/SpriteRenderer.hpp"
 #include "SaltyEngine/SFML/Animation.hpp"
 
-MissileController::MissileController(SaltyEngine::GameObject *go) : SaltyEngine::SaltyBehaviour(go)
+MissileController::MissileController(SaltyEngine::GameObject *go) : RtypePrefab("MissileController", go)//: SaltyEngine::SaltyBehaviour(go)
 {
-    gameServer = NULL;
+//    gameServer = NULL;
 }
 
 
@@ -16,17 +17,20 @@ MissileController::~MissileController()
 }
 
 void MissileController::Start() {
-    SaltyEngine::Sound::ISound *fire = SaltyEngine::SFML::AssetManager::Instance().GetSound("fire");
-	fire->Play();
+    LoadManager();
+    if (!isServerSide()) {
+        SaltyEngine::Sound::ISound *fire = SaltyEngine::SFML::AssetManager::Instance().GetSound("fire");
+        fire->Play();
+    }
 
-    SaltyEngine::GameObject *gameman = SaltyEngine::Engine::Instance().GetCurrentScene()->FindByName("GameServer");
-    if (gameman)
-        gameServer = gameman->GetComponent<Rtype::Game::Server::GameServerObject>();
+//    SaltyEngine::GameObject *gameman = SaltyEngine::Engine::Instance().GetCurrentScene()->FindByName("GameServer");
+//    if (gameman)
+//        gameServer = gameman->GetComponent<Rtype::Game::Server::GameServerObject>();
 }
 
-void MissileController::Update()
+void MissileController::FixedUpdate()
 {
-    gameObject->transform.Translate(gameObject->transform.right() * m_vel * SaltyEngine::Engine::Instance().GetFixedDeltaTime());
+    Move();
 }
 
 void MissileController::SetTarget(SaltyEngine::GameObject const* target)
@@ -34,5 +38,16 @@ void MissileController::SetTarget(SaltyEngine::GameObject const* target)
     if (target != nullptr)
     {
         gameObject->transform.LookAt(target->transform);
+    }
+}
+
+void MissileController::Move() {
+    if (isServerSide()) {
+        gameObject->transform.Translate(
+                gameObject->transform.right() * m_vel * SaltyEngine::Engine::Instance().GetFixedDeltaTime());
+        BroadcastPackage<MOVEPackageGame>(
+                gameObject->transform.position.x,
+                gameObject->transform.position.y,
+                getManager()->gameObjectContainer.GetServerObjectID(gameObject));
     }
 }

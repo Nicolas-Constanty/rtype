@@ -141,6 +141,7 @@ void Rtype::Game::Server::RtypeGameServer::OnStartGame(Rtype::Game::Common::Rtyp
                         if (playerID == playerController->GetPlayerID()) {
                             name = "Player";
                         }
+
                         if (name == "Mate") {
                             client->SendPackage<MATEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<MATEPackageGame>,
                                                                  gameObject->transform.position.x, gameObject->transform.position.y, playerController->GetPlayerID(),

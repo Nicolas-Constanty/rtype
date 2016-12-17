@@ -71,7 +71,6 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetAUTHENTICATEPackage(AUTHEN
 
 void Rtype::Game::Client::RtypeClientGameClient::onGetCREATEPackage(CREATEPackageGame const &pack)
 {
-    std::cout << pack << std::endl;
     OnDiscoveringPackage(pack);
 
     try
@@ -94,23 +93,19 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetCREATEPackage(CREATEPackag
 void Rtype::Game::Client::RtypeClientGameClient::onGetBEAMPackage(BEAMPackageGame const &pack)
 {
     OnDiscoveringPackage(pack);
-    std::cout << pack << std::endl;
     SaltyEngine::GameObject *gameObject;
     if ((gameObject = gameManager->gameObjectContainer[pack.objectID])) {
         SaltyEngine::PlayerController *playerController = gameObject->GetComponent<SaltyEngine::PlayerController>();
         if (playerController) {
-            std::cout << "BEAM BADIBIM" << std::endl;
             playerController->Beam();
         }
     }
-    std::cout << pack << std::endl;
 
     //todo resolve beam on game. Check if it's <this> player that send the beam.
 }
 
 void Rtype::Game::Client::RtypeClientGameClient::onGetSHOTPackage(SHOTPackageGame const &pack)
 {
-    std::cout << pack << std::endl;
     OnDiscoveringPackage(pack);
 
     SaltyEngine::GameObject *obj = gameManager->gameObjectContainer[pack.id];
@@ -177,14 +172,10 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetCALLPackage(CALLPackageGam
 void Rtype::Game::Client::RtypeClientGameClient::onGetMOVEPackage(MOVEPackageGame const &pack)
 {
 //    std::cout << "void Rtype::Game::Client::RtypeClientGameClient::onGetMOVEPackage(MOVEPackageGame const &pack) objectID IS == " << pack.objectID << std::endl;
-    std::cout << pack << std::endl;
     OnDiscoveringPackage(pack);
     SaltyEngine::GameObject *obj = gameManager->gameObjectContainer[pack.objectID];
     if (obj) {
-        std::cout << "obj found !" << std::endl;
         obj->transform.position = SaltyEngine::Vector(pack.posX, pack.posY);
-    } else {
-        std::cout << "obj not found !!" << std::endl;
     }
 }
 
@@ -244,7 +235,6 @@ void Rtype::Game::Client::RtypeClientGameClient::OnDisconnect()
 }
 
 void Rtype::Game::Client::RtypeClientGameClient::onGetENEMYSHOTPackage(ENEMYSHOTPackageGame const &pack) {
-    std::cout << pack << std::endl;
     SaltyEngine::GameObject *obj = gameManager->gameObjectContainer[pack.objectID];
     if (obj) {
         AGenericController *aGenericController = obj->GetComponent<AGenericController>();
