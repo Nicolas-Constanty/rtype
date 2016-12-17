@@ -12,8 +12,7 @@ void ExplosionController::Start() {
         SaltyEngine::SFML::AnimationClip *clip = animation->GetClip(0);
         if (clip)
         {
-            std::cout << "Adding event !" << std::endl;
-            clip->AddEvent([](){ std::cout << "coucouuuu" << std::endl; });
+            clip->AddEvent([&](){ SaltyEngine::Object::Destroy(gameObject); });
         }
     }
 }

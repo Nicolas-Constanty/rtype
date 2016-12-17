@@ -35,9 +35,12 @@ namespace SaltyEngine
 
 	public:
 		template<class U>
-		void AddEvent(U event)
+		void AddEvent(U event, int frame = -1)
 		{
-			m_events.push_back(event);
+            if (frame == -1)
+                m_event_end = event;
+            else
+    			m_events.push_back(event);
 		}
 
 		double GetFrameRate() const

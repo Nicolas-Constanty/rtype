@@ -85,11 +85,11 @@ void SaltyEngine::SFML::Animation::UpdateAnimations() {
         if (animData != nullptr) {
             animData->UpdateAnimTimeline(Engine::Instance().GetFixedDeltaTime());
             if (animData->IsAnimOver()) {
+
+                clip->OnAnimEnd();
+
                 // If we have some anims queued, play them
                 if (m_queuedAnims.size() > 0) {
-
-                    std::cout << "On Anim end being called" << std::endl;
-                    clip->OnAnimEnd();
 
                     Play(m_queuedAnims.back());
                     m_queuedAnims.pop();
