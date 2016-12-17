@@ -15,7 +15,7 @@ public:
 
 public:
 	void Start();
-	void Update();
+	void FixedUpdate();
 	void OnCollisionEnter(SaltyEngine::ICollider *col);
 
 public:

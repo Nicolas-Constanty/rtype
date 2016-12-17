@@ -26,14 +26,14 @@ EnemyBulletController::~EnemyBulletController()
 
 void EnemyBulletController::FixedUpdate()
 {
-    if (isServerSide()) {
-        gameObject->transform.Translate(gameObject->transform.right() * m_vel);
-        BroadcastPackage<MOVEPackageGame>(
-//                &Network::Core::BasicConnection::SendData<MOVEPackageGame>,
-                gameObject->transform.position.x,
-                gameObject->transform.position.y,
-                getManager()->gameObjectContainer.GetServerObjectID(gameObject));
-    }
+    gameObject->transform.Translate(gameObject->transform.right() * m_vel);
+//    if (!isServerSide()) {
+//        gameObject->transform.Translate(gameObject->transform.right() * m_vel);
+//        BroadcastPackage<MOVEPackageGame>(
+//                gameObject->transform.position.x,
+//                gameObject->transform.position.y,
+//                getManager()->gameObjectContainer.GetServerObjectID(gameObject));
+//    }
 }
 
 void EnemyBulletController::OnCollisionEnter(SaltyEngine::ICollider *col)
