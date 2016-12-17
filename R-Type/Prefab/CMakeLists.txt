@@ -104,6 +104,13 @@ target_link_libraries(beam ${PREFAB_LIBRARIES})
 	add_library(monster_flying SHARED ${FLYINGMONSTER_SOURCE_FILE})
 	target_link_libraries(monster_flying ${PREFAB_LIBRARIES} missile_medusa missile_enemy_bullet explosion_basic)
 
+# BOSSES
+
+	# WALKER
+	file(GLOB NEUNOEILMONSTER_SOURCE_FILE "src/Prefabs/MonsterNeunoeil/*.cpp" "include/Prefabs/MonsterNeunoeil/*.hpp")
+	add_library(monster_neunoeil SHARED ${NEUNOEILMONSTER_SOURCE_FILE})
+	target_link_libraries(monster_neunoeil ${PREFAB_LIBRARIES} missile_medusa missile_enemy_bullet explosion_basic player)
+
 set(PREFAB_DEPENDENCIES SFMLSaltyEngine Network PrefabCommunication)
 
 #BEAM
@@ -134,6 +141,7 @@ set(PREFABS_TARGET
 	monster 
 	monster_walker 
 	monster_flying
+    monster_neunoeil
 	beam)
 
 add_custom_target(prefabs DEPENDS ${PREFABS_TARGET})
