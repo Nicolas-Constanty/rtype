@@ -196,6 +196,11 @@ namespace SaltyEngine
             return Factory::Instance().FindByTag(tag);
 		}
 
+        static std::list<GameObject*> FindGameObjectsWithTag(Layer::Tag tag)
+        {
+            return Factory::Instance().FindAllByTag(tag);
+        }
+
 		public:
 			virtual std::unique_ptr<Object> Clone() {
 				return std::unique_ptr<Object>(new GameObject(GetName() + "(Clone)"));

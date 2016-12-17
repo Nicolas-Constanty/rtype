@@ -104,3 +104,20 @@ SaltyEngine::GameObject *SaltyEngine::Factory::FindByTag(Layer::Tag tag)
                                                                    });
     return dynamic_cast<GameObject*>((*it).get());
 }
+
+std::list<SaltyEngine::GameObject*> SaltyEngine::Factory::FindAllByTag(Layer::Tag tag)
+{
+    std::list<GameObject *> objs;
+    GameObject *go;
+
+    for (std::list<std::unique_ptr<Object>>::const_iterator it = m_objects.begin(); it != m_objects.end(); ++it)
+    {
+        go = nullptr;
+        if ((go = dynamic_cast<GameObject*>(it->get())) != nullptr)
+        {
+            if (go->CompareTag(tag))
+                objs.push_back(go);
+        }
+    }
+    return objs;
+}

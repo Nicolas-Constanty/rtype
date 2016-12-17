@@ -1,36 +1,41 @@
 {
-    "title": "scene2Victor",
-    "preview": "tot.png",
-    "prefabs": {
-        "Player": {
-            "position": {
-                "x" : "1200",
-                "y": "500"
-            }
-        },
-        "Monster": {
-            "position": {
-                "x" : "900",
-                "y": "200"
-            }
-        },
-        "MonsterWalker": {
-             "position": {
-                "x" : "500",
-                "y": "700"
-             }
-        },
-        "MonsterFlying": {
-            "position": {
-                "x" : "700",
-                "y": "300"
-            }
-        },
-        "MonsterFlying": {
-             "position": {
-                "x" : "800",
-                "y": "300"
-            }
-         }
+  "title": "scene1",
+  "preview": "tot.png",
+  "prefabs": {
+    "Player": {
+      "prefabName": "Player",
+      "position": {
+        "x" : "50",
+        "y": "500"
+      }
+    },
+    "Monster": {
+      "prefabName": "Monster",
+      "position": {
+        "x" : "1000",
+        "y": "500"
+      }
+    },
+    "Monster2": {
+      "prefabName": "Monster",
+      "position": {
+        "x" : "1200",
+        "y": "500"
+      }
+    },
+    "MonsterWalker": {
+      "prefabName": "MonsterWalker",
+      "position": {
+        "x" : "500",
+        "y": "700"
+      }
+    },
+    "MonsterFlying": {
+      "prefabName": "MonsterFlying",
+      "position": {
+        "x" : "500",
+        "y": "300"
+      }
     }
+  }
 }
