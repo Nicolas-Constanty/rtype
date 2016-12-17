@@ -3,9 +3,11 @@
 #include <Rtype/Game/Client/GameManager.hpp>
 #include <SaltyEngine/SFML/BoxCollider2D.hpp>
 #include <Prefabs/Player/PlayerController.hpp>
+#include <Rtype/Game/Client/BackgroundController.hpp>
 
 GameManager::GameManager(SaltyEngine::GameObject * const gamObj) : SaltyBehaviour("GameManager", gamObj)
 {
+    gameObject->AddComponent<BackgroundController>();
 }
 
 GameManager::GameManager(const std::string & name, SaltyEngine::GameObject * const gamObj) : SaltyBehaviour(name, gamObj)

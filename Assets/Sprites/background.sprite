@@ -1,0 +1,9 @@
+{
+  "texture": "background",
+  "rect": {
+    "x": "0",
+    "y": "0",
+    "width": "1921",
+    "heigth": "1080"
+  }
+}
