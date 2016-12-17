@@ -21,7 +21,7 @@ namespace SaltyEngine
 		BaseTransform(BaseTransform&&) = delete;                  // Move construct
 		BaseTransform& operator=(BaseTransform const&) = delete;  // Copy assign
 		BaseTransform& operator=(BaseTransform &&) = delete;      // Move assign
-		explicit BaseTransform(GameObject* const gameObj) : Component("Transform", gameObj)
+		explicit BaseTransform(GameObject* const gameObj) : Component("Transform", gameObj), localScale(1, 1)
         {
             m_parent = nullptr;
         }
@@ -106,6 +106,7 @@ namespace SaltyEngine
 		float localRotation;
 		T position;
 		T localPosition;
+		T localScale;
 	private:
 		BaseTransform<T>					*m_parent;
 		std::vector<BaseTransform<T> *>		m_children;

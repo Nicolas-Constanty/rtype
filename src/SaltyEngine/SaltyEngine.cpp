@@ -25,6 +25,7 @@ namespace SaltyEngine
 		srand(static_cast<unsigned int>(time(nullptr)));
 		m_renderer = new DefaultRenderer();
 		m_even_manager = new Input::DefaultEventManager();
+        m_physics_handler = nullptr;
 		m_status = EngineStatus::stop;
 		m_fps = DEFAULT_FRAME_RATE;
 		std::chrono::duration<double> d(1.0 / m_fps);
@@ -107,7 +108,13 @@ namespace SaltyEngine
 					if (m_status != EngineStatus::pause)
 					{
                         m_scenes[m_current]->FixedUpdate();
-						m_scenes[m_current]->UpdatePhysics();
+						//m_scenes[m_current]->UpdatePhysics();
+						if (m_physics_handler)
+						{
+							m_physics_handler->Clear();
+							m_physics_handler->Update();
+							m_physics_handler->Display();
+						}
 
 						m_scenes[m_current]->OnTriggerEnter();
 						m_scenes[m_current]->OnTriggerExit();

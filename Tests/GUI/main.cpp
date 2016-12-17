@@ -24,7 +24,7 @@ int main()
 		SaltyEngine::Instantiate(it->first, it->second);
 	}
 	SaltyEngine::GameObject *obj = new SaltyEngine::GameObject("Destroyer", SaltyEngine::Layer::Tag::Destroy);
-    obj->AddComponent<SaltyEngine::SFML::BoxCollider2D>(SaltyEngine::SFML::Rect(0, 0, 20, 1500));
+    obj->AddComponent<SaltyEngine::SFML::BoxCollider2D>(sf::Vector2u(20, 1500));
     obj->transform.position = SaltyEngine::Vector(1290, 0);
     *scene << obj;
 	// Run the SaltyEngine with default Scene 0

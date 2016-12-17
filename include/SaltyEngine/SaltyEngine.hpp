@@ -12,6 +12,7 @@
 #include "SaltyEngine/Input/DefaultEventManager.hpp"
 #include "Common/Singleton.hpp"
 #include "SaltyEngine/Object.hpp"
+#include "SaltyEngine/IPhysicHandler.hpp"
 
 
 #define DEFAULT_FRAME_RATE 60
@@ -52,6 +53,7 @@ namespace SaltyEngine
 		std::chrono::duration<long long, std::nano> m_delta_time;
 		IRenderer									*m_renderer;
 		Input::IEventManager						*m_even_manager;
+        IPhysicsHandler                             *m_physics_handler;
 	};
 }
 

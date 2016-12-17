@@ -15,6 +15,8 @@ namespace SaltyEngine
 	* @return	The instance identifier.
 	*/
 
+	std::atomic<uid> Object::s_id(0);
+
 	uid Object::GetInstanceID(void) const
 	{
 		return m_uid;
@@ -57,4 +59,9 @@ namespace SaltyEngine
 	void Object::Destroy() {
 
 	}
+
+    Object::Object(const std::string &name) : m_name(name) {
+		m_uid = s_id;
+		++s_id;
+    }
 }

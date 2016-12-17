@@ -6,7 +6,7 @@
 Laser::Laser() : GameObject("Laser", SaltyEngine::Layer::Tag::BulletPlayer) {
     AddComponent<SaltyEngine::SFML::SpriteRenderer>(SaltyEngine::SFML::AssetManager::Instance().GetSprite("Laser/simple"), ::SaltyEngine::Layout::normal);
     AddComponent<LaserController>();
-    AddComponent<SaltyEngine::SFML::BoxCollider2D>();
+    AddComponent<SaltyEngine::SFML::SpriteCollider2D>();
     AddComponent<SaltyEngine::SFML::Animation>();
 }
 
