@@ -50,6 +50,7 @@ namespace Rtype
                 virtual void onGetDISCONNECTPackage(DISCONNECTPackageGame const &);
                 virtual void onGetENEMYSHOTPackage(ENEMYSHOTPackageGame const &);
                 virtual void onGetUPGRADEPackage(UPGRADEPackageGame const &);
+                virtual void onGetMATEPackage(MATEPackageGame const &);
 
             public:
                 void StartDisplayInformation();

@@ -254,4 +254,14 @@ namespace SaltyEngine
         }
         return nullptr;
     }
+
+    void PlayerController::SetColor(unsigned char color) {
+
+        std::string anim;
+
+        anim = "SpaceShip/SpaceShip" + std::to_string(color) + "-1";
+        std::cout << "PLAYER COLOR == " << anim << std::endl;
+        gameObject->GetComponent<::SaltyEngine::SFML::SpriteRenderer>()->SetSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite(anim));
+    }
+
 }

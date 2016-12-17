@@ -26,5 +26,6 @@ std::ostream &operator<<(std::ostream &ostream, INPUTPackageGame const &inputPac
 std::ostream &operator<<(std::ostream &ostream, DISCONNECTPackageGame const &disconnectPackageGame);
 std::ostream &operator<<(std::ostream &ostream, ENEMYSHOTPackageGame const &enemyshotPackageGame);
 std::ostream &operator<<(std::ostream &ostream, UPGRADEPackageGame const &upgradePackageGame);
+std::ostream &operator<<(std::ostream &ostream, MATEPackageGame const &matePackageGame);
 
 #endif //RTYPE_PROTOCOLPRINTGAMEPACKAGE_HPP

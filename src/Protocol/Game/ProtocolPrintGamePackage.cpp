@@ -229,3 +229,15 @@ std::ostream &operator<<(std::ostream &ostream, UPGRADEPackageGame const &upgrad
     ostream << "}" << std::endl;
     return ostream;
 }
+
+std::ostream &operator<<(std::ostream &ostream, MATEPackageGame const &matePackageGame)
+{
+    ostream << "MATEPackageGame = {" << std::endl;
+    ostream << dynamic_cast<ObjectIDPackageGame const &>(matePackageGame) << std::endl;
+    ostream << "x=" << matePackageGame.x << std::endl;
+    ostream << "y=" << matePackageGame.y << std::endl;
+    ostream << "objectID=" << matePackageGame.objectID << std::endl;
+    ostream << "playerID=" << matePackageGame.playerID << std::endl;
+    ostream << "}" << std::endl;
+    return ostream;
+}

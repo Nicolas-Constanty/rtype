@@ -34,6 +34,8 @@ file(GLOB SRC_COMMMUNICATION
 		"src/Protocol/Game/Client/*.cpp"
 		"src/Rtype/Game/Server/*.cpp"
 		"src/Prefabs/Player/PlayerController.cpp"
+		src/Prefabs/Mate/MateComponent.cpp
+		include/Prefabs/Mate/MateComponent.hpp
 		)
 
 

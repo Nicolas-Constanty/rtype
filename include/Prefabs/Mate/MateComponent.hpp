@@ -5,7 +5,6 @@
 #ifndef RTYPE_MATECOMPONENT_HPP
 #define RTYPE_MATECOMPONENT_HPP
 
-
 #include <SaltyEngine/SaltyBehaviour.hpp>
 
 class MateComponent : public SaltyEngine::SaltyBehaviour
@@ -16,6 +15,7 @@ public:
     virtual ~MateComponent();
 
 public:
+    void SetColor(int color);
     void Start();
     void OnCollisionEnter(SaltyEngine::ICollider *collider);
 

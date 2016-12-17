@@ -407,7 +407,8 @@ void Rtype::Game::Server::RtypeServerGameClient::StartDisplayInformation() {
 
     gameManager->gameObjectContainer.Add(GameObjectID::NewID(), player);
 
-    this->SendPackage<CREATEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>, player->transform.position.x, player->transform.position.y, 0, gameManager->gameObjectContainer.GetServerObjectID(player));
+    this->SendPackage<CREATEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>,
+                                         player->transform.position.x, player->transform.position.y, 0, gameManager->gameObjectContainer.GetServerObjectID(player));
 
     for (std::unique_ptr<Network::Socket::ISockStreamHandler> &curr : clients->Streams())
     {
@@ -415,8 +416,9 @@ void Rtype::Game::Server::RtypeServerGameClient::StartDisplayInformation() {
 
         if (client && client != this)
         {
-            //TODO send le playerID
-            client->SendPackage<CREATEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>, player->transform.position.x, player->transform.position.y, 1, gameManager->gameObjectContainer.GetServerObjectID(player));
+            client->SendPackage<MATEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<MATEPackageGame>,
+                                                 player->transform.position.x, player->transform.position.y, __playerID,
+                                                 gameManager->gameObjectContainer.GetServerObjectID(player));
         }
     }
 }
@@ -425,4 +427,8 @@ void Rtype::Game::Server::RtypeServerGameClient::OnDisconnect() {
     Rtype::Game::Common::RtypeGameClient::OnDisconnect();
     server1->DisconnectConnectedPlayer(__playerID);
     std::cout << "\e[31m Diconnected RtypeServerGameClient \e[0m" << std::endl;
+}
+
+void Rtype::Game::Server::RtypeServerGameClient::onGetMATEPackage(MATEPackageGame const &matePackageGame) {
+
 }

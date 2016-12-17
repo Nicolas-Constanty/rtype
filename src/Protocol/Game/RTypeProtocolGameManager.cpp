@@ -23,6 +23,7 @@ const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::INPUTID = RType
 const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::DISCONNECTID = RTypeProtocolGameManager::GameID(GamePurpose::GAMEDISCONNECT, sizeof(DISCONNECTPackageGame));
 const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::ENEMYSHOTID = RTypeProtocolGameManager::GameID(GamePurpose::GAMEENEMYSHOT, sizeof(ENEMYSHOTPackageGame));
 const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::UPGRADE = RTypeProtocolGameManager::GameID(GamePurpose::GAMEUPGRADE, sizeof(UPGRADEPackageGame));
+const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::MATE = RTypeProtocolGameManager::GameID(GamePurpose::GAMEMATE, sizeof(MATEPackageGame));
 
 RTypeProtocolGameManager::RTypeProtocolGameManager(IProtocolGameHandler &protocolGameHandler)
         : protocolGameHandler(protocolGameHandler) {
@@ -43,6 +44,7 @@ RTypeProtocolGameManager::RTypeProtocolGameManager(IProtocolGameHandler &protoco
     fptr[DISCONNECTID] = (MFP)&IProtocolGameHandler::onGetDISCONNECTPackage;
     fptr[ENEMYSHOTID] = (MFP)&IProtocolGameHandler::onGetENEMYSHOTPackage;
     fptr[UPGRADE] = (MFP)&IProtocolGameHandler::onGetUPGRADEPackage;
+    fptr[MATE] = (MFP)&IProtocolGameHandler::onGetMATEPackage;
 }
 
 RTypeProtocolGameManager::~RTypeProtocolGameManager() {

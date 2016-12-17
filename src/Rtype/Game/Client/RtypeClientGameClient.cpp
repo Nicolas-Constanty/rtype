@@ -12,6 +12,7 @@
 #include <Prefabs/Missile/Laser/LaserController.hpp>
 #include <Prefabs/Player/PlayerController.hpp>
 #include <Prefabs/Pod/PodController.hpp>
+#include <Prefabs/Mate/MateComponent.hpp>
 
 Rtype::Game::Client::RtypeClientGameClient::RtypeClientGameClient(
         Network::Core::NativeSocketIOOperationDispatcher &dispatcher) :
@@ -73,43 +74,21 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetCREATEPackage(CREATEPackag
     std::cout << pack << std::endl;
     OnDiscoveringPackage(pack);
 
-    //TODO URGENT
-    // FACTORY CORRESPONDANCE AVEC L'ID PLEASE
     try
     {
         SaltyEngine::GameObject *object = RtypeNetworkFactory::Create(pack.ID, SaltyEngine::Vector((float)pack.posX, (float)pack.posY), pack.rotation);
 
         gameManager->gameObjectContainer.Add(pack.objectID, object);
-
-  //      std::cout << object->GetName() << std::endl;
-//        SaltyEngine::GameObject *obj = gameManager->gameObjectContainer[pack.objectID];
-        //if (obj) {
-          //  std::cout << "CREATE TROLOL :: " << obj->GetName() << std::endl;
-       // }
-        //std::cout << "ENDD" << std::endl;
-      //  *SaltyEngine::SaltyEngine::Instance().GetCurrentScene() << object;
+        SaltyEngine::PlayerController *playerController = object->GetComponent<SaltyEngine::PlayerController>();
+        if (playerController) {
+            playerController->SetColor(playerID);
+        }
     }
     catch (std::runtime_error const &error)
     {
         std::cerr << "\e[31mCreate Package\e[0m: " << error.what() << std::endl;
     }
 
-//    if (pack.ID == 0)  { // Ajout du player qu'on va jouer
-//        SaltyEngine::GameObject	*player;
-//        player = dynamic_cast<SaltyEngine::GameObject*>(SaltyEngine::Object::Instantiate());
-//        player->AddComponent<SaltyEngine::SpaceShipController>();
-//        *SaltyEngine::SaltyEngine::Instance().GetCurrentScene() << player;
-//
-//        gameManager->gameObjectContainer.Add(pack.objectID, player);
-//    }
-//    if (pack.ID == 1)  { // Ajout du player qu'on va jouer
-//        SaltyEngine::GameObject	*player;
-//        player = dynamic_cast<SaltyEngine::GameObject*>(SaltyEngine::Object::Instantiate());
-//        player->AddComponent<SaltyEngine::SpaceShipController>(false);
-//        *SaltyEngine::SaltyEngine::Instance().GetCurrentScene() << player;
-//
-//        gameManager->gameObjectContainer.Add(pack.objectID, player);
-//    }
 }
 
 void Rtype::Game::Client::RtypeClientGameClient::onGetBEAMPackage(BEAMPackageGame const &pack)
@@ -141,7 +120,6 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetSHOTPackage(SHOTPackageGam
         laser->GetComponent<LaserController>()->Power(pack.power);
     }
 
-    std::cout << "JE SUIS SENSE TIRER" << std::endl;
     //todo resolve shot package with power of shot
 }
 
@@ -208,15 +186,6 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetMOVEPackage(MOVEPackageGam
     } else {
         std::cout << "obj not found !!" << std::endl;
     }
- //   SaltyEngine::GameObject *obj = SaltyEngine::SaltyEngine::Instance().GetCurrentScene()->FindById(static_cast<size_t>(pack.objectID));
- //   if (obj)
- //   {
- //       SaltyEngine::SpaceShipController *ship = obj->GetComponent<SaltyEngine::SpaceShipController>();
-    //       if (ship)
-    //       {
-    //           ship->Move(pack.posX, pack.posY);
-    //       }
- //   }
 }
 
 void Rtype::Game::Client::RtypeClientGameClient::onGetLAUNCHPackage(LAUNCHPackageGame const &pack)
@@ -282,5 +251,22 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetENEMYSHOTPackage(ENEMYSHOT
         if (aGenericController) {
             aGenericController->Shot();
         }
+    }
+}
+
+void Rtype::Game::Client::RtypeClientGameClient::onGetMATEPackage(MATEPackageGame const &matePackageGame) {
+    std::cout << matePackageGame << std::endl;
+    try {
+        SaltyEngine::GameObject *object = RtypeNetworkFactory::Create(1, SaltyEngine::Vector((float) matePackageGame.x,
+                                                                                             (float) matePackageGame.y),
+                                                                      0);
+
+        gameManager->gameObjectContainer.Add(matePackageGame.objectID, object);
+        MateComponent *component = object->GetComponent<MateComponent>();
+        if (component) {
+            component->SetColor(matePackageGame.playerID);
+        }
+    } catch (...) {
+        std::cout << "unkown obj" << std::endl;
     }
 }

@@ -35,7 +35,8 @@ typedef enum : unsigned char {
     GAMEINPUT = 14,
     GAMEDISCONNECT = 15,
     GAMEENEMYSHOT = 16,
-    GAMEUPGRADE = 17
+    GAMEUPGRADE = 17,
+    GAMEMATE = 18
 } GamePurpose;
 
 class PackageGameHeader {
@@ -295,6 +296,23 @@ public:
     {
 
     }
+};
+
+class MATEPackageGame : public ObjectIDPackageGame
+{
+public:
+    MATEPackageGame(unsigned short sequenceID = 0, int x = 0, int y = 0, int playerID = 0, unsigned short objectID = 0, unsigned short transactionID = 0) :
+            ObjectIDPackageGame(sizeof(MATEPackageGame), GamePurpose::GAMEMATE, sequenceID, objectID, true, transactionID)
+    {
+        this->x = x;
+        this->y = y;
+        this->playerID = playerID;
+    }
+
+public:
+    int x;
+    int y;
+    int playerID;
 };
 
 #endif //RTYPE_PROTOCOLGAMEPACKAGE_HPP

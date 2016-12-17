@@ -4,6 +4,7 @@
 
 #include <SFML/Audio.hpp>
 #include <SaltyEngine/Collider.hpp>
+#include <SaltyEngine/SFML/SpriteRenderer.hpp>
 #include "Prefabs/Mate/MateComponent.hpp"
 
 MateComponent::MateComponent(SaltyEngine::GameObject * const object) :
@@ -44,4 +45,13 @@ void MateComponent::OnCollisionEnter(SaltyEngine::ICollider *collider)
 
         std::cout << limit << std::endl << middle << std::endl << limit << std::endl;
     }
+}
+
+void MateComponent::SetColor(int color) {
+
+    std::string anim;
+
+    anim = "SpaceShip/SpaceShip" + std::to_string(color) + "-1";
+    std::cout << "LOADING == " << anim << std::endl;
+    gameObject->GetComponent<::SaltyEngine::SFML::SpriteRenderer>()->SetSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite(anim));
 }

@@ -29,6 +29,7 @@ public:
     virtual void onGetDISCONNECTPackage(DISCONNECTPackageGame const &) = 0;
     virtual void onGetENEMYSHOTPackage(ENEMYSHOTPackageGame const &) = 0;
     virtual void onGetUPGRADEPackage(UPGRADEPackageGame const &) = 0;
+    virtual void onGetMATEPackage(MATEPackageGame const &) = 0;
 };
 
 #endif //RTYPE_IPROTOCOLGAMEHANDLER_HPP

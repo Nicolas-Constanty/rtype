@@ -47,6 +47,8 @@ add_executable(gameserver-stable
         ${srcGameClient} ${incGameClient}
         src/Prefabs/Player/PlayerController.cpp
         include/Prefabs/Player/PlayerController.hpp
+        src/Prefabs/Mate/MateComponent.cpp
+        include/Prefabs/Mate/MateComponent.hpp
         src/Prefabs/Missile/Laser/Laser.cpp
         src/Prefabs/Missile/Laser/LaserController.cpp
         include/Prefabs/Missile/Laser/Laser.hpp
@@ -69,6 +71,8 @@ add_executable(client-test-move-netork
         ${SFMLinc}
         src/Prefabs/Missile/Laser/Laser.cpp
         src/Prefabs/Missile/Laser/LaserController.cpp
+        src/Prefabs/Mate/MateComponent.cpp
+        include/Prefabs/Mate/MateComponent.hpp
         include/Prefabs/Missile/Laser/Laser.hpp
         include/Prefabs/Missile/Laser/LaserController.hpp
         src/Prefabs/Player/PlayerController.cpp
