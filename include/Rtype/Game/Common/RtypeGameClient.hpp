@@ -91,16 +91,22 @@ namespace Rtype
 
             public:
                 template <typename T>
-                void SendToServerReliablyNow(T const &ref)
+                void SendToServerNow(T const &ref)
                 {
                     Network::Core::NetBuffer    tosend(ref);
 
+                    if (serverStream)
+                        serverStream->giveSocket().SendTo(tosend, giveSocket());
+                    else
+                        sock.SendTo(tosend, sock);
+                }
+
+                template <typename T>
+                void SendToServerReliablyNow(T const &ref)
+                {
                     for (int i = 0; i < 30; ++i)
                     {
-                        if (serverStream)
-                            serverStream->giveSocket().SendTo(tosend, giveSocket());
-                        else
-                            sock.SendTo(tosend, sock);
+                        SendToServerNow(ref);
                     }
                 }
 
