@@ -3,24 +3,35 @@
     "preview": "tot.png",
     "prefabs": {
         "Player": {
+            "prefabName": "Player",
             "position": {
                 "x" : "50",
                 "y": "500"
             }
         },
         "Monster": {
+            "prefabName": "Monster",
+            "position": {
+                "x" : "1000",
+                "y": "500"
+            }
+        },
+        "Monster2": {
+            "prefabName": "Monster",
             "position": {
                 "x" : "1000",
                 "y": "500"
             }
         },
         "MonsterWalker": {
+            "prefabName": "MonsterWalker",
             "position": {
                 "x" : "500",
                 "y": "700"
             }
         },
         "MonsterFlying": {
+            "prefabName": "MonsterFlying",
             "position": {
                 "x" : "500",
                 "y": "300"

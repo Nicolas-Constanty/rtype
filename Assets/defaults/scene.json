@@ -4,6 +4,7 @@
     "background": "{{path_to_background}}",
     "prefabs": {
         "{{prefabName}}": {
+            "prefabName": "{{prefabName}}",
             "position": {
                 "x" : "0",
                 "y": "0"

@@ -50,6 +50,7 @@ namespace SaltyEngine {
     struct SceneDefault {
         std::string title;
         std::string preview;
+        std::string background;
         std::list<std::pair<std::string, Vector2f> > objects;
     };
 
@@ -306,7 +307,7 @@ namespace SaltyEngine {
         bool    LoadPrefab(std::string const &filename) {
             if (std::find(m_prefabs.begin(), m_prefabs.end(), filename) != m_prefabs.end()) {
                 Debug::PrintWarning("Prefab " + filename + " already loaded");
-                return false;
+                return true;
             }
             try {
                 Parser parser = Parser(JSON, (path_prefabs + filename + Asset::PREFAB_EXTENSION).c_str());
@@ -361,24 +362,25 @@ namespace SaltyEngine {
         /// \brief Return list of pair of prefabName and position
         /// \param filename
         /// \return std::list<std::pair<std::string, Vector2f>>
-        std::unique_ptr<SceneDefault> LoadScene(std::string const &filename) { /*std::list<std::pair<std::string, Vector2f>>*/
+        std::unique_ptr<SceneDefault> LoadScene(std::string const &filename) {
             std::unique_ptr<SceneDefault>    sceneDefault;
 
             sceneDefault.reset(new SceneDefault());
-//            std::list<std::pair<std::string, Vector2f>> objects;
 
             try {
                 Parser parser = Parser(JSON, (path_scenes + filename + Asset::SCENE_EXTENSION).c_str());
                 JsonVariant::json_pair map;
                 if (parser.parse(&map)) {
                     Debug::PrintInfo("Parsing Scene " + filename);
-                    sceneDefault->title = map["title"](); //std::string const &title
-                    sceneDefault->preview = map["preview"]();//std::string const &preview
-
+                    sceneDefault->title = map["title"]();
+                    sceneDefault->preview = map["preview"]();
+                    sceneDefault->background = map["background"]();
                     const JsonVariant::json_pair *prefabs = boost::get<JsonVariant::json_pair *>(map["prefabs"].get());
+
                     for (JsonVariant::json_pair::const_iterator prefab = prefabs->begin(); prefab != prefabs->end(); ++prefab) {
-                        std::string prefabName = prefab->first;
-                        Vector2f    position = Vector2f(std::stoi(prefab->second["position"]["x"]()), std::stoi(prefab->second["position"]["y"]()));
+//                        std::string const &objectName = prefab->first; //not used
+                        std::string const &prefabName = prefab->second["prefabName"]();
+                        Vector2f    const &position = Vector2f(std::stoi(prefab->second["position"]["x"]()), std::stoi(prefab->second["position"]["y"]()));
                         if (LoadPrefab(prefabName)) {
                             sceneDefault->objects.push_back(std::make_pair(prefabName, position));
                         }
