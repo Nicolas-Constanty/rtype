@@ -71,6 +71,7 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetAUTHENTICATEPackage(AUTHEN
 
 void Rtype::Game::Client::RtypeClientGameClient::onGetCREATEPackage(CREATEPackageGame const &pack)
 {
+    std::cout << pack << std::endl;
     OnDiscoveringPackage(pack);
 
     try

@@ -18,6 +18,13 @@ void MonsterController::Start()
 {
     LoadManager();
 	m_currDelay = m_minShootInterval + rand() % (int)(m_maxShootInterval - m_minShootInterval);
+
+    if (isServerSide()) {
+        BroadCastReliable<CREATEPackageGame>(gameObject->transform.position.x,
+                                             gameObject->transform.position.y,
+                                            RtypeNetworkFactory::GetIDFromName("Monster"),
+                                            getManager()->gameObjectContainer.GetServerObjectID(gameObject));
+    }
 //    SaltyEngine::GameObject *gameman = SaltyEngine::Engine::Instance().GetCurrentScene()->FindByName("GameServer");
 //    if (gameman)
 //        gameServer = gameman->GetComponent<Rtype::Game::Server::GameServerObject>();
@@ -54,21 +61,21 @@ void MonsterController::Shot() {
         BroadCastReliable<ENEMYSHOTPackageGame>(
                 getManager()->gameObjectContainer.GetServerObjectID(gameObject));
 
-        BroadCastReliable<CREATEPackageGame>(
-                gameObject->transform.position.x,
-                gameObject->transform.position.y,
-                RtypeNetworkFactory::GetIDFromName("MissileMedusa"),
-                getManager()->gameObjectContainer.GetServerObjectID(missile),
-                gameObject->transform.rotation);
+//        BroadCastReliable<CREATEPackageGame>(
+//                gameObject->transform.position.x,
+//                gameObject->transform.position.y,
+//                RtypeNetworkFactory::GetIDFromName("MissileMedusa"),
+//                getManager()->gameObjectContainer.GetServerObjectID(missile),
+//                gameObject->transform.rotation);
 
 
-        if (missile) {
-            MissileController *missileController = missile->GetComponent<MissileController>();
-            if (missileController != nullptr) {
-                missileController->SetTarget(
-                        SaltyEngine::GameObject::FindGameObjectWithTag(SaltyEngine::Layer::Tag::Player));
-            }
-        }
+//        if (missile) {
+//            MissileController *missileController = missile->GetComponent<MissileController>();
+//            if (missileController != nullptr) {
+//                missileController->SetTarget(
+//                        SaltyEngine::GameObject::FindGameObjectWithTag(SaltyEngine::Layer::Tag::Player));
+//            }
+//        }
     }
 }
 
