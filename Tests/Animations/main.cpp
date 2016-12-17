@@ -60,7 +60,7 @@ int main()
 	Singleton<SaltyEngine::Engine>::Instance() << scene;
 
     // Load scene
-	auto pos = SaltyEngine::BaseVector2<float>(50, 100);
+	auto pos = SaltyEngine::BaseVector2<float>(50, 200);
 	int minY = 0;
 
 	std::list<std::string> animations = getAllFilesRecurive(SaltyEngine::Asset::ANIMS_PATH);
@@ -68,7 +68,7 @@ int main()
 		SaltyEngine::GameObject * gameObject = static_cast<SaltyEngine::GameObject*>(SaltyEngine::Object::Instantiate());
 		auto animClip = SaltyEngine::SFML::AssetManager::Instance().GetAnimation(animation.substr(0, animation.find_last_of(".")));
 		animClip->SetWrapMode(SaltyEngine::AnimationConstants::WrapMode::LOOP);
-		auto sprr = gameObject->AddComponent<SaltyEngine::SFML::SpriteRenderer>(*animClip->GetFrames().begin(), SaltyEngine::Layout::normal);
+		auto sprr = gameObject->AddComponent<SaltyEngine::SFML::SpriteRenderer>(SaltyEngine::SFML::AssetManager::Instance().GetSprite((*animClip->GetFrames().begin())->GetName()), SaltyEngine::Layout::normal);
 		auto anim = gameObject->AddComponent<SaltyEngine::SFML::Animation>(true, SaltyEngine::AnimationConstants::WrapMode::LOOP);
 		anim->AddClip(animClip, "Walk");
 		gameObject->transform.position = pos;
