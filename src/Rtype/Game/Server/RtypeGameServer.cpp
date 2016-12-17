@@ -108,11 +108,6 @@ bool Rtype::Game::Server::RtypeGameServer::OnStart()
         playersConnected[i] = false;
         ++i;
     }
-    monsterMap = SaltyEngine::SFML::AssetManager::Instance().LoadScene("scene" + std::to_string(level));
-
-    monsterMap->objects.sort([](std::pair<std::string, SaltyEngine::Vector2f> obj1, std::pair<std::string, SaltyEngine::Vector2f> obj2) {
-        return (obj1.second.x < obj2.second.x);
-    });
     std::cout << "\x1b[32mServer started\x1b[0m: maximum number of players => " << maxSize << ", secure => " << std::boolalpha << secure << std::endl;
     return true;
 }
@@ -166,20 +161,14 @@ void Rtype::Game::Server::RtypeGameServer::OnStartGame(Rtype::Game::Common::Rtyp
 }
 
 void Rtype::Game::Server::RtypeGameServer::OnStartGame() {
-    launch = true;
-    for (std::pair<std::string, SaltyEngine::Vector2f> &obj : monsterMap->objects) {
-        std::cout << obj.first << std::endl;
-        if (obj.first != "Player") {
-            SaltyEngine::GameObject *object = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate(obj.first, obj.second, 0));
-            manager->gameObjectContainer.Add(GameObjectID::NewID(), object);
-
-//            this->BroadCastPackage<CREATEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>,
-//                                                      object->transform.position.x,
-//                                                      object->transform.position.y,
-//                                                      RtypeNetworkFactory::GetIDFromName(obj.first),
-//                                                      manager->gameObjectContainer.GetServerObjectID(object));
-        }
-    }
+//    launch = true;
+//    for (std::pair<std::string, SaltyEngine::Vector2f> &obj : monsterMap->objects) {
+//        std::cout << obj.first << std::endl;
+//        if (obj.first != "Player") {
+//            SaltyEngine::GameObject *object = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate(obj.first, obj.second, 0));
+//            manager->gameObjectContainer.Add(GameObjectID::NewID(), object);
+//        }
+//    }
 }
 
 void Rtype::Game::Server::RtypeGameServer::setManager(GameManager *manager)
@@ -217,6 +206,10 @@ void Rtype::Game::Server::RtypeGameServer::DisconnectConnectedPlayer(int playerI
 
 bool Rtype::Game::Server::RtypeGameServer::IsLaunch() const {
     return launch;
+}
+
+void Rtype::Game::Server::RtypeGameServer::SetLaunch(bool lau) {
+    this->launch = lau;
 }
 
 //GameObjectContainer &Rtype::Game::Server::RtypeGameServer::GameObjectContainer() {

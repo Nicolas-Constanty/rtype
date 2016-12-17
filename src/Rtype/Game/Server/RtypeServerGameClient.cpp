@@ -101,6 +101,7 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetAUTHENTICATEPackage(AUTHEN
 
             if (!server1->IsLaunch()) {
                 server1->OnStartGame();
+                gameManager->StartTheGame();
                 check = true;
             }
 //            else
@@ -403,6 +404,7 @@ void Rtype::Game::Server::RtypeServerGameClient::StartDisplayInformation() {
     SaltyEngine::PlayerController *playerController = player->GetComponent<SaltyEngine::PlayerController>();
     if (playerController) {
         playerController->SetPlayerID(__playerID);
+        gameManager->addPlayer(player);
     }
 
     gameManager->gameObjectContainer.Add(GameObjectID::NewID(), player);
