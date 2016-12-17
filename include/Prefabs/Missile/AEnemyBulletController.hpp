@@ -8,7 +8,7 @@
 
 #include <string>
 #include "Prefabs/RtypePrefab.hpp"
-#include "SaltyEngine/ICollider.hpp"
+#include "SaltyEngine/SaltyEngine.hpp"
 
 /**
  * @brief Base model for enemy's bullets
