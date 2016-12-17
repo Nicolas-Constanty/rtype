@@ -79,7 +79,7 @@ namespace SaltyEngine
             AnimData *animData = nullptr;
 
         private:
-            std::map<std::string, AnimationClip *> m_clips;
+            mutable std::map<std::string, AnimationClip *> m_clips;
 
         public:
             Animation(GameObject *const obj, bool playAuto = true, AnimationConstants::WrapMode mode = AnimationConstants::WrapMode::ONCE);
@@ -100,6 +100,9 @@ namespace SaltyEngine
             void AddClip(AnimationClip *const clip, std::string const &name);
 
             size_t GetClipCount() const;
+
+            AnimationClip *GetClip(std::string const& name) const;
+            AnimationClip *GetClip(int id) const;
 
         public:
             AnimationClip *clip = nullptr;

@@ -14,4 +14,6 @@ public:
 	virtual SaltyEngine::Component *CloneComponent(SaltyEngine::GameObject* const obj) {
 		return new ExplosionController(obj);
 	}
+
+    void Start() override;
 };

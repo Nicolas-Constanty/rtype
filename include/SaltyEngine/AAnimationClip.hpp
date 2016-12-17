@@ -11,6 +11,7 @@ namespace SaltyEngine
 	{
 	protected:
 		std::list<std::function<void()>> m_events;
+        std::function<void()> m_event_end = nullptr;
 		int m_frameRate = 60;
         AnimationConstants::WrapMode m_wrapMode = AnimationConstants::WrapMode::ONCE;
 
@@ -48,5 +49,11 @@ namespace SaltyEngine
 		{
 			m_frameRate = frameRate;
 		}
+
+        void OnAnimEnd()
+        {
+            if (m_event_end != nullptr)
+                m_event_end();
+        }
 	};
 }
