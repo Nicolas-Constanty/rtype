@@ -18,9 +18,9 @@ void MonsterFlyingController::Start()
 	m_currDelay = m_minShootInterval + rand() % (int)(m_maxShootInterval - m_minShootInterval);
 }
 
-void MonsterFlyingController::Update()
+void MonsterFlyingController::FixedUpdate()
 {
-	m_currDelay -= static_cast<float>(SaltyEngine::Engine::Instance().GetDeltaTime());
+	m_currDelay -= static_cast<float>(SaltyEngine::Engine::Instance().GetFixedDeltaTime());
 
 	if (m_currDelay <= 0)
 	{
@@ -31,7 +31,8 @@ void MonsterFlyingController::Update()
 }
 
 void MonsterFlyingController::Move() {
-    this->gameObject->transform.Translate(-(gameObject->transform.right() + SaltyEngine::Vector2(0, sin(gameObject->transform.position.x / 100.f)) ) * SaltyEngine::Engine::Instance().GetDeltaTime() * m_vel);
+    this->gameObject->transform.Translate(-(gameObject->transform.right() + SaltyEngine::Vector2(0, sin(gameObject->transform.position.x / 100.f)) )
+                                          * SaltyEngine::Engine::Instance().GetFixedDeltaTime() * m_vel);
 }
 
 void MonsterFlyingController::Shot() {
