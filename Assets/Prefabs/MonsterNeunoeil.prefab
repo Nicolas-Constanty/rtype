@@ -1,0 +1,17 @@
+{
+    "sprites": [
+        "MonsterNeunoeil/open",
+        "MonsterNeunoeil/close"
+    ],
+    "animations": [
+        "MonsterNeunoeil/EyeOpen",
+        "MonsterNeunoeil/EyeClose",
+        "MonsterNeunoeil/EyeBlink"
+    ],
+    "lib": "libmonster_neunoeil",
+    "dependencies": [
+    	"Missile",
+        "EnemyBullet",
+        "ExplosionBasic"
+    ]
+}

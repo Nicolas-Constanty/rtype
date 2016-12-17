@@ -1,0 +1,12 @@
+{
+  "mode": "ONCE",
+  "framerate": "2",
+  "sprites": [
+    "MonsterNeunoeil/open",
+    "MonsterNeunoeil/close"
+  ],
+  "scale": {
+    "width": "1",
+    "height": "1"
+  }
+}
