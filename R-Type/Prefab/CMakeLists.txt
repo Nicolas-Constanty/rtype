@@ -58,7 +58,7 @@ target_link_libraries(beam ${PREFAB_LIBRARIES})
 	target_link_libraries(missile_laser ${PREFAB_LIBRARIES})
 
 	# DEFAULT ENEMY BULLET
-	file(GLOB MISSILE_ENEMY_BULLET "src/Prefabs/Missile/EnemyBullet/*.cpp" "include/Prefabs/Missile/EnemyBullet/*.hpp")
+	file(GLOB MISSILE_ENEMY_BULLET "src/Prefabs/Missile/EnemyBullet/*.cpp" "src/Prefabs/Missile/*.cpp" "include/Prefabs/Missile/EnemyBullet/*.hpp")
 	add_library(missile_enemy_bullet SHARED ${MISSILE_ENEMY_BULLET})
 	target_link_libraries(missile_enemy_bullet ${PREFAB_LIBRARIES})
 

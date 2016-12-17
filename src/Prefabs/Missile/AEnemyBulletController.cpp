@@ -25,11 +25,6 @@ void AEnemyBulletController::Start()
         fire->Play();
     }
 
-    SaltyEngine::GameObject *t = SaltyEngine::GameObject::FindGameObjectWithTag(SaltyEngine::Layer::Tag::Player);
-
-    if (t)
-        gameObject->transform.LookAt(t->transform);
-
     if (isServerSide())
     {
         std::list<SaltyEngine::GameObject*> players = SaltyEngine::GameObject::FindGameObjectsWithTag(SaltyEngine::Layer::Tag::Player);
@@ -39,6 +34,7 @@ void AEnemyBulletController::Start()
             this->SetTarget(*std::next(players.begin(), rand() % players.size()));
         }
 
+        std::cout << "Instatiating object -> " << m_objectNameReplication << std::endl;
         BroadCastReliable<CREATEPackageGame>(
                 gameObject->transform.position.x,
                 gameObject->transform.position.y,
