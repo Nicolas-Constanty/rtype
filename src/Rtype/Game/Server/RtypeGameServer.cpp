@@ -173,11 +173,11 @@ void Rtype::Game::Server::RtypeGameServer::OnStartGame() {
             SaltyEngine::GameObject *object = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate(obj.first, obj.second, 0));
             manager->gameObjectContainer.Add(GameObjectID::NewID(), object);
 
-            this->BroadCastPackage<CREATEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>,
-                                                      object->transform.position.x,
-                                                      object->transform.position.y,
-                                                      RtypeNetworkFactory::GetIDFromName(obj.first),
-                                                      manager->gameObjectContainer.GetServerObjectID(object));
+//            this->BroadCastPackage<CREATEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>,
+//                                                      object->transform.position.x,
+//                                                      object->transform.position.y,
+//                                                      RtypeNetworkFactory::GetIDFromName(obj.first),
+//                                                      manager->gameObjectContainer.GetServerObjectID(object));
         }
     }
 }
