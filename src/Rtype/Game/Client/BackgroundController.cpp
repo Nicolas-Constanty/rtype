@@ -17,13 +17,15 @@ BackgroundController::BackgroundController(SaltyEngine::GameObject * const gameO
     *Singleton<::SaltyEngine::Engine>::Instance().GetCurrentScene() << bg2;
 }
 
-
 BackgroundController::~BackgroundController() {
 
 }
 
 void BackgroundController::Start() {
     SaltyEngine::SFML::Renderer *renderer = static_cast<SaltyEngine::SFML::Renderer*>(Singleton<SaltyEngine::Engine>::Instance().GetRenderer());
+    if (renderer == nullptr) {
+        return;
+    }
     sf::Vector2u size = renderer->GetRenderWindow()->getSize();
     windowSize = SaltyEngine::Vector2i(size.x, size.y);
     m_start = windowSize.x / 2;
