@@ -24,6 +24,8 @@ public:
 
     void Move() override;
 
+	virtual int GetHighScore() const;
+
     void Shot() override;
 
     void TakeDamage(int amount) override;

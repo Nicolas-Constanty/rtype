@@ -14,9 +14,10 @@ namespace SaltyEngine
 				Debug::PrintWarning("Scene : NULL object");
 				return;
 			}
+			//gameobj->transform.localScale = Vector2(2, 2);
 			::SaltyEngine::AScene::operator<<(gameobj);
+			gameobj->transform.localScale = Vector2(2, 2);
 			Renderer *r = dynamic_cast<Renderer *>(Engine::Instance().GetRenderer());
-
 			SFML::SpriteCollider2D *c = gameobj->GetComponent<SFML::SpriteCollider2D>();
 			if (c)
 			{
@@ -25,7 +26,7 @@ namespace SaltyEngine
 				    r->AddDebug(bc);
                PhysicsHandler *ph = dynamic_cast<PhysicsHandler *>(Engine::Instance().GetPhysicsHandler());
                 if (ph)
-                    ph->AddCollider(c);
+					ph->AddCollider(c);
 			}
 			SpriteRenderer *sprr = gameobj->GetComponent<SpriteRenderer>();
 			if (sprr && r)

@@ -44,11 +44,16 @@ void MonsterController::FixedUpdate()
 }
 
 void MonsterController::Move() {
+    static int i = 0;
     this->gameObject->transform.Translate(-gameObject->transform.right() * SaltyEngine::Engine::Instance().GetFixedDeltaTime() * m_vel);
-    BroadcastPackage<MOVEPackageGame>(
-            gameObject->transform.position.x,
-            gameObject->transform.position.y,
-            getManager()->gameObjectContainer.GetServerObjectID(gameObject));
+    if (i % 3 == 0)
+    {
+        BroadcastPackage<MOVEPackageGame>(
+                gameObject->transform.position.x,
+                gameObject->transform.position.y,
+                getManager()->gameObjectContainer.GetServerObjectID(gameObject));
+    }
+    ++i;
 }
 
 void MonsterController::Shot() {
@@ -113,4 +118,8 @@ void MonsterController::OnCollisionEnter(SaltyEngine::ICollider *col)
 //            TakeDamage(1);
 //        }
 //    }
+}
+
+int MonsterController::GetHighScore() const {
+    return (20);
 }

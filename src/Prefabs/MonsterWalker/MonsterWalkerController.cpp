@@ -48,11 +48,20 @@ void MonsterWalkerController::FixedUpdate()
 }
 
 void MonsterWalkerController::Move() {
+    static int i = 0;
     this->gameObject->transform.Translate(-gameObject->transform.right() * m_vel);
-    BroadcastPackage<MOVEPackageGame>(
-            gameObject->transform.position.x,
-            gameObject->transform.position.y,
-            getManager()->gameObjectContainer.GetServerObjectID(gameObject));
+    if (i % 3 == 0)
+    {
+        BroadcastPackage<MOVEPackageGame>(
+                gameObject->transform.position.x,
+                gameObject->transform.position.y,
+                getManager()->gameObjectContainer.GetServerObjectID(gameObject));
+    }
+    ++i;
+//    BroadcastPackage<MOVEPackageGame>(
+//            gameObject->transform.position.x,
+//            gameObject->transform.position.y,
+//            getManager()->gameObjectContainer.GetServerObjectID(gameObject));
 //        if (fabsf(gameObject->transform.position.x - m_startPoint.x) > m_walkDistance) {
 //            gameObject->transform.Rotate(180);
 //            PlayAnim("Walk");
@@ -135,4 +144,8 @@ void MonsterWalkerController::PlayAnim(std::string const &anim, bool queued) con
         (!queued) ? m_anim->Play(anim + "Left") : m_anim->PlayQueued(anim + "Left");
     else
         (!queued) ? m_anim->Play(anim + "Right") : m_anim->PlayQueued(anim + "Right");
+}
+
+int MonsterWalkerController::GetHighScore() const {
+    return 30;
 }

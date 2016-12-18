@@ -20,8 +20,8 @@ void MonsterNeunoeilController::Start()
     LoadManager();
 	m_currDelay = m_minShootInterval + rand() % (int)(m_maxShootInterval - m_minShootInterval);
     if (!isServerSide()) {
-        m_anim = gameObject->GetComponent<SaltyEngine::SFML::Animation>();
-        m_anim->Play("WalkLeft");
+//        m_anim = gameObject->GetComponent<SaltyEngine::SFML::Animation>();
+//        m_anim->Play("WalkLeft");
     }
     m_startPoint = gameObject->transform.position;
     if (isServerSide()) {
@@ -46,11 +46,20 @@ void MonsterNeunoeilController::FixedUpdate()
 }
 
 void MonsterNeunoeilController::Move() {
+    static int i = 0;
     this->gameObject->transform.Translate(-gameObject->transform.right() * m_vel);
-    BroadcastPackage<MOVEPackageGame>(
-            gameObject->transform.position.x,
-            gameObject->transform.position.y,
-            getManager()->gameObjectContainer.GetServerObjectID(gameObject));
+    if (i % 3 == 0)
+    {
+        BroadcastPackage<MOVEPackageGame>(
+                gameObject->transform.position.x,
+                gameObject->transform.position.y,
+                getManager()->gameObjectContainer.GetServerObjectID(gameObject));
+    }
+    ++i;
+//    BroadcastPackage<MOVEPackageGame>(
+//            gameObject->transform.position.x,
+//            gameObject->transform.position.y,
+//            getManager()->gameObjectContainer.GetServerObjectID(gameObject));
 }
 
 void MonsterNeunoeilController::Shot() {

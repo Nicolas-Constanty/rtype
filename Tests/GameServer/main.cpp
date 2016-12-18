@@ -19,6 +19,8 @@ int main(int, char **)
 	Singleton<SaltyEngine::Engine>::Instance().SetRenderer(renderer);
 	Singleton<SaltyEngine::Engine>::Instance().SetEventManager(event_manager);
 
+//	SaltyEngine::Engine::Instance().SetFrameRate(30);
+
 	// Create Scene
 	SaltyEngine::SFML::Scene *scene = new SaltyEngine::SFML::Scene();
 
@@ -34,9 +36,10 @@ int main(int, char **)
 	server->AddComponent<Rtype::Game::Client::GameClientObject>("127.0.0.1", 4242);
 	server->AddComponent<GameManager>();
 	server->AddComponent<SaltyEngine::SFML::BoxCollider2D>(
-			sf::Vector2u(500, 500)
+			sf::Vector2u(40, 40)
 	);
-	server->transform.position = SaltyEngine::Vector2(740, 360);
+	server->transform.position = SaltyEngine::Vector2(50, 50);
+//	server->transform.localScale = SaltyEngine::Vector2(2, 2);
 
 	*scene << server.get();
 

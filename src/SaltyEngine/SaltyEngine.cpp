@@ -123,7 +123,6 @@ namespace SaltyEngine
 							m_physics_handler->Clear();
 							m_physics_handler->Update();
 							m_physics_handler->Collide();
-							m_physics_handler->Display();
 						}
 
 						m_scenes[m_current]->OnTriggerEnter();
@@ -148,6 +147,8 @@ namespace SaltyEngine
 			}
 			
 			m_scenes[m_current]->Update();
+			if (m_physics_handler)
+				m_physics_handler->Display();
 			m_scenes[m_current]->CallCoroutines();
 			m_scenes[m_current]->OnGui();
 			m_scenes[m_current]->OnDestroy();

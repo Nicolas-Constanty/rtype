@@ -24,6 +24,8 @@ public:
 		return new MonsterWalkerController(obj);
 	}
 
+	virtual int GetHighScore() const;
+
     void Move() override;
 
     void Shot() override;

@@ -61,7 +61,7 @@ namespace SaltyEngine
             {
                 std::cout << "Mode Debug Enabled" << std::endl;
                 m_renderer = new sf::RenderWindow(sf::VideoMode(m_size_x, m_size_y), "Debug Collisions");
-                m_renderer->setFramerateLimit(60);
+//                m_renderer->setFramerateLimit(60);
             }
         }
 
@@ -128,19 +128,19 @@ namespace SaltyEngine
                                 }
                             }
                         }
-                        if (deleted)
-                            m_deleted.push(*col);
+//                        if (deleted)
+//                            m_deleted.push(*col);
                     }
                     if (update)
                         m_texture.update(m_img);
-                    while (!m_deleted.empty()) {
-                        m_colliders.remove(m_deleted.top());
-                        if (!m_colliders.size())
-                        {
-                                m_texture.update(m_img);
-                        }
-                        m_deleted.pop();
-                    }
+//                    while (!m_deleted.empty()) {
+//                        m_colliders.remove(m_deleted.top());
+//                        if (!m_colliders.size())
+//                        {
+//                                m_texture.update(m_img);
+//                        }
+//                        m_deleted.pop();
+//                    }
                 }
             }
         void PhysicsHandler::AddCollider(SpriteCollider2D *const collider) {
@@ -148,10 +148,12 @@ namespace SaltyEngine
             m_mutext.lock();
             const sf::Vector2i &pos = collider->GetPosition();
             const sf::Vector2f &scale = collider->GetScale();
-            if (pos.x >= 0 && pos.y >= 0 && pos.x / scale.x < m_size_x && pos.y / scale.y < m_size_y) {
+//            std::cout << pos.x << " " << pos.y << std::endl;
+//            if (pos.x >= 0 && pos.y >= 0 && pos.x / scale.x < m_size_x && pos.y / scale.y < m_size_y) {
+//                std::cout << " COUCOU " << std::endl;
                 m_colliders.push_back(collider);
                 m_col_to_sprite[collider->GetColor()] = collider;
-            }
+//            }
             m_mutext.unlock();
         }
 
