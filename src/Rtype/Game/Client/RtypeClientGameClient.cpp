@@ -110,12 +110,12 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetSHOTPackage(SHOTPackageGam
 {
     OnDiscoveringPackage(pack);
 
-    SaltyEngine::GameObject *obj = gameManager->gameObjectContainer[pack.id];
-    if (obj) {
-        SaltyEngine::GameObject *laser = dynamic_cast<SaltyEngine::GameObject *>(::SaltyEngine::Instantiate("Laser", obj->transform.position));
-        gameManager->gameObjectContainer.Add(pack.objectID, laser);
+//    SaltyEngine::GameObject *obj = gameManager->gameObjectContainer[pack.id];
+//    if (obj) {
+        SaltyEngine::GameObject *laser = dynamic_cast<SaltyEngine::GameObject *>(::SaltyEngine::Instantiate("Laser", SaltyEngine::Vector2f(pack.x, pack.y)));
+//        gameManager->gameObjectContainer.Add(pack.objectID, laser);
         laser->GetComponent<LaserController>()->Power(pack.power);
-    }
+//    }
 
     //todo resolve shot package with power of shot
 }

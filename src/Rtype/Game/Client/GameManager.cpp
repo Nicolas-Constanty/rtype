@@ -109,7 +109,6 @@ void GameManager::FixedUpdate() {
     if (m_server && m_server->Server()->IsLaunch() && !endOfGame) {
         this->currentPosition = this->currentPosition + velocity * SaltyEngine::Engine::Instance().GetFixedDeltaTime();
 
-
         std::list<std::pair<std::string, SaltyEngine::Vector2f> >::iterator it = monsterMap->objects.begin();
 
         while (it != monsterMap->objects.end()) {

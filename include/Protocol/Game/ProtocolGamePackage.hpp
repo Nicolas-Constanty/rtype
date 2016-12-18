@@ -178,15 +178,19 @@ public:
 
 class SHOTPackageGame : public ObjectIDPackageGame {
 public:
-    SHOTPackageGame(unsigned short sequenceID = 0, unsigned short objectID = 0, int power = 0, unsigned int id = 0, unsigned short transactionID = 0)
+    SHOTPackageGame(unsigned short sequenceID = 0, unsigned short objectID = 0, int power = 0, unsigned int id = 0, int x = 0, int y = 0, unsigned short transactionID = 0)
             : ObjectIDPackageGame(sizeof(SHOTPackageGame), GamePurpose::GAMESHOT, sequenceID, objectID, true, transactionID) {
         this->power = power;
         this->id = id;
+        this->x = x;
+        this->y = y;
     }
 
 public:
     int power;
     unsigned int id;
+    int x;
+    int y;
 };
 
 class ENEMYSHOTPackageGame : public ObjectIDPackageGame {

@@ -71,7 +71,7 @@ namespace SaltyEngine
 			gameObject->transform.Translate(Vector(h, v) * speed);
 		}
 
-        if (!isServerSide() && i % 2 == 0)
+        if (!isServerSide() && i % 3 == 0)
         {
             SendPackage<MOVEPackageGame>(
                     gameObject->transform.position.x,
@@ -92,15 +92,15 @@ namespace SaltyEngine
 
         if (InputKey::GetAction("Fire", Input::ActionType::Down)) {
             if (!isServerSide()) {
-                SendPackageReliable<BEAMPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(gameObject), idShot);
+                SendPackage<BEAMPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(gameObject), idShot);
             }
         }
         if (InputKey::GetAction("Fire", Input::ActionType::Up)) {
-            //GameObject *laser = (GameObject*)::SaltyEngine::Instantiate("Laser", gameObject->transform.position);
+            ::SaltyEngine::Instantiate("Laser", gameObject->transform.position);
 
             //manager->gameObjectContainer.Add(GameObjectID::NewID(), laser);
             if (!isServerSide()) {
-                SendPackageReliable<SHOTPackageGame>(
+                SendPackage<SHOTPackageGame>(
                         getManager()->gameObjectContainer.GetServerObjectID(gameObject), power, idShot++);
             }
         }

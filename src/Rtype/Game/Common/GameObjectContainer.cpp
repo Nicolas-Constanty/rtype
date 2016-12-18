@@ -25,10 +25,11 @@ SaltyEngine::GameObject *GameObjectContainer::operator[](unsigned short serverID
     return (NULL);
 }
 
-void GameObjectContainer::Add(unsigned short serverID, SaltyEngine::GameObject *gameObject) {
+int GameObjectContainer::Add(unsigned short serverID, SaltyEngine::GameObject *gameObject) {
 
     idsServer[serverID] = static_cast<unsigned short>(gameObject->GetInstanceID());
     idsClient[static_cast<unsigned short>(gameObject->GetInstanceID())] = serverID;
+    return (serverID);
 }
 
 unsigned short GameObjectContainer::GetServerObjectID(SaltyEngine::GameObject *gameObject) const {
