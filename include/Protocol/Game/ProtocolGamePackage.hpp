@@ -36,7 +36,8 @@ typedef enum : unsigned char {
     GAMEDISCONNECT = 15,
     GAMEENEMYSHOT = 16,
     GAMEUPGRADE = 17,
-    GAMEMATE = 18
+    GAMEMATE = 18,
+    GAMEGAMEOVER = 19
 } GamePurpose;
 
 class PackageGameHeader {
@@ -137,22 +138,17 @@ public:
     float rotation;
 };
 
-class STATUSPackageGame : public ObjectIDPackageGame {
+class STATUSPackageGame : public PackageGameHeader {
 public:
-    STATUSPackageGame(unsigned short transactionID, int highScore, bool running, unsigned short sequenceID, unsigned short objectID)
-            : ObjectIDPackageGame(sizeof(STATUSPackageGame), GamePurpose::GAMESTATUS, sequenceID, objectID, false, transactionID) {
+    STATUSPackageGame(unsigned short sequenceID = 0, int highScore = 0, unsigned char playerID = 0, unsigned short transactionID = 0)
+            : PackageGameHeader(true, sizeof(STATUSPackageGame), sequenceID, GamePurpose::GAMESTATUS, transactionID) {
         this->highScore = highScore;
-        this->run = (unsigned char)running;
-        if (this->run == 1) {
-            this->headerGameInfo.reliable = 1;
-        } else {
-            this->headerGameInfo.reliable = 0;
-        }
+        this->playerID = playerID;
     }
 
 public:
     int highScore;
-    unsigned char run : 2;
+    unsigned char playerID;
 };
 
 class MOVEPackageGame : public ObjectIDPackageGame {
@@ -313,6 +309,19 @@ public:
     int x;
     int y;
     int playerID;
+};
+
+class GAMEOVERPackageGame : public PackageGameHeader
+{
+public:
+    GAMEOVERPackageGame(unsigned short sequenceID = 0, unsigned char status = 0, unsigned short transactionID = 0) :
+            PackageGameHeader(true, sizeof(GAMEOVERPackageGame), sequenceID, GamePurpose::GAMEGAMEOVER, transactionID)
+    {
+            this->status = status;
+    }
+
+public:
+    unsigned char status;
 };
 
 #endif //RTYPE_PROTOCOLGAMEPACKAGE_HPP

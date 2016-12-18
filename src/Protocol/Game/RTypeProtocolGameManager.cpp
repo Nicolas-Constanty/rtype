@@ -22,8 +22,9 @@ const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::FAILUREID = RTy
 const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::INPUTID = RTypeProtocolGameManager::GameID(GamePurpose::GAMEINPUT, sizeof(INPUTPackageGame));
 const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::DISCONNECTID = RTypeProtocolGameManager::GameID(GamePurpose::GAMEDISCONNECT, sizeof(DISCONNECTPackageGame));
 const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::ENEMYSHOTID = RTypeProtocolGameManager::GameID(GamePurpose::GAMEENEMYSHOT, sizeof(ENEMYSHOTPackageGame));
-const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::UPGRADE = RTypeProtocolGameManager::GameID(GamePurpose::GAMEUPGRADE, sizeof(UPGRADEPackageGame));
-const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::MATE = RTypeProtocolGameManager::GameID(GamePurpose::GAMEMATE, sizeof(MATEPackageGame));
+const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::UPGRADEID = RTypeProtocolGameManager::GameID(GamePurpose::GAMEUPGRADE, sizeof(UPGRADEPackageGame));
+const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::MATEID = RTypeProtocolGameManager::GameID(GamePurpose::GAMEMATE, sizeof(MATEPackageGame));
+const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::GAMEOVERID = RTypeProtocolGameManager::GameID(GamePurpose::GAMEGAMEOVER, sizeof(GAMEOVERPackageGame));
 
 RTypeProtocolGameManager::RTypeProtocolGameManager(IProtocolGameHandler &protocolGameHandler)
         : protocolGameHandler(protocolGameHandler) {
@@ -43,8 +44,9 @@ RTypeProtocolGameManager::RTypeProtocolGameManager(IProtocolGameHandler &protoco
     fptr[INPUTID] = (MFP)&IProtocolGameHandler::onGetINPUTPackage;
     fptr[DISCONNECTID] = (MFP)&IProtocolGameHandler::onGetDISCONNECTPackage;
     fptr[ENEMYSHOTID] = (MFP)&IProtocolGameHandler::onGetENEMYSHOTPackage;
-    fptr[UPGRADE] = (MFP)&IProtocolGameHandler::onGetUPGRADEPackage;
-    fptr[MATE] = (MFP)&IProtocolGameHandler::onGetMATEPackage;
+    fptr[UPGRADEID] = (MFP)&IProtocolGameHandler::onGetUPGRADEPackage;
+    fptr[MATEID] = (MFP)&IProtocolGameHandler::onGetMATEPackage;
+    fptr[GAMEOVERID] = (MFP)&IProtocolGameHandler::onGetGAMEOVERPackage;
 }
 
 RTypeProtocolGameManager::~RTypeProtocolGameManager() {

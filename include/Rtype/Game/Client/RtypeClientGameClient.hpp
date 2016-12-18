@@ -6,6 +6,7 @@
 #define RTYPE_RTYPECLIENTGAMECLIENT_HPP
 
 #include <Rtype/Game/Common/RtypeGameClient.hpp>
+#include "GameOver.hpp"
 //#include "GameManager.hpp"
 
 class GameManager;
@@ -45,12 +46,14 @@ namespace Rtype
                 virtual void onGetENEMYSHOTPackage(ENEMYSHOTPackageGame const &pack);
                 virtual void onGetUPGRADEPackage(UPGRADEPackageGame const &pack);
                 virtual void onGetMATEPackage(MATEPackageGame const &);
+                virtual void onGetGAMEOVERPackage(GAMEOVERPackageGame const &game);
 
             public:
                 void SendInput(std::string const &axisName, float const value);
 
             private:
                 GameManager *gameManager;
+                GameOver    *gameOver;
             };
         }
     }

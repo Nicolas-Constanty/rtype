@@ -359,6 +359,10 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetUPGRADEPackage(UPGRADEPack
     OnDiscoveringPackage(pack);
 }
 
+void Rtype::Game::Server::RtypeServerGameClient::onGetGAMEOVERPackage(GAMEOVERPackageGame const &game) {
+
+}
+
 bool Rtype::Game::Server::RtypeServerGameClient::OnStart()
 {
     server1 = dynamic_cast<Rtype::Game::Server::RtypeGameServer *>(serverStream);

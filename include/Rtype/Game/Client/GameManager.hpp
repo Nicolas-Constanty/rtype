@@ -68,5 +68,6 @@ private:
 	double currentPosition = SCREEN_X;
 	int velocity = 8;
     bool endOfGame = false;
+    GameOver *gameOver;
 };
 

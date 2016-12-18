@@ -9,10 +9,12 @@
 GameManager::GameManager(SaltyEngine::GameObject * const gamObj) : SaltyBehaviour("GameManager", gamObj)
 {
     gameObject->AddComponent<BackgroundController>();
+    gameOver = new GameOver(this);
 }
 
 GameManager::GameManager(const std::string & name, SaltyEngine::GameObject * const gamObj) : SaltyBehaviour(name, gamObj)
 {
+    gameOver = new GameOver(this);
 }
 
 GameManager::~GameManager()
@@ -130,7 +132,8 @@ void GameManager::FixedUpdate() {
             endOfGame = true;
         }
 //        std::cout << this->currentPosition << std::endl;
-    } else if (endOfGame && m_server) {
+    } else if (endOfGame && m_server && gameOver && !gameOver->IsOver()) { // TODO Il manque le check si y'a plus de monstre coté serveur mais pour ça il faut le destroyer.
+        gameOver->OverAction(GAMEOVER::VICTORY);
 //        std::cout << "the game is over !" << std::endl;
     }
 }

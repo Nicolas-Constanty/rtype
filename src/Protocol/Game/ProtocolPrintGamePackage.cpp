@@ -68,9 +68,8 @@ std::ostream &operator<<(std::ostream &ostream, STATUSPackageGame const &statusP
     if (header) {
         ostream << *header;
     }
-    ostream << "objectID=" << statusPackageGame.objectID << std::endl;
+    ostream << "playerID=" << statusPackageGame.playerID << std::endl;
     ostream << "highScore=" << statusPackageGame.highScore << std::endl;
-    ostream << "run=" << statusPackageGame.run << std::endl;
     ostream << "}";
     return (ostream);
 }
@@ -238,6 +237,15 @@ std::ostream &operator<<(std::ostream &ostream, MATEPackageGame const &matePacka
     ostream << "y=" << matePackageGame.y << std::endl;
     ostream << "objectID=" << matePackageGame.objectID << std::endl;
     ostream << "playerID=" << matePackageGame.playerID << std::endl;
+    ostream << "}" << std::endl;
+    return ostream;
+}
+
+std::ostream &operator<<(std::ostream &ostream, GAMEOVERPackageGame const &gameoverPackageGame)
+{
+    ostream << "GAMEOVERPackageGame = {" << std::endl;
+    ostream << dynamic_cast<PackageGameHeader const &>(gameoverPackageGame) << std::endl;
+    ostream << "status=" << static_cast<int>(gameoverPackageGame.status) << std::endl;
     ostream << "}" << std::endl;
     return ostream;
 }
