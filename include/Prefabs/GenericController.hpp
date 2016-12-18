@@ -20,10 +20,9 @@ public:
 class AGenericController : public RtypePrefab, public IGenericController
 {
 public:
-    AGenericController(std::string const& name, SaltyEngine::GameObject *obj) : RtypePrefab(name, obj) {
-//        gameServer = NULL;
-    }
-	~AGenericController() {}
+    AGenericController(std::string const& name, SaltyEngine::GameObject *obj) : RtypePrefab(name, obj) {}
+
+	virtual ~AGenericController() {}
 
 public:
 	virtual void TakeDamage(int amount)
@@ -45,5 +44,4 @@ public:
 
 protected:
 	int m_health = 0;
-//	Rtype::Game::Server::GameServerObject *gameServer;
 };
