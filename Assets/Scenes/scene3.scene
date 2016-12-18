@@ -1,0 +1,76 @@
+{
+  "title": "scene1",
+  "preview": "tot.png",
+  "prefabs": {
+    "Player": {
+      "prefabName": "Player",
+      "position": {
+        "x" : "50",
+        "y": "500"
+      }
+    },
+    "MonsterNeunoeil": {
+      "prefabName": "MonsterNeunoeil",
+      "position": {
+        "x" : "600",
+        "y": "600"
+      }
+    },
+    "Monster2": {
+      "prefabName": "Monster",
+      "position": {
+        "x" : "1400",
+        "y": "500"
+      }
+    },
+    "MonsterWalker": {
+      "prefabName": "MonsterWalker",
+      "position": {
+        "x" : "500",
+        "y": "700"
+      }
+    },
+    "MonsterFlying": {
+      "prefabName": "MonsterFlying",
+      "position": {
+        "x" : "1300",
+        "y": "300"
+        }
+      },
+      "MonsterFlying1": {
+            "prefabName": "MonsterFlying",
+            "position": {
+              "x" : "1305",
+              "y": "300"
+              }
+            },
+            "MonsterFlying2": {
+                  "prefabName": "MonsterFlying",
+                  "position": {
+                    "x" : "1310",
+                    "y": "300"
+                    }
+                  },
+                  "MonsterFlying3": {
+                        "prefabName": "MonsterFlying",
+                        "position": {
+                          "x" : "1315",
+                          "y": "300"
+                          }
+                        },
+                        "MonsterFlying4": {
+                              "prefabName": "MonsterFlying",
+                              "position": {
+                                "x" : "1320",
+                                "y": "300"
+                                }
+                              },
+                              "MonsterNeunoeil": {
+                                    "prefabName": "MonsterNeunoeil",
+                                    "position": {
+                                      "x" : "1350",
+                                      "y": "500"
+                                    }
+                                  }
+   }
+}

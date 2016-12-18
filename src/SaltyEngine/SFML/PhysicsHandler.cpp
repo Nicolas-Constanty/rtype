@@ -61,7 +61,7 @@ namespace SaltyEngine
             {
                 std::cout << "Mode Debug Enabled" << std::endl;
                 m_renderer = new sf::RenderWindow(sf::VideoMode(m_size_x, m_size_y), "Debug Collisions");
-                m_renderer->setFramerateLimit(60);
+//                m_renderer->setFramerateLimit(60);
             }
         }
 

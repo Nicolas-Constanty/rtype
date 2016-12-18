@@ -41,12 +41,17 @@ void MonsterFlyingController::FixedUpdate()
 }
 
 void MonsterFlyingController::Move() {
+//    static int i = 0;
     this->gameObject->transform.Translate(-(gameObject->transform.right() + SaltyEngine::Vector2(0, sin(gameObject->transform.position.x / 100.f)) )
                                           * SaltyEngine::Engine::Instance().GetFixedDeltaTime() * m_vel);
-    BroadcastPackage<MOVEPackageGame>(
-            gameObject->transform.position.x,
-            gameObject->transform.position.y,
-            getManager()->gameObjectContainer.GetServerObjectID(gameObject));
+//    if (i % 2 == 0)
+//    {
+        BroadcastPackage<MOVEPackageGame>(
+                gameObject->transform.position.x,
+                gameObject->transform.position.y,
+                getManager()->gameObjectContainer.GetServerObjectID(gameObject));
+//    }
+//    ++i;
 }
 
 void MonsterFlyingController::Shot() {

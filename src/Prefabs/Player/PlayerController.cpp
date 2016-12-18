@@ -64,18 +64,20 @@ namespace SaltyEngine
 
 	void PlayerController::FixedUpdate()
 	{
+//        static int i = 0;
 		float h = InputKey::GetAxis("Horizontal");
 		float v = InputKey::GetAxis("Vertical");
 		if (h != 0 || v != 0) {
 			gameObject->transform.Translate(Vector(h, v) * speed);
-            if (!isServerSide())
-            {
-                SendPackageReliable<MOVEPackageGame>(
-                        gameObject->transform.position.x,
-                        gameObject->transform.position.y,
-                        getManager()->gameObjectContainer.GetServerObjectID(gameObject));
-            }
 		}
+        if (!isServerSide())
+        {
+            SendPackage<MOVEPackageGame>(
+                    gameObject->transform.position.x,
+                    gameObject->transform.position.y,
+                    getManager()->gameObjectContainer.GetServerObjectID(gameObject));
+        }
+//        ++i;
         if (isServerSide()) {
             if (beamShot) {
                 beamShot->transform.position = gameObject->transform.position;
@@ -89,7 +91,7 @@ namespace SaltyEngine
 
         if (InputKey::GetAction("Fire", Input::ActionType::Down)) {
             if (!isServerSide()) {
-                SendPackage<BEAMPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(gameObject), idShot);
+                SendPackageReliable<BEAMPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(gameObject), idShot);
             }
         }
         if (InputKey::GetAction("Fire", Input::ActionType::Up)) {
@@ -97,7 +99,7 @@ namespace SaltyEngine
 
             //manager->gameObjectContainer.Add(GameObjectID::NewID(), laser);
             if (!isServerSide()) {
-                SendPackage<SHOTPackageGame>(
+                SendPackageReliable<SHOTPackageGame>(
                         getManager()->gameObjectContainer.GetServerObjectID(gameObject), power, idShot++);
             }
         }

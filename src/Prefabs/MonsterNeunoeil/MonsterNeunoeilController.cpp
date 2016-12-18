@@ -46,11 +46,20 @@ void MonsterNeunoeilController::FixedUpdate()
 }
 
 void MonsterNeunoeilController::Move() {
+//    static int i = 0;
     this->gameObject->transform.Translate(-gameObject->transform.right() * m_vel);
-    BroadcastPackage<MOVEPackageGame>(
-            gameObject->transform.position.x,
-            gameObject->transform.position.y,
-            getManager()->gameObjectContainer.GetServerObjectID(gameObject));
+//    if (i % 2 == 0)
+//    {
+        BroadcastPackage<MOVEPackageGame>(
+                gameObject->transform.position.x,
+                gameObject->transform.position.y,
+                getManager()->gameObjectContainer.GetServerObjectID(gameObject));
+//    }
+//    ++i;
+//    BroadcastPackage<MOVEPackageGame>(
+//            gameObject->transform.position.x,
+//            gameObject->transform.position.y,
+//            getManager()->gameObjectContainer.GetServerObjectID(gameObject));
 }
 
 void MonsterNeunoeilController::Shot() {

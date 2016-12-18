@@ -19,6 +19,8 @@ int main(int, char **)
 	Singleton<SaltyEngine::Engine>::Instance().SetRenderer(renderer);
 	Singleton<SaltyEngine::Engine>::Instance().SetEventManager(event_manager);
 
+	SaltyEngine::Engine::Instance().SetFrameRate(30);
+
 	// Create Scene
 	SaltyEngine::SFML::Scene *scene = new SaltyEngine::SFML::Scene();
 

@@ -5,7 +5,7 @@
 #ifndef RTYPE_GAMEPACKAGEFACTORY_HPP
 #define RTYPE_GAMEPACKAGEFACTORY_HPP
 
-#include <list>
+#include <stack>
 #include <climits>
 #include <memory>
 #include "ProtocolGamePackage.hpp"
@@ -27,7 +27,11 @@ public:
     T *create(Args ...args) {
         T *package = new T(idx, args...);
 
-        _vec.emplace_back(package);
+        if (_vec.size() > 100) {
+            while (!_vec.empty())
+                _vec.pop();
+        }
+        _vec.emplace(package);
         if (idx == USHRT_MAX) {
             idx = 0;
         } else {
@@ -38,7 +42,7 @@ public:
 
 private:
     unsigned short idx;
-    std::list<std::unique_ptr<PackageGameHeader>> _vec;
+    std::stack<std::unique_ptr<PackageGameHeader>> _vec;
 };
 
 #endif //RTYPE_GAMEPACKAGEFACTORY_HPP

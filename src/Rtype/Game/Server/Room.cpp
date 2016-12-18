@@ -21,8 +21,10 @@ void Rtype::Game::Server::Room::Start(const uint16_t port, const size_t max, con
     // Create Scene
     //SaltyEngine::SFML::Renderer *renderer = new SaltyEngine::SFML::Renderer(sf::VideoMode(1280, 720), "R-Type Launcher");
     //Singleton<SaltyEngine::Engine>::Instance().SetRenderer(renderer);
-    SaltyEngine::SFML::PhysicsHandler *ph = new SaltyEngine::SFML::PhysicsHandler(1280 / 2, 720 / 2);
+    SaltyEngine::SFML::PhysicsHandler *ph = new SaltyEngine::SFML::PhysicsHandler(1280 / 2, 720 / 2, true);
     SaltyEngine::Engine::Instance().SetPhysicsHandler(ph);
+
+    SaltyEngine::Engine::Instance().SetFrameRate(30);
 
     SaltyEngine::SFML::Scene *scene = new SaltyEngine::SFML::Scene();
 
