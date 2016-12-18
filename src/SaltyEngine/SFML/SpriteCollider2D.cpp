@@ -210,7 +210,6 @@ namespace SaltyEngine
         Component *SpriteCollider2D::CloneComponent(GameObject *const obj) {
             return new SpriteCollider2D(obj);
         }
-
     }
 }
 

@@ -106,6 +106,12 @@ void GameManager::StartTheGame() {
 }
 
 void GameManager::FixedUpdate() {
+    if (canSend % 120 == 0) {
+        OnSendHighScore();
+        canSend = 0;
+    }
+    ++canSend;
+
     if (m_server && m_server->Server()->IsLaunch() && !endOfGame) {
         this->currentPosition = this->currentPosition + velocity * SaltyEngine::Engine::Instance().GetFixedDeltaTime();
 
@@ -134,5 +140,22 @@ void GameManager::FixedUpdate() {
     } else if (endOfGame && m_server && gameOver && !gameOver->IsOver()) { // TODO Il manque le check si y'a plus de monstre coté serveur mais pour ça il faut le destroyer.
         gameOver->OverAction(GAMEOVER::VICTORY);
 //        std::cout << "the game is over !" << std::endl;
+    }
+}
+
+void GameManager::OnSendHighScore() {
+    if (m_server) {
+        for (SaltyEngine::GameObject *gameObject1 : m_players) {
+            SaltyEngine::PlayerController *playerController;
+
+            if ((playerController = gameObject1->GetComponent<SaltyEngine::PlayerController>())) {
+                if (playerController->IsUpdateHighScore()) {
+                    BroadCastPackage<STATUSPackageGame>(&Network::Core::BasicConnection::SendData<STATUSPackageGame>,
+                                                        playerController->GetHighScore(),
+                                                        playerController->GetPlayerID());
+                    playerController->SetUpdateHighScore(false);
+                }
+            }
+        }
     }
 }

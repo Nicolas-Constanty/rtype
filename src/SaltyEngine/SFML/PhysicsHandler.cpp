@@ -80,59 +80,70 @@ namespace SaltyEngine
 
 
         void PhysicsHandler::Update() {
-
-
-//            for (ColliderLayerMap::const_iterator col_layer = m_colliders.begin(); col_layer != m_colliders.end(); ++col_layer) {
-                if (m_colliders.size())
+            for (std::list<const SpriteRenderer *>::const_iterator spr = m_sprites.begin(); spr != m_sprites.end(); ++spr)
+            {
+                Sprite * s = dynamic_cast<Sprite *>((*spr)->m_sprite);
+                if (s)
                 {
-                    bool update = false;
+                    const sf::IntRect &r = s->getTextureRect();
+                    const Transform &t = (*spr)->gameObject->transform;
+                    (*spr)->GetSprite()->setPosition(
+                            t.position.x * t.localScale.x - (r.width * t.localScale.x / 2),
+                            t.position.y * t.localScale.y - (r.height * t.localScale.y / 2)
+                    );
+                }
+            }
+//            for (ColliderLayerMap::const_iterator col_layer = m_colliders.begin(); col_layer != m_colliders.end(); ++col_layer) {
+            if (m_colliders.size())
+            {
+                bool update = false;
 //                    m_mutext.lock();
-                    for (ColliderMap::const_iterator col = m_colliders.begin(); col != m_colliders.end(); ++col) {
-                        (*col)->GetSprite()->setScale((*col)->gameObject->transform.localScale.x, (*col)->gameObject->transform.localScale.y);
-                        const Transform &t = (*col)->gameObject->transform;
-                        const sf::IntRect &r = (*col)->GetRect();
-                        (*col)->GetSprite()->setPosition(
-                                t.position.x * t.localScale.x - (r.width * t.localScale.x / 2),
-                                t.position.y * t.localScale.y - (r.height * t.localScale.y / 2)
-                        );
-                        bool deleted = true;
-                        float i_pos_x = (*col)->GetPosition().x;
-                        float i_pos_y = (*col)->GetPosition().y;
-                        float offset_x = i_pos_x - (r.width / 2);
-                        float offset_y = i_pos_y - (r.height / 2);
-                        unsigned int text_pos_x = (unsigned int) r.left;
-                        unsigned int text_pos_y = (unsigned int) r.top;
-                        unsigned int text_pos_h = (unsigned int) r.height;
-                        unsigned int text_pos_w = (unsigned int) r.width;
-                        if (i_pos_x >= 0 && i_pos_y >= 0 && i_pos_x < m_size_x && i_pos_y < m_size_y)
-                        {
-                            for (unsigned int y = 0; y < text_pos_h; ++y) {
-                                for (unsigned int x = 0; x < text_pos_w; ++x) {
-                                    float pos_x = x + offset_x;
-                                    float pos_y = y + offset_y;
-                                    if (pos_x >= 0 && pos_y >= 0 && pos_x < m_size_x && pos_y < m_size_y)
+                for (ColliderMap::const_iterator col = m_colliders.begin(); col != m_colliders.end(); ++col) {
+                    (*col)->GetSprite()->setScale((*col)->gameObject->transform.localScale.x, (*col)->gameObject->transform.localScale.y);
+                    const Transform &t = (*col)->gameObject->transform;
+                    const sf::IntRect &r = (*col)->GetRect();
+                    (*col)->GetSprite()->setPosition(
+                            t.position.x * t.localScale.x - (r.width * t.localScale.x / 2),
+                            t.position.y * t.localScale.y - (r.height * t.localScale.y / 2)
+                    );
+//                    bool deleted = true;
+                    float i_pos_x = (*col)->GetPosition().x;
+                    float i_pos_y = (*col)->GetPosition().y;
+                    float offset_x = i_pos_x - (r.width / 2);
+                    float offset_y = i_pos_y - (r.height / 2);
+                    unsigned int text_pos_x = (unsigned int) r.left;
+                    unsigned int text_pos_y = (unsigned int) r.top;
+                    unsigned int text_pos_h = (unsigned int) r.height;
+                    unsigned int text_pos_w = (unsigned int) r.width;
+                    if (i_pos_x >= 0 && i_pos_y >= 0 && i_pos_x < m_size_x && i_pos_y < m_size_y)
+                    {
+                        for (unsigned int y = 0; y < text_pos_h; ++y) {
+                            for (unsigned int x = 0; x < text_pos_w; ++x) {
+                                float pos_x = x + offset_x;
+                                float pos_y = y + offset_y;
+                                if (pos_x >= 0 && pos_y >= 0 && pos_x < m_size_x && pos_y < m_size_y)
+                                {
+                                    const sf::Color &color = (*col)->GetImage().getPixel(x + text_pos_x, y + text_pos_y);
+                                    if (color != sf::Color::Transparent)
                                     {
-                                        const sf::Color &color = (*col)->GetImage().getPixel(x + text_pos_x, y + text_pos_y);
-                                        if (color != sf::Color::Transparent)
-                                        {
-                                            m_vecs.push(sf::Vector2i((int) pos_x, (int) pos_y));
-                                            sf::Color c = m_img.getPixel((unsigned int) pos_x, (unsigned int) pos_y);
-                                            if (c == sf::Color::Black)
-                                                m_img.setPixel((unsigned int) (pos_x), (unsigned int) (pos_y), sf::Color((*col)->GetColor()));
+                                        m_vecs.push(sf::Vector2i((int) pos_x, (int) pos_y));
+                                        sf::Color c = m_img.getPixel((unsigned int) pos_x, (unsigned int) pos_y);
+                                        if (c == sf::Color::Black)
+                                            m_img.setPixel((unsigned int) (pos_x), (unsigned int) (pos_y), sf::Color((*col)->GetColor()));
 //                                            else if (m_renderer &&c != color)
 //                                                m_img.setPixel((unsigned int) (pos_x), (unsigned int) (pos_y), sf::Color::Green);
-                                            update = true;
-                                            deleted = false;
-                                        }
+                                        update = true;
+//                                        deleted = false;
                                     }
                                 }
                             }
                         }
+                    }
 //                        if (deleted)
 //                            m_deleted.push(*col);
-                    }
-                    if (update)
-                        m_texture.update(m_img);
+                }
+                if (update)
+                    m_texture.update(m_img);
 //                    while (!m_deleted.empty()) {
 //                        m_colliders.remove(m_deleted.top());
 //                        if (!m_colliders.size())
@@ -141,13 +152,13 @@ namespace SaltyEngine
 //                        }
 //                        m_deleted.pop();
 //                    }
-                }
             }
+        }
         void PhysicsHandler::AddCollider(SpriteCollider2D *const collider) {
 
             m_mutext.lock();
-            const sf::Vector2i &pos = collider->GetPosition();
-            const sf::Vector2f &scale = collider->GetScale();
+//            const sf::Vector2i &pos = collider->GetPosition();
+//            const sf::Vector2f &scale = collider->GetScale();
 //            std::cout << pos.x << " " << pos.y << std::endl;
 //            if (pos.x >= 0 && pos.y >= 0 && pos.x / scale.x < m_size_x && pos.y / scale.y < m_size_y) {
 //                std::cout << " COUCOU " << std::endl;
@@ -156,6 +167,8 @@ namespace SaltyEngine
 //            }
             m_mutext.unlock();
         }
+
+
 
         unsigned int PhysicsHandler::GetSizeX() const {
             return m_size_x;
@@ -313,6 +326,10 @@ namespace SaltyEngine
                     m_renderer->display();
                 }
             }
+        }
+
+        void PhysicsHandler::AddSprite(const SpriteRenderer *s) {
+            m_sprites.push_back(s);
         }
     }
 }

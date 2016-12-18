@@ -55,6 +55,9 @@ public:
 	std::list<SaltyEngine::GameObject*> const &getPods() const;
 
 private:
+    void OnSendHighScore();
+
+private:
 	Rtype::Game::Server::GameServerObject *m_server;
 	Rtype::Game::Client::GameClientObject *m_client;
     std::list<SaltyEngine::GameObject*> m_players;
@@ -69,5 +72,6 @@ private:
 	int velocity = 8;
     bool endOfGame = false;
     GameOver *gameOver;
+    int     canSend = 0;
 };
 
