@@ -26,14 +26,14 @@ namespace SaltyEngine
             typedef std::stack<sf::Vector2i> PixelStack;
             typedef std::stack<SpriteCollider2D *> SpriteStack;
         public:
-            PhysicsHandler(unsigned int x, unsigned y, bool debug = true);
+            PhysicsHandler(unsigned int x, unsigned int y, bool debug = true);
             void AddCollider(SpriteCollider2D *const sprr);
             virtual void Clear();
             virtual void Update();
             virtual void Run();
             virtual void Display();
 
-            //bool Collide();
+            virtual void Collide();
 
         public:
             unsigned int GetSizeX() const;
@@ -63,7 +63,7 @@ namespace SaltyEngine
             bool                m_stop;
             SpriteStack         m_deleted;
             ColorToSprite       m_col_to_sprite;
-            sf::Mutex           m_mutext;
+            std::mutex           m_mutext;
             sf::RenderWindow    *m_renderer;
         };
     }

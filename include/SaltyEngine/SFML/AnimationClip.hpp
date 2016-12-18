@@ -11,7 +11,7 @@ namespace SaltyEngine
 {
 	namespace SFML
     {
-        class AnimationClip : public AAnimationClip<sf::Vector2i> {
+        class AnimationClip : public AAnimationClip {
         private:
             std::list<Sprite *> m_sprites;
 

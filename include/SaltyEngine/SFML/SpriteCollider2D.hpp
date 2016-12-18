@@ -7,6 +7,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <atomic>
+#include <stack>
 #include "SaltyEngine/SFML/Sprite.hpp"
 #include "SaltyEngine/Collider.hpp"
 
@@ -32,13 +33,26 @@ namespace SaltyEngine
             sf::Uint32  GetColor() const;
             sf::Vector2i GetPosition() const;
             sf::Vector2f GetScale() const;
-            const sf::Vector2u &GetSize() const;
+            sf::Vector2u GetSize() const;
             const sf::IntRect &GetRect() const;
+            void ResetCollisions();
+            void UpdateCollisions(SpriteCollider2D *col);
+            void RemoveCollisions();
+
+        private:
+            std::map<SpriteCollider2D *, bool> m_collisions;
+            std::list<SpriteCollider2D *> m_updated;
+
+        public:
+            Sprite *GetSprite() const;
 
         private:
             sf::Uint32  m_color;
             sf::Image   m_img;
             Sprite      **m_sprite;
+
+        protected:
+            sf::IntRect m_rect;
 
         private:
             void InitImage();

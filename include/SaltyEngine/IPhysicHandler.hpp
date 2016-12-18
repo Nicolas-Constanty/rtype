@@ -14,6 +14,7 @@ namespace SaltyEngine
         virtual void Update() = 0;
         virtual void Run() = 0;
         virtual void Display() = 0;
+        virtual void Collide() = 0;
     };
 }
 

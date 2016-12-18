@@ -35,26 +35,25 @@ namespace SaltyEngine
                     if (bounds)
                     {
                         m_bounds = bounds;
-                        m_quad[0].position = sf::Vector2f((float)bounds->left, (float)bounds->top);
-                        m_quad[1].position = sf::Vector2f((float)(bounds->left + bounds->width), (float)bounds->top);
-                        m_quad[2].position = sf::Vector2f((float)(bounds->left + bounds->width), (float)(bounds->top + bounds->height));
-                        m_quad[3].position = sf::Vector2f((float)bounds->left, (float)(bounds->top + bounds->height));
-                        m_quad[4].position = sf::Vector2f((float)bounds->left, (float)bounds->top);
+                        m_quad[0].position = sf::Vector2f(bounds->left, bounds->top);
+                        m_quad[1].position = sf::Vector2f(bounds->left + bounds->width, bounds->top);
+                        m_quad[2].position = sf::Vector2f(bounds->left + bounds->width, bounds->top + bounds->height);
+                        m_quad[3].position = sf::Vector2f(bounds->left, bounds->top + bounds->height);
+                        m_quad[4].position = sf::Vector2f((float)bounds->left, bounds->top);
                     }
                 }
             }
-            else
-            {
-                ::SaltyEngine::BasicRect<sf::Vector2i> *rect = dynamic_cast<::SaltyEngine::BasicRect<sf::Vector2i> *>(m_bounds);
-                rect->_left = (int) (gameObject->transform.position.x - rect->_width / 2);
-                rect->_top = (int) (gameObject->transform.position.y - rect->_height / 2);
-                m_bounds = rect;
-                m_quad[0].position = sf::Vector2f((float)rect->_left, (float)rect->_top);
-                m_quad[1].position = sf::Vector2f((float)(rect->_left + rect->_width), (float)rect->_top);
-                m_quad[2].position = sf::Vector2f((float)(rect->_left + rect->_width), (float)(rect->_top + rect->_height));
-                m_quad[3].position = sf::Vector2f((float)rect->_left, (float)(rect->_top + rect->_height));
-                m_quad[4].position = sf::Vector2f((float)rect->_left, (float)rect->_top);
-            }
+//            else
+//            {
+//                //::SaltyEngine::BasicRect<sf::Vector2i> *rect = dynamic_cast<::SaltyEngine::BasicRect<sf::Vector2i> *>(m_bounds);
+//                l = (int) (gameObject->transform.position.x - rect->_width / 2);
+//                rect->_top = (int) (gameObject->transform.position.y - rect->_height / 2);
+//                m_quad[0].position = sf::Vector2f((float)rect->_left, (float)rect->_top);
+//                m_quad[1].position = sf::Vector2f((float)(rect->_left + rect->_width), (float)rect->_top);
+//                m_quad[2].position = sf::Vector2f((float)(rect->_left + rect->_width), (float)(rect->_top + rect->_height));
+//                m_quad[3].position = sf::Vector2f((float)rect->_left, (float)(rect->_top + rect->_height));
+//                m_quad[4].position = sf::Vector2f((float)rect->_left, (float)rect->_top);
+//            }
         }
 
         const sf::VertexArray &BoxCollider2D::GetVertex(void) const {

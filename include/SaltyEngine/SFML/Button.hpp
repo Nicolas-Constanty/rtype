@@ -15,46 +15,24 @@ namespace SaltyEngine
 			class Button : public ::SaltyEngine::GUI::Button
 			{
 			public:
-				explicit Button(GameObject* gameObj, ::SaltyEngine::SFML::Sprite * const sprite)
-					: GUI::Button("SMFLButton", gameObj), m_normal(sprite), m_over(sprite)
-				{
-					m_sprr = gameObject->AddComponent<::SaltyEngine::SFML::SpriteRenderer>(m_normal, Layout::gui);
-				}
+				explicit Button(GameObject* gameObj, ::SaltyEngine::SFML::Sprite * const sprite);
 
-				Button(GameObject* gameObj, ::SaltyEngine::SFML::Sprite * const norm, ::SaltyEngine::SFML::Sprite * const over)
-					: GUI::Button("SMFLButton", gameObj), m_normal(norm), m_over(over)
-				{
-					m_sprr = gameObject->AddComponent<::SaltyEngine::SFML::SpriteRenderer>(m_normal, Layout::gui);
-				}
 
-				Button(const std::string& name, GameObject* gameObj, ::SaltyEngine::SFML::Sprite * const sprite)
-					: GUI::Button(name, gameObj), m_normal(sprite), m_over(sprite)
-				{
-					m_sprr = gameObject->AddComponent<::SaltyEngine::SFML::SpriteRenderer>(m_normal, Layout::gui);
-				}
+				Button(GameObject* gameObj, ::SaltyEngine::SFML::Sprite * const norm, ::SaltyEngine::SFML::Sprite * const over);
+
+
+				Button(const std::string& name, GameObject* gameObj, ::SaltyEngine::SFML::Sprite * const sprite);
 
 				virtual ~Button() {};
 
 			public:
 				void OnPointerClick() override {}; //	Registered IPointerClickHandler callback.
 				void OnSubmit() override {}; //
-				void SetOver(::SaltyEngine::SFML::Sprite* const sprite)
-				{
-					m_over = sprite;
-				}
-				void SetNormal(::SaltyEngine::SFML::Sprite* const sprite)
-				{
-					m_normal = sprite;
-				}
+				void SetOver(::SaltyEngine::SFML::Sprite* const sprite);
+				void SetNormal(::SaltyEngine::SFML::Sprite* const sprite);
 
-				::SaltyEngine::SFML::Sprite* GetOver(void) const
-				{
-					return (m_over);
-				}
-				::SaltyEngine::SFML::Sprite* GetNormal(void) const
-				{
-					return (m_normal);
-				}
+				::SaltyEngine::SFML::Sprite* GetOver(void) const;
+				::SaltyEngine::SFML::Sprite* GetNormal(void) const;
 
 			public:
 				Event onClick;
@@ -65,9 +43,7 @@ namespace SaltyEngine
 				::SaltyEngine::SFML::SpriteRenderer *m_sprr;
 
 			public:
-				virtual Component *CloneComponent(GameObject* const obj) {
-					return new Button(obj, m_over);
-				}
+				virtual Component *CloneComponent(GameObject* const obj);
 			};
 		}
 	}

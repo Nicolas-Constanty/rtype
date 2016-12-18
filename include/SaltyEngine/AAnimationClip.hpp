@@ -6,7 +6,7 @@
 
 namespace SaltyEngine
 {
-	template <class T>
+//	template <class T>
 	class AAnimationClip : public Object
 	{
 	protected:
@@ -16,22 +16,14 @@ namespace SaltyEngine
         AnimationConstants::WrapMode m_wrapMode = AnimationConstants::WrapMode::ONCE;
 
 	public:
-		AAnimationClip(std::string const& name = "Animation", int frameRate = 60, AnimationConstants::WrapMode mode = AnimationConstants::WrapMode::ONCE) :
-				Object(name),
-				m_frameRate(frameRate),
-                m_wrapMode(mode)
-		{}
+		AAnimationClip(std::string const& name = "Animation", int frameRate = 60, AnimationConstants::WrapMode mode = AnimationConstants::WrapMode::ONCE);
 
 		virtual ~AAnimationClip() {}
 
 	public:
-		AnimationConstants::WrapMode GetWrapMode() const {
-			return (m_wrapMode);
-		}
+		AnimationConstants::WrapMode GetWrapMode() const;
 
-		void	SetWrapMode(AnimationConstants::WrapMode wrapMode) {
-			m_wrapMode = wrapMode;
-		}
+		void	SetWrapMode(AnimationConstants::WrapMode wrapMode);
 
 	public:
 		template<class U>
@@ -43,20 +35,10 @@ namespace SaltyEngine
     			m_events.push_back(event);
 		}
 
-		double GetFrameRate() const
-		{
-			return m_frameRate;
-		}
+		double GetFrameRate() const;
 
-		void SetFrameRate(int frameRate)
-		{
-			m_frameRate = frameRate;
-		}
+		void SetFrameRate(int frameRate);
 
-        void OnAnimEnd()
-        {
-            if (m_event_end != nullptr)
-                m_event_end();
-        }
+        void OnAnimEnd();
 	};
 }

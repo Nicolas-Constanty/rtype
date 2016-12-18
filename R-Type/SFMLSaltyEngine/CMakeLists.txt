@@ -45,7 +45,7 @@ elseif(MSVC)
 	file(GLOB SOURCE_SALTYENGINE_SFML_FILE "src/SaltyEngine/SFML/*.cpp" "include/SaltyEngine/SFML/*.hpp")
 
 	#Create library
-	add_library(SFMLSaltyEngine SHARED ${SOURCE_SALTYENGINE_SFML_FILE} ../../src/SaltyEngine/SFML/PhysicsHandler.cpp ../../src/SaltyEngine/SFML/BoxCollider2D.cpp)
+	add_library(SFMLSaltyEngine SHARED ${SOURCE_SALTYENGINE_SFML_FILE} ../../src/SaltyEngine/SFML/PhysicsHandler.cpp ../../src/SaltyEngine/SFML/BoxCollider2D.cpp ../../src/SaltyEngine/SFML/Button.cpp ../../src/SaltyEngine/SFML/Rect.cpp ../../src/SaltyEngine/SFML/Sprite.cpp ../../src/SaltyEngine/SFML/SpriteRenderer.cpp)
 
 	#Link libraries
 	target_link_libraries(SFMLSaltyEngine Parser SaltyEngine sfml-system sfml-window sfml-graphics sfml-audio)

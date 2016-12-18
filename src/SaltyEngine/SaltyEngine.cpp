@@ -1,6 +1,7 @@
 #ifdef _WIN32
 #include <direct.h>
 #else
+#include <X11/Xlib.h>
 #include <dirent.h>
 #include <SaltyEngine/Constants.hpp>
  #include <unistd.h>
@@ -8,6 +9,8 @@
 
 #include "SaltyEngine/SaltyEngine.hpp"
 #include <SaltyEngine/Constants.hpp>
+#include <SFML/System/Thread.hpp>
+#include <thread>
 #include "SaltyEngine/AScene.hpp"
 #include "Common/Debug.hpp"
 
@@ -91,7 +94,7 @@ namespace SaltyEngine
 		Start();
 		std::chrono::nanoseconds lag(0);
 		std::chrono::time_point<std::chrono::high_resolution_clock> time_start = std::chrono::high_resolution_clock::now();
-
+		bool st = true;
 		while (m_status != EngineStatus::stop)
 		{
 			m_delta_time = std::chrono::high_resolution_clock::now() - time_start;
@@ -100,6 +103,12 @@ namespace SaltyEngine
 			m_even_manager->Update();
             m_scenes[m_current]->OnStart();
 			// Control Frame Rate
+//			if (m_physics_handler)
+//			{
+//				XInitThreads();
+//			}
+
+
 			while (lag >= m_frame_rate)
 			{
 				lag -= m_frame_rate;
@@ -113,6 +122,7 @@ namespace SaltyEngine
 						{
 							m_physics_handler->Clear();
 							m_physics_handler->Update();
+							m_physics_handler->Collide();
 							m_physics_handler->Display();
 						}
 
@@ -141,6 +151,13 @@ namespace SaltyEngine
 			m_scenes[m_current]->CallCoroutines();
 			m_scenes[m_current]->OnGui();
 			m_scenes[m_current]->OnDestroy();
+//			if (m_physics_handler && st)
+//			{
+//				std::cout << "pouet" << std::endl;
+//				sf::Thread thread(&IPhysicsHandler::Run, m_physics_handler);
+//				thread.launch();
+//				st = false;
+//			}
 			m_renderer->Display();
 			m_scenes[m_current]->Destroy();
 		}
@@ -361,4 +378,12 @@ namespace SaltyEngine
 		else
 			throw new std::runtime_error("Can't push null scene");
 	}
+
+    void Engine::SetPhysicsHandler(IPhysicsHandler *ph) {
+        m_physics_handler = ph;
+    }
+
+    IPhysicsHandler *Engine::GetPhysicsHandler(void) const {
+        return m_physics_handler;
+    }
 }

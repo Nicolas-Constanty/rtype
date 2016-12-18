@@ -41,8 +41,10 @@ namespace SaltyEngine
 		double GetFixedDeltaTime(void) const;
 		void SetRenderer(IRenderer *renderer);
 		void SetEventManager(Input::IEventManager *ev_manager);
+		void SetPhysicsHandler(IPhysicsHandler *renderer);
 		AScene *GetCurrentScene(void) const;
 		IRenderer *GetRenderer(void) const;
+		IPhysicsHandler *GetPhysicsHandler(void) const;
 
 	private:
 		EngineStatus								m_status;

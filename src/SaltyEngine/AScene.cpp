@@ -410,6 +410,30 @@ namespace SaltyEngine
     std::vector<SaltyEngine::GameObject *> const &AScene::GetAllGameObject() const {
         return (m_objects);
     }
+
+	void AScene::PushOnCollisionEnter(std::function<void()> func) {
+		m_onCollisionEnter.push(func);
+	}
+
+	void AScene::PushOnCollisionStay(std::function<void()> func) {
+		m_onCollisionStay.push(func);
+	}
+
+	void AScene::PushOnCollisionExit(std::function<void()> func) {
+		m_onCollisionExit.push(func);
+	}
+
+	void AScene::PushOnTriggerEnter(std::function<void()> func) {
+		m_onTriggerEnter.push(func);
+	}
+
+	void AScene::PushOnTriggerStay(std::function<void()> func) {
+		m_onTriggerStay.push(func);
+	}
+
+	void AScene::PushOnTriggerExit(std::function<void()> func) {
+		m_onTriggerExit.push(func);
+	}
 }
 
 /**

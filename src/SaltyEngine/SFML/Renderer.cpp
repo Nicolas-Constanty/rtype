@@ -45,13 +45,10 @@ namespace SaltyEngine
 
 		void Renderer::DrawSprites(const SpriteList &sprite_list) const {
 			for (SpriteList::const_iterator it = sprite_list.begin(); it != sprite_list.end(); ++it) {
-				(*(*it).spr)->setPosition(
-						(*it).gm->transform.position.x - ((*it).rect->width / 2),
-						(*it).gm->transform.position.y - ((*it).rect->height / 2));
-                (*it).rect->_left = (int) (*(*it).spr)->getGlobalBounds().left;
-                (*it).rect->_top = (int) (*(*it).spr)->getGlobalBounds().top;
-                (*it).rect->_width = (int) (*(*it).spr)->getGlobalBounds().width;
-                (*it).rect->_height = (int) (*(*it).spr)->getGlobalBounds().height;
+//				(*(*it).spr)->setPosition(
+//						(*it).gm->transform.position.x * (*it).gm->transform.localScale.x - ((*it).rect->width * (*it).gm->transform.localScale.x / 2),
+//						(*it).gm->transform.position.y * (*it).gm->transform.localScale.y - ((*it).rect->height * (*it).gm->transform.localScale.y / 2)
+//				 );
 				(*it).wind->draw((*(*(*it).spr)));
 			}
 		}

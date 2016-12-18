@@ -18,6 +18,8 @@
 #include "SFML/Sound.hpp"
 #include "SFML/SpriteRenderer.hpp"
 #include "SFML/Window.hpp"
+#include "SFML/SpriteCollider2D.hpp"
+#include "SFML/PhysicsHandler.hpp"
 
 typedef SaltyEngine::Input::InputManager<SaltyEngine::SFML::EventManager>  InputKey;
 
