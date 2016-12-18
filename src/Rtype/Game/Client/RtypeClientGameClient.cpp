@@ -97,9 +97,11 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetBEAMPackage(BEAMPackageGam
     OnDiscoveringPackage(pack);
     SaltyEngine::GameObject *gameObject;
     if ((gameObject = gameManager->gameObjectContainer[pack.objectID])) {
-        SaltyEngine::PlayerController *playerController = gameObject->GetComponent<SaltyEngine::PlayerController>();
+        MateComponent *playerController = gameObject->GetComponent<MateComponent>();
+        std::cout << "CLIENT BEAM == " << pack.objectID << std::endl;
         if (playerController) {
-            playerController->Beam();
+            std::cout << "ALORS ON DANSE" << std::endl;
+            playerController->m_beamSFX->SetActive(true);
         }
     }
 
@@ -115,6 +117,14 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetSHOTPackage(SHOTPackageGam
         SaltyEngine::GameObject *laser = dynamic_cast<SaltyEngine::GameObject *>(::SaltyEngine::Instantiate("Laser", SaltyEngine::Vector2f(pack.x, pack.y)));
 //        gameManager->gameObjectContainer.Add(pack.objectID, laser);
         laser->GetComponent<LaserController>()->Power(pack.power);
+    SaltyEngine::GameObject *gameObject;
+    std::cout << "CLIENT SHOT == " << pack.objectID << std::endl;
+    if ((gameObject = gameManager->gameObjectContainer[pack.objectID])) {
+        MateComponent *playerController = gameObject->GetComponent<MateComponent>();
+        if (playerController) {
+            playerController->m_beamSFX->SetActive(false);
+        }
+    }
 //    }
 
     //todo resolve shot package with power of shot
@@ -177,7 +187,9 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetMOVEPackage(MOVEPackageGam
     OnDiscoveringPackage(pack);
     SaltyEngine::GameObject *obj = gameManager->gameObjectContainer[pack.objectID];
     if (obj) {
+//        obj->transform.Translate(SaltyEngine::Vector(pack.posX, pack.posY) * speed);
         obj->transform.position = SaltyEngine::Vector(pack.posX, pack.posY);
+        //TODO CHANGER LE POSITION FERNAND
     }
 }
 

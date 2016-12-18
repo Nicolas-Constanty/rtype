@@ -101,6 +101,7 @@ namespace SaltyEngine
         if (InputKey::GetAction("Fire", Input::ActionType::Down)) {
             if (!isServerSide()) {
                 OnBeamAction();
+                std::cout << "ID DOWN==" << getManager()->gameObjectContainer.GetServerObjectID(gameObject) << std::endl;
                 SendPackage<BEAMPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(gameObject), idShot);
                 m_beamSFX->SetActive(true);
             }
@@ -109,8 +110,8 @@ namespace SaltyEngine
             //manager->gameObjectContainer.Add(GameObjectID::NewID(), laser);
 
             if (!isServerSide()) {
-                SendPackage<SHOTPackageGame>(
-                        getManager()->gameObjectContainer.GetServerObjectID(gameObject), power, idShot++);
+                std::cout << "ID UP==" << getManager()->gameObjectContainer.GetServerObjectID(gameObject) << std::endl;
+                SendPackage<SHOTPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(gameObject), power, idShot++);
                 m_beamSFX->SetActive(false);
 
                 SaltyEngine::GameObject *gameObject1 = dynamic_cast<SaltyEngine::GameObject *>(::SaltyEngine::Instantiate("Laser", gameObject->transform.position));

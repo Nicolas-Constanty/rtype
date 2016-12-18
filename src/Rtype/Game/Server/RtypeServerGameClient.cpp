@@ -148,6 +148,20 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetBEAMPackage(BEAMPackageGam
 
             playerController->beamServerID = gameManager->gameObjectContainer.Add(GameObjectID::NewID(), beam);
 
+//            std::cout << "ID SERVER ==" << gameManager->gameObjectContainer.GetServerObjectID(gameObject) << std::endl;
+
+            for (std::unique_ptr<Network::Socket::ISockStreamHandler> &curr : clients->Streams())
+            {
+                if (curr.get() != this)
+                {
+                    Rtype::Game::Server::RtypeServerGameClient *receiver = dynamic_cast<Rtype::Game::Server::RtypeServerGameClient *>(curr.get());
+
+                    if (receiver)
+                        receiver->SendPackage<BEAMPackageGame>(&Network::UDP::AUDPConnection::SendReliable<BEAMPackageGame>,
+                                                               pack.objectID);
+                }
+            }
+
 //            this->BroadCastPackage<CREATEPackageGame>(
 //                    &Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>,
 //                    gameObject->transform.position.x,
@@ -194,8 +208,8 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetSHOTPackage(SHOTPackageGam
 
                     if (receiver)
                         receiver->SendPackage<SHOTPackageGame>(&Network::UDP::AUDPConnection::SendReliable<SHOTPackageGame>,
-                                                                0, power,
-                                                                pack.objectID, gameObject->transform.position.x, gameObject->transform.position.y);
+                                                                pack.objectID, power,
+                                                                0, gameObject->transform.position.x, gameObject->transform.position.y);
                 }
             }
 
