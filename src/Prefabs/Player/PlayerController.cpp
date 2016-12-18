@@ -92,16 +92,24 @@ namespace SaltyEngine
 
         if (InputKey::GetAction("Fire", Input::ActionType::Down)) {
             if (!isServerSide()) {
+                OnBeamAction();
                 SendPackage<BEAMPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(gameObject), idShot);
             }
         }
         if (InputKey::GetAction("Fire", Input::ActionType::Up)) {
-            ::SaltyEngine::Instantiate("Laser", gameObject->transform.position);
-
             //manager->gameObjectContainer.Add(GameObjectID::NewID(), laser);
+
             if (!isServerSide()) {
                 SendPackage<SHOTPackageGame>(
                         getManager()->gameObjectContainer.GetServerObjectID(gameObject), power, idShot++);
+
+                SaltyEngine::GameObject *gameObject1 = dynamic_cast<SaltyEngine::GameObject *>(::SaltyEngine::Instantiate("Laser", gameObject->transform.position));
+                int power = OnShotAction();
+                LaserController *laserController = gameObject1->GetComponent<LaserController>();
+                if (laserController) {
+                    std::cout << "SET" << std::endl;
+                    laserController->Power(power);
+                }
             }
         }
 
@@ -127,14 +135,14 @@ namespace SaltyEngine
 	}
 
     void PlayerController::OnBeamAction() {
-        if (isServerSide()) {
+//        if (isServerSide()) {
             start = clock::now();
-            std::cout << "init beam" << std::endl;
-        }
+//            std::cout << "init beam" << std::endl;
+//        }
     }
 
     int     PlayerController::OnShotAction() {
-        if (isServerSide()) {
+//        if (isServerSide()) {
 
             int power = 1;
 
@@ -175,10 +183,10 @@ namespace SaltyEngine
 //
 //                std::cout << "et par ici" << std::endl;
 //                return  informationPlayerShot;
-            }
+//            }
 //        }
 //        return NULL;
-        return (1);
+//        return (1);
     }
 
     unsigned int PlayerController::GetIDShot() const {
