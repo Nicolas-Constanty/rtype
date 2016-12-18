@@ -87,6 +87,7 @@ namespace SaltyEngine
 		void SetParent(BaseTransform<T> * parent)
 		{
 			m_parent = parent;
+			parent->m_children.push_back(this);
 		}
 
 		/**
