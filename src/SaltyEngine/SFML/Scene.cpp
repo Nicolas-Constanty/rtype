@@ -17,52 +17,63 @@ namespace SaltyEngine
 			//gameobj->transform.localScale = Vector2(2, 2);
 			::SaltyEngine::AScene::operator<<(gameobj);
 			gameobj->transform.localScale = Vector2(2, 2);
+			gameobj->SetScene(this);
 			Renderer *r = dynamic_cast<Renderer *>(Engine::Instance().GetRenderer());
 			SFML::SpriteCollider2D *c = gameobj->GetComponent<SFML::SpriteCollider2D>();
-			if (c)
-			{
-                SFML::BoxCollider2D *bc = gameobj->GetComponent<SFML::BoxCollider2D>();
-                if (bc && bc->IsDebug() && r)
-				    r->AddDebug(bc);
-               PhysicsHandler *ph = dynamic_cast<PhysicsHandler *>(Engine::Instance().GetPhysicsHandler());
-                if (ph)
-					ph->AddCollider(c);
-			}
+			PhysicsHandler *ph = dynamic_cast<PhysicsHandler *>(Engine::Instance().GetPhysicsHandler());
 			SpriteRenderer *sprr = gameobj->GetComponent<SpriteRenderer>();
-			if (sprr && r)
+			if (sprr)
 			{
-				r->AddSpriteRenderer(sprr);
-			}
-			GUI::Selectable *select = gameobj->GetComponent<GUI::Selectable>();
-			if (select && r)
-			{
-				r->AddSelectable(select);
+				if (r)
+				{
+					r->AddSpriteRenderer(sprr);
+					SFML::BoxCollider2D *bc = gameobj->GetComponent<SFML::BoxCollider2D>();
+					if (bc && bc->IsDebug())
+						r->AddDebug(bc);
+					GUI::Selectable *select = gameobj->GetComponent<GUI::Selectable>();
+					if (select)
+						r->AddSelectable(select);
+				}
+				if (ph)
+				{
+					if (c)
+						ph->AddCollider(c);
+					else
+						ph->AddSprite(sprr);
+				}
 			}
 		}
 
         void Scene::InitScene(Component *const component)
         {
-			Renderer *r = dynamic_cast<Renderer *>(Engine::Instance().GetRenderer());
-			SFML::SpriteCollider2D *c = component->gameObject->GetComponent<SFML::SpriteCollider2D>();
-			if (c)
+			if (component->gameObject->GetScene())
 			{
-				SFML::BoxCollider2D *bc = component->gameObject->GetComponent<SFML::BoxCollider2D>();
-				if (bc && bc->IsDebug() && r)
-					r->AddDebug(bc);
+				Renderer *r = dynamic_cast<Renderer *>(Engine::Instance().GetRenderer());
+				SFML::SpriteCollider2D *c = component->gameObject->GetComponent<SFML::SpriteCollider2D>();
 				PhysicsHandler *ph = dynamic_cast<PhysicsHandler *>(Engine::Instance().GetPhysicsHandler());
-				if (ph)
-					ph->AddCollider(c);
+				SpriteRenderer *sprr = component->gameObject->GetComponent<SpriteRenderer>();
+				if (sprr)
+				{
+					if (r)
+					{
+						r->AddSpriteRenderer(sprr);
+						SFML::BoxCollider2D *bc = component->gameObject->GetComponent<SFML::BoxCollider2D>();
+						if (bc && bc->IsDebug())
+							r->AddDebug(bc);
+						GUI::Selectable *select = component->gameObject->GetComponent<GUI::Selectable>();
+						if (select)
+							r->AddSelectable(select);
+					}
+					if (ph)
+					{
+						if (c)
+							ph->AddCollider(c);
+						else
+							ph->AddSprite(sprr);
+					}
+				}
 			}
-			SpriteRenderer *sprr = component->gameObject->GetComponent<SpriteRenderer>();
-			if (sprr && r)
-			{
-				r->AddSpriteRenderer(sprr);
-			}
-			GUI::Selectable *select = component->gameObject->GetComponent<GUI::Selectable>();
-			if (select && r)
-			{
-				r->AddSelectable(select);
-			}
+
         }
 //
 //		void Scene::UpdatePhysics()
