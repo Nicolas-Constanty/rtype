@@ -94,7 +94,7 @@ namespace SaltyEngine
 		Start();
 		std::chrono::nanoseconds lag(0);
 		std::chrono::time_point<std::chrono::high_resolution_clock> time_start = std::chrono::high_resolution_clock::now();
-		bool st = true;
+//		bool st = true;
 		while (m_status != EngineStatus::stop)
 		{
 			m_delta_time = std::chrono::high_resolution_clock::now() - time_start;

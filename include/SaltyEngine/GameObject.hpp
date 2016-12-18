@@ -42,7 +42,8 @@ namespace SaltyEngine
 
 	public:
 		bool GetActiveSelf(void) const;
-
+		void SetScene(AScene *);
+		AScene *GetScene() const;
 
 	public:
 		template<class T>
@@ -82,7 +83,8 @@ namespace SaltyEngine
 				++m_bcount;
 				m_behaviour.push_back(tmp);
 			}
-			Engine::Instance().GetCurrentScene()->InitScene(m_components.back().get());
+			if (::SaltyEngine::Engine::Instance().GetStatus() == EngineStatus::start)
+				Engine::Instance().GetCurrentScene()->InitScene(m_components.back().get());
 			return (dynamic_cast<T *>(m_components.back().get()));
 		}
 
