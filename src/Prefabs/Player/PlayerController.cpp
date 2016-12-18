@@ -55,11 +55,19 @@ namespace SaltyEngine
         InputKey::AddAction("Fire", new Input::Action(Input::KeyCode::Space, std::make_pair<unsigned int, int>(0, 1)));
 
         InputKey::AddAction("Pod", new Input::Action(Input::KeyCode::LShift, std::make_pair<unsigned int, int>(0, 2))); //todo koi t'est-ce qui fo fer
-//        GameObject *gameman = Engine::Instance().GetCurrentScene()->FindByName("GameManager");
-//
-//        manager = NULL;
-//        if (gameman)
-//            manager = gameman->GetComponent<GameManager>();
+
+        // Beam SFX for the player
+        if (!isServerSide())
+        {
+            m_beamSFX = (GameObject*)Instantiate();
+            m_beamSFX->AddComponent<SFML::SpriteRenderer>(SFML::AssetManager::Instance().GetSprite("Laser/loading1"), Layout::normal);
+            m_beamSFX->AddComponent<SFML::SpriteCollider2D>();
+            m_beamSFX->transform.position = (this->gameObject->transform.position + Vector(30, 3));
+            SaltyEngine::SFML::Animation *animation = m_beamSFX->AddComponent<SaltyEngine::SFML::Animation>(true, SaltyEngine::AnimationConstants::WrapMode::LOOP);
+            animation->AddClip(SaltyEngine::SFML::AssetManager::Instance().GetAnimation("Laser/loading"), "Loading");
+            m_beamSFX->transform.SetParent(&this->gameObject->transform);
+            m_beamSFX->SetActive(false);
+        }
 	}
 
 	void PlayerController::FixedUpdate()
@@ -94,6 +102,7 @@ namespace SaltyEngine
             if (!isServerSide()) {
                 OnBeamAction();
                 SendPackage<BEAMPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(gameObject), idShot);
+                m_beamSFX->SetActive(true);
             }
         }
         if (InputKey::GetAction("Fire", Input::ActionType::Up)) {
@@ -102,6 +111,7 @@ namespace SaltyEngine
             if (!isServerSide()) {
                 SendPackage<SHOTPackageGame>(
                         getManager()->gameObjectContainer.GetServerObjectID(gameObject), power, idShot++);
+                m_beamSFX->SetActive(false);
 
                 SaltyEngine::GameObject *gameObject1 = dynamic_cast<SaltyEngine::GameObject *>(::SaltyEngine::Instantiate("Laser", gameObject->transform.position));
                 int power = OnShotAction();

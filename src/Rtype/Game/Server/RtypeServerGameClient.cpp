@@ -148,12 +148,12 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetBEAMPackage(BEAMPackageGam
 
             playerController->beamServerID = gameManager->gameObjectContainer.Add(GameObjectID::NewID(), beam);
 
-            this->BroadCastPackage<CREATEPackageGame>(
-                    &Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>,
-                    gameObject->transform.position.x,
-                    gameObject->transform.position.y,
-                    RtypeNetworkFactory::GetIDFromName("Beam"),
-                    playerController->beamServerID);
+//            this->BroadCastPackage<CREATEPackageGame>(
+//                    &Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>,
+//                    gameObject->transform.position.x,
+//                    gameObject->transform.position.y,
+//                    RtypeNetworkFactory::GetIDFromName("Beam"),
+//                    playerController->beamServerID);
             playerController->beamShot = beam;
             playerController->OnBeamAction();
 

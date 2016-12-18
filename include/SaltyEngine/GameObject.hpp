@@ -82,6 +82,7 @@ namespace SaltyEngine
 				++m_bcount;
 				m_behaviour.push_back(tmp);
 			}
+			Engine::Instance().GetCurrentScene()->InitScene(m_components.back().get());
 			return (dynamic_cast<T *>(m_components.back().get()));
 		}
 

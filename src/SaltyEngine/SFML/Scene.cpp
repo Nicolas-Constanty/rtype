@@ -43,21 +43,22 @@ namespace SaltyEngine
         void Scene::InitScene(Component *const component)
         {
 			Renderer *r = dynamic_cast<Renderer *>(Engine::Instance().GetRenderer());
-
-			SFML::BoxCollider2D *c = dynamic_cast<SFML::BoxCollider2D *>(component);
-			ACollider2D<sf::Vector2i> *col = dynamic_cast<ACollider2D<sf::Vector2i> *>(c);
-			if (col && r && c)
+			SFML::SpriteCollider2D *c = component->gameObject->GetComponent<SFML::SpriteCollider2D>();
+			if (c)
 			{
-				m_collisions[col] = {};
-                if (c->IsDebug())
-				    r->AddDebug(c);
+				SFML::BoxCollider2D *bc = component->gameObject->GetComponent<SFML::BoxCollider2D>();
+				if (bc && bc->IsDebug() && r)
+					r->AddDebug(bc);
+				PhysicsHandler *ph = dynamic_cast<PhysicsHandler *>(Engine::Instance().GetPhysicsHandler());
+				if (ph)
+					ph->AddCollider(c);
 			}
-			SpriteRenderer *sprr = dynamic_cast<SpriteRenderer *>(component);
+			SpriteRenderer *sprr = component->gameObject->GetComponent<SpriteRenderer>();
 			if (sprr && r)
 			{
 				r->AddSpriteRenderer(sprr);
 			}
-			GUI::Selectable *select = dynamic_cast<GUI::Selectable *>(component);
+			GUI::Selectable *select = component->gameObject->GetComponent<GUI::Selectable>();
 			if (select && r)
 			{
 				r->AddSelectable(select);

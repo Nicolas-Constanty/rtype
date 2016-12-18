@@ -89,6 +89,7 @@ namespace SaltyEngine {
 	public:
         GameObject     *beamShot;
 		int				beamServerID = 0;
+		GameObject		*m_beamSFX = nullptr;
 
 	private:
 		int				playerID;
