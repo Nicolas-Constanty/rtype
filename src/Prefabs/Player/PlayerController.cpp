@@ -87,21 +87,20 @@ namespace SaltyEngine
                     getManager()->gameObjectContainer.GetServerObjectID(gameObject));
         }
         ++i;
-        if (isServerSide()) {
-            if (beamShot) {
-                beamShot->transform.position = gameObject->transform.position;
-                beamShot->transform.position.x += 30;
-                BroadcastPackage<MOVEPackageGame>(
-                        beamShot->transform.position.x,
-                        beamShot->transform.position.y,
-                        getManager()->gameObjectContainer.GetServerObjectID(beamShot));
-            }
-        }
+//        if (isServerSide()) {
+//            if (beamShot) {
+//                beamShot->transform.position = gameObject->transform.position;
+//                beamShot->transform.position.x += 30;
+//                BroadcastPackage<MOVEPackageGame>(
+//                        beamShot->transform.position.x,
+//                        beamShot->transform.position.y,
+//                        getManager()->gameObjectContainer.GetServerObjectID(beamShot));
+//            }
+//        }
 
         if (InputKey::GetAction("Fire", Input::ActionType::Down)) {
             if (!isServerSide()) {
                 OnBeamAction();
-                std::cout << "ID DOWN==" << getManager()->gameObjectContainer.GetServerObjectID(gameObject) << std::endl;
                 SendPackage<BEAMPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(gameObject), idShot);
                 m_beamSFX->SetActive(true);
             }
@@ -110,7 +109,6 @@ namespace SaltyEngine
             //manager->gameObjectContainer.Add(GameObjectID::NewID(), laser);
 
             if (!isServerSide()) {
-                std::cout << "ID UP==" << getManager()->gameObjectContainer.GetServerObjectID(gameObject) << std::endl;
                 SendPackage<SHOTPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(gameObject), power, idShot++);
                 m_beamSFX->SetActive(false);
 
@@ -118,7 +116,6 @@ namespace SaltyEngine
                 int power = OnShotAction();
                 LaserController *laserController = gameObject1->GetComponent<LaserController>();
                 if (laserController) {
-                    std::cout << "SET" << std::endl;
                     laserController->Power(power);
                 }
             }
@@ -286,7 +283,6 @@ namespace SaltyEngine
         std::string anim;
 
         anim = "SpaceShip/SpaceShip" + std::to_string(color) + "-1";
-        std::cout << "PLAYER COLOR == " << anim << std::endl;
         gameObject->GetComponent<::SaltyEngine::SFML::SpriteRenderer>()->SetSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite(anim));
     }
 

@@ -98,9 +98,7 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetBEAMPackage(BEAMPackageGam
     SaltyEngine::GameObject *gameObject;
     if ((gameObject = gameManager->gameObjectContainer[pack.objectID])) {
         MateComponent *playerController = gameObject->GetComponent<MateComponent>();
-        std::cout << "CLIENT BEAM == " << pack.objectID << std::endl;
         if (playerController) {
-            std::cout << "ALORS ON DANSE" << std::endl;
             playerController->m_beamSFX->SetActive(true);
         }
     }
@@ -118,7 +116,6 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetSHOTPackage(SHOTPackageGam
 //        gameManager->gameObjectContainer.Add(pack.objectID, laser);
         laser->GetComponent<LaserController>()->Power(pack.power);
     SaltyEngine::GameObject *gameObject;
-    std::cout << "CLIENT SHOT == " << pack.objectID << std::endl;
     if ((gameObject = gameManager->gameObjectContainer[pack.objectID])) {
         MateComponent *playerController = gameObject->GetComponent<MateComponent>();
         if (playerController) {
@@ -259,7 +256,7 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetENEMYSHOTPackage(ENEMYSHOT
 }
 
 void Rtype::Game::Client::RtypeClientGameClient::onGetMATEPackage(MATEPackageGame const &matePackageGame) {
-    std::cout << matePackageGame << std::endl;
+//    std::cout << matePackageGame << std::endl;
     try {
         SaltyEngine::GameObject *object = RtypeNetworkFactory::Create(1, SaltyEngine::Vector((float) matePackageGame.x,
                                                                                              (float) matePackageGame.y),

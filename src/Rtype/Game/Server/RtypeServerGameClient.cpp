@@ -238,7 +238,7 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetSHOTPackage(SHOTPackageGam
             playerController->IncIdShot();
         }
     }
-    std::cout << "JE SORS" << std::endl;
+//    std::cout << "JE SORS" << std::endl;
 //    todo if (okay on gameside)
 //    {
 //        BroadcastReliable(*server1->create<SHOTPackageGame>(pack.objectID));
