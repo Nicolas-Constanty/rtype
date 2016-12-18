@@ -49,7 +49,7 @@ elseif(MSVC)
 		)
 
 	#Create library
-	add_library(SaltyEngine STATIC ${SOURCE_SALTYENGINE_FILE})
+	add_library(SaltyEngine STATIC ${SOURCE_SALTYENGINE_FILE} ../../src/SaltyEngine/AAnimation.cpp ../../src/SaltyEngine/AAnimationClip.cpp)
 
 endif()
 

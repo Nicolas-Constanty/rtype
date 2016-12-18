@@ -18,7 +18,7 @@ MonsterWalker::MonsterWalker() : GameObject("MonsterWalker", SaltyEngine::Layer:
     GetComponent<SaltyEngine::SFML::Animation >()->AddClip(SaltyEngine::SFML::AssetManager::Instance().GetAnimation("MonsterWalker/JumpRight"), "JumpRight");
 
     AddComponent<MonsterWalkerController>();
-    AddComponent<SaltyEngine::SFML::BoxCollider2D>();
+    AddComponent<SaltyEngine::SFML::SpriteCollider2D>();
 }
 
 MonsterWalker::~MonsterWalker()

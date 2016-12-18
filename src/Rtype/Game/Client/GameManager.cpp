@@ -1,7 +1,7 @@
 #include <SaltyEngine/GameObject.hpp>
 #include <SaltyEngine/SaltyBehaviour.hpp>
 #include <Rtype/Game/Client/GameManager.hpp>
-#include <SaltyEngine/SFML/BoxCollider2D.hpp>
+#include <SaltyEngine/SFML.hpp>
 #include <Prefabs/Player/PlayerController.hpp>
 #include <Rtype/Game/Client/BackgroundController.hpp>
 #include <Rtype/Game/Common/GameObjectID.hpp>
@@ -45,11 +45,11 @@ void GameManager::OnCollisionExit(SaltyEngine::ICollider *collider)
 {
     SaltyEngine::SFML::BoxCollider2D *c = dynamic_cast<SaltyEngine::SFML::BoxCollider2D*>(collider);
 
-//    if (c->gameObject->GetTag() != SaltyEngine::Layer::Tag::Player)
-//    {
+    if (c && c->gameObject->GetTag() != SaltyEngine::Layer::Tag::Player)
+    {
         std::cout << "Object destroyed" << std::endl;
         Destroy(c->gameObject);
-//    }
+    }
 }
 
 void GameManager::OnCollisionEnter(SaltyEngine::ICollider *)

@@ -17,7 +17,7 @@ namespace SaltyEngine
 {
     namespace SFML
     {
-        class Animation : public AAnimation<sf::Vector2i> {
+        class Animation : public AAnimation {
         private:
 
             class AnimData {

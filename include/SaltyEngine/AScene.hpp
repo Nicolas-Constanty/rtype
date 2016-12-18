@@ -65,6 +65,14 @@ namespace SaltyEngine
 		virtual void Destroy(GameObject *gm);
         virtual void InitScene(Component *const component) { (void)component; };
 
+		virtual void PushOnCollisionEnter(std::function<void()> func);
+		virtual void PushOnCollisionStay(std::function<void()> func);
+		virtual void PushOnCollisionExit(std::function<void()> func);
+
+		virtual void PushOnTriggerEnter(std::function<void()> func);
+		virtual void PushOnTriggerStay(std::function<void()> func);
+		virtual void PushOnTriggerExit(std::function<void()> func);
+
 	protected:
 		virtual void Destroy();
 

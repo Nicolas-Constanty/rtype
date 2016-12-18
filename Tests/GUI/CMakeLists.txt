@@ -24,7 +24,7 @@ elseif(MSVC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3")
 
 	#Create library
-	add_executable(gui ${TEST_SOURCE})
+	add_executable(gui ${TEST_SOURCE} TestCollision.cpp TestCollision.hpp)
 
 	#Link libraries
 	target_link_libraries(gui SaltyEngine SFMLSaltyEngine Parser sfml-system sfml-window sfml-graphics sfml-audio)

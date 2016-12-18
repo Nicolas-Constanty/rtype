@@ -13,36 +13,14 @@ namespace SaltyEngine
 		class Rect : public ::SaltyEngine::BasicRect<sf::Vector2i>, public sf::IntRect
 		{
 		public:
-            Rect(int rectLeft, int rectTop, int rectWidth, int rectHeight) :
-            BasicRect(rectLeft, rectTop, rectWidth, rectHeight),
-            sf::IntRect(rectLeft, rectTop, rectWidth, rectHeight) {}
-			Rect(const sf::Vector2<int>& position, const sf::Vector2<int>& size) :
-					BasicRect(position.x, position.y, size.x, size.y),
-				  	sf::IntRect(position, size) {}
+            Rect(int rectLeft, int rectTop, int rectWidth, int rectHeight);
+			Rect(const sf::Vector2<int>& position, const sf::Vector2<int>& size);
 
             virtual ~Rect() {}
 
 		public:
-			bool Contain(const sf::Vector2i &vec) const override
-			{
-				return (contains(vec.x, vec.y));
-			}
-			bool Intersect(IRect<sf::Vector2i> * const rect) const override
-			{
-				Rect *r = dynamic_cast<Rect *>(rect);
-				if (r)
-					return intersects(*r);
-                else
-                {
-                    BasicRect<sf::Vector2i> *re = dynamic_cast<BasicRect<sf::Vector2i> *>(rect);
-                    if (re)
-					{
-//						return BasicRect<sf::Vector2i>::Intersect(re);
-						return intersects(sf::IntRect(re->_left, re->_top, re->_width, re->_height));
-					}
-                }
-				return false;
-			}
+			bool Contain(const sf::Vector2i &vec) const override;
+			bool Intersect(IRect<sf::Vector2i> * const rect) const;
 		};
 		class FRect : public IRect<sf::Vector2f>, public sf::FloatRect
 		{

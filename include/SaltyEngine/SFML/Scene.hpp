@@ -22,7 +22,7 @@ namespace SaltyEngine
 			~Scene() {};
 
 		public:
-			void UpdatePhysics() override;
+//			void UpdatePhysics() override;
 			void operator<<(GameObject * const gameobj) override;
 			void InitScene(Component *const component) override;
 
@@ -31,7 +31,7 @@ namespace SaltyEngine
 			CollisionTab m_collisions;
             Coll m_colls;
 			void Destroy() override ;
-            void Up();
+//            void Up();
         };
 	}
 }

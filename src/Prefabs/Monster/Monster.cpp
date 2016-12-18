@@ -14,7 +14,7 @@ Monster::Monster() : GameObject("Monster", SaltyEngine::Layer::Tag::Enemy)
     GetComponent<SaltyEngine::SFML::Animation>()->AddClip(SaltyEngine::SFML::AssetManager::Instance().GetAnimation("Monster/Walk"), "Walk");
 
     AddComponent<MonsterController>();
-    AddComponent<SaltyEngine::SFML::BoxCollider2D>();
+    AddComponent<SaltyEngine::SFML::SpriteCollider2D>();
 }
 
 Monster::~Monster()

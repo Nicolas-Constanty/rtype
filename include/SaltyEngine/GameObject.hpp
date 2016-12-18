@@ -8,7 +8,7 @@
 #include <typeinfo>
 #include "SaltyEngine/Transform.hpp"
 #include "SaltyEngine/SaltyBehaviour.hpp"
-#include "Common/MakeUnique.hpp"
+#include "Common/Utils.hpp"
 #include "SaltyEngine/Constants.hpp"
 #include "SaltyEngine/AScene.hpp"
 #include "SaltyEngine/SaltyEngine.hpp"
@@ -42,6 +42,7 @@ namespace SaltyEngine
 
 	public:
 		bool GetActiveSelf(void) const;
+
 
 	public:
 		template<class T>
@@ -83,17 +84,9 @@ namespace SaltyEngine
 			}
 			return (dynamic_cast<T *>(m_components.back().get()));
 		}
-		Component *AddComponent(Component *component)
-		{
-			m_components.push_back(std::unique_ptr<Component>(component));
-			SaltyBehaviour *tmp = dynamic_cast<SaltyBehaviour *>(m_components.back().get());
-			if (tmp)
-			{
-				++m_bcount;
-				m_behaviour.push_back(tmp);
-			}
-			return (dynamic_cast<Component *>(m_components.back().get()));
-		}
+
+		Component *AddComponent(Component *component);
+
 		bool CompareTag(Layer::Tag tag) const;
 		template<class T>
 		T *GetComponent()
@@ -155,10 +148,7 @@ namespace SaltyEngine
 			return (list);
 		}
 
-		const std::list<SaltyBehaviour *> &GetSaltyBehaviour(void) const
-		{
-			return (m_behaviour);
-		}
+		const std::list<SaltyBehaviour *> &GetSaltyBehaviour(void) const;
 
 		template<class T>
 		std::list<T> GetComponentsInChildren()
@@ -186,37 +176,16 @@ namespace SaltyEngine
 			return (os);
 		}
 
-		static GameObject *Find(std::string const& name)
-        {
-            return Factory::Instance().Find(name);
-        }
+		static GameObject *Find(std::string const& name);
 
-		static GameObject *FindGameObjectWithTag(Layer::Tag tag)
-		{
-            return Factory::Instance().FindByTag(tag);
-		}
+		static GameObject *FindGameObjectWithTag(Layer::Tag tag);
 
-        static std::list<GameObject*> FindGameObjectsWithTag(Layer::Tag tag)
-        {
-            return Factory::Instance().FindAllByTag(tag);
-        }
+        static std::list<GameObject*> FindGameObjectsWithTag(Layer::Tag tag);
 
 		public:
-			virtual std::unique_ptr<Object> Clone() {
-				return std::unique_ptr<Object>(new GameObject(GetName() + "(Clone)"));
-			}
+			virtual std::unique_ptr<Object> Clone();
 
-			virtual std::unique_ptr<Object> CloneMemberwise() {
-				GameObject	*obj = new GameObject(GetName() + "(Clone)");
-
-				obj->layer = layer;
-				obj->m_tag = m_tag;
-				obj->m_activeSelf = m_activeSelf;
-				for (std::list<std::unique_ptr<Component>>::const_iterator it = m_components.begin(); it != m_components.end(); ++it) {
-					obj->AddComponent((*it)->CloneComponent(obj));
-				}
-				return std::unique_ptr<Object>(obj);
-			}
+			virtual std::unique_ptr<Object> CloneMemberwise();
 
 		public:
             void Destroy() override;

@@ -12,7 +12,6 @@
 
 namespace SaltyEngine
 {
-	template <class T>
 	class AAnimation : public SaltyBehaviour
 	{
 	protected:
@@ -24,54 +23,33 @@ namespace SaltyEngine
 
 	public:
 		AAnimation(GameObject* const obj, bool playAuto = true,
-				  AnimationConstants::WrapMode mode = AnimationConstants::WrapMode::ONCE) :
-				SaltyBehaviour(obj),
-				m_playAuto(playAuto),
-				m_wrapMode(mode)
-		{
-        }
+				  AnimationConstants::WrapMode mode = AnimationConstants::WrapMode::ONCE);
 
-		virtual ~AAnimation()
-		{
-        }
+		virtual ~AAnimation() {}
 
 		/**
 		 * @brief Animation functions
 		 */
 	public:
-        bool IsPlaying() const
-		{
-			return m_isPlaying;
-		}
+        bool IsPlaying() const;
 
 		virtual void Play() = 0;
 
 		virtual void Play(std::string const& name) = 0;
 
-		void PlayQueued(std::string const& animName)
-		{
-			m_queuedAnims.push(animName);
-		}
+		void PlayQueued(std::string const& animName);
 
 		virtual void RemoveClip(std::string const& clipName) = 0;
 
-        void Stop()
-		{
-			m_isPlaying = false;
-		}
+        void Stop();
 
 		virtual void Stop(std::string const& name) = 0;
 
 		virtual size_t GetClipCount() const = 0;
 
-        AnimationConstants::WrapMode GetWrapMode() const {
-			return m_wrapMode;
-		}
+        AnimationConstants::WrapMode GetWrapMode() const;
 
-		void SetWrapMode(AnimationConstants::WrapMode mode)
-		{
-			m_wrapMode = mode;
-		}
+		void SetWrapMode(AnimationConstants::WrapMode mode);
 
 	private:
 		virtual void UpdateAnimations() = 0;

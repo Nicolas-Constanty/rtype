@@ -22,7 +22,7 @@ BackgroundController::~BackgroundController() {
 }
 
 void BackgroundController::Start() {
-    SaltyEngine::SFML::Renderer *renderer = static_cast<SaltyEngine::SFML::Renderer*>(Singleton<SaltyEngine::Engine>::Instance().GetRenderer());
+    SaltyEngine::SFML::Renderer *renderer = dynamic_cast<SaltyEngine::SFML::Renderer*>(SaltyEngine::Engine::Instance().GetRenderer());
     if (renderer == nullptr) {
         return;
     }

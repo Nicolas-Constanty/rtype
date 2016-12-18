@@ -15,7 +15,7 @@ MonsterFlying::MonsterFlying() : GameObject("MonsterFlying", SaltyEngine::Layer:
     GetComponent<SaltyEngine::SFML::Animation>()->AddClip(SaltyEngine::SFML::AssetManager::Instance().GetAnimation("MonsterFlying/FlyLeft"), "FlyLeft");
 
     AddComponent<MonsterFlyingController>();
-    AddComponent<SaltyEngine::SFML::BoxCollider2D>();
+    AddComponent<SaltyEngine::SFML::SpriteCollider2D>();
 }
 
 MonsterFlying::~MonsterFlying()
