@@ -13,7 +13,7 @@ MonsterNeunoeil::MonsterNeunoeil() : GameObject("MonsterNeunoeil", SaltyEngine::
     GetComponent<SaltyEngine::SFML::Animation >()->AddClip(SaltyEngine::SFML::AssetManager::Instance().GetAnimation("MonsterNeunoeil/EyeClose"), "CloseEye");
 
     AddComponent<MonsterNeunoeilController>();
-    AddComponent<SaltyEngine::SFML::BoxCollider2D>();
+    AddComponent<SaltyEngine::SFML::SpriteCollider2D>();
 }
 
 MonsterNeunoeil::~MonsterNeunoeil()

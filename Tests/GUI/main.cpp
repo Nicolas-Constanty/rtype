@@ -5,13 +5,13 @@ int main()
 {
 //    SaltyEngine::SFML::AssetManager::Instance().LoadAssets();
 
-//    SaltyEngine::SFML::Renderer *renderer = new SaltyEngine::SFML::Renderer(sf::VideoMode(1280, 720), "R-Type Launcher");
-//	SaltyEngine::SFML::EventManager *event_manager = new SaltyEngine::SFML::EventManager(renderer->GetRenderWindow());
-	SaltyEngine::SFML::PhysicsHandler *ph = new SaltyEngine::SFML::PhysicsHandler(1280 / 2, 720 / 2, true);
+    SaltyEngine::SFML::Renderer *renderer = new SaltyEngine::SFML::Renderer(sf::VideoMode(1280, 720), "R-Type Launcher");
+	SaltyEngine::SFML::EventManager *event_manager = new SaltyEngine::SFML::EventManager(renderer->GetRenderWindow());
+	SaltyEngine::SFML::PhysicsHandler *ph = new SaltyEngine::SFML::PhysicsHandler(1280 / 2, 720 / 2, false);
 	SaltyEngine::Engine::Instance().SetPhysicsHandler(ph);
 	// Set Renderer and EventManager
-//	Singleton<SaltyEngine::Engine>::Instance().SetRenderer(renderer);
-//	Singleton<SaltyEngine::Engine>::Instance().SetEventManager(event_manager);
+	Singleton<SaltyEngine::Engine>::Instance().SetRenderer(renderer);
+	Singleton<SaltyEngine::Engine>::Instance().SetEventManager(event_manager);
 
 	// Create Scene
 	SaltyEngine::SFML::Scene *scene = new SaltyEngine::SFML::Scene();
