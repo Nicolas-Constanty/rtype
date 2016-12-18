@@ -3,7 +3,6 @@
 //
 
 #include "Prefabs/GenericController.hpp"
-#include "Prefabs/MonsterWalker/MonsterWalkerController.hpp"
 #include "Prefabs/Missile/Laser/LaserController.hpp"
 #include "SaltyEngine/SFML.hpp"
 
@@ -23,11 +22,7 @@ LaserController::~LaserController()
 
 void LaserController::FixedUpdate()
 {
-    gameObject->transform.Translate(gameObject->transform.right() * m_vel); //* SaltyEngine::Engine::Instance().GetFixedDeltaTime());
-//    std::cout << "LASER ==" << this->gameObject->transform.position << std::endl;
-//    if (this->gameObject->transform.position.x > 1000) {
-//        abort();
-//    }
+    gameObject->transform.Translate(gameObject->transform.right() * m_vel);
 }
 
 void LaserController::OnCollisionEnter(SaltyEngine::ICollider *col)
