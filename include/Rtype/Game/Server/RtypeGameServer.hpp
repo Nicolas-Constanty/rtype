@@ -81,6 +81,7 @@ namespace Rtype
                 size_t GetMaxSize() const;
                 void setManager(GameManager *manager);
                 bool IsLaunch() const;
+                void SetLaunch(bool lau);
 
             private:
                 GamePackageFactory factory;
@@ -95,7 +96,7 @@ namespace Rtype
                 u_int16_t level;
                 std::map<int, bool> playersConnected;
                 bool launch;
-                std::unique_ptr<SaltyEngine::SceneDefault>   monsterMap;
+//                std::unique_ptr<SaltyEngine::SceneDefault>   monsterMap;
             };
         }
     }

@@ -37,6 +37,10 @@ namespace Rtype
                     return (server);
                 }
 
+                u_int16_t GetLevel() const {
+                    return (map);
+                }
+
             private:
                 const uint32_t secret;
                 const uint16_t port;

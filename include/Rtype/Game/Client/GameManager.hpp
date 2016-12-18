@@ -8,6 +8,8 @@
 #include "Rtype/Game/Client/GameClientObject.hpp"
 #include <Rtype/Game/Server/GameServerObject.hpp>
 
+#define SCREEN_X 1280
+
 class GameManager : public SaltyEngine::SaltyBehaviour
 {
 public:
@@ -17,6 +19,7 @@ public:
 
 public:
 	void Start();
+	void FixedUpdate();
     void OnCollisionExit(SaltyEngine::ICollider *collider);
     void OnCollisionEnter(SaltyEngine::ICollider *collider);
 
@@ -45,6 +48,7 @@ public:
 	std::list<SaltyEngine::GameObject *> const &getPlayers() const;
 
 	void OnPlayerDeath();
+	void StartTheGame();
 
 public:
 	void addPod(SaltyEngine::GameObject *pod);
@@ -58,5 +62,12 @@ private:
 
 public:
 	GameObjectContainer				gameObjectContainer;
+
+private:
+	std::unique_ptr<SaltyEngine::SceneDefault>   monsterMap;
+	double currentPosition = SCREEN_X;
+	int velocity = 8;
+    bool endOfGame = false;
+    GameOver *gameOver;
 };
 

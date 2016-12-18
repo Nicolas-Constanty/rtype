@@ -4,14 +4,17 @@
 #include <SaltyEngine/SFML/BoxCollider2D.hpp>
 #include <Prefabs/Player/PlayerController.hpp>
 #include <Rtype/Game/Client/BackgroundController.hpp>
+#include <Rtype/Game/Common/GameObjectID.hpp>
 
 GameManager::GameManager(SaltyEngine::GameObject * const gamObj) : SaltyBehaviour("GameManager", gamObj)
 {
     gameObject->AddComponent<BackgroundController>();
+    gameOver = new GameOver(this);
 }
 
 GameManager::GameManager(const std::string & name, SaltyEngine::GameObject * const gamObj) : SaltyBehaviour(name, gamObj)
 {
+    gameOver = new GameOver(this);
 }
 
 GameManager::~GameManager()
@@ -23,6 +26,14 @@ void GameManager::Start()
 {
     m_client = gameObject->GetComponent<Rtype::Game::Client::GameClientObject>();
     m_server = gameObject->GetComponent<Rtype::Game::Server::GameServerObject>();
+
+    if (m_server) {
+    monsterMap = SaltyEngine::SFML::AssetManager::Instance().LoadScene("scene" + std::to_string(m_server->GetLevel()));
+
+    monsterMap->objects.sort([](std::pair<std::string, SaltyEngine::Vector2f> obj1, std::pair<std::string, SaltyEngine::Vector2f> obj2) {
+        return (obj1.second.x < obj2.second.x);
+    });
+    }
 }
 
 bool GameManager::isServerSide() const
@@ -58,15 +69,15 @@ std::list<SaltyEngine::GameObject *> const &GameManager::getPlayers() const
 
 void GameManager::OnPlayerDeath()
 {
-    for (SaltyEngine::GameObject *curr : m_players)
-    {
-        SaltyEngine::PlayerController *player = curr->GetComponent<SaltyEngine::PlayerController>();
-
-        if (player && player->GetHealth() > 0)
-        {
-            return;
-        }
-    }
+//    for (SaltyEngine::GameObject *curr : m_players)
+//    {
+//        SaltyEngine::PlayerController *player = curr->GetComponent<SaltyEngine::PlayerController>();
+//
+//        if (player && player->GetHealth() > 0)
+//        {
+//            return;
+//        }
+//    }
     //todo handle end of the game
 }
 
@@ -78,4 +89,51 @@ void GameManager::addPod(SaltyEngine::GameObject *pod)
 std::list<SaltyEngine::GameObject *> const &GameManager::getPods() const
 {
     return m_pods;
+}
+
+void GameManager::StartTheGame() {
+    if (m_server) {
+        m_server->Server()->SetLaunch(true);
+//        for (std::pair<std::string, SaltyEngine::Vector2f> &obj : monsterMap->objects) {
+//            std::cout << obj.first << std::endl;
+//            if (obj.first != "Player") {
+//                SaltyEngine::GameObject *object = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate(
+//                        obj.first, obj.second, 0));
+//                gameObjectContainer.Add(GameObjectID::NewID(), object);
+//            }
+//        }
+    }
+}
+
+void GameManager::FixedUpdate() {
+    if (m_server && m_server->Server()->IsLaunch() && !endOfGame) {
+        this->currentPosition = this->currentPosition + velocity * SaltyEngine::Engine::Instance().GetFixedDeltaTime();
+
+
+        std::list<std::pair<std::string, SaltyEngine::Vector2f> >::iterator it = monsterMap->objects.begin();
+
+        while (it != monsterMap->objects.end()) {
+            if ((*it).second.x < this->currentPosition) {
+                if ((*it).first != "Player") {
+                    std::cout << "create " << (*it).first << std::endl;
+
+                    SaltyEngine::Vector2f pos = (*it).second;
+                    pos.x = SCREEN_X + 100;
+
+                    SaltyEngine::GameObject *object = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate((*it).first, pos, 0));
+                    gameObjectContainer.Add(GameObjectID::NewID(), object);
+                }
+                it = monsterMap->objects.erase(it);
+            } else {
+                return ;
+            }
+        }
+        if (monsterMap->objects.empty()) {
+            endOfGame = true;
+        }
+//        std::cout << this->currentPosition << std::endl;
+    } else if (endOfGame && m_server && gameOver && !gameOver->IsOver()) { // TODO Il manque le check si y'a plus de monstre coté serveur mais pour ça il faut le destroyer.
+        gameOver->OverAction(GAMEOVER::VICTORY);
+//        std::cout << "the game is over !" << std::endl;
+    }
 }

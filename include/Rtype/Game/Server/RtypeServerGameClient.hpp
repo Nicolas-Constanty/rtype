@@ -51,6 +51,7 @@ namespace Rtype
                 virtual void onGetENEMYSHOTPackage(ENEMYSHOTPackageGame const &);
                 virtual void onGetUPGRADEPackage(UPGRADEPackageGame const &);
                 virtual void onGetMATEPackage(MATEPackageGame const &);
+                virtual void onGetGAMEOVERPackage(GAMEOVERPackageGame const &game);
 
             public:
                 void StartDisplayInformation();

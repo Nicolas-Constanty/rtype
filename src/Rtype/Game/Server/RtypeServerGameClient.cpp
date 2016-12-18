@@ -101,6 +101,7 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetAUTHENTICATEPackage(AUTHEN
 
             if (!server1->IsLaunch()) {
                 server1->OnStartGame();
+                gameManager->StartTheGame();
                 check = true;
             }
 //            else
@@ -358,6 +359,10 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetUPGRADEPackage(UPGRADEPack
     OnDiscoveringPackage(pack);
 }
 
+void Rtype::Game::Server::RtypeServerGameClient::onGetGAMEOVERPackage(GAMEOVERPackageGame const &game) {
+
+}
+
 bool Rtype::Game::Server::RtypeServerGameClient::OnStart()
 {
     server1 = dynamic_cast<Rtype::Game::Server::RtypeGameServer *>(serverStream);
@@ -403,6 +408,7 @@ void Rtype::Game::Server::RtypeServerGameClient::StartDisplayInformation() {
     SaltyEngine::PlayerController *playerController = player->GetComponent<SaltyEngine::PlayerController>();
     if (playerController) {
         playerController->SetPlayerID(__playerID);
+        gameManager->addPlayer(player);
     }
 
     gameManager->gameObjectContainer.Add(GameObjectID::NewID(), player);

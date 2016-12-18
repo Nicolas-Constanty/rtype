@@ -18,13 +18,13 @@ Rtype::Game::Client::RtypeClientGameClient::RtypeClientGameClient(
         Network::Core::NativeSocketIOOperationDispatcher &dispatcher) :
         Rtype::Game::Common::RtypeGameClient(dispatcher)
 {
-
+    gameOver = NULL;
 }
 
 Rtype::Game::Client::RtypeClientGameClient::RtypeClientGameClient(const Rtype::Game::Client::RtypeClientGameClient &ref) :
     Rtype::Game::Common::RtypeGameClient(ref)
 {
-
+    gameOver = NULL;
 }
 
 Rtype::Game::Client::RtypeClientGameClient::~RtypeClientGameClient()
@@ -44,6 +44,7 @@ bool Rtype::Game::Client::RtypeClientGameClient::OnStart()
     if (gameman)
         gameManager = gameman->GetComponent<GameManager>();
 
+    gameOver = new GameOver(gameManager);
     return true;
 }
 
@@ -259,5 +260,15 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetMATEPackage(MATEPackageGam
         }
     } catch (...) {
         std::cout << "unkown obj" << std::endl;
+    }
+}
+
+void Rtype::Game::Client::RtypeClientGameClient::onGetGAMEOVERPackage(GAMEOVERPackageGame const &game) {
+    if (gameOver && !gameOver->IsOver()) {
+        gameOver->OverAction(static_cast<GAMEOVER>(game.status));
+
+        //TODO
+        // DISPLAY VICTORY SREEN HERE
+        // AVEC LE HIGHSCORE
     }
 }
