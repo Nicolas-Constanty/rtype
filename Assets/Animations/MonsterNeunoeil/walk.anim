@@ -2,8 +2,8 @@
   "mode": "LOOP",
   "framerate": "2",
   "sprites": [
-    "Nonoeil/open",
-    "Nonoeil/close"
+    "MonsterNeunoeil/open",
+    "MonsterNeunoeil/close"
   ],
   "scale": {
     "width": "1",

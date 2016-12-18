@@ -2,8 +2,8 @@
   "mode": "LOOP",
   "framerate": "5",
   "sprites": [
-    "Nonoeil/bullet1",
-    "Nonoeil/bullet2"
+    "MonsterNeunoeil/bullet1",
+    "MonsterNeunoeil/bullet2"
   ],
   "scale": {
     "width": "1",
