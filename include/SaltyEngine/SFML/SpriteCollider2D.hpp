@@ -60,6 +60,8 @@ namespace SaltyEngine
 
         public:
             const sf::Image &GetImage() const;
+
+            Component *CloneComponent(GameObject *const obj) override;
         };
     }
 }

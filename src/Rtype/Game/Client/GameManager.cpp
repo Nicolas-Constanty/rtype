@@ -45,11 +45,11 @@ void GameManager::OnCollisionExit(SaltyEngine::ICollider *collider)
 {
     SaltyEngine::SFML::BoxCollider2D *c = dynamic_cast<SaltyEngine::SFML::BoxCollider2D*>(collider);
 
-//    if (c->gameObject->GetTag() != SaltyEngine::Layer::Tag::Player)
-//    {
+    if (c && c->gameObject->GetTag() != SaltyEngine::Layer::Tag::Player)
+    {
         std::cout << "Object destroyed" << std::endl;
         Destroy(c->gameObject);
-//    }
+    }
 }
 
 void GameManager::OnCollisionEnter(SaltyEngine::ICollider *)

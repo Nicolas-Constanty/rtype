@@ -20,8 +20,8 @@ void MonsterNeunoeilController::Start()
     LoadManager();
 	m_currDelay = m_minShootInterval + rand() % (int)(m_maxShootInterval - m_minShootInterval);
     if (!isServerSide()) {
-        m_anim = gameObject->GetComponent<SaltyEngine::SFML::Animation>();
-        m_anim->Play("WalkLeft");
+//        m_anim = gameObject->GetComponent<SaltyEngine::SFML::Animation>();
+//        m_anim->Play("WalkLeft");
     }
     m_startPoint = gameObject->transform.position;
     if (isServerSide()) {
