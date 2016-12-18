@@ -58,11 +58,7 @@ Network::Core::NetBuffer &Network::Core::NetBuffer::operator=(const Network::Cor
  */
 Network::Core::NetBuffer &Network::Core::NetBuffer::operator+=(const Network::Core::NetBuffer &ref)
 {
-    if (length + ref.length > NetBuffer::size)
-        return *this;
-    consume();
-    memcpy(&data[length], ref.buff(), ref.length);
-    length += ref.length;
+    ConcatTo(ref);
     return *this;
 }
 
@@ -75,6 +71,21 @@ Network::Core::NetBuffer Network::Core::NetBuffer::operator+(const Network::Core
 {
     NetBuffer   toret(*this);
     return toret += ref;
+}
+
+/**
+ * @brief Concatenate to buffers
+ * @param ref To reference to concatenate
+ * @return True if the concatenation is possible
+ */
+bool Network::Core::NetBuffer::ConcatTo(const Network::Core::NetBuffer &ref)
+{
+    if (length + ref.length > NetBuffer::size)
+        return false;
+    consume();
+    memcpy(&data[length], ref.buff(), ref.length);
+    length += ref.length;
+    return true;
 }
 
 /**
@@ -113,6 +124,7 @@ size_t Network::Core::NetBuffer::getLength() const
     return length;
 }
 
+
 /**
  * @brief Allow user to add length
  * @param len The length to add
@@ -121,7 +133,6 @@ void Network::Core::NetBuffer::addLength(size_t len)
 {
     length += len;
 }
-
 
 /**
  * @brief Check if the buffer is full

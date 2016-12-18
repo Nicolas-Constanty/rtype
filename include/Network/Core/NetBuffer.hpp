@@ -49,6 +49,9 @@ namespace Network
             NetBuffer operator+(NetBuffer const &ref);
 
         public:
+            bool    ConcatTo(NetBuffer const &ref);
+
+        public:
             /**
              * \brief Serialiaze a type into the buffer
              * \param obj The object to serialize

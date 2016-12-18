@@ -56,6 +56,7 @@ namespace Network
                 if (lastRefresh.timeout(std::chrono::milliseconds(1000)))
                 {
                     std::cout << "Envoie: " << nbPackets << " packet/s" << std::endl;
+                    std::cout << "packet: " << towr << std::endl;
                     nbPackets = 0;
                     lastRefresh.refresh();
                 }
