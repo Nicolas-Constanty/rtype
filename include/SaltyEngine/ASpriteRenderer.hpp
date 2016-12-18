@@ -27,7 +27,7 @@ namespace SaltyEngine
 				m_window(nullptr),
 				m_sprite(sprite)
 		{
-
+			m_default_sprite = m_sprite;
 		};
 		explicit ASpriteRenderer(GameObject* const gameObj, Sprite<T> * const sprite, Layout layer) :
 				Component("ASpriteRenderer", gameObj),
@@ -35,10 +35,12 @@ namespace SaltyEngine
                 m_window(nullptr),
                 m_sprite(sprite)
 		{
-
+			m_default_sprite = m_sprite;
 		};
 		virtual ~ASpriteRenderer() {
-
+			if (m_default_sprite) {
+				delete m_default_sprite;
+			}
         };
 		virtual Sprite<T>  *GetSprite() const = 0;
 		virtual IWindow *GetWindow() const = 0;
@@ -53,6 +55,7 @@ namespace SaltyEngine
 
 	public:
 		Sprite<T>		*m_sprite;
+		Sprite<T>		*m_default_sprite;
 	};
 }
 
