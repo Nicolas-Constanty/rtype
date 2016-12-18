@@ -104,6 +104,19 @@ namespace SaltyEngine
                 tr->position += translation;
             }
 		}
+
+        void SetPosition(const T & pos)
+        {
+            T diff = position - pos;
+
+            position = pos;
+
+            for (BaseTransform *tr : m_children)
+            {
+                tr->position -= diff;
+            }
+        }
+
 		const std::vector<BaseTransform<T> *> &GetChildren()
 		{
 			return (m_children);
