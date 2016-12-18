@@ -48,16 +48,16 @@ void MonsterWalkerController::FixedUpdate()
 }
 
 void MonsterWalkerController::Move() {
-//    static int i = 0;
+    static int i = 0;
     this->gameObject->transform.Translate(-gameObject->transform.right() * m_vel);
-//    if (i % 2 == 0)
-//    {
+    if (i % 3 == 0)
+    {
         BroadcastPackage<MOVEPackageGame>(
                 gameObject->transform.position.x,
                 gameObject->transform.position.y,
                 getManager()->gameObjectContainer.GetServerObjectID(gameObject));
-//    }
-//    ++i;
+    }
+    ++i;
 //    BroadcastPackage<MOVEPackageGame>(
 //            gameObject->transform.position.x,
 //            gameObject->transform.position.y,

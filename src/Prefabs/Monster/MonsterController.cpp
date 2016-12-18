@@ -44,16 +44,16 @@ void MonsterController::FixedUpdate()
 }
 
 void MonsterController::Move() {
-//    static int i = 0;
+    static int i = 0;
     this->gameObject->transform.Translate(-gameObject->transform.right() * SaltyEngine::Engine::Instance().GetFixedDeltaTime() * m_vel);
-//    if (i % 2 == 0)
-//    {
+    if (i % 3 == 0)
+    {
         BroadcastPackage<MOVEPackageGame>(
                 gameObject->transform.position.x,
                 gameObject->transform.position.y,
                 getManager()->gameObjectContainer.GetServerObjectID(gameObject));
-//    }
-//    ++i;
+    }
+    ++i;
 }
 
 void MonsterController::Shot() {
