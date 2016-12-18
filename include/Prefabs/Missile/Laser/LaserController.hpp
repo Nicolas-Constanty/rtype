@@ -5,8 +5,9 @@
 
 #include "SaltyEngine/SaltyBehaviour.hpp"
 #include "SaltyEngine/GameObject.hpp"
-#include "Prefabs/Player/PlayerController.hpp"
+//#include "Prefabs/Player/PlayerController.hpp"
 #include <map>
+#include <Prefabs/Player/PlayerController.hpp>
 
 class LaserController : public SaltyEngine::SaltyBehaviour
 {

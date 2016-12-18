@@ -15,6 +15,7 @@ public:
 	virtual void Die() const = 0;
     virtual void Move() = 0;
     virtual void Shot() = 0;
+	virtual int GetHighScore() const = 0;
 };
 
 class AGenericController : public RtypePrefab, public IGenericController
@@ -38,6 +39,10 @@ public:
 	virtual int GetHealth() const
 	{
 		return m_health;
+	}
+
+	virtual int GetHighScore() const {
+		return (10);
 	}
 
 public:

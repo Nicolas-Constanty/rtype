@@ -31,6 +31,7 @@ namespace SaltyEngine {
 		void FixedUpdate();
 		void SetColor(unsigned char color);
         void SetHighScore(int highScore);
+		int GetHighScore() const;
 		double speed;
 
 
@@ -40,8 +41,8 @@ namespace SaltyEngine {
 		}
 
 	public:
-		void OnBeamAction();
-        InformationPlayerShot *OnShotAction();
+		void	OnBeamAction();
+        int 	OnShotAction();
 
 	public:
 		PodController	*FindFirstAvailablePod();

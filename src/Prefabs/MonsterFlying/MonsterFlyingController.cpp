@@ -94,3 +94,7 @@ void MonsterFlyingController::TakeDamage(int amount) {
         }
     }
 }
+
+int MonsterFlyingController::GetHighScore() const {
+    return (15);
+}

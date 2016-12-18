@@ -1,14 +1,10 @@
 #include <SaltyEngine/SFML/Animation.hpp>
-#include <Rtype/Game/Common/GameObjectID.hpp>
-#include <Rtype/Game/Common/RtypeNetworkFactory.hpp>
-#include <Prefabs/Missile/Laser/LaserController.hpp>
+//#include <Prefabs/Missile/Laser/LaserController.hpp>
 #include "Prefabs/Player/PlayerController.hpp"
 #include "SaltyEngine/SFML/EventManager.hpp"
-#include "SaltyEngine/Input/InputManager.hpp"
-#include "SaltyEngine/Constants.hpp"
 #include "SaltyEngine/SFML.hpp"
-#include "Rtype/Game/Client/GameManager.hpp"
 #include <Prefabs/Pod/PodController.hpp>
+#include <Prefabs/Missile/Laser/LaserController.hpp>
 
 namespace SaltyEngine
 {
@@ -19,6 +15,7 @@ namespace SaltyEngine
         beamShot = NULL;
         playerID = 0;
         pod = NULL;
+        highScore = 0;
 	};
 
 	PlayerController::PlayerController(const std::string &name, GameObject* const gameObj) : AGenericController(name, gameObj) {
@@ -28,6 +25,7 @@ namespace SaltyEngine
         beamShot = NULL;
         playerID = 0;
         pod = NULL;
+        highScore = 0;
 	};
 
 	void PlayerController::Start()
@@ -132,7 +130,7 @@ namespace SaltyEngine
         }
     }
 
-    InformationPlayerShot *PlayerController::OnShotAction() {
+    int     PlayerController::OnShotAction() {
         if (isServerSide()) {
 
             int power = 1;
@@ -152,26 +150,32 @@ namespace SaltyEngine
                 power = 2;
             }
 
-            GameObject *laser = dynamic_cast<GameObject *>(::SaltyEngine::Instantiate("Laser", gameObject->transform.position));
-            laser->GetComponent<LaserController>()->Power(power);
+//            std::cout << "ici" << std::endl;
+//            GameObject *laser = dynamic_cast<GameObject *>(::SaltyEngine::Instantiate("Laser", gameObject->transform.position));
+//            std::cout << "la" << std::endl;
+//            laser->GetComponent<LaserController>()->Power(power);
 
-            if (laser) {
-                InformationPlayerShot *informationPlayerShot = new InformationPlayerShot();
-                informationPlayerShot->power = power;
-                informationPlayerShot->laser = laser;
-                informationPlayerShot->laserString = laserString;
+            return (power);
+//            std::cout << "et la" << std::endl;
+//            if (laser) {
+//                InformationPlayerShot *informationPlayerShot = new InformationPlayerShot();
+//                informationPlayerShot->power = power;
+//                informationPlayerShot->laser = laser;
+//                informationPlayerShot->laserString = laserString;
 //                std::cout << "power => " << informationPlayerShot->power << std::endl;
 
-                if (beamShot && isServerSide()) {
-                    BroadcastPackage<DIEPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(beamShot));
-                    SaltyEngine::Object::Destroy(beamShot);
-                    beamShot = NULL;
-                }
-
-                return  informationPlayerShot;
+//                if (beamShot && isServerSide()) {
+//                    BroadcastPackage<DIEPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(beamShot));
+//                    SaltyEngine::Object::Destroy(beamShot);
+//                    beamShot = NULL;
+//                }
+//
+//                std::cout << "et par ici" << std::endl;
+//                return  informationPlayerShot;
             }
-        }
-        return NULL;
+//        }
+//        return NULL;
+        return (1);
     }
 
     unsigned int PlayerController::GetIDShot() const {
@@ -262,6 +266,14 @@ namespace SaltyEngine
         anim = "SpaceShip/SpaceShip" + std::to_string(color) + "-1";
         std::cout << "PLAYER COLOR == " << anim << std::endl;
         gameObject->GetComponent<::SaltyEngine::SFML::SpriteRenderer>()->SetSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite(anim));
+    }
+
+    void PlayerController::SetHighScore(int highScore) {
+        this->highScore = highScore;
+    }
+
+    int PlayerController::GetHighScore() const {
+        return (this->highScore);
     }
 
 }

@@ -13,6 +13,7 @@
 #include "SaltyEngine/Vector2.hpp"
 #include "Rtype/Game/Common/GameObjectContainer.hpp"
 #include <Prefabs/Pod/PodController.hpp>
+#include <Prefabs/Missile/Laser/LaserController.hpp>
 
 Rtype::Game::Server::RtypeServerGameClient::RtypeServerGameClient(Network::Core::NativeSocketIOOperationDispatcher &dispatcher) :
         RtypeGameClient(dispatcher),
@@ -163,6 +164,7 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetBEAMPackage(BEAMPackageGam
 
 void Rtype::Game::Server::RtypeServerGameClient::onGetSHOTPackage(SHOTPackageGame const &pack)
 {
+    std::cout << "ENTER" << std::endl;
     OnDiscoveringPackage(pack);
 
     SaltyEngine::GameObject *gameObject;
@@ -174,22 +176,31 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetSHOTPackage(SHOTPackageGam
         SaltyEngine::PlayerController *playerController = gameObject->GetComponent<SaltyEngine::PlayerController>();
 
         if (playerController) {
-            InformationPlayerShot *informationPlayerShot = playerController->OnShotAction();
-//            if (playerController->GetIDShot() == pack.id) {
-                if (informationPlayerShot) {
-                    gameManager->gameObjectContainer.Add(GameObjectID::NewID(), informationPlayerShot->laser);
+            int power = playerController->OnShotAction();
+            SaltyEngine::GameObject *laser = dynamic_cast<SaltyEngine::GameObject *>(::SaltyEngine::Instantiate("Laser", gameObject->transform.position));
+            gameManager->gameObjectContainer.Add(GameObjectID::NewID(), laser);
+            LaserController *laserController;
 
-                    this->BroadCastPackage<SHOTPackageGame>(
-                            &Network::UDP::AUDPConnection::SendReliable<SHOTPackageGame>,
-                            gameManager->gameObjectContainer.GetServerObjectID(informationPlayerShot->laser),
-                            informationPlayerShot->power,
-                            gameManager->gameObjectContainer.GetServerObjectID(gameObject)
-                    );
-                    playerController->IncIdShot();
+            if ((laserController = laser->GetComponent<LaserController>())) {
+                laserController->Power(power);
+                laserController->AddPlayerController(playerController);
+                if (playerController->beamShot) {
+                    this->BroadCastPackage<DIEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<DIEPackageGame>,
+                    gameManager->gameObjectContainer.GetServerObjectID(playerController->beamShot));
+//                    BroadcastPackage<DIEPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(beamShot));
+                    SaltyEngine::Object::Destroy(playerController->beamShot);
+                    playerController->beamShot = NULL;
                 }
-//            }
+            }
+
+            this->BroadCastPackage<SHOTPackageGame>(
+                    &Network::UDP::AUDPConnection::SendReliable<SHOTPackageGame>,
+                    gameManager->gameObjectContainer.GetServerObjectID(laser), power,
+                    gameManager->gameObjectContainer.GetServerObjectID(gameObject));
+            playerController->IncIdShot();
         }
     }
+    std::cout << "JE SORS" << std::endl;
 //    todo if (okay on gameside)
 //    {
 //        BroadcastReliable(*server1->create<SHOTPackageGame>(pack.objectID));

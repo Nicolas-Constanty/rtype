@@ -27,6 +27,8 @@ public:
 
     void Shot() override;
 
+	virtual int GetHighScore() const;
+
 private:
 	float m_minShootInterval = 4;
 	float m_maxShootInterval = 9;

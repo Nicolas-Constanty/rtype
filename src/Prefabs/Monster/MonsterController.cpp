@@ -114,3 +114,7 @@ void MonsterController::OnCollisionEnter(SaltyEngine::ICollider *col)
 //        }
 //    }
 }
+
+int MonsterController::GetHighScore() const {
+    return (20);
+}

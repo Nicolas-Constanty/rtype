@@ -136,3 +136,7 @@ void MonsterWalkerController::PlayAnim(std::string const &anim, bool queued) con
     else
         (!queued) ? m_anim->Play(anim + "Right") : m_anim->PlayQueued(anim + "Right");
 }
+
+int MonsterWalkerController::GetHighScore() const {
+    return 30;
+}
