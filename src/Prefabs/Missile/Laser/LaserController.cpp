@@ -8,6 +8,7 @@
 
 LaserController::LaserController(SaltyEngine::GameObject *go) : SaltyEngine::SaltyBehaviour(go)
 {
+    playerController = NULL;
     soundFire = SaltyEngine::SFML::AssetManager::Instance().GetSound("Laser/fire");
 }
 
@@ -46,6 +47,9 @@ void LaserController::OnCollisionExit(SaltyEngine::ICollider *collider)
         return;
     if (c->gameObject->GetTag() == SaltyEngine::Layer::Tag::Destroy)
     {
+        if (playerController) {
+
+        }
 //        SaltyEngine::Object::Destroy(this->gameObject);
     }
 }
@@ -83,4 +87,8 @@ void LaserController::Power(int damage) {
         animation->AddClip(SaltyEngine::SFML::AssetManager::Instance().GetAnimation(anim), "Shoot");
         animation->Play("Shoot");
     }
+}
+
+void LaserController::AddPlayerController(SaltyEngine::PlayerController *playerController) {
+    this->playerController = playerController;
 }

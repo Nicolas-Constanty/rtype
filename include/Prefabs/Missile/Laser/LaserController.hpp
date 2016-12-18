@@ -5,6 +5,7 @@
 
 #include "SaltyEngine/SaltyBehaviour.hpp"
 #include "SaltyEngine/GameObject.hpp"
+#include "Prefabs/Player/PlayerController.hpp"
 #include <map>
 
 class LaserController : public SaltyEngine::SaltyBehaviour
@@ -19,6 +20,8 @@ public:
     void OnCollisionEnter(SaltyEngine::ICollider *);
     void OnCollisionExit(SaltyEngine::ICollider *);
 
+    void AddPlayerController(SaltyEngine::PlayerController *playerController);
+
 public:
     void Power(int damage);
 
@@ -29,6 +32,7 @@ private:
 
 private:
     SaltyEngine::Sound::ISound *soundFire;
+    SaltyEngine::PlayerController *playerController;
 
 public:
     virtual SaltyEngine::Component *CloneComponent(SaltyEngine::GameObject* const obj) {

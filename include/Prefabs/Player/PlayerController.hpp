@@ -30,6 +30,7 @@ namespace SaltyEngine {
 		void Start();
 		void FixedUpdate();
 		void SetColor(unsigned char color);
+        void SetHighScore(int highScore);
 		double speed;
 
 
@@ -50,7 +51,6 @@ namespace SaltyEngine {
 		{
 			typedef std::chrono::duration<float, std::milli> duration;
 
-			//static  = clock::now();
 			duration elapsed = clock::now() - start;
 			return elapsed.count();
 		}
@@ -64,14 +64,10 @@ namespace SaltyEngine {
 		}
 
 		void SetPlayerID(int id);
-
 		unsigned int GetIDShot() const;
 		int GetPlayerID() const;
-
         void Move() override;
-
         void Shot() override;
-
 		void Beam();
 
 	public:
@@ -95,6 +91,7 @@ namespace SaltyEngine {
 	private:
 		int				playerID;
 		PodController	*pod;
+        int             highScore;
 	};
 }
 
