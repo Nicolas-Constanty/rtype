@@ -29,7 +29,11 @@ namespace Network
             virtual int Send(Core::NetBuffer const &buff) const;
 
             virtual int ReceiveFrom(Core::NetBuffer &buff, ISockStream &sender);
+            int ReceiveFrom(char *arr, size_t n, ISockStream &sender);
+
             virtual int SendTo(Core::NetBuffer &buff, ISockStream const &receiver);
+
+            int SendTo(char *arr, size_t towr, ISockStream const &receiver);
 
         public:
             void Open() throw(SocketException);

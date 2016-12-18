@@ -146,4 +146,29 @@ unsigned short Network::Socket::UnixSocket::GetAvailablePort() {
     return (port);
 }
 
+int Network::Socket::UnixSocket::SendTo(char *arr, size_t towr, const Network::Socket::ISockStream &receiver)
+{
+    Network::Socket::UnixSocket const *rcvr = dynamic_cast<Network::Socket::UnixSocket const *>(&receiver);
+
+    if (rcvr)
+    {
+        //        std::cout << "Sending data: " << buff << " to: " << *rcvr << std::endl;
+        return static_cast<int>(sendto(fd, arr, towr, MSG_NOSIGNAL, (struct sockaddr *)&rcvr->sockaddr, sizeof(rcvr->sockaddr)));
+    }
+    return 0;
+}
+
+int Network::Socket::UnixSocket::ReceiveFrom(char *arr, size_t n, Network::Socket::ISockStream &sender)
+{
+    Network::Socket::UnixSocket *snd = dynamic_cast<Network::Socket::UnixSocket *>(&sender);
+
+    if (snd)
+    {
+        socklen_t len = sizeof(snd->sockaddr);
+        int ret = static_cast<int>(recvfrom(fd, arr, n, MSG_NOSIGNAL, (struct sockaddr *)&snd->sockaddr, &len));
+        return ret;
+    }
+    return 0;
+}
+
 #endif

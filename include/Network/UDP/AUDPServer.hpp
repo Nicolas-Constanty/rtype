@@ -255,10 +255,14 @@ namespace Network
                 {
 //                    std::cout << "====>Checking client" << std::endl;
                     std::queue<Core::NetBuffer> &msgs = dynamic_cast<Core::BasicConnection *>(curr.get())->Messages();
+//                    char    finalmsg[1024 * msgs.size()];
+//                    size_t  i = 0;
 
                     while (!msgs.empty())
                     {
 //                        std::cout << "Sending: " << msgs.front() << std::endl;
+//                        memcpy(&finalmsg[i], msgs.front().buff(), msgs.front().getLength());
+//                        i += msgs.front().getLength();
                         int ret = sock.SendTo(msgs.front(), curr->giveSocket());
 
                         if (ret < 0)
@@ -267,6 +271,10 @@ namespace Network
                         curr->OnDataSent(static_cast<unsigned int>(ret));
                         msgs.pop();
                     }
+//                    if (i > 0)
+//                    {
+//
+//                    }
                 }
 
                 if (final > 0)
