@@ -8,6 +8,13 @@
         "x" : "50",
         "y": "500"
       }
-    }
+    },
+    "Monster2": {
+          "prefabName": "Monster",
+          "position": {
+            "x" : "50",
+            "y": "50"
+          }
+        }
 }
 }

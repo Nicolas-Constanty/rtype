@@ -27,7 +27,6 @@ MateComponent::~MateComponent()
 
 void MateComponent::Start()
 {
-    std::cout << "START MATE COMPONENT " << std::endl;
     LoadManager();
     if (!isServerSide())
     {
@@ -65,6 +64,5 @@ void MateComponent::SetColor(int color) {
     std::string anim;
 
     anim = "SpaceShip/SpaceShip" + std::to_string(color) + "-1";
-    std::cout << "LOADING == " << anim << std::endl;
     gameObject->GetComponent<::SaltyEngine::SFML::SpriteRenderer>()->SetSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite(anim));
 }

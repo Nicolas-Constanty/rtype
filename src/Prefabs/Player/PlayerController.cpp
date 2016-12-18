@@ -225,7 +225,7 @@ namespace SaltyEngine
 
     void PlayerController::SetPlayerID(int id) {
         this->playerID = id;
-        std::cout << "setting playerID == " << id << std::endl;
+//        std::cout << "setting playerID == " << id << std::endl;
     }
 
     bool PlayerController::Attach(PodController *toattach)
@@ -287,11 +287,22 @@ namespace SaltyEngine
     }
 
     void PlayerController::SetHighScore(int highScore) {
+        if (this->highScore != highScore) {
+            updateHighScore = true;
+        }
         this->highScore = highScore;
     }
 
     int PlayerController::GetHighScore() const {
         return (this->highScore);
+    }
+
+    bool PlayerController::IsUpdateHighScore() const {
+        return updateHighScore;
+    }
+
+    void PlayerController::SetUpdateHighScore(bool update) {
+        updateHighScore = update;
     }
 
 }
