@@ -34,6 +34,12 @@ namespace SaltyEngine
 			y += vec.y;
 		}
 
+        void operator-=(BaseVector2<T> vec)
+        {
+            x -= vec.x;
+            y -= vec.y;
+        }
+
 		BaseVector2<T> operator-()
 		{
 			return BaseVector2(-x, -y);
@@ -42,6 +48,11 @@ namespace SaltyEngine
 		BaseVector2<T> operator+(BaseVector2<T> other)
 		{
 			return BaseVector2(x + other.x, y + other.y);
+		}
+
+		BaseVector2<T> operator-(BaseVector2<T> other)
+		{
+			return BaseVector2(x - other.x, y - other.y);
 		}
 
 		static BaseVector2<T> zero()

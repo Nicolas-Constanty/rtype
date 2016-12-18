@@ -188,8 +188,8 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetMOVEPackage(MOVEPackageGam
     SaltyEngine::GameObject *obj = gameManager->gameObjectContainer[pack.objectID];
     if (obj) {
 //        obj->transform.Translate(SaltyEngine::Vector(pack.posX, pack.posY) * speed);
-        obj->transform.position = SaltyEngine::Vector(pack.posX, pack.posY);
-        //TODO CHANGER LE POSITION FERNAND
+//        obj->transform.position = SaltyEngine::Vector(pack.posX, pack.posY);
+        obj->transform.SetPosition(SaltyEngine::Vector(pack.posX, pack.posY));
     }
 }
 
