@@ -5,34 +5,71 @@ project(rtype)
 include_directories(include)
 
 #C++ files
-file(GLOB GameClientSrc "src/Rtype/Game/Client/*.cpp" "src/Rtype/Game/Common/*.cpp")
+file(GLOB GameClientSrc
+		"src/Rtype/Game/Server/*.cpp"
+		"src/Rtype/Game/Common/*.cpp"
+		"src/Rtype/Game/Client/*.cpp"
+		"src/Prefabs/RtypePrefab.cpp"
+		"R-Type/GameClient/main.cpp"
+		)
 
 #Hpp files
-file(GLOB GameClientInc "include/Rtype/Game/Client/*.hpp" "include/Rtype/Game/Common/*.hpp")
-
+file(GLOB GameClientInc
+		"include/Rtype/Game/Server/*.hpp"
+		"include/Rtype/Game/Common/*.hpp"
+		"include/Rtype/Game/Common/*.hpp"
+		)
 
 #Linux
 if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 
 	#C++ FLAGS
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wextra -DRTYPESERVER")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wextra -DRTYPESERVER")
 
-	#Create GameServer
-	add_executable(GameClient ${GameClientSrc} ${GameServerInc})
+	#Create GameClient
+	add_executable(GameClient ${GameClientSrc} ${GameClientInc})
 
 	#Link libraries
-	target_link_libraries(GameClient Parser SaltyEngine SFMLSaltyEngine player Network dl sfml-system sfml-audio sfml-graphics sfml-window)
+	target_link_libraries(GameClient
+			Common
+			Parser
+			SaltyEngine
+			SFMLSaltyEngine
+			Network
+			ProtocolServer
+			ProtocolGame
+			ProtocolRoom
+			player
+			missile_laser
+			mate
+			pod
+			dl sfml-system sfml-audio sfml-graphics sfml-window)
 
-#Windows
+	#Windows
 elseif(MSVC)
 
 	#C++ FLAGS
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3 -DRTYPESERVER")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3 -DRTYPESERVER")
 
 	#Create GameClient
-	add_executable(GameClient ${GameClientSrc} ${GameServerInc})
+	add_executable(GameClient ${GameClientSrc} ${GameClientInc})
 
 	#Link libraries
-	target_link_libraries(GameClient Parser SaltyEngine SFMLSaltyEngine player Network sfml-system sfml-audio sfml-graphics sfml-window)
+	target_link_libraries(GameClient
+			Common
+			Parser
+			SaltyEngine
+			SFMLSaltyEngine
+			Network
+			ProtocolServer
+			ProtocolGame
+			ProtocolRoom
+			player
+			missile_laser
+			mate
+			pod
+			sfml-system sfml-audio sfml-graphics sfml-window)
 
 endif()
+
+add_dependencies(GameClient Common ProtocolServer ProtocolGame ProtocolRoom SaltyEngine SFMLSaltyEngine Parser prefabs)
