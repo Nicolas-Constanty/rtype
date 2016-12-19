@@ -1,9 +1,10 @@
 cmake_minimum_required(VERSION 2.8)
 project(rtype)
 
+include_directories(include)
+
 file(GLOB TEST_SOURCE "Tests/Animations/*.cpp" "src/Rtype/Game/Client/BackgroundController.cpp")
 
-include_directories(include)
 
 #Linux
 if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
@@ -15,7 +16,7 @@ if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 	add_executable(test_animations ${TEST_SOURCE})
 
 	#Link libraries
-	target_link_libraries(test_animations SaltyEngine SFMLSaltyEngine Parser pthread dl sfml-system sfml-window sfml-graphics sfml-audio)
+	target_link_libraries(test_animations Common SaltyEngine SFMLSaltyEngine Parser pthread dl sfml-system sfml-window sfml-graphics sfml-audio)
 
 #Windows
 elseif(MSVC)
@@ -27,5 +28,7 @@ elseif(MSVC)
 	add_executable(test_animations ${TEST_SOURCE})
 
 	#Link libraries
-	target_link_libraries(test_animations SaltyEngine SFMLSaltyEngine Parser sfml-system sfml-window sfml-graphics sfml-audio)
+	target_link_libraries(test_animations Common SaltyEngine SFMLSaltyEngine Parser sfml-system sfml-window sfml-graphics sfml-audio)
 endif()
+
+add_dependencies(test_animations SFMLSaltyEngine)

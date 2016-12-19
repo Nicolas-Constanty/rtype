@@ -1,7 +1,14 @@
 cmake_minimum_required(VERSION 2.8)
 project(rtype)
 
+#include files
+include_directories(include)
 
+#C++ files
+file(GLOB ParserSrc "src/Parser/*.cpp")
+
+#Hpp files
+file(GLOB ParserInc "include/Parser/*.hpp")
 
 #Linux
 if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
@@ -14,14 +21,8 @@ if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 	#C++ FLAGS
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wextra -fPIC")
 
-	#Include
-	include_directories("include")
-
-	#Compiled file
-	file(GLOB SOURCE_PARSER_FILE "src/Parser/*.cpp" "include/Parser/*.hpp")
-
 	#Create library
-	add_library(Parser SHARED ${SOURCE_PARSER_FILE})
+	add_library(Parser SHARED ${ParserSrc} ${ParserInc})
 
 #Windows
 elseif(MSVC)
@@ -32,10 +33,7 @@ elseif(MSVC)
 	#C++FLAGS
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3")
 
-	#Compiled file
-	file(GLOB SOURCE_PARSER_FILE "src/Parser/*.cpp")
-
 	#Create library
-	add_library(Parser SHARED ${SOURCE_PARSER_FILE})
+	add_library(Parser SHARED ${ParserSrc} ${ParserInc})
 
 endif()
