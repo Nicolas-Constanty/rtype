@@ -1,3 +1,4 @@
+#include <Rtype/Game/Client/BackgroundController.hpp>
 #include "SaltyEngine/SFML.hpp"
 
 std::list<std::string>  getAllFilesRecurive(std::string const &folder, std::string const &parent = "") {
@@ -49,9 +50,11 @@ int main()
 {
     SaltyEngine::SFML::Renderer *renderer = new SaltyEngine::SFML::Renderer(sf::VideoMode(1920, 1080), "R-Type Launcher");
 	SaltyEngine::SFML::EventManager *event_manager = new SaltyEngine::SFML::EventManager(renderer->GetRenderWindow());
+    SaltyEngine::SFML::PhysicsHandler *ph = new SaltyEngine::SFML::PhysicsHandler(1920 / 2, 1080 / 2, false);
 	// Set Renderer and EventManager
 	Singleton<SaltyEngine::Engine>::Instance().SetRenderer(renderer);
 	Singleton<SaltyEngine::Engine>::Instance().SetEventManager(event_manager);
+    SaltyEngine::Engine::Instance().SetPhysicsHandler(ph);
 
 	// Create Scene
 	SaltyEngine::SFML::Scene *scene = new SaltyEngine::SFML::Scene();
@@ -81,6 +84,10 @@ int main()
 		}
 		*scene << gameObject;
 	}
+
+    SaltyEngine::SFML::AssetManager::Instance().LoadScene("sceneNULL");
+	SaltyEngine::GameObject * gameObject = static_cast<SaltyEngine::GameObject*>(SaltyEngine::Object::Instantiate());
+	gameObject->AddComponent<BackgroundController>();
 
 	// Run the SaltyEngine with default Scene 0
 	Singleton<SaltyEngine::Engine>::Instance().Run();
