@@ -1,0 +1,18 @@
+{
+  "mode": "LOOP",
+  "framerate": "10",
+  "sprites": [
+    "GUI_Beam/beam1",
+    "GUI_Beam/beam2",
+    "GUI_Beam/beam3",
+    "GUI_Beam/beam4",
+    "GUI_Beam/beam5",
+    "GUI_Beam/beam6",
+    "GUI_Beam/beam7",
+    "GUI_Beam/beam8",
+    "GUI_Beam/beam9",
+    "GUI_Beam/beam10",
+    "GUI_Beam/beam11",
+    "GUI_Beam/beam12"
+  ]
+}
