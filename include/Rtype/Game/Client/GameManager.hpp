@@ -67,7 +67,7 @@ public:
 	GameObjectContainer				gameObjectContainer;
 
 private:
-	std::unique_ptr<SaltyEngine::SceneDefault>   monsterMap;
+	SaltyEngine::SceneDefault	*monsterMap;
 	double currentPosition = SCREEN_X;
 	int velocity = 8;
     bool endOfGame = false;
