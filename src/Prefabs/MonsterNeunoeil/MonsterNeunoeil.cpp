@@ -9,8 +9,9 @@ MonsterNeunoeil::MonsterNeunoeil() : GameObject("MonsterNeunoeil", SaltyEngine::
     AddComponent<SaltyEngine::SFML::SpriteRenderer>(SaltyEngine::SFML::AssetManager::Instance().GetSprite("MonsterNeunoeil/open"), SaltyEngine::Layout::normal);
     AddComponent<SaltyEngine::SFML::Animation>(true, SaltyEngine::AnimationConstants::WrapMode::LOOP);
 
-    GetComponent<SaltyEngine::SFML::Animation>()->AddClip(SaltyEngine::SFML::AssetManager::Instance().GetAnimation("MonsterNeunoeil/EyeOpen"), "OpenEye");
-    GetComponent<SaltyEngine::SFML::Animation >()->AddClip(SaltyEngine::SFML::AssetManager::Instance().GetAnimation("MonsterNeunoeil/EyeClose"), "CloseEye");
+    GetComponent<SaltyEngine::SFML::Animation>()->AddClip(SaltyEngine::SFML::AssetManager::Instance().GetAnimation("MonsterNeunoeil/EyeOpen"), "EyeOpen");
+    GetComponent<SaltyEngine::SFML::Animation >()->AddClip(SaltyEngine::SFML::AssetManager::Instance().GetAnimation("MonsterNeunoeil/EyeClose"), "EyeClose");
+    GetComponent<SaltyEngine::SFML::Animation >()->AddClip(SaltyEngine::SFML::AssetManager::Instance().GetAnimation("MonsterNeunoeil/EyeBlink"), "EyeBlink");
 
     AddComponent<MonsterNeunoeilController>();
     AddComponent<SaltyEngine::SFML::SpriteCollider2D>();

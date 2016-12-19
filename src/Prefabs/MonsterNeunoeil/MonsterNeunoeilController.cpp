@@ -22,19 +22,22 @@ void MonsterNeunoeilController::Start()
     if (!isServerSide())
     {
         m_anim = gameObject->GetComponent<SaltyEngine::SFML::Animation>();
+
+        m_anim->GetClip("EyeClose")->AddEvent(std::bind(&MonsterNeunoeilController::SetInvincibility, this, true));
+        m_anim->GetClip("EyeOpen")->AddEvent(std::bind(&MonsterNeunoeilController::SetInvincibility, this, false));
         m_anim->Play("EyeClose");
     }
 
     for (size_t i = 0; i < 4 ; ++i)
     {
-//        SaltyEngine::GameObject *go = (SaltyEngine::GameObject*)SaltyEngine::Instantiate();
-//        go->transform.position = this->gameObject->transform.position;
-//        go->transform.Rotate(90 * i);
-//        go->transform.position += go->transform.position.left() * 90;
-//        go->transform.SetParent(&this->gameObject->transform);
-//        SaltyEngine::SFML::Animation *animation = go->AddComponent<SaltyEngine::SFML::Animation>(true, SaltyEngine::AnimationConstants::WrapMode::LOOP);
-//        animation->AddClip(SaltyEngine::SFML::AssetManager::Instance().GetAnimation("Laser/loading"), "Loading");
-//        m_canons[i] = go;
+        SaltyEngine::GameObject *go = (SaltyEngine::GameObject*)SaltyEngine::Instantiate();
+        go->transform.position = this->gameObject->transform.position;
+        go->transform.Rotate(90 * i);
+        go->transform.position += go->transform.position.left() * 110;
+        go->transform.SetParent(&this->gameObject->transform);
+        SaltyEngine::SFML::Animation *animation = go->AddComponent<SaltyEngine::SFML::Animation>(true, SaltyEngine::AnimationConstants::WrapMode::LOOP);
+        animation->AddClip(SaltyEngine::SFML::AssetManager::Instance().GetAnimation("Laser/loading"), "Loading");
+        m_canons[i] = go;
     }
 
     gameObject->transform.position = SaltyEngine::Vector2(400, 100);
@@ -50,7 +53,6 @@ void MonsterNeunoeilController::Start()
 
 void MonsterNeunoeilController::FixedUpdate()
 {
-    return;
     this->gameObject->transform.Rotate(0.1f);
     if (isServerSide()) {
         m_currDelay -= static_cast<float>(SaltyEngine::Engine::Instance().GetFixedDeltaTime());
@@ -65,7 +67,7 @@ void MonsterNeunoeilController::FixedUpdate()
 
 void MonsterNeunoeilController::Move() {
     static int i = 0;
-    this->gameObject->transform.Translate(-gameObject->transform.right() * m_vel);
+//    this->gameObject->transform.Translate(-gameObject->transform.right() * m_vel);
     if (i % 3 == 0)
     {
         BroadcastPackage<MOVEPackageGame>(
