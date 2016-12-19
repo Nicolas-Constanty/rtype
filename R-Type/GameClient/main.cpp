@@ -33,16 +33,23 @@ int main(int, char **)
 
 	SaltyEngine::GameObject *guiBehind = new SaltyEngine::GameObject("GUIBackgroundGame");
 	sf::Vector2u pos = dynamic_cast<SaltyEngine::SFML::Renderer *>(SaltyEngine::Engine::Instance().GetRenderer())->GetRenderWindow()->getSize();
-//	SaltyEngine::SFML::Sprite *GUIBackground = new SaltyEngine::SFML::Sprite();
-//	bg1 = static_cast<SaltyEngine::GameObject*>(SaltyEngine::Instantiate());
 	guiBehind->AddComponent<SaltyEngine::SFML::Image>(SaltyEngine::SFML::AssetManager::Instance().GetSprite("GUIBackground")); //GUIBackground
 
-//	guiBehind->AddComponent<SaltyEngine::SFML::Image>(SaltyEngine::AAssetManager::  sf::Vector2u(pos.x, 75));
-	guiBehind->AddComponent<GameGUI>();
+//	guiBehind->AddComponent<GameGUI>();
 
 	guiBehind->transform.position.x = pos.x / 2;
 	guiBehind->transform.position.y = pos.y - 75 / 2;
 	*scene << guiBehind;
+
+	SaltyEngine::GameObject *guiGame = new SaltyEngine::GameObject("GameGUI");
+//	sf::Vector2u pos = dynamic_cast<SaltyEngine::SFML::Renderer *>(SaltyEngine::Engine::Instance().GetRenderer())->GetRenderWindow()->getSize();
+//	guiGame->AddComponent<SaltyEngine::SFML::Image>(SaltyEngine::SFML::AssetManager::Instance().GetSprite("GUIBackground")); //GUIBackground
+
+	guiGame->AddComponent<GameGUI>();
+	guiGame->transform.position.x = pos.x / 4;
+	guiGame->transform.position.y = pos.y / 2 - 19;
+	*scene << guiGame;
+
 
 	server.reset(new SaltyEngine::GameObject("Rtype", SaltyEngine::Layer::Tag::Destroy));
 //	server->SetName("Rtype");

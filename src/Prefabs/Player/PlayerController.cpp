@@ -5,6 +5,7 @@
 #include "SaltyEngine/SFML.hpp"
 #include <Prefabs/Pod/PodController.hpp>
 #include <Prefabs/Missile/Laser/LaserController.hpp>
+#include <Rtype/Game/Client/GameGUI.hpp>
 
 namespace SaltyEngine
 {
@@ -31,6 +32,10 @@ namespace SaltyEngine
 	void PlayerController::Start()
 	{
         LoadManager();
+
+//        gameGUI = SaltyEngine::Engine::Instance().GetCurrentScene()->FindByName("GameGUI");
+        objGameGUI = SaltyEngine::Engine::Instance().GetCurrentScene()->FindByName("GameGUI");
+
         beamShot = NULL;
         start = clock::now();
 		InputKey::AddAxis("Horizontal", new Input::Axis(
@@ -86,26 +91,17 @@ namespace SaltyEngine
 //            ++i;
         }
 
-//        if (isServerSide()) {
-//            if (beamShot) {
-//                beamShot->transform.position = gameObject->transform.position;
-//                beamShot->transform.position.x += 30;
-//                BroadcastPackage<MOVEPackageGame>(
-//                        beamShot->transform.position.x,
-//                        beamShot->transform.position.y,
-//                        getManager()->gameObjectContainer.GetServerObjectID(beamShot));
-//            }
-//        }
-
         if (InputKey::GetAction("Fire", Input::ActionType::Down)) {
             if (!isServerSide()) {
                 OnBeamAction();
                 SendPackage<BEAMPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(gameObject), idShot);
                 m_beamSFX->SetActive(true);
+                if (!isServerSide() && objGameGUI) {
+                    objGameGUI->GetComponent<GameGUI>()->StartAnimation();
+                }
             }
         }
         if (InputKey::GetAction("Fire", Input::ActionType::Up)) {
-            //manager->gameObjectContainer.Add(GameObjectID::NewID(), laser);
 
             if (!isServerSide()) {
                 SendPackage<SHOTPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(gameObject), power, idShot++);
@@ -116,6 +112,10 @@ namespace SaltyEngine
                 LaserController *laserController = gameObject1->GetComponent<LaserController>();
                 if (laserController) {
                     laserController->Power(power);
+                }
+
+                if (!isServerSide() && objGameGUI) {
+                    objGameGUI->GetComponent<GameGUI>()->ResetAnimation();
                 }
             }
         }
@@ -142,58 +142,27 @@ namespace SaltyEngine
 	}
 
     void PlayerController::OnBeamAction() {
-//        if (isServerSide()) {
-            start = clock::now();
-//            std::cout << "init beam" << std::endl;
-//        }
+        start = clock::now();
     }
 
     int     PlayerController::OnShotAction() {
-//        if (isServerSide()) {
+        int power = 1;
 
-            int power = 1;
+        std::string laserString;
+        double tick = mticks();
 
-            std::string laserString;
-            double tick = mticks();
+        tick = tick > 1000 ? 1000 : tick;
 
-            tick = tick > 1000 ? 1000 : tick;
-
-            if (tick == 1000) {
-                power = 5;
-            } else if (tick >= 750) {
-                power = 4;
-            } else if (tick >= 500) {
-                power = 3;
-            } else if (tick >= 250) {
-                power = 2;
-            }
-
-//            std::cout << "ici" << std::endl;
-//            GameObject *laser = dynamic_cast<GameObject *>(::SaltyEngine::Instantiate("Laser", gameObject->transform.position));
-//            std::cout << "la" << std::endl;
-//            laser->GetComponent<LaserController>()->Power(power);
-
-            return (power);
-//            std::cout << "et la" << std::endl;
-//            if (laser) {
-//                InformationPlayerShot *informationPlayerShot = new InformationPlayerShot();
-//                informationPlayerShot->power = power;
-//                informationPlayerShot->laser = laser;
-//                informationPlayerShot->laserString = laserString;
-//                std::cout << "power => " << informationPlayerShot->power << std::endl;
-
-//                if (beamShot && isServerSide()) {
-//                    BroadcastPackage<DIEPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(beamShot));
-//                    SaltyEngine::Object::Destroy(beamShot);
-//                    beamShot = NULL;
-//                }
-//
-//                std::cout << "et par ici" << std::endl;
-//                return  informationPlayerShot;
-//            }
-//        }
-//        return NULL;
-//        return (1);
+        if (tick == 1000) {
+            power = 5;
+        } else if (tick >= 750) {
+            power = 4;
+        } else if (tick >= 500) {
+            power = 3;
+        } else if (tick >= 250) {
+            power = 2;
+        }
+        return (power);
     }
 
     unsigned int PlayerController::GetIDShot() const {
@@ -213,8 +182,6 @@ namespace SaltyEngine
     }
 
     void PlayerController::Beam() {
-//        Vector pos = Vector(gameObject->transform.position.x + 30, gameObject->transform.position.y);
-//        beamShot = dynamic_cast<SaltyEngine::GameObject*>(SaltyEngine::Instantiate("Beam", pos));
         std::cout << "BEAM" << std::endl;
     }
 
@@ -224,7 +191,6 @@ namespace SaltyEngine
 
     void PlayerController::SetPlayerID(int id) {
         this->playerID = id;
-//        std::cout << "setting playerID == " << id << std::endl;
     }
 
     bool PlayerController::Attach(PodController *toattach)

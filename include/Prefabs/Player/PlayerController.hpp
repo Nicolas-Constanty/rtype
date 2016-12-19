@@ -98,6 +98,7 @@ namespace SaltyEngine {
 		PodController	*pod;
         int             highScore;
 		bool			updateHighScore = true;
+		SaltyEngine::GameObject *objGameGUI = NULL;
 	};
 }
 
