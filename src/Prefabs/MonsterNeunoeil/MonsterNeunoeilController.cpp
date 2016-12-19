@@ -28,11 +28,12 @@ void MonsterNeunoeilController::Start()
     for (size_t i = 0; i < 4 ; ++i)
     {
         SaltyEngine::GameObject *go = (SaltyEngine::GameObject*)SaltyEngine::Instantiate();
+        go->transform.position = this->gameObject->transform.position;
         go->transform.Rotate(90 * i);
-        go->transform.position += go->transform.position.left();
+        go->transform.position += go->transform.position.left() * 90;
+        go->transform.SetParent(&this->gameObject->transform);
         SaltyEngine::SFML::Animation *animation = go->AddComponent<SaltyEngine::SFML::Animation>(true, SaltyEngine::AnimationConstants::WrapMode::LOOP);
         animation->AddClip(SaltyEngine::SFML::AssetManager::Instance().GetAnimation("Laser/loading"), "Loading");
-        go->transform.SetParent(&this->gameObject->transform);
         m_canons[i] = go;
     }
 
