@@ -56,8 +56,8 @@ include(${PROJECT_SOURCE_DIR}/R-Type/Protocol/Room/CMakeLists.txt)
 include(${PROJECT_SOURCE_DIR}/R-Type/Protocol/Server/CMakeLists.txt)
 
 ############################## BINARIES ##############################
-###### SERVER_GAME_DISPATCHER ########
 include(${PROJECT_SOURCE_DIR}/R-Type/ServerGameDispatcher/CMakeLists.txt)
+include(${PROJECT_SOURCE_DIR}/R-Type/ServerRoom/CMakeLists.txt)
 
 #TODO UTILISER GAMESERVER
 ############ GAMESERVER ##############
