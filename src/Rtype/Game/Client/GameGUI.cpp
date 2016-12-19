@@ -1,4 +1,5 @@
 
+#include <SaltyEngine/SFML/Sprite.hpp>
 #include "Rtype/Game/Client/GameGUI.hpp"
 
 GameGUI::GameGUI(SaltyEngine::GameObject *const gameObj) : SaltyBehaviour("GameGUI", gameObj)  {

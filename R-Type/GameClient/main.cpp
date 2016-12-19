@@ -1,5 +1,6 @@
 #include <Rtype/Game/Client/GameManager.hpp>
 #include <Rtype/Game/Client/SpaceShipController.hpp>
+#include <Rtype/Game/Client/GameGUI.hpp>
 #include "SaltyEngine/SFML.hpp"
 #include "SaltyEngine/SaltyEngine.hpp"
 #include "SaltyEngine/Object.hpp"
@@ -29,6 +30,19 @@ int main(int, char **)
 //	SaltyEngine::GameObject	*server = dynamic_cast<SaltyEngine::GameObject*>(SaltyEngine::Object::Instantiate(""));
 
 	std::unique_ptr<SaltyEngine::GameObject> server;
+
+	SaltyEngine::GameObject *guiBehind = new SaltyEngine::GameObject("GUIBackgroundGame");
+	sf::Vector2u pos = dynamic_cast<SaltyEngine::SFML::Renderer *>(SaltyEngine::Engine::Instance().GetRenderer())->GetRenderWindow()->getSize();
+//	SaltyEngine::SFML::Sprite *GUIBackground = new SaltyEngine::SFML::Sprite();
+//	bg1 = static_cast<SaltyEngine::GameObject*>(SaltyEngine::Instantiate());
+	guiBehind->AddComponent<SaltyEngine::SFML::Image>(SaltyEngine::SFML::AssetManager::Instance().GetSprite("GUIBackground")); //GUIBackground
+
+//	guiBehind->AddComponent<SaltyEngine::SFML::Image>(SaltyEngine::AAssetManager::  sf::Vector2u(pos.x, 75));
+	guiBehind->AddComponent<GameGUI>();
+
+	guiBehind->transform.position.x = pos.x / 2;
+	guiBehind->transform.position.y = pos.y - 75 / 2;
+	*scene << guiBehind;
 
 	server.reset(new SaltyEngine::GameObject("Rtype", SaltyEngine::Layer::Tag::Destroy));
 //	server->SetName("Rtype");

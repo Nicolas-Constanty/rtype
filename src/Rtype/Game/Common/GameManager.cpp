@@ -33,7 +33,6 @@ void GameManager::Start()
 
     if (m_client) {
         gameObject->AddComponent<BackgroundController>();
-        gameObject->AddComponent<GameGUI>();
     }
     if (m_server) {
     monsterMap = SaltyEngine::SFML::AssetManager::Instance().LoadScene("scene" + std::to_string(m_server->GetLevel()));
