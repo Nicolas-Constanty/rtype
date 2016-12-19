@@ -66,6 +66,10 @@ namespace SaltyEngine
                 Debug::PrintError("AnimationClip " + name + " was null");
                 return;
             }
+            if (gameObject->GetComponent<SpriteRenderer>() == nullptr)
+            {
+                gameObject->AddComponent<SpriteRenderer>(AssetManager::Instance().GetSprite((*clip->GetFrames().begin())->GetName()), Layout::normal);
+            }
             m_clips[name] = clip;
         }
 

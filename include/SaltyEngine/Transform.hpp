@@ -61,6 +61,15 @@ namespace SaltyEngine
         void Rotate(float angle)
         {
             rotation += angle;
+
+            for (BaseTransform *tr : m_children)
+            {
+                // TODO : get distance
+                T diff = tr->position - position;
+                tr->Rotate(angle);
+                tr->position = position;
+                tr->position += tr->right() * diff.magnitude();
+            }
         }
 		void RotateAround(const T & point, const T & axis, float angle)
 		{
