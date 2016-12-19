@@ -17,19 +17,24 @@ namespace SaltyEngine
                 m_sprite = new Sprite(nullptr);
             }
 
+            Sprite *sfS = dynamic_cast<Sprite*>(m_sprite);
+
+            gameObject->transform.localScale.x = sfS->getScale().x;
+            gameObject->transform.localScale.y = sfS->getScale().y;
+
             m_window = w;
             Rect *rect = dynamic_cast<Rect *>(GetSprite()->GetRect());
             if (rect)
             {
-                GetSprite()->setPosition(gameObject->transform.position.x - (rect->width / 2),
-                                         gameObject->transform.position.y - (rect->height / 2));
+                GetSprite()->setPosition(gameObject->transform.position.x,
+                                         gameObject->transform.position.y);
             }
             else
             {
                 GetSprite()->SetRect(new Rect(0, 0, GetSprite()->GetTexture()->GetSize().x, GetSprite()->GetTexture()->GetSize().y));
                 rect = dynamic_cast<Rect *>(GetSprite()->GetRect());
-                GetSprite()->setPosition(gameObject->transform.position.x - (rect->width / 2),
-                                         gameObject->transform.position.y - (rect->height / 2));
+                GetSprite()->setPosition(gameObject->transform.position.x,
+                                         gameObject->transform.position.y);
             }
         }
 
@@ -40,19 +45,24 @@ namespace SaltyEngine
                 m_sprite = new Sprite(nullptr);
             }
 
+            Sprite *sfS = dynamic_cast<Sprite*>(m_sprite);
+
+            gameObject->transform.localScale.x = sfS->getScale().x;
+            gameObject->transform.localScale.y = sfS->getScale().y;
+
             m_window = w;
             Rect *rect = dynamic_cast<Rect *>(GetSprite()->GetRect());
             if (rect)
             {
-                GetSprite()->setPosition(gameObject->transform.position.x - (rect->width / 2),
-                                         gameObject->transform.position.y - (rect->height / 2));
+                GetSprite()->setPosition(gameObject->transform.position.x,
+                                         gameObject->transform.position.y);
             }
             else
             {
                 GetSprite()->SetRect(new Rect(0, 0, GetSprite()->GetTexture()->GetSize().x, GetSprite()->GetTexture()->GetSize().y));
                 rect = dynamic_cast<Rect *>(GetSprite()->GetRect());
-                GetSprite()->setPosition(gameObject->transform.position.x - (rect->width / 2),
-                                         gameObject->transform.position.y - (rect->height / 2));
+                GetSprite()->setPosition(gameObject->transform.position.x,
+                                         gameObject->transform.position.y);
             }
 
         }
