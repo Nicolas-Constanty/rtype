@@ -24,7 +24,6 @@ namespace Network
         private:
             struct IOOperation
             {
-                std::string name;
                 std::list<Socket::ISockStreamHandler *> NativeSocketIOOperationDispatcher::*watched;
                 void (Socket::ISockStreamHandler::*callback)();
                 void (Socket::ISockStreamHandler::*check)();
@@ -76,7 +75,7 @@ namespace Network
         private:
             std::list<Socket::ISockStreamHandler *>  m_readWatch;
             std::list<Socket::ISockStreamHandler *>  m_writeWatch;
-            std::unique_ptr<struct timeval>                         m_timeout;
+            std::unique_ptr<struct timeval>          m_timeout;
         };
     }
 }

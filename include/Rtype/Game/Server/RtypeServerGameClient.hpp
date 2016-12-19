@@ -41,7 +41,7 @@ namespace Rtype
                 virtual void onGetSHOTPackage(SHOTPackageGame const &);
                 virtual void onGetDIEPackage(DIEPackageGame const &);
                 virtual void onGetTAKEPackage(TAKEPackageGame const &);
-                virtual void onGetDROPPackage(DROPPackageGame const &);
+                virtual void onGetCALLPackage(CALLPackageGame const &);
                 virtual void onGetMOVEPackage(MOVEPackageGame const &);
                 virtual void onGetLAUNCHPackage(LAUNCHPackageGame const &);
                 virtual void onGetREBORNPackage(REBORNPackageGame const &);
@@ -49,9 +49,15 @@ namespace Rtype
                 virtual void onGetINPUTPackage(INPUTPackageGame const &);
                 virtual void onGetDISCONNECTPackage(DISCONNECTPackageGame const &);
                 virtual void onGetENEMYSHOTPackage(ENEMYSHOTPackageGame const &);
+                virtual void onGetUPGRADEPackage(UPGRADEPackageGame const &);
+                virtual void onGetMATEPackage(MATEPackageGame const &);
+                virtual void onGetGAMEOVERPackage(GAMEOVERPackageGame const &game);
 
             public:
                 void StartDisplayInformation();
+
+            public:
+                virtual void OnDisconnect();
 
                 //todo implémenter dès que la classe de script saltybehaviour est codée
                 //public:
@@ -73,6 +79,7 @@ namespace Rtype
                 double power;
 
             private:
+                int __playerID;
                 //ScriptRtypePLayerController *script;
             };
         }

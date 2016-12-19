@@ -18,7 +18,7 @@ if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 	include_directories("include")
 
 	#Compiled file
-	file(GLOB SOURCE_PARSER_FILE "src/Parser/*.cpp")
+	file(GLOB SOURCE_PARSER_FILE "src/Parser/*.cpp" "include/Parser/*.hpp")
 
 	#Create library
 	add_library(Parser SHARED ${SOURCE_PARSER_FILE})

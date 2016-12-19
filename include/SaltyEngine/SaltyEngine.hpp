@@ -12,6 +12,7 @@
 #include "SaltyEngine/Input/DefaultEventManager.hpp"
 #include "Common/Singleton.hpp"
 #include "SaltyEngine/Object.hpp"
+#include "SaltyEngine/IPhysicHandler.hpp"
 
 
 #define DEFAULT_FRAME_RATE 60
@@ -40,8 +41,10 @@ namespace SaltyEngine
 		double GetFixedDeltaTime(void) const;
 		void SetRenderer(IRenderer *renderer);
 		void SetEventManager(Input::IEventManager *ev_manager);
+		void SetPhysicsHandler(IPhysicsHandler *renderer);
 		AScene *GetCurrentScene(void) const;
 		IRenderer *GetRenderer(void) const;
+		IPhysicsHandler *GetPhysicsHandler(void) const;
 
 	private:
 		EngineStatus								m_status;
@@ -52,6 +55,7 @@ namespace SaltyEngine
 		std::chrono::duration<long long, std::nano> m_delta_time;
 		IRenderer									*m_renderer;
 		Input::IEventManager						*m_even_manager;
+        IPhysicsHandler                             *m_physics_handler;
 	};
 }
 

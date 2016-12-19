@@ -17,77 +17,94 @@ MonsterWalkerController::~MonsterWalkerController()
 
 void MonsterWalkerController::Start()
 {
+    LoadManager();
 	m_currDelay = m_minShootInterval + rand() % (int)(m_maxShootInterval - m_minShootInterval);
-    m_anim = gameObject->GetComponent<SaltyEngine::SFML::Animation>();
-    m_anim->Play("WalkLeft");
+    if (!isServerSide()) {
+        m_anim = gameObject->GetComponent<SaltyEngine::SFML::Animation>();
+        m_anim->Play("WalkLeft");
+    }
     m_startPoint = gameObject->transform.position;
-    SaltyEngine::GameObject *gameman = SaltyEngine::Engine::Instance().GetCurrentScene()->FindByName("GameServer");
-    if (gameman)
-        gameServer = gameman->GetComponent<Rtype::Game::Server::GameServerObject>();
+    if (isServerSide()) {
+        BroadCastReliable<CREATEPackageGame>(gameObject->transform.position.x,
+                                             gameObject->transform.position.y,
+                                             RtypeNetworkFactory::GetIDFromName("MonsterWalker"),
+                                             getManager()->gameObjectContainer.GetServerObjectID(gameObject));
+    }
 }
 
 // TODO : add jump
 void MonsterWalkerController::FixedUpdate()
 {
-	m_currDelay -= static_cast<float>(SaltyEngine::Engine::Instance().GetFixedDeltaTime());
+    if (isServerSide()) {
+        m_currDelay -= static_cast<float>(SaltyEngine::Engine::Instance().GetFixedDeltaTime());
 
-	if (m_currDelay <= 0)
-	{
-        m_currDelay = m_minShootInterval + rand() % (int)(m_maxShootInterval - m_minShootInterval);
-        if (gameServer) {
+        if (m_currDelay <= 0) {
+            m_currDelay = m_minShootInterval + rand() % (int) (m_maxShootInterval - m_minShootInterval);
             Shot();
         }
-	}
-    Move();
+        Move();
+    }
+//    Move();
 }
 
 void MonsterWalkerController::Move() {
-        this->gameObject->transform.Translate(-gameObject->transform.right() * m_vel);
-        if (fabsf(gameObject->transform.position.x - m_startPoint.x) > m_walkDistance) {
-            gameObject->transform.Rotate(180);
-            PlayAnim("Walk");
-        }
+    static int i = 0;
+    this->gameObject->transform.Translate(-gameObject->transform.right() * m_vel);
+    if (i % 3 == 0)
+    {
+        BroadcastPackage<MOVEPackageGame>(
+                gameObject->transform.position.x,
+                gameObject->transform.position.y,
+                getManager()->gameObjectContainer.GetServerObjectID(gameObject));
+    }
+    ++i;
+//    BroadcastPackage<MOVEPackageGame>(
+//            gameObject->transform.position.x,
+//            gameObject->transform.position.y,
+//            getManager()->gameObjectContainer.GetServerObjectID(gameObject));
+//        if (fabsf(gameObject->transform.position.x - m_startPoint.x) > m_walkDistance) {
+//            gameObject->transform.Rotate(180);
+//            PlayAnim("Walk");
+//        }
    // std::cout << "MnsterWalkerController ==" << this->gameObject->transform.position << std::endl;
 }
 
 void MonsterWalkerController::Shot() {
-    if (!gameServer) {
+    if (!isServerSide()) {
         PlayAnim("Jump");
         PlayAnim("Walk", true);
     }
 
-   if (gameServer) {
+   if (isServerSide()) {
        SaltyEngine::GameObject *missile = (SaltyEngine::GameObject *) SaltyEngine::Instantiate("EnemyBullet",
                                                                                                 this->gameObject->transform.position,
                                                                                                 180);
-       this->gameServer->Server()->gameObjectContainer.Add(GameObjectID::NewID(), missile);
+       getManager()->gameObjectContainer.Add(GameObjectID::NewID(), missile);
 
-       this->gameServer->BroadCastPackage<ENEMYSHOTPackageGame>(
-               &Network::UDP::AUDPConnection::SendReliable<ENEMYSHOTPackageGame>,
-               this->gameServer->Server()->gameObjectContainer.GetServerObjectID(gameObject));
+       BroadCastReliable<ENEMYSHOTPackageGame>(
+               getManager()->gameObjectContainer.GetServerObjectID(gameObject));
 
-       this->gameServer->BroadCastPackage<CREATEPackageGame>(
-               &Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>,
-               gameObject->transform.position.x,
-               gameObject->transform.position.y,
-               RtypeNetworkFactory::GetIDFromName("EnemyBullet"),
-               this->gameServer->Server()->gameObjectContainer.GetServerObjectID(missile),
-               gameObject->transform.rotation);
+//       BroadCastReliable<CREATEPackageGame>(
+//               gameObject->transform.position.x,
+//               gameObject->transform.position.y,
+//               RtypeNetworkFactory::GetIDFromName("EnemyBullet"),
+//               getManager()->gameObjectContainer.GetServerObjectID(missile),
+//               gameObject->transform.rotation);
 
-       if (missile) {
-            MissileController *missileController = missile->GetComponent<MissileController>();
-            if (missileController != nullptr) {
-                missileController->SetTarget(
-                        SaltyEngine::GameObject::FindGameObjectWithTag(SaltyEngine::Layer::Tag::Player));
-
-            }
-       }
+//       if (missile) {
+//            MissileController *missileController = missile->GetComponent<MissileController>();
+//            if (missileController != nullptr) {
+//                missileController->SetTarget(
+//                        SaltyEngine::GameObject::FindGameObjectWithTag(SaltyEngine::Layer::Tag::Player));
+//
+//            }
+//       }
     }
 }
 
 void MonsterWalkerController::Die() const
 {
-    if (!gameServer) {
+    if (!isServerSide()) {
         SaltyEngine::Instantiate("ExplosionBasic", this->gameObject->transform.position);
     }
     SaltyEngine::Object::Destroy(this->gameObject);
@@ -99,10 +116,9 @@ void MonsterWalkerController::TakeDamage(int amount)
         AGenericController::TakeDamage(amount);
 
         if (m_health <= 0 && !m_isDead) {
-            if (gameServer) {
-                this->gameServer->BroadCastPackage<DIEPackageGame>(
-                        &Network::UDP::AUDPConnection::SendReliable<DIEPackageGame>,
-                        this->gameServer->Server()->gameObjectContainer.GetServerObjectID(gameObject));
+            if (isServerSide()) {
+                BroadCastReliable<DIEPackageGame>(
+                        getManager()->gameObjectContainer.GetServerObjectID(gameObject));
                 Die();
             }
             m_isDead = true;
@@ -128,4 +144,8 @@ void MonsterWalkerController::PlayAnim(std::string const &anim, bool queued) con
         (!queued) ? m_anim->Play(anim + "Left") : m_anim->PlayQueued(anim + "Left");
     else
         (!queued) ? m_anim->Play(anim + "Right") : m_anim->PlayQueued(anim + "Right");
+}
+
+int MonsterWalkerController::GetHighScore() const {
+    return 30;
 }

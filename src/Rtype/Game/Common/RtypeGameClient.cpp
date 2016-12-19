@@ -6,6 +6,7 @@
 #include <Rtype/Game/Common/RtypeGameClient.hpp>
 #include <SaltyEngine/SaltyEngine.hpp>
 #include <Rtype/Game/Server/RtypeGameServer.hpp>
+#include "Common/Debug.hpp"
 
 const std::chrono::milliseconds    Rtype::Game::Common::RtypeGameClient::timeout = std::chrono::milliseconds(5000);
 
@@ -19,7 +20,8 @@ Rtype::Game::Common::RtypeGameClient::RtypeGameClient(Network::Core::NativeSocke
         connected(false),
         playerID(0),
         errcode(DisconnectionCode::NOERROR),
-        getDisconnected(false)
+        getDisconnected(false),
+        gameManager(NULL)
 {
 
 }
@@ -34,7 +36,8 @@ Rtype::Game::Common::RtypeGameClient::RtypeGameClient(const RtypeGameClient &ref
     connected(false),
     playerID(0),
     errcode(DisconnectionCode::NOERROR),
-    getDisconnected(false)
+    getDisconnected(false),
+    gameManager(NULL)
 {
 
 }
@@ -74,7 +77,7 @@ bool Rtype::Game::Common::RtypeGameClient::OnDataReceived(unsigned int)
             }
             if (!connected)
             {
-//                std::cout << "Disconnected while reading" << std::endl;
+                std::cout << "Disconnected while reading" << std::endl;
                 Disconnect();
 //                std::cout << "\e[31m ON A QUITTÉ LA FONCTION DATA RECEIVED \e[0m" << std::endl;
                 return false;
@@ -101,7 +104,7 @@ bool Rtype::Game::Common::RtypeGameClient::OnDataSent(unsigned int)
 void Rtype::Game::Common::RtypeGameClient::onGetDISCONNECTPackage(DISCONNECTPackageGame const &pack)
 {
     OnDiscoveringPackage(pack);
-//    std::cout << "Get disconnect: " << pack << std::endl;
+    std::cout << "Get disconnect: " << pack << std::endl;
     if (playerID == pack.playerID)
     {
         getDisconnected = true;
@@ -111,8 +114,14 @@ void Rtype::Game::Common::RtypeGameClient::onGetDISCONNECTPackage(DISCONNECTPack
 
 void Rtype::Game::Common::RtypeGameClient::OnDisconnect()
 {
-//    std::cout << "\e[31mOn Disconnect called\e[0m" << std::endl;
+	Debug::PrintInfo("On Disconnect called");
     if (!getDisconnected)
         BroadCastPackage<DISCONNECTPackageGame>(&Rtype::Game::Common::RtypeGameClient::SendToServerReliablyNow<DISCONNECTPackageGame>, playerID,
                                            static_cast<unsigned int>(errcode));
+}
+
+void Rtype::Game::Common::RtypeGameClient::setManager(GameManager *manager1)
+{
+    std::cout << "=====> Setting manager in RtypeGameClient" << std::endl;
+    gameManager = manager1;
 }

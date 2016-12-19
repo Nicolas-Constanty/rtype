@@ -10,8 +10,8 @@ if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 	find_package(PkgConfig)
 	pkg_check_modules(SFML sfml-all)
 	if ("${SFML_LIBRARIES}" STREQUAL "")
-		execute_process(COMMAND unzip -f ${CMAKE_SOURCE_DIR}/Dependencies/SFML.zip)
-		include_directories(include Dependencies/SFML/Linux/include)
+		execute_process(COMMAND unzip -u "${CMAKE_HOME_DIRECTORY}/Dependencies/SFML.zip")
+		include_directories(include ${CMAKE_BINARY_DIR}/SFML/Linux/include)
 		link_directories(${CMAKE_BINARY_DIR}/SFML/Linux/lib)
 	endif()
 
@@ -26,21 +26,6 @@ elseif(MSVC)
 	#C++ FLAGS
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3")
 endif()
-
-file(GLOB Networksrc src/Network/*/*.cpp)
-file(GLOB Networkinc include/Network/*/*.hpp)
-
-file(GLOB Commoninc include/Common/*.hpp)
-file(GLOB Commonsrc src/Common/*.cpp)
-
-file(GLOB Protocolsrc src/Protocol/*.cpp src/Protocol/*/*.cpp)
-file(GLOB Protocolinc include/Protocol/*.hpp include/Protocol/*/*.hpp)
-
-file(GLOB SaltyEnginesrc src/SaltyEngine/*.cpp src/SaltyEngine/GUI/*.cpp src/SaltyEngine/Input/*.cpp)
-file(GLOB SaltyEngineinc include/SaltyEngine/*.hpp include/SaltyEngine/GUI/*.hpp include/SaltyEngine/Input/*.hpp)
-
-file(GLOB SFMLsrc src/SaltyEngine/SFML/*.cpp)
-file(GLOB SFMLinc include/SaltyEngine/SFML/*.hpp)
 
 file(GLOB srcGameServ src/Rtype/Game/Server/*.cpp)
 file(GLOB incGameServ include/Rtype/Game/Server/*.hpp)
@@ -87,14 +72,20 @@ include(${PROJECT_SOURCE_DIR}/R-Type/GameServer/CMakeLists.txt)
 include(${PROJECT_SOURCE_DIR}/R-Type/GameClient/CMakeLists.txt)
 
 ############### TESTS ################
-# include(${PROJECT_SOURCE_DIR}/Tests/Network/ClientRoomConnectionToServerRoom/CMakeLists.txt)
-# include(${PROJECT_SOURCE_DIR}/Tests/GameServer/CMakeLists.txt)
-# include(${PROJECT_SOURCE_DIR}/Tests/Network/CMakeLists.txt)
-# include(${PROJECT_SOURCE_DIR}/Tests/GUI/CMakeLists.txt)
 
+#include(${PROJECT_SOURCE_DIR}/Tests/Network/ClientRoomConnectionToServerRoom/CMakeLists.txt)
+#include(${PROJECT_SOURCE_DIR}/Tests/GameServer/CMakeLists.txt)
+#include(${PROJECT_SOURCE_DIR}/Tests/Network/CMakeLists.txt)
+#include(${PROJECT_SOURCE_DIR}/Tests/GUI/CMakeLists.txt)
+#include(${PROJECT_SOURCE_DIR}/Tests/Animations/CMakeLists.txt)
 
 ############### PREFABS ##############
 include(${PROJECT_SOURCE_DIR}/R-Type/Prefab/CMakeLists.txt)
+
+############# PROCOL LIB #############
+include(${PROJECT_SOURCE_DIR}/R-Type/Protocol/Game/CMakeLists.txt)
+include(${PROJECT_SOURCE_DIR}/R-Type/Protocol/Room/CMakeLists.txt)
+include(${PROJECT_SOURCE_DIR}/R-Type/Protocol/Server/CMakeLists.txt)
 
 ############# DEPENDENCIES ############
 add_dependencies(SFMLSaltyEngine SaltyEngine)

@@ -3,6 +3,8 @@
   ],
   "lib": "libplayer",
   "dependencies": [
-    "Laser"
+    "Laser",
+    "Mate",
+    "Beam"
   ]
 }

@@ -13,7 +13,10 @@ const std::map<unsigned short, std::string>  RtypeNetworkFactory::rtypeObjects =
         {3, "Laser"},
         {4, "MonsterWalker"},
         {5, "EnemyBullet"},
-        {6, "MissileMedusa"}
+        {6, "MissileMedusa"},
+        {7, "Beam"},
+        {8, "MonsterFlying"},
+        {9, "MonsterNeunoeil"}
 };
 
 SaltyEngine::GameObject *RtypeNetworkFactory::Create(unsigned short id, SaltyEngine::Vector const &pos, float rotation)
@@ -22,20 +25,11 @@ SaltyEngine::GameObject *RtypeNetworkFactory::Create(unsigned short id, SaltyEng
 
     if (it != rtypeObjects.end())
     {
-        SaltyEngine::GameObject *object = dynamic_cast<SaltyEngine::GameObject*>(SaltyEngine::Instantiate(it->second, pos, rotation));
-
-//        if (object)
-//        {
-//            if (id == 1)
-//            {
-//                SaltyEngine::PlayerController   *compo = object->GetComponent<SaltyEngine::PlayerController>();
-//
-//                if (compo)
-//                {
-//                    compo->enabled = false;
-//                }
-//            }
+//        std::string name = it->second;
+//        if (IsMateColor(id)) {
+//            name = "Mate";
 //        }
+        SaltyEngine::GameObject *object = dynamic_cast<SaltyEngine::GameObject*>(SaltyEngine::Instantiate(it->second, pos, rotation));
         if (object)
             return object;
     }
@@ -55,3 +49,19 @@ unsigned short RtypeNetworkFactory::GetIDFromName(std::string const &id) {
     throw std::runtime_error("No suck object for id =>" + id);
     //return 0;
 }
+//
+//bool RtypeNetworkFactory::IsMateColor(unsigned short id) {
+//    return id >= 8 && id <= 11;
+//}
+//
+//std::string RtypeNetworkFactory::GetStringFromID(unsigned short id) {
+//    std::map<unsigned short, std::string>::const_iterator it = rtypeObjects.find(id);
+//    if (it != rtypeObjects.end()) {
+//        return (it->second);
+//    }
+//    return ("unknown");
+//}
+//
+//unsigned short RtypeNetworkFactory::GetMateColorFromPlayerID(int playerID) {
+//    return (static_cast<unsigned short>(playerID + 8));
+//}

@@ -8,16 +8,20 @@
 #include <Rtype/Game/Client/SpaceShipController.hpp>
 #include <Rtype/Game/Common/GameObjectID.hpp>
 #include <Prefabs/Player/PlayerController.hpp>
+#include <Rtype/Game/Client/GameManager.hpp>
 #include <Rtype/Game/Common/RtypeNetworkFactory.hpp>
 #include "SaltyEngine/Vector2.hpp"
 #include "Rtype/Game/Common/GameObjectContainer.hpp"
+#include <Prefabs/Pod/PodController.hpp>
+#include <Prefabs/Missile/Laser/LaserController.hpp>
 
 Rtype::Game::Server::RtypeServerGameClient::RtypeServerGameClient(Network::Core::NativeSocketIOOperationDispatcher &dispatcher) :
         RtypeGameClient(dispatcher),
         server1(NULL),
         pingSecret(-1),
         id(0),
-        power(0)
+        power(0),
+        __playerID(0)
 {
 
 }
@@ -27,7 +31,8 @@ Rtype::Game::Server::RtypeServerGameClient::RtypeServerGameClient(const Rtype::G
     server1(NULL),
     pingSecret(-1),
     id(0),
-    power(0)
+    power(0),
+    __playerID(0)
 {
 
 }
@@ -48,7 +53,7 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetPINGPackage(PINGPackageGam
 //    std::cout << pack << std::endl;
     reply = false;
     OnDiscoveringPackage(pack);
-    std::cout << "\e[32mPonged\e[0m" << std::endl;
+	Debug::PrintSuccess("Ponged");
 //    std::cout << "pingSecret == " << pingSecret << " pack.secret == " << pack.secret << " pingSecret == " << pingSecret << std::endl;
     if (pingSecret != -1 && pack.secret != pingSecret)
     {
@@ -65,7 +70,7 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetPINGPackage(PINGPackageGam
 void Rtype::Game::Server::RtypeServerGameClient::onGetAUTHENTICATEPackage(AUTHENTICATEPackageGame const &pack)
 {
     reply = false;
-    std::cout << "pack: " << pack << std::endl;
+//    std::cout << "pack: " << pack << std::endl;
     OnDiscoveringPackage(pack);
     if (!server1->Authenticate(pack.secret))
     {
@@ -74,29 +79,40 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetAUTHENTICATEPackage(AUTHEN
     }
     else
     {
+        bool check = false;
         connected = true;
 
-        //creation of a new player
-//        CREATEPackageGame   *player = server1->create<CREATEPackageGame>();
-        //todo Instantiate player in engine with an object id
-        //todo player->ID = correspondance prefab
-        //todo player->objectID = correspondance gameobject engine
-//        player->objectID = 5;
+        __playerID = server1->PlayerID();
+        if (__playerID == -1) {
+            __playerID = 0;
+        }
+        playerID = static_cast<unsigned char>(__playerID);
+//        std::cout << "PLAYERID== " << __playerID << std::endl;
 
-        //notify to <this> player that he is authenticated
-        SendPackage<AUTHENTICATEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<AUTHENTICATEPackageGame>, pack.secret, 5);
-
+        SendPackage<AUTHENTICATEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<AUTHENTICATEPackageGame>, pack.secret, __playerID);
 
         // create a new player on the engine
         if (clients->Streams().size() == this->server1->GetMaxSize()) {
-            for (std::unique_ptr<Network::Socket::ISockStreamHandler> &curr : clients->Streams()) {
-                RtypeServerGameClient *client = dynamic_cast<RtypeServerGameClient *>(curr.get());
-                client->StartDisplayInformation();
+            if (!server1->IsLaunch()) {
+                for (std::unique_ptr<Network::Socket::ISockStreamHandler> &curr : clients->Streams()) {
+                    RtypeServerGameClient *client = dynamic_cast<RtypeServerGameClient *>(curr.get());
+                    client->StartDisplayInformation();
+                }
             }
-            server1->OnStartGame();
+
+            if (!server1->IsLaunch()) {
+                server1->OnStartGame();
+                gameManager->StartTheGame();
+                check = true;
+            }
+//            else
+//                server1->OnStartGame(this, __playerID);
+//            std::cout << "oui oui oui" << std::endl;
+        }
+        if (server1->IsLaunch() && !check) {
+            server1->OnStartGame(this, __playerID);
         }
 
-        //ping <this> player in order to made him survive
         ping();
         if (serverStream)
             serverStream->WantSend();
@@ -122,12 +138,37 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetBEAMPackage(BEAMPackageGam
 
     SaltyEngine::GameObject *gameObject;
 
-    if ((gameObject = server1->gameObjectContainer[pack.objectID])) {
+    if ((gameObject = gameManager->gameObjectContainer[pack.objectID])) {
         SaltyEngine::PlayerController *playerController = gameObject->GetComponent<SaltyEngine::PlayerController>();
         if (playerController) {
 
-            this->BroadCastPackage<BEAMPackageGame>(&Network::UDP::AUDPConnection::SendReliable<BEAMPackageGame>,
-                                                    pack.objectID, pack.id);
+            SaltyEngine::Vector pos = gameObject->transform.position;
+            pos.x += 30;
+            SaltyEngine::GameObject *beam = dynamic_cast<SaltyEngine::GameObject*>(SaltyEngine::Object::Instantiate("Beam", pos));
+
+            playerController->beamServerID = gameManager->gameObjectContainer.Add(GameObjectID::NewID(), beam);
+
+//            std::cout << "ID SERVER ==" << gameManager->gameObjectContainer.GetServerObjectID(gameObject) << std::endl;
+
+            for (std::unique_ptr<Network::Socket::ISockStreamHandler> &curr : clients->Streams())
+            {
+                if (curr.get() != this)
+                {
+                    Rtype::Game::Server::RtypeServerGameClient *receiver = dynamic_cast<Rtype::Game::Server::RtypeServerGameClient *>(curr.get());
+
+                    if (receiver)
+                        receiver->SendPackage<BEAMPackageGame>(&Network::UDP::AUDPConnection::SendReliable<BEAMPackageGame>,
+                                                               pack.objectID);
+                }
+            }
+
+//            this->BroadCastPackage<CREATEPackageGame>(
+//                    &Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>,
+//                    gameObject->transform.position.x,
+//                    gameObject->transform.position.y,
+//                    RtypeNetworkFactory::GetIDFromName("Beam"),
+//                    playerController->beamServerID);
+            playerController->beamShot = beam;
             playerController->OnBeamAction();
 
         }
@@ -137,41 +178,67 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetBEAMPackage(BEAMPackageGam
 
 void Rtype::Game::Server::RtypeServerGameClient::onGetSHOTPackage(SHOTPackageGame const &pack)
 {
+//    std::cout << "ENTER" << std::endl;
     OnDiscoveringPackage(pack);
 
     SaltyEngine::GameObject *gameObject;
 
     std::cout << pack << std::endl;
 
-    if ((gameObject = server1->gameObjectContainer[pack.objectID])) {
+    if ((gameObject = gameManager->gameObjectContainer[pack.objectID])) {
 
         SaltyEngine::PlayerController *playerController = gameObject->GetComponent<SaltyEngine::PlayerController>();
 
         if (playerController) {
-            InformationPlayerShot *informationPlayerShot = playerController->OnShotAction();
-//            if (playerController->GetIDShot() == pack.id) {
-                if (informationPlayerShot) {
-                    this->server1->gameObjectContainer.Add(GameObjectID::NewID(), informationPlayerShot->laser);
+            int power = playerController->OnShotAction();
+            SaltyEngine::GameObject *laser = dynamic_cast<SaltyEngine::GameObject *>(::SaltyEngine::Instantiate("Laser", gameObject->transform.position));
+//            int serverid = gameManager->gameObjectContainer.Add(GameObjectID::NewID(), laser);
+            LaserController *laserController;
 
-                    this->BroadCastPackage<SHOTPackageGame>(
-                            &Network::UDP::AUDPConnection::SendReliable<SHOTPackageGame>,
-                            this->server1->gameObjectContainer.GetServerObjectID(informationPlayerShot->laser),
-                            informationPlayerShot->power,
-                            this->server1->gameObjectContainer.GetServerObjectID(gameObject)
-                    );
+//            this->BroadCastPackage<SHOTPackageGame>(
+//                    &Network::UDP::AUDPConnection::SendReliable<SHOTPackageGame>,
+//                    serverid, power,
+//                    pack.objectID);
 
-                    //TODO Ne pas envoyé CREATEPackage => SHOTPACKAGE
-//                    this->BroadCastPackage<CREATEPackageGame>(
-//                            &Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>,
-//                            gameObject->transform.position.x,
-//                            gameObject->transform.position.y,
-//                            RtypeNetworkFactory::GetIDFromName(informationPlayerShot->laserString),
-//                            this->server1->gameObjectContainer.GetServerObjectID(informationPlayerShot->laser));
-                    playerController->IncIdShot();
+            for (std::unique_ptr<Network::Socket::ISockStreamHandler> &curr : clients->Streams())
+            {
+                if (curr.get() != this)
+                {
+                    Rtype::Game::Server::RtypeServerGameClient *receiver = dynamic_cast<Rtype::Game::Server::RtypeServerGameClient *>(curr.get());
+
+                    if (receiver)
+                        receiver->SendPackage<SHOTPackageGame>(&Network::UDP::AUDPConnection::SendReliable<SHOTPackageGame>,
+                                                                pack.objectID, power,
+                                                                0, gameObject->transform.position.x, gameObject->transform.position.y);
                 }
+            }
+
+//            for (std::unique_ptr<Network::Socket::ISockStreamHandler> &curr : clients->Streams())
+//            {
+//                RtypeGameClient *client = dynamic_cast<Rtype::Game::Client::RtypeGameClient *>(curr.get());
+//
+//                if (client)
+//                    client->SendPackage<SHOTPackageGame>(&Network::UDP::AUDPConnection::SendReliable<SHOTPackageGame>,
+//                                                         serverid, power,
+//                                                         pack.objectID);
 //            }
+
+            if ((laserController = laser->GetComponent<LaserController>())) {
+                laserController->Power(power);
+
+                laserController->AddPlayerController(playerController);
+                if (playerController->beamShot) {
+                    this->BroadCastPackage<DIEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<DIEPackageGame>,
+                                                           playerController->beamServerID);
+//                    BroadcastPackage<DIEPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(beamShot));
+                    SaltyEngine::Object::Destroy(playerController->beamShot);
+                    playerController->beamShot = NULL;
+                }
+            }
+            playerController->IncIdShot();
         }
     }
+//    std::cout << "JE SORS" << std::endl;
 //    todo if (okay on gameside)
 //    {
 //        BroadcastReliable(*server1->create<SHOTPackageGame>(pack.objectID));
@@ -202,13 +269,26 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetTAKEPackage(TAKEPackageGam
 //    }
 }
 
-void Rtype::Game::Server::RtypeServerGameClient::onGetDROPPackage(DROPPackageGame const &pack)
+void Rtype::Game::Server::RtypeServerGameClient::onGetCALLPackage(CALLPackageGame const &pack)
 {
     OnDiscoveringPackage(pack);
+    if (pack.playerID == playerID)
+    {
+        SaltyEngine::GameObject *object = gameManager->gameObjectContainer[pack.objectID];
 
+        if (object)
+        {
+            PodController   *podController = object->GetComponent<PodController>();
+
+            if (podController && podController->isAttachedTo(pack.playerID))
+            {
+                podController->Call(podController->getAttachedPlayer()->gameObject->transform.position);
+            }
+        }
+    }
 //    todo if (okay on gameside)
 //    {
-//        BroadcastReliable(*server1->create<DROPPackageGame>(pack.objectID));
+//        BroadcastReliable(*server1->create<CALLPackageGame>(pack.objectID));
 //    }
 //    else
 //    {
@@ -218,7 +298,15 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetDROPPackage(DROPPackageGam
 
 void Rtype::Game::Server::RtypeServerGameClient::onGetMOVEPackage(MOVEPackageGame const &pack)
 {
+//    std::cout << pack << std::endl;
     OnDiscoveringPackage(pack);
+
+    SaltyEngine::GameObject *gameObject;
+
+    if ((gameObject = gameManager->gameObjectContainer[pack.objectID])) {
+        gameObject->transform.position = SaltyEngine::Vector(pack.posX, pack.posY);
+    }
+
     for (std::unique_ptr<Network::Socket::ISockStreamHandler> &curr : clients->Streams())
     {
         if (curr.get() != this)
@@ -226,18 +314,16 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetMOVEPackage(MOVEPackageGam
             Rtype::Game::Server::RtypeServerGameClient *receiver = dynamic_cast<Rtype::Game::Server::RtypeServerGameClient *>(curr.get());
 
             if (receiver) {
-                SaltyEngine::GameObject *gameObject;
-
-                if ((gameObject = this->server1->gameObjectContainer[pack.objectID])) {
-                    gameObject->transform.position = SaltyEngine::Vector(pack.posX, pack.posY);
-                }
+//                std::cout << " Rtype::Game::Server::RtypeServerGameClient::onGetMOVEPackage(MOVEPackageGame const &pack) OBJECTID IS == " << pack.objectID << std::endl;
                 receiver->SendPackage<MOVEPackageGame>(&Network::Core::BasicConnection::SendData<MOVEPackageGame>,
                                                        pack.posX, pack.posY, pack.objectID);
             }
         }
     }
-    if (serverStream)
-        serverStream->WantSend();
+//    if (serverStream)
+//        serverStream->WantSend();
+
+
 //    todo if (okay on gameside)
 //    {
 //        Broadcast(*server1->create<MOVEPackageGame>(pack.posX, pack.posY, pack.objectID));
@@ -251,7 +337,20 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetMOVEPackage(MOVEPackageGam
 void Rtype::Game::Server::RtypeServerGameClient::onGetLAUNCHPackage(LAUNCHPackageGame const &pack)
 {
     OnDiscoveringPackage(pack);
+    if (pack.playerID == playerID)
+    {
+        SaltyEngine::GameObject *object = gameManager->gameObjectContainer[pack.objectID];
+        PodController   *controller;
 
+        if (object)
+        {
+            controller = object->GetComponent<PodController>();
+            if (controller && controller->isAttachedTo(pack.playerID))
+            {
+                controller->Launch();
+            }
+        }
+    }
 //    todo if (okay on gameside)
 //    {
 //        BroadcastReliable(*server1->create<LAUNCHPackageGame>(pack.objectID));
@@ -305,6 +404,16 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetENEMYSHOTPackage(ENEMYSHOT
 }
 
 
+void Rtype::Game::Server::RtypeServerGameClient::onGetUPGRADEPackage(UPGRADEPackageGame const &pack)
+{
+    //client can't say to server when upgrade pod
+    OnDiscoveringPackage(pack);
+}
+
+void Rtype::Game::Server::RtypeServerGameClient::onGetGAMEOVERPackage(GAMEOVERPackageGame const &game) {
+
+}
+
 bool Rtype::Game::Server::RtypeServerGameClient::OnStart()
 {
     server1 = dynamic_cast<Rtype::Game::Server::RtypeGameServer *>(serverStream);
@@ -347,26 +456,36 @@ void Rtype::Game::Server::RtypeServerGameClient::StartDisplayInformation() {
     {
         throw std::runtime_error("player is NULL / pb Asset");
     }
-   // player->transform.position = SaltyEngine::Vector(x, y);
-    // player->AddComponent<SaltyEngine::SpaceShipController>();
+    SaltyEngine::PlayerController *playerController = player->GetComponent<SaltyEngine::PlayerController>();
+    if (playerController) {
+        playerController->SetPlayerID(__playerID);
+        gameManager->addPlayer(player);
+    }
 
-    //*SaltyEngine::SaltyEngine::Instance().GetCurrentScene() << player;
+    gameManager->gameObjectContainer.Add(GameObjectID::NewID(), player);
 
-    server1->gameObjectContainer.Add(GameObjectID::NewID(), player);
+    this->SendPackage<CREATEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>,
+                                         player->transform.position.x, player->transform.position.y, 0, gameManager->gameObjectContainer.GetServerObjectID(player));
 
-    //notify to all players the creation of a player
-    //std::cout << "SENDING DATA !!" << std::endl;
-    this->SendPackage<CREATEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>, player->transform.position.x, player->transform.position.y, 0, server1->gameObjectContainer.GetServerObjectID(player));
-
-    //notify to <this> player to create existing players
     for (std::unique_ptr<Network::Socket::ISockStreamHandler> &curr : clients->Streams())
     {
-        Rtype::Game::Common::RtypeGameClient *client = dynamic_cast<Rtype::Game::Common::RtypeGameClient *>(curr.get());
+        Rtype::Game::Server::RtypeServerGameClient *client = dynamic_cast<Rtype::Game::Server::RtypeServerGameClient *>(curr.get());
 
         if (client && client != this)
         {
-            client->SendPackage<CREATEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>, player->transform.position.x, player->transform.position.y, 1, server1->gameObjectContainer.GetServerObjectID(player));
-//                SendReliable(*server1->create<CREATEPackageGame>());
+            client->SendPackage<MATEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<MATEPackageGame>,
+                                                 player->transform.position.x, player->transform.position.y, __playerID,
+                                                 gameManager->gameObjectContainer.GetServerObjectID(player));
         }
     }
+}
+
+void Rtype::Game::Server::RtypeServerGameClient::OnDisconnect() {
+    Rtype::Game::Common::RtypeGameClient::OnDisconnect();
+    server1->DisconnectConnectedPlayer(__playerID);
+	Debug::PrintInfo("Diconnected RtypeServerGameClient");
+}
+
+void Rtype::Game::Server::RtypeServerGameClient::onGetMATEPackage(MATEPackageGame const &matePackageGame) {
+
 }

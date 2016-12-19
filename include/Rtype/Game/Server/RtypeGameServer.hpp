@@ -7,9 +7,11 @@
 
 #include <Network/UDP/AUDPServer.hpp>
 #include <SaltyEngine/SaltyBehaviour.hpp>
+#include <SaltyEngine/AAssetManager.hpp>
 #include "RtypeServerGameClient.hpp"
-#include "Rtype/Game/Common/GameObjectContainer.hpp"
 #include "Rtype/Game/Common/RtypeGameClient.hpp"
+
+class GameManager;
 
 namespace Rtype
 {
@@ -50,6 +52,7 @@ namespace Rtype
 
             public:
                 void OnStartGame();
+                void OnStartGame(Common::RtypeGameClient *, int playerID);
 
             public:
                 virtual void OnReadCheck();
@@ -68,7 +71,17 @@ namespace Rtype
                 }
 
             public:
+                int PlayerID();
+                void DisconnectConnectedPlayer(int playerID);
+
+            public:
+                std::map<int, bool> const &GetConnectedPlayers() const;
+
+            public:
                 size_t GetMaxSize() const;
+                void setManager(GameManager *manager);
+                bool IsLaunch() const;
+                void SetLaunch(bool lau);
 
             private:
                 GamePackageFactory factory;
@@ -77,11 +90,13 @@ namespace Rtype
                 bool secure;
 
             public:
-                GameObjectContainer gameObjectContainer;
+                GameManager *manager;
 
             private:
                 u_int16_t level;
-                std::list<std::pair<std::string, SaltyEngine::Vector2f> >   monsterMap;
+                std::map<int, bool> playersConnected;
+                bool launch;
+//                std::unique_ptr<SaltyEngine::SceneDefault>   monsterMap;
             };
         }
     }

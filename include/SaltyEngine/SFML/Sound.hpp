@@ -31,7 +31,7 @@ namespace SaltyEngine {
             ::SaltyEngine::Sound::ISound *Get();
 
         private:
-            sf::SoundBuffer m_buffer;
+            sf::SoundBuffer *m_buffer;
         };
     }
 }

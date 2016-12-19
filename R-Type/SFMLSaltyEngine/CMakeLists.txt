@@ -42,7 +42,7 @@ elseif(MSVC)
 	link_directories("../Dependencies/SFML/Win/x64/Release")
 
 	#C++ files
-	file(GLOB SOURCE_SALTYENGINE_SFML_FILE "src/SaltyEngine/SFML/*.cpp")
+	file(GLOB SOURCE_SALTYENGINE_SFML_FILE "src/SaltyEngine/SFML/*.cpp" "include/SaltyEngine/SFML/*.hpp")
 
 	#Create library
 	add_library(SFMLSaltyEngine SHARED ${SOURCE_SALTYENGINE_SFML_FILE})

@@ -64,11 +64,12 @@ namespace SaltyEngine
          * @return
          */
 		GameObject* FindByTag(Layer::Tag tag);
+		std::list<GameObject*> FindAllByTag(Layer::Tag tag);
 
 		/**
          * @brief Loads an asset into the memory from a path
          */
-		bool LoadAsset(std::string const& path);
+		Asset::ASSET_LOADER *LoadAsset(std::string const& path);
 	};
 }
 template class Singleton<SaltyEngine::Factory>;

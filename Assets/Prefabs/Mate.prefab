@@ -1,0 +1,12 @@
+{
+  "sprites": [
+    "SpaceShip/SpaceShip0-1",
+    "SpaceShip/SpaceShip1-1",
+    "SpaceShip/SpaceShip2-1",
+    "SpaceShip/SpaceShip3-1"
+  ],
+  "lib": "libmate",
+  "dependencies": [
+    "Laser"
+  ]
+}

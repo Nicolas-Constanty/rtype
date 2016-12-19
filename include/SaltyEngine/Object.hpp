@@ -22,18 +22,17 @@ namespace SaltyEngine
 	};
 	typedef size_t uid;
 
+
 	class Object: protected ICloneable<Object>
 	{
+		static std::atomic<uid> s_id;
 	public:
 		// delete copy and move constructors and assign operators
 		Object(Object const&) = delete;             // Copy construct
 		Object(Object&&) = delete;                  // Move construct
 		Object& operator=(Object const&) = delete;  // Copy assign
 		Object& operator=(Object &&) = delete;      // Move assign
-		explicit Object(const std::string &name) : m_name(name) {
-			static int s_id = 0;
-			m_uid = ++s_id;
-		};
+		explicit Object(const std::string &name);
 		virtual ~Object() {};
 
 	public:

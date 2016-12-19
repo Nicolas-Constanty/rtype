@@ -10,5 +10,9 @@
         "Laser/power4",
         "Laser/loading"
     ],
+    "sounds": [
+        "Laser/loading",
+        "Laser/fire"
+    ],
     "lib": "libmissile_laser"
 }

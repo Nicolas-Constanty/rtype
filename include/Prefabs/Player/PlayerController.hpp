@@ -7,12 +7,15 @@
 #include "Prefabs/GenericController.hpp"
 #include "SaltyEngine/SaltyBehaviour.hpp"
 
+class PodController;
+
 typedef struct InformationPlayerShot {
     int power;
     SaltyEngine::GameObject *laser;
     std::string laserString;
 } InformationPlayerShot;
 
+//todo add method to check if a pod is already attached to it
 namespace SaltyEngine {
 	class PlayerController : public AGenericController
 	{
@@ -26,6 +29,11 @@ namespace SaltyEngine {
 		PlayerController(const std::string &name, GameObject* const gamObj);
 		void Start();
 		void FixedUpdate();
+		void SetColor(unsigned char color);
+        void SetHighScore(int highScore);
+		int GetHighScore() const;
+		bool IsUpdateHighScore() const;
+		void SetUpdateHighScore(bool update);
 		double speed;
 
 
@@ -35,15 +43,17 @@ namespace SaltyEngine {
 		}
 
 	public:
-		void OnBeamAction();
-        InformationPlayerShot *OnShotAction();
+		void	OnBeamAction();
+        int 	OnShotAction();
+
+	public:
+		PodController	*FindFirstAvailablePod();
 
 	public:
 		double mticks()
 		{
 			typedef std::chrono::duration<float, std::milli> duration;
 
-			//static  = clock::now();
 			duration elapsed = clock::now() - start;
 			return elapsed.count();
 		}
@@ -51,17 +61,23 @@ namespace SaltyEngine {
 	public:
         void Die() const override;
 
-
     public:
 		void IncIdShot() {
 			idShot += 1;
 		}
 
+		void SetPlayerID(int id);
 		unsigned int GetIDShot() const;
-
+		int GetPlayerID() const;
         void Move() override;
-
         void Shot() override;
+		void Beam();
+
+	public:
+		bool Attach(PodController *toattach);
+		bool Launch();
+		bool Call();
+		bool HasPod() const;
 
     public:
 		clock::time_point start;
@@ -70,8 +86,18 @@ namespace SaltyEngine {
 		double power;
 
 	private:
-		GameManager    *manager;
 		unsigned int	idShot;
+
+	public:
+        GameObject     *beamShot;
+		int				beamServerID = 0;
+		GameObject		*m_beamSFX = nullptr;
+
+	private:
+		int				playerID;
+		PodController	*pod;
+        int             highScore;
+		bool			updateHighScore = true;
 	};
 }
 

@@ -30,7 +30,7 @@ namespace SaltyEngine {
             GameObject *go = static_cast<GameObject*>(m_objects.front().get());
             go->transform.position = pos;
             go->transform.rotation = rot;
-            //*Singleton<::SaltyEngine::Engine>::Instance().GetCurrentScene() << static_cast<GameObject*>(m_objects.front().get());
+            *Singleton<::SaltyEngine::Engine>::Instance().GetCurrentScene() << static_cast<GameObject*>(m_objects.front().get());
 			return m_objects.front().get();
 		}
         m_objects.push_front(m_prefabs[name]->CloneMemberwise());
@@ -44,11 +44,11 @@ namespace SaltyEngine {
         return m_objects.front().get();
     }
 
-	bool Factory::LoadAsset(std::string const& path)
+	Asset::ASSET_LOADER *Factory::LoadAsset(std::string const& path)
 	{
-        static Asset::ASSET_LOADER loader;
+        Asset::ASSET_LOADER *loader = new Asset::ASSET_LOADER();
 
-        if (loader.Load(path) == nullptr)
+        if (loader->Load(path) == nullptr)
         {
             std::string error;
 #ifndef _WIN32
@@ -56,23 +56,28 @@ namespace SaltyEngine {
 #endif
             Debug::PrintError("Factory: failed to load asset at path [" + path + "]. Error was: " + error);
 			perror("");
-            return false;
+            delete(loader);
+            return nullptr;
         }
-        Object *obj = (GameObject*)(loader.Call("GetObjectPrefab"));
+        Object *obj = (GameObject*)(loader->Call("GetObjectPrefab"));
         if (obj == nullptr)
         {
             Debug::PrintError("Factory: failed to get asset.");
-            return false;
+            loader->Unload();
+            delete(loader);
+            return nullptr;
         }
         if (m_prefabs.find(obj->GetName()) != m_prefabs.end())
         {
             Debug::PrintWarning("Prefab [" + obj->GetName() + "] already in prefab list.");
-            return false;
+            loader->Unload();
+            delete(loader);
+            return nullptr;
         }
         m_prefabs[obj->GetName()] = std::unique_ptr<Object>(obj);
         Debug::PrintSuccess("Factory: loaded [" + obj->GetName() + "]");
         //loader.Unload();
-		return true;
+		return loader;
 	}
 }
 
@@ -97,4 +102,21 @@ SaltyEngine::GameObject *SaltyEngine::Factory::FindByTag(Layer::Tag tag)
                                                                        return false;
                                                                    });
     return dynamic_cast<GameObject*>((*it).get());
+}
+
+std::list<SaltyEngine::GameObject*> SaltyEngine::Factory::FindAllByTag(Layer::Tag tag)
+{
+    std::list<GameObject *> objs;
+    GameObject *go;
+
+    for (std::list<std::unique_ptr<Object>>::const_iterator it = m_objects.begin(); it != m_objects.end(); ++it)
+    {
+        go = nullptr;
+        if ((go = dynamic_cast<GameObject*>(it->get())) != nullptr)
+        {
+            if (go->CompareTag(tag))
+                objs.push_back(go);
+        }
+    }
+    return objs;
 }

@@ -7,20 +7,24 @@
 namespace SaltyEngine {
     namespace SFML {
 
-        Sound::Sound() {
+        Sound::Sound() :
+            m_buffer(nullptr)
+        {
 
         }
 
         bool Sound::LoadFromFile(const std::string &filename) {
-            if (!m_buffer.loadFromFile(filename)) {
+            m_buffer = new sf::SoundBuffer();
+            if (!m_buffer->loadFromFile(filename)) {
                 return false;
             }
-            setBuffer(m_buffer);
+            setBuffer(*m_buffer);
             return true;
         }
 
         Sound::~Sound() {
-
+            if (m_buffer)
+                delete(m_buffer);
         }
 
         void Sound::Play() {
@@ -65,7 +69,7 @@ namespace SaltyEngine {
 
         ::SaltyEngine::Sound::ISound *Sound::Get() {
             Sound   *sound = new Sound();
-            sound->setBuffer(m_buffer);
+            sound->setBuffer(*m_buffer);
             return sound;
         }
     }

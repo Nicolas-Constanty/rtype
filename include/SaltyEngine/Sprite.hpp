@@ -2,7 +2,7 @@
 
 #ifndef SPRITE_HPP_
 #define SPRITE_HPP_
-#include "SaltyEngine/IRect.hpp"
+#include "SaltyEngine/BasicRect.hpp"
 #include "SaltyEngine/Object.hpp"
 #include "SaltyEngine/Texture.hpp"
 
@@ -20,7 +20,7 @@ namespace SaltyEngine
 			m_texture = texture;
 		}
 
-		explicit Sprite(Texture<T>* const texture, IRect<T>* const rect,
+		explicit Sprite(Texture<T>* const texture, BasicRect<T>* const rect,
 			const std::string& name)
 			: Object(name)
 		{
@@ -33,10 +33,10 @@ namespace SaltyEngine
 		};
 
 	private:
-		IRect<T>		*m_rect;
+		BasicRect<T>		*m_rect;
 		Texture<T>		*m_texture;
 	public:
-		IRect<T>* GetRect(void) const
+		BasicRect<T>* GetRect(void) const
 		{
 			return m_rect;
 		}
@@ -46,12 +46,12 @@ namespace SaltyEngine
 			return m_texture;
 		}
 
-		virtual void SetRect(IRect<T>* const rect)
+		virtual void SetRect(BasicRect<T>* const rect)
 		{
 			m_rect = rect;
 		}
 
-		virtual IRect<T> *GetBounds() const = 0;
+		virtual BasicRect<T> *GetBounds() const = 0;
 	};
 }
 

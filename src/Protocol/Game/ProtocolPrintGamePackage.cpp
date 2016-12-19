@@ -68,9 +68,8 @@ std::ostream &operator<<(std::ostream &ostream, STATUSPackageGame const &statusP
     if (header) {
         ostream << *header;
     }
-    ostream << "objectID=" << statusPackageGame.objectID << std::endl;
+    ostream << "playerID=" << statusPackageGame.playerID << std::endl;
     ostream << "highScore=" << statusPackageGame.highScore << std::endl;
-    ostream << "run=" << statusPackageGame.run << std::endl;
     ostream << "}";
     return (ostream);
 }
@@ -138,14 +137,16 @@ std::ostream &operator<<(std::ostream &ostream, TAKEPackageGame const &takePacka
     return (ostream);
 }
 
-std::ostream &operator<<(std::ostream &ostream, DROPPackageGame const &dropPackageGame) {
-    ostream << "DROPPackageGame = {" << std::endl;
+std::ostream &operator<<(std::ostream &ostream, CALLPackageGame const &callPackageGame) {
+    ostream << "CALLPackageGame = {" << std::endl;
 
-    PackageGameHeader const *header = dynamic_cast<PackageGameHeader const *>(&dropPackageGame);
+    PackageGameHeader const *header = dynamic_cast<PackageGameHeader const *>(&callPackageGame);
     if (header) {
         ostream << *header;
     }
-    ostream << "objectID=" << dropPackageGame.objectID << std::endl;
+    ostream << "objectID=" << callPackageGame.objectID << std::endl;
+    ostream << "posX=" << callPackageGame.posX << std::endl;
+    ostream << "posY=" << callPackageGame.posY << std::endl;
     ostream << "}";
     return (ostream);
 }
@@ -218,4 +219,33 @@ std::ostream    &operator<<(std::ostream &output, ENEMYSHOTPackageGame const &en
     output << *dynamic_cast<PackageGameHeader const *>(&enemyshotPackageGame);
     output << "}" << std::endl;
     return output;
+}
+
+std::ostream &operator<<(std::ostream &ostream, UPGRADEPackageGame const &upgradePackageGame)
+{
+    ostream << "UPGRADEPackageGame = {" << std::endl;
+    ostream << dynamic_cast<ObjectIDPackageGame const &>(upgradePackageGame) << std::endl;
+    ostream << "}" << std::endl;
+    return ostream;
+}
+
+std::ostream &operator<<(std::ostream &ostream, MATEPackageGame const &matePackageGame)
+{
+    ostream << "MATEPackageGame = {" << std::endl;
+    ostream << dynamic_cast<ObjectIDPackageGame const &>(matePackageGame) << std::endl;
+    ostream << "x=" << matePackageGame.x << std::endl;
+    ostream << "y=" << matePackageGame.y << std::endl;
+    ostream << "objectID=" << matePackageGame.objectID << std::endl;
+    ostream << "playerID=" << matePackageGame.playerID << std::endl;
+    ostream << "}" << std::endl;
+    return ostream;
+}
+
+std::ostream &operator<<(std::ostream &ostream, GAMEOVERPackageGame const &gameoverPackageGame)
+{
+    ostream << "GAMEOVERPackageGame = {" << std::endl;
+    ostream << dynamic_cast<PackageGameHeader const &>(gameoverPackageGame) << std::endl;
+    ostream << "status=" << static_cast<int>(gameoverPackageGame.status) << std::endl;
+    ostream << "}" << std::endl;
+    return ostream;
 }

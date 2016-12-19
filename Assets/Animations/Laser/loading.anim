@@ -1,6 +1,6 @@
 {
   "mode": "LOOP",
-  "framerate": "10",
+  "framerate": "20",
   "sprites": [
     "Laser/loading1",
     "Laser/loading2",

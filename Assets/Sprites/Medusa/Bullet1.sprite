@@ -1,0 +1,9 @@
+{
+  "texture": "MedusaBullet",
+  "rect": {
+    "x": "864",
+    "y": "96",
+    "width": "64",
+    "heigth": "64"
+  }
+}

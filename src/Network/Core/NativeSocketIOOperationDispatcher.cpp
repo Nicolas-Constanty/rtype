@@ -27,7 +27,6 @@ static bool running = true;
  * @brief Constant IOOperation definition of read. Sets the good pointers on member and name
  */
 const Network::Core::NativeSocketIOOperationDispatcher::IOOperation  Network::Core::NativeSocketIOOperationDispatcher::read = {
-        "Read",
         &NativeSocketIOOperationDispatcher::m_readWatch,
         &Socket::ISockStreamHandler::OnAllowedToRead,
         &Socket::ISockStreamHandler::OnReadCheck
@@ -37,7 +36,6 @@ const Network::Core::NativeSocketIOOperationDispatcher::IOOperation  Network::Co
  * @brief Constant IOOperation definition of write. Sets the good pointers on member and name
  */
 const Network::Core::NativeSocketIOOperationDispatcher::IOOperation Network::Core::NativeSocketIOOperationDispatcher::write = {
-        "Write",
         &NativeSocketIOOperationDispatcher::m_writeWatch,
         &Socket::ISockStreamHandler::OnAllowedToWrite,
         &Socket::ISockStreamHandler::OnWriteCheck
@@ -115,22 +113,15 @@ void Network::Core::NativeSocketIOOperationDispatcher::HandleOperations()
     fd_set writeset;
     std::unique_ptr<struct timeval>  timeout = NULL;
 
-    if (m_timeout.get() != NULL)
+    if (m_timeout.get() != NULL) {
         timeout.reset(new struct timeval(*m_timeout.get()));
+    }
 
-//    std::cout << "  ==> read " << m_readWatch.size() << std::endl;
-//    for (Socket::ISockStreamHandler *curr : m_readWatch)
-//        std::cout << "     - " << curr << std::endl;
-//    std::cout << "  ==> write " << m_writeWatch.size() << std::endl;
-//    for (Socket::ISockStreamHandler *curr : m_writeWatch)
-//        std::cout << "     - " << curr << std::endl;
-//    std::cout << std::endl;
-
-	if (select(static_cast<int>(std::max(bindFdsToSet(readset, m_readWatch), bindFdsToSet(writeset, m_writeWatch))) + 1, &readset, &writeset, nullptr, timeout.get()) == -1)
+	if (select(static_cast<int>(std::max(bindFdsToSet(readset, m_readWatch), bindFdsToSet(writeset, m_writeWatch))) + 1, &readset, &writeset, nullptr, timeout.get()) == -1) {
 		throw std::runtime_error("Select fails");
+    }
     performOperations(readset, NativeSocketIOOperationDispatcher::read);
     performOperations(writeset, NativeSocketIOOperationDispatcher::write);
-//    std::cout << std::endl << std::endl;
 }
 
 /**
@@ -162,24 +153,16 @@ void Network::Core::NativeSocketIOOperationDispatcher::performOperations(fd_set 
 {
     std::list<Socket::ISockStreamHandler *>  tmp = this->*operation.watched;
 
-//    std::cout << "  ===" << operation.name << "(" << tmp.size() << ")===" << std::endl << std::endl;
     for (Socket::ISockStreamHandler *curr : tmp)
     {
-//        std::cout << "    \x1b[33mChecking fd\x1b[0m: " << curr->getSocket().Native() << " >> ";
         if (std::find((this->*operation.watched).begin(), (this->*operation.watched).end(), curr) == (this->*operation.watched).end())
             continue;
         (curr->*operation.check)();
         if (FD_ISSET(curr->getSocket().Native(), &set))
         {
-//            std::cout << "\x1b[32mOK\x1b[0m" << std::endl;
             (this->*operation.watched).remove(curr);
             (curr->*operation.callback)();
         }
-        else
-        {
-//            std::cout << "\x1b[31mKO\x1b[0m" << std::endl;
-        }
-//        std::cout << std::endl;
     }
 }
 
@@ -189,23 +172,19 @@ void Network::Core::NativeSocketIOOperationDispatcher::performOperations(fd_set 
  */
 void Network::Core::NativeSocketIOOperationDispatcher::Run()
 {
-//    std::cout << "Handling sigint" << std::endl;
     signal(SIGINT, breakCatch);
     while (running && (m_readWatch.size() > 0 || m_writeWatch.size() > 0))
     {
         try
         {
-//            std::cout << "===Handling operations(read: " << m_readWatch.size() << ", write: " << m_writeWatch.size() << ")===" << std::endl;
             HandleOperations();
         }
         catch (std::runtime_error const &err)
         {
 			(void)err;
         }
-        //usleep(30);
     }
     signal(SIGINT, SIG_DFL);
-//    std::cout << "Leaving" << std::endl;
 }
 
 /**
@@ -243,7 +222,6 @@ void Network::Core::NativeSocketIOOperationDispatcher::Poll(Network::Socket::ISo
  */
 void Network::Core::NativeSocketIOOperationDispatcher::Watch(Network::Socket::ISockStreamHandler &towatch, WatchMode mode)
 {
-//	std::cout << "Watch " << towatch.getSocket().Native() << " in " << mode << " mode" << std::endl;
 #if _WIN32
 	if (towatch.getSocket().Native() == INVALID_SOCKET)
 		return;

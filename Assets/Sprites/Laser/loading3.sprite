@@ -5,5 +5,9 @@
     "y": "51",
     "width": "32",
     "heigth": "32"
+  },
+  "scale": {
+    "width": "2",
+    "height": "2"
   }
 }

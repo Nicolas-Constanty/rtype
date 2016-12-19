@@ -17,7 +17,7 @@ namespace SaltyEngine
 {
     namespace SFML
     {
-        class Animation : public AAnimation<sf::Vector2i> {
+        class Animation : public AAnimation {
         private:
 
             class AnimData {
@@ -79,154 +79,49 @@ namespace SaltyEngine
             AnimData *animData = nullptr;
 
         private:
-            std::map<std::string, AnimationClip *> m_clips;
+            mutable std::map<std::string, AnimationClip *> m_clips;
 
         public:
-            Animation(GameObject *const obj, bool playAuto = true, AnimationConstants::WrapMode mode = AnimationConstants::WrapMode::ONCE) :
-                    AAnimation(obj, playAuto, mode)
-            {
-            }
+            Animation(GameObject *const obj, bool playAuto = true, AnimationConstants::WrapMode mode = AnimationConstants::WrapMode::ONCE);
 
-            virtual ~Animation() {
-                if (animData != nullptr)
-                    delete animData;
-                for (typename std::map<std::string, SFML::AnimationClip *>::iterator it = m_clips.begin();
-                     it != m_clips.end(); ++it) {
-                    if (it->second != nullptr) {
-                        delete it->second;
-                        it->second = nullptr;
-                    }
-                }
-                m_clips.clear();
-            }
+            virtual ~Animation();
 
             /**
              * @brief Animation functions
              */
         public:
-            void Play() {
-                if (m_clips.size() == 0) {
-                    return;
-                }
-                ClearAnimData();
-                m_isPlaying = true;
-                clip = m_clips.begin()->second;
-                //StartCoroutine(&Animation::PlayAnim);
-            }
+            void Play();
 
-            void Play(std::string const &name) {
-                if (m_clips.size() == 0 || m_clips.find(name) == m_clips.end()) {
-                    Debug::PrintWarning("Cannot Play clip " + name);
-                    return;
-                }
-                ClearAnimData();
-                m_isPlaying = true;
-                clip = m_clips[name];
-                //StartCoroutine(&Animation::PlayAnim);
-            }
+            void Play(std::string const &name);
+            void RemoveClip(std::string const &clipName);
 
-            void RemoveClip(std::string const &clipName) {
-                if (m_clips.find(clipName) == m_clips.end()) {
-                    return;
-                }
-                m_clips.erase(clipName);
-            }
+            void Stop(std::string const &name);
 
-            void Stop(std::string const &name) {
-                typename std::map<std::string, AnimationClip *>::iterator it = m_clips.find(name);
-                if (it != m_clips.end() || it->second != clip) {
-                    return;
-                }
-                m_isPlaying = false;
-            }
+            void AddClip(AnimationClip *const clip, std::string const &name);
 
-            void AddClip(AnimationClip *const clip, std::string const &name) {
-                if (clip == nullptr) {
-                    Debug::PrintError("AnimationClip " + name + " was null");
-                    return;
-                }
-                m_clips[name] = clip;
-            }
+            size_t GetClipCount() const;
 
-            size_t GetClipCount() const {
-                return m_clips.size();
-            }
+            AnimationClip *GetClip(std::string const& name) const;
+            AnimationClip *GetClip(int id) const;
 
         public:
             AnimationClip *clip = nullptr;
 
         private:
-            void UpdateAnimations() {
-                // If we are playing animations and we have a clip
-                if (m_isPlaying && clip != nullptr && clip->GetFrames().size()) {
-                    // If we do not have animData yet
-                    if (animData == nullptr) {
-                        animData = new AnimData(
-                                clip->GetFrames().size(),
-                                gameObject->GetComponent<SpriteRenderer>(),
-                                clip->GetFrames(),
-                                (1.0 / clip->GetFrameRate())
-                        );
-                    }
-                    // Update anim
-                    if (animData != nullptr) {
-                        animData->UpdateAnimTimeline(Engine::Instance().GetFixedDeltaTime());
-                        if (animData->IsAnimOver()) {
-                            // If we have some anims queued, play them
-                            if (m_queuedAnims.size() > 0) {
-                                Play(m_queuedAnims.back());
-                                m_queuedAnims.pop();
-                            } else {
-                                switch (clip->GetWrapMode()) {
-                                    case AnimationConstants::ONCE:
-                                        m_isPlaying = false;
-                                        break;
-                                    case AnimationConstants::LOOP:
-                                        animData->Reset();
-                                        break;
-                                    case AnimationConstants::PING_PONG:
-                                        animData->ReverseAndReset();
-                                        break;
-                                }
-                            }
-                        }
-                    }
-                } else {
-                    ClearAnimData();
-                }
-            }
+            void UpdateAnimations();
 
             /**
              * @brief Behaviour functions
              */
         public:
-            void Start() {
-                if (m_playAuto) {
-                    Play();
-                }
-            }
+            void Start();
 
-            void FixedUpdate() {
-                UpdateAnimations();
-            }
+            void FixedUpdate();
 
-            virtual Component *CloneComponent(GameObject *const obj) {
-                Animation *anim = new Animation(obj, m_playAuto, m_wrapMode);
-                for (typename std::map<std::string, AnimationClip *>::const_iterator it = m_clips.begin(); it != m_clips.end(); ++it) {
-                    anim->AddClip(AssetManager::Instance().GetAnimation(it->second->GetName()), it->first);
-                }
-                anim->m_queuedAnims = m_queuedAnims;
-                anim->m_isPlaying = m_isPlaying;
-                return anim;
-            }
+            virtual Component *CloneComponent(GameObject *const obj);
 
         private:
-            void ClearAnimData(void)
-            {
-                if (animData != nullptr)
-                    delete animData;
-                animData = nullptr;
-            }
+            void ClearAnimData(void);
         };
     }
 }

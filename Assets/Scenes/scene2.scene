@@ -1,24 +1,20 @@
 {
-    "title": "scene2Victor",
-    "preview": "tot.png",
-    "prefabs": {
-        "Player": {
-            "position": {
-                "x" : "50",
-                "y": "500"
-            }
-        },
-        "Monster": {
-            "position": {
-                "x" : "300",
-                "y": "200"
-            }
-        },
-        "MonsterWalker": {
-              "position": {
-                        "x" : "500",
-                        "y": "700"
-                    }
-                }
-    }
+  "title": "scene1",
+  "preview": "tot.png",
+  "prefabs": {
+    "Player": {
+      "prefabName": "Player",
+      "position": {
+        "x" : "50",
+        "y": "500"
+      }
+    },
+    "Monster2": {
+          "prefabName": "Monster",
+          "position": {
+            "x" : "50",
+            "y": "50"
+          }
+        }
+}
 }

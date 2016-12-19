@@ -7,6 +7,11 @@ Rtype::Game::Client::GameClientObject::GameClientObject(SaltyEngine::GameObject 
 {
 }
 
+Rtype::Game::Client::GameClientObject::~GameClientObject()
+{
+	delete(m_rtypeclient);
+}
+
 Rtype::Game::Client::GameClientObject::GameClientObject(const std::string & name, SaltyEngine::GameObject * const gamObj, const std::string &ip, const uint16_t port)
 	: SaltyBehaviour(name, gamObj), m_port(port), m_ip(ip)
 {
@@ -24,10 +29,6 @@ void Rtype::Game::Client::GameClientObject::Update()
 {
 //	std::cout << "Polling" << std::endl;
 	m_dispatcher.Poll();
-}
-
-Rtype::Game::Client::GameClientObject::~GameClientObject()
-{
 }
 
 void Rtype::Game::Client::GameClientObject::SendInput(const string &name, const float value)

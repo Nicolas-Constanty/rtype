@@ -15,7 +15,7 @@ public:
 
 public:
 	void Start();
-	void Update();
+	void FixedUpdate();
 
 public:
 	virtual SaltyEngine::Component *CloneComponent(SaltyEngine::GameObject* const obj) {
@@ -23,6 +23,8 @@ public:
 	}
 
     void Move() override;
+
+	virtual int GetHighScore() const;
 
     void Shot() override;
 

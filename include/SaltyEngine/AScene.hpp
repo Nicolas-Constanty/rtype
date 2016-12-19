@@ -35,6 +35,7 @@ namespace SaltyEngine
 		GameObject	*FindByName(std::string const &name) const;
 		GameObject	*FindById(size_t id) const;
 		virtual void operator<<(GameObject * const gameobj);
+		std::vector<SaltyEngine::GameObject *> const &GetAllGameObject() const;
 
 
 	public:
@@ -63,6 +64,14 @@ namespace SaltyEngine
 
 		virtual void Destroy(GameObject *gm);
         virtual void InitScene(Component *const component) { (void)component; };
+
+		virtual void PushOnCollisionEnter(std::function<void()> func);
+		virtual void PushOnCollisionStay(std::function<void()> func);
+		virtual void PushOnCollisionExit(std::function<void()> func);
+
+		virtual void PushOnTriggerEnter(std::function<void()> func);
+		virtual void PushOnTriggerStay(std::function<void()> func);
+		virtual void PushOnTriggerExit(std::function<void()> func);
 
 	protected:
 		virtual void Destroy();

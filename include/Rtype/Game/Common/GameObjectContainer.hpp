@@ -18,7 +18,7 @@ public:
     unsigned short GetServerObjectID(SaltyEngine::GameObject *) const;
 
 public:
-    void    Add(unsigned short serverID, SaltyEngine::GameObject *);
+    int    Add(unsigned short serverID, SaltyEngine::GameObject *);
 
 private:
     std::map<unsigned short, unsigned short> idsServer;

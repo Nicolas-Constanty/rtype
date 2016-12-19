@@ -50,20 +50,20 @@ namespace SaltyEngine
 
 	protected:
 		RigidBody2D	*m_attachedRigidbody;	// The rigidbody the collider is attached to.
-		IRect<T>	*m_bounds;				// The world space bounding volume of the collider.
+		BasicRect<T>	*m_bounds;				// The world space bounding volume of the collider.
 		bool		m_enabled;				// Enabled Colliders will collide with other colliders, disabled Colliders won't.
 		bool		m_trigger;				// Is the collider a trigger ?
 
 	public:
 		bool IsTrigger(void) const { return m_trigger; };
 		bool IsEnable(void) const { return m_enabled; };
-		IRect<T> *GetBound(void) const { return m_bounds; };
+		BasicRect<T> *GetBound(void) const { return m_bounds; };
 		RigidBody2D *GetRigidBody(void) const { return m_attachedRigidbody; };
 
 	public:
 		void SetTrigger(bool trigger) { m_trigger = trigger; };
 		void IsEnable(bool enable) { m_enabled = enable; };
-		void SetBound(IRect<T> * const rect) { 
+		void SetBound(BasicRect<T> * const rect) {
 			if (m_bounds)
 				delete m_bounds;
 			m_bounds = rect; 

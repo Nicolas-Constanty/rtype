@@ -8,6 +8,8 @@
 #include <SaltyEngine/SaltyBehaviour.hpp>
 #include "RtypeGameServer.hpp"
 
+class GameManager;
+
 namespace Rtype
 {
     namespace Game
@@ -35,12 +37,17 @@ namespace Rtype
                     return (server);
                 }
 
+                u_int16_t GetLevel() const {
+                    return (map);
+                }
+
             private:
                 const uint32_t secret;
                 const uint16_t port;
                 const uint16_t map;
                 Rtype::Game::Server::RtypeGameServer    *server;
                 Network::Core::NativeSocketIOOperationDispatcher    dispatcher;
+                GameManager *manager;
                 bool running;
             };
         }
