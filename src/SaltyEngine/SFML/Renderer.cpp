@@ -49,7 +49,8 @@ namespace SaltyEngine
 //						(*it).gm->transform.position.x * (*it).gm->transform.localScale.x - ((*it).rect->width * (*it).gm->transform.localScale.x / 2),
 //						(*it).gm->transform.position.y * (*it).gm->transform.localScale.y - ((*it).rect->height * (*it).gm->transform.localScale.y / 2)
 //				 );
-				(*it).wind->draw((*(*(*it).spr)));
+				if ((*it).gm->GetActiveSelf())
+					(*it).wind->draw((*(*(*it).spr)));
 			}
 		}
 

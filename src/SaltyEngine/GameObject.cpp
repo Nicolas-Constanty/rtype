@@ -8,6 +8,7 @@ namespace SaltyEngine
 	GameObject::GameObject(const std::string & name, Layer::Tag tag) : Object(name), transform(this), m_activeSelf(true), layer(0), scene(nullptr), m_tag(tag)
 	{
 		m_bcount = 0;
+		scene = nullptr;
 	}
 
 	bool GameObject::GetActiveSelf(void) const
@@ -80,6 +81,15 @@ namespace SaltyEngine
 			++m_bcount;
 			m_behaviour.push_back(tmp);
 		}
+        Engine::Instance().GetCurrentScene()->InitScene(m_components.back().get());
 		return (dynamic_cast<Component *>(m_components.back().get()));
+	}
+
+	void GameObject::SetScene(AScene *sc) {
+		scene = sc;
+	}
+
+	AScene *GameObject::GetScene() const {
+		return scene;
 	}
 }

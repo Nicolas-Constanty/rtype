@@ -32,6 +32,8 @@ namespace SaltyEngine {
 		void SetColor(unsigned char color);
         void SetHighScore(int highScore);
 		int GetHighScore() const;
+		bool IsUpdateHighScore() const;
+		void SetUpdateHighScore(bool update);
 		double speed;
 
 
@@ -88,11 +90,14 @@ namespace SaltyEngine {
 
 	public:
         GameObject     *beamShot;
+		int				beamServerID = 0;
+		GameObject		*m_beamSFX = nullptr;
 
 	private:
 		int				playerID;
 		PodController	*pod;
         int             highScore;
+		bool			updateHighScore = true;
 	};
 }
 

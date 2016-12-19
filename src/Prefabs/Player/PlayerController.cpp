@@ -55,11 +55,19 @@ namespace SaltyEngine
         InputKey::AddAction("Fire", new Input::Action(Input::KeyCode::Space, std::make_pair<unsigned int, int>(0, 1)));
 
         InputKey::AddAction("Pod", new Input::Action(Input::KeyCode::LShift, std::make_pair<unsigned int, int>(0, 2))); //todo koi t'est-ce qui fo fer
-//        GameObject *gameman = Engine::Instance().GetCurrentScene()->FindByName("GameManager");
-//
-//        manager = NULL;
-//        if (gameman)
-//            manager = gameman->GetComponent<GameManager>();
+
+        // Beam SFX for the player
+        if (!isServerSide())
+        {
+            m_beamSFX = (GameObject*)Instantiate();
+            m_beamSFX->AddComponent<SFML::SpriteRenderer>(SFML::AssetManager::Instance().GetSprite("Laser/loading1"), Layout::normal);
+            m_beamSFX->AddComponent<SFML::SpriteCollider2D>();
+            m_beamSFX->transform.position = (this->gameObject->transform.position + Vector(30, 3));
+            SaltyEngine::SFML::Animation *animation = m_beamSFX->AddComponent<SaltyEngine::SFML::Animation>(true, SaltyEngine::AnimationConstants::WrapMode::LOOP);
+            animation->AddClip(SaltyEngine::SFML::AssetManager::Instance().GetAnimation("Laser/loading"), "Loading");
+            m_beamSFX->transform.SetParent(&this->gameObject->transform);
+            m_beamSFX->SetActive(false);
+        }
 	}
 
 	void PlayerController::FixedUpdate()
@@ -71,7 +79,7 @@ namespace SaltyEngine
 			gameObject->transform.Translate(Vector(h, v) * speed);
 		}
 
-        if (!isServerSide() && i % 2 == 0)
+        if (!isServerSide() && i % 3 == 0)
         {
             SendPackage<MOVEPackageGame>(
                     gameObject->transform.position.x,
@@ -79,29 +87,37 @@ namespace SaltyEngine
                     getManager()->gameObjectContainer.GetServerObjectID(gameObject));
         }
         ++i;
-        if (isServerSide()) {
-            if (beamShot) {
-                beamShot->transform.position = gameObject->transform.position;
-                beamShot->transform.position.x += 30;
-                BroadcastPackage<MOVEPackageGame>(
-                        beamShot->transform.position.x,
-                        beamShot->transform.position.y,
-                        getManager()->gameObjectContainer.GetServerObjectID(beamShot));
-            }
-        }
+//        if (isServerSide()) {
+//            if (beamShot) {
+//                beamShot->transform.position = gameObject->transform.position;
+//                beamShot->transform.position.x += 30;
+//                BroadcastPackage<MOVEPackageGame>(
+//                        beamShot->transform.position.x,
+//                        beamShot->transform.position.y,
+//                        getManager()->gameObjectContainer.GetServerObjectID(beamShot));
+//            }
+//        }
 
         if (InputKey::GetAction("Fire", Input::ActionType::Down)) {
             if (!isServerSide()) {
-                SendPackageReliable<BEAMPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(gameObject), idShot);
+                OnBeamAction();
+                SendPackage<BEAMPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(gameObject), idShot);
+                m_beamSFX->SetActive(true);
             }
         }
         if (InputKey::GetAction("Fire", Input::ActionType::Up)) {
-            //GameObject *laser = (GameObject*)::SaltyEngine::Instantiate("Laser", gameObject->transform.position);
-
             //manager->gameObjectContainer.Add(GameObjectID::NewID(), laser);
+
             if (!isServerSide()) {
-                SendPackageReliable<SHOTPackageGame>(
-                        getManager()->gameObjectContainer.GetServerObjectID(gameObject), power, idShot++);
+                SendPackage<SHOTPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(gameObject), power, idShot++);
+                m_beamSFX->SetActive(false);
+
+                SaltyEngine::GameObject *gameObject1 = dynamic_cast<SaltyEngine::GameObject *>(::SaltyEngine::Instantiate("Laser", gameObject->transform.position));
+                int power = OnShotAction();
+                LaserController *laserController = gameObject1->GetComponent<LaserController>();
+                if (laserController) {
+                    laserController->Power(power);
+                }
             }
         }
 
@@ -127,14 +143,14 @@ namespace SaltyEngine
 	}
 
     void PlayerController::OnBeamAction() {
-        if (isServerSide()) {
+//        if (isServerSide()) {
             start = clock::now();
-            std::cout << "init beam" << std::endl;
-        }
+//            std::cout << "init beam" << std::endl;
+//        }
     }
 
     int     PlayerController::OnShotAction() {
-        if (isServerSide()) {
+//        if (isServerSide()) {
 
             int power = 1;
 
@@ -175,10 +191,10 @@ namespace SaltyEngine
 //
 //                std::cout << "et par ici" << std::endl;
 //                return  informationPlayerShot;
-            }
+//            }
 //        }
 //        return NULL;
-        return (1);
+//        return (1);
     }
 
     unsigned int PlayerController::GetIDShot() const {
@@ -209,7 +225,7 @@ namespace SaltyEngine
 
     void PlayerController::SetPlayerID(int id) {
         this->playerID = id;
-        std::cout << "setting playerID == " << id << std::endl;
+//        std::cout << "setting playerID == " << id << std::endl;
     }
 
     bool PlayerController::Attach(PodController *toattach)
@@ -267,16 +283,26 @@ namespace SaltyEngine
         std::string anim;
 
         anim = "SpaceShip/SpaceShip" + std::to_string(color) + "-1";
-        std::cout << "PLAYER COLOR == " << anim << std::endl;
         gameObject->GetComponent<::SaltyEngine::SFML::SpriteRenderer>()->SetSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite(anim));
     }
 
     void PlayerController::SetHighScore(int highScore) {
+        if (this->highScore != highScore) {
+            updateHighScore = true;
+        }
         this->highScore = highScore;
     }
 
     int PlayerController::GetHighScore() const {
         return (this->highScore);
+    }
+
+    bool PlayerController::IsUpdateHighScore() const {
+        return updateHighScore;
+    }
+
+    void PlayerController::SetUpdateHighScore(bool update) {
+        updateHighScore = update;
     }
 
 }
