@@ -29,6 +29,8 @@ public:
 
 	void SetInvincibility(bool invincible);
 
+	void OnCollisionEnter(SaltyEngine::ICollider *collider) override;
+
 private:
 	float m_minShootInterval = 4;
 	float m_maxShootInterval = 9;

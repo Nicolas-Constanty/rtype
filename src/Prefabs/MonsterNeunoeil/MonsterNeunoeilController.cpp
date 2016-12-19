@@ -25,7 +25,7 @@ void MonsterNeunoeilController::Start()
 
         m_anim->GetClip("EyeClose")->AddEvent(std::bind(&MonsterNeunoeilController::SetInvincibility, this, true));
         m_anim->GetClip("EyeOpen")->AddEvent(std::bind(&MonsterNeunoeilController::SetInvincibility, this, false));
-        m_anim->Play("EyeClose");
+        m_anim->Play("EyeBlink");
     }
 
     for (size_t i = 0; i < 4 ; ++i)
@@ -40,7 +40,7 @@ void MonsterNeunoeilController::Start()
         m_canons[i] = go;
     }
 
-    gameObject->transform.position = SaltyEngine::Vector2(400, 100);
+    gameObject->transform.position = SaltyEngine::Vector2(800, 100);
     m_startPoint = gameObject->transform.position;
 
     if (isServerSide()) {
@@ -99,13 +99,19 @@ void MonsterNeunoeilController::Die() const
 {
     if (!isServerSide())
     {
-        SaltyEngine::Instantiate("ExplosionBasic", this->gameObject->transform.position);
+        for (int i = 0; i < 15; ++i)
+        {
+            SaltyEngine::Instantiate("ExplosionBasic", this->gameObject->transform.position + SaltyEngine::Vector2(rand() % 40, rand() % 40));
+        }
     }
     SaltyEngine::Object::Destroy(this->gameObject);
 }
 
 void MonsterNeunoeilController::TakeDamage(int amount)
 {
+    if (m_isInvincible)
+        return;
+
     AGenericController::TakeDamage(amount);
 
     if (m_health <= 0 && !m_isDead)
@@ -122,4 +128,24 @@ void MonsterNeunoeilController::TakeDamage(int amount)
 void MonsterNeunoeilController::SetInvincibility(bool invincible)
 {
     m_isInvincible = invincible;
+}
+
+void MonsterNeunoeilController::OnCollisionEnter(SaltyEngine::ICollider *collider) {
+    SaltyEngine::SFML::SpriteCollider2D *col = dynamic_cast<SaltyEngine::SFML::SpriteCollider2D*>(collider);
+    if (col)
+    {
+        if (m_isInvincible && col->gameObject->CompareTag(SaltyEngine::Layer::Tag::BulletPlayer))
+        {
+            SaltyEngine::Instantiate("ExplosionBasic", col->gameObject->transform.position);
+            Destroy(col->gameObject);
+//            if (isServerSide())
+//            {
+//                SendPackage<CREATEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>,
+//                                               gameObject->transform.position.x,
+//                                               gameObject->transform.position.y,
+//                                               RtypeNetworkFactory::GetIDFromName("ExplosionBasic"),
+//                                               getManager()->gameObjectContainer.GetServerObjectID(gameObject));
+//            }
+        }
+    }
 }

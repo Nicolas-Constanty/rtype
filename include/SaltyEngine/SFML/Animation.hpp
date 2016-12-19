@@ -120,6 +120,8 @@ namespace SaltyEngine
 
             virtual Component *CloneComponent(GameObject *const obj);
 
+            void Stop() override;
+
         private:
             void ClearAnimData(void);
         };

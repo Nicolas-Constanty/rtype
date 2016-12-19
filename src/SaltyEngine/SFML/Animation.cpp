@@ -55,10 +55,15 @@ namespace SaltyEngine
 
         void Animation::Stop(std::string const &name) {
             typename std::map<std::string, AnimationClip *>::iterator it = m_clips.find(name);
-            if (it != m_clips.end() || it->second != clip) {
+            if (it == m_clips.end() || it->second != clip) {
                 return;
             }
             m_isPlaying = false;
+        }
+
+        void Animation::Stop()
+        {
+            AAnimation::Stop();
         }
 
         void Animation::AddClip(SaltyEngine::SFML::AnimationClip *const clip, std::string const &name) {
