@@ -82,15 +82,13 @@ namespace SaltyEngine
 
 		void Scene::Destroy() {
 
+            PhysicsHandler *ph = dynamic_cast<PhysicsHandler *>(Engine::Instance().GetPhysicsHandler());
 			for (std::list<GameObject *>::iterator i = m_deleted.begin(); i != m_deleted.end(); ++i) {
 				GameObject *gm = (*i);
-                for(CollisionTab::iterator it = m_collisions.begin(), ite = m_collisions.end(); it != ite;)
-                {
-                    if (gm == it->first->gameObject)
-                        it = m_collisions.erase(it);
-                    else
-                        ++it;
-                }
+                SFML::SpriteCollider2D *c = gm->GetComponent<SFML::SpriteCollider2D>();
+                SpriteRenderer *sprr = gm->GetComponent<SpriteRenderer>();
+                ph->RemoveSpriteCollider(c);
+                ph->RemoveSpriteRenderer(sprr);
 			}
 			AScene::Destroy();
 		}

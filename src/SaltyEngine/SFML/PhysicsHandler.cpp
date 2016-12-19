@@ -98,7 +98,7 @@ namespace SaltyEngine
             {
                 bool update = false;
 //                    m_mutext.lock();
-                for (ColliderMap::const_iterator col = m_colliders.begin(); col != m_colliders.end(); ++col) {
+                for (ColliderList::const_iterator col = m_colliders.begin(); col != m_colliders.end(); ++col) {
                     (*col)->GetSprite()->setScale((*col)->gameObject->transform.localScale.x, (*col)->gameObject->transform.localScale.y);
                     const Transform &t = (*col)->gameObject->transform;
                     const sf::IntRect &r = (*col)->GetRect();
@@ -214,7 +214,7 @@ namespace SaltyEngine
 
         void PhysicsHandler::Collide()
         {
-            for (ColliderMap::const_iterator col = m_colliders.begin(); col != m_colliders.end(); ++col) {
+            for (ColliderList::const_iterator col = m_colliders.begin(); col != m_colliders.end(); ++col) {
                 (*col)->ResetCollisions();
                 const sf::IntRect &r = (*col)->GetRect();
                 float i_pos_x = (*col)->GetPosition().x;
@@ -251,7 +251,7 @@ namespace SaltyEngine
                 }
             }
             m_texture.update(m_img);
-            for (ColliderMap::const_iterator col = m_colliders.begin(); col != m_colliders.end(); ++col) {
+            for (ColliderList::const_iterator col = m_colliders.begin(); col != m_colliders.end(); ++col) {
                 (*col)->RemoveCollisions();
             }
         }
@@ -267,7 +267,7 @@ namespace SaltyEngine
 //                        if (me != other && me->first != other->first)
 //                        {
 //                            m_mutext.lock();
-//                            for (ColliderMap::const_iterator col = other->second.begin(); col != other->second.end();) {
+//                            for (ColliderList::const_iterator col = other->second.begin(); col != other->second.end();) {
 //
 //                                float i_pos_x = col->first->getPosition().x / col->first->getScale().x;
 //                                float i_pos_y = col->first->getPosition().y / col->first->getScale().y;
@@ -330,6 +330,21 @@ namespace SaltyEngine
 
         void PhysicsHandler::AddSprite(const SpriteRenderer *s) {
             m_sprites.push_back(s);
+        }
+
+        void PhysicsHandler::RemoveSpriteCollider(const SpriteCollider2D *s) {
+            m_colliders.remove_if([this, s](SpriteCollider2D *sc) {
+                if (s == sc)
+                {
+                    m_col_to_sprite.erase(sc->GetColor());
+                    return true;
+                }
+                return false;
+            });
+        }
+
+        void PhysicsHandler::RemoveSpriteRenderer(const SpriteRenderer *s) {
+            m_sprites.remove_if([s](const SpriteRenderer *sprr) { return (s == sprr); });
         }
     }
 }

@@ -253,24 +253,46 @@ namespace Network
                 //Send messages that are in each client, to the specified client
                 for (std::unique_ptr<Socket::ISockStreamHandler> &curr : clients->Streams())
                 {
-//                    std::cout << "====>Checking client" << std::endl;
                     std::queue<Core::NetBuffer> &msgs = dynamic_cast<Core::BasicConnection *>(curr.get())->Messages();
+                    Core::NetBuffer tosend;
 
                     while (!msgs.empty())
                     {
-//                        std::cout << "Sending: " << msgs.front() << std::endl;
-                        int ret = sock.SendTo(msgs.front(), curr->giveSocket());
+                        if (!tosend.ConcatTo(msgs.front()))
+                        {
+                            int ret = SendTo(curr.get(), tosend);
+
+                            if (ret < 0)
+                                return;
+                            final += ret;
+                        }
+                        else
+                            msgs.pop();
+                    }
+                    if (tosend.getLength() > 0)
+                    {
+                        int ret = SendTo(curr.get(), tosend);
 
                         if (ret < 0)
                             return ;
                         final += ret;
-                        curr->OnDataSent(static_cast<unsigned int>(ret));
-                        msgs.pop();
                     }
                 }
 
                 if (final > 0)
                     OnDataSent(final);
+            }
+
+        private:
+            int SendTo(Socket::ISockStreamHandler *curr, Core::NetBuffer &tosend)
+            {
+                int ret = sock.SendTo(tosend, curr->giveSocket());
+
+                if (ret < 0)
+                    return ret;
+                curr->OnDataSent(static_cast<unsigned int>(ret));
+                tosend.reset();
+                return ret;
             }
 
         protected:

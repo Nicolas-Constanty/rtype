@@ -20,8 +20,8 @@ namespace SaltyEngine
             static const sf::Color m_collisionLayersColor[];
 //            static std::map<const sf::Uint32, const Layer> m_collisionLayers;
         public:
-            typedef std::list<SpriteCollider2D *> ColliderMap;
-            //typedef std::map<Layer, ColliderMap> ColliderLayerMap;
+            typedef std::list<SpriteCollider2D *> ColliderList;
+            //typedef std::map<Layer, ColliderList> ColliderLayerMap;
             typedef std::map<sf::Uint32 , SpriteCollider2D *> ColorToSprite;
             typedef std::stack<sf::Vector2i> PixelStack;
             typedef std::stack<SpriteCollider2D *> SpriteStack;
@@ -41,6 +41,8 @@ namespace SaltyEngine
             unsigned int GetSizeX() const;
 
             unsigned int GetSizeY() const;
+            void RemoveSpriteCollider(const SpriteCollider2D *);
+            void RemoveSpriteRenderer(const SpriteRenderer *);
 
 //            const std::map<Layer, sf::Image> &GetImages() const;
 
@@ -60,7 +62,7 @@ namespace SaltyEngine
             sf::Texture         m_texture;
             sf::Sprite          m_sprite;
             PixelStack          m_vecs;
-            ColliderMap         m_colliders;
+            ColliderList         m_colliders;
             //ColliderLayerMap    m_colliders;
             bool                m_stop;
             SpriteStack         m_deleted;

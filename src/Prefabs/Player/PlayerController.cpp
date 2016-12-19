@@ -72,21 +72,21 @@ namespace SaltyEngine
 
 	void PlayerController::FixedUpdate()
 	{
-        static int i = 0;
+//        static int i = 0;
 		float h = InputKey::GetAxis("Horizontal");
 		float v = InputKey::GetAxis("Vertical");
 		if (h != 0 || v != 0) {
 			gameObject->transform.Translate(Vector(h, v) * speed);
-		}
-
-        if (!isServerSide() && i % 3 == 0)
-        {
-            SendPackage<MOVEPackageGame>(
-                    gameObject->transform.position.x,
-                    gameObject->transform.position.y,
-                    getManager()->gameObjectContainer.GetServerObjectID(gameObject));
+            if (!isServerSide()/* && i % 3 == 0*/)
+            {
+                SendPackage<MOVEPackageGame>(
+                        gameObject->transform.position.x,
+                        gameObject->transform.position.y,
+                        getManager()->gameObjectContainer.GetServerObjectID(gameObject));
+            }
+//            ++i;
         }
-        ++i;
+
 //        if (isServerSide()) {
 //            if (beamShot) {
 //                beamShot->transform.position = gameObject->transform.position;

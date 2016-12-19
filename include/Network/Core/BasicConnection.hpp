@@ -9,6 +9,7 @@
 #include <queue>
 #include "IConnection.hpp"
 #include "NativeSocketIOOperationDispatcher.hpp"
+#include "Timer.hpp"
 
 namespace Network
 {
@@ -19,6 +20,10 @@ namespace Network
          */
         class BasicConnection : public IConnection
         {
+        private:
+            static size_t       nbPackets;
+            static Core::Timer  lastRefresh;
+
         public:
             BasicConnection(NativeSocketIOOperationDispatcher &dispatcher);
             virtual ~BasicConnection();
@@ -47,6 +52,14 @@ namespace Network
             template <typename T>
             void SendData(T const &towr)
             {
+                ++nbPackets;
+                if (lastRefresh.timeout(std::chrono::milliseconds(1000)))
+                {
+                    std::cout << "Envoie: " << nbPackets << " packet/s" << std::endl;
+                    std::cout << "packet: " << towr << std::endl;
+                    nbPackets = 0;
+                    lastRefresh.refresh();
+                }
                 toWrite.emplace(towr);
                 WantSend();
             }

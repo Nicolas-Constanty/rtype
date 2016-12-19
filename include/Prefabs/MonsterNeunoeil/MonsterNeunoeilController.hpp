@@ -27,6 +27,8 @@ public:
 
     void Shot() override;
 
+	void SetInvincibility(bool invincible);
+
 private:
 	float m_minShootInterval = 4;
 	float m_maxShootInterval = 9;
@@ -36,5 +38,8 @@ private:
 	float m_walkDistance = 100;
     SaltyEngine::Vector m_startPoint;
     SaltyEngine::SFML::Animation *m_anim;
+
+	bool m_isInvincible = false;
+    SaltyEngine::GameObject *m_canons[4];
 };
 
