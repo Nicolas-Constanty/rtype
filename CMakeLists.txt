@@ -61,10 +61,10 @@ include(${PROJECT_SOURCE_DIR}/R-Type/ServerRoom/CMakeLists.txt)
 
 #TODO UTILISER GAMESERVER
 ############ GAMESERVER ##############
-#include(${PROJECT_SOURCE_DIR}/R-Type/GameServer/CMakeLists.txt)
+include(${PROJECT_SOURCE_DIR}/R-Type/GameServer/CMakeLists.txt)
 #TODO UTILISER GAMECLIENT
 ############ GAMECLIENT ##############
-#include(${PROJECT_SOURCE_DIR}/R-Type/GameClient/CMakeLists.txt)
+include(${PROJECT_SOURCE_DIR}/R-Type/GameClient/CMakeLists.txt)
 
 ############### PREFABS ##############
 include(${PROJECT_SOURCE_DIR}/R-Type/Prefab/CMakeLists.txt)
@@ -75,4 +75,3 @@ include(${PROJECT_SOURCE_DIR}/Tests/GameServer/CMakeLists.txt)
 #include(${PROJECT_SOURCE_DIR}/Tests/Network/CMakeLists.txt)
 #include(${PROJECT_SOURCE_DIR}/Tests/GUI/CMakeLists.txt)
 include(${PROJECT_SOURCE_DIR}/Tests/Animations/CMakeLists.txt)
-
