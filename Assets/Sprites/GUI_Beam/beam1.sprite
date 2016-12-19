@@ -1,0 +1,9 @@
+{
+    "texture": "Beam",
+    "rect": {
+        "x": "0",
+        "y": "0",
+        "width": "256",
+        "heigth": "45"
+    }
+}
