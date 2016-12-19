@@ -1,0 +1,9 @@
+{
+    "texture": "nacelle",
+    "rect": {
+        "x": "173",
+        "y": "342",
+        "width": "29",
+        "heigth": "32"
+    }
+}

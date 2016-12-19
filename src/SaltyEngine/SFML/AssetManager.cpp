@@ -72,7 +72,11 @@ namespace SaltyEngine {
             ::SaltyEngine::Vector2i size = it->second.size;
             Sprite *sprite = new Sprite(texture, new Rect(position.x, position.y, size.x, size.y));
             sprite->SetName(name);
-            sprite->scale(it->second.scale.x, it->second.scale.y);
+            if (m_current_scene != nullptr) {
+                sprite->scale(m_current_scene->scale.x * it->second.scale.x, m_current_scene->scale.y * it->second.scale.y);
+            } else {
+                sprite->scale(it->second.scale.x, it->second.scale.y);
+            }
             return sprite;
         }
 
@@ -101,7 +105,11 @@ namespace SaltyEngine {
             AnimationClip *clip = new SaltyEngine::SFML::AnimationClip(name, it->second.framerate, mode);
             for (std::string const &spriteName: it->second.sprites) {
                 Sprite  *sprite = GetSprite(spriteName);
-                sprite->scale(it->second.scale.x, it->second.scale.y);
+                if (m_current_scene != nullptr) {
+                    sprite->scale(m_current_scene->scale.x * it->second.scale.x, m_current_scene->scale.y * it->second.scale.y);
+                } else {
+                    sprite->scale(it->second.scale.x, it->second.scale.y);
+                }
                 clip->AddSprite(sprite);
             }
             return clip;

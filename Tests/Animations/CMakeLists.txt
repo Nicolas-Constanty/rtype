@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
 project(rtype)
 
-file(GLOB TEST_SOURCE "Tests/Animations/*.cpp")
+file(GLOB TEST_SOURCE "Tests/Animations/*.cpp" "src/Rtype/Game/Client/BackgroundController.cpp")
 
 include_directories(include)
 
