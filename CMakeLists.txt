@@ -47,24 +47,34 @@ include(${PROJECT_SOURCE_DIR}/R-Type/Parser/CMakeLists.txt)
 include(${PROJECT_SOURCE_DIR}/R-Type/SaltyEngine/CMakeLists.txt)
 include(${PROJECT_SOURCE_DIR}/R-Type/SFMLSaltyEngine/CMakeLists.txt)
 
-############ GAMESERVER ##############
-include(${PROJECT_SOURCE_DIR}/R-Type/GameServer/CMakeLists.txt)
+############### NETWORK ###############
+include(${PROJECT_SOURCE_DIR}/R-Type/Network/CMakeLists.txt)
 
+############## PROTOCOLS #############
+include(${PROJECT_SOURCE_DIR}/R-Type/Protocol/Game/CMakeLists.txt)
+include(${PROJECT_SOURCE_DIR}/R-Type/Protocol/Room/CMakeLists.txt)
+include(${PROJECT_SOURCE_DIR}/R-Type/Protocol/Server/CMakeLists.txt)
+
+############################## BINARIES ##############################
+###### SERVER_GAME_DISPATCHER ########
+include(${PROJECT_SOURCE_DIR}/R-Type/ServerGameDispatcher/CMakeLists.txt)
+
+#TODO UTILISER GAMESERVER
+############ GAMESERVER ##############
+#include(${PROJECT_SOURCE_DIR}/R-Type/GameServer/CMakeLists.txt)
+#TODO UTILISER GAMECLIENT
 ############ GAMECLIENT ##############
-include(${PROJECT_SOURCE_DIR}/R-Type/GameClient/CMakeLists.txt)
+#include(${PROJECT_SOURCE_DIR}/R-Type/GameClient/CMakeLists.txt)
+
+############### PREFABS ##############
+include(${PROJECT_SOURCE_DIR}/R-Type/Prefab/CMakeLists.txt)
 
 ############### TESTS ################
-
 #include(${PROJECT_SOURCE_DIR}/Tests/Network/ClientRoomConnectionToServerRoom/CMakeLists.txt)
-#include(${PROJECT_SOURCE_DIR}/Tests/GameServer/CMakeLists.txt)
+include(${PROJECT_SOURCE_DIR}/Tests/GameServer/CMakeLists.txt)
 #include(${PROJECT_SOURCE_DIR}/Tests/Network/CMakeLists.txt)
 #include(${PROJECT_SOURCE_DIR}/Tests/GUI/CMakeLists.txt)
 include(${PROJECT_SOURCE_DIR}/Tests/Animations/CMakeLists.txt)
-
-############### PREFABS ##############
-#include(${PROJECT_SOURCE_DIR}/R-Type/Prefab/CMakeLists.txt)
-
-
 
 
 #!!!!!!!!!!!!!!!TODO DELETE AFTER THIS!!!!!!!!!!!!!!!!!
@@ -107,14 +117,3 @@ include(${PROJECT_SOURCE_DIR}/Tests/Animations/CMakeLists.txt)
 #
 #file(GLOB processsrc src/Process/*.cpp)
 #file(GLOB processinc include/Process/*.hpp)
-
-############# PROCOL LIB #############
-include(${PROJECT_SOURCE_DIR}/R-Type/Protocol/Game/CMakeLists.txt)
-include(${PROJECT_SOURCE_DIR}/R-Type/Protocol/Room/CMakeLists.txt)
-include(${PROJECT_SOURCE_DIR}/R-Type/Protocol/Server/CMakeLists.txt)
-
-############# DEPENDENCIES ############
-#add_dependencies(client-test-move-netork prefabs Parser)
-
-#add_dependencies(gui Network Parser SFMLSaltyEngine prefabs)
-#add_dependencies(gameserver-stable SaltyEngine SFMLSaltyEngine Parser)
