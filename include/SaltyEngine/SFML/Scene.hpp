@@ -28,8 +28,8 @@ namespace SaltyEngine
 
 
 		private:
-			CollisionTab m_collisions;
-            Coll m_colls;
+//			CollisionTab m_collisions;
+//            Coll m_colls;
 			void Destroy() override ;
 //            void Up();
         };

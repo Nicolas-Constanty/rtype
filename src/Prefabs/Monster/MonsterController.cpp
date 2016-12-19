@@ -110,14 +110,11 @@ void MonsterController::TakeDamage(int amount)
 
 void MonsterController::OnCollisionEnter(SaltyEngine::ICollider *col)
 {
-//    if (col != nullptr)
-//    {
-//        SaltyEngine::SFML::BoxCollider2D *c = dynamic_cast<SaltyEngine::SFML::BoxCollider2D*>(col);
-//        if (c->gameObject->GetTag() == SaltyEngine::Layer::Tag::BulletPlayer)
-//        {
-//            TakeDamage(1);
-//        }
-//    }
+    SaltyEngine::SFML::SpriteCollider2D *c = dynamic_cast<SaltyEngine::SFML::BoxCollider2D*>(col);
+    if (c && c->gameObject->GetTag() == SaltyEngine::Layer::Tag::BulletPlayer)
+    {
+        TakeDamage(1);
+    }
 }
 
 int MonsterController::GetHighScore() const {
