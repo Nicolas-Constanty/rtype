@@ -87,10 +87,13 @@ namespace SaltyEngine
                 {
                     const sf::IntRect &r = s->getTextureRect();
                     const Transform &t = (*spr)->gameObject->transform;
-                    (*spr)->GetSprite()->setPosition(
-                            t.position.x * t.localScale.x - (r.width * t.localScale.x / 2),
-                            t.position.y * t.localScale.y - (r.height * t.localScale.y / 2)
-                    );
+//                    (*spr)->GetSprite()->setPosition(
+//                            t.position.x * t.localScale.x - (r.width * t.localScale.x / 2),
+//                            t.position.y * t.localScale.y - (r.height * t.localScale.y / 2)
+//                    );
+                    (*spr)->GetSprite()->setPosition(t.position.x * t.localScale.x, t.position.y * t.localScale.y);
+
+                    (*spr)->GetSprite()->setRotation(t.rotation);
                 }
             }
 //            for (ColliderLayerMap::const_iterator col_layer = m_colliders.begin(); col_layer != m_colliders.end(); ++col_layer) {
@@ -100,12 +103,17 @@ namespace SaltyEngine
 //                    m_mutext.lock();
                 for (ColliderList::const_iterator col = m_colliders.begin(); col != m_colliders.end(); ++col) {
                     (*col)->GetSprite()->setScale((*col)->gameObject->transform.localScale.x, (*col)->gameObject->transform.localScale.y);
-                    const Transform &t = (*col)->gameObject->transform;
+                     Transform &t = (*col)->gameObject->transform;
                     const sf::IntRect &r = (*col)->GetRect();
-                    (*col)->GetSprite()->setPosition(
-                            t.position.x * t.localScale.x - (r.width * t.localScale.x / 2),
-                            t.position.y * t.localScale.y - (r.height * t.localScale.y / 2)
-                    );
+//                    (*col)->GetSprite()->setPosition(
+//                            t.position.x * t.localScale.x - (r.width * t.localScale.x / 2),
+//                            t.position.y * t.localScale.y - (r.height * t.localScale.y / 2)
+//                    );
+                    (*col)->GetSprite()->setPosition(t.position.x * t.localScale.x, t.position.y * t.localScale.y);
+
+                    t.rotation += 1;
+                    (*col)->GetSprite()->setRotation(t.rotation);
+
 //                    bool deleted = true;
                     float i_pos_x = (*col)->GetPosition().x;
                     float i_pos_y = (*col)->GetPosition().y;
@@ -117,10 +125,15 @@ namespace SaltyEngine
                     unsigned int text_pos_w = (unsigned int) r.width;
                     if (i_pos_x >= 0 && i_pos_y >= 0 && i_pos_x < m_size_x && i_pos_y < m_size_y)
                     {
+                        float radRot = (float) (t.rotation * M_PI / 180.f);
+
                         for (unsigned int y = 0; y < text_pos_h; ++y) {
                             for (unsigned int x = 0; x < text_pos_w; ++x) {
-                                float pos_x = x + offset_x;
-                                float pos_y = y + offset_y;
+                                float pos_xa = x + offset_x;
+                                float pos_ya = y + offset_y;
+                                float pos_x = (float) (cos(radRot) * pos_xa - sin(radRot) * pos_ya);
+                                float pos_y = (float) (cos(radRot) * pos_ya + sin(radRot) * pos_xa);
+
                                 if (pos_x >= 0 && pos_y >= 0 && pos_x < m_size_x && pos_y < m_size_y)
                                 {
                                     const sf::Color &color = (*col)->GetImage().getPixel(x + text_pos_x, y + text_pos_y);
