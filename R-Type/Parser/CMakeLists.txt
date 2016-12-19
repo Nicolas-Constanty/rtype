@@ -1,9 +1,6 @@
 cmake_minimum_required(VERSION 2.8)
 project(rtype)
 
-#include files
-include_directories(include)
-
 #C++ files
 file(GLOB ParserSrc "src/Parser/*.cpp")
 
@@ -27,10 +24,7 @@ if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 #Windows
 elseif(MSVC)
 
-	#C++FLAGS
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3")
-
 	#Create library
-	add_library(Parser SHARED ${ParserSrc} ${ParserInc})
+	add_library(Parser STATIC ${ParserSrc} ${ParserInc})
 
 endif()
