@@ -14,7 +14,7 @@
       }
     },
     "Monster2": {
-          "prefabName": "Monster",
+          "prefabName": "MonsterNeunoeil",
           "position": {
             "x" : "50",
             "y": "50"

@@ -122,16 +122,22 @@ namespace SaltyEngine
                     unsigned int text_pos_y = (unsigned int) r.top;
                     unsigned int text_pos_h = (unsigned int) r.height;
                     unsigned int text_pos_w = (unsigned int) r.width;
+
+                    float posX = t.position.x;
+                    float posY = t.position.y;
+
                     if (i_pos_x >= 0 && i_pos_y >= 0 && i_pos_x < m_size_x && i_pos_y < m_size_y)
                     {
                         float radRot = (float) (t.rotation * M_PI / 180.f);
+                        float sinRot = sin(radRot);
+                        float cosRot = cos(radRot);
 
                         for (unsigned int y = 0; y < text_pos_h; ++y) {
                             for (unsigned int x = 0; x < text_pos_w; ++x) {
-                                float pos_xa = x + offset_x - t.position.x;
-                                float pos_ya = y + offset_y - t.position.y;
-                                float pos_x = (float) (cos(radRot) * pos_xa - sin(radRot) * pos_ya) + t.position.x;
-                                float pos_y = (float) (cos(radRot) * pos_ya + sin(radRot) * pos_xa) + t.position.y;
+                                float pos_xa = x + offset_x - posX;
+                                float pos_ya = y + offset_y - posY;
+                                float pos_x = (cosRot * pos_xa - sinRot * pos_ya) + posX;
+                                float pos_y = (cosRot * pos_ya + sinRot * pos_xa) + posY;
 
                                 if (pos_x >= 0 && pos_y >= 0 && pos_x < m_size_x && pos_y < m_size_y)
                                 {

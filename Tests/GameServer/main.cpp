@@ -13,7 +13,7 @@ int main(int, char **)
 
 	SaltyEngine::SFML::Renderer *renderer = new SaltyEngine::SFML::Renderer(sf::VideoMode(1920, 1080), "R-Type Launcher");
 	SaltyEngine::SFML::EventManager *event_manager = new SaltyEngine::SFML::EventManager(renderer->GetRenderWindow());
-	SaltyEngine::SFML::PhysicsHandler *ph = new SaltyEngine::SFML::PhysicsHandler(1920 / 2, 1080 / 2, true);
+	SaltyEngine::SFML::PhysicsHandler *ph = new SaltyEngine::SFML::PhysicsHandler(1920 / 2, 1080 / 2, false);
 	SaltyEngine::Engine::Instance().SetPhysicsHandler(ph);
 	// Set Renderer and EventManager
 	Singleton<SaltyEngine::Engine>::Instance().SetRenderer(renderer);
