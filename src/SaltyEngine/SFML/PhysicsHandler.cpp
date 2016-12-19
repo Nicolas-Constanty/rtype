@@ -85,7 +85,7 @@ namespace SaltyEngine
                 Sprite * s = dynamic_cast<Sprite *>((*spr)->m_sprite);
                 if (s)
                 {
-                    const sf::IntRect &r = s->getTextureRect();
+//                    const sf::IntRect &r = s->getTextureRect();
                     const Transform &t = (*spr)->gameObject->transform;
 //                    (*spr)->GetSprite()->setPosition(
 //                            t.position.x * t.localScale.x - (r.width * t.localScale.x / 2),
@@ -111,7 +111,6 @@ namespace SaltyEngine
 //                    );
                     (*col)->GetSprite()->setPosition(t.position.x * t.localScale.x, t.position.y * t.localScale.y);
 
-                    t.rotation += 1;
                     (*col)->GetSprite()->setRotation(t.rotation);
 
 //                    bool deleted = true;
@@ -129,10 +128,10 @@ namespace SaltyEngine
 
                         for (unsigned int y = 0; y < text_pos_h; ++y) {
                             for (unsigned int x = 0; x < text_pos_w; ++x) {
-                                float pos_xa = x + offset_x;
-                                float pos_ya = y + offset_y;
-                                float pos_x = (float) (cos(radRot) * pos_xa - sin(radRot) * pos_ya);
-                                float pos_y = (float) (cos(radRot) * pos_ya + sin(radRot) * pos_xa);
+                                float pos_xa = x + offset_x - t.position.x;
+                                float pos_ya = y + offset_y - t.position.y;
+                                float pos_x = (float) (cos(radRot) * pos_xa - sin(radRot) * pos_ya) + t.position.x;
+                                float pos_y = (float) (cos(radRot) * pos_ya + sin(radRot) * pos_xa) + t.position.y;
 
                                 if (pos_x >= 0 && pos_y >= 0 && pos_x < m_size_x && pos_y < m_size_y)
                                 {

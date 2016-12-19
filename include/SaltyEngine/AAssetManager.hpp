@@ -392,6 +392,18 @@ namespace SaltyEngine {
                     m_current_scene->title = map["title"]();
                     m_current_scene->preview = map["preview"]();
                     m_current_scene->background = map["background"]();
+                    m_current_scene->scale = Vector2f(1, 1);
+                    try {
+                        if (!map["scale"]["width"]().empty()) {
+                            std::cout << map["scale"]["width"]() << std::endl;
+                            m_current_scene->scale.x = std::stof(map["scale"]["width"]());
+                        }
+                        if (!map["scale"]["height"]().empty()) {
+                            m_current_scene->scale.y = std::stof(map["scale"]["height"]());
+                        }
+                    } catch (std::exception const &) {
+
+                    }
                     try {
                         const JsonVariant::json_pair *prefabs = boost::get<JsonVariant::json_pair *>(map["prefabs"].get());
 
@@ -404,18 +416,6 @@ namespace SaltyEngine {
                             } else {
                                 Debug::PrintError("Cannot load prefab " + prefabName + " for the scene " + filename);
                             }
-                        }
-                    } catch (std::exception const &) {
-
-                    }
-
-                    m_current_scene->scale = Vector2f(1, 1);
-                    try {
-                        if (!map["scale"]["width"]().empty()) {
-                            m_current_scene->scale.x = std::stof(map["scale"]["width"]());
-                        }
-                        if (!map["scale"]["height"]().empty()) {
-                            m_current_scene->scale.y = std::stof(map["scale"]["height"]());
                         }
                     } catch (std::exception const &) {
 
