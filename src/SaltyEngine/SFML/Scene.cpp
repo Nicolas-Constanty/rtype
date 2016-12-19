@@ -14,9 +14,8 @@ namespace SaltyEngine
 				Debug::PrintWarning("Scene : NULL object");
 				return;
 			}
-			//gameobj->transform.localScale = Vector2(2, 2);
 			::SaltyEngine::AScene::operator<<(gameobj);
-			gameobj->transform.localScale = Vector2(2, 2);
+//			gameobj->transform.localScale = Vector2(2, 2);
 			gameobj->SetScene(this);
 			Renderer *r = dynamic_cast<Renderer *>(Engine::Instance().GetRenderer());
 			SFML::SpriteCollider2D *c = gameobj->GetComponent<SFML::SpriteCollider2D>();

@@ -61,7 +61,6 @@ namespace SaltyEngine
         {
             m_beamSFX = (GameObject*)Instantiate();
             m_beamSFX->AddComponent<SFML::SpriteRenderer>(SFML::AssetManager::Instance().GetSprite("Laser/loading1"), Layout::normal);
-            m_beamSFX->AddComponent<SFML::SpriteCollider2D>();
             m_beamSFX->transform.position = (this->gameObject->transform.position + Vector(30, 3));
             SaltyEngine::SFML::Animation *animation = m_beamSFX->AddComponent<SaltyEngine::SFML::Animation>(true, SaltyEngine::AnimationConstants::WrapMode::LOOP);
             animation->AddClip(SaltyEngine::SFML::AssetManager::Instance().GetAnimation("Laser/loading"), "Loading");

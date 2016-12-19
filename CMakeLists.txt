@@ -24,39 +24,21 @@ if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 elseif(MSVC)
 
 	#C++ FLAGS
+	#include files
+	include_directories(
+		${CMAKE_HOME_DIRECTORY}/Dependencies/SFML/Win/include
+		${CMAKE_HOME_DIRECTORY}/Dependencies/Boost/Win/include
+	)
+
+	#libraries files
+	link_directories(${CMAKE_HOME_DIRECTORY}/Dependencies/SFML/Win/x64/Release)
+
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3")
 endif()
 
-file(GLOB srcGameServ src/Rtype/Game/Server/*.cpp)
-file(GLOB incGameServ include/Rtype/Game/Server/*.hpp)
-
-file(GLOB srcGameCommon src/Rtype/Game/Common/*.cpp)
-file(GLOB incGameCommon include/Rtype/Game/Common/*.hpp)
-
-file(GLOB srcGameClient src/Rtype/Game/Client/*.cpp)
-file(GLOB incGameClient include/Rtype/Game/Client/*.hpp)
-
-file(GLOB allsrc src/*/*.cpp src/*/*/*.cpp)
-file(GLOB allinc include/*/*.hpp include/*/*/*.hpp)
-
-file(GLOB serverRoomsrc src/ServerRoom/*.cpp)
-file(GLOB serverRoominc include/ServerRoom/*.hpp)
-
-file(GLOB serverGameRoomssrc src/ServerGame/CreateRoomGameServer/*.cpp)
-file(GLOB serverGameRoomsinc include/ServerGame/CreateRoomGameServer/*.hpp)
-
-file(GLOB threadsrc src/Thread/*.cpp)
-file(GLOB threadinc include/Thread/*.hpp)
-
-file(GLOB processsrc src/Process/*.cpp)
-file(GLOB processinc include/Process/*.hpp)
-
-############### NETWORK ###############
-include(${PROJECT_SOURCE_DIR}/R-Type/Network/CMakeLists.txt)
-
-############### SERVER ###############
-include(${PROJECT_SOURCE_DIR}/R-Type/ServerRoom/CMakeLists.txt)
-include(${PROJECT_SOURCE_DIR}/R-Type/ServerGameDispatcher/CMakeLists.txt)
+############################## LIBRARIES ##############################
+############### COMMON ###############
+include(${PROJECT_SOURCE_DIR}/R-Type/Common/CMakeLists.txt)
 
 ############### PARSER ###############
 include(${PROJECT_SOURCE_DIR}/R-Type/Parser/CMakeLists.txt)
@@ -77,10 +59,54 @@ include(${PROJECT_SOURCE_DIR}/R-Type/GameClient/CMakeLists.txt)
 #include(${PROJECT_SOURCE_DIR}/Tests/GameServer/CMakeLists.txt)
 #include(${PROJECT_SOURCE_DIR}/Tests/Network/CMakeLists.txt)
 #include(${PROJECT_SOURCE_DIR}/Tests/GUI/CMakeLists.txt)
-#include(${PROJECT_SOURCE_DIR}/Tests/Animations/CMakeLists.txt)
+include(${PROJECT_SOURCE_DIR}/Tests/Animations/CMakeLists.txt)
 
 ############### PREFABS ##############
-include(${PROJECT_SOURCE_DIR}/R-Type/Prefab/CMakeLists.txt)
+#include(${PROJECT_SOURCE_DIR}/R-Type/Prefab/CMakeLists.txt)
+
+
+
+
+#!!!!!!!!!!!!!!!TODO DELETE AFTER THIS!!!!!!!!!!!!!!!!!
+
+#file(GLOB Networksrc src/Network/*/*.cpp)
+#file(GLOB Networkinc include/Network/*/*.hpp)
+#
+#file(GLOB Commoninc include/Common/*.hpp)
+#file(GLOB Commonsrc src/Common/*.cpp)
+#
+#file(GLOB Protocolsrc src/Protocol/*.cpp src/Protocol/*/*.cpp)
+#file(GLOB Protocolinc include/Protocol/*.hpp include/Protocol/*/*.hpp)
+#
+#file(GLOB SaltyEnginesrc src/SaltyEngine/*.cpp src/SaltyEngine/GUI/*.cpp src/SaltyEngine/Input/*.cpp)
+#file(GLOB SaltyEngineinc include/SaltyEngine/*.hpp include/SaltyEngine/GUI/*.hpp include/SaltyEngine/Input/*.hpp)
+#
+#file(GLOB SFMLsrc src/SaltyEngine/SFML/*.cpp)
+#file(GLOB SFMLinc include/SaltyEngine/SFML/*.hpp)
+#
+#file(GLOB srcGameServ src/Rtype/Game/Server/*.cpp)
+#file(GLOB incGameServ include/Rtype/Game/Server/*.hpp)
+#
+#file(GLOB srcGameCommon src/Rtype/Game/Common/*.cpp)
+#file(GLOB incGameCommon include/Rtype/Game/Common/*.hpp)
+#
+#file(GLOB srcGameClient src/Rtype/Game/Client/*.cpp)
+#file(GLOB incGameClient include/Rtype/Game/Client/*.hpp)
+#
+#file(GLOB allsrc src/*/*.cpp src/*/*/*.cpp)
+#file(GLOB allinc include/*/*.hpp include/*/*/*.hpp)
+#
+#file(GLOB serverRoomsrc src/ServerRoom/*.cpp)
+#file(GLOB serverRoominc include/ServerRoom/*.hpp)
+#
+#file(GLOB serverGameRoomssrc src/ServerGame/CreateRoomGameServer/*.cpp)
+#file(GLOB serverGameRoomsinc include/ServerGame/CreateRoomGameServer/*.hpp)
+#
+#file(GLOB threadsrc src/Thread/*.cpp)
+#file(GLOB threadinc include/Thread/*.hpp)
+#
+#file(GLOB processsrc src/Process/*.cpp)
+#file(GLOB processinc include/Process/*.hpp)
 
 ############# PROCOL LIB #############
 include(${PROJECT_SOURCE_DIR}/R-Type/Protocol/Game/CMakeLists.txt)
@@ -88,10 +114,7 @@ include(${PROJECT_SOURCE_DIR}/R-Type/Protocol/Room/CMakeLists.txt)
 include(${PROJECT_SOURCE_DIR}/R-Type/Protocol/Server/CMakeLists.txt)
 
 ############# DEPENDENCIES ############
-add_dependencies(SFMLSaltyEngine SaltyEngine)
 #add_dependencies(client-test-move-netork prefabs Parser)
 
 #add_dependencies(gui Network Parser SFMLSaltyEngine prefabs)
 #add_dependencies(gameserver-stable SaltyEngine SFMLSaltyEngine Parser)
-
-add_dependencies(GameServer Parser SaltyEngine SFMLSaltyEngine Network player Prefab)

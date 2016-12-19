@@ -1,0 +1,12 @@
+{
+  "mode": "LOOP",
+  "framerate": "8",
+  "sprites": [
+    "Nacelle/Nacelle0-1",
+    "Nacelle/Nacelle0-2",
+    "Nacelle/Nacelle0-3",
+    "Nacelle/Nacelle0-4",
+    "Nacelle/Nacelle0-5",
+    "Nacelle/Nacelle0-6"
+  ]
+}

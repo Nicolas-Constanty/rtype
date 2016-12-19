@@ -1,0 +1,9 @@
+{
+  "texture": "MonsterCircle",
+  "rect": {
+    "x": "0",
+    "y": "33",
+    "width": "33",
+    "heigth": "33"
+  }
+}

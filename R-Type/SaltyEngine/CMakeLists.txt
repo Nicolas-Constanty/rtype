@@ -1,8 +1,22 @@
 cmake_minimum_required(VERSION 2.8)
 project(rtype)
 
+#include files
+include_directories("include")
 
+#C++ files
+file(GLOB SaltyEngineSrc
+		"src/SaltyEngine/*.cpp"
+		"src/SaltyEngine/GUI/*.cpp"
+		"src/SaltyEngine/Input/*.cpp"
+		)
 
+#Hpp files
+file(GLOB SaltyEngineInc
+		"include/SaltyEngine/*.hpp"
+		"include/SaltyEngine/GUI/*.hpp"
+		"include/SaltyEngine/Input/*.hpp"
+		)
 
 #Linux
 if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
@@ -15,20 +29,11 @@ if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 	#C++ FLAGS
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wextra -rdynamic")
 
-	#include files
-	include_directories("include")
-
-	#C++ files
-	file(GLOB SOURCE_SALTYENGINE_FILE
-        "src/SaltyEngine/*.cpp"
-        "src/SaltyEngine/GUI/*.cpp"
-        "src/SaltyEngine/Input/*.cpp"
-        "src/Common/LibLoader.cpp"
-		"src/Common/Debug.cpp"
-        )
-
 	#Create library
-	add_library(SaltyEngine SHARED ${SOURCE_SALTYENGINE_FILE})
+	add_library(SaltyEngine SHARED ${SaltyEngineSrc} ${SaltyEngineInc})
+
+	#Link libraries
+	target_link_libraries(SaltyEngine Common)
 
 #Windows
 elseif(MSVC)
@@ -39,19 +44,11 @@ elseif(MSVC)
 	#C++ FLAGS
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3 -DWIN32_LEAN_AND_MEAN -D_USE_MATH_DEFINES")
 
-	#C++ files
-	file(GLOB SOURCE_SALTYENGINE_FILE
-        "src/SaltyEngine/*.cpp"
-        "src/SaltyEngine/GUI/*.cpp"
-        "src/SaltyEngine/Input/*.cpp"
-        "src/Common/DllLoader.cpp"
-		"src/Common/Debug.cpp"
-		)
-
 	#Create library
-	add_library(SaltyEngine STATIC ${SOURCE_SALTYENGINE_FILE})
+	add_library(SaltyEngine STATIC ${SaltyEngineSrc} ${SaltyEngineInc})
 
+	#Link libraries
+	target_link_libraries(SaltyEngine Common)
 endif()
 
-
-
+add_dependencies(SaltyEngine Common)
