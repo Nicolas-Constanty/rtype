@@ -7,11 +7,12 @@
 #include <Prefabs/Player/PlayerController.hpp>
 #include <Rtype/Game/Client/BackgroundController.hpp>
 #include <Rtype/Game/Common/GameObjectID.hpp>
+#include <Rtype/Game/Client/GameGUI.hpp>
 #include "Common/Debug.hpp"
 
 GameManager::GameManager(SaltyEngine::GameObject * const gamObj) : SaltyBehaviour("GameManager", gamObj)
 {
-    gameObject->AddComponent<BackgroundController>();
+//    gameObject->AddComponent<BackgroundController>();
     gameOver = new GameOver(this);
 }
 
@@ -30,6 +31,10 @@ void GameManager::Start()
     m_client = gameObject->GetComponent<Rtype::Game::Client::GameClientObject>();
     m_server = gameObject->GetComponent<Rtype::Game::Server::GameServerObject>();
 
+    if (m_client) {
+        gameObject->AddComponent<BackgroundController>();
+        gameObject->AddComponent<GameGUI>();
+    }
     if (m_server) {
     monsterMap = SaltyEngine::SFML::AssetManager::Instance().LoadScene("scene" + std::to_string(m_server->GetLevel()));
 
