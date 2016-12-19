@@ -19,7 +19,7 @@ namespace SaltyEngine {
         bool AssetManager::LoadISound(std::string const &name, bool isMusic) {
             if (m_sounds.find(name) != m_sounds.end()) {
                 Debug::PrintWarning("Sound " + name + " already loaded");
-                return false;
+                return true;
             }
             ::SaltyEngine::Sound::ISound *sound;
             if (isMusic) {
@@ -39,7 +39,7 @@ namespace SaltyEngine {
         bool AssetManager::LoadTexture(std::string const &name) {
             if (m_textures.find(name) != m_textures.end()) {
                 Debug::PrintWarning("Texture " + name + " already loaded");
-                return false;
+                return true;
             }
             Texture *texture = new Texture();
             if (!texture->loadFromFile(path_textures + name + Asset::TEXTURE_EXTENSION)) {
@@ -70,11 +70,10 @@ namespace SaltyEngine {
             }
             ::SaltyEngine::Vector2i position = it->second.position;
             ::SaltyEngine::Vector2i size = it->second.size;
-            m_createdsprites.emplace(new Sprite(texture, new Rect(position.x, position.y, size.x, size.y)));
-//            Sprite *sprite();
-            m_createdsprites.top()->SetName(name);
-            m_createdsprites.top()->scale(it->second.scale.x, it->second.scale.y);
-            return m_createdsprites.top().get();
+            Sprite *sprite = new Sprite(texture, new Rect(position.x, position.y, size.x, size.y));
+            sprite->SetName(name);
+            sprite->scale(it->second.scale.x, it->second.scale.y);
+            return sprite;
         }
 
         AnimationClip* AssetManager::GetAnimation(std::string const &name) {

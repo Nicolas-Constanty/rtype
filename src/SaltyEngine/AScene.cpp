@@ -363,7 +363,11 @@ namespace SaltyEngine
             Debug::PrintWarning("AScene: Cannot add nullptr object");
             return;
         }
-        m_objects.push_back(gameobj);
+		if (std::find(m_objects.begin(), m_objects.end(), gameobj) != m_objects.end()) {
+			Debug::PrintWarning("Object " + gameobj->GetName() + " was already add in the scene");
+			return;
+		}
+		m_objects.push_back(gameobj);
         m_init.emplace(m_objects.size() - 1);
     }
 

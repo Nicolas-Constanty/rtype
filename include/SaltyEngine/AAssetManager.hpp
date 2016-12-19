@@ -107,7 +107,6 @@ namespace SaltyEngine {
         std::list<std::string>                          m_prefabs;
 
         std::stack<std::unique_ptr<SaltyEngine::Asset::ASSET_LOADER> >  m_loaders;
-        std::stack<std::unique_ptr<Sprite>>                             m_createdsprites;
 
     public:
         ///
@@ -188,7 +187,7 @@ namespace SaltyEngine {
         bool            LoadSprite(std::string const &filename) {
             if (m_sprites.find(filename) != m_sprites.end()) {
                 Debug::PrintWarning("Sprite " + filename + " already loaded");
-                return false;
+                return true;
             }
             try {
                 Parser parser = Parser(JSON, (path_sprites + filename + Asset::SPRITE_EXTENSION).c_str());
@@ -213,7 +212,10 @@ namespace SaltyEngine {
 
                     }
 
-                    LoadTexture(texture);
+                    if (!LoadTexture(texture)) {
+                        Debug::PrintError("Cannot load texture " + texture + " for the sprite " + filename);
+                        return false;
+                    }
                     m_sprites[filename] = SpriteDefault {
                             texture,
                             Vector2i(std::stoi(map["rect"]["x"]()), std::stoi(map["rect"]["y"]())),
@@ -246,7 +248,7 @@ namespace SaltyEngine {
         bool            LoadAnimation(std::string const &filename) {
             if (m_animations.find(filename) != m_animations.end()) {
                 Debug::PrintWarning("Animation " + filename + " already loaded");
-                return false;
+                return true;
             }
             try {
                 Parser parser = Parser(JSON, (path_animations + filename + Asset::ANIM_EXTENSION).c_str());
@@ -259,7 +261,10 @@ namespace SaltyEngine {
 
                     for (unsigned int i = 0; i < spritesJSON.size(); ++i) {
                         const std::string sprite = spritesJSON[i]();
-                        LoadSprite(sprite);
+                        if (!LoadSprite(sprite)) {
+                            Debug::PrintError("Cannot load sprite " + sprite + " for the animation " + filename);
+                            return false;
+                        }
                         sprites.push_back(sprite);
                     }
 
@@ -321,19 +326,31 @@ namespace SaltyEngine {
                     JsonVariant const &animations = map["animations"];
 
                     for (unsigned int i = 0; i < sprites.size(); ++i) {
-                        LoadSprite(sprites[i]());
+                        if (!LoadSprite(sprites[i]())) {
+                            Debug::PrintError("Cannot load sprite " + sprites[i]() + " for the prefab " + filename);
+                            return false;
+                        }
                     }
 
                     for (unsigned int i = 0; i < sounds.size(); ++i) {
-                        LoadSound(sounds[i]());
+                        if (!LoadSound(sounds[i]())) {
+                            Debug::PrintError("Cannot load sprite " + sounds[i]() + " for the prefab " + filename);
+                            return false;
+                        }
                     }
 
                     for (unsigned int i = 0; i < dependencies.size(); ++i) {
-                        LoadPrefab(dependencies[i]());
+                        if (!LoadPrefab(dependencies[i]())) {
+                            Debug::PrintError("Cannot load prefab dependencie " + dependencies[i]() + " for the prefab " + filename);
+                            return false;
+                        }
                     }
 
                     for (unsigned int i = 0; i < animations.size(); ++i) {
-                        LoadAnimation(animations[i]());
+                        if (!LoadAnimation(animations[i]())) {
+                            Debug::PrintError("Cannot load animation " + animations[i]() + " for the prefab " + filename);
+                            return false;
+                        }
                     }
 
                     if (!lib.empty()) {
@@ -383,6 +400,8 @@ namespace SaltyEngine {
                         Vector2f    const &position = Vector2f(std::stoi(prefab->second["position"]["x"]()), std::stoi(prefab->second["position"]["y"]()));
                         if (LoadPrefab(prefabName)) {
                             sceneDefault->objects.push_back(std::make_pair(prefabName, position));
+                        } else {
+                            Debug::PrintError("Cannot load prefab " + prefabName + " for the scene " + filename);
                         }
                     }
                     Debug::PrintSuccess("Scene " + filename + " was successfuly loaded");

@@ -2,11 +2,11 @@
   "mode": "LOOP",
   "framerate": "5",
   "sprites": [
-    "Nonoeil/bullet_explode1",
-    "Nonoeil/bullet_explode2",
-    "Nonoeil/bullet_explode3",
-    "Nonoeil/bullet_explode4",
-    "Nonoeil/bullet_explode5"
+    "MonsterNeunoeil/bullet_explode1",
+    "MonsterNeunoeil/bullet_explode2",
+    "MonsterNeunoeil/bullet_explode3",
+    "MonsterNeunoeil/bullet_explode4",
+    "MonsterNeunoeil/bullet_explode5"
   ],
   "scale": {
     "width": "1",

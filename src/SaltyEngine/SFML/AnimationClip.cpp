@@ -12,7 +12,12 @@ void SaltyEngine::SFML::AnimationClip::AddSprite(::SaltyEngine::SFML::Sprite *co
 }
 
 SaltyEngine::SFML::AnimationClip::~AnimationClip() {
-
+    for (Sprite *sprite: m_sprites) {
+        if (sprite) {
+            delete sprite;
+        }
+    }
+    m_sprites.clear();
 }
 
 SaltyEngine::SFML::AnimationClip::AnimationClip(const string &name, int frameRate, SaltyEngine::AnimationConstants::WrapMode mode) :

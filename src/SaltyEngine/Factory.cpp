@@ -19,7 +19,6 @@ namespace SaltyEngine {
 		m_objects.push_front(Make_unique<GameObject>("GameObject"));
 		if (m_objects.front().get() == nullptr)
 			Debug::PrintWarning("Factory : could not create game object");
-        // TODO add to scene not WORKING
         *Singleton<::SaltyEngine::Engine>::Instance().GetCurrentScene() << static_cast<GameObject*>(m_objects.front().get());
 		return m_objects.front().get();
     }
@@ -31,7 +30,7 @@ namespace SaltyEngine {
             GameObject *go = static_cast<GameObject*>(m_objects.front().get());
             go->transform.position = pos;
             go->transform.rotation = rot;
-            //*Singleton<::SaltyEngine::Engine>::Instance().GetCurrentScene() << static_cast<GameObject*>(m_objects.front().get());
+            *Singleton<::SaltyEngine::Engine>::Instance().GetCurrentScene() << static_cast<GameObject*>(m_objects.front().get());
 			return m_objects.front().get();
 		}
         m_objects.push_front(m_prefabs[name]->CloneMemberwise());
