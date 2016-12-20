@@ -25,6 +25,7 @@ const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::ENEMYSHOTID = R
 const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::UPGRADEID = RTypeProtocolGameManager::GameID(GamePurpose::GAMEUPGRADE, sizeof(UPGRADEPackageGame));
 const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::MATEID = RTypeProtocolGameManager::GameID(GamePurpose::GAMEMATE, sizeof(MATEPackageGame));
 const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::GAMEOVERID = RTypeProtocolGameManager::GameID(GamePurpose::GAMEGAMEOVER, sizeof(GAMEOVERPackageGame));
+const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::DEATHID = RTypeProtocolGameManager::GameID(GamePurpose::GAMEDEATH, sizeof(DEATHPackage));
 
 RTypeProtocolGameManager::RTypeProtocolGameManager(IProtocolGameHandler &protocolGameHandler)
         : protocolGameHandler(protocolGameHandler) {
@@ -47,6 +48,7 @@ RTypeProtocolGameManager::RTypeProtocolGameManager(IProtocolGameHandler &protoco
     fptr[UPGRADEID] = (MFP)&IProtocolGameHandler::onGetUPGRADEPackage;
     fptr[MATEID] = (MFP)&IProtocolGameHandler::onGetMATEPackage;
     fptr[GAMEOVERID] = (MFP)&IProtocolGameHandler::onGetGAMEOVERPackage;
+    fptr[DEATHID] = (MFP)&IProtocolGameHandler::onGetDEATHPackage;
 }
 
 RTypeProtocolGameManager::~RTypeProtocolGameManager() {

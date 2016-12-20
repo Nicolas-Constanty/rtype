@@ -123,20 +123,24 @@ namespace SaltyEngine
 
         if (InputKey::GetAction("Pod", Input::ActionType::Down))
         {
+            std::cout << "Pod action ok" << std::endl;
             if (!isServerSide())
             {
+                std::cout << "Client side" << std::endl;
                 if (pod)
                 {
-                    SendPackage<LAUNCHPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(pod->gameObject), playerID);
+                    std::cout << "\e[31mSending pod\e[0m" << std::endl;
+                    SendPackage<LAUNCHPackageGame>(
+                            getManager()->gameObjectContainer.GetServerObjectID(pod->gameObject),
+                            getManager()->gameObjectContainer.GetServerObjectID(gameObject));
                 }
                 else
                 {
                     PodController   *tocall = FindFirstAvailablePod();
 
-                    SendPackage<CALLPackageGame>(
-                            getManager()->gameObjectContainer.GetServerObjectID(tocall->gameObject),
-                            gameObject->transform.GetPosition().x,
-                            gameObject->transform.GetPosition().y);
+                    std::cout << "\e[31mCalling Pod\e[0m" << std::endl;
+                    if (tocall)
+                        SendPackage<CALLPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(tocall->gameObject));
                 }
             }
         }
@@ -217,7 +221,10 @@ namespace SaltyEngine
     bool PlayerController::Attach(PodController *toattach)
     {
         if (pod)
+        {
+            std::cout << "I alreay have a pod" << std::endl;
             return false;
+        }
         pod = toattach;
         return true;
     }
@@ -227,8 +234,13 @@ namespace SaltyEngine
         if (pod)
         {
             bool res = pod->Launch();
+
+            std::cout << std::boolalpha << "Res: " << res << std::endl;
             if (res)
+            {
+                std::cout << "Resetting pod" << std::endl;
                 pod = NULL;
+            }
             return res;
         }
         return false;
@@ -240,13 +252,14 @@ namespace SaltyEngine
         {
             pod = FindFirstAvailablePod();
             if (pod)
-                return pod->Call(gameObject->transform.GetPosition());
+                return pod->Call(this);
         }
         return false;
     }
 
     bool PlayerController::HasPod() const
     {
+        std::cout << "Pod: " << pod << std::endl;
         return pod != NULL;
     }
 
@@ -289,6 +302,22 @@ namespace SaltyEngine
 
     void PlayerController::SetUpdateHighScore(bool update) {
         updateHighScore = update;
+    }
+
+    void PlayerController::OnCollisionEnter(ICollider *collider)
+    {
+        SaltyEngine::ACollider2D<sf::Vector2i> *c = dynamic_cast<SaltyEngine::ACollider2D<sf::Vector2i>*>(collider);
+
+        if (!c)
+            return;
+        if (c->CompareTag(SaltyEngine::Layer::Tag::Enemy))
+        {
+            if (isServerSide())
+            {
+                BroadCastReliable<DEATHPackage>(getManager()->gameObjectContainer.GetServerObjectID(gameObject));
+                Die();
+            }
+        }
     }
 
 }

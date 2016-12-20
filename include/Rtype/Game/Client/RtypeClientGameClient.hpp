@@ -48,6 +48,7 @@ namespace Rtype
                 virtual void onGetUPGRADEPackage(UPGRADEPackageGame const &pack);
                 virtual void onGetMATEPackage(MATEPackageGame const &);
                 virtual void onGetGAMEOVERPackage(GAMEOVERPackageGame const &game);
+                virtual void onGetDEATHPackage(DEATHPackage const &);
 
             public:
                 void SendInput(std::string const &axisName, float const value);

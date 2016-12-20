@@ -24,7 +24,7 @@ void Rtype::Game::Server::Room::Start(const uint16_t port, const size_t max, con
     SaltyEngine::SFML::PhysicsHandler *ph = new SaltyEngine::SFML::PhysicsHandler(1920 / 2, 1080 / 2, true);
     SaltyEngine::Engine::Instance().SetPhysicsHandler(ph);
 
-//    SaltyEngine::Engine::Instance().SetFrameRate(60);
+//    SaltyEngine::Engine::Instance().SetFrameRate(30);
 
     SaltyEngine::SFML::Scene *scene = new SaltyEngine::SFML::Scene();
 

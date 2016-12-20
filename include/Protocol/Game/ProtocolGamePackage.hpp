@@ -37,7 +37,8 @@ typedef enum : unsigned char {
     GAMEENEMYSHOT = 16,
     GAMEUPGRADE = 17,
     GAMEMATE = 18,
-    GAMEGAMEOVER = 19
+    GAMEGAMEOVER = 19,
+    GAMEDEATH = 20
 } GamePurpose;
 
 class PackageGameHeader {
@@ -210,51 +211,63 @@ public:
 
 class TAKEPackageGame : public ObjectIDPackageGame {
 public:
-    TAKEPackageGame(unsigned short sequenceID = 0, unsigned short podID = 0, unsigned char playerId = 0, unsigned short transactionID = 0) :
+    TAKEPackageGame(unsigned short sequenceID = 0, unsigned short podID = 0, unsigned short playerObjectID = 0, unsigned char front = 0, unsigned short transactionID = 0) :
             ObjectIDPackageGame(sizeof(TAKEPackageGame), GamePurpose::GAMETAKE, sequenceID, podID, true, transactionID),
-            playerID(playerId)
+            playerObjectID(playerObjectID),
+            front(front)
     {
 
     }
 
 public:
-    unsigned char playerID;
+    unsigned short playerObjectID;
+    unsigned char   front;
 };
 
 class CALLPackageGame : public ObjectIDPackageGame {
 public:
-    CALLPackageGame(unsigned short sequenceID = 0, unsigned short podID = 0, unsigned char playerID = 0, int posX = 0, int posY = 0, unsigned short transactionID = 0) :
+    CALLPackageGame(unsigned short sequenceID = 0, unsigned short podID = 0, unsigned short playerObjectID = 0, unsigned short transactionID = 0) :
             ObjectIDPackageGame(sizeof(CALLPackageGame), GamePurpose::GAMECALL, sequenceID, podID, true, transactionID),
-            posX(posX),
-            posY(posY),
-            playerID(playerID)
+            playerObjectID(playerObjectID)
     {
 
     }
 
 public:
-    int posX;
-    int posY;
-    unsigned char playerID;
+    unsigned short playerObjectID;
 };
 
 class LAUNCHPackageGame : public ObjectIDPackageGame {
 public:
-    LAUNCHPackageGame(unsigned short sequenceID = 0, unsigned short podID = 0, unsigned char playerID = 0, unsigned short transactionID = 0)
+    LAUNCHPackageGame(unsigned short sequenceID = 0, unsigned short podID = 0, unsigned short playerObjectID = 0, int posX = 0, int posY = 0, unsigned short transactionID = 0)
             : ObjectIDPackageGame(sizeof(LAUNCHPackageGame), GamePurpose::GAMELAUNCH, sequenceID, podID, true, transactionID),
-              playerID(playerID)
+              playerObjectID(playerObjectID),
+              fromX(posX),
+              fromY(posY)
     {
 
     }
 
 public:
-    unsigned char playerID;
+    unsigned short playerObjectID;
+    int fromX;
+    int fromY;
 };
 
 class REBORNPackageGame : public ObjectIDPackageGame {
 public:
     REBORNPackageGame(unsigned short sequenceID = 0, unsigned short objectID = 0, unsigned short transactionID = 0)
             : ObjectIDPackageGame(sizeof(REBORNPackageGame), GamePurpose::GAMEREBORN, sequenceID, objectID, true, transactionID) {
+    }
+};
+
+class DEATHPackage : public ObjectIDPackageGame
+{
+public:
+    DEATHPackage(unsigned short sequenceID = 0, unsigned short playerObjectID = 0, unsigned short transactionID = 0) :
+            ObjectIDPackageGame(sizeof(DEATHPackage), GAMEDEATH, sequenceID, playerObjectID, true, transactionID)
+    {
+
     }
 };
 

@@ -21,14 +21,16 @@ public:
     virtual SaltyEngine::Component *CloneComponent(SaltyEngine::GameObject* const obj);
 
 public:
-    virtual void OnStart();
-    virtual void OnTriggerEnter(SaltyEngine::ICollider *);
+    virtual void Start();
+    virtual void FixedUpdate();
+    virtual void OnCollisionEnter(SaltyEngine::ICollider *);
 
 public:
     bool Upgrade();
     bool Launch();
-    bool Call(SaltyEngine::Vector const &to);
+    bool Call(SaltyEngine::PlayerController *player);
     bool Attach(SaltyEngine::PlayerController *player);
+    bool Attach(SaltyEngine::PlayerController *player, bool front);
 
 public:
     bool isAttached() const;
@@ -37,8 +39,11 @@ public:
 
 private:
     SaltyEngine::PlayerController *attachedPlayer;
+    SaltyEngine::PlayerController *caller;
+    bool isAtFront;
 //    SaltyEngine::AAnimationClip *anim;
     size_t level;
+    double speed;
 };
 
 

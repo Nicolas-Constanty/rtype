@@ -29,6 +29,7 @@ namespace SaltyEngine {
 		PlayerController(const std::string &name, GameObject* const gamObj);
 		void Start();
 		void FixedUpdate();
+		void OnCollisionEnter(ICollider *collider);
 		void SetColor(unsigned char color);
         void SetHighScore(int highScore);
 		int GetHighScore() const;
