@@ -85,20 +85,20 @@ target_link_libraries(explosion_basic ${PREFAB_LIBRARIES})
 # SPACESHIPS
 
 # PLAYER
-file(GLOB PLAYER_SOURCE_FILE "src/Prefabs/Player/*.cpp")
-file(GLOB PLAYER_INC_FILE "include/Prefabs/Player/*.hpp")
+file(GLOB PLAYER_SOURCE_FILE "src/Prefabs/Player/*.cpp" "src/Prefabs/PodHandler/*.cpp")
+file(GLOB PLAYER_INC_FILE "include/Prefabs/Player/*.hpp" "include/Prefabs/PodHandler/*.hpp")
 add_library(player SHARED ${PLAYER_SOURCE_FILE} ${PLAYER_INC_FILE})
 target_link_libraries(player ${PREFAB_LIBRARIES} missile_laser)
 
 # MATE (network managed client)
-file(GLOB MATE_SOURCE_FILES "src/Prefabs/Mate/*.cpp" )
-file(GLOB MATE_INC_FILES "include/Prefabs/Mate/*.hpp")
+file(GLOB MATE_SOURCE_FILES "src/Prefabs/Mate/*.cpp" "src/Prefabs/PodHandler/*.cpp")
+file(GLOB MATE_INC_FILES "include/Prefabs/Mate/*.hpp" "include/Prefabs/PodHandler/*.hpp")
 add_library(mate SHARED ${MATE_SOURCE_FILES} ${MATE_INC_FILES})
 target_link_libraries(mate ${PREFAB_LIBRARIES} missile_laser)
 
 # POD
-file(GLOB POD_SOURCE_FILES "src/Prefabs/Pod/*.cpp")
-file(GLOB POD_INC_FILES "include/Prefabs/Pod/*.hpp")
+file(GLOB POD_SOURCE_FILES "src/Prefabs/Pod/*.cpp" "src/Prefabs/PodHandler/*.cpp")
+file(GLOB POD_INC_FILES "include/Prefabs/Pod/*.hpp" "include/Prefabs/PodHandler/*.hpp")
 add_library(pod SHARED ${POD_SOURCE_FILES} ${POD_INC_FILES})
 target_link_libraries(pod ${PREFAB_LIBRARIES})
 

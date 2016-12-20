@@ -280,7 +280,7 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetCALLPackage(CALLPackageGam
         {
             PodController   *podController = object->GetComponent<PodController>();
 
-            if (podController && podController->isAttachedTo(playerID))
+            if (podController && podController->isAttachedTo(gameManager->GetPlayer(playerID)))
             {
                 podController->Call(podController->getAttachedPlayer());
             }
@@ -349,7 +349,7 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetLAUNCHPackage(LAUNCHPackag
         {
             controller = object->GetComponent<PodController>();
             std::cout << "controller:  " << controller << std::endl;
-            if (controller && controller->isAttachedTo(playerID))
+            if (controller && controller->isAttachedTo(gameManager->GetPlayer(playerID)))
             {
                 std::cout << "Attached" << std::endl;
                 controller->getAttachedPlayer()->Launch();

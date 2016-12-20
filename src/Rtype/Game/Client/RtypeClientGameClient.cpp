@@ -156,12 +156,12 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetTAKEPackage(TAKEPackageGam
     if (object && play)
     {
         PodController   *podController = object->GetComponent<PodController>();
-        SaltyEngine::PlayerController   *playerController = play->GetComponent<SaltyEngine::PlayerController>();
-        MateComponent   *mateComponent = play->GetComponent<MateComponent>();
+        PodHandler      *podHandler = play->GetComponent<PodHandler>();
 
-        if (playerController && podController && !podController->isAttached())
+        std::cout << "Pod controller: " << podController << ", Pod handler: " << podHandler << std::endl;
+        if (podHandler && podController && !podController->isAttached())
         {
-            podController->Attach(playerController, static_cast<bool>(pack.front));
+            podController->Attach(podHandler, static_cast<bool>(pack.front));
         }
     }
 }

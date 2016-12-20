@@ -7,6 +7,7 @@
 
 #include <Prefabs/GenericController.hpp>
 #include <Prefabs/Player/PlayerController.hpp>
+#include <Prefabs/PodHandler/PodHandler.hpp>
 
 class PodController : public RtypePrefab
 {
@@ -28,18 +29,18 @@ public:
 public:
     bool Upgrade();
     bool Launch();
-    bool Call(SaltyEngine::PlayerController *player);
-    bool Attach(SaltyEngine::PlayerController *player);
-    bool Attach(SaltyEngine::PlayerController *player, bool front);
+    bool Call(PodHandler *podController);
+    bool Attach(PodHandler *podController);
+    bool Attach(PodHandler *podController, bool front);
 
 public:
     bool isAttached() const;
-    bool isAttachedTo(unsigned char playerID) const;
-    SaltyEngine::PlayerController   *getAttachedPlayer() const;
+    bool isAttachedTo(SaltyEngine::GameObject *obj) const;
+    PodHandler   *getAttachedPlayer() const;
 
 private:
-    SaltyEngine::PlayerController *attachedPlayer;
-    SaltyEngine::PlayerController *caller;
+    PodHandler *attachedPlayer;
+    PodHandler *caller;
     bool isAtFront;
 //    SaltyEngine::AAnimationClip *anim;
     size_t level;

@@ -6,6 +6,7 @@
 #include <Prefabs/Pod/PodController.hpp>
 #include <Prefabs/Missile/Laser/LaserController.hpp>
 #include <Rtype/Game/Client/GameGUIBeam.hpp>
+#include <Prefabs/PodHandler/PodHandler.hpp>
 
 namespace SaltyEngine
 {
@@ -15,7 +16,6 @@ namespace SaltyEngine
         power = 0;
         beamShot = NULL;
         playerID = 0;
-        pod = NULL;
         highScore = 0;
         m_health = 1;
 	};
@@ -26,7 +26,6 @@ namespace SaltyEngine
         power = 0;
         beamShot = NULL;
         playerID = 0;
-        pod = NULL;
         highScore = 0;
         m_health = 1;
 	};
@@ -62,6 +61,7 @@ namespace SaltyEngine
 
         InputKey::AddAction("Pod", new Input::Action(Input::KeyCode::LShift, std::make_pair<unsigned int, int>(0, 2))); //todo koi t'est-ce qui fo fer
 
+        handler = gameObject->GetComponent<PodHandler>();
         // Beam SFX for the player
         if (!isServerSide())
         {
@@ -127,16 +127,16 @@ namespace SaltyEngine
             if (!isServerSide())
             {
                 std::cout << "Client side" << std::endl;
-                if (pod)
+                if (handler->HasPod())
                 {
                     std::cout << "\e[31mSending pod\e[0m" << std::endl;
                     SendPackage<LAUNCHPackageGame>(
-                            getManager()->gameObjectContainer.GetServerObjectID(pod->gameObject),
+                            getManager()->gameObjectContainer.GetServerObjectID(handler->getPod()->gameObject),
                             getManager()->gameObjectContainer.GetServerObjectID(gameObject));
                 }
                 else
                 {
-                    PodController   *tocall = FindFirstAvailablePod();
+                    PodController   *tocall = handler->FindFirstAvailablePod();
 
                     std::cout << "\e[31mCalling Pod\e[0m" << std::endl;
                     if (tocall)
@@ -216,65 +216,6 @@ namespace SaltyEngine
 
     void PlayerController::SetPlayerID(int id) {
         this->playerID = id;
-    }
-
-    bool PlayerController::Attach(PodController *toattach)
-    {
-        if (pod)
-        {
-            std::cout << "I alreay have a pod" << std::endl;
-            return false;
-        }
-        pod = toattach;
-        return true;
-    }
-
-    bool PlayerController::Launch()
-    {
-        if (pod)
-        {
-            bool res = pod->Launch();
-
-            std::cout << std::boolalpha << "Res: " << res << std::endl;
-            if (res)
-            {
-                std::cout << "Resetting pod" << std::endl;
-                pod = NULL;
-            }
-            return res;
-        }
-        return false;
-    }
-
-    bool PlayerController::Call()
-    {
-        if (!pod)
-        {
-            pod = FindFirstAvailablePod();
-            if (pod)
-                return pod->Call(this);
-        }
-        return false;
-    }
-
-    bool PlayerController::HasPod() const
-    {
-        std::cout << "Pod: " << pod << std::endl;
-        return pod != NULL;
-    }
-
-    PodController *PlayerController::FindFirstAvailablePod()
-    {
-        for (SaltyEngine::GameObject *curr : getManager()->getPods())
-        {
-            PodController   *podController = curr->GetComponent<PodController>();
-
-            if (podController && !podController->isAttached())
-            {
-                return podController;
-            }
-        }
-        return nullptr;
     }
 
     void PlayerController::SetColor(unsigned char color) {

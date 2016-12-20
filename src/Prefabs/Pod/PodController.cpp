@@ -74,6 +74,7 @@ void PodController::FixedUpdate()
 
 void PodController::OnCollisionEnter(SaltyEngine::ICollider *collider)
 {
+    std::cout << "Colliding" << std::endl;
     if (attachedPlayer)
         return;
 
@@ -87,18 +88,21 @@ void PodController::OnCollisionEnter(SaltyEngine::ICollider *collider)
 
         if (c->gameObject->GetTag() == SaltyEngine::Layer::Tag::Player)
         {
-            SaltyEngine::PlayerController   *player = c->gameObject->GetComponent<SaltyEngine::PlayerController>();
+            PodHandler   *player = c->gameObject->GetComponent<PodHandler>();
 
+            std::cout << "With Player: " << player << std::endl;
             if (!player)
                 return;
 
             if (Attach(player))
             {
+                std::cout << "Attached" << std::endl;
                 try
                 {
                     unsigned short podid = 0;
 
                     podid = getManager()->gameObjectContainer.GetServerObjectID(gameObject);
+                    std::cout << "Broadcast take" << std::endl;
                     BroadCastReliable<TAKEPackageGame>(podid, getManager()->gameObjectContainer.GetServerObjectID(player->gameObject), isAtFront);
                 }
                 catch (std::runtime_error const &err)
@@ -163,7 +167,7 @@ bool PodController::Launch()
     return true;
 }
 
-bool PodController::Call(SaltyEngine::PlayerController *player)
+bool PodController::Call(PodHandler *player)
 {
     if (attachedPlayer != NULL)
         return false;
@@ -187,26 +191,26 @@ bool PodController::Call(SaltyEngine::PlayerController *player)
     return true;
 }
 
-bool PodController::Attach(SaltyEngine::PlayerController *player)
+bool PodController::Attach(PodHandler *podController)
 {
-    return Attach(player, gameObject->transform.position.x - player->gameObject->transform.position.x > 0);
+    return Attach(podController, gameObject->transform.position.x - podController->gameObject->transform.position.x > 0);
 }
 
-bool PodController::Attach(SaltyEngine::PlayerController *player, bool front)
+bool PodController::Attach(PodHandler *podController, bool front)
 {
-    if (!attachedPlayer && !player->HasPod())
+    if (!attachedPlayer && !podController->HasPod())
     {
-        attachedPlayer = player;
+        attachedPlayer = podController;
         gameObject->transform.SetParent(&attachedPlayer->gameObject->transform);
         if (front)
         {
             isAtFront = true;
-            gameObject->transform.SetPosition(player->gameObject->transform.position + SaltyEngine::Vector(20, 0));
+            gameObject->transform.SetPosition(podController->gameObject->transform.position + SaltyEngine::Vector(20, 0));
         }
         else
         {
             isAtFront = false;
-            gameObject->transform.SetPosition(player->gameObject->transform.position - SaltyEngine::Vector(20, 0));
+            gameObject->transform.SetPosition(podController->gameObject->transform.position - SaltyEngine::Vector(20, 0));
         }
         return attachedPlayer->Attach(this);
     }
@@ -218,12 +222,12 @@ bool PodController::isAttached() const
     return attachedPlayer != NULL;
 }
 
-bool PodController::isAttachedTo(unsigned char playerID) const
+bool PodController::isAttachedTo(SaltyEngine::GameObject *object) const
 {
-    return isAttached() && attachedPlayer->GetPlayerID() == playerID;
+    return isAttached() && attachedPlayer->gameObject == object;
 }
 
-SaltyEngine::PlayerController *PodController::getAttachedPlayer() const
+PodHandler *PodController::getAttachedPlayer() const
 {
     return attachedPlayer;
 }
