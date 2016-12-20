@@ -96,7 +96,13 @@ namespace SaltyEngine
             }
             m_debug.remove_if([gm](BoxCollider2D *box) { return (gm == box->gameObject); });
         }
-	}
+
+        ::SaltyEngine::Vector2i Renderer::GetRealSize() const {
+			sf::Vector2u size = GetRenderWindow()->getSize();
+			SaltyEngine::Vector2f	scale = SaltyEngine::Engine::Instance().GetCurrentScene()->GetScale();
+            return SaltyEngine::Vector2i(static_cast<int>(size.x / scale.x), static_cast<int>(size.y / scale.y));
+        }
+    }
 }
 
 

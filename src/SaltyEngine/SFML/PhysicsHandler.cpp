@@ -102,7 +102,7 @@ namespace SaltyEngine
                 bool update = false;
 //                    m_mutext.lock();
                 for (ColliderList::const_iterator col = m_colliders.begin(); col != m_colliders.end(); ++col) {
-                    (*col)->GetSprite()->setScale((*col)->gameObject->transform.localScale.x, (*col)->gameObject->transform.localScale.y);
+//                    (*col)->GetSprite()->setScale((*col)->gameObject->transform.localScale.x, (*col)->gameObject->transform.localScale.y);
                      Transform &t = (*col)->gameObject->transform;
                     const sf::IntRect &r = (*col)->GetRect();
 //                    (*col)->GetSprite()->setPosition(

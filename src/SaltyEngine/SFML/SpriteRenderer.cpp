@@ -17,11 +17,6 @@ namespace SaltyEngine
                 m_sprite = new Sprite(nullptr);
             }
 
-            Sprite *sfS = dynamic_cast<Sprite*>(m_sprite);
-
-            gameObject->transform.localScale.x = sfS->getScale().x;
-            gameObject->transform.localScale.y = sfS->getScale().y;
-
             m_window = w;
             Rect *rect = dynamic_cast<Rect *>(GetSprite()->GetRect());
             if (rect)
@@ -44,11 +39,6 @@ namespace SaltyEngine
             if (sprite == nullptr) {
                 m_sprite = new Sprite(nullptr);
             }
-
-            Sprite *sfS = dynamic_cast<Sprite*>(m_sprite);
-
-            gameObject->transform.localScale.x = sfS->getScale().x;
-            gameObject->transform.localScale.y = sfS->getScale().y;
 
             m_window = w;
             Rect *rect = dynamic_cast<Rect *>(GetSprite()->GetRect());

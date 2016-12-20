@@ -202,7 +202,7 @@ namespace SaltyEngine {
                         return false;
                     }
 
-                    Vector2f scale = Vector2f(1, 1);
+                    Vector2f scale = m_current_scene->scale;
                     try {
                         if (!map["scale"]["width"]().empty()) {
                             scale.x = std::stof(map["scale"]["width"]());
@@ -270,7 +270,7 @@ namespace SaltyEngine {
                         sprites.push_back(sprite);
                     }
 
-                    Vector2f scale = Vector2f(1, 1);
+                    Vector2f scale = m_current_scene->scale;
                     try {
                         if (!map["scale"]["width"]().empty()) {
                             scale.x = std::stof(map["scale"]["width"]());

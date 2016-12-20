@@ -14,10 +14,12 @@ namespace SaltyEngine
 	AScene::AScene() : Object("AScene")
 	{
 		m_gravity = 9.81f;
+		m_scale = Vector2f(1, 1);
 	}
 
 	AScene::AScene(const std::string &name) : Object(name) {
 		m_gravity = 9.81f;
+		m_scale = Vector2f(1, 1);
 	}
 
 	/**
@@ -367,6 +369,7 @@ namespace SaltyEngine
 			Debug::PrintWarning("Object " + gameobj->GetName() + " was already add in the scene");
 			return;
 		}
+		gameobj->transform.localScale = m_scale;
 		m_objects.push_back(gameobj);
         m_init.emplace(m_objects.size() - 1);
     }
@@ -437,6 +440,14 @@ namespace SaltyEngine
 
 	void AScene::PushOnTriggerExit(std::function<void()> func) {
 		m_onTriggerExit.push(func);
+	}
+
+	void AScene::SetScale(Vector2f const scale) {
+		m_scale = scale;
+	}
+
+	const Vector2f &AScene::GetScale() const {
+		return m_scale;
 	}
 }
 

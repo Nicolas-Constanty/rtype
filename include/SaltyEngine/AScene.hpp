@@ -36,6 +36,8 @@ namespace SaltyEngine
 		GameObject	*FindById(size_t id) const;
 		virtual void operator<<(GameObject * const gameobj);
 		std::vector<SaltyEngine::GameObject *> const &GetAllGameObject() const;
+		void	SetScale(Vector2f const scale);
+		const Vector2f	&GetScale() const;
 
 
 	public:
@@ -81,6 +83,7 @@ namespace SaltyEngine
 		std::queue<size_t>			m_init;
 		float						m_gravity;
 		std::list<GameObject *>		m_deleted;
+		Vector2f					m_scale;
 
 	protected:
 		std::queue<std::function<void()>>	m_onCollisionEnter;
