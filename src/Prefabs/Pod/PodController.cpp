@@ -193,7 +193,7 @@ bool PodController::Call(PodHandler *player)
 
 bool PodController::Attach(PodHandler *podController)
 {
-    return Attach(podController, gameObject->transform.position.x - podController->gameObject->transform.position.x > 0);
+    return Attach(podController, gameObject->transform.GetPosition().x - podController->gameObject->transform.GetPosition().x > 0);
 }
 
 bool PodController::Attach(PodHandler *podController, bool front)
@@ -205,12 +205,12 @@ bool PodController::Attach(PodHandler *podController, bool front)
         if (front)
         {
             isAtFront = true;
-            gameObject->transform.SetPosition(podController->gameObject->transform.position + SaltyEngine::Vector(20, 0));
+            gameObject->transform.SetPosition(podController->gameObject->transform.GetPosition() + SaltyEngine::Vector(20, 0));
         }
         else
         {
             isAtFront = false;
-            gameObject->transform.SetPosition(podController->gameObject->transform.position - SaltyEngine::Vector(20, 0));
+            gameObject->transform.SetPosition(podController->gameObject->transform.GetPosition() - SaltyEngine::Vector(20, 0));
         }
         return attachedPlayer->Attach(this);
     }
