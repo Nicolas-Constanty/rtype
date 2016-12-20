@@ -1,0 +1,18 @@
+{
+    "sprites": [
+        "{{sprite}}",
+        "{{sprite2}}"
+    ],
+    "sounds": [
+        "{{sound1}}",
+        "{{sound2}}"
+    ],
+    "animations": [
+        "{{animation1}}",
+        "{{animation2}}"
+    ],
+    "lib": "{{monster{.dll, .so}}}",
+    "dependencies": [
+        "{{prefabName}}"
+    ]
+}

@@ -1,0 +1,11 @@
+{
+  "mode": "LOOP",
+  "framerate": "5",
+  "sprites": [
+    "MonsterNeunoeil/bullet_explode1",
+    "MonsterNeunoeil/bullet_explode2",
+    "MonsterNeunoeil/bullet_explode3",
+    "MonsterNeunoeil/bullet_explode4",
+    "MonsterNeunoeil/bullet_explode5"
+  ]
+}

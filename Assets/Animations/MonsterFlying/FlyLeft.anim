@@ -1,0 +1,14 @@
+{
+  "mode": "LOOP",
+  "framerate": "8",
+  "sprites": [
+    "MonsterFlying/FlyR1",
+    "MonsterFlying/FlyR2",
+    "MonsterFlying/FlyR3",
+    "MonsterFlying/FlyR4",
+    "MonsterFlying/FlyR5",
+    "MonsterFlying/FlyR6",
+    "MonsterFlying/FlyR7",
+    "MonsterFlying/FlyR8"
+  ]
+}

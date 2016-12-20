@@ -113,6 +113,28 @@ namespace SaltyEngine {
                 Pause
             };
         }
+        namespace Mouse {
+            enum Button {
+                Left,
+                Right,
+                Middle,
+                XButton1,
+                XButton2
+            };
+        }
+        namespace MotionController {
+            enum Axis {
+                X = 0,
+                Y,
+                Z,
+                R,
+                U,
+                V,
+                PovX,
+                PovY,
+                Count
+            };
+        }
     }
 }
 

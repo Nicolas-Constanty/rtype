@@ -8,59 +8,58 @@
 #include <numeric>
 #include <chrono>
 #include <memory>
+#include "SaltyEngine/DefaultRenderer.hpp"
+#include "SaltyEngine/Input/DefaultEventManager.hpp"
+#include "Common/Singleton.hpp"
+#include "SaltyEngine/Object.hpp"
+#include "SaltyEngine/IPhysicHandler.hpp"
 
 
 #define DEFAULT_FRAME_RATE 60
 
 namespace SaltyEngine
 {
-	enum EngineStatus
-	{
-		start,
-		stop,
-		pause
-	};
-	class Scene;
+	class AScene;
 #define print_status(x) x
 
-	class SaltyEngine
+	class Engine : public Singleton<Engine>
 	{
+		friend class Singleton<Engine>;
 	public:
-		SaltyEngine();
-		~SaltyEngine();
+		Engine();
+		virtual ~Engine();
 
 		void Start();
 		void Stop();
-		virtual void Run();
-		EngineStatus GetStatus() const;
+		virtual void Run(void);
+		EngineStatus GetStatus(void) const;
 		bool LoadScene(size_t index);
 		bool LoadScene(const std::string &name);
 		void SetFrameRate(size_t fr);
-		void operator<<(Scene *scene);
-		long long GetDeltaTime() const;
-		double GetFixedDeltaTime() const;
-
-	/*public:
-		static std::string const Tag[];*/
+		void operator<<(AScene *scene);
+		double GetDeltaTime(void) const;
+		double GetFixedDeltaTime(void) const;
+		void SetRenderer(IRenderer *renderer);
+		void SetEventManager(Input::IEventManager *ev_manager);
+		void SetPhysicsHandler(IPhysicsHandler *renderer);
+		AScene *GetCurrentScene(void) const;
+		IRenderer *GetRenderer(void) const;
+		IPhysicsHandler *GetPhysicsHandler(void) const;
 
 	private:
-		EngineStatus						m_status;
-		std::vector<std::unique_ptr<Scene>>	m_scenes;
-		size_t								m_current;
-		std::chrono::nanoseconds			m_frame_rate;
-		size_t								m_fps;
+		EngineStatus								m_status;
+		std::vector<std::unique_ptr<AScene>>		m_scenes;
+		size_t										m_current;
+		std::chrono::nanoseconds					m_frame_rate;
+		size_t										m_fps;
 		std::chrono::duration<long long, std::nano> m_delta_time;
+		IRenderer									*m_renderer;
+		Input::IEventManager						*m_even_manager;
+        IPhysicsHandler                             *m_physics_handler;
 	};
 }
-//
-//namespace SaltyEngine
-//{
-//	std::string const SaltyEngine::Tag[] = {
-//		#include "Tag.conf"
-//	};
-//}
 
-#include "SaltyEngine/Scene.hpp"
+template class Singleton<SaltyEngine::Engine>;
 
 #endif // !SALTYENGINE_HPP_
 

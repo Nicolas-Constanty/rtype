@@ -1,0 +1,9 @@
+{
+    "texture": "monsterwalker",
+    "rect": {
+        "x": "136",
+        "y": "0",
+        "width": "34",
+        "heigth": "34"
+    }
+}

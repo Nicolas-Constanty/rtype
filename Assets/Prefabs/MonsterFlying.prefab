@@ -1,0 +1,14 @@
+{
+    "sprites": [
+        "MonsterFlying/FlyR1"
+    ],
+    "animations": [
+        "MonsterFlying/FlyLeft"
+    ],
+    "lib": "libmonster_flying",
+    "dependencies": [
+    	"Missile",
+        "EnemyBullet",
+        "ExplosionBasic"
+    ]
+}

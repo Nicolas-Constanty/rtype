@@ -2,8 +2,8 @@
 // Created by veyrie_f on 23/10/2016.
 //
 
-#ifndef SPIDERCLIENT_SINGLETON_HPP
-#define SPIDERCLIENT_SINGLETON_HPP
+#ifndef SINGLETON_HPP
+#define SINGLETON_HPP
 
 #include <type_traits>
 
@@ -43,4 +43,4 @@ protected:
 //template <class T>
 //T Singleton<T>::m_instance = T();
 
-#endif //SPIDERCLIENT_SINGLETON_HPP
+#endif //!SINGLETON_HPP

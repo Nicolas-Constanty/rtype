@@ -1,0 +1,9 @@
+{
+  "texture": "Laser",
+  "rect": {
+    "x": "249",
+    "y": "90",
+    "width": "16",
+    "heigth": "4"
+  }
+}

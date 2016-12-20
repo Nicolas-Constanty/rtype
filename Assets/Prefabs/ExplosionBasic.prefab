@@ -1,0 +1,14 @@
+{
+    "sprites": [
+        "ExplosionBasic/explosion1",
+        "ExplosionBasic/explosion2",
+        "ExplosionBasic/explosion3",
+        "ExplosionBasic/explosion4",
+        "ExplosionBasic/explosion5",
+        "ExplosionBasic/explosion6"
+    ],
+    "animations": [
+        "Explosion/basic"
+    ],
+    "lib": "libexplosion_basic"
+}

@@ -5,6 +5,7 @@
 
 #include "SaltyBehaviour.hpp"
 #include "PlayerController.hpp"
+#include "Prefabs/Monster/MonsterController.hpp"
 
 namespace SaltyEngine
 {
@@ -12,7 +13,7 @@ namespace SaltyEngine
 	struct typelist {};
 
 	// ADD OBJECT HERE FOR GENERATION TEMPLATE
-	using GameObjects = typelist<PlayerController>;
+	using GameObjects = typelist<PlayerController, MonsterController>;
 }
 
 #endif // !SALTYOBJ_HPP_

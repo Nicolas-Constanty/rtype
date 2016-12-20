@@ -1,0 +1,9 @@
+{
+  "sprites": [
+    "Laser/loading1"
+  ],
+  "lib": "libbeam",
+  "animations": [
+    "Laser/loading"
+  ]
+}

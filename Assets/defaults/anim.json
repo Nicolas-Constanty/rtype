@@ -1,0 +1,12 @@
+{
+  "mode": "{{mode}}",
+  "framerate": "{{framerate}}",
+  "sprites": [
+    "{{sprite1}}",
+    "{{sprite2}}"
+  ],
+  "scale": {
+    "width": "1",
+    "heigth": "1"
+  }
+}

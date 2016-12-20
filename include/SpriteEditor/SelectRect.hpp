@@ -8,16 +8,16 @@ namespace SpriteEditor
 	class SelectRect : public sf::Drawable, public sf::Transformable
 	{
 	public:
-		SelectRect(sf::FloatRect rect);
+		explicit SelectRect(sf::FloatRect rect);
 		void SetColor(const sf::Color & color);
-		bool IsOver(const sf::Event & ev);
+		bool IsOver(const sf::Event & ev) const;
 		void Update(const sf::Event &ev);
 		void OnClic(const sf::Event &ev);
 		std::string GetExport();
 
 	private:
 
-		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const override
 		{
 			states.transform *= getTransform();
 			states.texture = &m_texture;

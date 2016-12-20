@@ -5,6 +5,7 @@
 
 #include <list>
 #include "SaltyEngine/Object.hpp"
+#include "SaltyEngine/Constants.hpp"
 
 namespace SaltyEngine
 {
@@ -17,16 +18,18 @@ namespace SaltyEngine
 		Component(Component&&) = delete;                  // Move construct
 		Component& operator=(Component const&) = delete;  // Copy assign
 		Component& operator=(Component &&) = delete;      // Move assign
-		Component(GameObject* const gameObj);
+		explicit Component(GameObject* const gameObj);
 		Component(const std::string &name, GameObject* const gameObj);
+		bool CompareTag(Layer::Tag tag) const;
 		virtual ~Component() {};
 
 	public:
-		std::string tag;
+		Layer::Tag tag;
 		GameObject* const gameObject;
 
-	public:
-		bool CompareTag(const std::string &tag);
+		virtual Component *CloneComponent(GameObject* const obj) {
+			return new Component("Component", obj);
+		}
 
 //		template<class T>
 //		T GetComponent()

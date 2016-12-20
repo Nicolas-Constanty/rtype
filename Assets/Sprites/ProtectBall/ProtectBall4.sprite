@@ -1,0 +1,9 @@
+{
+    "texture": "protectBall",
+    "rect": {
+        "x": "51",
+        "y": "0",
+        "width": "17",
+        "heigth": "17"
+    }
+}

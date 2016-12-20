@@ -29,8 +29,8 @@ namespace SaltyEngine {
             static std::map<std::pair<std::string, ActionType>, CallbackAction> m_actions_bind;
 
         public:
-            static bool BindAxis(std::string const &name, CallbackAxis callback);
-            static bool BindAction(std::string const &name, ActionType actionType, CallbackAction callback);
+            static void BindAxis(std::string const &name, CallbackAxis callback);
+            static void BindAction(std::string const &name, ActionType actionType, CallbackAction callback);
 
         private:
             // TODO use vector on name
@@ -43,6 +43,12 @@ namespace SaltyEngine {
         };
     }
 }
+
+/// Example Binding
+/// SaltyEngine::Input::Mapping::AddAction("Act", new SaltyEngine::Input::Action(SaltyEngine::Input::KeyCode::A));
+/// SaltyEngine::Input::Mapping::BindAction("Act", SaltyEngine::Input::ActionType::Pressed, [] () { std::cout << "Act" << std::endl; });
+///
+/// Example
 
 
 #endif //MAPPING_HPP

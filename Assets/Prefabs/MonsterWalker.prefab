@@ -1,0 +1,17 @@
+{
+    "sprites": [
+        "MonsterWalker/WalkL1"
+    ],
+    "animations": [
+        "MonsterWalker/WalkLeft",
+        "MonsterWalker/WalkRight",
+        "MonsterWalker/JumpLeft",
+        "MonsterWalker/JumpRight"
+    ],
+    "lib": "libmonster_walker",
+    "dependencies": [
+    	"Missile",
+        "EnemyBullet",
+        "ExplosionBasic"
+    ]
+}

@@ -4,6 +4,7 @@
 #define TRANSFORM_HPP_
 
 #include <vector>
+#include <cmath>
 #include "SaltyEngine/Vector3.hpp"
 #include "SaltyEngine/Vector2.hpp"
 #include "SaltyEngine/Component.hpp"
@@ -20,7 +21,7 @@ namespace SaltyEngine
 		BaseTransform(BaseTransform&&) = delete;                  // Move construct
 		BaseTransform& operator=(BaseTransform const&) = delete;  // Copy assign
 		BaseTransform& operator=(BaseTransform &&) = delete;      // Move assign
-        BaseTransform(GameObject* const gameObj) : Component("Transform", gameObj)
+		explicit BaseTransform(GameObject* const gameObj) : Component("Transform", gameObj), localScale(1, 1)
         {
             m_parent = nullptr;
         }
@@ -38,7 +39,7 @@ namespace SaltyEngine
 		}
 		BaseTransform<T> *Find(const std::string &name) const
 		{
-			for (typename std::vector<BaseTransform<T> *>::const_iterator it = m_children.begin(); it != m_children.end(); it++)
+			for (typename std::vector<BaseTransform<T> *>::const_iterator it = m_children.begin(); it != m_children.end(); ++it)
 			{
 				if (name == (*it)->GetName())
 					return (*it);
@@ -57,18 +58,74 @@ namespace SaltyEngine
 		{
 			throw std::runtime_error("Rotate not implemented!");
 		}
+        void Rotate(float angle)
+        {
+            rotation += angle;
+
+            for (BaseTransform *tr : m_children)
+            {
+                // TODO : get distance
+                T diff = tr->position - position;
+                tr->Rotate(angle);
+                tr->position = position;
+                tr->position += tr->right() * diff.magnitude();
+            }
+        }
 		void RotateAround(const T & point, const T & axis, float angle)
 		{
 			throw std::runtime_error("RotateAround not implemented!");
 		}
+
+        T up() const
+        {
+            float rot = (rotation + 90.f) * M_PI / 180.f;
+            return T(cos(rot), sin(rot));
+        }
+
+        T right() const
+        {
+            float rot = rotation * M_PI / 180.f;
+            return T(cos(rot), sin(rot));
+        }
+
+        void LookAt(BaseTransform<T> const& target)
+        {
+            rotation = Vector::Angle(position, target.position);
+        }
+
 		void SetParent(BaseTransform<T> * parent)
 		{
 			m_parent = parent;
+			parent->m_children.push_back(this);
 		}
+
+		/**
+		 * @brief Translate the object according to a given vector
+		 * @param translation to be done
+		 * @note Will also move all the attached children
+		 */
 		void Translate(const T & translation)
 		{
 			position += translation;
+
+            for (BaseTransform *tr : m_children)
+            {
+                tr->position += translation;
+            }
 		}
+
+        void SetPosition(const T & pos)
+        {
+            T diff = position - pos;
+
+            position = pos;
+
+            for (BaseTransform *tr : m_children)
+            {
+                tr->position -= diff;
+            }
+        }
+
 		const std::vector<BaseTransform<T> *> &GetChildren()
 		{
 			return (m_children);
@@ -79,13 +136,19 @@ namespace SaltyEngine
 		}
 
 	public:
-		T rotation;
-		T localRotation;
+		float rotation = 0;
+		float localRotation = 0;
 		T position;
 		T localPosition;
+		T localScale;
 	private:
 		BaseTransform<T>					*m_parent;
 		std::vector<BaseTransform<T> *>		m_children;
+
+	public:
+		virtual Component *CloneComponent(GameObject* const obj) {
+			return new BaseTransform<T>(obj);
+		}
 	};
 }
 

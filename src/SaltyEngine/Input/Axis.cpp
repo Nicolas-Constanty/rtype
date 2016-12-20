@@ -1,9 +1,8 @@
 //
 // Created by wery_a on 24/11/16.
 //
-
 #include "SaltyEngine/Input/Axis.hpp"
-#include "SaltyEngine/Input/Mapping.hpp"
+
 
 namespace SaltyEngine {
     namespace Input {
@@ -11,16 +10,26 @@ namespace SaltyEngine {
 
         }
 
+        Axis::Axis(std::map<KeyCode::Key, float> keys, std::pair<unsigned int, MotionController::Axis> joystick)
+                : m_keys(keys), m_joystick(joystick) {
+
+        }
+
+        Axis::Axis(std::pair<unsigned int, MotionController::Axis> joystick)
+                : m_joystick(joystick) {
+
+        }
+
         Axis::~Axis() {
 
         }
 
-        const std::map<KeyCode::Key, float>& Axis::getKeys() {
+        const std::map<KeyCode::Key, float>& Axis::getKeys() const {
             return m_keys;
         }
 
-        float Axis::getValue(KeyCode::Key key) {
-            return m_keys.find(key)->second;
+        const std::pair<unsigned int, MotionController::Axis>& Axis::getJoystick() const {
+            return m_joystick;
         }
     }
 }

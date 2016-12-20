@@ -5,17 +5,17 @@
 #ifndef ACTION_HPP
 #define ACTION_HPP
 
-#include "KeyCodes.hpp"
+#include <utility>
+#include "SaltyEngine/Input/KeyCodes.hpp"
+#include "SaltyEngine/Input/ActionType.hpp"
 
 namespace SaltyEngine {
     namespace Input {
-        enum ActionType {
-            Pressed,
-            Released
-        };
         class Action {
         public:
             Action(KeyCode::Key key, bool shift = false, bool ctrl = false, bool alt = false, bool cmd = false);
+            Action(KeyCode::Key key, std::pair<unsigned int, int> joystick, bool shift = false, bool ctrl = false, bool alt = false, bool cmd = false);
+            Action(std::pair<unsigned int, int> joystick);
             virtual ~Action();
 
         private:
@@ -24,11 +24,42 @@ namespace SaltyEngine {
             const bool          m_ctrl;
             const bool          m_alt;
             const bool          m_cmd;
+            const std::pair<unsigned int, int> m_joystick;
 
         public:
             KeyCode::Key    getKey() const;
-            bool    Pressed() const;
-            bool    Released() const;
+            const std::pair<unsigned int, int>   &getJoystick() const;
+
+            template <class Input>
+            bool    Down() const {
+                bool ret = false;
+                if (m_key != KeyCode::Unknown) {
+                    ret = Input::GetKeyDown(m_key);
+                }
+                if (m_joystick.second != -1 && Input::IsJoystickConnected(m_joystick.first) && Input::GetButtons(m_joystick.first) > (unsigned int)m_joystick.second) {
+                    ret = Input::IsButtonPressed(m_joystick.first, m_joystick.second);
+                }
+                return ret;
+            }
+
+            template <class Input>
+            bool    Up() const {
+                bool ret = false;
+                if (m_key != KeyCode::Unknown) {
+                    ret = Input::GetKeyUp(m_key);
+                }
+                return ret;
+            }
+
+            template <class Input>
+            bool    Pressed() const {
+                return Input::GetKey(m_key);
+            }
+
+            template <class Input>
+            bool    Released() const {
+                return !Input::GetKey(m_key);
+            }
         };
     }
 }

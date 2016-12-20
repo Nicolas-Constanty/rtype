@@ -1,0 +1,12 @@
+{
+    "sprites": [
+        "Monster/Monster1"
+    ],
+    "animations": [
+        "Monster/Walk"
+    ],
+    "lib": "libmonster",
+    "dependencies": [
+        "Missile"
+    ]
+}

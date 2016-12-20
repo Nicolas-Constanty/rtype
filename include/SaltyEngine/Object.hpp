@@ -7,64 +7,85 @@
 #include <iostream>
 #include <string>
 #include <memory>
+#include <utility>
 #include "Vector2.hpp"
 #include "Common/ICloneable.hpp"
 #include "Factory.hpp"
 
 namespace SaltyEngine
 {
-	static std::string const Tag[] = { "NONE", "PLAYER", "ENEMY" };
+	enum EngineStatus
+	{
+		start,
+		stop,
+		pause
+	};
 	typedef size_t uid;
+
 
 	class Object: protected ICloneable<Object>
 	{
-	private:
-		static std::atomic<int> s_id;
+		static std::atomic<uid> s_id;
 	public:
 		// delete copy and move constructors and assign operators
 		Object(Object const&) = delete;             // Copy construct
 		Object(Object&&) = delete;                  // Move construct
 		Object& operator=(Object const&) = delete;  // Copy assign
 		Object& operator=(Object &&) = delete;      // Move assign
-		Object(const std::string &name) : m_uid(++s_id), m_name(name) {};
+		explicit Object(const std::string &name);
 		virtual ~Object() {};
 
 	public:
-		uid GetInstanceID() const;
-		const std::string &GetName() const;
+		uid GetInstanceID(void) const;
+		const std::string &GetName(void) const;
+		void SetName(std::string const &name);
 
 	private:
 		uid m_uid;
-		const std::string m_name;
+		std::string m_name;
 
 	public:
-		static void Destroy(Object* original);
-		static std::shared_ptr<Object> Instantiate(std::string const& obj, Vector pos = Vector::zero(), double rot = 0)
+		static void Destroy(Object *original);
+		static Object *Instantiate(std::string const& obj, Vector pos = Vector::zero(), float rot = 0)
 		{
-            (void)pos;
-            (void)rot;
-			return Factory::Create(obj);
+			return Factory::Instance().Create(obj, pos, rot);
+		}
+
+		static Object *Instantiate()
+		{
+			return Factory::Instance().Create();
 		}
 
 	public:
-		virtual std::unique_ptr<Object> Clone() {
-            return std::unique_ptr<Object>(new Object(m_name + "(Clone)"));
-        }
-		virtual std::unique_ptr<Object> CloneMemberwise() {
-            return std::unique_ptr<Object>(new Object(m_name + "(Clone)"));
-        }
+		std::unique_ptr<Object> Clone() override
+		{
+			return (std::unique_ptr<Object>(new Object(m_name + "(Clone)")));
+		}
+
+		std::unique_ptr<Object> CloneMemberwise() override
+		{
+			return (std::unique_ptr<Object>(new Object(m_name + "(Clone)")));
+		}
 
 	public:
 		/**
-		 * _\brief : retrieves all the object of a certain type currently instantiated.
-		 * This is slow, so consider using it wisely
-		 */
+		* _\brief : retrieves all the object of a certain type currently instantiated.
+		* This is slow, so consider using it wisely
+		*/
 		template <class Type>
-		static std::list<std::shared_ptr<Object> > FindObjectsOfType()
+		static std::list<Object*> FindObjectsOfType()
 		{
-			return Factory::GetObjectsOfType<Type>();
+			return Factory::Instance().GetObjectsOfType<Type>();
 		}
+		virtual void Destroy();
 	};
+
+#ifdef _WIN32
+	//#define Instantiate(...) Object::Instantiate(## __VA_ARGS__)
+#define Instantiate(...) Object::Instantiate(__VA_ARGS__)
+#else
+#define Instantiate(...) Object::Instantiate(__VA_ARGS__)
+#endif
 }
 
 #endif // !OBJECT_HPP_

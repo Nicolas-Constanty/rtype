@@ -29,11 +29,11 @@ namespace SaltyEngine {
             m_actions[name] = std::unique_ptr<Action>(action);
         }
 
-        bool Mapping::BindAxis(std::string const &name, CallbackAxis callback) {
+        void Mapping::BindAxis(std::string const &name, CallbackAxis callback) {
             m_axis_bind[name] = callback;
         }
 
-        bool Mapping::BindAction(std::string const &name, ActionType actionType, CallbackAction callback) {
+        void Mapping::BindAction(std::string const &name, ActionType actionType, CallbackAction callback) {
             m_actions_bind[std::make_pair(name, actionType)] = callback;
         }
 
@@ -45,7 +45,9 @@ namespace SaltyEngine {
                 if (it_bind != m_axis_bind.end()) {
                     std::map<std::string, std::unique_ptr<Axis>>::const_iterator it_axis = m_axis.find(name);
                     if (it_axis != m_axis.end()) {
-                        return (it_bind->second(it_axis->second->getValue(key)));
+                        // TODO Deprecated
+//                        return (it_bind->second(it_axis->second->getValue(key)));
+                        return;
                     }
                 }
             }

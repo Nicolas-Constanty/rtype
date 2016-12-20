@@ -1,0 +1,18 @@
+{
+  "mode": "LOOP",
+  "framerate": "8",
+  "sprites": [
+    "ProtectBall/ProtectBall1",
+    "ProtectBall/ProtectBall2",
+    "ProtectBall/ProtectBall3",
+    "ProtectBall/ProtectBall4",
+    "ProtectBall/ProtectBall5",
+    "ProtectBall/ProtectBall6",
+    "ProtectBall/ProtectBall7",
+    "ProtectBall/ProtectBall8",
+    "ProtectBall/ProtectBall9",
+    "ProtectBall/ProtectBall10",
+    "ProtectBall/ProtectBall11",
+    "ProtectBall/ProtectBall12"
+  ]
+}

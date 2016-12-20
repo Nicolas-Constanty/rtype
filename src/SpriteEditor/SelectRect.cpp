@@ -21,7 +21,7 @@ namespace SpriteEditor
 		m_vertices[4].color = color;
 	}
 
-	bool SelectRect::IsOver(const sf::Event &ev)
+	bool SelectRect::IsOver(const sf::Event &ev) const
 	{
 		return (ev.mouseButton.x > m_select_area.left && ev.mouseButton.y > m_select_area.top &&
 			ev.mouseButton.x < m_select_area.left + m_select_area.width && ev.mouseButton.y < m_select_area.top + m_select_area.height);
@@ -34,7 +34,8 @@ namespace SpriteEditor
 			if (!m_enable)
 			{
 				m_enable = true;
-				m_start_point = sf::Vector2f(ev.mouseButton.x, ev.mouseButton.y);
+				m_start_point = sf::Vector2f(static_cast<float>(ev.mouseButton.x),
+					static_cast<float>(ev.mouseButton.y));
 			}
 			else
 				m_enable = false;
@@ -60,8 +61,8 @@ namespace SpriteEditor
 		{
 			m_vertices[0].position = m_start_point;
 			m_vertices[4].position = m_start_point;
-			float pos_x = ev.mouseMove.x;
-			float pos_y = ev.mouseMove.y;
+			float pos_x = static_cast<float>(ev.mouseMove.x);
+			float pos_y = static_cast<float>(ev.mouseMove.y);
 			if (pos_x < m_select_area.left)
 				pos_x = m_select_area.left;
 			else if (pos_x > m_select_area.left + m_select_area.width)

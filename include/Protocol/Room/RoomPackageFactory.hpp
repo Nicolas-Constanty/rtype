@@ -5,7 +5,8 @@
 #ifndef RTYPE_ROOMPACKAGEFACTORY_HPP
 #define RTYPE_ROOMPACKAGEFACTORY_HPP
 
-#include <vector>
+#include <list>
+#include <memory>
 #include "ProtocolRoomPackage.hpp"
 
 class RoomPackageFactory {
@@ -18,12 +19,12 @@ public:
     T *create(Args ...args) {
         T *package = new T(args...);
 
-        _vec.push_back(package);
+        _vec.emplace_back(package);
         return (package);
     }
 
 private:
-    std::vector<PackageRoomHeader *> _vec;
+    std::list<std::unique_ptr<PackageRoomHeader>> _vec;
 };
 
 #endif //RTYPE_ROOMPACKAGEFACTORY_HPP

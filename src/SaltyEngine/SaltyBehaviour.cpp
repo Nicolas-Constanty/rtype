@@ -51,7 +51,7 @@ namespace SaltyEngine
 	 * @param	time	The time.
 	 */
 
-	void SaltyBehaviour::__Wait_For_Seconds(size_t time) const
+	void SaltyBehaviour::__Wait_For_Seconds(size_t time)
 	{
 		std::this_thread::sleep_for(std::chrono::seconds(time));
 	}
@@ -64,7 +64,7 @@ namespace SaltyEngine
 	 * @param	time	The time.
 	 */
 
-	void SaltyBehaviour::__Wait_For_Milliseconds(size_t time) const
+	void SaltyBehaviour::__Wait_For_Milliseconds(size_t time)
 	{
 		std::this_thread::sleep_for(std::chrono::milliseconds(time));
 	}
@@ -77,7 +77,7 @@ namespace SaltyEngine
 	 * @param	time	The time.
 	 */
 
-	void SaltyBehaviour::__Wait_For_Microseconds(size_t time) const
+	void SaltyBehaviour::__Wait_For_Microseconds(size_t time)
 	{
 		std::this_thread::sleep_for(std::chrono::microseconds(time));
 	}
@@ -90,7 +90,7 @@ namespace SaltyEngine
 
 	void SaltyBehaviour::CallCoroutines() const
 	{
-		for (std::vector<coroutine::routine_t>::const_iterator it = m_coroutines.begin(); it != m_coroutines.end(); it++)
+		for (std::vector<coroutine::routine_t>::const_iterator it = m_coroutines.begin(); it != m_coroutines.end(); ++it)
 			coroutine::resume((*it));
 	}
 }

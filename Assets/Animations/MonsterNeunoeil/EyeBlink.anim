@@ -1,0 +1,8 @@
+{
+  "mode": "LOOP",
+  "framerate": "2",
+  "sprites": [
+    "MonsterNeunoeil/close",
+    "MonsterNeunoeil/open"
+  ]
+}

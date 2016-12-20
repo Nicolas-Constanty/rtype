@@ -15,7 +15,7 @@ public:
 
 public:
 	virtual T Load(std::string const& path) = 0;
-	virtual BOOL Unload() = 0;
+	virtual int Unload() = 0;
 };
 
 #endif

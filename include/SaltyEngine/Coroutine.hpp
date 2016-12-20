@@ -62,7 +62,7 @@ namespace coroutine {
 		bool finished;
 		LPVOID fiber;
 
-		Routine(std::function<void()> f)
+		explicit Routine(std::function<void()> f)
 		{
 			func = f;
 			finished = false;
@@ -83,7 +83,7 @@ namespace coroutine {
 		size_t stack_size;
 		LPVOID fiber;
 
-		Ordinator(size_t ss = STACK_LIMIT)
+		explicit Ordinator(size_t ss = STACK_LIMIT)
 		{
 			current = 0;
 			stack_size = ss;
@@ -130,6 +130,7 @@ namespace coroutine {
 
 	inline void __stdcall entry(LPVOID lpParameter)
 	{
+		(void)lpParameter;
 		routine_t id = Singleton<Ordinator>::Instance().current;
 		Routine *routine = Singleton<Ordinator>::Instance().routines[id - 1];
 		assert(routine != nullptr);
@@ -185,7 +186,7 @@ namespace coroutine {
 	{
 		auto future = std::async(std::launch::async, func);
 		std::future_status status = future.wait_for(std::chrono::milliseconds(100));
-		while (status == std::future_status::timeout)
+		while (status == std::future_status::default_timeout)
 		{
 			if (Singleton<Ordinator>::Instance().current != 0)
 				yield();
@@ -203,7 +204,7 @@ namespace coroutine {
 		auto future = std::async(std::launch::async, func);
 		std::future_status status = future.wait_for(std::chrono::milliseconds(100));
 
-		while (status == std::future_status::timeout)
+		while (status == std::future_status::default_timeout)
 		{
 			if (Singleton<Ordinator>::Instance().current != 0)
 				yield();

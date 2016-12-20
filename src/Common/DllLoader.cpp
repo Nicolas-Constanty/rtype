@@ -1,6 +1,8 @@
+#ifdef _WIN32
+
 #include "Common/DllLoader.hpp"
 
-DllLoader::DllLoader()
+DllLoader::DllLoader(): m_inst(nullptr)
 {
 }
 
@@ -14,7 +16,9 @@ HINSTANCE DllLoader::Load(std::string const& path)
 	return m_inst = LoadLibrary(path.c_str());
 }
 
-BOOL DllLoader::Unload()
+int DllLoader::Unload()
 {
 	return FreeLibrary(m_inst);
 }
+
+#endif

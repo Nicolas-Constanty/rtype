@@ -23,13 +23,21 @@ typedef enum : unsigned char {
     GAMESHOT = 2,
     GAMETAKE = 3,
     GAMEBEAM = 4,
-    GAMEDROP = 5,
+    GAMECALL = 5,
     GAMEDIE = 6,
     GAMECREATE = 7,
     GAMELAUNCH = 8,
     GAMESTATUS = 9,
     GAMEAUTHENTICATE = 10,
-    GAMEPING = 11
+    GAMEPING = 11,
+    GAMEREBORN = 12,
+    GAMEFAILURE = 13,
+    GAMEINPUT = 14,
+    GAMEDISCONNECT = 15,
+    GAMEENEMYSHOT = 16,
+    GAMEUPGRADE = 17,
+    GAMEMATE = 18,
+    GAMEGAMEOVER = 19
 } GamePurpose;
 
 class PackageGameHeader {
@@ -63,7 +71,7 @@ public:
 
 class PINGPackageGame : public PackageGameHeader {
 public:
-    PINGPackageGame(int secret = 0, unsigned short sequenceID = 0, unsigned short transactionID = 0)
+    PINGPackageGame(unsigned short sequenceID = 0, int secret = 0, unsigned short transactionID = 0)
             : PackageGameHeader(true, sizeof(PINGPackageGame), sequenceID, GamePurpose::GAMEPING, transactionID) {
         this->secret = secret;
     }
@@ -74,13 +82,30 @@ public:
 
 class AUTHENTICATEPackageGame : public PackageGameHeader {
 public:
-    AUTHENTICATEPackageGame(int secret = 0, unsigned short sequenceID = 0, unsigned short transactionID = 0)
+    AUTHENTICATEPackageGame(unsigned short sequenceID = 0, unsigned int secret = 0, unsigned char playerId = 0, unsigned short transactionID = 0)
             : PackageGameHeader(true, sizeof(AUTHENTICATEPackageGame), sequenceID, GamePurpose::GAMEAUTHENTICATE, transactionID) {
         this->secret = secret;
+        this->playerId = playerId;
     }
 
 public:
-    int secret;
+    unsigned int secret;
+    unsigned char playerId;
+};
+
+class DISCONNECTPackageGame : public PackageGameHeader
+{
+public:
+    DISCONNECTPackageGame(unsigned short sequenceID = 0, unsigned char playerID = 0, unsigned int errcode = 0, unsigned short transactionID = 0) :
+            PackageGameHeader(true, sizeof(DISCONNECTPackageGame), sequenceID, GamePurpose::GAMEDISCONNECT, transactionID)
+    {
+        this->errcode = errcode;
+        this->playerID = playerID;
+    }
+
+public:
+    unsigned int errcode;
+    unsigned char playerID;
 };
 
 class ObjectIDPackageGame : public PackageGameHeader {
@@ -97,40 +122,38 @@ public:
 
 class CREATEPackageGame : public ObjectIDPackageGame {
 public:
-    CREATEPackageGame(int posX = 0, int posY = 0, unsigned short ID = 0, unsigned short sequenceID = 0, unsigned short objectID = 0, unsigned short transactionID = 0)
+    CREATEPackageGame(unsigned short sequenceID = 0, int posX = 0, int posY = 0, unsigned short ID = 0,
+                      unsigned short objectID = 0, float rotation = 0, unsigned short transactionID = 0)
             : ObjectIDPackageGame(sizeof(CREATEPackageGame), GamePurpose::GAMECREATE, sequenceID, objectID, true, transactionID) {
         this->posX = posX;
         this->posY = posY;
         this->ID = ID;
+        this->rotation = rotation;
     }
 
 public:
     int posX;
     int posY;
     unsigned short ID;
+    float rotation;
 };
 
-class STATUSPackageGame : public ObjectIDPackageGame {
+class STATUSPackageGame : public PackageGameHeader {
 public:
-    STATUSPackageGame(int highScore, bool running, unsigned short sequenceID, unsigned short objectID, unsigned short transactionID = 0)
-            : ObjectIDPackageGame(sizeof(STATUSPackageGame), GamePurpose::GAMESTATUS, sequenceID, objectID, false, transactionID) {
+    STATUSPackageGame(unsigned short sequenceID = 0, int highScore = 0, unsigned char playerID = 0, unsigned short transactionID = 0)
+            : PackageGameHeader(true, sizeof(STATUSPackageGame), sequenceID, GamePurpose::GAMESTATUS, transactionID) {
         this->highScore = highScore;
-        this->run = (unsigned char)running;
-        if (this->run == 1) {
-            this->headerGameInfo.reliable = 1;
-        } else {
-            this->headerGameInfo.reliable = 0;
-        }
+        this->playerID = playerID;
     }
 
 public:
     int highScore;
-    unsigned char run : 2;
+    unsigned char playerID;
 };
 
 class MOVEPackageGame : public ObjectIDPackageGame {
 public:
-    MOVEPackageGame(int posX = 0, int posY = 0, unsigned short sequenceID = 0, unsigned short objectID = 0,
+    MOVEPackageGame(unsigned short sequenceID = 0, int posX = 0, int posY = 0, unsigned short objectID = 0,
                     unsigned short transactionID = 0)
             : ObjectIDPackageGame(sizeof(MOVEPackageGame), GamePurpose::GAMEMOVE, sequenceID, objectID, false, transactionID) {
         this->posX = posX;
@@ -144,17 +167,39 @@ public:
 
 class BEAMPackageGame : public ObjectIDPackageGame {
 public:
-    BEAMPackageGame(unsigned short sequenceID = 0, unsigned short objectID = 0, unsigned short transactionID = 0)
+    BEAMPackageGame(unsigned short sequenceID = 0, unsigned short objectID = 0, unsigned int id = 0, unsigned short transactionID = 0)
             : ObjectIDPackageGame(sizeof(BEAMPackageGame), GamePurpose::GAMEBEAM, sequenceID, objectID, true, transactionID) {
+        this->id = id;
     }
+
+public:
+    unsigned int id;
 };
 
 class SHOTPackageGame : public ObjectIDPackageGame {
 public:
-    SHOTPackageGame(unsigned short sequenceID = 0, unsigned short objectID = 0, unsigned short transactionID = 0)
+    SHOTPackageGame(unsigned short sequenceID = 0, unsigned short objectID = 0, int power = 0, unsigned int id = 0, int x = 0, int y = 0, unsigned short transactionID = 0)
             : ObjectIDPackageGame(sizeof(SHOTPackageGame), GamePurpose::GAMESHOT, sequenceID, objectID, true, transactionID) {
+        this->power = power;
+        this->id = id;
+        this->x = x;
+        this->y = y;
+    }
+
+public:
+    int power;
+    unsigned int id;
+    int x;
+    int y;
+};
+
+class ENEMYSHOTPackageGame : public ObjectIDPackageGame {
+public:
+    ENEMYSHOTPackageGame(unsigned short sequenceID = 0, unsigned short objectID = 0, unsigned short transactionID = 0)
+            : ObjectIDPackageGame(sizeof(ENEMYSHOTPackageGame), GamePurpose::GAMEENEMYSHOT, sequenceID, objectID, true, transactionID) {
     }
 };
+
 
 class DIEPackageGame : public ObjectIDPackageGame {
 public:
@@ -165,23 +210,122 @@ public:
 
 class TAKEPackageGame : public ObjectIDPackageGame {
 public:
-    TAKEPackageGame(unsigned short sequenceID = 0, unsigned short objectID = 0, unsigned short transactionID = 0)
-            : ObjectIDPackageGame(sizeof(TAKEPackageGame), GamePurpose::GAMETAKE, sequenceID, objectID, true, transactionID) {
+    TAKEPackageGame(unsigned short sequenceID = 0, unsigned short podID = 0, unsigned char playerId = 0, unsigned short transactionID = 0) :
+            ObjectIDPackageGame(sizeof(TAKEPackageGame), GamePurpose::GAMETAKE, sequenceID, podID, true, transactionID),
+            playerID(playerId)
+    {
+
     }
+
+public:
+    unsigned char playerID;
 };
 
-class DROPPackageGame : public ObjectIDPackageGame {
+class CALLPackageGame : public ObjectIDPackageGame {
 public:
-    DROPPackageGame(unsigned short sequenceID = 0, unsigned short objectID = 0, unsigned short transactionID = 0)
-            : ObjectIDPackageGame(sizeof(DROPPackageGame), GamePurpose::GAMEDROP, sequenceID, objectID, true, transactionID) {
+    CALLPackageGame(unsigned short sequenceID = 0, unsigned short podID = 0, unsigned char playerID = 0, int posX = 0, int posY = 0, unsigned short transactionID = 0) :
+            ObjectIDPackageGame(sizeof(CALLPackageGame), GamePurpose::GAMECALL, sequenceID, podID, true, transactionID),
+            posX(posX),
+            posY(posY),
+            playerID(playerID)
+    {
+
     }
+
+public:
+    int posX;
+    int posY;
+    unsigned char playerID;
 };
 
 class LAUNCHPackageGame : public ObjectIDPackageGame {
 public:
-    LAUNCHPackageGame(unsigned short sequenceID = 0, unsigned short objectID = 0, unsigned short transactionID = 0)
-            : ObjectIDPackageGame(sizeof(LAUNCHPackageGame), GamePurpose::GAMELAUNCH, sequenceID, objectID, true, transactionID) {
+    LAUNCHPackageGame(unsigned short sequenceID = 0, unsigned short podID = 0, unsigned char playerID = 0, unsigned short transactionID = 0)
+            : ObjectIDPackageGame(sizeof(LAUNCHPackageGame), GamePurpose::GAMELAUNCH, sequenceID, podID, true, transactionID),
+              playerID(playerID)
+    {
+
     }
+
+public:
+    unsigned char playerID;
+};
+
+class REBORNPackageGame : public ObjectIDPackageGame {
+public:
+    REBORNPackageGame(unsigned short sequenceID = 0, unsigned short objectID = 0, unsigned short transactionID = 0)
+            : ObjectIDPackageGame(sizeof(REBORNPackageGame), GamePurpose::GAMEREBORN, sequenceID, objectID, true, transactionID) {
+    }
+};
+
+class FAILUREPackageGame : public PackageGameHeader {
+public:
+    FAILUREPackageGame(unsigned short sequenceID = 0, unsigned char failPurpose = 0, unsigned short failseq = 0, unsigned short transactionID = 0) :
+            PackageGameHeader(true, sizeof(FAILUREPackageGame), sequenceID, GAMEFAILURE, transactionID),
+            failPurpose(failPurpose),
+            failSequence(failseq)
+    {
+
+    }
+
+    unsigned char failPurpose;
+    unsigned short failSequence;
+};
+
+class INPUTPackageGame : public PackageGameHeader {
+public:
+    INPUTPackageGame(unsigned short sequenceID = 0, std::string const &axes = "", float value = 0, unsigned short transactionID = 0) :
+            PackageGameHeader(true, sizeof(INPUTPackageGame), sequenceID, GAMEINPUT, transactionID)
+    {
+        this->value = value;
+        memset(this->axes, 0, sizeof(this->axes));
+        if (axes.length() < sizeof(this->axes)) {
+            strncpy(this->axes, axes.c_str(), axes.length());
+        }
+    }
+
+    char axes[16];
+    float value;
+};
+
+class UPGRADEPackageGame : public ObjectIDPackageGame
+{
+public:
+    UPGRADEPackageGame(unsigned short sequenceID = 0, unsigned short podID = 0, unsigned short transactionID = 0) :
+            ObjectIDPackageGame(sizeof(UPGRADEPackageGame), GamePurpose::GAMEUPGRADE, sequenceID, podID, true, transactionID)
+    {
+
+    }
+};
+
+class MATEPackageGame : public ObjectIDPackageGame
+{
+public:
+    MATEPackageGame(unsigned short sequenceID = 0, int x = 0, int y = 0, int playerID = 0, unsigned short objectID = 0, unsigned short transactionID = 0) :
+            ObjectIDPackageGame(sizeof(MATEPackageGame), GamePurpose::GAMEMATE, sequenceID, objectID, true, transactionID)
+    {
+        this->x = x;
+        this->y = y;
+        this->playerID = playerID;
+    }
+
+public:
+    int x;
+    int y;
+    int playerID;
+};
+
+class GAMEOVERPackageGame : public PackageGameHeader
+{
+public:
+    GAMEOVERPackageGame(unsigned short sequenceID = 0, unsigned char status = 0, unsigned short transactionID = 0) :
+            PackageGameHeader(true, sizeof(GAMEOVERPackageGame), sequenceID, GamePurpose::GAMEGAMEOVER, transactionID)
+    {
+            this->status = status;
+    }
+
+public:
+    unsigned char status;
 };
 
 #endif //RTYPE_PROTOCOLGAMEPACKAGE_HPP

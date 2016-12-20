@@ -5,15 +5,18 @@
 
 #include <mutex>
 #include <vector>
-#include <functional>
 #include "SaltyEngine/Coroutine.hpp"
 #include "SaltyEngine/Behaviour.hpp"
+#include "ICollider.hpp"
 
 namespace SaltyEngine
 {
-	class SaltyEngine;
-#define WaitForSecond(x) coroutine::await(std::bind(&SaltyBehaviour::__Wait_For_Seconds, this, x))
+	class Engine;
+#define WaitForSecond(x) coroutine::await(std::bind(&SaltyBehaviour::__Wait_For_Seconds, x))
+#define WaitForMillisecond(x) coroutine::await(std::bind(&SaltyBehaviour::__Wait_For_Milliseconds, x))
+#define WaitForMicrosecond(x) coroutine::await(std::bind(&SaltyBehaviour::__Wait_For_Microseconds, x))
 #define StartCoroutine(x) m_coroutines.push_back(coroutine::create(std::bind(x, this)))
+
 	class SaltyBehaviour : public Behaviour
 	{
 	public:
@@ -22,7 +25,7 @@ namespace SaltyEngine
 		SaltyBehaviour(SaltyBehaviour&&) = delete;                  // Move construct
 		SaltyBehaviour& operator=(SaltyBehaviour const&) = delete;  // Copy assign
 		SaltyBehaviour& operator=(SaltyBehaviour &&) = delete;      // Move assign
-		SaltyBehaviour(GameObject* gameObj);
+		explicit SaltyBehaviour(GameObject* gameObj);
 		SaltyBehaviour(const std::string &name, GameObject* gameObj);
 		virtual ~SaltyBehaviour();
 
@@ -34,15 +37,41 @@ namespace SaltyEngine
 		std::vector<coroutine::routine_t> m_coroutines;
 
 	public:
-		void __Wait_For_Seconds(size_t time) const;
-		void __Wait_For_Milliseconds(size_t time) const;
-		void __Wait_For_Microseconds(size_t time) const;
+		static void __Wait_For_Seconds(size_t time);
+		static void __Wait_For_Milliseconds(size_t time);
+		static void __Wait_For_Microseconds(size_t time);
 
 		void CallCoroutines() const;
 
+	public:
+		virtual void Start() { std::cout << "On start of: " << GetName() << std::endl; };
+
+		virtual void FixedUpdate() {};
+
+		virtual void OnTriggerEnter(ICollider *) {};
+		virtual void OnTriggerExit(ICollider *) {};
+		virtual void OnTriggerStay(ICollider *) {};
+
+		virtual void OnCollisionEnter(ICollider *) {};
+		virtual void OnCollisionExit(ICollider *) {};
+		virtual void OnCollisionStay(ICollider *) {};
+
+		virtual void OnMouseEnter() {};
+		virtual void OnMouseExit() {};
+		virtual void OnMouseOver() {};
+
+		virtual void Update() {};
+		virtual void OnGui() {};
+		virtual void OnDestroy() {};
+
 	private:
 		bool					m_status;
-		std::mutex		m_mutex;
+		std::mutex				m_mutex;
+
+	public:
+		virtual Component *CloneComponent(GameObject* const obj) {
+			return new SaltyBehaviour(obj);
+		}
 	};
 }
 

@@ -17,11 +17,16 @@ namespace SaltyEngine
 		Behaviour(Behaviour&&) = delete;                  // Move construct
 		Behaviour& operator=(Behaviour const&) = delete;  // Copy assign
 		Behaviour& operator=(Behaviour &&) = delete;      // Move assign
-		Behaviour(GameObject* const gameObj);
+		explicit Behaviour(GameObject* const gameObj);
 		Behaviour(const std::string name, GameObject* const gameObj);
 		virtual ~Behaviour() {};
 	public:
-		bool enabled;
+		bool		enabled;
+
+	public:
+		virtual Component * CloneComponent(GameObject* const obj) {
+			return new Behaviour(obj);
+		}
 	};
 }
 

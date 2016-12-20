@@ -1,0 +1,9 @@
+{
+  "mode": "LOOP",
+  "framerate": "8",
+  "sprites": [
+    "MonsterWalker/WalkR1",
+    "MonsterWalker/WalkR2",
+    "MonsterWalker/WalkR3"
+  ]
+}

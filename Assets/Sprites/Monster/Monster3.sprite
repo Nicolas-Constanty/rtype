@@ -1,0 +1,9 @@
+{
+    "texture": "monster",
+    "rect": {
+        "x": "68",
+        "y": "0",
+        "width": "34",
+        "heigth": "34"
+    }
+}

@@ -1,0 +1,8 @@
+{
+  "mode": "LOOP",
+  "framerate": "5",
+  "sprites": [
+    "MonsterNeunoeil/bullet1",
+    "MonsterNeunoeil/bullet2"
+  ]
+}
