@@ -190,18 +190,18 @@ std::ostream &operator<<(std::ostream &ostream, FAILUREPackageGame const &failur
     return ostream;
 }
 
-std::ostream &operator<<(std::ostream &ostream, INPUTPackageGame const &inputPackageGame)
-{
-    ostream << "INPUTPackageGame = {" << std::endl;
-    PackageGameHeader const *header = dynamic_cast<PackageGameHeader const *>(&inputPackageGame);
-    if (header) {
-        ostream << *header;
-    }
-    ostream << "axes=" << std::string(inputPackageGame.axes) << std::endl;
-    ostream << "value=" << inputPackageGame.value << std::endl;
-    ostream << "}" << std::endl;
-    return ostream;
-}
+//std::ostream &operator<<(std::ostream &ostream, INPUTPackageGame const &inputPackageGame)
+//{
+//    ostream << "INPUTPackageGame = {" << std::endl;
+//    PackageGameHeader const *header = dynamic_cast<PackageGameHeader const *>(&inputPackageGame);
+//    if (header) {
+//        ostream << *header;
+//    }
+//    ostream << "axes=" << std::string(inputPackageGame.axes) << std::endl;
+//    ostream << "value=" << inputPackageGame.value << std::endl;
+//    ostream << "}" << std::endl;
+//    return ostream;
+//}
 
 std::ostream    &operator<<(std::ostream &output, DISCONNECTPackageGame const &disconnectPackageGame)
 {

@@ -9,13 +9,6 @@
         "y": "500"
       }
     },
-    "MonsterNeunoeil": {
-        "prefabName": "MonsterNeunoeil",
-        "position": {
-          "x" : "500",
-          "y": "500"
-        }
-      },
       "Pod" : {
           "prefabName": "Pod",
           "position": {

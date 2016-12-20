@@ -238,15 +238,6 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetSHOTPackage(SHOTPackageGam
             playerController->IncIdShot();
         }
     }
-//    std::cout << "JE SORS" << std::endl;
-//    todo if (okay on gameside)
-//    {
-//        BroadcastReliable(*server1->create<SHOTPackageGame>(pack.objectID));
-//    }
-//    else
-//    {
-//        SendReliable(*server1->create<FAILUREPackageGame>(pack.purpose, pack.sequenceID));
-//    }
 }
 
 void Rtype::Game::Server::RtypeServerGameClient::onGetDIEPackage(DIEPackageGame const &pack)
@@ -258,15 +249,6 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetDIEPackage(DIEPackageGame 
 void Rtype::Game::Server::RtypeServerGameClient::onGetTAKEPackage(TAKEPackageGame const &pack)
 {
     OnDiscoveringPackage(pack);
-
-//    todo if (okay on gameside)
-//    {
-//        BroadcastReliable(*server1->create<TAKEPackageGame>(pack.objectID));
-//    }
-//    else
-//    {
-//        SendReliable(*server1->create<FAILUREPackageGame>(pack.purpose, pack.sequenceID));
-//    }
 }
 
 void Rtype::Game::Server::RtypeServerGameClient::onGetCALLPackage(CALLPackageGame const &pack)
@@ -286,19 +268,10 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetCALLPackage(CALLPackageGam
             }
         }
     }
-//    todo if (okay on gameside)
-//    {
-//        BroadcastReliable(*server1->create<CALLPackageGame>(pack.objectID));
-//    }
-//    else
-//    {
-//        SendReliable(*server1->create<FAILUREPackageGame>(pack.purpose, pack.sequenceID));
-//    }
 }
 
 void Rtype::Game::Server::RtypeServerGameClient::onGetMOVEPackage(MOVEPackageGame const &pack)
 {
-//    std::cout << pack << std::endl;
     OnDiscoveringPackage(pack);
 
     SaltyEngine::GameObject *gameObject;
@@ -314,7 +287,6 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetMOVEPackage(MOVEPackageGam
             Rtype::Game::Server::RtypeServerGameClient *receiver = dynamic_cast<Rtype::Game::Server::RtypeServerGameClient *>(curr.get());
 
             if (receiver) {
-//                std::cout << " Rtype::Game::Server::RtypeServerGameClient::onGetMOVEPackage(MOVEPackageGame const &pack) OBJECTID IS == " << pack.objectID << std::endl;
                 receiver->SendPackage<MOVEPackageGame>(&Network::Core::BasicConnection::SendData<MOVEPackageGame>,
                                                        pack.posX, pack.posY, pack.objectID);
             }
@@ -322,16 +294,6 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetMOVEPackage(MOVEPackageGam
     }
 //    if (serverStream)
 //        serverStream->WantSend();
-
-
-//    todo if (okay on gameside)
-//    {
-//        Broadcast(*server1->create<MOVEPackageGame>(pack.posX, pack.posY, pack.objectID));
-//    }
-//    else
-//    {
-//        SendReliable(*server1->create<FAILUREPackageGame>(pack.purpose, pack.sequenceID));
-//    }
 }
 
 void Rtype::Game::Server::RtypeServerGameClient::onGetLAUNCHPackage(LAUNCHPackageGame const &pack)
@@ -378,25 +340,6 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetFAILUREPackage(FAILUREPack
     OnDiscoveringPackage(pack);
 }
 
-void Rtype::Game::Server::RtypeServerGameClient::onGetINPUTPackage(INPUTPackageGame const &pack)
-{
-//    std::cout << pack << std::endl;
-    OnDiscoveringPackage(pack);
-    for (std::unique_ptr<Network::Socket::ISockStreamHandler> &curr : clients->Streams())
-    {
-        if (curr.get() != this)
-        {
-            Rtype::Game::Server::RtypeServerGameClient *receiver = dynamic_cast<Rtype::Game::Server::RtypeServerGameClient *>(curr.get());
-
-            if (receiver)
-                receiver->SendPackage<INPUTPackageGame>(&Network::Core::BasicConnection::SendData<INPUTPackageGame>, pack.axes, pack.value);
-        }
-    }
-    if (serverStream)
-        serverStream->WantSend();
-//    SaltyEngine::Input::VirtualInputManager::SetAxis(pack.axes, pack.value);
-}
-
 void Rtype::Game::Server::RtypeServerGameClient::onGetDISCONNECTPackage(DISCONNECTPackageGame const &pack)
 {
     Rtype::Game::Common::RtypeGameClient::onGetDISCONNECTPackage(pack);
@@ -416,7 +359,7 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetUPGRADEPackage(UPGRADEPack
 }
 
 void Rtype::Game::Server::RtypeServerGameClient::onGetGAMEOVERPackage(GAMEOVERPackageGame const &game) {
-
+    OnDiscoveringPackage(game);
 }
 
 bool Rtype::Game::Server::RtypeServerGameClient::OnStart()
@@ -440,7 +383,6 @@ int Rtype::Game::Server::RtypeServerGameClient::getId() const
 void Rtype::Game::Server::RtypeServerGameClient::ping()
 {
     pingSecret = rand();
-//    SendReliable(*server1->create<PINGPackageGame>(pingSecret));
     SendPackage<PINGPackageGame>(&Network::UDP::AUDPConnection::SendReliable<PINGPackageGame>, pingSecret);
     if (serverStream)
         serverStream->WantSend();
@@ -492,7 +434,7 @@ void Rtype::Game::Server::RtypeServerGameClient::OnDisconnect() {
 }
 
 void Rtype::Game::Server::RtypeServerGameClient::onGetMATEPackage(MATEPackageGame const &matePackageGame) {
-
+    OnDiscoveringPackage(matePackageGame);
 }
 
 void Rtype::Game::Server::RtypeServerGameClient::onGetDEATHPackage(DEATHPackage const &pack)

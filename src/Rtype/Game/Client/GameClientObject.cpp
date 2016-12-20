@@ -27,11 +27,5 @@ void Rtype::Game::Client::GameClientObject::Start()
 
 void Rtype::Game::Client::GameClientObject::Update()
 {
-//	std::cout << "Polling" << std::endl;
 	m_dispatcher.Poll();
-}
-
-void Rtype::Game::Client::GameClientObject::SendInput(const string &name, const float value)
-{
-    m_rtypeclient->SendInput(name, value);
 }

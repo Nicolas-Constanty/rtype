@@ -221,24 +221,9 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetFAILUREPackage(FAILUREPack
     //todo resolve failure package
 }
 
-void Rtype::Game::Client::RtypeClientGameClient::onGetINPUTPackage(INPUTPackageGame const &pack)
-{
-//    std::cout << pack << std::endl;
-    OnDiscoveringPackage(pack);
-    //SaltyEngine::Input::VirtualInputManager::SetAxis(pack.axes, pack.value);
-    //todo resolve failure package
-//    InputKey::SetAxis(pack.axes, pack.);
-}
-
 void Rtype::Game::Client::RtypeClientGameClient::onGetUPGRADEPackage(UPGRADEPackageGame const &pack)
 {
     OnDiscoveringPackage(pack);
-}
-
-void Rtype::Game::Client::RtypeClientGameClient::SendInput(std::string const &axisName, float const value)
-{
-    SendPackage<INPUTPackageGame>(&Network::Core::BasicConnection::SendData<INPUTPackageGame>, axisName, value);
-//    SendData(*factory.create<INPUTPackageGame>(axisName, value));
 }
 
 void Rtype::Game::Client::RtypeClientGameClient::OnDisconnect()
@@ -261,7 +246,6 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetENEMYSHOTPackage(ENEMYSHOT
 
 void Rtype::Game::Client::RtypeClientGameClient::onGetMATEPackage(MATEPackageGame const &matePackageGame) {
     OnDiscoveringPackage(matePackageGame);
-//    std::cout << matePackageGame << std::endl;
     try {
         SaltyEngine::GameObject *object = RtypeNetworkFactory::Create(1, SaltyEngine::Vector((float) matePackageGame.x,
                                                                                              (float) matePackageGame.y),
