@@ -127,13 +127,13 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetCREATEPackage(CREATEPackag
 {
     //client can't create an object
     reply = false;
-    std::cout << pack << std::endl;
+//    std::cout << pack << std::endl;
     OnDiscoveringPackage(pack);
 }
 
 void Rtype::Game::Server::RtypeServerGameClient::onGetBEAMPackage(BEAMPackageGame const &pack)
 {
-    std::cout << pack << std::endl;
+//    std::cout << pack << std::endl;
     OnDiscoveringPackage(pack);
 
     SaltyEngine::GameObject *gameObject;
@@ -183,7 +183,7 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetSHOTPackage(SHOTPackageGam
 
     SaltyEngine::GameObject *gameObject;
 
-    std::cout << pack << std::endl;
+//    std::cout << pack << std::endl;
 
     if ((gameObject = gameManager->gameObjectContainer[pack.objectID])) {
 
@@ -400,7 +400,7 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetDISCONNECTPackage(DISCONNE
 
 
 void Rtype::Game::Server::RtypeServerGameClient::onGetENEMYSHOTPackage(ENEMYSHOTPackageGame const &pack) {
-    std::cout << pack << std::endl;
+//    std::cout << pack << std::endl;
 }
 
 
