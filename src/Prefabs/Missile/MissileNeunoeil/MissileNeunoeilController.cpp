@@ -10,8 +10,7 @@ MissileNeunoeilController::MissileNeunoeilController(SaltyEngine::GameObject *go
     m_vel = 4;
     m_fireSound = "fire";
     m_damage = 1;
-    m_objectNameReplication = "EnemyBullet";
-    // TODO remplacer la ligne du dessus => aller dans le code de gaspar_q
+    m_objectNameReplication = "MissileNeunoeil";
 }
 
 MissileNeunoeilController::~MissileNeunoeilController()
