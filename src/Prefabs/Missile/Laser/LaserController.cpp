@@ -43,9 +43,9 @@ void LaserController::OnCollisionEnter(SaltyEngine::ICollider *col)
     }
     this->m_damage -= 1;
     if (this->m_damage == 0) {
-        std::cout << "ON VA LE DESTROY" << std::endl;
+//        std::cout << "ON VA LE DESTROY" << std::endl;
 //        SaltyEngine::Object::Destroy(this->gameObject);
-        std::cout << "SEG FAULT" << std::endl;
+//        std::cout << "SEG FAULT" << std::endl;
     }
 }
 
@@ -76,17 +76,22 @@ void LaserController::Power(int damage) {
     {
         case 1:
             anim = "Laser/simple";
+            gameObject->transform.position.x += 30;
             break;
         case 2:
+            gameObject->transform.position.x += 35;
             anim = "Laser/power1";
             break;
         case 3:
+            gameObject->transform.position.x += 45;
             anim = "Laser/power2";
             break;
         case 4:
+            gameObject->transform.position.x += 55;
             anim = "Laser/power3";
             break;
         case 5:
+            gameObject->transform.position.x += 60;
             anim = "Laser/power4";
             break;
         default:
@@ -95,7 +100,7 @@ void LaserController::Power(int damage) {
     m_damage = damage;
     SaltyEngine::SFML::Animation *animation = gameObject->GetComponent<SaltyEngine::SFML::Animation>();
     if (animation) {
-        std::cout << "after animation" << std::endl;
+//        std::cout << "after animation" << std::endl;
         animation->AddClip(SaltyEngine::SFML::AssetManager::Instance().GetAnimation(anim), "Shoot");
         animation->Play("Shoot");
     }

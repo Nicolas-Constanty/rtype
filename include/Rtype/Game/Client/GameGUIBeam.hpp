@@ -9,26 +9,31 @@
 #include "SaltyEngine/SaltyBehaviour.hpp"
 #include "SaltyEngine/GameObject.hpp"
 
-class GameGUI : public SaltyEngine::SaltyBehaviour {
+class GameGUIBeam : public SaltyEngine::SaltyBehaviour {
 public:
-    GameGUI(SaltyEngine::GameObject * const gameObj);
-    virtual ~GameGUI();
+    GameGUIBeam(SaltyEngine::GameObject * const gameObj);
+    virtual ~GameGUIBeam();
 
 public:
     void Start();
     void FixedUpdate();
 
 public:
+    // beam animation
     void StartAnimation();
     void StopAnimation();
     void ResetAnimation();
+
+public:
+    // display highscore
+//    void DisplayHighScore(int highscore);
 
 private:
     SaltyEngine::SFML::Animation *beamAnimation;
 
 public:
     virtual SaltyEngine::Component *CloneComponent(SaltyEngine::GameObject* const obj) {
-        return new GameGUI(obj);
+        return new GameGUIBeam(obj);
     }
 
 private:

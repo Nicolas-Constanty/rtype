@@ -5,12 +5,12 @@
 #include "SaltyEngine/SFML.hpp"
 #include <Prefabs/Pod/PodController.hpp>
 #include <Prefabs/Missile/Laser/LaserController.hpp>
-#include <Rtype/Game/Client/GameGUI.hpp>
+#include <Rtype/Game/Client/GameGUIBeam.hpp>
 
 namespace SaltyEngine
 {
 	PlayerController::PlayerController(GameObject* const gameObj) : AGenericController("PlayerController", gameObj) {
-		speed = 20.0f;
+		speed = 12.0f; // 20
         idShot = 1;
         power = 0;
         beamShot = NULL;
@@ -20,7 +20,7 @@ namespace SaltyEngine
 	};
 
 	PlayerController::PlayerController(const std::string &name, GameObject* const gameObj) : AGenericController(name, gameObj) {
-		speed = 20.0f;
+		speed = 12.0f; // 20
         idShot = 1;
         power = 0;
         beamShot = NULL;
@@ -33,8 +33,7 @@ namespace SaltyEngine
 	{
         LoadManager();
 
-//        gameGUI = SaltyEngine::Engine::Instance().GetCurrentScene()->FindByName("GameGUI");
-        objGameGUI = SaltyEngine::Engine::Instance().GetCurrentScene()->FindByName("GameGUI");
+        objGUIBeam = SaltyEngine::Engine::Instance().GetCurrentScene()->FindByName("GUIBeam");
 
         beamShot = NULL;
         start = clock::now();
@@ -96,8 +95,8 @@ namespace SaltyEngine
                 OnBeamAction();
                 SendPackage<BEAMPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(gameObject), idShot);
                 m_beamSFX->SetActive(true);
-                if (!isServerSide() && objGameGUI) {
-                    objGameGUI->GetComponent<GameGUI>()->StartAnimation();
+                if (!isServerSide() && objGUIBeam) {
+                    objGUIBeam->GetComponent<GameGUIBeam>()->StartAnimation();
                 }
             }
         }
@@ -114,8 +113,8 @@ namespace SaltyEngine
                     laserController->Power(power);
                 }
 
-                if (!isServerSide() && objGameGUI) {
-                    objGameGUI->GetComponent<GameGUI>()->ResetAnimation();
+                if (!isServerSide() && objGUIBeam) {
+                    objGUIBeam->GetComponent<GameGUIBeam>()->ResetAnimation();
                 }
             }
         }

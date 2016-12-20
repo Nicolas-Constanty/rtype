@@ -7,7 +7,7 @@
 #include <Prefabs/Player/PlayerController.hpp>
 #include <Rtype/Game/Client/BackgroundController.hpp>
 #include <Rtype/Game/Common/GameObjectID.hpp>
-#include <Rtype/Game/Client/GameGUI.hpp>
+#include <Rtype/Game/Client/GameGUIBeam.hpp>
 #include "Common/Debug.hpp"
 
 GameManager::GameManager(SaltyEngine::GameObject * const gamObj) : SaltyBehaviour("GameManager", gamObj)
@@ -113,11 +113,11 @@ void GameManager::StartTheGame() {
 }
 
 void GameManager::FixedUpdate() {
-    if (canSend % 120 == 0) {
+//    if (canSend % 120 == 0) {
         OnSendHighScore();
-        canSend = 0;
-    }
-    ++canSend;
+//        canSend = 0;
+//    }
+//    ++canSend;
 
     if (m_server && m_server->Server()->IsLaunch() && !endOfGame) {
         this->currentPosition = this->currentPosition + velocity * SaltyEngine::Engine::Instance().GetFixedDeltaTime();
@@ -143,10 +143,8 @@ void GameManager::FixedUpdate() {
         if (monsterMap->objects.empty()) {
             endOfGame = true;
         }
-//        std::cout << this->currentPosition << std::endl;
     } else if (endOfGame && m_server && gameOver && !gameOver->IsOver()) { // TODO Il manque le check si y'a plus de monstre coté serveur mais pour ça il faut le destroyer.
         gameOver->OverAction(GAMEOVER::VICTORY);
-//        std::cout << "the game is over !" << std::endl;
     }
 }
 
