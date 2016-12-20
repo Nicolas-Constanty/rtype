@@ -28,8 +28,9 @@ public:
 
 
 private:
-    float m_vel = 2; // 50
+    float m_vel = 13; // 50
     int m_damage = 1;
+    int m_targetNbr = 1;
 
 private:
     SaltyEngine::Sound::ISound *soundFire;

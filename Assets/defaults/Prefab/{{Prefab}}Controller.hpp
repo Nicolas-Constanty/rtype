@@ -13,7 +13,7 @@ public:
     virtual ~{{Prefab}}Controller();
 
 public:
-    virtual void Die() const;
+    virtual void Die();
     virtual void TakeDamage(int amount);
 
 public:

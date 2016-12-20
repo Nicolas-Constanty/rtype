@@ -1,6 +1,15 @@
 cmake_minimum_required(VERSION 2.8)
 project(rtype)
 
+#include files
+include_directories(include)
+
+#C++ files
+file(GLOB SFMLSaltyEngineSrc "src/SaltyEngine/SFML/*.cpp")
+
+#Hpp files
+file(GLOB SFMLSaltyEngineInc "include/SaltyEngine/SFML/*.hpp")
+
 #Linux
 if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 
@@ -12,20 +21,12 @@ if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 	#C++ FLAGS
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wextra -rdynamic")
 
-	#include files
-	include_directories(include)
-
-	#C++ files
-	file(GLOB SOURCE_SALTYENGINE_SFML_FILE "src/SaltyEngine/SFML/*.cpp")
 
 	#Create library
-	add_library(SFMLSaltyEngine SHARED ${SOURCE_SALTYENGINE_SFML_FILE})
+	add_library(SFMLSaltyEngine SHARED ${SFMLSaltyEngineSrc} ${SFMLSaltyEngineInc})
 
 	#Link libraries
-	target_link_libraries(SFMLSaltyEngine Parser SaltyEngine sfml-system sfml-window sfml-graphics sfml-audio)
-
-	#Add custom target
-	add_custom_target(BUILD_ENGINE DEPENDS SaltyEngine SFMLSaltyEngine)
+	target_link_libraries(SFMLSaltyEngine Common Parser SaltyEngine sfml-system sfml-window sfml-graphics sfml-audio)
 #Windows
 elseif(MSVC)
 
@@ -35,21 +36,11 @@ elseif(MSVC)
 	#C++ FLAGS
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3")
 
-	#include files
-	include_directories("include ../../Dependencies/SFML/Win/include")
-
-	#libraries files
-	link_directories("../Dependencies/SFML/Win/x64/Release")
-
-	#C++ files
-	file(GLOB SOURCE_SALTYENGINE_SFML_FILE "src/SaltyEngine/SFML/*.cpp" "include/SaltyEngine/SFML/*.hpp")
-
 	#Create library
-	add_library(SFMLSaltyEngine SHARED ${SOURCE_SALTYENGINE_SFML_FILE} ../../src/SaltyEngine/SFML/PhysicsHandler.cpp ../../src/SaltyEngine/SFML/BoxCollider2D.cpp ../../src/SaltyEngine/SFML/Button.cpp ../../src/SaltyEngine/SFML/Rect.cpp ../../src/SaltyEngine/SFML/Sprite.cpp ../../src/SaltyEngine/SFML/SpriteRenderer.cpp)
+	add_library(SFMLSaltyEngine SHARED ${SFMLSaltyEngineSrc} ${SFMLSaltyEngineInc})
 
 	#Link libraries
-	target_link_libraries(SFMLSaltyEngine Parser SaltyEngine sfml-system sfml-window sfml-graphics sfml-audio)
-
+	target_link_libraries(SFMLSaltyEngine Common Parser SaltyEngine sfml-system sfml-window sfml-graphics sfml-audio)
 endif()
 
-
+add_dependencies(SFMLSaltyEngine SaltyEngine)

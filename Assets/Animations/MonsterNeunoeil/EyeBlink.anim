@@ -4,9 +4,5 @@
   "sprites": [
     "MonsterNeunoeil/close",
     "MonsterNeunoeil/open"
-  ],
-  "scale": {
-    "width": "1",
-    "height": "1"
-  }
+  ]
 }

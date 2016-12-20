@@ -105,7 +105,7 @@ bool Rtype::Game::Server::RtypeGameServer::OnStart()
 {
     size_t i = 0;
     while (i < this->maxSize) {
-        playersConnected[i] = false;
+        playersConnected[(int)i] = false;
         ++i;
     }
     std::cout << "\x1b[32mServer started\x1b[0m: maximum number of players => " << maxSize << ", secure => " << std::boolalpha << secure << std::endl;

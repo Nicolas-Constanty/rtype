@@ -7,6 +7,7 @@
 
 #include <Rtype/Game/Common/RtypeGameClient.hpp>
 #include "GameOver.hpp"
+#include "GameGUIHighscore.hpp"
 //#include "GameManager.hpp"
 
 class GameManager;
@@ -55,6 +56,7 @@ namespace Rtype
             private:
                 GameManager *gameManager;
                 GameOver    *gameOver;
+                GameGUIHighscore *gameGUIHighscore;
             };
         }
     }

@@ -8,42 +8,23 @@ elseif(MSVC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3")
 endif()
 
-#add_executable(gameserv-1
-#        ${Networksrc} ${Networkinc}
-#        ${Commoninc} ${Commonsrc}
-#        ${SaltyEnginesrc} ${SaltyEngineinc}
-#        ${srcGameServ} ${incGameServ}
-#        ${Protocolsrc} ${Protocolinc}
-#        Tests/GameServer/gameserv-1.cpp)
 
-#add_executable(gameserv-2
-#        ${Networksrc} ${Networkinc}
-#        ${Commonsrc} ${Commoninc}
-#        ${Protocolsrc} ${Protocolinc}
-#        ${SaltyEnginesrc} ${SaltyEngineinc}
-#        ${srcGameServ} ${incGameServ}
-#        ${srcGameCommon} ${incGameCommon}
-#        ${SFMLinc}
-#        Tests/GameServer/gameserv-2.cpp)
+#!!!!!!!!!!!!!!!TODO DELETE AFTER THIS!!!!!!!!!!!!!!!!!
 
-#add_executable(gameclient-1
-#        ${Networksrc} ${Networkinc}
-#        ${Commoninc}
-#        ${Protocolsrc} ${Protocolinc}
-#        ${SaltyEngineinc}
-#        ${srcGameClient} ${incGameClient}
-#        ${srcGameCommon} ${incGameCommon}
-#        ${SFMLinc}
-#        Tests/GameServer/gameclient-1.cpp)
+file(GLOB srcGameServ src/Rtype/Game/Server/*.cpp)
+file(GLOB incGameServ include/Rtype/Game/Server/*.hpp)
+
+file(GLOB srcGameCommon src/Rtype/Game/Common/*.cpp)
+file(GLOB incGameCommon include/Rtype/Game/Common/*.hpp)
+
+file(GLOB srcGameClient src/Rtype/Game/Client/*.cpp)
+file(GLOB incGameClient include/Rtype/Game/Client/*.hpp)
+
+#!!!!!!!!!!!!!!!TODO DELETE BEFORE THIS!!!!!!!!!!!!!!!!!
 
 add_executable(gameserver-stable
-        ${Networksrc} ${Networkinc}
-        ${Commoninc}
-        ${Protocolsrc} ${Protocolinc}
-        ${SaltyEngineinc}
         ${srcGameServ} ${incGameServ}
         ${srcGameCommon} ${incGameCommon}
-        ${SFMLinc}
         ${srcGameClient} ${incGameClient}
         src/Prefabs/Player/PlayerController.cpp
         include/Prefabs/Player/PlayerController.hpp
@@ -56,19 +37,14 @@ add_executable(gameserver-stable
         include/Prefabs/GenericController.hpp
         include/Prefabs/RtypePrefab.hpp
         src/Prefabs/RtypePrefab.cpp
-        Tests/GameServer/gameserver-stable.cpp)
+        R-Type/GameServer/main.cpp)
 
 set_target_properties(gameserver-stable PROPERTIES COMPILE_FLAGS "-DRTYPESERVER")
 
 add_executable(client-test-move-netork
-        ${Networksrc} ${Networkinc}
-        ${Commoninc}
-        ${Protocolsrc} ${Protocolinc}
-        ${SaltyEngineinc}
         ${srcGameServ} ${incGameServ}
         ${srcGameClient} ${incGameClient}
         ${srcGameCommon} ${incGameCommon}
-        ${SFMLinc}
         src/Prefabs/Missile/Laser/Laser.cpp
         src/Prefabs/Missile/Laser/LaserController.cpp
         src/Prefabs/Mate/MateComponent.cpp
@@ -80,10 +56,28 @@ add_executable(client-test-move-netork
         include/Prefabs/RtypePrefab.hpp
         src/Prefabs/RtypePrefab.cpp
         src/Prefabs/Player/PlayerController.cpp
-        Tests/GameServer/main.cpp)
+        R-Type/GameClient/main.cpp)
 
-#target_link_libraries(gameserv-1 -ldl)
-#target_link_libraries(gameserv-2 -ldl libsfml-system.so libsfml-audio.so libsfml-graphics.so libsfml-window.so -L${CMAKE_SOURCE_DIR}/lib/ -lSaltyEngine ${CMAKE_SOURCE_DIR}/lib/libSFMLSaltyEngine.so)
-#target_link_libraries(gameclient-1 -ldl libsfml-system.so libsfml-audio.so libsfml-graphics.so libsfml-window.so -L${CMAKE_SOURCE_DIR}/lib/ -lSaltyEngine ${CMAKE_SOURCE_DIR}/lib/libSFMLSaltyEngine.so)
-target_link_libraries(gameserver-stable dl sfml-system sfml-audio sfml-graphics sfml-window SaltyEngine SFMLSaltyEngine Parser pod)
-target_link_libraries(client-test-move-netork dl sfml-system sfml-audio sfml-graphics sfml-window SaltyEngine SFMLSaltyEngine Parser pod)
+target_link_libraries(gameserver-stable
+        Common
+        Parser
+        SaltyEngine
+        SFMLSaltyEngine
+        ProtocolServer
+        ProtocolGame
+        ProtocolRoom
+        dl sfml-system sfml-audio sfml-graphics sfml-window
+        pod)
+target_link_libraries(client-test-move-netork
+        Common
+        Parser
+        SaltyEngine
+        SFMLSaltyEngine
+        ProtocolServer
+        ProtocolGame
+        ProtocolRoom
+        dl sfml-system sfml-audio sfml-graphics sfml-window
+        pod)
+
+add_dependencies(gameserver-stable Common ProtocolServer ProtocolGame ProtocolRoom SaltyEngine SFMLSaltyEngine Parser)
+add_dependencies(client-test-move-netork Common ProtocolServer ProtocolGame ProtocolRoom SaltyEngine SFMLSaltyEngine Parser prefabs)

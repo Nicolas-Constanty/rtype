@@ -11,7 +11,7 @@ public:
 	virtual ~MonsterNeunoeilController();
 
 public:
-	virtual void Die() const;
+	virtual void Die();
 	virtual void TakeDamage(int amount);
 
 public:
@@ -27,6 +27,10 @@ public:
 
     void Shot() override;
 
+	void SetInvincibility(bool invincible);
+
+	void OnCollisionEnter(SaltyEngine::ICollider *collider) override;
+
 private:
 	float m_minShootInterval = 4;
 	float m_maxShootInterval = 9;
@@ -36,5 +40,8 @@ private:
 	float m_walkDistance = 100;
     SaltyEngine::Vector m_startPoint;
     SaltyEngine::SFML::Animation *m_anim;
+
+	bool m_isInvincible = false;
+    SaltyEngine::GameObject *m_canons[4];
 };
 

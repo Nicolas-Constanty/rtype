@@ -6,9 +6,5 @@
     "Medusa/Bullet2",
     "Medusa/Bullet3",
     "Medusa/Bullet4"
-  ],
-  "scale": {
-    "width": "1",
-    "height": "1"
-  }
+  ]
 }

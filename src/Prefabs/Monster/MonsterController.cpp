@@ -84,7 +84,7 @@ void MonsterController::Shot() {
     }
 }
 
-void MonsterController::Die() const
+void MonsterController::Die()
 {
     if (!isServerSide()) {
         SaltyEngine::Instantiate("ExplosionBasic", this->gameObject->transform.position);

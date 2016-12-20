@@ -9,6 +9,7 @@
 #include <cstring>
 #include "SaltyEngine/ISound.hpp"
 #include "SaltyEngine/Constants.hpp"
+#include "SaltyEngine/GameObject.hpp"
 #include "Common/Debug.hpp"
 
 #include "Parser/ParserJson.hpp"
@@ -21,7 +22,6 @@
 #include <dirent.h>
 #include <unistd.h>
 #include "Common/LibLoader.hpp"
-#include "GameObject.hpp"
 
 #endif
 
@@ -51,6 +51,7 @@ namespace SaltyEngine {
         std::string title;
         std::string preview;
         std::string background;
+        Vector2f    scale;
         std::list<std::pair<std::string, Vector2f> > objects;
     };
 
@@ -107,6 +108,7 @@ namespace SaltyEngine {
         std::list<std::string>                          m_prefabs;
 
         std::stack<std::unique_ptr<SaltyEngine::Asset::ASSET_LOADER> >  m_loaders;
+        std::unique_ptr<SceneDefault>                                   m_current_scene;
 
     public:
         ///
@@ -376,34 +378,49 @@ namespace SaltyEngine {
         ///
         /// \brief Load Scene from filename
         /// \brief Load Prefabs
-        /// \brief Return list of pair of prefabName and position
+        /// \brief Return struct SceneDefault
         /// \param filename
-        /// \return std::list<std::pair<std::string, Vector2f>>
-        std::unique_ptr<SceneDefault> LoadScene(std::string const &filename) {
-            std::unique_ptr<SceneDefault>    sceneDefault;
-
-            sceneDefault.reset(new SceneDefault());
+        /// \return SceneDefault*
+        SceneDefault *LoadScene(std::string const &filename) {
+            m_current_scene.reset(new SceneDefault());
 
             try {
                 Parser parser = Parser(JSON, (path_scenes + filename + Asset::SCENE_EXTENSION).c_str());
                 JsonVariant::json_pair map;
                 if (parser.parse(&map)) {
                     Debug::PrintInfo("Parsing Scene " + filename);
-                    sceneDefault->title = map["title"]();
-                    sceneDefault->preview = map["preview"]();
-                    sceneDefault->background = map["background"]();
-                    const JsonVariant::json_pair *prefabs = boost::get<JsonVariant::json_pair *>(map["prefabs"].get());
-
-                    for (JsonVariant::json_pair::const_iterator prefab = prefabs->begin(); prefab != prefabs->end(); ++prefab) {
-//                        std::string const &objectName = prefab->first; //not used
-                        std::string const &prefabName = prefab->second["prefabName"]();
-                        Vector2f    const &position = Vector2f(std::stoi(prefab->second["position"]["x"]()), std::stoi(prefab->second["position"]["y"]()));
-                        if (LoadPrefab(prefabName)) {
-                            sceneDefault->objects.push_back(std::make_pair(prefabName, position));
-                        } else {
-                            Debug::PrintError("Cannot load prefab " + prefabName + " for the scene " + filename);
+                    m_current_scene->title = map["title"]();
+                    m_current_scene->preview = map["preview"]();
+                    m_current_scene->background = map["background"]();
+                    m_current_scene->scale = Vector2f(1, 1);
+                    try {
+                        if (!map["scale"]["width"]().empty()) {
+                            std::cout << map["scale"]["width"]() << std::endl;
+                            m_current_scene->scale.x = std::stof(map["scale"]["width"]());
                         }
+                        if (!map["scale"]["height"]().empty()) {
+                            m_current_scene->scale.y = std::stof(map["scale"]["height"]());
+                        }
+                    } catch (std::exception const &) {
+
                     }
+                    try {
+                        const JsonVariant::json_pair *prefabs = boost::get<JsonVariant::json_pair *>(map["prefabs"].get());
+
+                        for (JsonVariant::json_pair::const_iterator prefab = prefabs->begin(); prefab != prefabs->end(); ++prefab) {
+    //                        std::string const &objectName = prefab->first; //not used
+                            std::string const &prefabName = prefab->second["prefabName"]();
+                            Vector2f    const &position = Vector2f(std::stoi(prefab->second["position"]["x"]()), std::stoi(prefab->second["position"]["y"]()));
+                            if (LoadPrefab(prefabName)) {
+                                m_current_scene->objects.push_back(std::make_pair(prefabName, position));
+                            } else {
+                                Debug::PrintError("Cannot load prefab " + prefabName + " for the scene " + filename);
+                            }
+                        }
+                    } catch (std::exception const &) {
+
+                    }
+
                     Debug::PrintSuccess("Scene " + filename + " was successfuly loaded");
                 } else {
                     Debug::PrintError("Cannot parse scene " + filename);
@@ -412,7 +429,7 @@ namespace SaltyEngine {
                 Debug::PrintError(std::string(e.what()) + " " + filename);
                 return nullptr;
             }
-            return sceneDefault;
+            return m_current_scene.get();
         }
 
     public:

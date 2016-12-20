@@ -34,10 +34,14 @@ Rtype::Game::Client::RtypeClientGameClient::~RtypeClientGameClient()
 
 bool Rtype::Game::Client::RtypeClientGameClient::OnStart()
 {
-//    SendReliable(*factory.create<PINGPackageGame>(32, 0));
     SendPackage<AUTHENTICATEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<AUTHENTICATEPackageGame>, 42);
-//    SendReliable(*factory.create<AUTHENTICATEPackageGame>(42));
     connected = true;
+
+    SaltyEngine::GameObject *goHighscore = SaltyEngine::Engine::Instance().GetCurrentScene()->FindByName("GUIHighscore");
+
+    if (goHighscore)
+        this->gameGUIHighscore = goHighscore->GetComponent<GameGUIHighscore>();
+
 
     SaltyEngine::GameObject *gameman = SaltyEngine::Engine::Instance().GetCurrentScene()->FindByName("Rtype");
 
@@ -51,8 +55,9 @@ bool Rtype::Game::Client::RtypeClientGameClient::OnStart()
 void Rtype::Game::Client::RtypeClientGameClient::onGetSTATUSPackage(STATUSPackageGame const &pack)
 {
     OnDiscoveringPackage(pack);
-    std::cout << pack << std::endl;
-    //TODO ON DISPLAY LE HIGHSCORE
+    if (this->gameGUIHighscore && pack.playerID == this->playerID) {
+        this->gameGUIHighscore->DisplayHighScore(pack.highScore);
+    }
 }
 
 void Rtype::Game::Client::RtypeClientGameClient::onGetPINGPackage(PINGPackageGame const &pack)
@@ -111,11 +116,8 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetSHOTPackage(SHOTPackageGam
 {
     OnDiscoveringPackage(pack);
 
-//    SaltyEngine::GameObject *obj = gameManager->gameObjectContainer[pack.id];
-//    if (obj) {
-        SaltyEngine::GameObject *laser = dynamic_cast<SaltyEngine::GameObject *>(::SaltyEngine::Instantiate("Laser", SaltyEngine::Vector2f(pack.x, pack.y)));
-//        gameManager->gameObjectContainer.Add(pack.objectID, laser);
-        laser->GetComponent<LaserController>()->Power(pack.power);
+    SaltyEngine::GameObject *laser = dynamic_cast<SaltyEngine::GameObject *>(::SaltyEngine::Instantiate("Laser", SaltyEngine::Vector2f(pack.x, pack.y)));
+    laser->GetComponent<LaserController>()->Power(pack.power);
     SaltyEngine::GameObject *gameObject;
     if ((gameObject = gameManager->gameObjectContainer[pack.objectID])) {
         MateComponent *playerController = gameObject->GetComponent<MateComponent>();
@@ -123,7 +125,6 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetSHOTPackage(SHOTPackageGam
             playerController->m_beamSFX->SetActive(false);
         }
     }
-//    }
 
     //todo resolve shot package with power of shot
 }
@@ -190,12 +191,9 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetCALLPackage(CALLPackageGam
 
 void Rtype::Game::Client::RtypeClientGameClient::onGetMOVEPackage(MOVEPackageGame const &pack)
 {
-//    std::cout << "void Rtype::Game::Client::RtypeClientGameClient::onGetMOVEPackage(MOVEPackageGame const &pack) objectID IS == " << pack.objectID << std::endl;
     OnDiscoveringPackage(pack);
     SaltyEngine::GameObject *obj = gameManager->gameObjectContainer[pack.objectID];
     if (obj) {
-//        obj->transform.Translate(SaltyEngine::Vector(pack.posX, pack.posY) * speed);
-//        obj->transform.position = SaltyEngine::Vector(pack.posX, pack.posY);
         obj->transform.SetPosition(SaltyEngine::Vector(pack.posX, pack.posY));
     }
 }

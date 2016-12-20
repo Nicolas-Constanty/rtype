@@ -1,0 +1,22 @@
+{
+  "mode": "LOOP",
+  "framerate": "15",
+  "sprites": [
+    "MonsterCircle/MonsterCircle1-1",
+    "MonsterCircle/MonsterCircle1-2",
+    "MonsterCircle/MonsterCircle1-3",
+    "MonsterCircle/MonsterCircle1-4",
+    "MonsterCircle/MonsterCircle1-5",
+    "MonsterCircle/MonsterCircle1-6",
+    "MonsterCircle/MonsterCircle1-7",
+    "MonsterCircle/MonsterCircle1-8",
+    "MonsterCircle/MonsterCircle1-9",
+    "MonsterCircle/MonsterCircle1-10",
+    "MonsterCircle/MonsterCircle1-11",
+    "MonsterCircle/MonsterCircle1-12",
+    "MonsterCircle/MonsterCircle1-13",
+    "MonsterCircle/MonsterCircle1-14",
+    "MonsterCircle/MonsterCircle1-15",
+    "MonsterCircle/MonsterCircle1-16"
+  ]
+}

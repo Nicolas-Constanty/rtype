@@ -6,6 +6,7 @@
 #include <Rtype/Game/Common/RtypeGameClient.hpp>
 #include <SaltyEngine/SaltyEngine.hpp>
 #include <Rtype/Game/Server/RtypeGameServer.hpp>
+#include "Common/Debug.hpp"
 
 const std::chrono::milliseconds    Rtype::Game::Common::RtypeGameClient::timeout = std::chrono::milliseconds(5000);
 
@@ -113,7 +114,7 @@ void Rtype::Game::Common::RtypeGameClient::onGetDISCONNECTPackage(DISCONNECTPack
 
 void Rtype::Game::Common::RtypeGameClient::OnDisconnect()
 {
-    std::cout << "\e[31mOn Disconnect called\e[0m" << std::endl;
+	Debug::PrintInfo("On Disconnect called");
     if (!getDisconnected)
         BroadCastPackage<DISCONNECTPackageGame>(&Rtype::Game::Common::RtypeGameClient::SendToServerReliablyNow<DISCONNECTPackageGame>, playerID,
                                            static_cast<unsigned int>(errcode));

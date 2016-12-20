@@ -29,29 +29,29 @@ void LaserController::FixedUpdate()
 void LaserController::OnCollisionEnter(SaltyEngine::ICollider *col)
 {
 //    std::cout << "ONCOLLISION ENTER" << std::endl;
-    SaltyEngine::ACollider2D<sf::Vector2i> *c = dynamic_cast<SaltyEngine::ACollider2D<sf::Vector2i>*>(col);
+//    SaltyEngine::ACollider2D<sf::Vector2i> *c = dynamic_cast<SaltyEngine::ACollider2D<sf::Vector2i>*>(col);
+    SaltyEngine::SFML::SpriteCollider2D *c = dynamic_cast<SaltyEngine::SFML::SpriteCollider2D *>(col);
+
     if (!c)
         return;
     if (c->CompareTag(SaltyEngine::Layer::Tag::Enemy)) {
         AGenericController *controller = c->gameObject->GetComponent<AGenericController>();
         if (controller) {
             controller->TakeDamage(m_damage);
+            this->m_targetNbr -= 1;
+            if (this->m_targetNbr == 0) {
+                SaltyEngine::Object::Destroy(this->gameObject);
+            }
             if (playerController) {
                 playerController->SetHighScore(playerController->GetHighScore() + controller->GetHighScore());
             }
         }
     }
-    this->m_damage -= 1;
-    if (this->m_damage == 0) {
-        std::cout << "ON VA LE DESTROY" << std::endl;
-//        SaltyEngine::Object::Destroy(this->gameObject);
-        std::cout << "SEG FAULT" << std::endl;
-    }
 }
 
 void LaserController::OnCollisionExit(SaltyEngine::ICollider *collider)
 {
-    SaltyEngine::ACollider2D<sf::Vector2i> *c = dynamic_cast<SaltyEngine::ACollider2D<sf::Vector2i>*>(collider);
+    SaltyEngine::SFML::SpriteCollider2D *c = dynamic_cast<SaltyEngine::SFML::SpriteCollider2D *>(collider);
 
     if (!c)
         return;
@@ -76,26 +76,31 @@ void LaserController::Power(int damage) {
     {
         case 1:
             anim = "Laser/simple";
+            gameObject->transform.position.x += 30;
             break;
         case 2:
+            gameObject->transform.position.x += 35;
             anim = "Laser/power1";
             break;
         case 3:
+            gameObject->transform.position.x += 45;
             anim = "Laser/power2";
             break;
         case 4:
+            gameObject->transform.position.x += 55;
             anim = "Laser/power3";
             break;
         case 5:
+            gameObject->transform.position.x += 60;
             anim = "Laser/power4";
             break;
         default:
             return;
     }
     m_damage = damage;
+    m_targetNbr = damage;
     SaltyEngine::SFML::Animation *animation = gameObject->GetComponent<SaltyEngine::SFML::Animation>();
     if (animation) {
-        std::cout << "after animation" << std::endl;
         animation->AddClip(SaltyEngine::SFML::AssetManager::Instance().GetAnimation(anim), "Shoot");
         animation->Play("Shoot");
     }

@@ -55,16 +55,25 @@ namespace SaltyEngine
 
         void Animation::Stop(std::string const &name) {
             typename std::map<std::string, AnimationClip *>::iterator it = m_clips.find(name);
-            if (it != m_clips.end() || it->second != clip) {
+            if (it == m_clips.end() || it->second != clip) {
                 return;
             }
             m_isPlaying = false;
+        }
+
+        void Animation::Stop()
+        {
+            AAnimation::Stop();
         }
 
         void Animation::AddClip(SaltyEngine::SFML::AnimationClip *const clip, std::string const &name) {
             if (clip == nullptr) {
                 Debug::PrintError("AnimationClip " + name + " was null");
                 return;
+            }
+            if (gameObject->GetComponent<SpriteRenderer>() == nullptr)
+            {
+                gameObject->AddComponent<SpriteRenderer>(AssetManager::Instance().GetSprite((*clip->GetFrames().begin())->GetName()), Layout::normal);
             }
             m_clips[name] = clip;
         }

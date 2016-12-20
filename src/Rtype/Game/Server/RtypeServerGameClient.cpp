@@ -53,7 +53,7 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetPINGPackage(PINGPackageGam
 //    std::cout << pack << std::endl;
     reply = false;
     OnDiscoveringPackage(pack);
-    std::cout << "\e[32mPonged\e[0m" << std::endl;
+	Debug::PrintSuccess("Ponged");
 //    std::cout << "pingSecret == " << pingSecret << " pack.secret == " << pack.secret << " pingSecret == " << pingSecret << std::endl;
     if (pingSecret != -1 && pack.secret != pingSecret)
     {
@@ -483,7 +483,7 @@ void Rtype::Game::Server::RtypeServerGameClient::StartDisplayInformation() {
 void Rtype::Game::Server::RtypeServerGameClient::OnDisconnect() {
     Rtype::Game::Common::RtypeGameClient::OnDisconnect();
     server1->DisconnectConnectedPlayer(__playerID);
-    std::cout << "\e[31m Diconnected RtypeServerGameClient \e[0m" << std::endl;
+	Debug::PrintInfo("Diconnected RtypeServerGameClient");
 }
 
 void Rtype::Game::Server::RtypeServerGameClient::onGetMATEPackage(MATEPackageGame const &matePackageGame) {

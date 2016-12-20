@@ -41,7 +41,7 @@ namespace SaltyEngine
 
 		virtual void RemoveClip(std::string const& clipName) = 0;
 
-        void Stop();
+		virtual void Stop();
 
 		virtual void Stop(std::string const& name) = 0;
 
