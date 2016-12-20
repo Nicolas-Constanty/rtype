@@ -149,12 +149,9 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetDIEPackage(DIEPackageGame 
 void Rtype::Game::Client::RtypeClientGameClient::onGetTAKEPackage(TAKEPackageGame const &pack)
 {
     OnDiscoveringPackage(pack);
-    std::cout << "\e[31mReceiving take package\e[0m" << std::endl;
     //todo resolve take in the game
     SaltyEngine::GameObject *object = gameManager->gameObjectContainer[pack.objectID];
     SaltyEngine::GameObject *play = gameManager->gameObjectContainer[pack.playerObjectID];
-
-    std::cout << "obj(" << pack.objectID << "): " << object << ", play(" << pack.playerObjectID << "): " << play << std::endl;
 
     if (object && play)
     {
@@ -162,12 +159,9 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetTAKEPackage(TAKEPackageGam
         SaltyEngine::PlayerController   *playerController = play->GetComponent<SaltyEngine::PlayerController>();
         MateComponent   *mateComponent = play->GetComponent<MateComponent>();
 
-        std::cout << "pod: " << podController << ", player: " << playerController << std::endl;
         if (playerController && podController && !podController->isAttached())
         {
-            std::cout << "Attach it" << std::endl;
             podController->Attach(playerController, static_cast<bool>(pack.front));
-//            podController->getAttachedPlayer()->Attach(podController);
         }
     }
 }
@@ -203,15 +197,13 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetLAUNCHPackage(LAUNCHPackag
     OnDiscoveringPackage(pack);
     SaltyEngine::GameObject *object = gameManager->gameObjectContainer[pack.objectID];
 
-    std::cout << "Receiving Launch package: " << pack << std::endl;
     if (object)
     {
         PodController   *podController = object->GetComponent<PodController>();
 
-        std::cout << "Pod: " << podController << std::endl;
         if (podController && podController->isAttached())
         {
-            std::cout << "Attached" << std::endl;
+            podController->gameObject->transform.SetPosition(SaltyEngine::Vector(pack.fromX, pack.fromY));
             podController->getAttachedPlayer()->Launch();
         }
     }

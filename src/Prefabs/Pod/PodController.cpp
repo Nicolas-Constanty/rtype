@@ -54,7 +54,7 @@ void PodController::Start()
                                              RtypeNetworkFactory::GetIDFromName("Pod"),
                                              gameobjectId);
     }
-    speed = 10;
+    speed = 0; //todo set to 10
 //    anim = gameObject->GetComponent<SaltyEngine::AAnimationClip>();
 //    if (!anim)
 //        std::cerr << "[\e[31mError\e[0m]: No such animation clip component on PodController" << std::endl;
@@ -145,7 +145,7 @@ bool PodController::Launch()
             std::cerr << "Pod launch: " << err.what() << " (while getting attached player)" << std::endl;
             return false;
         }
-        BroadCastReliable<LAUNCHPackageGame>(pod, player);
+        BroadCastReliable<LAUNCHPackageGame>(pod, player, gameObject->transform.position.x, gameObject->transform.position.y);
     }
 //    if (isAtFront)
 //    {
