@@ -10,7 +10,7 @@
 namespace SaltyEngine
 {
 	PlayerController::PlayerController(GameObject* const gameObj) : AGenericController("PlayerController", gameObj) {
-		speed = 12.0f; // 20
+		speed = 8.0f; // 20
         idShot = 1;
         power = 0;
         beamShot = NULL;
@@ -20,7 +20,7 @@ namespace SaltyEngine
 	};
 
 	PlayerController::PlayerController(const std::string &name, GameObject* const gameObj) : AGenericController(name, gameObj) {
-		speed = 12.0f; // 20
+		speed = 8.0f; // 20
         idShot = 1;
         power = 0;
         beamShot = NULL;

@@ -100,7 +100,6 @@ void LaserController::Power(int damage) {
     m_damage = damage;
     SaltyEngine::SFML::Animation *animation = gameObject->GetComponent<SaltyEngine::SFML::Animation>();
     if (animation) {
-//        std::cout << "after animation" << std::endl;
         animation->AddClip(SaltyEngine::SFML::AssetManager::Instance().GetAnimation(anim), "Shoot");
         animation->Play("Shoot");
     }
