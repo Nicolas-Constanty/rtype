@@ -50,7 +50,8 @@ void Rtype::Game::Server::Room::Start(const uint16_t port, const size_t max, con
     serverGame->AddComponent<SaltyEngine::SFML::BoxCollider2D>(
             sf::Vector2u(40, 40)
     );
-    serverGame->transform.position = SaltyEngine::Vector2(20, 20);
+//    serverGame->transform.position = SaltyEngine::Vector2(20, 20);
+    serverGame->transform.SetPosition(SaltyEngine::Vector2(20, 20));
 }
 
 void Rtype::Game::Server::Room::Run()

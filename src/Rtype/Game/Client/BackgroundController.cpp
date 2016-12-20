@@ -29,19 +29,32 @@ void BackgroundController::Start() {
     windowSize = renderer->GetRealSize();
     m_start = windowSize.x / 2;
     m_end = windowSize.x + windowSize.x / 2;
-    bg1->transform.position.x = m_start;
-    bg2->transform.position.x = m_end;
-    bg1->transform.position.y = windowSize.y / 2;
-    bg2->transform.position.y = windowSize.y / 2;
+    bg1->transform.SetPosition(m_start, windowSize.y / 2);
+    bg2->transform.SetPosition(m_end, windowSize.y / 2);
 }
 
 void BackgroundController::FixedUpdate() {
-    bg1->transform.position.x -= m_speed;
-    bg2->transform.position.x -= m_speed;
-    if (bg1->transform.position.x < -m_start) {
-        bg1->transform.position.x = m_end;
+    float x1 = bg1->transform.GetPosition().x;
+    float y1 = bg1->transform.GetPosition().y;
+    float x2 = bg2->transform.GetPosition().x;
+    float y2 = bg1->transform.GetPosition().y;
+//    bg1->transform.position.x -= m_speed;
+//    bg2->transform.position.x -= m_speed;
+    x1 -= m_speed;
+    x2 -= m_speed;
+    if (x1 < -m_start) {
+        x1 = m_end;
     }
-    if (bg2->transform.position.x < -m_start) {
-        bg2->transform.position.x = m_end;
+    if (x2 < -m_start) {
+        x2 = m_end;
     }
+    bg1->transform.SetPosition(x1, y1);
+    bg2->transform.SetPosition(x2, y2);
+
+//    if (bg1->transform.position.x < -m_start) {
+//        bg1->transform.position.x = m_end;
+//    }
+//    if (bg2->transform.position.x < -m_start) {
+//        bg2->transform.position.x = m_end;
+//    }
 }

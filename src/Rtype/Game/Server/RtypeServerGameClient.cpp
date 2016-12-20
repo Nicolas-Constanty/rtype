@@ -142,7 +142,7 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetBEAMPackage(BEAMPackageGam
         SaltyEngine::PlayerController *playerController = gameObject->GetComponent<SaltyEngine::PlayerController>();
         if (playerController) {
 
-            SaltyEngine::Vector pos = gameObject->transform.position;
+            SaltyEngine::Vector pos = gameObject->transform.GetPosition();
             pos.x += 30;
             SaltyEngine::GameObject *beam = dynamic_cast<SaltyEngine::GameObject*>(SaltyEngine::Object::Instantiate("Beam", pos));
 
@@ -191,7 +191,7 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetSHOTPackage(SHOTPackageGam
 
         if (playerController) {
             int power = playerController->OnShotAction();
-            SaltyEngine::GameObject *laser = dynamic_cast<SaltyEngine::GameObject *>(::SaltyEngine::Instantiate("Laser", gameObject->transform.position));
+            SaltyEngine::GameObject *laser = dynamic_cast<SaltyEngine::GameObject *>(::SaltyEngine::Instantiate("Laser", gameObject->transform.GetPosition()));
 //            int serverid = gameManager->gameObjectContainer.Add(GameObjectID::NewID(), laser);
             LaserController *laserController;
 
@@ -209,7 +209,7 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetSHOTPackage(SHOTPackageGam
                     if (receiver)
                         receiver->SendPackage<SHOTPackageGame>(&Network::UDP::AUDPConnection::SendReliable<SHOTPackageGame>,
                                                                 pack.objectID, power,
-                                                                0, gameObject->transform.position.x, gameObject->transform.position.y);
+                                                                0, gameObject->transform.GetPosition().x, gameObject->transform.GetPosition().y);
                 }
             }
 
@@ -282,7 +282,7 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetCALLPackage(CALLPackageGam
 
             if (podController && podController->isAttachedTo(pack.playerID))
             {
-                podController->Call(podController->getAttachedPlayer()->gameObject->transform.position);
+                podController->Call(podController->getAttachedPlayer()->gameObject->transform.GetPosition());
             }
         }
     }
@@ -304,7 +304,8 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetMOVEPackage(MOVEPackageGam
     SaltyEngine::GameObject *gameObject;
 
     if ((gameObject = gameManager->gameObjectContainer[pack.objectID])) {
-        gameObject->transform.position = SaltyEngine::Vector(pack.posX, pack.posY);
+//        gameObject->transform.position = SaltyEngine::Vector(pack.posX, pack.posY);
+        gameObject->transform.SetPosition(SaltyEngine::Vector(pack.posX, pack.posY));
     }
 
     for (std::unique_ptr<Network::Socket::ISockStreamHandler> &curr : clients->Streams())
@@ -465,7 +466,7 @@ void Rtype::Game::Server::RtypeServerGameClient::StartDisplayInformation() {
     gameManager->gameObjectContainer.Add(GameObjectID::NewID(), player);
 
     this->SendPackage<CREATEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>,
-                                         player->transform.position.x, player->transform.position.y, 0, gameManager->gameObjectContainer.GetServerObjectID(player));
+                                         player->transform.GetPosition().x, player->transform.GetPosition().y, 0, gameManager->gameObjectContainer.GetServerObjectID(player));
 
     for (std::unique_ptr<Network::Socket::ISockStreamHandler> &curr : clients->Streams())
     {
@@ -474,7 +475,7 @@ void Rtype::Game::Server::RtypeServerGameClient::StartDisplayInformation() {
         if (client && client != this)
         {
             client->SendPackage<MATEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<MATEPackageGame>,
-                                                 player->transform.position.x, player->transform.position.y, __playerID,
+                                                 player->transform.GetPosition().x, player->transform.GetPosition().y, __playerID,
                                                  gameManager->gameObjectContainer.GetServerObjectID(player));
         }
     }

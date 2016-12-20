@@ -52,7 +52,7 @@ namespace SaltyEngine
 				SpriteRenderer *sprr = component->gameObject->GetComponent<SpriteRenderer>();
 				if (sprr)
 				{
-					component->gameObject->transform.localScale = m_scale;
+					component->gameObject->transform.SetLocalScale(m_scale);
 					if (r)
 					{
 						r->AddSpriteRenderer(sprr);
