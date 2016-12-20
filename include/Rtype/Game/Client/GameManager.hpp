@@ -20,7 +20,7 @@ public:
 public:
 	void Start();
 	void FixedUpdate();
-	void Update();
+//	void Update();
     void OnCollisionExit(SaltyEngine::ICollider *collider);
     void OnCollisionEnter(SaltyEngine::ICollider *collider);
 

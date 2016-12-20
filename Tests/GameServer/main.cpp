@@ -32,7 +32,7 @@ int main(int, char **)
 
 	server.reset(new SaltyEngine::GameObject("Rtype", SaltyEngine::Layer::Tag::Destroy));
 //	server->SetName("Rtype");
-	SaltyEngine::SFML::AssetManager::Instance().LoadScene("scene2");
+	SaltyEngine::SFML::AssetManager::Instance().LoadScene("scene4");
 	server->AddComponent<Rtype::Game::Client::GameClientObject>("127.0.0.1", 4242);
 	server->AddComponent<GameManager>();
 	server->AddComponent<SaltyEngine::SFML::BoxCollider2D>(

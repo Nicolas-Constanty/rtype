@@ -64,12 +64,12 @@ void GameManager::OnCollisionEnter(SaltyEngine::ICollider *)
 	Debug::PrintSuccess("======ENTER=======");
 }
 
-void GameManager::addPlayer(SaltyEngine::GameObject *player)
+void GameManager::addPlayer(SaltyEngine::GameObject *player, unsigned char playerID)
 {
-    m_players.push_back(player);
+    m_players[playerID] = player;
 }
 
-std::list<SaltyEngine::GameObject *> const &GameManager::getPlayers() const
+std::map<unsigned char, SaltyEngine::GameObject *> const &GameManager::getPlayers() const
 {
     return m_players;
 }
@@ -150,10 +150,10 @@ void GameManager::FixedUpdate() {
 
 void GameManager::OnSendHighScore() {
     if (m_server) {
-        for (SaltyEngine::GameObject *gameObject1 : m_players) {
+        for (std::pair<const unsigned char, SaltyEngine::GameObject *> &curr : m_players) {
             SaltyEngine::PlayerController *playerController;
 
-            if ((playerController = gameObject1->GetComponent<SaltyEngine::PlayerController>())) {
+            if ((playerController = curr.second->GetComponent<SaltyEngine::PlayerController>())) {
                 if (playerController->IsUpdateHighScore()) {
                     BroadCastPackage<STATUSPackageGame>(&Network::Core::BasicConnection::SendData<STATUSPackageGame>,
                                                         playerController->GetHighScore(),
@@ -163,4 +163,23 @@ void GameManager::OnSendHighScore() {
             }
         }
     }
+}
+
+SaltyEngine::GameObject *GameManager::GetPlayer(unsigned char playerID) const
+{
+    std::map<unsigned char, SaltyEngine::GameObject *>::const_iterator  it = m_players.find(playerID);
+
+    if (it == m_players.end())
+        return nullptr;
+    return it->second;
+}
+
+unsigned char GameManager::GetPlayerID(SaltyEngine::GameObject *player) const
+{
+    for (std::pair<unsigned char, SaltyEngine::GameObject *> const &curr : m_players)
+    {
+        if (curr.second == player)
+            return curr.first;
+    }
+    return (unsigned char)~0;
 }
