@@ -60,7 +60,7 @@ namespace SaltyEngine {
     /// \tparam Texture
     /// \tparam Sprite
     /// \tparam Sound
-    template <class Texture, class Sprite, class Animation, class Sound = ::SaltyEngine::Sound::ISound>
+    template <class Texture, class Sprite, class Animation, class Font, class Sound = ::SaltyEngine::Sound::ISound>
     class AAssetManager {
     protected:
         AAssetManager() {
@@ -98,11 +98,13 @@ namespace SaltyEngine {
         std::string                             path_metas;
         std::string                             path_textures;
         std::string                             path_sounds;
+        std::string                             path_fonts;
         std::string                             path_sprites;
         std::string                             path_animations;
 
         std::map<std::string, std::unique_ptr<Sound>>   m_sounds;
         std::map<std::string, std::unique_ptr<Texture>> m_textures;
+        std::map<std::string, std::unique_ptr<Font>>    m_fonts;
         std::map<std::string, SpriteDefault>            m_sprites;
         std::map<std::string, AnimationDefault>         m_animations;
         std::list<std::string>                          m_prefabs;
@@ -148,6 +150,25 @@ namespace SaltyEngine {
                 it = m_sounds.find(name);
                 if (it == m_sounds.end()) {
                     Debug::PrintWarning("Failed to get sound " + name);
+                    return nullptr;
+                }
+            }
+            return it->second.get();
+        }
+
+    public:
+        virtual bool LoadFont(std::string const &name) = 0;
+
+        Font    *GetFont(std::string const &name) {
+            typename std::map<std::string, std::unique_ptr<Font>>::const_iterator it = m_fonts.find(name);
+            if (it == m_fonts.end()) {
+                if (!LoadFont(name)) {
+                    Debug::PrintError("Cannot find font " + name);
+                    return nullptr;
+                }
+                it = m_fonts.find(name);
+                if (it == m_fonts.end()) {
+                    Debug::PrintWarning("Failed to get font " + name);
                     return nullptr;
                 }
             }
@@ -393,6 +414,14 @@ namespace SaltyEngine {
                     m_current_scene->preview = map["preview"]();
                     m_current_scene->background = map["background"]();
                     m_current_scene->scale = Vector2f(1, 1);
+                    JsonVariant const &fonts = map["fonts"];
+
+                    for (unsigned int i = 0; i < fonts.size(); ++i) {
+                        if (!LoadFont(fonts[i]())) {
+                            Debug::PrintError("Cannot load font " + fonts[i]() + " for the scene " + filename);
+                        }
+                    }
+
                     try {
                         if (!map["scale"]["width"]().empty()) {
                             std::cout << map["scale"]["width"]() << std::endl;
