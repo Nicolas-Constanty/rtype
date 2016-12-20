@@ -28,8 +28,8 @@ namespace SaltyEngine {
             Debug::PrintWarning("Cannot find prefab [" + name + "]");
             m_objects.push_front(std::unique_ptr<Object>(new GameObject("EmptyGameObject(Clone)")));
             GameObject *go = static_cast<GameObject*>(m_objects.front().get());
-            go->transform.position = pos;
-            go->transform.rotation = rot;
+            go->transform.SetPosition(pos);
+            go->transform.SetRotation(rot);
             *Singleton<::SaltyEngine::Engine>::Instance().GetCurrentScene() << static_cast<GameObject*>(m_objects.front().get());
 			return m_objects.front().get();
 		}
@@ -37,9 +37,9 @@ namespace SaltyEngine {
 		if (m_objects.front().get() != nullptr)
 		{
 			GameObject *go = static_cast<GameObject*>(m_objects.front().get());
-			go->transform.position = pos;
-			go->transform.rotation = rot;
-		}
+            go->transform.SetPosition(pos);
+            go->transform.SetRotation(rot);
+        }
         *Singleton<::SaltyEngine::Engine>::Instance().GetCurrentScene() << static_cast<GameObject*>(m_objects.front().get());
         return m_objects.front().get();
     }

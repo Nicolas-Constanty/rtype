@@ -67,7 +67,7 @@ namespace SaltyEngine
         {
             m_beamSFX = (GameObject*)Instantiate();
             m_beamSFX->AddComponent<SFML::SpriteRenderer>(SFML::AssetManager::Instance().GetSprite("Laser/loading1"), Layout::normal);
-            m_beamSFX->transform.position = (this->gameObject->transform.position + Vector(50, 3));
+            m_beamSFX->transform.SetPosition(this->gameObject->transform.GetPosition() + Vector(50, 3));
             SaltyEngine::SFML::Animation *animation = m_beamSFX->AddComponent<SaltyEngine::SFML::Animation>(true, SaltyEngine::AnimationConstants::WrapMode::LOOP);
             animation->AddClip(SaltyEngine::SFML::AssetManager::Instance().GetAnimation("Laser/loading"), "Loading");
             m_beamSFX->transform.SetParent(&this->gameObject->transform);
@@ -85,8 +85,8 @@ namespace SaltyEngine
             if (!isServerSide()/* && i % 3 == 0*/)
             {
                 SendPackage<MOVEPackageGame>(
-                        gameObject->transform.position.x,
-                        gameObject->transform.position.y,
+                        gameObject->transform.GetPosition().x,
+                        gameObject->transform.GetPosition().y,
                         getManager()->gameObjectContainer.GetServerObjectID(gameObject));
             }
 //            ++i;
@@ -108,7 +108,7 @@ namespace SaltyEngine
                 SendPackage<SHOTPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(gameObject), power, idShot++);
                 m_beamSFX->SetActive(false);
 
-                SaltyEngine::GameObject *gameObject1 = dynamic_cast<SaltyEngine::GameObject *>(::SaltyEngine::Instantiate("Laser", gameObject->transform.position));
+                SaltyEngine::GameObject *gameObject1 = dynamic_cast<SaltyEngine::GameObject *>(::SaltyEngine::Instantiate("Laser", gameObject->transform.GetPosition()));
                 int power = OnShotAction();
                 LaserController *laserController = gameObject1->GetComponent<LaserController>();
                 if (laserController) {

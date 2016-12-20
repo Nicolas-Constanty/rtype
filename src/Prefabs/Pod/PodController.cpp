@@ -49,8 +49,8 @@ void PodController::Start()
         unsigned short gameobjectId = GameObjectID::NewID();
 
         getManager()->gameObjectContainer.Add(gameobjectId, gameObject);
-        BroadCastReliable<CREATEPackageGame>(gameObject->transform.position.x,
-                                             gameObject->transform.position.y,
+        BroadCastReliable<CREATEPackageGame>(gameObject->transform.GetPosition().x,
+                                             gameObject->transform.GetPosition().y,
                                              RtypeNetworkFactory::GetIDFromName("Pod"),
                                              gameobjectId);
     }
@@ -64,7 +64,7 @@ void PodController::FixedUpdate()
 {
     if (speed > 0)
     {
-        gameObject->transform.SetPosition(gameObject->transform.position + (SaltyEngine::Vector::left() * (isAtFront ? -1 : 1)) * speed);
+        gameObject->transform.SetPosition(gameObject->transform.GetPosition() + (SaltyEngine::Vector::left() * (isAtFront ? -1 : 1)) * speed);
     }
 //    else if (!isAttached())
 //    {
@@ -149,7 +149,7 @@ bool PodController::Launch()
             std::cerr << "Pod launch: " << err.what() << " (while getting attached player)" << std::endl;
             return false;
         }
-        BroadCastReliable<LAUNCHPackageGame>(pod, player, gameObject->transform.position.x, gameObject->transform.position.y);
+        BroadCastReliable<LAUNCHPackageGame>(pod, player, gameObject->transform.GetPosition().x, gameObject->transform.GetPosition().y);
     }
 //    if (isAtFront)
 //    {

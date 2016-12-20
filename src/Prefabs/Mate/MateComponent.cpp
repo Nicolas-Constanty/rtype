@@ -33,7 +33,8 @@ void MateComponent::Start()
         m_beamSFX = (SaltyEngine::GameObject*)SaltyEngine::Instantiate();
         m_beamSFX->AddComponent<SaltyEngine::SFML::SpriteRenderer>(SaltyEngine::SFML::AssetManager::Instance().GetSprite("Laser/loading1"), SaltyEngine::Layout::normal);
         m_beamSFX->AddComponent<SaltyEngine::SFML::SpriteCollider2D>();
-        m_beamSFX->transform.position = (this->gameObject->transform.position + SaltyEngine::Vector(30, 3));
+//        m_beamSFX->transform.position = (this->gameObject->transform.position + SaltyEngine::Vector(30, 3));
+        m_beamSFX->transform.SetPosition(this->gameObject->transform.GetPosition() + SaltyEngine::Vector(30, 3));
         SaltyEngine::SFML::Animation *animation = m_beamSFX->AddComponent<SaltyEngine::SFML::Animation>(true, SaltyEngine::AnimationConstants::WrapMode::LOOP);
         animation->AddClip(SaltyEngine::SFML::AssetManager::Instance().GetAnimation("Laser/loading"), "Loading");
         m_beamSFX->transform.SetParent(&this->gameObject->transform);

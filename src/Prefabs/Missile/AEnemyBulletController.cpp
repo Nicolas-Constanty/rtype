@@ -36,11 +36,11 @@ void AEnemyBulletController::Start()
         }
 
         BroadCastReliable<CREATEPackageGame>(
-                gameObject->transform.position.x,
-                gameObject->transform.position.y,
+                gameObject->transform.GetPosition().x,
+                gameObject->transform.GetPosition().y,
                 RtypeNetworkFactory::GetIDFromName(m_objectNameReplication),
                 getManager()->gameObjectContainer.GetServerObjectID(gameObject),
-                gameObject->transform.rotation);
+                gameObject->transform.GetRotation());
     }
 }
 
