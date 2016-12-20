@@ -49,20 +49,24 @@ void LaserController::OnCollisionEnter(SaltyEngine::ICollider *col)
     }
 }
 
-void LaserController::OnCollisionExit(SaltyEngine::ICollider *collider)
-{
-    SaltyEngine::SFML::SpriteCollider2D *c = dynamic_cast<SaltyEngine::SFML::SpriteCollider2D *>(collider);
-
-    if (!c)
-        return;
-    if (c->gameObject->GetTag() == SaltyEngine::Layer::Tag::Destroy)
-    {
-//        if (playerController) {
-//            playerController->SetHighScore(playerController->GetHighScore());
-//        }
-//        SaltyEngine::Object::Destroy(this->gameObject);
-    }
-}
+//void LaserController::OnCollisionExit(SaltyEngine::ICollider *collider)
+//{
+//    if (!collider) {
+//        std::cout << "OnCOllisionEXIT NULL" << std::endl;
+//        return ;
+//    }
+//    SaltyEngine::SFML::SpriteCollider2D *c = dynamic_cast<SaltyEngine::SFML::SpriteCollider2D *>(collider);
+//
+//    if (!c)
+//        return;
+//    if (c->gameObject->GetTag() == SaltyEngine::Layer::Tag::Destroy)
+//    {
+////        if (playerController) {
+////            playerController->SetHighScore(playerController->GetHighScore());
+////        }
+////        SaltyEngine::Object::Destroy(this->gameObject);
+//    }
+//}
 
 void LaserController::Power(int damage) {
     std::string anim;

@@ -19,7 +19,7 @@ public:
     void Start();
     void FixedUpdate();
     void OnCollisionEnter(SaltyEngine::ICollider *);
-    void OnCollisionExit(SaltyEngine::ICollider *);
+//    void OnCollisionExit(SaltyEngine::ICollider *);
 
     void AddPlayerController(SaltyEngine::PlayerController *playerController);
 
