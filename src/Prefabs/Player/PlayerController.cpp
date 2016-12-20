@@ -171,18 +171,18 @@ namespace SaltyEngine
     }
 
     void PlayerController::Die() {
-        std::cout << "Player Died !" << std::endl;
-        if (isServerSide())
-        {
-            SendPackage<DIEPackageGame>(
-                    getManager()->gameObjectContainer.GetServerObjectID(this->gameObject)
-            );
-        }
-        else
-        {
-            Instantiate("ExplosionBasic", this->gameObject->transform.position);
-        }
-        Destroy(this->gameObject);
+//        std::cout << "Player Died !" << std::endl;
+//        if (isServerSide())
+//        {
+//            SendPackage<DIEPackageGame>(
+//                    getManager()->gameObjectContainer.GetServerObjectID(this->gameObject)
+//            );
+//        }
+//        else
+//        {
+//            Instantiate("ExplosionBasic", this->gameObject->transform.position);
+//        }
+//        Destroy(this->gameObject);
     }
 
     void PlayerController::TakeDamage(int amount) {
