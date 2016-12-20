@@ -136,8 +136,8 @@ namespace SaltyEngine
 		}
 
 	public:
-		float rotation;
-		float localRotation;
+		float rotation = 0;
+		float localRotation = 0;
 		T position;
 		T localPosition;
 		T localScale;
