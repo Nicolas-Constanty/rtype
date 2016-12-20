@@ -8,7 +8,7 @@
 
 namespace SaltyEngine {
     namespace SFML {
-        AssetManager::AssetManager(): AAssetManager<Texture, Sprite, AnimationClip>() {
+        AssetManager::AssetManager(): AAssetManager<Texture, Sprite, AnimationClip, sf::Font>() {
 
         }
 
@@ -48,6 +48,21 @@ namespace SaltyEngine {
             }
             Debug::PrintSuccess("Texture " + name + " was successfuly loaded");
             m_textures[name] = std::unique_ptr<Texture>(texture);
+            return true;
+        }
+
+        bool AssetManager::LoadFont(std::string const &name) {
+            if (m_fonts.find(name) != m_fonts.end()) {
+                Debug::PrintWarning("Font " + name + " already loaded");
+                return true;
+            }
+            sf::Font *font = new sf::Font();
+            if (!font->loadFromFile(path_fonts + name + Asset::FONT_EXTENSION)) {
+                Debug::PrintWarning("Failed to load font " + name);
+                return false;
+            }
+            Debug::PrintSuccess("Font " + name + " was successfuly loaded");
+            m_fonts[name] = std::unique_ptr<sf::Font>(font);
             return true;
         }
 
@@ -114,7 +129,7 @@ namespace SaltyEngine {
         }
 
         ::SaltyEngine::Sound::ISound *AssetManager::GetSound(std::string const &name) {
-            ::SaltyEngine::Sound::ISound *sound = AAssetManager<Texture, Sprite, AnimationClip>::GetSound(name);
+            ::SaltyEngine::Sound::ISound *sound = AAssetManager<Texture, Sprite, AnimationClip, sf::Font>::GetSound(name);
             if (sound) {
                 return sound->Get();
             }
