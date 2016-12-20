@@ -17,6 +17,7 @@ namespace SaltyEngine
         playerID = 0;
         pod = NULL;
         highScore = 0;
+        m_health = 1;
 	};
 
 	PlayerController::PlayerController(const std::string &name, GameObject* const gameObj) : AGenericController(name, gameObj) {
@@ -27,6 +28,7 @@ namespace SaltyEngine
         playerID = 0;
         pod = NULL;
         highScore = 0;
+        m_health = 1;
 	};
 
 	void PlayerController::Start()
@@ -65,7 +67,7 @@ namespace SaltyEngine
         {
             m_beamSFX = (GameObject*)Instantiate();
             m_beamSFX->AddComponent<SFML::SpriteRenderer>(SFML::AssetManager::Instance().GetSprite("Laser/loading1"), Layout::normal);
-            m_beamSFX->transform.position = (this->gameObject->transform.position + Vector(30, 3));
+            m_beamSFX->transform.position = (this->gameObject->transform.position + Vector(50, 3));
             SaltyEngine::SFML::Animation *animation = m_beamSFX->AddComponent<SaltyEngine::SFML::Animation>(true, SaltyEngine::AnimationConstants::WrapMode::LOOP);
             animation->AddClip(SaltyEngine::SFML::AssetManager::Instance().GetAnimation("Laser/loading"), "Loading");
             m_beamSFX->transform.SetParent(&this->gameObject->transform);
@@ -168,8 +170,28 @@ namespace SaltyEngine
         return idShot;
     }
 
-    void PlayerController::Die() const {
+    void PlayerController::Die() {
         std::cout << "Player Died !" << std::endl;
+        if (isServerSide())
+        {
+            SendPackage<DIEPackageGame>(
+                    getManager()->gameObjectContainer.GetServerObjectID(this->gameObject)
+            );
+        }
+        else
+        {
+            Instantiate("ExplosionBasic", this->gameObject->transform.position);
+        }
+        Destroy(this->gameObject);
+    }
+
+    void PlayerController::TakeDamage(int amount) {
+        AGenericController::TakeDamage(amount);
+
+        if (m_health <= 0)
+        {
+            Die();
+        }
     }
 
     void PlayerController::Move() {

@@ -11,7 +11,7 @@ public:
 	virtual ~MonsterNeunoeilController();
 
 public:
-	virtual void Die() const;
+	virtual void Die();
 	virtual void TakeDamage(int amount);
 
 public:

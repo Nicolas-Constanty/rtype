@@ -11,7 +11,7 @@ public:
 	virtual ~MonsterFlyingController();
 
 public:
-	virtual void Die() const;
+	virtual void Die();
 
 public:
 	void Start();

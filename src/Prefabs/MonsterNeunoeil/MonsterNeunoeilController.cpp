@@ -95,13 +95,16 @@ void MonsterNeunoeilController::Shot() {
     }
 }
 
-void MonsterNeunoeilController::Die() const
+void MonsterNeunoeilController::Die()
 {
     if (!isServerSide())
     {
         for (int i = 0; i < 15; ++i)
         {
-            SaltyEngine::Instantiate("ExplosionBasic", this->gameObject->transform.position + SaltyEngine::Vector2(rand() % 40, rand() % 40));
+            SaltyEngine::Instantiate("ExplosionBasic", this->gameObject->transform.position + SaltyEngine::Vector2(rand() % 100, rand() % 100));
+        }
+        for (int i = 0; i < 4; ++i) {
+            SaltyEngine::Object::Destroy(m_canons[i]);
         }
     }
     SaltyEngine::Object::Destroy(this->gameObject);
