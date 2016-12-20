@@ -1,9 +1,9 @@
 {
     "texture": "missiles",
     "rect": {
-        "x": "184",
-        "y": "4",
-        "width": "6",
+        "x": "188",
+        "y": "6",
+        "width": "7",
         "heigth": "6"
     }
 }
