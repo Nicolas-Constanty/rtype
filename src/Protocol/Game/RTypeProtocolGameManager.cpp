@@ -19,7 +19,6 @@ const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::PINGID = RTypeP
 const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::SHOTID = RTypeProtocolGameManager::GameID(GamePurpose::GAMESHOT, sizeof(SHOTPackageGame));
 const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::REBORNID = RTypeProtocolGameManager::GameID(GamePurpose::GAMEREBORN, sizeof(PINGPackageGame));
 const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::FAILUREID = RTypeProtocolGameManager::GameID(GamePurpose::GAMEFAILURE, sizeof(SHOTPackageGame));
-const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::INPUTID = RTypeProtocolGameManager::GameID(GamePurpose::GAMEINPUT, sizeof(INPUTPackageGame));
 const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::DISCONNECTID = RTypeProtocolGameManager::GameID(GamePurpose::GAMEDISCONNECT, sizeof(DISCONNECTPackageGame));
 const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::ENEMYSHOTID = RTypeProtocolGameManager::GameID(GamePurpose::GAMEENEMYSHOT, sizeof(ENEMYSHOTPackageGame));
 const RTypeProtocolGameManager::GameID RTypeProtocolGameManager::UPGRADEID = RTypeProtocolGameManager::GameID(GamePurpose::GAMEUPGRADE, sizeof(UPGRADEPackageGame));
@@ -42,7 +41,6 @@ RTypeProtocolGameManager::RTypeProtocolGameManager(IProtocolGameHandler &protoco
     fptr[PINGID] = (MFP)&IProtocolGameHandler::onGetPINGPackage;
     fptr[REBORNID] = (MFP)&IProtocolGameHandler::onGetREBORNPackage;
     fptr[FAILUREID] = (MFP)&IProtocolGameHandler::onGetFAILUREPackage;
-    fptr[INPUTID] = (MFP)&IProtocolGameHandler::onGetINPUTPackage;
     fptr[DISCONNECTID] = (MFP)&IProtocolGameHandler::onGetDISCONNECTPackage;
     fptr[ENEMYSHOTID] = (MFP)&IProtocolGameHandler::onGetENEMYSHOTPackage;
     fptr[UPGRADEID] = (MFP)&IProtocolGameHandler::onGetUPGRADEPackage;

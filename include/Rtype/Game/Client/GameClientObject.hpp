@@ -20,8 +20,6 @@ namespace Rtype
 				void Update();
 				~GameClientObject();
 
-				void SendInput(std::string const &name, float const value);
-
 			public:
 				template <typename Pack, typename Send, typename ... Args>
 				void SendPackage(Send send1, Args ... args)
