@@ -25,6 +25,7 @@ namespace SaltyEngine {
             bool LoadISound(std::string const &name, bool isMusic);
             bool LoadTexture(std::string const &name);
             Sprite *GetSprite(std::string const &name);
+            Sprite *GetSpriteScale(std::string const &name, bool noScale);
             AnimationClip *GetAnimation(std::string const &name);
             ::SaltyEngine::Sound::ISound *GetSound(std::string const &name);
         };

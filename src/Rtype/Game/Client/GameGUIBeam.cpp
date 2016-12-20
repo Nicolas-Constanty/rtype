@@ -2,7 +2,9 @@
 #include "Rtype/Game/Client/GameGUIBeam.hpp"
 
 GameGUIBeam::GameGUIBeam(SaltyEngine::GameObject *const gameObj) : SaltyBehaviour("GUIBeam", gameObj)  {
-
+    gameObject->AddComponent<SaltyEngine::SFML::SpriteRenderer>(SaltyEngine::SFML::AssetManager::Instance().GetSprite(this->spriteInit), SaltyEngine::Layout::gui);
+    beamAnimation = gameObject->AddComponent<SaltyEngine::SFML::Animation>(false, SaltyEngine::AnimationConstants::WrapMode::ONCE);
+    beamAnimation->AddClip(SaltyEngine::SFML::AssetManager::Instance().GetAnimation("GUI/Beam"), "Loading");
 }
 
 GameGUIBeam::~GameGUIBeam() {
@@ -10,9 +12,7 @@ GameGUIBeam::~GameGUIBeam() {
 }
 
 void GameGUIBeam::Start() {
-    gameObject->AddComponent<SaltyEngine::SFML::SpriteRenderer>(SaltyEngine::SFML::AssetManager::Instance().GetSprite(this->spriteInit), SaltyEngine::Layout::gui);
-    beamAnimation = gameObject->AddComponent<SaltyEngine::SFML::Animation>(false, SaltyEngine::AnimationConstants::WrapMode::ONCE);
-    beamAnimation->AddClip(SaltyEngine::SFML::AssetManager::Instance().GetAnimation("GUI/Beam"), "Loading");
+
 }
 
 void GameGUIBeam::FixedUpdate() {

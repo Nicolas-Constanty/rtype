@@ -34,6 +34,8 @@ namespace SaltyEngine
 		{
 			return (m_spriteRenderers);
 		}
+
+		virtual ::SaltyEngine::Vector2i GetRealSize() const = 0;
 	};
 }
 

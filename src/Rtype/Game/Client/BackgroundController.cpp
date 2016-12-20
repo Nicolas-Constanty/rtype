@@ -26,8 +26,7 @@ void BackgroundController::Start() {
     if (renderer == nullptr) {
         return;
     }
-    sf::Vector2u size = renderer->GetRenderWindow()->getSize();
-    windowSize = SaltyEngine::Vector2i(size.x, size.y);
+    windowSize = renderer->GetRealSize();
     m_start = windowSize.x / 2;
     m_end = windowSize.x + windowSize.x / 2;
     bg1->transform.position.x = m_start;

@@ -6,30 +6,32 @@
 #include "SaltyEngine/SaltyEngine.hpp"
 #include "SaltyEngine/Object.hpp"
 
-void CreateGUIGame(sf::Vector2u const &pos, SaltyEngine::SFML::Scene *scene) {
+void CreateGUIGame(SaltyEngine::Vector2i const &size, SaltyEngine::SFML::Scene *scene) {
 
-	SaltyEngine::GameObject *guiBehind = new SaltyEngine::GameObject("GUIBackgroundGame");
-	guiBehind->AddComponent<SaltyEngine::SFML::Image>(SaltyEngine::SFML::AssetManager::Instance().GetSprite("GUIBackground")); //GUIBackground
-
-	guiBehind->transform.position.x = pos.x / 2;
-	guiBehind->transform.position.y = pos.y - 75 / 2;
-	*scene << guiBehind;
+//	SaltyEngine::GameObject *guiBehind = new SaltyEngine::GameObject("GUIBackgroundGame");
+//	guiBehind->AddComponent<SaltyEngine::SFML::Image>(SaltyEngine::SFML::AssetManager::Instance().GetSprite("GUIBackground")); //GUIBackground
+//
+//	guiBehind->transform.position.x = size.x / 2;
+//	guiBehind->transform.position.y = size.y - 75 / 2;
+//	*scene << guiBehind;
 
 	SaltyEngine::GameObject *guiGameBeam = new SaltyEngine::GameObject("GUIBeam");
 
 	guiGameBeam->AddComponent<GameGUIBeam>();
 
-	guiGameBeam->transform.position.x = pos.x / 4;
-	guiGameBeam->transform.position.y = pos.y / 2 - 19;
+	guiGameBeam->transform.position.x = size.x / 2;
+
+	SaltyEngine::SFML::SpriteRenderer *sprr = guiGameBeam->GetComponent<SaltyEngine::SFML::SpriteRenderer>();
+	guiGameBeam->transform.position.y = size.y - ((sprr) ? (sprr->GetSprite()->GetRect()->_height / 2) : 0);
 	*scene << guiGameBeam;
 
-	SaltyEngine::GameObject *guiGameHighscore = new SaltyEngine::GameObject("GUIHighscore");
-
-	guiGameHighscore->AddComponent<GameGUIHighscore>();
-
-	guiGameHighscore->transform.position.x = pos.x - 60;
-	guiGameHighscore->transform.position.y = pos.y / 2 - 19;
-	*scene << guiGameHighscore;
+//	SaltyEngine::GameObject *guiGameHighscore = new SaltyEngine::GameObject("GUIHighscore");
+//
+//	guiGameHighscore->AddComponent<GameGUIHighscore>();
+//
+//	guiGameHighscore->transform.position.x = size.x - 60;
+//	guiGameHighscore->transform.position.y = size.y / 2 - 19;
+//	*scene << guiGameHighscore;
 
 }
 
@@ -60,17 +62,19 @@ int main(int, char **)
 	std::unique_ptr<SaltyEngine::GameObject> server;
 
 //	SaltyEngine::GameObject *guiBehind = new SaltyEngine::GameObject("GUIBackgroundGame");
-	sf::Vector2u pos = dynamic_cast<SaltyEngine::SFML::Renderer *>(SaltyEngine::Engine::Instance().GetRenderer())->GetRenderWindow()->getSize();
 //	guiBehind->AddComponent<SaltyEngine::SFML::Image>(SaltyEngine::SFML::AssetManager::Instance().GetSprite("GUIBackground")); //GUIBackground
 //
 //	guiBehind->transform.position.x = pos.x / 2;
 //	guiBehind->transform.position.y = pos.y - 75 / 2;
 //	*scene << guiBehind;
 
-	CreateGUIGame(pos, scene);
-
 	server.reset(new SaltyEngine::GameObject("Rtype", SaltyEngine::Layer::Tag::Destroy));
-	SaltyEngine::SFML::AssetManager::Instance().LoadScene("scene2");
+	SaltyEngine::SceneDefault *sceneDefault = SaltyEngine::SFML::AssetManager::Instance().LoadScene("scene2");
+
+	scene->SetScale(sceneDefault->scale);
+
+	CreateGUIGame(renderer->GetRealSize(), scene);
+
 	server->AddComponent<Rtype::Game::Client::GameClientObject>("127.0.0.1", 4242);
 	server->AddComponent<GameManager>();
 	server->AddComponent<SaltyEngine::SFML::BoxCollider2D>(

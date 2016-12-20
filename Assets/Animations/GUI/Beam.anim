@@ -15,8 +15,8 @@
     "GUI_Beam/beam11",
     "GUI_Beam/beam12"
   ],
-               "scale": {
-                 "width": "0.25",
-                 "height": "0.25"
-               }
+  "scale": {
+    "width": "1",
+    "height": "1"
+  }
 }

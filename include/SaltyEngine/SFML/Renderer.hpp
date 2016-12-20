@@ -62,6 +62,8 @@ namespace SaltyEngine
 
 		public:
 			void AddSelectable(GUI::Selectable* const select);
+
+			::SaltyEngine::Vector2i GetRealSize() const;
 		};
 	}
 }
