@@ -59,7 +59,7 @@ namespace SaltyEngine {
 		}
 
 	public:
-        void Die() const override;
+        void Die() override;
 
     public:
 		void IncIdShot() {
@@ -78,6 +78,8 @@ namespace SaltyEngine {
 		bool Launch();
 		bool Call();
 		bool HasPod() const;
+
+        void TakeDamage(int amount) override;
 
     public:
 		clock::time_point start;

@@ -12,7 +12,7 @@ public:
 public:
 	virtual void TakeDamage(int ammount) = 0;
 	virtual int GetHealth() const = 0;
-	virtual void Die() const = 0;
+	virtual void Die() = 0;
     virtual void Move() = 0;
     virtual void Shot() = 0;
 	virtual int GetHighScore() const = 0;

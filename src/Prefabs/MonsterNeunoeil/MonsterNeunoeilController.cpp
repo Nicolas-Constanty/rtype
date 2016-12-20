@@ -95,7 +95,7 @@ void MonsterNeunoeilController::Shot() {
     }
 }
 
-void MonsterNeunoeilController::Die() const
+void MonsterNeunoeilController::Die()
 {
     if (!isServerSide())
     {

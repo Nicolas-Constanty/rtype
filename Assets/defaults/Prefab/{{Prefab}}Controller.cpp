@@ -29,7 +29,7 @@ void {{Prefab}}Controller::Shot() {
 
 }
 
-void {{Prefab}}Controller::Die() const {
+void {{Prefab}}Controller::Die() {
 
 }
 
