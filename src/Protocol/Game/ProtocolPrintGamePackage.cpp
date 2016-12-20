@@ -145,8 +145,6 @@ std::ostream &operator<<(std::ostream &ostream, CALLPackageGame const &callPacka
         ostream << *header;
     }
     ostream << "objectID=" << callPackageGame.objectID << std::endl;
-    ostream << "posX=" << callPackageGame.posX << std::endl;
-    ostream << "posY=" << callPackageGame.posY << std::endl;
     ostream << "}";
     return (ostream);
 }
@@ -160,6 +158,8 @@ std::ostream &operator<<(std::ostream &ostream, LAUNCHPackageGame const &launchP
         ostream << *header;
     }
     ostream << "objectID=" << launchPackageGame.objectID << std::endl;
+    ostream << "fromX=" << launchPackageGame.fromX << std::endl;
+    ostream << "fromY=" << launchPackageGame.fromY << std::endl;
     ostream << "}";
     return (ostream);
 }
@@ -246,6 +246,14 @@ std::ostream &operator<<(std::ostream &ostream, GAMEOVERPackageGame const &gameo
     ostream << "GAMEOVERPackageGame = {" << std::endl;
     ostream << dynamic_cast<PackageGameHeader const &>(gameoverPackageGame) << std::endl;
     ostream << "status=" << static_cast<int>(gameoverPackageGame.status) << std::endl;
+    ostream << "}" << std::endl;
+    return ostream;
+}
+
+std::ostream &operator<<(std::ostream &ostream, DEATHPackage const &disablePackage)
+{
+    ostream << "DISABLEPackageGame = {" << std::endl;
+    ostream << dynamic_cast<ObjectIDPackageGame const &>(disablePackage) << std::endl;
     ostream << "}" << std::endl;
     return ostream;
 }

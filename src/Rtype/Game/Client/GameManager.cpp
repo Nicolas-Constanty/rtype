@@ -34,6 +34,7 @@ void GameManager::Start()
         return (obj1.second.x < obj2.second.x);
     });
     }
+    elapseTime = 0;
 }
 
 bool GameManager::isServerSide() const
@@ -57,12 +58,12 @@ void GameManager::OnCollisionEnter(SaltyEngine::ICollider *)
     std::cout << "\e[32m======ENTER=======\e[0m" << std::endl;
 }
 
-void GameManager::addPlayer(SaltyEngine::GameObject *player)
+void GameManager::addPlayer(SaltyEngine::GameObject *player, unsigned char playerID)
 {
-    m_players.push_back(player);
+    m_players[playerID] = player;
 }
 
-std::list<SaltyEngine::GameObject *> const &GameManager::getPlayers() const
+std::map<unsigned char, SaltyEngine::GameObject *> const &GameManager::getPlayers() const
 {
     return m_players;
 }
@@ -105,6 +106,20 @@ void GameManager::StartTheGame() {
     }
 }
 
+void GameManager::Update()
+{
+    elapseTime += SaltyEngine::Engine::Instance().GetDeltaTime();
+    if (elapseTime >= 1.0 / 30.0)
+    {
+        if (!messages.empty())
+        {
+            messages.front()();
+            messages.pop();
+        }
+        elapseTime = 0;
+    }
+}
+
 void GameManager::FixedUpdate() {
     if (canSend % 120 == 0) {
         OnSendHighScore();
@@ -123,7 +138,7 @@ void GameManager::FixedUpdate() {
                     std::cout << "create " << (*it).first << std::endl;
 
                     SaltyEngine::Vector2f pos = (*it).second;
-                    pos.x = SCREEN_X + 100;
+//                    pos.x = SCREEN_X + 100;
 
                     SaltyEngine::GameObject *object = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate((*it).first, pos, 0));
                     gameObjectContainer.Add(GameObjectID::NewID(), object);
@@ -145,10 +160,10 @@ void GameManager::FixedUpdate() {
 
 void GameManager::OnSendHighScore() {
     if (m_server) {
-        for (SaltyEngine::GameObject *gameObject1 : m_players) {
+        for (std::pair<const unsigned char, SaltyEngine::GameObject *> &curr : m_players) {
             SaltyEngine::PlayerController *playerController;
 
-            if ((playerController = gameObject1->GetComponent<SaltyEngine::PlayerController>())) {
+            if ((playerController = curr.second->GetComponent<SaltyEngine::PlayerController>())) {
                 if (playerController->IsUpdateHighScore()) {
                     BroadCastPackage<STATUSPackageGame>(&Network::Core::BasicConnection::SendData<STATUSPackageGame>,
                                                         playerController->GetHighScore(),
@@ -158,4 +173,23 @@ void GameManager::OnSendHighScore() {
             }
         }
     }
+}
+
+SaltyEngine::GameObject *GameManager::GetPlayer(unsigned char playerID) const
+{
+    std::map<unsigned char, SaltyEngine::GameObject *>::const_iterator  it = m_players.find(playerID);
+
+    if (it == m_players.end())
+        return nullptr;
+    return it->second;
+}
+
+unsigned char GameManager::GetPlayerID(SaltyEngine::GameObject *player) const
+{
+    for (std::pair<unsigned char, SaltyEngine::GameObject *> const &curr : m_players)
+    {
+        if (curr.second == player)
+            return curr.first;
+    }
+    return (unsigned char)~0;
 }

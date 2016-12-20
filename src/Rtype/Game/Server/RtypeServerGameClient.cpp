@@ -272,7 +272,7 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetTAKEPackage(TAKEPackageGam
 void Rtype::Game::Server::RtypeServerGameClient::onGetCALLPackage(CALLPackageGame const &pack)
 {
     OnDiscoveringPackage(pack);
-    if (pack.playerID == playerID)
+    if (gameManager->gameObjectContainer[pack.playerObjectID] == gameManager->GetPlayer(playerID))
     {
         SaltyEngine::GameObject *object = gameManager->gameObjectContainer[pack.objectID];
 
@@ -280,9 +280,9 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetCALLPackage(CALLPackageGam
         {
             PodController   *podController = object->GetComponent<PodController>();
 
-            if (podController && podController->isAttachedTo(pack.playerID))
+            if (podController && podController->isAttachedTo(playerID))
             {
-                podController->Call(podController->getAttachedPlayer()->gameObject->transform.position);
+                podController->Call(podController->getAttachedPlayer());
             }
         }
     }
@@ -337,7 +337,7 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetMOVEPackage(MOVEPackageGam
 void Rtype::Game::Server::RtypeServerGameClient::onGetLAUNCHPackage(LAUNCHPackageGame const &pack)
 {
     OnDiscoveringPackage(pack);
-    if (pack.playerID == playerID)
+    if (gameManager->gameObjectContainer[pack.playerObjectID] == gameManager->GetPlayer(playerID))
     {
         SaltyEngine::GameObject *object = gameManager->gameObjectContainer[pack.objectID];
         PodController   *controller;
@@ -345,7 +345,7 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetLAUNCHPackage(LAUNCHPackag
         if (object)
         {
             controller = object->GetComponent<PodController>();
-            if (controller && controller->isAttachedTo(pack.playerID))
+            if (controller && controller->isAttachedTo(playerID))
             {
                 controller->Launch();
             }
@@ -459,7 +459,7 @@ void Rtype::Game::Server::RtypeServerGameClient::StartDisplayInformation() {
     SaltyEngine::PlayerController *playerController = player->GetComponent<SaltyEngine::PlayerController>();
     if (playerController) {
         playerController->SetPlayerID(__playerID);
-        gameManager->addPlayer(player);
+        gameManager->addPlayer(player, static_cast<unsigned char>(__playerID));
     }
 
     gameManager->gameObjectContainer.Add(GameObjectID::NewID(), player);
@@ -488,4 +488,9 @@ void Rtype::Game::Server::RtypeServerGameClient::OnDisconnect() {
 
 void Rtype::Game::Server::RtypeServerGameClient::onGetMATEPackage(MATEPackageGame const &matePackageGame) {
 
+}
+
+void Rtype::Game::Server::RtypeServerGameClient::onGetDEATHPackage(DEATHPackage const &pack)
+{
+    OnDiscoveringPackage(pack);
 }

@@ -148,16 +148,25 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetDIEPackage(DIEPackageGame 
 void Rtype::Game::Client::RtypeClientGameClient::onGetTAKEPackage(TAKEPackageGame const &pack)
 {
     OnDiscoveringPackage(pack);
+    std::cout << "\e[31mReceiving take package\e[0m" << std::endl;
     //todo resolve take in the game
     SaltyEngine::GameObject *object = gameManager->gameObjectContainer[pack.objectID];
+    SaltyEngine::GameObject *play = gameManager->gameObjectContainer[pack.playerObjectID];
 
-    if (object)
+    std::cout << "obj(" << pack.objectID << "): " << object << ", play(" << pack.playerObjectID << "): " << play << std::endl;
+
+    if (object && play)
     {
         PodController   *podController = object->GetComponent<PodController>();
+        SaltyEngine::PlayerController   *playerController = play->GetComponent<SaltyEngine::PlayerController>();
+        MateComponent   *mateComponent = play->GetComponent<MateComponent>();
 
-        if (podController && !podController->isAttached())
+        std::cout << "pod: " << podController << ", player: " << playerController << std::endl;
+        if (playerController && podController && !podController->isAttached())
         {
-            podController->getAttachedPlayer()->Attach(podController);
+            std::cout << "Attach it" << std::endl;
+            podController->Attach(playerController);
+//            podController->getAttachedPlayer()->Attach(podController);
         }
     }
 }
@@ -247,6 +256,7 @@ void Rtype::Game::Client::RtypeClientGameClient::OnDisconnect()
 }
 
 void Rtype::Game::Client::RtypeClientGameClient::onGetENEMYSHOTPackage(ENEMYSHOTPackageGame const &pack) {
+    OnDiscoveringPackage(pack);
     SaltyEngine::GameObject *obj = gameManager->gameObjectContainer[pack.objectID];
     if (obj) {
         AGenericController *aGenericController = obj->GetComponent<AGenericController>();
@@ -257,6 +267,7 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetENEMYSHOTPackage(ENEMYSHOT
 }
 
 void Rtype::Game::Client::RtypeClientGameClient::onGetMATEPackage(MATEPackageGame const &matePackageGame) {
+    OnDiscoveringPackage(matePackageGame);
 //    std::cout << matePackageGame << std::endl;
     try {
         SaltyEngine::GameObject *object = RtypeNetworkFactory::Create(1, SaltyEngine::Vector((float) matePackageGame.x,
@@ -274,6 +285,7 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetMATEPackage(MATEPackageGam
 }
 
 void Rtype::Game::Client::RtypeClientGameClient::onGetGAMEOVERPackage(GAMEOVERPackageGame const &game) {
+    OnDiscoveringPackage(game);
     if (gameOver && !gameOver->IsOver()) {
         gameOver->OverAction(static_cast<GAMEOVER>(game.status));
 
@@ -282,3 +294,20 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetGAMEOVERPackage(GAMEOVERPa
         // AVEC LE HIGHSCORE
     }
 }
+
+void Rtype::Game::Client::RtypeClientGameClient::onGetDEATHPackage(DEATHPackage const &pack)
+{
+    OnDiscoveringPackage(pack);
+    SaltyEngine::GameObject *obj = gameManager->gameObjectContainer[pack.objectID];
+
+    if (obj)
+    {
+        SaltyEngine::PlayerController   *playerController = obj->GetComponent<SaltyEngine::PlayerController>();
+
+        if (playerController)
+        {
+            playerController->Die();
+        }
+    }
+}
+

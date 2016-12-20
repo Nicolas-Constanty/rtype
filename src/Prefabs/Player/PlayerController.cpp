@@ -133,10 +133,8 @@ namespace SaltyEngine
                 {
                     PodController   *tocall = FindFirstAvailablePod();
 
-                    SendPackage<CALLPackageGame>(
-                            getManager()->gameObjectContainer.GetServerObjectID(tocall->gameObject),
-                            gameObject->transform.position.x,
-                            gameObject->transform.position.y);
+                    if (tocall)
+                        SendPackage<CALLPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(tocall->gameObject));
                 }
             }
         }
@@ -231,7 +229,10 @@ namespace SaltyEngine
     bool PlayerController::Attach(PodController *toattach)
     {
         if (pod)
+        {
+            std::cout << "I alreay have a pod" << std::endl;
             return false;
+        }
         pod = toattach;
         return true;
     }
@@ -254,7 +255,7 @@ namespace SaltyEngine
         {
             pod = FindFirstAvailablePod();
             if (pod)
-                return pod->Call(gameObject->transform.position);
+                return pod->Call(this);
         }
         return false;
     }
@@ -303,6 +304,22 @@ namespace SaltyEngine
 
     void PlayerController::SetUpdateHighScore(bool update) {
         updateHighScore = update;
+    }
+
+    void PlayerController::OnCollisionEnter(ICollider *collider)
+    {
+        SaltyEngine::ACollider2D<sf::Vector2i> *c = dynamic_cast<SaltyEngine::ACollider2D<sf::Vector2i>*>(collider);
+
+        if (!c)
+            return;
+        if (c->CompareTag(SaltyEngine::Layer::Tag::Enemy))
+        {
+            if (isServerSide())
+            {
+                BroadCastReliable<DEATHPackage>(getManager()->gameObjectContainer.GetServerObjectID(gameObject));
+                Die();
+            }
+        }
     }
 
 }

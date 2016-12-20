@@ -13,7 +13,7 @@ int main(int, char **)
 
 	SaltyEngine::SFML::Renderer *renderer = new SaltyEngine::SFML::Renderer(sf::VideoMode(1920, 1080), "R-Type Launcher");
 	SaltyEngine::SFML::EventManager *event_manager = new SaltyEngine::SFML::EventManager(renderer->GetRenderWindow());
-	SaltyEngine::SFML::PhysicsHandler *ph = new SaltyEngine::SFML::PhysicsHandler(1920 / 2, 1080 / 2, false);
+	SaltyEngine::SFML::PhysicsHandler *ph = new SaltyEngine::SFML::PhysicsHandler(1920 / 2, 1080 / 2, true);
 	SaltyEngine::Engine::Instance().SetPhysicsHandler(ph);
 	// Set Renderer and EventManager
 	Singleton<SaltyEngine::Engine>::Instance().SetRenderer(renderer);
@@ -32,7 +32,7 @@ int main(int, char **)
 
 	server.reset(new SaltyEngine::GameObject("Rtype", SaltyEngine::Layer::Tag::Destroy));
 //	server->SetName("Rtype");
-	SaltyEngine::SFML::AssetManager::Instance().LoadScene("scene2");
+	SaltyEngine::SFML::AssetManager::Instance().LoadScene("scene4");
 	server->AddComponent<Rtype::Game::Client::GameClientObject>("127.0.0.1", 4242);
 	server->AddComponent<GameManager>();
 	server->AddComponent<SaltyEngine::SFML::BoxCollider2D>(

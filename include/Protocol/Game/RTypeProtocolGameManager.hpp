@@ -56,6 +56,7 @@ public:
     static const GameID UPGRADEID;
     static const GameID MATEID;
     static const GameID GAMEOVERID;
+    static const GameID DEATHID;
 
 public:
     typedef void (IProtocolGameHandler::*MFP)(PackageGameHeader const &);
