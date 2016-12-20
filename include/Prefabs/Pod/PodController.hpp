@@ -22,6 +22,7 @@ public:
 
 public:
     virtual void Start();
+    virtual void FixedUpdate();
     virtual void OnCollisionEnter(SaltyEngine::ICollider *);
 
 public:
@@ -29,6 +30,7 @@ public:
     bool Launch();
     bool Call(SaltyEngine::PlayerController *player);
     bool Attach(SaltyEngine::PlayerController *player);
+    bool Attach(SaltyEngine::PlayerController *player, bool front);
 
 public:
     bool isAttached() const;
@@ -41,6 +43,7 @@ private:
     bool isAtFront;
 //    SaltyEngine::AAnimationClip *anim;
     size_t level;
+    double speed;
 };
 
 

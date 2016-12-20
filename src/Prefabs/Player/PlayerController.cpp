@@ -123,16 +123,22 @@ namespace SaltyEngine
 
         if (InputKey::GetAction("Pod", Input::ActionType::Down))
         {
+            std::cout << "Pod action ok" << std::endl;
             if (!isServerSide())
             {
+                std::cout << "Client side" << std::endl;
                 if (pod)
                 {
-                    SendPackage<LAUNCHPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(pod->gameObject), playerID);
+                    std::cout << "\e[31mSending pod\e[0m" << std::endl;
+                    SendPackage<LAUNCHPackageGame>(
+                            getManager()->gameObjectContainer.GetServerObjectID(pod->gameObject),
+                            getManager()->gameObjectContainer.GetServerObjectID(gameObject));
                 }
                 else
                 {
                     PodController   *tocall = FindFirstAvailablePod();
 
+                    std::cout << "\e[31mCalling Pod\e[0m" << std::endl;
                     if (tocall)
                         SendPackage<CALLPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(tocall->gameObject));
                 }
@@ -228,8 +234,13 @@ namespace SaltyEngine
         if (pod)
         {
             bool res = pod->Launch();
+
+            std::cout << std::boolalpha << "Res: " << res << std::endl;
             if (res)
+            {
+                std::cout << "Resetting pod" << std::endl;
                 pod = NULL;
+            }
             return res;
         }
         return false;
@@ -248,6 +259,7 @@ namespace SaltyEngine
 
     bool PlayerController::HasPod() const
     {
+        std::cout << "Pod: " << pod << std::endl;
         return pod != NULL;
     }
 

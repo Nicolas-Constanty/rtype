@@ -166,7 +166,7 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetTAKEPackage(TAKEPackageGam
         if (playerController && podController && !podController->isAttached())
         {
             std::cout << "Attach it" << std::endl;
-            podController->Attach(playerController);
+            podController->Attach(playerController, static_cast<bool>(pack.front));
 //            podController->getAttachedPlayer()->Attach(podController);
         }
     }
@@ -203,12 +203,15 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetLAUNCHPackage(LAUNCHPackag
     OnDiscoveringPackage(pack);
     SaltyEngine::GameObject *object = gameManager->gameObjectContainer[pack.objectID];
 
+    std::cout << "Receiving Launch package: " << pack << std::endl;
     if (object)
     {
         PodController   *podController = object->GetComponent<PodController>();
 
+        std::cout << "Pod: " << podController << std::endl;
         if (podController && podController->isAttached())
         {
+            std::cout << "Attached" << std::endl;
             podController->getAttachedPlayer()->Launch();
         }
     }

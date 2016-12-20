@@ -158,6 +158,7 @@ std::ostream &operator<<(std::ostream &ostream, LAUNCHPackageGame const &launchP
         ostream << *header;
     }
     ostream << "objectID=" << launchPackageGame.objectID << std::endl;
+    ostream << "playerObjectID=" << launchPackageGame.playerObjectID << std::endl;
     ostream << "fromX=" << launchPackageGame.fromX << std::endl;
     ostream << "fromY=" << launchPackageGame.fromY << std::endl;
     ostream << "}";

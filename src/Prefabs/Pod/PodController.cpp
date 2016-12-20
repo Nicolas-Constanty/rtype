@@ -54,44 +54,52 @@ void PodController::Start()
                                              RtypeNetworkFactory::GetIDFromName("Pod"),
                                              gameobjectId);
     }
+    speed = 10;
 //    anim = gameObject->GetComponent<SaltyEngine::AAnimationClip>();
 //    if (!anim)
 //        std::cerr << "[\e[31mError\e[0m]: No such animation clip component on PodController" << std::endl;
 }
 
+void PodController::FixedUpdate()
+{
+    if (speed > 0)
+    {
+        gameObject->transform.SetPosition(gameObject->transform.position + (SaltyEngine::Vector::left() * (isAtFront ? -1 : 1)) * speed);
+    }
+//    else if (!isAttached())
+//    {
+//        todo gravitate
+//    }
+}
+
 void PodController::OnCollisionEnter(SaltyEngine::ICollider *collider)
 {
-    std::cout << "\e[32mPod is colliding\e[0m" << std::endl;
     if (attachedPlayer)
         return;
-    std::cout << "Not attached" << std::endl;
+
+    speed = 0;
     if (isServerSide())
     {
-        std::cout << "Server side" << std::endl;
         SaltyEngine::ACollider2D<sf::Vector2i> *c = dynamic_cast<SaltyEngine::ACollider2D<sf::Vector2i>*>(collider);
 
         if (!c)
             return;
 
-        std::cout << "Collider cast" << std::endl;
         if (c->gameObject->GetTag() == SaltyEngine::Layer::Tag::Player)
         {
             SaltyEngine::PlayerController   *player = c->gameObject->GetComponent<SaltyEngine::PlayerController>();
 
-            std::cout << "Found player" << std::endl;
             if (!player)
                 return;
 
             if (Attach(player))
             {
-                std::cout << "Attached" << std::endl;
                 try
                 {
                     unsigned short podid = 0;
 
                     podid = getManager()->gameObjectContainer.GetServerObjectID(gameObject);
-                    std::cout << "Broadcasting take package: " << podid << ", " << player->GetPlayerID() << std::endl;
-                    BroadCastReliable<TAKEPackageGame>(podid, getManager()->gameObjectContainer.GetServerObjectID(player->gameObject));
+                    BroadCastReliable<TAKEPackageGame>(podid, getManager()->gameObjectContainer.GetServerObjectID(player->gameObject), isAtFront);
                 }
                 catch (std::runtime_error const &err)
                 {
@@ -124,29 +132,34 @@ bool PodController::Launch()
 
     if (isServerSide())
     {
-        unsigned short objid = 0;
+        unsigned short player = 0;
+        unsigned short pod = 0;
+
         try
         {
-            objid = getManager()->gameObjectContainer.GetServerObjectID(attachedPlayer->gameObject);
+            player = getManager()->gameObjectContainer.GetServerObjectID(attachedPlayer->gameObject);
+            pod = getManager()->gameObjectContainer.GetServerObjectID(gameObject);
         }
         catch (std::runtime_error const &err)
         {
             std::cerr << "Pod launch: " << err.what() << " (while getting attached player)" << std::endl;
-            throw err;
+            return false;
         }
-        BroadCastReliable<LAUNCHPackageGame>(objid);
+        BroadCastReliable<LAUNCHPackageGame>(pod, player);
     }
-    if (isAtFront)
-    {
-        //todo set the position juste before the ship
-    }
-    else
-    {
-        //todo set the position juste after the ship
-    }
+//    if (isAtFront)
+//    {
+//        //todo set the position juste before the ship
+//    }
+//    else
+//    {
+//        //todo set the position juste after the ship
+//    }
     //todo add velocity to gameobject
+    std::cout << "Launching pod" << std::endl;
     gameObject->transform.SetParent(NULL);
     attachedPlayer = NULL;
+    speed = 10;
     return true;
 }
 
@@ -166,7 +179,7 @@ bool PodController::Call(SaltyEngine::PlayerController *player)
         catch (std::runtime_error const &err)
         {
             std::cerr << "Pod call: " << err.what() << " (while getting pod id)" << std::endl;
-            throw err;
+            return false;
         }
         BroadCastReliable<CALLPackageGame>(podid, getManager()->GetPlayerID(player->gameObject));
     }
@@ -176,26 +189,27 @@ bool PodController::Call(SaltyEngine::PlayerController *player)
 
 bool PodController::Attach(SaltyEngine::PlayerController *player)
 {
+    return Attach(player, gameObject->transform.position.x - player->gameObject->transform.position.x > 0);
+}
+
+bool PodController::Attach(SaltyEngine::PlayerController *player, bool front)
+{
     if (!attachedPlayer && !player->HasPod())
     {
-        //todo handle attachment of the pod
         attachedPlayer = player;
         gameObject->transform.SetParent(&attachedPlayer->gameObject->transform);
-        if (player->gameObject->transform.position.x - player->gameObject->transform.position.x > 0)
+        if (front)
         {
-            std::cout << "Attach pod at front" << std::endl;
-            //todo set the position of the pod
             isAtFront = true;
+            gameObject->transform.SetPosition(player->gameObject->transform.position + SaltyEngine::Vector(20, 0));
         }
         else
         {
-            std::cout << "Attach pod at the back" << std::endl;
-            //todo set the position of the pod
             isAtFront = false;
+            gameObject->transform.SetPosition(player->gameObject->transform.position - SaltyEngine::Vector(20, 0));
         }
         return attachedPlayer->Attach(this);
     }
-    std::cout << "attachedPlayer: " << attachedPlayer << ", hasPod: " << std::boolalpha << player->HasPod() << std::endl;
     return false;
 }
 

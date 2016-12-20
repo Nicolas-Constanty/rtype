@@ -211,15 +211,17 @@ public:
 
 class TAKEPackageGame : public ObjectIDPackageGame {
 public:
-    TAKEPackageGame(unsigned short sequenceID = 0, unsigned short podID = 0, unsigned short playerObjectID = 0, unsigned short transactionID = 0) :
+    TAKEPackageGame(unsigned short sequenceID = 0, unsigned short podID = 0, unsigned short playerObjectID = 0, unsigned char front = 0, unsigned short transactionID = 0) :
             ObjectIDPackageGame(sizeof(TAKEPackageGame), GamePurpose::GAMETAKE, sequenceID, podID, true, transactionID),
-            playerObjectID(playerObjectID)
+            playerObjectID(playerObjectID),
+            front(front)
     {
 
     }
 
 public:
     unsigned short playerObjectID;
+    unsigned char   front;
 };
 
 class CALLPackageGame : public ObjectIDPackageGame {
@@ -237,7 +239,7 @@ public:
 
 class LAUNCHPackageGame : public ObjectIDPackageGame {
 public:
-    LAUNCHPackageGame(unsigned short sequenceID = 0, unsigned short podID = 0, int posX = 0, int posY = 0, unsigned short playerObjectID = 0, unsigned short transactionID = 0)
+    LAUNCHPackageGame(unsigned short sequenceID = 0, unsigned short podID = 0, unsigned short playerObjectID = 0, int posX = 0, int posY = 0, unsigned short transactionID = 0)
             : ObjectIDPackageGame(sizeof(LAUNCHPackageGame), GamePurpose::GAMELAUNCH, sequenceID, podID, true, transactionID),
               playerObjectID(playerObjectID),
               fromX(posX),

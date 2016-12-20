@@ -304,7 +304,7 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetMOVEPackage(MOVEPackageGam
     SaltyEngine::GameObject *gameObject;
 
     if ((gameObject = gameManager->gameObjectContainer[pack.objectID])) {
-        gameObject->transform.position = SaltyEngine::Vector(pack.posX, pack.posY);
+        gameObject->transform.SetPosition(SaltyEngine::Vector(pack.posX, pack.posY));
     }
 
     for (std::unique_ptr<Network::Socket::ISockStreamHandler> &curr : clients->Streams())
@@ -337,17 +337,22 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetMOVEPackage(MOVEPackageGam
 void Rtype::Game::Server::RtypeServerGameClient::onGetLAUNCHPackage(LAUNCHPackageGame const &pack)
 {
     OnDiscoveringPackage(pack);
+
+    std::cout << "Receiving launch: " << pack << std::endl;
     if (gameManager->gameObjectContainer[pack.playerObjectID] == gameManager->GetPlayer(playerID))
     {
         SaltyEngine::GameObject *object = gameManager->gameObjectContainer[pack.objectID];
         PodController   *controller;
 
+        std::cout << "Right player: obj: " << object << std::endl;
         if (object)
         {
             controller = object->GetComponent<PodController>();
+            std::cout << "controller:  " << controller << std::endl;
             if (controller && controller->isAttachedTo(playerID))
             {
-                controller->Launch();
+                std::cout << "Attached" << std::endl;
+                controller->getAttachedPlayer()->Launch();
             }
         }
     }
