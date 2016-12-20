@@ -31,10 +31,8 @@ void MonsterNeunoeilController::Start()
     for (size_t i = 0; i < 4 ; ++i)
     {
         SaltyEngine::GameObject *go = (SaltyEngine::GameObject*)SaltyEngine::Instantiate();
-//        go->transform.position = this->gameObject->transform.position;
         go->transform.SetPosition(this->gameObject->transform.GetPosition());
         go->transform.Rotate(90 * i);
-//        go->transform.position += go->transform.position.left() * 110;
         go->transform.SetPosition(go->transform.GetPosition() + go->transform.GetPosition().left() * 110);
         go->transform.SetParent(&this->gameObject->transform);
         SaltyEngine::SFML::Animation *animation = go->AddComponent<SaltyEngine::SFML::Animation>(true, SaltyEngine::AnimationConstants::WrapMode::LOOP);
@@ -42,7 +40,6 @@ void MonsterNeunoeilController::Start()
         m_canons[i] = go;
     }
 
-//    gameObject->transform.position = SaltyEngine::Vector2(800, 100);
     gameObject->transform.SetPosition(SaltyEngine::Vector2(800, 100));
     m_startPoint = gameObject->transform.GetPosition();
 

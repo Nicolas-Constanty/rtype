@@ -3,6 +3,7 @@
 //
 
 #include <SaltyEngine/SFML/SpriteCollider2D.hpp>
+#include <SaltyEngine/Maths.hpp>
 #include "SaltyEngine/SFML/PhysicsHandler.hpp"
 
 namespace SaltyEngine
@@ -128,9 +129,12 @@ namespace SaltyEngine
 
                     if (i_pos_x >= 0 && i_pos_y >= 0 && i_pos_x < m_size_x && i_pos_y < m_size_y)
                     {
-                        float radRot = (float) (t.GetRotation() * M_PI / 180.f);
-                        float sinRot = sin(radRot);
-                        float cosRot = cos(radRot);
+//                        float radRot = (float) (t.GetRotation() * M_PI / 180.f);
+//                        float sinRot = sin(radRot);
+//                        float cosRot = cos(radRot);
+                        float sinRot = Mathf::Sin(t.GetRotation());
+                        float cosRot = Mathf::Cos(t.GetRotation());
+
 
                         for (unsigned int y = 0; y < text_pos_h; ++y) {
                             for (unsigned int x = 0; x < text_pos_w; ++x) {
