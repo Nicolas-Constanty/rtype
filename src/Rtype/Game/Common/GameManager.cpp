@@ -130,7 +130,7 @@ void GameManager::FixedUpdate() {
                     std::cout << "create " << (*it).first << std::endl;
 
                     SaltyEngine::Vector2f pos = (*it).second;
-                    pos.x = SCREEN_X + 100;
+//                    pos.x = SCREEN_X + 100;
 
                     SaltyEngine::GameObject *object = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate((*it).first, pos, 0));
                     gameObjectContainer.Add(GameObjectID::NewID(), object);

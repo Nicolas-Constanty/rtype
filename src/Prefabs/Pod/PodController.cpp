@@ -61,25 +61,30 @@ void PodController::Start()
 
 void PodController::OnCollisionEnter(SaltyEngine::ICollider *collider)
 {
+    std::cout << "\e[32mPod is colliding\e[0m" << std::endl;
     if (attachedPlayer)
         return;
-
+    std::cout << "Not attached" << std::endl;
     if (isServerSide())
     {
+        std::cout << "Server side" << std::endl;
         SaltyEngine::ACollider2D<sf::Vector2i> *c = dynamic_cast<SaltyEngine::ACollider2D<sf::Vector2i>*>(collider);
 
         if (!c)
             return;
 
+        std::cout << "Collider cast" << std::endl;
         if (c->gameObject->GetTag() == SaltyEngine::Layer::Tag::Player)
         {
             SaltyEngine::PlayerController   *player = c->gameObject->GetComponent<SaltyEngine::PlayerController>();
 
+            std::cout << "Found player" << std::endl;
             if (!player)
                 return;
 
             if (Attach(player))
             {
+                std::cout << "Attached" << std::endl;
                 try
                 {
                     unsigned short podid = 0;
