@@ -71,6 +71,9 @@ private:
     void OnSendHighScore();
 
 private:
+    bool IsSceneEmpty() const;
+
+private:
 	Rtype::Game::Server::GameServerObject *m_server;
 	Rtype::Game::Client::GameClientObject *m_client;
     std::map<unsigned char, SaltyEngine::GameObject*> m_players;
@@ -90,5 +93,6 @@ private:
 private:
 	std::queue<std::function<void()> >	messages;
 	float	elapseTime;
+
 };
 

@@ -131,7 +131,7 @@ void GameManager::FixedUpdate() {
         if (monsterMap->objects.empty()) {
             endOfGame = true;
         }
-    } else if (endOfGame && m_server && gameOver && !gameOver->IsOver()) { // TODO Il manque le check si y'a plus de monstre coté serveur mais pour ça il faut le destroyer.
+    } else if (endOfGame && m_server && gameOver && !gameOver->IsOver() && IsSceneEmpty()) { // TODO Il manque le check si y'a plus de monstre coté serveur mais pour ça il faut le destroyer.
         gameOver->OverAction(GAMEOVER::VICTORY);
     }
 }
@@ -170,4 +170,17 @@ unsigned char GameManager::GetPlayerID(SaltyEngine::GameObject *player) const
             return curr.first;
     }
     return (unsigned char)~0;
+}
+
+bool GameManager::IsSceneEmpty() const {
+    std::vector<SaltyEngine::GameObject *> const &list = SaltyEngine::Engine::Instance().GetCurrentScene()->GetAllGameObject();
+    for (SaltyEngine::GameObject *gameObject : list) {
+        if (gameObject->GetTag() != SaltyEngine::Layer::Tag::Player
+            && gameObject->GetTag() != SaltyEngine::Layer::Tag::BulletPlayer
+            && gameObject->GetTag() != SaltyEngine::Layer::Tag::Destroy
+            && gameObject->GetTag() != SaltyEngine::Layer::Tag::Untagged) {
+            return false;
+        }
+    }
+    return true;
 }

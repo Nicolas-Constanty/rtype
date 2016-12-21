@@ -30,6 +30,9 @@ public:
         return new GameGUIHighscore(obj);
     }
 
+private:
+    SaltyEngine::GUI::SFML::Label *highscoreLabel = NULL;
+
 };
 
 

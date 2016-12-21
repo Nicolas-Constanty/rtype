@@ -28,13 +28,13 @@ void CreateGUIGame(SaltyEngine::Vector2i const &size, SaltyEngine::SFML::Scene *
 	guiGameBeam->transform.SetPosition(guiGameBeam->transform.GetPosition().x, size.y - ((sprr) ? (sprr->GetSprite()->GetRect()->_height / 2) : 0));
 	*scene << guiGameBeam;
 
-//	SaltyEngine::GameObject *guiGameHighscore = new SaltyEngine::GameObject("GUIHighscore");
-//
-//	guiGameHighscore->AddComponent<GameGUIHighscore>();
-//
-//	guiGameHighscore->transform.position.x = size.x - 60;
-//	guiGameHighscore->transform.position.y = size.y / 2 - 19;
-//	*scene << guiGameHighscore;
+	SaltyEngine::GameObject *guiGameHighscore = new SaltyEngine::GameObject("GUIHighscore");
+
+	guiGameHighscore->AddComponent<GameGUIHighscore>();
+
+//	guiGameHighscore->transform.GetPosition().x = size.x - 60;
+	guiGameHighscore->transform.SetPosition(static_cast<float>(size.x / 1.2), guiGameBeam->transform.GetPosition().y);//.y = size.y / 2 - 19;
+	*scene << guiGameHighscore;
 
 }
 
