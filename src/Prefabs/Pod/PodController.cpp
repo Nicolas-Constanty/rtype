@@ -78,7 +78,6 @@ void PodController::OnCollisionEnter(SaltyEngine::ICollider *collider)
     if (attachedPlayer)
         return;
 
-    speed = 0;
     if (isServerSide())
     {
         SaltyEngine::ACollider2D<sf::Vector2i> *c = dynamic_cast<SaltyEngine::ACollider2D<sf::Vector2i>*>(collider);
@@ -200,6 +199,7 @@ bool PodController::Attach(PodHandler *podController, bool front)
 {
     if (!attachedPlayer && !podController->HasPod())
     {
+        speed = 0;
         attachedPlayer = podController;
         gameObject->transform.SetParent(&attachedPlayer->gameObject->transform);
         if (front)
