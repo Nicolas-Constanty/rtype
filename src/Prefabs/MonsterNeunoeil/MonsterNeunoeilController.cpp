@@ -2,7 +2,6 @@
 #include <Rtype/Game/Common/RtypeNetworkFactory.hpp>
 #include "Prefabs/Missile/MissileController.hpp"
 #include "Prefabs/MonsterNeunoeil/MonsterNeunoeilController.hpp"
-#include "SaltyEngine/SFML.hpp"
 
 MonsterNeunoeilController::MonsterNeunoeilController(SaltyEngine::GameObject *obj) :
         AGenericController("MonsterNeunoeilController", obj)
@@ -98,11 +97,6 @@ void MonsterNeunoeilController::Move() {
 }
 
 void MonsterNeunoeilController::Shot() {
-//    if (!isServerSide()) {
-//        PlayAnim("Jump");
-//        PlayAnim("Walk", true);
-//    }
-
    if (isServerSide())
    {
        if (m_eyeState == E_STATIC)
