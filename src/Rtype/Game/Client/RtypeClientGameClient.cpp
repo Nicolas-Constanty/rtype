@@ -195,6 +195,7 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetMOVEPackage(MOVEPackageGam
 void Rtype::Game::Client::RtypeClientGameClient::onGetLAUNCHPackage(LAUNCHPackageGame const &pack)
 {
     OnDiscoveringPackage(pack);
+    std::cout << pack << std::endl;
     SaltyEngine::GameObject *object = gameManager->gameObjectContainer[pack.objectID];
 
     if (object)
