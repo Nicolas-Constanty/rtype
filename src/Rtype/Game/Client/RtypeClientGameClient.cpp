@@ -195,6 +195,7 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetMOVEPackage(MOVEPackageGam
 void Rtype::Game::Client::RtypeClientGameClient::onGetLAUNCHPackage(LAUNCHPackageGame const &pack)
 {
     OnDiscoveringPackage(pack);
+    std::cout << pack << std::endl;
     SaltyEngine::GameObject *object = gameManager->gameObjectContainer[pack.objectID];
 
     if (object)
@@ -212,7 +213,17 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetLAUNCHPackage(LAUNCHPackag
 void Rtype::Game::Client::RtypeClientGameClient::onGetREBORNPackage(REBORNPackageGame const &pack)
 {
     OnDiscoveringPackage(pack);
-    //todo resolve reborn package
+    SaltyEngine::GameObject *object = gameManager->gameObjectContainer[pack.objectID];
+
+    if (object)
+    {
+        SaltyEngine::PlayerController   *controller = object->GetComponent<SaltyEngine::PlayerController>();
+
+        if (controller)
+        {
+            controller->Reborn();
+        }
+    }
 }
 
 void Rtype::Game::Client::RtypeClientGameClient::onGetFAILUREPackage(FAILUREPackageGame const &pack)

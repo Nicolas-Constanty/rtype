@@ -14,6 +14,7 @@ namespace SaltyEngine
 				DrawGame();
 				DrawGUI();
 				DrawDebug();
+				DrawLabel();
 				m_window->display();
 			} else
 				Debug::PrintWarning("Main window has been closed!");
@@ -58,12 +59,19 @@ namespace SaltyEngine
 			if (m_spriteRenderers.find(sprr->GetLayer()) == m_spriteRenderers.end())
 				m_spriteRenderers.emplace(std::make_pair(sprr->GetLayer(), SpriteList()));
 			::SaltyEngine::Sprite<sf::Vector2i> **s = &sprr->m_sprite;
-			Rect *r = dynamic_cast<Rect *>(sprr->GetSprite()->GetRect());
 			sf::RenderWindow *w = dynamic_cast<sf::RenderWindow *>(sprr->GetWindow());
 			if (w == nullptr)
 				w = m_window.get();
-			if (r && s && w)
-				m_spriteRenderers.at(sprr->GetLayer()).push_back(Drawable((Sprite **) (s), r, w, sprr->gameObject));
+			if (s && w)
+				m_spriteRenderers.at(sprr->GetLayer()).push_back(Drawable((Sprite **) (s), w, sprr->gameObject));
+		}
+
+		void Renderer::AddLabel(SaltyEngine::GUI::SFML::Label *label)
+		{
+			if (label)
+				m_labels.push_back(label);
+			else
+				Debug::PrintWarning("Cannot add null label");
 		}
 
 		void Renderer::AddDebug(BoxCollider2D *box) {
@@ -90,10 +98,11 @@ namespace SaltyEngine
 
             for (SpriteMap::iterator it = m_spriteRenderers.begin(); it != m_spriteRenderers.end(); ++it)
             {
-                Debug::PrintInfo(std::to_string((*it).second.size()));
                 (*it).second.remove_if([gm](Drawable drawable) { return (gm == drawable.gm); });
-                Debug::PrintInfo(std::to_string((*it).second.size()));
             }
+			GUI::SFML::Label *lb = gm->GetComponent<GUI::SFML::Label>();
+			if (lb)
+				m_labels.remove(lb);
             m_debug.remove_if([gm](BoxCollider2D *box) { return (gm == box->gameObject); });
         }
 
@@ -102,7 +111,15 @@ namespace SaltyEngine
 			SaltyEngine::Vector2f	scale = SaltyEngine::Engine::Instance().GetCurrentScene()->GetScale();
             return SaltyEngine::Vector2i(static_cast<int>(size.x / scale.x), static_cast<int>(size.y / scale.y));
         }
-    }
+
+		void Renderer::DrawLabel() const {
+			for (LabelList::const_iterator lab = m_labels.begin(); lab != m_labels.end() ; ++lab) {
+                const Transform &t = (*lab)->gameObject->transform;
+                (*lab)->setPosition(t.GetPosition().x * t.GetLocalScale().x, t.GetPosition().y * t.GetLocalScale().y);
+				m_window->draw(*(*lab));
+			}
+		}
+	}
 }
 
 

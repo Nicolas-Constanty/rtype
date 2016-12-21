@@ -54,7 +54,7 @@ namespace Rtype
                 virtual void onGetDEATHPackage(DEATHPackage const &);
 
             public:
-                void StartDisplayInformation();
+                void StartDisplayInformation(int y);
 
             public:
                 virtual void OnDisconnect();

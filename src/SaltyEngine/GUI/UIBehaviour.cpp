@@ -12,5 +12,7 @@ namespace SaltyEngine
 		{
 			return (gameObject->GetActiveSelf());
 		}
-	}
+
+        void UIBehaviour::OnGui() {}
+    }
 }

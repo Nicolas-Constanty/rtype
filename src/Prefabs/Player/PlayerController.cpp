@@ -10,6 +10,9 @@
 
 namespace SaltyEngine
 {
+    const float    PlayerController::timeoutDeath = 3; // 3 second
+    const float    PlayerController::timeoutInvicible = 3;
+
 	PlayerController::PlayerController(GameObject* const gameObj) : AGenericController("PlayerController", gameObj) {
 		speed = 8.0f; // 20
         idShot = 1;
@@ -18,6 +21,8 @@ namespace SaltyEngine
         playerID = 0;
         highScore = 0;
         m_health = 1;
+        global_lives = 3;
+        collider2D = NULL;
 	};
 
 	PlayerController::PlayerController(const std::string &name, GameObject* const gameObj) : AGenericController(name, gameObj) {
@@ -28,6 +33,8 @@ namespace SaltyEngine
         playerID = 0;
         highScore = 0;
         m_health = 1;
+        global_lives = 3;
+        collider2D = NULL;
 	};
 
 	void PlayerController::Start()
@@ -88,10 +95,36 @@ namespace SaltyEngine
                 std::cout << m_max << std::endl;
             }
         }
+        else
+        {
+            collider2D = gameObject->GetComponent<SaltyEngine::SFML::SpriteCollider2D>();
+//            std::cout << "Collider: " << collider2D << std::endl;
+        }
 	}
 
 	void PlayerController::FixedUpdate()
 	{
+        if (!gameObject->GetActiveSelf())
+        {
+            if (isServerSide())
+            {
+                timer -= SaltyEngine::Engine::Instance().GetFixedDeltaTime();
+                if (timer < 0)
+                {
+                    BroadCastReliable<REBORNPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(gameObject));
+                    Reborn();
+                }
+            }
+            return;
+        }
+        if (isServerSide() && !collider2D->IsEnable())
+        {
+            timer -= SaltyEngine::Engine::Instance().GetFixedDeltaTime();
+            if (timer < 0)
+            {
+                collider2D->SetEnable(true);
+            }
+        }
 //        static int i = 0;
 		float h = InputKey::GetAxis("Horizontal");
 		float v = InputKey::GetAxis("Vertical");
@@ -139,13 +172,13 @@ namespace SaltyEngine
 
         if (InputKey::GetAction("Pod", Input::ActionType::Down))
         {
-            std::cout << "Pod action ok" << std::endl;
+//            std::cout << "Pod action ok" << std::endl;
             if (!isServerSide())
             {
-                std::cout << "Client side" << std::endl;
+//                std::cout << "Client side" << std::endl;
                 if (handler->HasPod())
                 {
-                    std::cout << "\e[31mSending pod\e[0m" << std::endl;
+//                    std::cout << "\e[31mSending pod\e[0m" << std::endl;
                     SendPackage<LAUNCHPackageGame>(
                             getManager()->gameObjectContainer.GetServerObjectID(handler->getPod()->gameObject),
                             getManager()->gameObjectContainer.GetServerObjectID(gameObject));
@@ -154,7 +187,7 @@ namespace SaltyEngine
                 {
                     PodController   *tocall = handler->FindFirstAvailablePod();
 
-                    std::cout << "\e[31mCalling Pod\e[0m" << std::endl;
+//                    std::cout << "\e[31mCalling Pod\e[0m" << std::endl;
                     if (tocall)
                         SendPackage<CALLPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(tocall->gameObject));
                 }
@@ -191,18 +224,33 @@ namespace SaltyEngine
     }
 
     void PlayerController::Die() {
-//        std::cout << "Player Died !" << std::endl;
-//        if (isServerSide())
-//        {
-//            SendPackage<DIEPackageGame>(
-//                    getManager()->gameObjectContainer.GetServerObjectID(this->gameObject)
-//            );
-//        }
-//        else
-//        {
-//            Instantiate("ExplosionBasic", this->gameObject->transform.position);
-//        }
-//        Destroy(this->gameObject);
+        if (!gameObject->GetActiveSelf())
+            return;
+        std::cout << "Player Died !" << std::endl;
+        gameObject->SetActive(false);
+        if (global_lives >= 0)
+        {
+            --global_lives;
+        }
+        if (global_lives == -1)
+        {
+            if (isServerSide())
+            {
+//                std::cout << "Definately died" << std::endl;
+                BroadCastReliable<DIEPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(gameObject));
+                Destroy(gameObject);
+                return;
+            }
+        }
+        if (isServerSide())
+        {
+            --global_lives;
+            timer = timeoutDeath;
+        }
+        else
+        {
+            Instantiate("ExplosionBasic", this->gameObject->transform.GetPosition());
+        }
     }
 
     void PlayerController::TakeDamage(int amount) {
@@ -275,6 +323,14 @@ namespace SaltyEngine
                 Die();
             }
         }
+    }
+
+    void PlayerController::Reborn()
+    {
+        if (isServerSide())
+            collider2D->SetEnable(false);
+        gameObject->SetActive(true);
+        timer = timeoutInvicible;
     }
 
 }

@@ -1,6 +1,7 @@
 #include "SaltyEngine/SFML/Scene.hpp"
 #include "SaltyEngine/SFML/SpriteRenderer.hpp"
 #include "SaltyEngine/SFML/PhysicsHandler.hpp"
+#include "SaltyEngine/SFML/Label.hpp"
 #include "Common/Debug.hpp"
 
 namespace SaltyEngine
@@ -40,26 +41,32 @@ namespace SaltyEngine
 						ph->AddSprite(sprr);
 				}
 			}
+			GUI::SFML::Label *lb = gameobj->GetComponent<GUI::SFML::Label>();
+			if (lb && r)
+			{
+				r->AddLabel(lb);
+			}
 		}
 
         void Scene::InitScene(Component *const component)
         {
 			if (component->gameObject->GetScene())
 			{
+                GameObject *tmp = component->gameObject;
 				Renderer *r = dynamic_cast<Renderer *>(Engine::Instance().GetRenderer());
-				SFML::SpriteCollider2D *c = component->gameObject->GetComponent<SFML::SpriteCollider2D>();
+				SFML::SpriteCollider2D *c = tmp->GetComponent<SFML::SpriteCollider2D>();
 				PhysicsHandler *ph = dynamic_cast<PhysicsHandler *>(Engine::Instance().GetPhysicsHandler());
-				SpriteRenderer *sprr = component->gameObject->GetComponent<SpriteRenderer>();
+				SpriteRenderer *sprr = tmp->GetComponent<SpriteRenderer>();
 				if (sprr)
 				{
-					component->gameObject->transform.SetLocalScale(m_scale);
+                    tmp->transform.SetLocalScale(m_scale);
 					if (r)
 					{
 						r->AddSpriteRenderer(sprr);
-						SFML::BoxCollider2D *bc = component->gameObject->GetComponent<SFML::BoxCollider2D>();
+						SFML::BoxCollider2D *bc = tmp->GetComponent<SFML::BoxCollider2D>();
 						if (bc && bc->IsDebug())
 							r->AddDebug(bc);
-						GUI::Selectable *select = component->gameObject->GetComponent<GUI::Selectable>();
+						GUI::Selectable *select = tmp->GetComponent<GUI::Selectable>();
 						if (select)
 							r->AddSelectable(select);
 					}
@@ -71,6 +78,11 @@ namespace SaltyEngine
 							ph->AddSprite(sprr);
 					}
 				}
+                GUI::SFML::Label *lb = tmp->GetComponent<GUI::SFML::Label>();
+                if (lb && r)
+                {
+                    r->AddLabel(lb);
+                }
 			}
 
         }
@@ -84,11 +96,16 @@ namespace SaltyEngine
 
             PhysicsHandler *ph = dynamic_cast<PhysicsHandler *>(Engine::Instance().GetPhysicsHandler());
 			for (std::list<GameObject *>::iterator i = m_deleted.begin(); i != m_deleted.end(); ++i) {
-				GameObject *gm = (*i);
-                SFML::SpriteCollider2D *c = gm->GetComponent<SFML::SpriteCollider2D>();
-                SpriteRenderer *sprr = gm->GetComponent<SpriteRenderer>();
-                ph->RemoveSpriteCollider(c);
-                ph->RemoveSpriteRenderer(sprr);
+				if (ph)
+				{
+					GameObject *gm = (*i);
+					SFML::SpriteCollider2D *c = gm->GetComponent<SFML::SpriteCollider2D>();
+					SpriteRenderer *sprr = gm->GetComponent<SpriteRenderer>();
+					if (c)
+						ph->RemoveSpriteCollider(c);
+					if (sprr)
+						ph->RemoveSpriteRenderer(sprr);
+				}
 			}
 			AScene::Destroy();
 		}

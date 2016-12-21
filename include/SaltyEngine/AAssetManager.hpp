@@ -79,6 +79,7 @@ namespace SaltyEngine {
             path_textures = getFullPath(Asset::TEXTURES_PATH);
             path_sounds = getFullPath(Asset::SOUNDS_PATH);
             path_sprites = getFullPath(Asset::SPRITES_PATH);
+            path_fonts = getFullPath(Asset::FONTS_PATH);
             path_animations = getFullPath(Asset::ANIMS_PATH);
         }
 

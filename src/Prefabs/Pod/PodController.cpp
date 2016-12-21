@@ -74,11 +74,10 @@ void PodController::FixedUpdate()
 
 void PodController::OnCollisionEnter(SaltyEngine::ICollider *collider)
 {
-    std::cout << "Colliding" << std::endl;
+//    std::cout << "Colliding" << std::endl;
     if (attachedPlayer)
         return;
 
-    speed = 0;
     if (isServerSide())
     {
         SaltyEngine::ACollider2D<sf::Vector2i> *c = dynamic_cast<SaltyEngine::ACollider2D<sf::Vector2i>*>(collider);
@@ -90,19 +89,19 @@ void PodController::OnCollisionEnter(SaltyEngine::ICollider *collider)
         {
             PodHandler   *player = c->gameObject->GetComponent<PodHandler>();
 
-            std::cout << "With Player: " << player << std::endl;
+//            std::cout << "With Player: " << player << std::endl;
             if (!player)
                 return;
 
             if (Attach(player))
             {
-                std::cout << "Attached" << std::endl;
+//                std::cout << "Attached" << std::endl;
                 try
                 {
                     unsigned short podid = 0;
 
                     podid = getManager()->gameObjectContainer.GetServerObjectID(gameObject);
-                    std::cout << "Broadcast take" << std::endl;
+//                    std::cout << "Broadcast take" << std::endl;
                     BroadCastReliable<TAKEPackageGame>(podid, getManager()->gameObjectContainer.GetServerObjectID(player->gameObject), isAtFront);
                 }
                 catch (std::runtime_error const &err)
@@ -160,7 +159,7 @@ bool PodController::Launch()
 //        //todo set the position juste after the ship
 //    }
     //todo add velocity to gameobject
-    std::cout << "Launching pod" << std::endl;
+//    std::cout << "Launching pod" << std::endl;
     gameObject->transform.SetParent(NULL);
     attachedPlayer = NULL;
     speed = 10;
@@ -200,6 +199,7 @@ bool PodController::Attach(PodHandler *podController, bool front)
 {
     if (!attachedPlayer && !podController->HasPod())
     {
+        speed = 0;
         attachedPlayer = podController;
         gameObject->transform.SetParent(&attachedPlayer->gameObject->transform);
         if (front)
