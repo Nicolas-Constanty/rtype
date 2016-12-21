@@ -22,6 +22,8 @@ namespace SaltyEngine
 			virtual Component *CloneComponent(GameObject* const obj) {
 				return new UIBehaviour(obj);
 			}
+
+			void OnGui() override;
 		};
 	}
 }
