@@ -13,7 +13,7 @@
 
 namespace SaltyEngine {
     namespace SFML {
-        class AssetManager: public AAssetManager<Texture, Sprite, AnimationClip>, public Singleton<AssetManager> {
+        class AssetManager: public AAssetManager<Texture, Sprite, AnimationClip, sf::Font>, public Singleton<AssetManager> {
         public:
             friend class Singleton<AssetManager>;
 
@@ -28,6 +28,7 @@ namespace SaltyEngine {
             Sprite *GetSpriteScale(std::string const &name, bool noScale);
             AnimationClip *GetAnimation(std::string const &name);
             ::SaltyEngine::Sound::ISound *GetSound(std::string const &name);
+            bool LoadFont(std::string const &name);
         };
     }
 }

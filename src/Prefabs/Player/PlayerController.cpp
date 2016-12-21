@@ -171,7 +171,7 @@ namespace SaltyEngine
     }
 
     void PlayerController::Die() {
-        std::cout << "Player Died !" << std::endl;
+//        std::cout << "Player Died !" << std::endl;
 //        if (isServerSide())
 //        {
 //            SendPackage<DIEPackageGame>(

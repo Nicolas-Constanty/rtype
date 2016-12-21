@@ -2,6 +2,9 @@
     "title": "{{scene_name}}",
     "preview": "{{path_to_preview_image}}",
     "background": "{{path_to_background}}",
+    "fonts": [
+        "{{font1}}"
+    ],
     "scale": {
         "width": "2",
         "height": "2"
