@@ -195,11 +195,6 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetSHOTPackage(SHOTPackageGam
 //            int serverid = gameManager->gameObjectContainer.Add(GameObjectID::NewID(), laser);
             LaserController *laserController;
 
-//            this->BroadCastPackage<SHOTPackageGame>(
-//                    &Network::UDP::AUDPConnection::SendReliable<SHOTPackageGame>,
-//                    serverid, power,
-//                    pack.objectID);
-
             for (std::unique_ptr<Network::Socket::ISockStreamHandler> &curr : clients->Streams())
             {
                 if (curr.get() != this)
@@ -213,16 +208,6 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetSHOTPackage(SHOTPackageGam
                 }
             }
 
-//            for (std::unique_ptr<Network::Socket::ISockStreamHandler> &curr : clients->Streams())
-//            {
-//                RtypeGameClient *client = dynamic_cast<Rtype::Game::Client::RtypeGameClient *>(curr.get());
-//
-//                if (client)
-//                    client->SendPackage<SHOTPackageGame>(&Network::UDP::AUDPConnection::SendReliable<SHOTPackageGame>,
-//                                                         serverid, power,
-//                                                         pack.objectID);
-//            }
-
             if ((laserController = laser->GetComponent<LaserController>())) {
                 laserController->Power(power);
 
@@ -230,7 +215,6 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetSHOTPackage(SHOTPackageGam
                 if (playerController->beamShot) {
                     this->BroadCastPackage<DIEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<DIEPackageGame>,
                                                            playerController->beamServerID);
-//                    BroadcastPackage<DIEPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(beamShot));
                     SaltyEngine::Object::Destroy(playerController->beamShot);
                     playerController->beamShot = NULL;
                 }
@@ -238,7 +222,6 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetSHOTPackage(SHOTPackageGam
             playerController->IncIdShot();
         }
     }
-//    std::cout << "JE SORS" << std::endl;
 //    todo if (okay on gameside)
 //    {
 //        BroadcastReliable(*server1->create<SHOTPackageGame>(pack.objectID));

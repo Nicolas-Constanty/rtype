@@ -121,39 +121,40 @@ void Rtype::Game::Server::RtypeGameServer::OnStartGame(Rtype::Game::Common::Rtyp
     for (SaltyEngine::GameObject *gameObject : list) {
 
         bool alreadySend = false;
-            std::string name = gameObject->GetName();
-            std::string::size_type size = name.find("(Clone)");
-            if (size != std::string::npos) {
-                name.erase(size, sizeof("(Clone)"));
-            }
-            if (gameObject->GetTag() != SaltyEngine::Layer::Tag::Untagged) {
+        std::string name = gameObject->GetName();
+        std::string::size_type size = name.find("(Clone)");
+        if (size != std::string::npos) {
+            name.erase(size, sizeof("(Clone)"));
+        }
+        if (gameObject->GetTag() != SaltyEngine::Layer::Tag::Untagged
+            && gameObject->GetTag() != SaltyEngine::Layer::Tag::BulletPlayer) {
 
-                if (gameObject->GetTag() == SaltyEngine::Layer::Tag::Player) {
-                    name = "Mate";
-                    SaltyEngine::PlayerController *playerController;
-                    playerController = gameObject->GetComponent<SaltyEngine::PlayerController>();
-                    if (playerController) {
-                        if (playerID == playerController->GetPlayerID()) {
-                            name = "Player";
-                        }
+            if (gameObject->GetTag() == SaltyEngine::Layer::Tag::Player) {
+                name = "Mate";
+                SaltyEngine::PlayerController *playerController;
+                playerController = gameObject->GetComponent<SaltyEngine::PlayerController>();
+                if (playerController) {
+                    if (playerID == playerController->GetPlayerID()) {
+                        name = "Player";
+                    }
 
-                        if (name == "Mate") {
-                            client->SendPackage<MATEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<MATEPackageGame>,
-                                                                 gameObject->transform.position.x, gameObject->transform.position.y, playerController->GetPlayerID(),
-                                                                 manager->gameObjectContainer.GetServerObjectID(gameObject));
-                            alreadySend = true;
-                        }
+                    if (name == "Mate") {
+                        client->SendPackage<MATEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<MATEPackageGame>,
+                                                             gameObject->transform.position.x, gameObject->transform.position.y, playerController->GetPlayerID(),
+                                                             manager->gameObjectContainer.GetServerObjectID(gameObject));
+                        alreadySend = true;
                     }
                 }
+            }
 
-                if (!alreadySend) {
-                    client->SendPackage<CREATEPackageGame>(
-                            &Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>,
-                            gameObject->transform.position.x,
-                            gameObject->transform.position.y,
-                            RtypeNetworkFactory::GetIDFromName(name),
-                            manager->gameObjectContainer.GetServerObjectID(gameObject));
-                }
+            if (!alreadySend) {
+                client->SendPackage<CREATEPackageGame>(
+                        &Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>,
+                        gameObject->transform.position.x,
+                        gameObject->transform.position.y,
+                        RtypeNetworkFactory::GetIDFromName(name),
+                        manager->gameObjectContainer.GetServerObjectID(gameObject));
+            }
         }
     }
 
