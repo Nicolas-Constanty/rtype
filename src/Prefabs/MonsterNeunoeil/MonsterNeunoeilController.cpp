@@ -56,7 +56,6 @@ void MonsterNeunoeilController::Start()
 
 void MonsterNeunoeilController::FixedUpdate()
 {
-//    this->gameObject->transform.Rotate(0.1f);
     if (isServerSide()) {
         m_currDelay -= static_cast<float>(SaltyEngine::Engine::Instance().GetFixedDeltaTime());
 
@@ -72,7 +71,7 @@ void MonsterNeunoeilController::Move() {
     static int i = 0;
     if (m_eyeState == E_STATIC)
     {
-        this->gameObject->transform.Translate(gameObject->transform.up() * m_vel * m_dir);
+        this->gameObject->transform.Translate(SaltyEngine::Vector2::up() * m_vel * m_dir);
         if (this->gameObject->transform.GetPosition().y <= 100)
             m_dir = 1;
         else if (this->gameObject->transform.GetPosition().y >= m_verticalDistance)
@@ -80,7 +79,8 @@ void MonsterNeunoeilController::Move() {
     }
     else if (m_eyeState == E_MOVING)
     {
-        this->gameObject->transform.Translate(gameObject->transform.right() * m_vel * m_dir);
+        this->gameObject->transform.Rotate(0.7f);
+        this->gameObject->transform.Translate(-SaltyEngine::Vector2::left() * m_vel * m_dir);
         if (this->gameObject->transform.GetPosition().x <= 100)
             m_dir = 1;
         else if (this->gameObject->transform.GetPosition().x >= m_horizontalDistance)
