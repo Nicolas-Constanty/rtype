@@ -117,8 +117,13 @@ void Network::Core::NativeSocketIOOperationDispatcher::HandleOperations()
         timeout.reset(new struct timeval(*m_timeout.get()));
     }
 
-	if (select(static_cast<int>(std::max(bindFdsToSet(readset, m_readWatch), bindFdsToSet(writeset, m_writeWatch))) + 1, &readset, &writeset, nullptr, timeout.get()) == -1) {
-		throw std::runtime_error("Select fails");
+    int ret;
+    do
+    {
+        ret = select(static_cast<int>(std::max(bindFdsToSet(readset, m_readWatch), bindFdsToSet(writeset, m_writeWatch))) + 1, &readset, &writeset, nullptr, timeout.get());
+    } while (ret == -1 && errno == EINTR);
+	if (ret == -1) {
+		throw std::runtime_error(strerror(errno));
     }
     performOperations(readset, NativeSocketIOOperationDispatcher::read);
     performOperations(writeset, NativeSocketIOOperationDispatcher::write);
