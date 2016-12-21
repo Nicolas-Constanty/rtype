@@ -157,6 +157,7 @@ namespace SaltyEngine
             localScale = scale;
         }
 
+		// TODO : rotate children !!!
         void SetRotation(float rot)
         {
             rotation = rot;

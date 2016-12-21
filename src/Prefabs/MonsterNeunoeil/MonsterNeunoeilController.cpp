@@ -18,7 +18,10 @@ MonsterNeunoeilController::~MonsterNeunoeilController()
 void MonsterNeunoeilController::Start()
 {
     LoadManager();
-	m_currDelay = m_minShootInterval + rand() % (int)(m_maxShootInterval - m_minShootInterval);
+
+    m_verticalDistance = 300;
+
+    m_currDelay = m_minShootInterval + rand() % (int)(m_maxShootInterval - m_minShootInterval);
     if (!isServerSide())
     {
         m_anim = gameObject->GetComponent<SaltyEngine::SFML::Animation>();
@@ -32,8 +35,8 @@ void MonsterNeunoeilController::Start()
     {
         SaltyEngine::GameObject *go = (SaltyEngine::GameObject*)SaltyEngine::Instantiate();
         go->transform.SetPosition(this->gameObject->transform.GetPosition());
-        go->transform.Rotate(90 * i);
-        go->transform.SetPosition(go->transform.GetPosition() + go->transform.GetPosition().left() * 110);
+        go->transform.SetRotation(90 * i);
+        go->transform.SetPosition(go->transform.GetPosition() + go->transform.right() * 110);
         go->transform.SetParent(&this->gameObject->transform);
         SaltyEngine::SFML::Animation *animation = go->AddComponent<SaltyEngine::SFML::Animation>(true, SaltyEngine::AnimationConstants::WrapMode::LOOP);
         animation->AddClip(SaltyEngine::SFML::AssetManager::Instance().GetAnimation("Laser/loading"), "Loading");
@@ -53,7 +56,7 @@ void MonsterNeunoeilController::Start()
 
 void MonsterNeunoeilController::FixedUpdate()
 {
-    this->gameObject->transform.Rotate(0.1f);
+//    this->gameObject->transform.Rotate(0.1f);
     if (isServerSide()) {
         m_currDelay -= static_cast<float>(SaltyEngine::Engine::Instance().GetFixedDeltaTime());
 
@@ -61,14 +64,30 @@ void MonsterNeunoeilController::FixedUpdate()
             m_currDelay = m_minShootInterval + rand() % (int) (m_maxShootInterval - m_minShootInterval);
             Shot();
         }
-        Move();
     }
+    Move();
 }
 
 void MonsterNeunoeilController::Move() {
     static int i = 0;
-//    this->gameObject->transform.Translate(-gameObject->transform.right() * m_vel);
-    if (i % 3 == 0)
+    if (m_eyeState == E_STATIC)
+    {
+        this->gameObject->transform.Translate(gameObject->transform.up() * m_vel * m_dir);
+        if (this->gameObject->transform.GetPosition().y <= 100)
+            m_dir = 1;
+        else if (this->gameObject->transform.GetPosition().y >= m_verticalDistance)
+            m_dir = -1;
+    }
+    else if (m_eyeState == E_MOVING)
+    {
+        this->gameObject->transform.Translate(gameObject->transform.right() * m_vel * m_dir);
+        if (this->gameObject->transform.GetPosition().x <= 100)
+            m_dir = 1;
+        else if (this->gameObject->transform.GetPosition().x >= m_horizontalDistance)
+            m_dir = -1;
+    }
+
+    if (i % 60 == 0)
     {
         BroadcastPackage<MOVEPackageGame>(
                 gameObject->transform.GetPosition().x,
@@ -86,12 +105,27 @@ void MonsterNeunoeilController::Shot() {
 
    if (isServerSide())
    {
-       SaltyEngine::GameObject *missile = (SaltyEngine::GameObject *) SaltyEngine::Instantiate("EnemyBullet",
-                                                                                                this->gameObject->transform.GetPosition(),
-                                                                                                180);
-       getManager()->gameObjectContainer.Add(GameObjectID::NewID(), missile);
+       if (m_eyeState == E_STATIC)
+       {
+           SaltyEngine::GameObject *missile = (SaltyEngine::GameObject *) SaltyEngine::Instantiate("EnemyBullet",
+                                                                                                   m_canons[3]->transform.GetPosition(),
+                                                                                                   m_canons[3]->transform.GetRotation());
+           getManager()->gameObjectContainer.Add(GameObjectID::NewID(), missile);
 
-       BroadCastReliable<ENEMYSHOTPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(gameObject));
+           BroadCastReliable<ENEMYSHOTPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(gameObject));
+       }
+       else if (m_eyeState == E_MOVING)
+       {
+           for (int i = 0; i < 4; ++i)
+           {
+               SaltyEngine::GameObject *missile = (SaltyEngine::GameObject *) SaltyEngine::Instantiate("EnemyBullet",
+                                                                                                       m_canons[i]->transform.GetPosition(),
+                                                                                                       m_canons[i]->transform.GetRotation());
+               getManager()->gameObjectContainer.Add(GameObjectID::NewID(), missile);
+
+               BroadCastReliable<ENEMYSHOTPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(gameObject));
+           }
+       }
     }
 }
 
