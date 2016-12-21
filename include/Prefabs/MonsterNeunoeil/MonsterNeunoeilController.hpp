@@ -37,17 +37,21 @@ private:
 	float m_currDelay = 0;
 	bool m_isDead = false;
 	float m_vel = 1;
-	float m_verticalDistance = 100;
+	float m_verticalDistance = 700;
 	float m_horizontalDistance = 850;
-    SaltyEngine::Vector m_startPoint;
     SaltyEngine::SFML::Animation *m_anim;
+    float m_currTransitionDelay = 5;
+    float m_transitionDelay = 5;
 
 	bool m_isInvincible = false;
     SaltyEngine::GameObject *m_canons[4];
 
 private:
-    enum EYE_STATES {E_STATIC, E_MOVING};
+    enum EYE_STATE {E_STATIC, E_MOVING1, E_MOVING2};
     int m_dir = 1;
-    EYE_STATES m_eyeState = E_MOVING;
+    EYE_STATE m_eyeState = E_STATIC;
+
+protected:
+    void GoToNextState();
 };
 
