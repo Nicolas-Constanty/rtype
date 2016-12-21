@@ -74,7 +74,7 @@ int main(int, char **)
 //	*scene << guiBehind;
 
 	server.reset(new SaltyEngine::GameObject("Rtype", SaltyEngine::Layer::Tag::Destroy));
-	SaltyEngine::SceneDefault *sceneDefault = SaltyEngine::SFML::AssetManager::Instance().LoadScene("scene4");
+	SaltyEngine::SceneDefault *sceneDefault = SaltyEngine::SFML::AssetManager::Instance().LoadScene("scene2");
 
 	scene->SetScale(sceneDefault->scale);
 

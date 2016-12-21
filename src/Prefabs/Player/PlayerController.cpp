@@ -327,7 +327,8 @@ namespace SaltyEngine
 
     void PlayerController::Reborn()
     {
-        collider2D->SetEnable(false);
+        if (isServerSide())
+            collider2D->SetEnable(false);
         gameObject->SetActive(true);
         timer = timeoutInvicible;
     }
