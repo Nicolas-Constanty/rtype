@@ -131,7 +131,7 @@ void GameManager::FixedUpdate() {
         if (monsterMap->objects.empty()) {
             endOfGame = true;
         }
-    } else if (endOfGame && m_server && gameOver && !gameOver->IsOver() && IsSceneEmpty()) { // TODO Il manque le check si y'a plus de monstre coté serveur mais pour ça il faut le destroyer.
+    } else if (endOfGame && m_server && gameOver && !gameOver->IsOver() && IsSceneEmpty()) {
         gameOver->OverAction(GAMEOVER::VICTORY);
     }
 }

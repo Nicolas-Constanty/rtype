@@ -275,7 +275,13 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetMATEPackage(MATEPackageGam
 void Rtype::Game::Client::RtypeClientGameClient::onGetGAMEOVERPackage(GAMEOVERPackageGame const &game) {
     OnDiscoveringPackage(game);
     if (gameOver && !gameOver->IsOver()) {
-        gameOver->OverAction(static_cast<GAMEOVER>(game.status));
+        GAMEOVER over = static_cast<GAMEOVER>(game.status);
+        if (over == GAMEOVER::VICTORY) {
+
+        } else {
+
+        }
+//        gameOver->OverAction(static_cast<GAMEOVER>(game.status));
 
         //TODO
         // DISPLAY VICTORY SREEN HERE
