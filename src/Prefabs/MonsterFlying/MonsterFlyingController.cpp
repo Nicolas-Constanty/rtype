@@ -36,22 +36,25 @@ void MonsterFlyingController::FixedUpdate()
             m_currDelay = m_minShootInterval + rand() % (int) (m_maxShootInterval - m_minShootInterval);
             Shot();
         }
-        Move();
+//        Move();
     }
+    Move();
 }
 
 void MonsterFlyingController::Move() {
     static int i = 0;
+
     this->gameObject->transform.Translate(-(gameObject->transform.right() + SaltyEngine::Vector2(0, sin(gameObject->transform.GetPosition().x / 100.f)) )
                                           * SaltyEngine::Engine::Instance().GetFixedDeltaTime() * m_vel);
-    if (i % 3 == 0)
-    {
-        BroadcastPackage<MOVEPackageGame>(
-                gameObject->transform.GetPosition().x,
-                gameObject->transform.GetPosition().y,
-                getManager()->gameObjectContainer.GetServerObjectID(gameObject));
+    if (isServerSide()) {
+        if (i % 60 == 0) {
+            BroadcastPackage<MOVEPackageGame>(
+                    gameObject->transform.GetPosition().x,
+                    gameObject->transform.GetPosition().y,
+                    getManager()->gameObjectContainer.GetServerObjectID(gameObject));
+        }
+        ++i;
     }
-    ++i;
 }
 
 void MonsterFlyingController::Shot() {
