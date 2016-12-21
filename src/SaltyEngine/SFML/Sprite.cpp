@@ -11,7 +11,7 @@ namespace SaltyEngine
         Sprite::Sprite(Texture *texture) :
                 ::SaltyEngine::Sprite<sf::Vector2i>(texture ? dynamic_cast<::SaltyEngine::Texture<sf::Vector2i> *>(texture) : []() { ::SaltyEngine::Texture<sf::Vector2i> *t = new Texture(); t->Create(200, 200); return t; }(), "SFMLSprite"),
                 sf::Sprite(*dynamic_cast<Texture *>(GetTexture())) {
-            m_bounds = new Rect(static_cast<int>(getGlobalBounds().left), static_cast<int>(getGlobalBounds().top), static_cast<int>(getGlobalBounds().width), static_cast<int>(getGlobalBounds().height));
+            m_bounds = new Rect(static_cast<int>(getTextureRect().left), static_cast<int>(getTextureRect().top), static_cast<int>(getTextureRect().width), static_cast<int>(getTextureRect().height));
 //            setOrigin(m_bounds->width / 2, m_bounds->height / 2);
             setOrigin(getTextureRect().width / 2, getTextureRect().height / 2);
         }
@@ -21,7 +21,7 @@ namespace SaltyEngine
                 sf::Sprite(*dynamic_cast<Texture *>(GetTexture()))
         {
             setTextureRect(*rect);
-            m_bounds = new Rect(static_cast<int>(getGlobalBounds().left), static_cast<int>(getGlobalBounds().top), static_cast<int>(getGlobalBounds().width), static_cast<int>(getGlobalBounds().height));
+            m_bounds = new Rect(static_cast<int>(getTextureRect().left), static_cast<int>(getTextureRect().top), static_cast<int>(getTextureRect().width), static_cast<int>(getTextureRect().height));
 //            setOrigin(m_bounds->width / 2, m_bounds->height / 2);
             setOrigin(getTextureRect().width / 2, getTextureRect().height / 2);
         }

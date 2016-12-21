@@ -66,6 +66,7 @@ namespace SaltyEngine
                 text->create(size.x, size.y);
                 text->update(img);
                 Sprite *spr = new Sprite(text);
+                spr->setScale(gameObject->transform.GetLocalScale().x, gameObject->transform.GetLocalScale().y);
                 sprr = gameObject->AddComponent<SpriteRenderer>(spr, Layout::normal);
                 m_img = spr->getTexture()->copyToImage();
                 m_sprite = (Sprite **)(&sprr->m_sprite);
@@ -91,6 +92,7 @@ namespace SaltyEngine
                 text->create(40, 40);
                 text->update(m_img);
                 Sprite *spr = new Sprite(text);
+                spr->setScale(gameObject->transform.GetLocalScale().x, gameObject->transform.GetLocalScale().y);
                 sprr =gameObject->AddComponent<SpriteRenderer>(spr, Layout::normal);
                 m_sprite = (Sprite **)(&sprr->m_sprite);
                 m_rect = (*m_sprite)->getTextureRect();

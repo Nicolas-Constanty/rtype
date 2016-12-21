@@ -72,6 +72,21 @@ namespace SaltyEngine
             animation->AddClip(SaltyEngine::SFML::AssetManager::Instance().GetAnimation("Laser/loading"), "Loading");
             m_beamSFX->transform.SetParent(&this->gameObject->transform);
             m_beamSFX->SetActive(false);
+            SFML::Renderer *renderer = dynamic_cast<SFML::Renderer *>(Engine::Instance().GetRenderer());
+            SFML::SpriteRenderer *sprr = gameObject->GetComponent<SFML::SpriteRenderer>();
+            if (renderer)
+            {
+                m_min = Vector2(
+                        sprr->GetSprite()->getTextureRect().width / 2,
+                        sprr->GetSprite()->getTextureRect().height / 2
+                );
+                std::cout << m_min << std::endl;
+                m_max = Vector2(
+                        renderer->GetRenderWindow()->getSize().x / gameObject->transform.GetLocalScale().x - m_min.x,
+                        renderer->GetRenderWindow()->getSize().y / gameObject->transform.GetLocalScale().y - m_min.y
+                );
+                std::cout << m_max << std::endl;
+            }
         }
 	}
 
@@ -80,15 +95,16 @@ namespace SaltyEngine
 //        static int i = 0;
 		float h = InputKey::GetAxis("Horizontal");
 		float v = InputKey::GetAxis("Vertical");
-		if (h != 0 || v != 0) {
+        Vector2 move(gameObject->transform.GetPosition().x + h  * speed, gameObject->transform.GetPosition().y + v * speed);
+		if (!isServerSide()
+            && (h != 0 || v != 0)
+            && move.x < m_max.x && move.x > m_min.x
+            && move.y < m_max.y && move.y > m_min.y) {
 			gameObject->transform.Translate(Vector(h, v) * speed);
-            if (!isServerSide()/* && i % 3 == 0*/)
-            {
                 SendPackage<MOVEPackageGame>(
                         gameObject->transform.GetPosition().x,
                         gameObject->transform.GetPosition().y,
                         getManager()->gameObjectContainer.GetServerObjectID(gameObject));
-            }
 //            ++i;
         }
 

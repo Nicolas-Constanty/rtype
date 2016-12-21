@@ -37,7 +37,7 @@ namespace SaltyEngine {
 		int GetHighScore() const;
 		bool IsUpdateHighScore() const;
 		void SetUpdateHighScore(bool update);
-		double speed;
+		float speed;
 
 
 	public:
@@ -96,6 +96,8 @@ namespace SaltyEngine {
         int             highScore;
 		bool			updateHighScore = true;
 		SaltyEngine::GameObject *objGUIBeam = NULL;
+		Vector2			m_min;
+		Vector2			m_max;
 	};
 }
 

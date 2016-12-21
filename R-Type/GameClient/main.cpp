@@ -44,9 +44,11 @@ int main(int, char **)
 	Network::Socket::WinSocket::Start();
 #endif
 
-	SaltyEngine::SFML::Renderer *renderer = new SaltyEngine::SFML::Renderer(sf::VideoMode(1920, 1080), "R-Type Launcher");
+	unsigned int x = 960;
+	unsigned int y = 540;
+	SaltyEngine::SFML::Renderer *renderer = new SaltyEngine::SFML::Renderer(sf::VideoMode(x * 2, y * 2), "R-Type Launcher");
 	SaltyEngine::SFML::EventManager *event_manager = new SaltyEngine::SFML::EventManager(renderer->GetRenderWindow());
-	SaltyEngine::SFML::PhysicsHandler *ph = new SaltyEngine::SFML::PhysicsHandler(1920 / 2, 1080 / 2, false);
+	SaltyEngine::SFML::PhysicsHandler *ph = new SaltyEngine::SFML::PhysicsHandler(x, y, false);
 	SaltyEngine::Engine::Instance().SetPhysicsHandler(ph);
 	// Set Renderer and EventManager
 	Singleton<SaltyEngine::Engine>::Instance().SetRenderer(renderer);
@@ -79,14 +81,34 @@ int main(int, char **)
 
 	server->AddComponent<Rtype::Game::Client::GameClientObject>("127.0.0.1", 4242);
 	server->AddComponent<GameManager>();
-	server->AddComponent<SaltyEngine::SFML::BoxCollider2D>(
-			sf::Vector2u(40, 40)
-	);
-//	server->transform.position = SaltyEngine::Vector2(0, 0);
-	server->transform.SetPosition(SaltyEngine::Vector2(0, 0));
-//	server->transform.localScale = SaltyEngine::Vector2(2, 2);
-	server->transform.SetLocalScale(SaltyEngine::Vector2(2, 2));
-
+//    std::unique_ptr<SaltyEngine::GameObject> box_right = std::unique_ptr<SaltyEngine::GameObject>(new SaltyEngine::GameObject("box right"));
+//    std::unique_ptr<SaltyEngine::GameObject> box_left = std::unique_ptr<SaltyEngine::GameObject>(new SaltyEngine::GameObject("box left"));
+//    std::unique_ptr<SaltyEngine::GameObject> box_top = std::unique_ptr<SaltyEngine::GameObject>(new SaltyEngine::GameObject("box top"));
+//    std::unique_ptr<SaltyEngine::GameObject> box_down = std::unique_ptr<SaltyEngine::GameObject>(new SaltyEngine::GameObject("box down"));
+//	box_right->AddComponent<SaltyEngine::SFML::BoxCollider2D>(
+//			sf::Vector2u(1, y)
+//	);
+//	box_right->transform.SetPosition(SaltyEngine::Vector2(x -1, y / 2));
+//
+//    box_left->AddComponent<SaltyEngine::SFML::BoxCollider2D>(
+//            sf::Vector2u(1, y)
+//    );
+//    box_left->transform.SetPosition(SaltyEngine::Vector2(0, y / 2));
+//
+//    box_top->AddComponent<SaltyEngine::SFML::BoxCollider2D>(
+//            sf::Vector2u(x, 1)
+//    );
+//    box_top->transform.SetPosition(SaltyEngine::Vector2(x / 2, 0));
+//
+//    box_down->AddComponent<SaltyEngine::SFML::BoxCollider2D>(
+//            sf::Vector2u(x, 1)
+//    );
+//    box_down->transform.SetPosition(SaltyEngine::Vector2(x / 2, y -1));
+//
+//    *scene << box_right.get();
+//    *scene << box_left.get();
+//    *scene << box_down.get();
+//    *scene << box_top.get();
 	*scene << server.get();
 
 //    SaltyEngine::GameObject	*player;

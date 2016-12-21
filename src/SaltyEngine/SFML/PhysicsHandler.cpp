@@ -102,21 +102,22 @@ namespace SaltyEngine
             {
                 bool update = false;
 //                    m_mutext.lock();
-                for (ColliderList::const_iterator col = m_colliders.begin(); col != m_colliders.end(); ++col) {
+                for (ColliderList::iterator col = m_colliders.begin(); col != m_colliders.end(); ++col) {
+                    SpriteCollider2D *spr = (*col).first;
 //                    (*col)->GetSprite()->setScale((*col)->gameObject->transform.localScale.x, (*col)->gameObject->transform.localScale.y);
-                     Transform &t = (*col)->gameObject->transform;
-                    const sf::IntRect &r = (*col)->GetRect();
+                     Transform &t = spr->gameObject->transform;
+                    const sf::IntRect &r = spr->GetRect();
 //                    (*col)->GetSprite()->setPosition(
 //                            t.position.x * t.localScale.x - (r.width * t.localScale.x / 2),
 //                            t.position.y * t.localScale.y - (r.height * t.localScale.y / 2)
 //                    );
-                    (*col)->GetSprite()->setPosition(t.GetPosition().x * t.GetLocalScale().x, t.GetPosition().y * t.GetLocalScale().y);
+                    spr->GetSprite()->setPosition(t.GetPosition().x * t.GetLocalScale().x, t.GetPosition().y * t.GetLocalScale().y);
 
-                    (*col)->GetSprite()->setRotation(t.GetRotation());
+                    spr->GetSprite()->setRotation(t.GetRotation());
 
-//                    bool deleted = true;
-                    float i_pos_x = (*col)->GetPosition().x;
-                    float i_pos_y = (*col)->GetPosition().y;
+                    bool deleted = true;
+                    float i_pos_x = spr->GetPosition().x;
+                    float i_pos_y = spr->GetPosition().y;
                     float offset_x = i_pos_x - (r.width / 2);
                     float offset_y = i_pos_y - (r.height / 2);
                     unsigned int text_pos_x = (unsigned int) r.left;
@@ -127,8 +128,8 @@ namespace SaltyEngine
                     float posX = t.GetPosition().x;
                     float posY = t.GetPosition().y;
 
-                    if (i_pos_x >= 0 && i_pos_y >= 0 && i_pos_x < m_size_x && i_pos_y < m_size_y)
-                    {
+//                    if (i_pos_x >= 0 && i_pos_y >= 0 && i_pos_x < m_size_x && i_pos_y < m_size_y)
+//                    {
 //                        float radRot = (float) (t.GetRotation() * M_PI / 180.f);
 //                        float sinRot = sin(radRot);
 //                        float cosRot = cos(radRot);
@@ -145,35 +146,36 @@ namespace SaltyEngine
 
                                 if (pos_x >= 0 && pos_y >= 0 && pos_x < m_size_x && pos_y < m_size_y)
                                 {
-                                    const sf::Color &color = (*col)->GetImage().getPixel(x + text_pos_x, y + text_pos_y);
+                                    const sf::Color &color = spr->GetImage().getPixel(x + text_pos_x, y + text_pos_y);
                                     if (color != sf::Color::Transparent)
                                     {
                                         m_vecs.push(sf::Vector2i((int) pos_x, (int) pos_y));
                                         sf::Color c = m_img.getPixel((unsigned int) pos_x, (unsigned int) pos_y);
                                         if (c == sf::Color::Black)
-                                            m_img.setPixel((unsigned int) (pos_x), (unsigned int) (pos_y), sf::Color((*col)->GetColor()));
+                                            m_img.setPixel((unsigned int) (pos_x), (unsigned int) (pos_y), sf::Color(spr->GetColor()));
 //                                            else if (m_renderer &&c != color)
 //                                                m_img.setPixel((unsigned int) (pos_x), (unsigned int) (pos_y), sf::Color::Green);
                                         update = true;
-//                                        deleted = false;
+                                        deleted = false;
+                                        (*col).second = true;
                                     }
                                 }
                             }
-                        }
+//                        }
                     }
-//                        if (deleted)
-//                            m_deleted.push(*col);
+                        if (deleted && (*col).second)
+                            m_deleted.push(spr);
                 }
                 if (update)
                     m_texture.update(m_img);
-//                    while (!m_deleted.empty()) {
-//                        m_colliders.remove(m_deleted.top());
-//                        if (!m_colliders.size())
-//                        {
-//                                m_texture.update(m_img);
-//                        }
-//                        m_deleted.pop();
-//                    }
+                    while (!m_deleted.empty()) {
+//                        std::cout << m_deleted.top()->gameObject->GetName() << std::endl;
+                        Object::Destroy(m_deleted.top()->gameObject);
+                        m_colliders.erase(m_deleted.top());
+                        if (!m_colliders.size())
+                            m_texture.update(m_img);
+                        m_deleted.pop();
+                    }
             }
         }
         void PhysicsHandler::AddCollider(SpriteCollider2D *const collider) {
@@ -184,7 +186,7 @@ namespace SaltyEngine
 //            std::cout << pos.x << " " << pos.y << std::endl;
 //            if (pos.x >= 0 && pos.y >= 0 && pos.x / scale.x < m_size_x && pos.y / scale.y < m_size_y) {
 //                std::cout << " COUCOU " << std::endl;
-                m_colliders.push_back(collider);
+                m_colliders[collider] = false;
                 m_col_to_sprite[collider->GetColor()] = collider;
 //            }
             m_mutext.unlock();
@@ -237,10 +239,11 @@ namespace SaltyEngine
         void PhysicsHandler::Collide()
         {
             for (ColliderList::const_iterator col = m_colliders.begin(); col != m_colliders.end(); ++col) {
-                (*col)->ResetCollisions();
-                const sf::IntRect &r = (*col)->GetRect();
-                float i_pos_x = (*col)->GetPosition().x;
-                float i_pos_y = (*col)->GetPosition().y;
+                SpriteCollider2D *spr = (*col).first;
+                spr->ResetCollisions();
+                const sf::IntRect &r = spr->GetRect();
+                float i_pos_x = spr->GetPosition().x;
+                float i_pos_y = spr->GetPosition().y;
                 float offset_x = i_pos_x - (r.width / 2);
                 float offset_y = i_pos_y - (r.height / 2);
                 unsigned int text_pos_x = (unsigned int) r.left;
@@ -255,16 +258,16 @@ namespace SaltyEngine
                             float pos_y = y + offset_y;
                             if (pos_x >= 0 && pos_y >= 0 && pos_x < m_size_x && pos_y < m_size_y)
                             {
-                                const sf::Color &color = (*col)->GetImage().getPixel(x + text_pos_x, y + text_pos_y);
+                                const sf::Color &color = spr->GetImage().getPixel(x + text_pos_x, y + text_pos_y);
                                 if (color != sf::Color::Transparent)
                                 {
                                     sf::Color c = m_img.getPixel((unsigned int) pos_x, (unsigned int) pos_y);
-                                    if (c != sf::Color::Black && c != sf::Color::Green && c.toInteger() != (*col)->GetColor())
+                                    if (c != sf::Color::Black && c != sf::Color::Green && c.toInteger() != spr->GetColor())
                                     {
                                         if (m_renderer)
                                             m_img.setPixel((unsigned int) (pos_x), (unsigned int) (pos_y), sf::Color::Green);
-                                        (*col)->UpdateCollisions(m_col_to_sprite[c.toInteger()]);
-                                        m_col_to_sprite[c.toInteger()]->UpdateCollisions(*col);
+                                        spr->UpdateCollisions(m_col_to_sprite[c.toInteger()]);
+                                        m_col_to_sprite[c.toInteger()]->UpdateCollisions(spr);
                                     }
                                 }
                             }
@@ -274,7 +277,7 @@ namespace SaltyEngine
             }
             m_texture.update(m_img);
             for (ColliderList::const_iterator col = m_colliders.begin(); col != m_colliders.end(); ++col) {
-                (*col)->RemoveCollisions();
+                (*col).first->RemoveCollisions();
             }
         }
 
@@ -355,10 +358,9 @@ namespace SaltyEngine
         }
 
         void PhysicsHandler::RemoveSpriteCollider(const SpriteCollider2D *s) {
-            m_colliders.remove_if([this, s](SpriteCollider2D *sc) {
-                if (s == sc)
-                {
-                    m_col_to_sprite.erase(sc->GetColor());
+            erase_if(m_colliders, [this, s](const std::pair<SpriteCollider2D *, bool> p){
+                if (s == p.first) {
+                    m_col_to_sprite.erase(s->GetColor());
                     return true;
                 }
                 return false;

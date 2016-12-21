@@ -10,7 +10,7 @@ namespace SaltyEngine
     {
         namespace SFML
         {
-            
+
         }
     }
 }
