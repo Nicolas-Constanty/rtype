@@ -1,8 +1,5 @@
 #include "Prefabs/MonsterFlying/MonsterFlying.hpp"
 #include "Prefabs/MonsterFlying/MonsterFlyingController.hpp"
-#include "SaltyEngine/SFML/AssetManager.hpp"
-#include "SaltyEngine/SFML/SpriteRenderer.hpp"
-#include "SaltyEngine/SFML/Animation.hpp"
 
 /**
  * @brief You can add your properties here

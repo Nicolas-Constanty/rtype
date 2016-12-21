@@ -160,6 +160,14 @@ namespace SaltyEngine
         void SetRotation(float rot)
         {
             rotation = rot;
+
+            for (BaseTransform *tr : m_children)
+            {
+                T diff = tr->position - position;
+                tr->SetRotation(rot);
+                tr->position = position;
+                tr->position += tr->right() * diff.magnitude();
+            }
         }
 
         const T GetPosition() const
