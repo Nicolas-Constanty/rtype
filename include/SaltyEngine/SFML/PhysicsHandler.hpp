@@ -20,7 +20,7 @@ namespace SaltyEngine
             static const sf::Color m_collisionLayersColor[];
 //            static std::map<const sf::Uint32, const Layer> m_collisionLayers;
         public:
-            typedef std::list<SpriteCollider2D *> ColliderList;
+            typedef std::map<SpriteCollider2D *, bool> ColliderList;
             //typedef std::map<Layer, ColliderList> ColliderLayerMap;
             typedef std::map<sf::Uint32 , SpriteCollider2D *> ColorToSprite;
             typedef std::stack<sf::Vector2i> PixelStack;

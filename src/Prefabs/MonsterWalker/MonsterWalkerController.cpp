@@ -42,31 +42,23 @@ void MonsterWalkerController::FixedUpdate()
             m_currDelay = m_minShootInterval + rand() % (int) (m_maxShootInterval - m_minShootInterval);
             Shot();
         }
-        Move();
+//        Move();
     }
-//    Move();
+    Move();
 }
 
 void MonsterWalkerController::Move() {
     static int i = 0;
     this->gameObject->transform.Translate(-gameObject->transform.right() * m_vel);
-    if (i % 3 == 0)
-    {
-        BroadcastPackage<MOVEPackageGame>(
-                gameObject->transform.GetPosition().x,
-                gameObject->transform.GetPosition().y,
-                getManager()->gameObjectContainer.GetServerObjectID(gameObject));
+    if (isServerSide()) {
+        if (i % 60 == 0) {
+            BroadcastPackage<MOVEPackageGame>(
+                    gameObject->transform.GetPosition().x,
+                    gameObject->transform.GetPosition().y,
+                    getManager()->gameObjectContainer.GetServerObjectID(gameObject));
+        }
+        ++i;
     }
-    ++i;
-//    BroadcastPackage<MOVEPackageGame>(
-//            gameObject->transform.position.x,
-//            gameObject->transform.position.y,
-//            getManager()->gameObjectContainer.GetServerObjectID(gameObject));
-//        if (fabsf(gameObject->transform.position.x - m_startPoint.x) > m_walkDistance) {
-//            gameObject->transform.Rotate(180);
-//            PlayAnim("Walk");
-//        }
-   // std::cout << "MnsterWalkerController ==" << this->gameObject->transform.position << std::endl;
 }
 
 void MonsterWalkerController::Shot() {
