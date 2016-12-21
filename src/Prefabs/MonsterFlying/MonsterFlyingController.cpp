@@ -19,8 +19,8 @@ void MonsterFlyingController::Start()
     LoadManager();
 	m_currDelay = m_minShootInterval + rand() % (int)(m_maxShootInterval - m_minShootInterval);
     if (isServerSide()) {
-        BroadCastReliable<CREATEPackageGame>(gameObject->transform.position.x,
-                                             gameObject->transform.position.y,
+        BroadCastReliable<CREATEPackageGame>(gameObject->transform.GetPosition().x,
+                                             gameObject->transform.GetPosition().y,
                                              RtypeNetworkFactory::GetIDFromName("MonsterFlying"),
                                              getManager()->gameObjectContainer.GetServerObjectID(gameObject));
     }
@@ -42,13 +42,13 @@ void MonsterFlyingController::FixedUpdate()
 
 void MonsterFlyingController::Move() {
     static int i = 0;
-    this->gameObject->transform.Translate(-(gameObject->transform.right() + SaltyEngine::Vector2(0, sin(gameObject->transform.position.x / 100.f)) )
+    this->gameObject->transform.Translate(-(gameObject->transform.right() + SaltyEngine::Vector2(0, sin(gameObject->transform.GetPosition().x / 100.f)) )
                                           * SaltyEngine::Engine::Instance().GetFixedDeltaTime() * m_vel);
     if (i % 3 == 0)
     {
         BroadcastPackage<MOVEPackageGame>(
-                gameObject->transform.position.x,
-                gameObject->transform.position.y,
+                gameObject->transform.GetPosition().x,
+                gameObject->transform.GetPosition().y,
                 getManager()->gameObjectContainer.GetServerObjectID(gameObject));
     }
     ++i;
@@ -57,7 +57,7 @@ void MonsterFlyingController::Move() {
 void MonsterFlyingController::Shot() {
     if (isServerSide()) {
         SaltyEngine::GameObject *missile = (SaltyEngine::GameObject *) SaltyEngine::Instantiate("EnemyBullet",
-                                                                                                this->gameObject->transform.position,
+                                                                                                this->gameObject->transform.GetPosition(),
                                                                                                 180);
 
         getManager()->gameObjectContainer.Add(GameObjectID::NewID(), missile);
@@ -82,7 +82,7 @@ void MonsterFlyingController::Shot() {
 void MonsterFlyingController::Die()
 {
     if (!isServerSide()) {
-        SaltyEngine::Instantiate("ExplosionBasic", this->gameObject->transform.position);
+        SaltyEngine::Instantiate("ExplosionBasic", this->gameObject->transform.GetPosition());
     }
 	SaltyEngine::Object::Destroy(this->gameObject);
 }

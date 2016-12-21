@@ -138,16 +138,47 @@ namespace SaltyEngine
             }
         }
 
+        void SetPosition(float x, float y)
+        {
+            SetPosition(T(x, y));
+        }
+
 		const std::vector<BaseTransform<T> *> &GetChildren()
 		{
 			return (m_children);
 		}
+
 		BaseTransform<T> *GetParent()
 		{
 			return (m_parent);
 		}
 
-	public:
+        void SetLocalScale(const T scale)
+        {
+            localScale = scale;
+        }
+
+        void SetRotation(float rot)
+        {
+            rotation = rot;
+        }
+
+        const T GetPosition() const
+        {
+            return position;
+        }
+
+        const T GetLocalScale() const
+        {
+            return localScale;
+        }
+
+        float GetRotation() const
+        {
+            return rotation;
+        }
+
+	protected:
 		float rotation = 0;
 		float localRotation = 0;
 		T position;

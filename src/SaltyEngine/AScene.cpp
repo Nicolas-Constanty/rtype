@@ -369,7 +369,7 @@ namespace SaltyEngine
 			Debug::PrintWarning("Object " + gameobj->GetName() + " was already add in the scene");
 			return;
 		}
-		gameobj->transform.localScale = m_scale;
+		gameobj->transform.SetLocalScale(m_scale);
 		m_objects.push_back(gameobj);
         m_init.emplace(m_objects.size() - 1);
     }

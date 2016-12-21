@@ -106,11 +106,11 @@ namespace SaltyEngine
         }
 
         sf::Vector2i SpriteCollider2D::GetPosition() const {
-            return sf::Vector2i((int) gameObject->transform.position.x, (int) gameObject->transform.position.y);
+            return sf::Vector2i((int) gameObject->transform.GetPosition().x, (int) gameObject->transform.GetPosition().y);
         }
 
         sf::Vector2f SpriteCollider2D::GetScale() const {
-            return sf::Vector2f(gameObject->transform.localScale.x, gameObject->transform.localScale.y);
+            return sf::Vector2f(gameObject->transform.GetLocalScale().x, gameObject->transform.GetLocalScale().y);
         }
 
         sf::Vector2u SpriteCollider2D::GetSize() const {

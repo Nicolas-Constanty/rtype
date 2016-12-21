@@ -50,12 +50,13 @@ public:
     static const GameID SHOTID;// = GameID(SHOT, sizeof(SHOTPackageGame));
     static const GameID REBORNID;// = GameID(SHOT, sizeof(SHOTPackageGame));
     static const GameID FAILUREID;// = GameID(SHOT, sizeof(SHOTPackageGame));
-    static const GameID INPUTID;
+//    static const GameID INPUTID;
     static const GameID DISCONNECTID;
     static const GameID ENEMYSHOTID;
     static const GameID UPGRADEID;
     static const GameID MATEID;
     static const GameID GAMEOVERID;
+    static const GameID DEATHID;
 
 public:
     typedef void (IProtocolGameHandler::*MFP)(PackageGameHeader const &);

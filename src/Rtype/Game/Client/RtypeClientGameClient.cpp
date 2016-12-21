@@ -151,14 +151,17 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetTAKEPackage(TAKEPackageGam
     OnDiscoveringPackage(pack);
     //todo resolve take in the game
     SaltyEngine::GameObject *object = gameManager->gameObjectContainer[pack.objectID];
+    SaltyEngine::GameObject *play = gameManager->gameObjectContainer[pack.playerObjectID];
 
-    if (object)
+    if (object && play)
     {
         PodController   *podController = object->GetComponent<PodController>();
+        PodHandler      *podHandler = play->GetComponent<PodHandler>();
 
-        if (podController && !podController->isAttached())
+        std::cout << "Pod controller: " << podController << ", Pod handler: " << podHandler << std::endl;
+        if (podHandler && podController && !podController->isAttached())
         {
-            podController->getAttachedPlayer()->Attach(podController);
+            podController->Attach(podHandler, static_cast<bool>(pack.front));
         }
     }
 }
@@ -200,6 +203,7 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetLAUNCHPackage(LAUNCHPackag
 
         if (podController && podController->isAttached())
         {
+            podController->gameObject->transform.SetPosition(SaltyEngine::Vector(pack.fromX, pack.fromY));
             podController->getAttachedPlayer()->Launch();
         }
     }
@@ -217,24 +221,9 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetFAILUREPackage(FAILUREPack
     //todo resolve failure package
 }
 
-void Rtype::Game::Client::RtypeClientGameClient::onGetINPUTPackage(INPUTPackageGame const &pack)
-{
-//    std::cout << pack << std::endl;
-    OnDiscoveringPackage(pack);
-    //SaltyEngine::Input::VirtualInputManager::SetAxis(pack.axes, pack.value);
-    //todo resolve failure package
-//    InputKey::SetAxis(pack.axes, pack.);
-}
-
 void Rtype::Game::Client::RtypeClientGameClient::onGetUPGRADEPackage(UPGRADEPackageGame const &pack)
 {
     OnDiscoveringPackage(pack);
-}
-
-void Rtype::Game::Client::RtypeClientGameClient::SendInput(std::string const &axisName, float const value)
-{
-    SendPackage<INPUTPackageGame>(&Network::Core::BasicConnection::SendData<INPUTPackageGame>, axisName, value);
-//    SendData(*factory.create<INPUTPackageGame>(axisName, value));
 }
 
 void Rtype::Game::Client::RtypeClientGameClient::OnDisconnect()
@@ -245,6 +234,7 @@ void Rtype::Game::Client::RtypeClientGameClient::OnDisconnect()
 }
 
 void Rtype::Game::Client::RtypeClientGameClient::onGetENEMYSHOTPackage(ENEMYSHOTPackageGame const &pack) {
+    OnDiscoveringPackage(pack);
     SaltyEngine::GameObject *obj = gameManager->gameObjectContainer[pack.objectID];
     if (obj) {
         AGenericController *aGenericController = obj->GetComponent<AGenericController>();
@@ -255,7 +245,7 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetENEMYSHOTPackage(ENEMYSHOT
 }
 
 void Rtype::Game::Client::RtypeClientGameClient::onGetMATEPackage(MATEPackageGame const &matePackageGame) {
-//    std::cout << matePackageGame << std::endl;
+    OnDiscoveringPackage(matePackageGame);
     try {
         SaltyEngine::GameObject *object = RtypeNetworkFactory::Create(1, SaltyEngine::Vector((float) matePackageGame.x,
                                                                                              (float) matePackageGame.y),
@@ -272,6 +262,7 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetMATEPackage(MATEPackageGam
 }
 
 void Rtype::Game::Client::RtypeClientGameClient::onGetGAMEOVERPackage(GAMEOVERPackageGame const &game) {
+    OnDiscoveringPackage(game);
     if (gameOver && !gameOver->IsOver()) {
         gameOver->OverAction(static_cast<GAMEOVER>(game.status));
 
@@ -280,3 +271,20 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetGAMEOVERPackage(GAMEOVERPa
         // AVEC LE HIGHSCORE
     }
 }
+
+void Rtype::Game::Client::RtypeClientGameClient::onGetDEATHPackage(DEATHPackage const &pack)
+{
+    OnDiscoveringPackage(pack);
+    SaltyEngine::GameObject *obj = gameManager->gameObjectContainer[pack.objectID];
+
+    if (obj)
+    {
+        SaltyEngine::PlayerController   *playerController = obj->GetComponent<SaltyEngine::PlayerController>();
+
+        if (playerController)
+        {
+            playerController->Die();
+        }
+    }
+}
+

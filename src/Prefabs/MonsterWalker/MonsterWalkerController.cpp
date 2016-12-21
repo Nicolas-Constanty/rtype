@@ -23,10 +23,10 @@ void MonsterWalkerController::Start()
         m_anim = gameObject->GetComponent<SaltyEngine::SFML::Animation>();
         m_anim->Play("WalkLeft");
     }
-    m_startPoint = gameObject->transform.position;
+    m_startPoint = gameObject->transform.GetPosition();
     if (isServerSide()) {
-        BroadCastReliable<CREATEPackageGame>(gameObject->transform.position.x,
-                                             gameObject->transform.position.y,
+        BroadCastReliable<CREATEPackageGame>(gameObject->transform.GetPosition().x,
+                                             gameObject->transform.GetPosition().y,
                                              RtypeNetworkFactory::GetIDFromName("MonsterWalker"),
                                              getManager()->gameObjectContainer.GetServerObjectID(gameObject));
     }
@@ -53,8 +53,8 @@ void MonsterWalkerController::Move() {
     if (i % 3 == 0)
     {
         BroadcastPackage<MOVEPackageGame>(
-                gameObject->transform.position.x,
-                gameObject->transform.position.y,
+                gameObject->transform.GetPosition().x,
+                gameObject->transform.GetPosition().y,
                 getManager()->gameObjectContainer.GetServerObjectID(gameObject));
     }
     ++i;
@@ -77,7 +77,7 @@ void MonsterWalkerController::Shot() {
 
    if (isServerSide()) {
        SaltyEngine::GameObject *missile = (SaltyEngine::GameObject *) SaltyEngine::Instantiate("EnemyBullet",
-                                                                                                this->gameObject->transform.position,
+                                                                                                this->gameObject->transform.GetPosition(),
                                                                                                 180);
        getManager()->gameObjectContainer.Add(GameObjectID::NewID(), missile);
 
@@ -105,7 +105,7 @@ void MonsterWalkerController::Shot() {
 void MonsterWalkerController::Die()
 {
     if (!isServerSide()) {
-        SaltyEngine::Instantiate("ExplosionBasic", this->gameObject->transform.position);
+        SaltyEngine::Instantiate("ExplosionBasic", this->gameObject->transform.GetPosition());
     }
     SaltyEngine::Object::Destroy(this->gameObject);
 }

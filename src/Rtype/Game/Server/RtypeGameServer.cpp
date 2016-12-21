@@ -139,7 +139,7 @@ void Rtype::Game::Server::RtypeGameServer::OnStartGame(Rtype::Game::Common::Rtyp
 
                         if (name == "Mate") {
                             client->SendPackage<MATEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<MATEPackageGame>,
-                                                                 gameObject->transform.position.x, gameObject->transform.position.y, playerController->GetPlayerID(),
+                                                                 gameObject->transform.GetPosition().x, gameObject->transform.GetPosition().y, playerController->GetPlayerID(),
                                                                  manager->gameObjectContainer.GetServerObjectID(gameObject));
                             alreadySend = true;
                         }
@@ -149,8 +149,8 @@ void Rtype::Game::Server::RtypeGameServer::OnStartGame(Rtype::Game::Common::Rtyp
                 if (!alreadySend) {
                     client->SendPackage<CREATEPackageGame>(
                             &Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>,
-                            gameObject->transform.position.x,
-                            gameObject->transform.position.y,
+                            gameObject->transform.GetPosition().x,
+                            gameObject->transform.GetPosition().y,
                             RtypeNetworkFactory::GetIDFromName(name),
                             manager->gameObjectContainer.GetServerObjectID(gameObject));
                 }

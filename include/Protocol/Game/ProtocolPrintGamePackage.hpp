@@ -22,11 +22,12 @@ std::ostream &operator<<(std::ostream &ostream, CALLPackageGame const &dropPacka
 std::ostream &operator<<(std::ostream &ostream, LAUNCHPackageGame const &launchPackageGame);
 std::ostream &operator<<(std::ostream &ostream, REBORNPackageGame const &rebornPackageGame);
 std::ostream &operator<<(std::ostream &ostream, FAILUREPackageGame const &failurePackageGame);
-std::ostream &operator<<(std::ostream &ostream, INPUTPackageGame const &inputPackageGame);
+//std::ostream &operator<<(std::ostream &ostream, INPUTPackageGame const &inputPackageGame);
 std::ostream &operator<<(std::ostream &ostream, DISCONNECTPackageGame const &disconnectPackageGame);
 std::ostream &operator<<(std::ostream &ostream, ENEMYSHOTPackageGame const &enemyshotPackageGame);
 std::ostream &operator<<(std::ostream &ostream, UPGRADEPackageGame const &upgradePackageGame);
 std::ostream &operator<<(std::ostream &ostream, MATEPackageGame const &matePackageGame);
 std::ostream &operator<<(std::ostream &ostream, GAMEOVERPackageGame const &gameoverPackageGame);
+std::ostream &operator<<(std::ostream &ostream, DEATHPackage const &disablePackage);
 
 #endif //RTYPE_PROTOCOLPRINTGAMEPACKAGE_HPP

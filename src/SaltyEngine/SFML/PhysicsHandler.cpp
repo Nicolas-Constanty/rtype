@@ -3,6 +3,7 @@
 //
 
 #include <SaltyEngine/SFML/SpriteCollider2D.hpp>
+#include <SaltyEngine/Maths.hpp>
 #include "SaltyEngine/SFML/PhysicsHandler.hpp"
 
 namespace SaltyEngine
@@ -91,9 +92,9 @@ namespace SaltyEngine
 //                            t.position.x * t.localScale.x - (r.width * t.localScale.x / 2),
 //                            t.position.y * t.localScale.y - (r.height * t.localScale.y / 2)
 //                    );
-                    (*spr)->GetSprite()->setPosition(t.position.x * t.localScale.x, t.position.y * t.localScale.y);
+                    (*spr)->GetSprite()->setPosition(t.GetPosition().x * t.GetLocalScale().x, t.GetPosition().y * t.GetLocalScale().y);
 
-                    (*spr)->GetSprite()->setRotation(t.rotation);
+                    (*spr)->GetSprite()->setRotation(t.GetRotation());
                 }
             }
 //            for (ColliderLayerMap::const_iterator col_layer = m_colliders.begin(); col_layer != m_colliders.end(); ++col_layer) {
@@ -109,9 +110,9 @@ namespace SaltyEngine
 //                            t.position.x * t.localScale.x - (r.width * t.localScale.x / 2),
 //                            t.position.y * t.localScale.y - (r.height * t.localScale.y / 2)
 //                    );
-                    (*col)->GetSprite()->setPosition(t.position.x * t.localScale.x, t.position.y * t.localScale.y);
+                    (*col)->GetSprite()->setPosition(t.GetPosition().x * t.GetLocalScale().x, t.GetPosition().y * t.GetLocalScale().y);
 
-                    (*col)->GetSprite()->setRotation(t.rotation);
+                    (*col)->GetSprite()->setRotation(t.GetRotation());
 
 //                    bool deleted = true;
                     float i_pos_x = (*col)->GetPosition().x;
@@ -123,14 +124,17 @@ namespace SaltyEngine
                     unsigned int text_pos_h = (unsigned int) r.height;
                     unsigned int text_pos_w = (unsigned int) r.width;
 
-                    float posX = t.position.x;
-                    float posY = t.position.y;
+                    float posX = t.GetPosition().x;
+                    float posY = t.GetPosition().y;
 
                     if (i_pos_x >= 0 && i_pos_y >= 0 && i_pos_x < m_size_x && i_pos_y < m_size_y)
                     {
-                        float radRot = (float) (t.rotation * M_PI / 180.f);
-                        float sinRot = sin(radRot);
-                        float cosRot = cos(radRot);
+//                        float radRot = (float) (t.GetRotation() * M_PI / 180.f);
+//                        float sinRot = sin(radRot);
+//                        float cosRot = cos(radRot);
+                        float sinRot = Mathf::Sin(t.GetRotation());
+                        float cosRot = Mathf::Cos(t.GetRotation());
+
 
                         for (unsigned int y = 0; y < text_pos_h; ++y) {
                             for (unsigned int x = 0; x < text_pos_w; ++x) {

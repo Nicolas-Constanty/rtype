@@ -18,8 +18,8 @@ extern "C"
 class MissileNeunoeil : public SaltyEngine::GameObject
 {
 public:
-MissileNeunoeil();
-virtual ~MissileNeunoeil();
+    MissileNeunoeil();
+    virtual ~MissileNeunoeil();
 };
 
 SaltyEngine::Object const *GetObjectPrefab();
