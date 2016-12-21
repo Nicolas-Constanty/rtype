@@ -241,6 +241,8 @@ namespace SaltyEngine
         void PhysicsHandler::Collide()
         {
             for (ColliderList::const_iterator col = m_colliders.begin(); col != m_colliders.end(); ++col) {
+                if (!(*col).first->gameObject->GetActiveSelf())
+                    continue;
                 SpriteCollider2D *spr = (*col).first;
                 spr->ResetCollisions();
                 const sf::IntRect &r = spr->GetRect();
