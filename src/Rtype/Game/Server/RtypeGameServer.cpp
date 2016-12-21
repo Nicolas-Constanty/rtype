@@ -138,29 +138,31 @@ void Rtype::Game::Server::RtypeGameServer::OnStartGame(Rtype::Game::Common::Rtyp
                         name = "Player";
                     }
 
-                        if (name == "Mate") {
-                            client->SendPackage<MATEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<MATEPackageGame>,
-                                                                 gameObject->transform.GetPosition().x, gameObject->transform.GetPosition().y, playerController->GetPlayerID(),
-                                                                 manager->gameObjectContainer.GetServerObjectID(gameObject));
-                            alreadySend = true;
-                        }
+                    if (name == "Mate") {
+                        client->SendPackage<MATEPackageGame>(
+                                &Network::UDP::AUDPConnection::SendReliable<MATEPackageGame>,
+                                gameObject->transform.GetPosition().x, gameObject->transform.GetPosition().y,
+                                playerController->GetPlayerID(),
+                                manager->gameObjectContainer.GetServerObjectID(gameObject));
+                        alreadySend = true;
                     }
                 }
             }
 
-                if (!alreadySend) {
-                    client->SendPackage<CREATEPackageGame>(
-                            &Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>,
-                            gameObject->transform.GetPosition().x,
-                            gameObject->transform.GetPosition().y,
-                            RtypeNetworkFactory::GetIDFromName(name),
-                            manager->gameObjectContainer.GetServerObjectID(gameObject));
-                }
+            if (!alreadySend) {
+                client->SendPackage<CREATEPackageGame>(
+                        &Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>,
+                        gameObject->transform.GetPosition().x,
+                        gameObject->transform.GetPosition().y,
+                        RtypeNetworkFactory::GetIDFromName(name),
+                        manager->gameObjectContainer.GetServerObjectID(gameObject));
+            }
         }
     }
-
-
 }
+
+
+//}
 
 void Rtype::Game::Server::RtypeGameServer::OnStartGame() {
 //    launch = true;
