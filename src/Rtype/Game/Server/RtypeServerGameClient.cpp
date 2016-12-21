@@ -94,9 +94,11 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetAUTHENTICATEPackage(AUTHEN
         // create a new player on the engine
         if (clients->Streams().size() == this->server1->GetMaxSize()) {
             if (!server1->IsLaunch()) {
+                int y = 100;
                 for (std::unique_ptr<Network::Socket::ISockStreamHandler> &curr : clients->Streams()) {
                     RtypeServerGameClient *client = dynamic_cast<RtypeServerGameClient *>(curr.get());
-                    client->StartDisplayInformation();
+                    client->StartDisplayInformation(y);
+                    y += 100;
                 }
             }
 
@@ -162,12 +164,6 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetBEAMPackage(BEAMPackageGam
                 }
             }
 
-//            this->BroadCastPackage<CREATEPackageGame>(
-//                    &Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>,
-//                    gameObject->transform.position.x,
-//                    gameObject->transform.position.y,
-//                    RtypeNetworkFactory::GetIDFromName("Beam"),
-//                    playerController->beamServerID);
             playerController->beamShot = beam;
             playerController->OnBeamAction();
 
@@ -377,11 +373,11 @@ bool Rtype::Game::Server::RtypeServerGameClient::pong() const
     return pingSecret == -1;
 }
 
-void Rtype::Game::Server::RtypeServerGameClient::StartDisplayInformation() {
+void Rtype::Game::Server::RtypeServerGameClient::StartDisplayInformation(int y) {
     SaltyEngine::GameObject	*player;
 
     int x = 100;
-    int y = 100;
+//    int y = 100;
 
     if ((player = dynamic_cast<SaltyEngine::GameObject*>(SaltyEngine::Object::Instantiate("Player", SaltyEngine::Vector(x, y)))) == NULL)
     {

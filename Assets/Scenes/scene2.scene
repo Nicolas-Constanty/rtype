@@ -5,6 +5,13 @@
     "width": "2",
     "height": "2"
   },
+  "Pod" : {
+    "prefabName": "Pod",
+    "position": {
+      "x": "100",
+      "y": "100"
+    }
+  },
   "prefabs": {
     "Player": {
       "prefabName": "Player",
