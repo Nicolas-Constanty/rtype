@@ -5,6 +5,7 @@
 #include "SaltyEngine/SFML.hpp"
 #include "SaltyEngine/SaltyEngine.hpp"
 #include "SaltyEngine/Object.hpp"
+#include "SaltyEngine/SFML/Label.hpp"
 
 void CreateGUIGame(SaltyEngine::Vector2i const &size, SaltyEngine::SFML::Scene *scene) {
 

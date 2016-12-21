@@ -5,25 +5,28 @@ namespace SaltyEngine
 {
 	namespace SFML
 	{
-		Image::Image(GameObject* gameObj, ::SaltyEngine::SFML::Sprite* const sprite) : UIBehaviour(gameObj)
+		namespace GUI
 		{
-			SpriteRenderer* sprr = gameObject->GetComponent<SpriteRenderer>();
-			if (sprr == nullptr)
-				gameObject->AddComponent<SpriteRenderer>(sprite, Layout::gui);
-			else
+			Image::Image(GameObject* gameObj, ::SaltyEngine::SFML::Sprite* const sprite) : UIBehaviour(gameObj)
 			{
-				sprr->SetLayout(Layout::gui);
-				sprr->SetSprite(sprite);
+				SpriteRenderer* sprr = gameObject->GetComponent<SpriteRenderer>();
+				if (sprr == nullptr)
+					gameObject->AddComponent<SpriteRenderer>(sprite, Layout::gui);
+				else
+				{
+					sprr->SetLayout(Layout::gui);
+					sprr->SetSprite(sprite);
+				}
 			}
-		}
 
-		Image::Image(const std::string& name, GameObject* gameObj, ::SaltyEngine::SFML::Sprite* const sprite) : UIBehaviour(name, gameObj)
-		{
-			gameObject->AddComponent<SpriteRenderer>(sprite, Layout::gui);
-		}
+			Image::Image(const std::string& name, GameObject* gameObj, ::SaltyEngine::SFML::Sprite* const sprite) : UIBehaviour(name, gameObj)
+			{
+				gameObject->AddComponent<SpriteRenderer>(sprite, Layout::gui);
+			}
 
-		Image::~Image()
-		{
+			Image::~Image()
+			{
+			}
 		}
 	}
 }

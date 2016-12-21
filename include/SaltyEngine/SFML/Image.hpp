@@ -6,13 +6,16 @@ namespace SaltyEngine
 {
 	namespace SFML
 	{
-		class Image : public GUI::UIBehaviour
+		namespace GUI
 		{
-		public:
-			explicit Image(GameObject* gameObj, ::SaltyEngine::SFML::Sprite * const sprite);
-			Image(const std::string& name, GameObject* gameObj, ::SaltyEngine::SFML::Sprite * const sprite);
-			~Image();
-		};
+			class Image : public ::SaltyEngine::GUI::UIBehaviour
+			{
+			public:
+				explicit Image(GameObject* gameObj, ::SaltyEngine::SFML::Sprite * const sprite);
+				Image(const std::string& name, GameObject* gameObj, ::SaltyEngine::SFML::Sprite * const sprite);
+				~Image();
+			};
+		}
 	}
 }
 

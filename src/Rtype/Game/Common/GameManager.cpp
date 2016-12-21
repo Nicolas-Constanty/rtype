@@ -101,23 +101,11 @@ std::list<SaltyEngine::GameObject *> const &GameManager::getPods() const
 void GameManager::StartTheGame() {
     if (m_server) {
         m_server->Server()->SetLaunch(true);
-//        for (std::pair<std::string, SaltyEngine::Vector2f> &obj : monsterMap->objects) {
-//            std::cout << obj.first << std::endl;
-//            if (obj.first != "Player") {
-//                SaltyEngine::GameObject *object = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate(
-//                        obj.first, obj.second, 0));
-//                gameObjectContainer.Add(GameObjectID::NewID(), object);
-//            }
-//        }
     }
 }
 
 void GameManager::FixedUpdate() {
-//    if (canSend % 120 == 0) {
-        OnSendHighScore();
-//        canSend = 0;
-//    }
-//    ++canSend;
+    OnSendHighScore();
 
     if (m_server && m_server->Server()->IsLaunch() && !endOfGame) {
         this->currentPosition = this->currentPosition + velocity * SaltyEngine::Engine::Instance().GetFixedDeltaTime();

@@ -10,6 +10,7 @@
 #include "SaltyEngine/GameObject.hpp"
 #include "SaltyEngine/SFML/Rect.hpp"
 #include "SaltyEngine/SFML/SpriteRenderer.hpp"
+#include "SaltyEngine/SFML/Label.hpp"
 
 namespace SaltyEngine
 {
@@ -22,15 +23,15 @@ namespace SaltyEngine
 		public:
 			struct Drawable
 			{
-				Drawable(Sprite **s, Rect *r, sf::RenderWindow *w, GameObject *g) : spr(s), rect(r), wind(w), gm(g) {}
+				Drawable(Sprite **s, sf::RenderWindow *w, GameObject *g) : spr(s), wind(w), gm(g) {}
 				Sprite **spr;
-				Rect   *rect;
 				sf::RenderWindow *wind;
 				GameObject *gm;
 			};
 		public:
 			typedef std::list<Drawable> SpriteList;
 			typedef  std::map<int, SpriteList> SpriteMap;
+			typedef std::list<::SaltyEngine::GUI::SFML::Label *> LabelList;
 		public:
 			Renderer(sf::VideoMode const &vm, const std::string &name);
 			virtual ~Renderer();
@@ -45,12 +46,14 @@ namespace SaltyEngine
 		private:
 			void DrawGame() const;
 			void DrawGUI() const;
+			void DrawLabel() const;
 			void DrawSprites(const SpriteList &sprite_list) const;
 
-		public:
+		private:
 			SpriteMap m_spriteRenderers;
 			std::list<BoxCollider2D *> m_debug;
-			std::list<GUI::Selectable *> m_selectables;
+			std::list<::SaltyEngine::GUI::Selectable *> m_selectables;
+			LabelList m_labels;
 		public:
 			void AddSpriteRenderer(SpriteRenderer* const sprr);
 			void AddDebug(BoxCollider2D *);
@@ -61,9 +64,11 @@ namespace SaltyEngine
 			}
 
 		public:
-			void AddSelectable(GUI::Selectable* const select);
+			void AddSelectable(::SaltyEngine::GUI::Selectable* const select);
 
 			::SaltyEngine::Vector2i GetRealSize() const;
+
+			void AddLabel(::SaltyEngine::GUI::SFML::Label *label);
 		};
 	}
 }

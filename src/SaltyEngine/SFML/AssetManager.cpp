@@ -57,6 +57,7 @@ namespace SaltyEngine {
                 return true;
             }
             sf::Font *font = new sf::Font();
+            std::cout << path_fonts + name + Asset::FONT_EXTENSION << std::endl;
             if (!font->loadFromFile(path_fonts + name + Asset::FONT_EXTENSION)) {
                 Debug::PrintWarning("Failed to load font " + name);
                 return false;

@@ -1,16 +1,26 @@
 {
-  "title": "scene1",
+  "title": "scene2",
   "preview": "tot.png",
   "scale": {
     "width": "2",
     "height": "2"
   },
+  "fonts" : [
+   "arial"
+  ],
   "prefabs": {
     "Player": {
       "prefabName": "Player",
       "position": {
         "x" : "50",
         "y": "500"
+      }
+    },
+    "Pod" : {
+      "prefabName": "Pod",
+      "position": {
+        "x": "100",
+        "y": "100"
       }
     },
     "Monster2": {
