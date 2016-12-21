@@ -62,7 +62,7 @@ namespace SaltyEngine
 
 	public:
 		void SetTrigger(bool trigger) { m_trigger = trigger; };
-		void IsEnable(bool enable) { m_enabled = enable; };
+		void SetEnable(bool enable) { m_enabled = enable; };
 		void SetBound(BasicRect<T> * const rect) {
 			if (m_bounds)
 				delete m_bounds;
