@@ -53,10 +53,11 @@ void MateComponent::OnCollisionEnter(SaltyEngine::ICollider *collider)
 
     if (c)
     {
-        std::string middle = "=   Collision called on: " + c->gameObject->GetName() + "   =";
-        std::string limit(middle.size(), '=');
-
-        std::cout << limit << std::endl << middle << std::endl << limit << std::endl;
+        //todo régler pourquoi c'est tt le temps appelé
+//        std::string middle = "=   Collision called on: " + c->gameObject->GetName() + "   =";
+//        std::string limit(middle.size(), '=');
+//
+//        std::cout << limit << std::endl << middle << std::endl << limit << std::endl;
     }
 }
 

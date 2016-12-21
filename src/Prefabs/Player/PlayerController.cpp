@@ -22,6 +22,7 @@ namespace SaltyEngine
         highScore = 0;
         m_health = 1;
         global_lives = 3;
+        collider2D = NULL;
 	};
 
 	PlayerController::PlayerController(const std::string &name, GameObject* const gameObj) : AGenericController(name, gameObj) {
@@ -33,6 +34,7 @@ namespace SaltyEngine
         highScore = 0;
         m_health = 1;
         global_lives = 3;
+        collider2D = NULL;
 	};
 
 	void PlayerController::Start()
@@ -92,8 +94,11 @@ namespace SaltyEngine
                 );
                 std::cout << m_max << std::endl;
             }
+        }
+        else
+        {
             collider2D = gameObject->GetComponent<SaltyEngine::SFML::SpriteCollider2D>();
-            std::cout << "Collider: " << collider2D << std::endl;
+//            std::cout << "Collider: " << collider2D << std::endl;
         }
 	}
 
@@ -167,13 +172,13 @@ namespace SaltyEngine
 
         if (InputKey::GetAction("Pod", Input::ActionType::Down))
         {
-            std::cout << "Pod action ok" << std::endl;
+//            std::cout << "Pod action ok" << std::endl;
             if (!isServerSide())
             {
-                std::cout << "Client side" << std::endl;
+//                std::cout << "Client side" << std::endl;
                 if (handler->HasPod())
                 {
-                    std::cout << "\e[31mSending pod\e[0m" << std::endl;
+//                    std::cout << "\e[31mSending pod\e[0m" << std::endl;
                     SendPackage<LAUNCHPackageGame>(
                             getManager()->gameObjectContainer.GetServerObjectID(handler->getPod()->gameObject),
                             getManager()->gameObjectContainer.GetServerObjectID(gameObject));
@@ -182,7 +187,7 @@ namespace SaltyEngine
                 {
                     PodController   *tocall = handler->FindFirstAvailablePod();
 
-                    std::cout << "\e[31mCalling Pod\e[0m" << std::endl;
+//                    std::cout << "\e[31mCalling Pod\e[0m" << std::endl;
                     if (tocall)
                         SendPackage<CALLPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(tocall->gameObject));
                 }
@@ -231,7 +236,7 @@ namespace SaltyEngine
         {
             if (isServerSide())
             {
-                std::cout << "Definately died" << std::endl;
+//                std::cout << "Definately died" << std::endl;
                 BroadCastReliable<DIEPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(gameObject));
                 Destroy(gameObject);
                 return;
