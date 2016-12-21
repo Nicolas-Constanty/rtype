@@ -6,6 +6,7 @@
 #include <Prefabs/Pod/PodController.hpp>
 #include <Prefabs/Missile/Laser/LaserController.hpp>
 #include <Rtype/Game/Client/GameGUIBeam.hpp>
+#include <Prefabs/PodHandler/PodHandler.hpp>
 
 namespace SaltyEngine
 {
@@ -15,7 +16,6 @@ namespace SaltyEngine
         power = 0;
         beamShot = NULL;
         playerID = 0;
-        pod = NULL;
         highScore = 0;
         m_health = 1;
 	};
@@ -26,7 +26,6 @@ namespace SaltyEngine
         power = 0;
         beamShot = NULL;
         playerID = 0;
-        pod = NULL;
         highScore = 0;
         m_health = 1;
 	};
@@ -62,12 +61,13 @@ namespace SaltyEngine
 
         InputKey::AddAction("Pod", new Input::Action(Input::KeyCode::LShift, std::make_pair<unsigned int, int>(0, 2))); //todo koi t'est-ce qui fo fer
 
+        handler = gameObject->GetComponent<PodHandler>();
         // Beam SFX for the player
         if (!isServerSide())
         {
             m_beamSFX = (GameObject*)Instantiate();
             m_beamSFX->AddComponent<SFML::SpriteRenderer>(SFML::AssetManager::Instance().GetSprite("Laser/loading1"), Layout::normal);
-            m_beamSFX->transform.position = (this->gameObject->transform.position + Vector(50, 3));
+            m_beamSFX->transform.SetPosition(this->gameObject->transform.GetPosition() + Vector(50, 3));
             SaltyEngine::SFML::Animation *animation = m_beamSFX->AddComponent<SaltyEngine::SFML::Animation>(true, SaltyEngine::AnimationConstants::WrapMode::LOOP);
             animation->AddClip(SaltyEngine::SFML::AssetManager::Instance().GetAnimation("Laser/loading"), "Loading");
             m_beamSFX->transform.SetParent(&this->gameObject->transform);
@@ -85,8 +85,8 @@ namespace SaltyEngine
             if (!isServerSide()/* && i % 3 == 0*/)
             {
                 SendPackage<MOVEPackageGame>(
-                        gameObject->transform.position.x,
-                        gameObject->transform.position.y,
+                        gameObject->transform.GetPosition().x,
+                        gameObject->transform.GetPosition().y,
                         getManager()->gameObjectContainer.GetServerObjectID(gameObject));
             }
 //            ++i;
@@ -108,7 +108,7 @@ namespace SaltyEngine
                 SendPackage<SHOTPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(gameObject), power, idShot++);
                 m_beamSFX->SetActive(false);
 
-                SaltyEngine::GameObject *gameObject1 = dynamic_cast<SaltyEngine::GameObject *>(::SaltyEngine::Instantiate("Laser", gameObject->transform.position));
+                SaltyEngine::GameObject *gameObject1 = dynamic_cast<SaltyEngine::GameObject *>(::SaltyEngine::Instantiate("Laser", gameObject->transform.GetPosition()));
                 int power = OnShotAction();
                 LaserController *laserController = gameObject1->GetComponent<LaserController>();
                 if (laserController) {
@@ -123,20 +123,24 @@ namespace SaltyEngine
 
         if (InputKey::GetAction("Pod", Input::ActionType::Down))
         {
+            std::cout << "Pod action ok" << std::endl;
             if (!isServerSide())
             {
-                if (pod)
+                std::cout << "Client side" << std::endl;
+                if (handler->HasPod())
                 {
-                    SendPackage<LAUNCHPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(pod->gameObject), playerID);
+                    std::cout << "\e[31mSending pod\e[0m" << std::endl;
+                    SendPackage<LAUNCHPackageGame>(
+                            getManager()->gameObjectContainer.GetServerObjectID(handler->getPod()->gameObject),
+                            getManager()->gameObjectContainer.GetServerObjectID(gameObject));
                 }
                 else
                 {
-                    PodController   *tocall = FindFirstAvailablePod();
+                    PodController   *tocall = handler->FindFirstAvailablePod();
 
-                    SendPackage<CALLPackageGame>(
-                            getManager()->gameObjectContainer.GetServerObjectID(tocall->gameObject),
-                            gameObject->transform.position.x,
-                            gameObject->transform.position.y);
+                    std::cout << "\e[31mCalling Pod\e[0m" << std::endl;
+                    if (tocall)
+                        SendPackage<CALLPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(tocall->gameObject));
                 }
             }
         }
@@ -214,56 +218,6 @@ namespace SaltyEngine
         this->playerID = id;
     }
 
-    bool PlayerController::Attach(PodController *toattach)
-    {
-        if (pod)
-            return false;
-        pod = toattach;
-        return true;
-    }
-
-    bool PlayerController::Launch()
-    {
-        if (pod)
-        {
-            bool res = pod->Launch();
-            if (res)
-                pod = NULL;
-            return res;
-        }
-        return false;
-    }
-
-    bool PlayerController::Call()
-    {
-        if (!pod)
-        {
-            pod = FindFirstAvailablePod();
-            if (pod)
-                return pod->Call(gameObject->transform.position);
-        }
-        return false;
-    }
-
-    bool PlayerController::HasPod() const
-    {
-        return pod != NULL;
-    }
-
-    PodController *PlayerController::FindFirstAvailablePod()
-    {
-        for (SaltyEngine::GameObject *curr : getManager()->getPods())
-        {
-            PodController   *podController = curr->GetComponent<PodController>();
-
-            if (podController && !podController->isAttached())
-            {
-                return podController;
-            }
-        }
-        return nullptr;
-    }
-
     void PlayerController::SetColor(unsigned char color) {
 
         std::string anim;
@@ -289,6 +243,22 @@ namespace SaltyEngine
 
     void PlayerController::SetUpdateHighScore(bool update) {
         updateHighScore = update;
+    }
+
+    void PlayerController::OnCollisionEnter(ICollider *collider)
+    {
+        SaltyEngine::ACollider2D<sf::Vector2i> *c = dynamic_cast<SaltyEngine::ACollider2D<sf::Vector2i>*>(collider);
+
+        if (!c)
+            return;
+        if (c->CompareTag(SaltyEngine::Layer::Tag::Enemy))
+        {
+            if (isServerSide())
+            {
+                BroadCastReliable<DEATHPackage>(getManager()->gameObjectContainer.GetServerObjectID(gameObject));
+                Die();
+            }
+        }
     }
 
 }

@@ -15,6 +15,8 @@ typedef struct InformationPlayerShot {
     std::string laserString;
 } InformationPlayerShot;
 
+class PodHandler;
+
 //todo add method to check if a pod is already attached to it
 namespace SaltyEngine {
 	class PlayerController : public AGenericController
@@ -29,6 +31,7 @@ namespace SaltyEngine {
 		PlayerController(const std::string &name, GameObject* const gamObj);
 		void Start();
 		void FixedUpdate();
+		void OnCollisionEnter(ICollider *collider);
 		void SetColor(unsigned char color);
         void SetHighScore(int highScore);
 		int GetHighScore() const;
@@ -45,9 +48,6 @@ namespace SaltyEngine {
 	public:
 		void	OnBeamAction();
         int 	OnShotAction();
-
-	public:
-		PodController	*FindFirstAvailablePod();
 
 	public:
 		double mticks()
@@ -74,11 +74,6 @@ namespace SaltyEngine {
 		void Beam();
 
 	public:
-		bool Attach(PodController *toattach);
-		bool Launch();
-		bool Call();
-		bool HasPod() const;
-
         void TakeDamage(int amount) override;
 
     public:
@@ -97,7 +92,7 @@ namespace SaltyEngine {
 
 	private:
 		int				playerID;
-		PodController	*pod;
+        PodHandler      *handler;
         int             highScore;
 		bool			updateHighScore = true;
 		SaltyEngine::GameObject *objGUIBeam = NULL;

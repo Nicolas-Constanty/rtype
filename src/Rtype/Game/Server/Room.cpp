@@ -24,7 +24,7 @@ void Rtype::Game::Server::Room::Start(const uint16_t port, const size_t max, con
     SaltyEngine::SFML::PhysicsHandler *ph = new SaltyEngine::SFML::PhysicsHandler(1920 / 2, 1080 / 2, true);
     SaltyEngine::Engine::Instance().SetPhysicsHandler(ph);
 
-//    SaltyEngine::Engine::Instance().SetFrameRate(60);
+//    SaltyEngine::Engine::Instance().SetFrameRate(30);
 
     SaltyEngine::SFML::Scene *scene = new SaltyEngine::SFML::Scene();
 
@@ -50,7 +50,8 @@ void Rtype::Game::Server::Room::Start(const uint16_t port, const size_t max, con
     serverGame->AddComponent<SaltyEngine::SFML::BoxCollider2D>(
             sf::Vector2u(40, 40)
     );
-    serverGame->transform.position = SaltyEngine::Vector2(20, 20);
+//    serverGame->transform.position = SaltyEngine::Vector2(20, 20);
+    serverGame->transform.SetPosition(SaltyEngine::Vector2(20, 20));
 }
 
 void Rtype::Game::Server::Room::Run()

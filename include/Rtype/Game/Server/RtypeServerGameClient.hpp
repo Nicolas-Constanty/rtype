@@ -46,23 +46,18 @@ namespace Rtype
                 virtual void onGetLAUNCHPackage(LAUNCHPackageGame const &);
                 virtual void onGetREBORNPackage(REBORNPackageGame const &);
                 virtual void onGetFAILUREPackage(FAILUREPackageGame const &);
-                virtual void onGetINPUTPackage(INPUTPackageGame const &);
                 virtual void onGetDISCONNECTPackage(DISCONNECTPackageGame const &);
                 virtual void onGetENEMYSHOTPackage(ENEMYSHOTPackageGame const &);
                 virtual void onGetUPGRADEPackage(UPGRADEPackageGame const &);
                 virtual void onGetMATEPackage(MATEPackageGame const &);
                 virtual void onGetGAMEOVERPackage(GAMEOVERPackageGame const &game);
+                virtual void onGetDEATHPackage(DEATHPackage const &);
 
             public:
                 void StartDisplayInformation();
 
             public:
                 virtual void OnDisconnect();
-
-                //todo implémenter dès que la classe de script saltybehaviour est codée
-                //public:
-                //    void setScript(TYPE toset);
-                //    TYPE getScript();
 
             public:
                 void ping();
@@ -80,7 +75,6 @@ namespace Rtype
 
             private:
                 int __playerID;
-                //ScriptRtypePLayerController *script;
             };
         }
     }

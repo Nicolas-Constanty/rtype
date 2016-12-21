@@ -45,12 +45,12 @@ namespace SaltyEngine
 			return BaseVector2(-x, -y);
 		}
 
-		BaseVector2<T> operator+(BaseVector2<T> other)
+		BaseVector2<T> operator+(const BaseVector2<T> other) const
 		{
 			return BaseVector2(x + other.x, y + other.y);
 		}
 
-		BaseVector2<T> operator-(BaseVector2<T> other)
+		BaseVector2<T> operator-(const BaseVector2<T> other) const
 		{
 			return BaseVector2(x - other.x, y - other.y);
 		}

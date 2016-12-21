@@ -31,21 +31,21 @@ void MonsterNeunoeilController::Start()
     for (size_t i = 0; i < 4 ; ++i)
     {
         SaltyEngine::GameObject *go = (SaltyEngine::GameObject*)SaltyEngine::Instantiate();
-        go->transform.position = this->gameObject->transform.position;
+        go->transform.SetPosition(this->gameObject->transform.GetPosition());
         go->transform.Rotate(90 * i);
-        go->transform.position += go->transform.position.left() * 110;
+        go->transform.SetPosition(go->transform.GetPosition() + go->transform.GetPosition().left() * 110);
         go->transform.SetParent(&this->gameObject->transform);
         SaltyEngine::SFML::Animation *animation = go->AddComponent<SaltyEngine::SFML::Animation>(true, SaltyEngine::AnimationConstants::WrapMode::LOOP);
         animation->AddClip(SaltyEngine::SFML::AssetManager::Instance().GetAnimation("Laser/loading"), "Loading");
         m_canons[i] = go;
     }
 
-    gameObject->transform.position = SaltyEngine::Vector2(800, 100);
-    m_startPoint = gameObject->transform.position;
+    gameObject->transform.SetPosition(SaltyEngine::Vector2(800, 100));
+    m_startPoint = gameObject->transform.GetPosition();
 
     if (isServerSide()) {
-        BroadCastReliable<CREATEPackageGame>(gameObject->transform.position.x,
-                                             gameObject->transform.position.y,
+        BroadCastReliable<CREATEPackageGame>(gameObject->transform.GetPosition().x,
+                                             gameObject->transform.GetPosition().y,
                                              RtypeNetworkFactory::GetIDFromName("MonsterNeunoeil"),
                                              getManager()->gameObjectContainer.GetServerObjectID(gameObject));
     }
@@ -71,8 +71,8 @@ void MonsterNeunoeilController::Move() {
     if (i % 3 == 0)
     {
         BroadcastPackage<MOVEPackageGame>(
-                gameObject->transform.position.x,
-                gameObject->transform.position.y,
+                gameObject->transform.GetPosition().x,
+                gameObject->transform.GetPosition().y,
                 getManager()->gameObjectContainer.GetServerObjectID(gameObject));
     }
     ++i;
@@ -87,7 +87,7 @@ void MonsterNeunoeilController::Shot() {
    if (isServerSide())
    {
        SaltyEngine::GameObject *missile = (SaltyEngine::GameObject *) SaltyEngine::Instantiate("EnemyBullet",
-                                                                                                this->gameObject->transform.position,
+                                                                                                this->gameObject->transform.GetPosition(),
                                                                                                 180);
        getManager()->gameObjectContainer.Add(GameObjectID::NewID(), missile);
 
@@ -101,7 +101,7 @@ void MonsterNeunoeilController::Die()
     {
         for (int i = 0; i < 15; ++i)
         {
-            SaltyEngine::Instantiate("ExplosionBasic", this->gameObject->transform.position + SaltyEngine::Vector2(rand() % 100, rand() % 100));
+            SaltyEngine::Instantiate("ExplosionBasic", this->gameObject->transform.GetPosition() + SaltyEngine::Vector2(rand() % 100, rand() % 100));
         }
         for (int i = 0; i < 4; ++i) {
             SaltyEngine::Object::Destroy(m_canons[i]);
@@ -139,7 +139,7 @@ void MonsterNeunoeilController::OnCollisionEnter(SaltyEngine::ICollider *collide
     {
         if (m_isInvincible && col->gameObject->CompareTag(SaltyEngine::Layer::Tag::BulletPlayer))
         {
-            SaltyEngine::Instantiate("ExplosionBasic", col->gameObject->transform.position);
+            SaltyEngine::Instantiate("ExplosionBasic", col->gameObject->transform.GetPosition());
             Destroy(col->gameObject);
 //            if (isServerSide())
 //            {

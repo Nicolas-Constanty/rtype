@@ -25,8 +25,8 @@ namespace SaltyEngine
 			}
 			else
             {
-                m_bounds = new BasicRect<T>((int) (gameObject->transform.position.x - 20),
-                                       (int) (gameObject->transform.position.y - 20),
+                m_bounds = new BasicRect<T>((int) (gameObject->transform.GetPosition().x - 20),
+                                       (int) (gameObject->transform.GetPosition().y - 20),
                                        40, 40);
             }
 		};
@@ -37,8 +37,8 @@ namespace SaltyEngine
 				m_bounds = sprr->GetSprite()->GetBounds();
 			else
             {
-                m_bounds = new BasicRect<T>((int)(gameObject->transform.position.x - 50),
-                                       (int)(gameObject->transform.position.y - 50),
+                m_bounds = new BasicRect<T>((int)(gameObject->transform.GetPosition().x - 50),
+                                       (int)(gameObject->transform.GetPosition().y - 50),
                                        100, 100);
             }
 		};

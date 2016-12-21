@@ -76,22 +76,31 @@ void LaserController::Power(int damage) {
     {
         case 1:
             anim = "Laser/simple";
-            gameObject->transform.position.x += 30;
+//            gameObject->transform.position.x += 30;
+            gameObject->transform.SetPosition(gameObject->transform.GetPosition() + SaltyEngine::Vector2(30, 0));
             break;
         case 2:
-            gameObject->transform.position.x += 35;
+//            gameObject->transform.position.x += 35;
+            gameObject->transform.SetPosition(gameObject->transform.GetPosition() + SaltyEngine::Vector2(35, 0));
+
             anim = "Laser/power1";
             break;
         case 3:
-            gameObject->transform.position.x += 45;
+//            gameObject->transform.position.x += 45;
+            gameObject->transform.SetPosition(gameObject->transform.GetPosition() + SaltyEngine::Vector2(45, 0));
+
             anim = "Laser/power2";
             break;
         case 4:
-            gameObject->transform.position.x += 55;
+//            gameObject->transform.position.x += 55;
+            gameObject->transform.SetPosition(gameObject->transform.GetPosition() + SaltyEngine::Vector2(55, 0));
+
             anim = "Laser/power3";
             break;
         case 5:
-            gameObject->transform.position.x += 60;
+//            gameObject->transform.position.x += 60;
+            gameObject->transform.SetPosition(gameObject->transform.GetPosition() + SaltyEngine::Vector2(60, 0));
+
             anim = "Laser/power4";
             break;
         default:

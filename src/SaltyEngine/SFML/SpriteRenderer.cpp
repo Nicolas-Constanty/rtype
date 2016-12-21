@@ -21,15 +21,15 @@ namespace SaltyEngine
             Rect *rect = dynamic_cast<Rect *>(GetSprite()->GetRect());
             if (rect)
             {
-                GetSprite()->setPosition(gameObject->transform.position.x,
-                                         gameObject->transform.position.y);
+                GetSprite()->setPosition(gameObject->transform.GetPosition().x,
+                                         gameObject->transform.GetPosition().y);
             }
             else
             {
                 GetSprite()->SetRect(new Rect(0, 0, GetSprite()->GetTexture()->GetSize().x, GetSprite()->GetTexture()->GetSize().y));
                 rect = dynamic_cast<Rect *>(GetSprite()->GetRect());
-                GetSprite()->setPosition(gameObject->transform.position.x,
-                                         gameObject->transform.position.y);
+                GetSprite()->setPosition(gameObject->transform.GetPosition().x,
+                                         gameObject->transform.GetPosition().y);
             }
         }
 
@@ -44,15 +44,15 @@ namespace SaltyEngine
             Rect *rect = dynamic_cast<Rect *>(GetSprite()->GetRect());
             if (rect)
             {
-                GetSprite()->setPosition(gameObject->transform.position.x,
-                                         gameObject->transform.position.y);
+                GetSprite()->setPosition(gameObject->transform.GetPosition().x,
+                                         gameObject->transform.GetPosition().y);
             }
             else
             {
                 GetSprite()->SetRect(new Rect(0, 0, GetSprite()->GetTexture()->GetSize().x, GetSprite()->GetTexture()->GetSize().y));
                 rect = dynamic_cast<Rect *>(GetSprite()->GetRect());
-                GetSprite()->setPosition(gameObject->transform.position.x,
-                                         gameObject->transform.position.y);
+                GetSprite()->setPosition(gameObject->transform.GetPosition().x,
+                                         gameObject->transform.GetPosition().y);
             }
 
         }
