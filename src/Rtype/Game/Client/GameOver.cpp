@@ -17,6 +17,7 @@ void GameOver::OverAction(GAMEOVER status) {
 //
     over = true;
     if (manager->isServerSide()) {
+        std::cout << "OVER lol" << std::endl;
         manager->BroadCastPackage<GAMEOVERPackageGame>(&Network::UDP::AUDPConnection::SendReliable<GAMEOVERPackageGame>,
                                                        static_cast<unsigned char>(status));
     } else {

@@ -6,6 +6,7 @@
 #define RTYPE_MATHS_HPP
 
 #include <vector>
+#include <cmath>
 
 namespace SaltyEngine
 {
@@ -18,6 +19,10 @@ namespace SaltyEngine
     public:
         static float Cos(float angle);
         static float Sin(float angle);
+
+    public:
+        constexpr static const float rad2deg = (180 / M_PI);
+        constexpr static const float deg2rad = (M_PI / 180);
 
     private:
         static std::vector<float> m_sin;

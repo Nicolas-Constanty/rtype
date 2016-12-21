@@ -16,6 +16,13 @@
         "y": "500"
       }
     },
+    "Pod" : {
+      "prefabName": "Pod",
+      "position": {
+        "x": "100",
+        "y": "100"
+      }
+    },
     "Monster2": {
       "prefabName": "Monster",
       "position": {

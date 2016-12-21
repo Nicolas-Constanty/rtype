@@ -25,6 +25,8 @@ namespace SaltyEngine {
 
 	public:
 		constexpr static const std::chrono::milliseconds    timeoutShot = std::chrono::milliseconds(1000); // 1 second
+		static const float    timeoutDeath;
+		static const float    timeoutInvicible;
 
 	public:
 		explicit PlayerController(GameObject* const gamObj);
@@ -60,6 +62,7 @@ namespace SaltyEngine {
 
 	public:
         void Die() override;
+		void Reborn();
 
     public:
 		void IncIdShot() {
@@ -98,6 +101,11 @@ namespace SaltyEngine {
 		SaltyEngine::GameObject *objGUIBeam = NULL;
 		Vector2			m_min;
 		Vector2			m_max;
+
+	private:
+		SaltyEngine::SFML::SpriteCollider2D	*collider2D;
+		float			timer;
+		int 			global_lives;
 	};
 }
 

@@ -103,6 +103,8 @@ namespace SaltyEngine
                 bool update = false;
 //                    m_mutext.lock();
                 for (ColliderList::iterator col = m_colliders.begin(); col != m_colliders.end(); ++col) {
+                    if (!(*col).first->gameObject->GetActiveSelf())
+                        continue;
                     SpriteCollider2D *spr = (*col).first;
 //                    (*col)->GetSprite()->setScale((*col)->gameObject->transform.localScale.x, (*col)->gameObject->transform.localScale.y);
                      Transform &t = spr->gameObject->transform;

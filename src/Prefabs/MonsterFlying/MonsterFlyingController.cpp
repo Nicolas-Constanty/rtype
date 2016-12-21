@@ -1,4 +1,5 @@
 #include <Rtype/Game/Common/GameObjectID.hpp>
+#include <SaltyEngine/Maths.hpp>
 #include "Rtype/Game/Common/RtypeNetworkFactory.hpp"
 #include "Prefabs/Missile/MissileController.hpp"
 #include "Prefabs/MonsterFlying/MonsterFlyingController.hpp"
@@ -44,7 +45,9 @@ void MonsterFlyingController::FixedUpdate()
 void MonsterFlyingController::Move() {
     static int i = 0;
 
-    this->gameObject->transform.Translate(-(gameObject->transform.right() + SaltyEngine::Vector2(0, sin(gameObject->transform.GetPosition().x / 100.f)) )
+    this->gameObject->transform.Translate(-(gameObject->transform.right()
+                                            + SaltyEngine::Vector2(0, SaltyEngine::Mathf::Sin(gameObject->transform.GetPosition().x / 100.f
+                                                                                              * SaltyEngine::Mathf::rad2deg)) )
                                           * SaltyEngine::Engine::Instance().GetFixedDeltaTime() * m_vel);
     if (isServerSide()) {
         if (i % 60 == 0) {

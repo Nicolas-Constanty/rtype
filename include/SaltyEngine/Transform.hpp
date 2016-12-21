@@ -64,7 +64,6 @@ namespace SaltyEngine
 
             for (BaseTransform *tr : m_children)
             {
-                // TODO : get distance
                 T diff = tr->position - position;
                 tr->Rotate(angle);
                 tr->position = position;
