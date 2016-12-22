@@ -33,7 +33,7 @@ namespace SaltyEngine
 		Object& operator=(Object const&) = delete;  // Copy assign
 		Object& operator=(Object &&) = delete;      // Move assign
 		explicit Object(const std::string &name);
-		virtual ~Object() {};
+		virtual ~Object() { std::cout << "Deletion of: " << m_name << " => " << this << std::endl; };
 
 	public:
 		uid GetInstanceID(void) const;

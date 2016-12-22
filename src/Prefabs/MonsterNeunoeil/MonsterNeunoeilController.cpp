@@ -73,7 +73,6 @@ void MonsterNeunoeilController::FixedUpdate()
 }
 
 void MonsterNeunoeilController::Move() {
-    static int i = 0;
     if (m_eyeState == E_STATIC)
     {
         this->gameObject->transform.Rotate(-this->gameObject->transform.GetRotation());
@@ -100,15 +99,6 @@ void MonsterNeunoeilController::Move() {
         else if (this->gameObject->transform.GetPosition().x >= m_horizontalDistance)
             m_dir = -1;
     }
-
-    if (i % 60 == 0)
-    {
-        BroadcastPackage<MOVEPackageGame>(
-                gameObject->transform.GetPosition().x,
-                gameObject->transform.GetPosition().y,
-                getManager()->gameObjectContainer.GetServerObjectID(gameObject));
-    }
-    ++i;
 }
 
 void MonsterNeunoeilController::Shot() {

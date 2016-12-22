@@ -1,3 +1,4 @@
+#include <Prefabs/PositionReplicator/PositionReplicator.hpp>
 #include "Prefabs/MonsterNeunoeil/MonsterNeunoeil.hpp"
 #include "Prefabs/MonsterNeunoeil/MonsterNeunoeilController.hpp"
 
@@ -15,6 +16,7 @@ MonsterNeunoeil::MonsterNeunoeil() : GameObject("MonsterNeunoeil", SaltyEngine::
 
     AddComponent<MonsterNeunoeilController>();
     AddComponent<SaltyEngine::SFML::SpriteCollider2D>();
+    AddComponent<PositionReplicator>();
 }
 
 MonsterNeunoeil::~MonsterNeunoeil()

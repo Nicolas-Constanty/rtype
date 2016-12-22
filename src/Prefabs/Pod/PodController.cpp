@@ -9,18 +9,20 @@
 #include "Prefabs/Pod/PodController.hpp"
 
 const std::vector<std::string>    PodController::lvlsprites = {
-        "level1",
-        "level2",
-        "level3"
+        "Nacelle/Nacelle0",
+        "Nacelle/Nacelle1",
+        "Nacelle/Nacelle2"
 };
 
 PodController::PodController(SaltyEngine::GameObject *const object) :
         RtypePrefab("PodController", object),
         attachedPlayer(NULL),
         caller(NULL),
-        isAtFront(false),
-//        anim(NULL),
-        level(0)
+        isAtFront(true),
+        anim(NULL),
+        level(0),
+        speed(0),
+        sprr(NULL)
 {
 
 }
@@ -29,9 +31,11 @@ PodController::PodController(const std::string &name, SaltyEngine::GameObject *c
         RtypePrefab(name, object),
         attachedPlayer(NULL),
         caller(NULL),
-        isAtFront(false),
-//        anim(NULL),
-        level(0)
+        isAtFront(true),
+        anim(NULL),
+        level(0),
+        speed(0),
+        sprr(NULL)
 {
 
 }
@@ -74,7 +78,7 @@ void PodController::Start()
         );
     }
 
-    SaltyEngine::SFML::SpriteRenderer *sprr = gameObject->GetComponent<SaltyEngine::SFML::SpriteRenderer>();
+    sprr = gameObject->GetComponent<SaltyEngine::SFML::SpriteRenderer>();
 
     min = SaltyEngine::Vector2(
             sprr->GetSprite()->getTextureRect().width / 2,
@@ -82,10 +86,8 @@ void PodController::Start()
     max = SaltyEngine::Vector2(
             winsize.x / gameObject->transform.GetLocalScale().x - min.x,
             winsize.y / gameObject->transform.GetLocalScale().y - min.y);
-    speed = 0; //todo set to 10
-//    anim = gameObject->GetComponent<SaltyEngine::AAnimationClip>();
-//    if (!anim)
-//        std::cerr << "[\e[31mError\e[0m]: No such animation clip component on PodController" << std::endl;
+    speed = 10; //todo set to 10
+    anim = gameObject->GetComponent<SaltyEngine::SFML::Animation>();
 }
 
 void PodController::FixedUpdate()
@@ -93,9 +95,12 @@ void PodController::FixedUpdate()
     if (speed > 0)
     {
         SaltyEngine::Vector2 newpos = gameObject->transform.GetPosition() + (SaltyEngine::Vector::left() * (isAtFront ? -1 : 1)) * speed;
+        SaltyEngine::Vector2 const &pos = gameObject->transform.GetPosition();
 
-        if (newpos.x < max.x && newpos.y < max.y &&
-            newpos.x > min.x && newpos.y > min.y)
+        if ((newpos.x < max.x && newpos.y < max.y &&
+            newpos.x > min.x && newpos.y > min.y) ||
+            pos.x > max.x || pos.y > max.y ||
+            pos.x < min.x || pos.y < min.y)
         {
             gameObject->transform.SetPosition(newpos);
         }
@@ -112,34 +117,26 @@ void PodController::FixedUpdate()
 
 void PodController::OnCollisionEnter(SaltyEngine::ICollider *collider)
 {
-//    std::cout << "Colliding" << std::endl;
-    if (attachedPlayer)
-        return;
+    SaltyEngine::ACollider2D<sf::Vector2i> *c = dynamic_cast<SaltyEngine::ACollider2D<sf::Vector2i>*>(collider);
 
+    if (!c)
+        return;
     if (isServerSide())
     {
-        SaltyEngine::ACollider2D<sf::Vector2i> *c = dynamic_cast<SaltyEngine::ACollider2D<sf::Vector2i>*>(collider);
-
-        if (!c)
-            return;
-
-        if (c->gameObject->GetTag() == SaltyEngine::Layer::Tag::Player)
+        if (!attachedPlayer && c->gameObject->GetTag() == SaltyEngine::Layer::Tag::Player)
         {
             PodHandler   *player = c->gameObject->GetComponent<PodHandler>();
 
-//            std::cout << "With Player: " << player << std::endl;
             if (!player)
                 return;
 
             if (Attach(player))
             {
-//                std::cout << "Attached" << std::endl;
                 try
                 {
                     unsigned short podid = 0;
 
                     podid = getManager()->gameObjectContainer.GetServerObjectID(gameObject);
-//                    std::cout << "Broadcast take" << std::endl;
                     BroadCastReliable<TAKEPackageGame>(podid, getManager()->gameObjectContainer.GetServerObjectID(player->gameObject), isAtFront);
                 }
                 catch (std::runtime_error const &err)
@@ -150,6 +147,11 @@ void PodController::OnCollisionEnter(SaltyEngine::ICollider *collider)
             }
         }
     }
+    if (c->gameObject->GetTag() == SaltyEngine::Layer::Tag::Enemy || c->gameObject->GetTag() == SaltyEngine::Layer::Tag::BulletEnemy)
+    {
+        SaltyEngine::Instantiate("ExplosionBasic", c->gameObject->transform.GetPosition());
+        Destroy(c->gameObject);
+    }
 }
 
 bool PodController::Upgrade()
@@ -157,10 +159,10 @@ bool PodController::Upgrade()
     if (level < lvlsprites.size() - 1)
     {
         ++level;
-//        if (anim)
-//        {
-            //todo set the animation clip at lvlsprites[level]
-//        }
+        if (anim)
+        {
+            anim->AddClip(SaltyEngine::SFML::AssetManager::Instance().GetAnimation(lvlsprites[level]), "Nacelle");
+        }
         return true;
     }
     return false;
@@ -188,16 +190,6 @@ bool PodController::Launch()
         }
         BroadCastReliable<LAUNCHPackageGame>(pod, player, gameObject->transform.GetPosition().x, gameObject->transform.GetPosition().y);
     }
-//    if (isAtFront)
-//    {
-//        //todo set the position juste before the ship
-//    }
-//    else
-//    {
-//        //todo set the position juste after the ship
-//    }
-    //todo add velocity to gameobject
-//    std::cout << "Launching pod" << std::endl;
     gameObject->transform.SetParent(NULL);
     attachedPlayer = NULL;
     speed = 10;

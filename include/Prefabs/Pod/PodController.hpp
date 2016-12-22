@@ -42,9 +42,10 @@ private:
     PodHandler *attachedPlayer;
     PodHandler *caller;
     bool isAtFront;
-//    SaltyEngine::AAnimationClip *anim;
+    SaltyEngine::SFML::Animation *anim;
     size_t level;
     double speed;
+    SaltyEngine::SFML::SpriteRenderer   *sprr;
     SaltyEngine::Vector2    min;
     SaltyEngine::Vector2    max;
 };
