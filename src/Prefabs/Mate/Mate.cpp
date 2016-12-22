@@ -6,6 +6,7 @@
 #include "Prefabs/Mate/Mate.hpp"
 #include <SaltyEngine/SFML.hpp>
 #include <Prefabs/PodHandler/PodHandler.hpp>
+#include <Prefabs/CommonPlayer/CommonPlayerController.hpp>
 
 Mate::Mate() :
     SaltyEngine::GameObject("Mate", SaltyEngine::Layer::Tag::Player)
@@ -14,6 +15,7 @@ Mate::Mate() :
     AddComponent<MateComponent>();
     AddComponent<SaltyEngine::SFML::SpriteCollider2D>();
     AddComponent<PodHandler>();
+    AddComponent<CommonPlayerController>(3);
 }
 
 Mate::~Mate()

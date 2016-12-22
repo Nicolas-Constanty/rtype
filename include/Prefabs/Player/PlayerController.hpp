@@ -3,6 +3,7 @@
 #ifndef PLAYER_CONTROLLER_HPP_
 #define PLAYER_CONTROLLER_HPP_
 
+#include <Prefabs/CommonPlayer/CommonPlayerController.hpp>
 #include "Rtype/Game/Client/GameManager.hpp"
 #include "Prefabs/GenericController.hpp"
 #include "SaltyEngine/SaltyBehaviour.hpp"
@@ -31,14 +32,19 @@ namespace SaltyEngine {
 	public:
 		explicit PlayerController(GameObject* const gamObj);
 		PlayerController(const std::string &name, GameObject* const gamObj);
+
+	public:
 		void Start();
 		void FixedUpdate();
-		void OnCollisionEnter(ICollider *collider);
+
+	public:
 		void SetColor(unsigned char color);
         void SetHighScore(int highScore);
 		int GetHighScore() const;
 		bool IsUpdateHighScore() const;
 		void SetUpdateHighScore(bool update);
+
+	public:
 		float speed;
 
 
@@ -61,8 +67,7 @@ namespace SaltyEngine {
 		}
 
 	public:
-        void Die() override;
-		void Reborn();
+        void Die() { common->Die(); };
 
     public:
 		void IncIdShot() {
@@ -103,9 +108,7 @@ namespace SaltyEngine {
 		Vector2			m_max;
 
 	private:
-		SaltyEngine::SFML::SpriteCollider2D	*collider2D;
-		float			timer;
-		int 			global_lives;
+		CommonPlayerController	*common;
 	};
 }
 

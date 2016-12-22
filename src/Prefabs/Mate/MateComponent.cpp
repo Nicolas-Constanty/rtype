@@ -6,6 +6,7 @@
 #include <SaltyEngine/Collider.hpp>
 #include <SaltyEngine/SFML/SpriteRenderer.hpp>
 #include <SaltyEngine/SFML/Animation.hpp>
+#include <Prefabs/RtypePrefab.hpp>
 #include "Prefabs/Mate/MateComponent.hpp"
 
 MateComponent::MateComponent(SaltyEngine::GameObject * const object) : RtypePrefab("MateComponent", object)

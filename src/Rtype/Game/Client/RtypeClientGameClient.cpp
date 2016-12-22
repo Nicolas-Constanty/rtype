@@ -15,16 +15,24 @@
 #include <Prefabs/Mate/MateComponent.hpp>
 
 Rtype::Game::Client::RtypeClientGameClient::RtypeClientGameClient(
-        Network::Core::NativeSocketIOOperationDispatcher &dispatcher) :
-        Rtype::Game::Common::RtypeGameClient(dispatcher)
+        Network::Core::NativeSocketIOOperationDispatcher &dispatcher, const uint32_t secret) :
+        Rtype::Game::Common::RtypeGameClient(dispatcher),
+        gameManager(nullptr),
+        gameOver(nullptr),
+        gameGUIHighscore(nullptr),
+        secret(secret)
 {
-    gameOver = NULL;
+
 }
 
 Rtype::Game::Client::RtypeClientGameClient::RtypeClientGameClient(const Rtype::Game::Client::RtypeClientGameClient &ref) :
-    Rtype::Game::Common::RtypeGameClient(ref)
+    Rtype::Game::Common::RtypeGameClient(ref),
+    gameManager(nullptr),
+    gameOver(nullptr),
+    gameGUIHighscore(nullptr),
+    secret(ref.secret)
 {
-    gameOver = NULL;
+
 }
 
 Rtype::Game::Client::RtypeClientGameClient::~RtypeClientGameClient()
@@ -34,7 +42,7 @@ Rtype::Game::Client::RtypeClientGameClient::~RtypeClientGameClient()
 
 bool Rtype::Game::Client::RtypeClientGameClient::OnStart()
 {
-    SendPackage<AUTHENTICATEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<AUTHENTICATEPackageGame>, 42);
+    SendPackage<AUTHENTICATEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<AUTHENTICATEPackageGame>, secret);
     connected = true;
 
     SaltyEngine::GameObject *goHighscore = SaltyEngine::Engine::Instance().GetCurrentScene()->FindByName("GUIHighscore");
@@ -217,7 +225,7 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetREBORNPackage(REBORNPackag
 
     if (object)
     {
-        SaltyEngine::PlayerController   *controller = object->GetComponent<SaltyEngine::PlayerController>();
+        CommonPlayerController   *controller = object->GetComponent<CommonPlayerController>();
 
         if (controller)
         {
@@ -290,7 +298,7 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetDEATHPackage(DEATHPackage 
 
     if (obj)
     {
-        SaltyEngine::PlayerController   *playerController = obj->GetComponent<SaltyEngine::PlayerController>();
+        CommonPlayerController   *playerController = obj->GetComponent<CommonPlayerController>();
 
         if (playerController)
         {

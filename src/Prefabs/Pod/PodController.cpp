@@ -54,6 +54,34 @@ void PodController::Start()
                                              RtypeNetworkFactory::GetIDFromName("Pod"),
                                              gameobjectId);
     }
+    SaltyEngine::Vector2 winsize;
+    SaltyEngine::Vector2 spritesize;
+
+    if (!isServerSide())
+    {
+        SaltyEngine::SFML::Renderer *renderer = dynamic_cast<SaltyEngine::SFML::Renderer *>(SaltyEngine::Engine::Instance().GetRenderer());
+
+        winsize = SaltyEngine::Vector2(renderer->GetRenderWindow()->getSize().x,
+                                       renderer->GetRenderWindow()->getSize().y);
+    }
+    else
+    {
+        SaltyEngine::SFML::PhysicsHandler   *physicsHandler = dynamic_cast<SaltyEngine::SFML::PhysicsHandler *>(SaltyEngine::Engine::Instance().GetPhysicsHandler());
+
+        winsize = SaltyEngine::Vector2(
+                physicsHandler->GetSizeX(),
+                physicsHandler->GetSizeY()
+        );
+    }
+
+    SaltyEngine::SFML::SpriteRenderer *sprr = gameObject->GetComponent<SaltyEngine::SFML::SpriteRenderer>();
+
+    min = SaltyEngine::Vector2(
+            sprr->GetSprite()->getTextureRect().width / 2,
+            sprr->GetSprite()->getTextureRect().height / 2);
+    max = SaltyEngine::Vector2(
+            winsize.x / gameObject->transform.GetLocalScale().x - min.x,
+            winsize.y / gameObject->transform.GetLocalScale().y - min.y);
     speed = 0; //todo set to 10
 //    anim = gameObject->GetComponent<SaltyEngine::AAnimationClip>();
 //    if (!anim)
@@ -64,7 +92,17 @@ void PodController::FixedUpdate()
 {
     if (speed > 0)
     {
-        gameObject->transform.SetPosition(gameObject->transform.GetPosition() + (SaltyEngine::Vector::left() * (isAtFront ? -1 : 1)) * speed);
+        SaltyEngine::Vector2 newpos = gameObject->transform.GetPosition() + (SaltyEngine::Vector::left() * (isAtFront ? -1 : 1)) * speed;
+
+        if (newpos.x < max.x && newpos.y < max.y &&
+            newpos.x > min.x && newpos.y > min.y)
+        {
+            gameObject->transform.SetPosition(newpos);
+        }
+        else
+        {
+            speed = 0;
+        }
     }
 //    else if (!isAttached())
 //    {

@@ -10,7 +10,8 @@ Pod::Pod() :
     SaltyEngine::GameObject("Pod", SaltyEngine::Layer::Tag::Player)
 {
     AddComponent<PodController>();
-    AddComponent<SaltyEngine::SFML::SpriteRenderer>(SaltyEngine::SFML::AssetManager::Instance().GetSprite("Player/Player1"), ::SaltyEngine::Layout::normal);
+    AddComponent < SaltyEngine::SFML::Animation>(true, SaltyEngine::AnimationConstants::WrapMode::LOOP);
+    GetComponent<SaltyEngine::SFML::Animation>()->AddClip(SaltyEngine::SFML::AssetManager::Instance().GetAnimation("Nacelle/Nacelle0"), "Nacelle");
     AddComponent<SaltyEngine::SFML::SpriteCollider2D>();
 //    AddComponent<SaltyEngine::AAnimationClip>();
 }

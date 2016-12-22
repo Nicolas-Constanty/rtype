@@ -328,6 +328,7 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetDISCONNECTPackage(DISCONNE
 
 
 void Rtype::Game::Server::RtypeServerGameClient::onGetENEMYSHOTPackage(ENEMYSHOTPackageGame const &pack) {
+    OnDiscoveringPackage(pack);
 //    std::cout << pack << std::endl;
 }
 

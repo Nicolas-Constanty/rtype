@@ -2,6 +2,7 @@
 #include <Rtype/Game/Client/SpaceShipController.hpp>
 #include <Rtype/Game/Client/GameGUIBeam.hpp>
 #include <Rtype/Game/Client/GameGUIHighscore.hpp>
+#include <Common/Flags.hpp>
 #include "SaltyEngine/SFML.hpp"
 #include "SaltyEngine/SaltyEngine.hpp"
 #include "SaltyEngine/Object.hpp"
@@ -38,8 +39,29 @@ void CreateGUIGame(SaltyEngine::Vector2i const &size, SaltyEngine::SFML::Scene *
 
 }
 
-int main(int, char **)
+int main(int ac, char **av)
 {
+	Flags   flags;
+	std::string	ip;
+	uint16_t port;
+	uint16_t map;
+	uint32_t secret;
+	bool help;
+
+	flags.Var(ip, 'h', "host", std::string("127.0.0.1"), "The host to which connect", "Game host");
+	flags.Var(port, 'p', "port", uint16_t(4242), "The port to which connect", "Game port");
+	flags.Var(map, 'l', "level", uint16_t(2), "The level of the game server", "Game level");
+	flags.Var(secret, 's', "secret", uint32_t(0), "The secret code of the game server", "Game secret");
+
+	flags.Bool(help, 'i', "info", "Show this help message", "Info");
+
+	if (!flags.Parse(ac, av))
+		return 1;
+	else if (help)
+	{
+		flags.PrintHelp(av[0]);
+		return 1;
+	}
 
 #if _WIN32
 	Network::Socket::WinSocket::Start();
@@ -74,13 +96,13 @@ int main(int, char **)
 //	*scene << guiBehind;
 
 	server.reset(new SaltyEngine::GameObject("Rtype", SaltyEngine::Layer::Tag::Destroy));
-	SaltyEngine::SceneDefault *sceneDefault = SaltyEngine::SFML::AssetManager::Instance().LoadScene("scene4");
+	SaltyEngine::SceneDefault *sceneDefault = SaltyEngine::SFML::AssetManager::Instance().LoadScene("scene" + std::to_string(map));
 
 	scene->SetScale(sceneDefault->scale);
 
 	CreateGUIGame(renderer->GetRealSize(), scene);
 
-	server->AddComponent<Rtype::Game::Client::GameClientObject>("127.0.0.1", 4242);
+	server->AddComponent<Rtype::Game::Client::GameClientObject>(ip, port, secret);
 	server->AddComponent<GameManager>();
 //    std::unique_ptr<SaltyEngine::GameObject> box_right = std::unique_ptr<SaltyEngine::GameObject>(new SaltyEngine::GameObject("box right"));
 //    std::unique_ptr<SaltyEngine::GameObject> box_left = std::unique_ptr<SaltyEngine::GameObject>(new SaltyEngine::GameObject("box left"));

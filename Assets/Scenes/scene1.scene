@@ -1,6 +1,10 @@
 {
     "title": "scene1",
     "preview": "tot.png",
+    "scale": {
+          "width": "2",
+          "height": "2"
+        },
     "prefabs": {
         "Player": {
             "prefabName": "Player",

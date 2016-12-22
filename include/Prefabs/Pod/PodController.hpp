@@ -45,6 +45,8 @@ private:
 //    SaltyEngine::AAnimationClip *anim;
     size_t level;
     double speed;
+    SaltyEngine::Vector2    min;
+    SaltyEngine::Vector2    max;
 };
 
 

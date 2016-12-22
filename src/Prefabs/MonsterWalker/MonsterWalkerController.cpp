@@ -48,17 +48,7 @@ void MonsterWalkerController::FixedUpdate()
 }
 
 void MonsterWalkerController::Move() {
-    static int i = 0;
-    this->gameObject->transform.Translate(-gameObject->transform.right() * m_vel);
-    if (isServerSide()) {
-        if (i % 60 == 0) {
-            BroadcastPackage<MOVEPackageGame>(
-                    gameObject->transform.GetPosition().x,
-                    gameObject->transform.GetPosition().y,
-                    getManager()->gameObjectContainer.GetServerObjectID(gameObject));
-        }
-        ++i;
-    }
+//    this->gameObject->transform.Translate(-gameObject->transform.right() * m_vel);
 }
 
 void MonsterWalkerController::Shot() {

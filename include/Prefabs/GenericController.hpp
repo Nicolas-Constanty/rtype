@@ -44,6 +44,11 @@ public:
 		return (10);
 	}
 
+	void SetHealth(int health)
+	{
+		m_health = health;
+	}
+
 public:
     virtual SaltyEngine::Component* CloneComponent(SaltyEngine::GameObject* const obj) = 0;
 

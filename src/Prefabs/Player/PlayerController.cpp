@@ -21,8 +21,6 @@ namespace SaltyEngine
         playerID = 0;
         highScore = 0;
         m_health = 1;
-        global_lives = 3;
-        collider2D = NULL;
 	};
 
 	PlayerController::PlayerController(const std::string &name, GameObject* const gameObj) : AGenericController(name, gameObj) {
@@ -33,8 +31,6 @@ namespace SaltyEngine
         playerID = 0;
         highScore = 0;
         m_health = 1;
-        global_lives = 3;
-        collider2D = NULL;
 	};
 
 	void PlayerController::Start()
@@ -95,37 +91,15 @@ namespace SaltyEngine
                 std::cout << m_max << std::endl;
             }
         }
-        else
-        {
-            collider2D = gameObject->GetComponent<SaltyEngine::SFML::SpriteCollider2D>();
-//            std::cout << "Collider: " << collider2D << std::endl;
-        }
+        common = gameObject->GetComponent<CommonPlayerController>();
+        std::cout << "Common: " << common << std::endl;
 	}
 
 	void PlayerController::FixedUpdate()
 	{
-        if (!gameObject->GetActiveSelf())
-        {
-            if (isServerSide())
-            {
-                timer -= SaltyEngine::Engine::Instance().GetFixedDeltaTime();
-                if (timer < 0)
-                {
-                    BroadCastReliable<REBORNPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(gameObject));
-                    Reborn();
-                }
-            }
+        if (common->isDead())
             return;
-        }
-        if (isServerSide() && !collider2D->IsEnable())
-        {
-            timer -= SaltyEngine::Engine::Instance().GetFixedDeltaTime();
-            if (timer < 0)
-            {
-                collider2D->SetEnable(true);
-            }
-        }
-//        static int i = 0;
+
 		float h = InputKey::GetAxis("Horizontal");
 		float v = InputKey::GetAxis("Vertical");
         Vector2 move(gameObject->transform.GetPosition().x + h  * speed, gameObject->transform.GetPosition().y + v * speed);
@@ -138,7 +112,6 @@ namespace SaltyEngine
                         gameObject->transform.GetPosition().x,
                         gameObject->transform.GetPosition().y,
                         getManager()->gameObjectContainer.GetServerObjectID(gameObject));
-//            ++i;
         }
 
         if (InputKey::GetAction("Fire", Input::ActionType::Down)) {
@@ -223,42 +196,12 @@ namespace SaltyEngine
         return idShot;
     }
 
-    void PlayerController::Die() {
-        if (!gameObject->GetActiveSelf())
-            return;
-        std::cout << "Player Died !" << std::endl;
-        gameObject->SetActive(false);
-        if (global_lives >= 0)
-        {
-            --global_lives;
-        }
-        if (global_lives == -1)
-        {
-            if (isServerSide())
-            {
-//                std::cout << "Definately died" << std::endl;
-                BroadCastReliable<DIEPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(gameObject));
-                Destroy(gameObject);
-                return;
-            }
-        }
-        if (isServerSide())
-        {
-            --global_lives;
-            timer = timeoutDeath;
-        }
-        else
-        {
-            Instantiate("ExplosionBasic", this->gameObject->transform.GetPosition());
-        }
-    }
-
     void PlayerController::TakeDamage(int amount) {
         AGenericController::TakeDamage(amount);
 
         if (m_health <= 0)
         {
-            Die();
+            common->Die();
         }
     }
 
@@ -309,27 +252,11 @@ namespace SaltyEngine
         updateHighScore = update;
     }
 
-    void PlayerController::OnCollisionEnter(ICollider *collider)
-    {
-        SaltyEngine::ACollider2D<sf::Vector2i> *c = dynamic_cast<SaltyEngine::ACollider2D<sf::Vector2i>*>(collider);
-
-        if (!c)
-            return;
-        if (c->CompareTag(SaltyEngine::Layer::Tag::Enemy))
-        {
-            if (isServerSide())
-            {
-                BroadCastReliable<DEATHPackage>(getManager()->gameObjectContainer.GetServerObjectID(gameObject));
-                Die();
-            }
-        }
-    }
-
-    void PlayerController::Reborn()
-    {
-        collider2D->SetEnable(false);
-        gameObject->SetActive(true);
-        timer = timeoutInvicible;
-    }
+//    void PlayerController::Reborn()
+//    {
+//        collider2D->SetEnable(false);
+//        gameObject->SetActive(true);
+//        timer = timeoutInvicible;
+//    }
 
 }

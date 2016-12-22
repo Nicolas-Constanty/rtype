@@ -1,3 +1,4 @@
+#include <Prefabs/PositionReplicator/PositionReplicator.hpp>
 #include "Prefabs/MonsterFlying/MonsterFlying.hpp"
 #include "Prefabs/MonsterFlying/MonsterFlyingController.hpp"
 #include "SaltyEngine/SFML/AssetManager.hpp"
@@ -16,6 +17,7 @@ MonsterFlying::MonsterFlying() : GameObject("MonsterFlying", SaltyEngine::Layer:
 
     AddComponent<MonsterFlyingController>();
     AddComponent<SaltyEngine::SFML::SpriteCollider2D>();
+    AddComponent<PositionReplicator>();
 }
 
 MonsterFlying::~MonsterFlying()

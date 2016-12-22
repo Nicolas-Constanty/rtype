@@ -6,6 +6,9 @@
 
 class MonsterFlyingController : public AGenericController
 {
+private:
+	static float movetimer;
+
 public:
 	MonsterFlyingController(SaltyEngine::GameObject *object);
 	virtual ~MonsterFlyingController();
@@ -36,5 +39,6 @@ private:
 	float m_currDelay = 0;
 	bool m_isDead = false;
 	float m_vel = 100;
+	float m_timer = 0;
 };
 

@@ -25,7 +25,7 @@ namespace Network
          */
         class AUDPConnection : public Core::BasicConnection
         {
-        private:
+        protected:
             constexpr static const size_t reliability = 15;
 
         public:

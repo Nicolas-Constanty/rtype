@@ -6,6 +6,7 @@
 
 size_t       Network::Core::BasicConnection::nbPackets;
 Network::Core::Timer  Network::Core::BasicConnection::lastRefresh;
+int          Network::Core::BasicConnection::stats[19];
 
 /**
  * @brief Basic constructor that initialize the internal dispatcher reference

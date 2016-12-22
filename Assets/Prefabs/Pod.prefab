@@ -1,6 +1,9 @@
 {
     "sprites": [
-        "Player/Player1"
+        "Nacelle/Nacelle0-1"
+    ],
+    "animations": [
+        "Nacelle/Nacelle0"
     ],
     "lib": "libpod"
 }

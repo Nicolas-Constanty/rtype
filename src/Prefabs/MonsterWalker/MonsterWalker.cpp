@@ -1,3 +1,4 @@
+#include <Prefabs/PositionReplicator/PositionReplicator.hpp>
 #include "Prefabs/MonsterWalker/MonsterWalker.hpp"
 #include "Prefabs/MonsterWalker/MonsterWalkerController.hpp"
 #include "SaltyEngine/SFML/AssetManager.hpp"
@@ -19,6 +20,7 @@ MonsterWalker::MonsterWalker() : GameObject("MonsterWalker", SaltyEngine::Layer:
 
     AddComponent<MonsterWalkerController>();
     AddComponent<SaltyEngine::SFML::SpriteCollider2D>();
+    AddComponent<PositionReplicator>();
 }
 
 MonsterWalker::~MonsterWalker()

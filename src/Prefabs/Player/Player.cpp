@@ -11,6 +11,7 @@ Player::Player() : GameObject("Player", SaltyEngine::Layer::Tag::Player)
     AddComponent<SaltyEngine::PlayerController>();
     AddComponent<SaltyEngine::SFML::SpriteCollider2D>();
     AddComponent<PodHandler>();
+    AddComponent<CommonPlayerController>(3);
 }
 
 

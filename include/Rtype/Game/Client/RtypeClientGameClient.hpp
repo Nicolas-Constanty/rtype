@@ -21,7 +21,7 @@ namespace Rtype
             class RtypeClientGameClient : public Rtype::Game::Common::RtypeGameClient
             {
             public:
-                RtypeClientGameClient(Network::Core::NativeSocketIOOperationDispatcher &dispatcher);
+                RtypeClientGameClient(Network::Core::NativeSocketIOOperationDispatcher &dispatcher, const uint32_t secret = 0);
                 RtypeClientGameClient(RtypeClientGameClient const &ref);
                 virtual ~RtypeClientGameClient();
 
@@ -53,6 +53,7 @@ namespace Rtype
                 GameManager *gameManager;
                 GameOver    *gameOver;
                 GameGUIHighscore *gameGUIHighscore;
+                const uint32_t secret;
             };
         }
     }

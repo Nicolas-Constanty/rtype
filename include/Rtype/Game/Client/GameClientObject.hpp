@@ -14,8 +14,8 @@ namespace Rtype
 			class GameClientObject : public SaltyEngine::SaltyBehaviour
 			{
 			public:
-				explicit GameClientObject(SaltyEngine::GameObject* const gamObj, const std::string &ip, const uint16_t port);
-				GameClientObject(const std::string &name, SaltyEngine::GameObject* const gamObj, const std::string &ip, const uint16_t port);
+				explicit GameClientObject(SaltyEngine::GameObject* const gamObj, const std::string &ip, const uint16_t port, const uint16_t secret);
+				GameClientObject(const std::string &name, SaltyEngine::GameObject* const gamObj, const std::string &ip, const uint16_t port, const uint16_t secret);
 				void Start();
 				void Update();
 				~GameClientObject();
@@ -36,6 +36,7 @@ namespace Rtype
 			private:
 				uint16_t m_port;
 				std::string m_ip;
+                const uint32_t m_secret;
 				Client::RtypeClientGameClient *m_rtypeclient;
 				Network::Core::NativeSocketIOOperationDispatcher m_dispatcher;
 			};

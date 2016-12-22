@@ -85,14 +85,14 @@ target_link_libraries(explosion_basic ${PREFAB_LIBRARIES})
 # SPACESHIPS
 
 # PLAYER
-file(GLOB PLAYER_SOURCE_FILE "src/Prefabs/Player/*.cpp" "src/Prefabs/PodHandler/*.cpp")
-file(GLOB PLAYER_INC_FILE "include/Prefabs/Player/*.hpp" "include/Prefabs/PodHandler/*.hpp")
+file(GLOB PLAYER_SOURCE_FILE "src/Prefabs/Player/*.cpp" "src/Prefabs/PodHandler/*.cpp" "src/Prefabs/CommonPlayer/*.cpp")
+file(GLOB PLAYER_INC_FILE "include/Prefabs/Player/*.hpp" "include/Prefabs/PodHandler/*.hpp" "include/Prefabs/CommonPlayer/*.hpp")
 add_library(player SHARED ${PLAYER_SOURCE_FILE} ${PLAYER_INC_FILE})
 target_link_libraries(player ${PREFAB_LIBRARIES} missile_laser)
 
 # MATE (network managed client)
-file(GLOB MATE_SOURCE_FILES "src/Prefabs/Mate/*.cpp" "src/Prefabs/PodHandler/*.cpp")
-file(GLOB MATE_INC_FILES "include/Prefabs/Mate/*.hpp" "include/Prefabs/PodHandler/*.hpp")
+file(GLOB MATE_SOURCE_FILES "src/Prefabs/Mate/*.cpp" "src/Prefabs/PodHandler/*.cpp" "src/Prefabs/CommonPlayer/*.cpp")
+file(GLOB MATE_INC_FILES "include/Prefabs/Mate/*.hpp" "include/Prefabs/PodHandler/*.hpp" "include/Prefabs/CommonPlayer/*.hpp")
 add_library(mate SHARED ${MATE_SOURCE_FILES} ${MATE_INC_FILES})
 target_link_libraries(mate ${PREFAB_LIBRARIES} missile_laser)
 
@@ -108,21 +108,27 @@ target_link_libraries(pod ${PREFAB_LIBRARIES})
 file(GLOB MONSTER_SOURCE_FILE
 		"src/Prefabs/Monster/*.cpp"
 		"include/Prefabs/Monster/*.hpp"
-		"include/Prefabs/GenericController.hpp")
+		"include/Prefabs/GenericController.hpp"
+		"src/Prefabs/PositionReplicator/*.cpp"
+		"include/Prefabs/PositionReplicator/*.hpp")
 add_library(monster SHARED ${MONSTER_SOURCE_FILE})
 target_link_libraries(monster ${PREFAB_LIBRARIES} missile_medusa)
 
 # WALKER
 file(GLOB WALKINGMONSTER_SOURCE_FILE
 		"src/Prefabs/MonsterWalker/*.cpp"
-		"include/Prefabs/MonsterWalker/*.hpp")
+		"include/Prefabs/MonsterWalker/*.hpp"
+		"src/Prefabs/PositionReplicator/*.cpp"
+		"include/Prefabs/PositionReplicator/*.hpp")
 add_library(monster_walker SHARED ${WALKINGMONSTER_SOURCE_FILE})
 target_link_libraries(monster_walker ${PREFAB_LIBRARIES} missile_medusa missile_enemy_bullet explosion_basic player)
 
 # FLYING
 file(GLOB FLYINGMONSTER_SOURCE_FILE
 		"src/Prefabs/MonsterFlying/*.cpp"
-		"include/Prefabs/MonsterFlying/*.hpp")
+		"include/Prefabs/MonsterFlying/*.hpp"
+		"src/Prefabs/PositionReplicator/*.cpp"
+		"include/Prefabs/PositionReplicator/*.hpp")
 add_library(monster_flying SHARED ${FLYINGMONSTER_SOURCE_FILE})
 target_link_libraries(monster_flying ${PREFAB_LIBRARIES} missile_medusa missile_enemy_bullet explosion_basic)
 
@@ -131,7 +137,9 @@ target_link_libraries(monster_flying ${PREFAB_LIBRARIES} missile_medusa missile_
 # WALKER
 file(GLOB NEUNOEILMONSTER_SOURCE_FILE
 		"src/Prefabs/MonsterNeunoeil/*.cpp"
-		"include/Prefabs/MonsterNeunoeil/*.hpp")
+		"include/Prefabs/MonsterNeunoeil/*.hpp"
+		"src/Prefabs/PositionReplicator/*.cpp"
+		"include/Prefabs/PositionReplicator/*.hpp")
 add_library(monster_neunoeil SHARED ${NEUNOEILMONSTER_SOURCE_FILE})
 target_link_libraries(monster_neunoeil ${PREFAB_LIBRARIES} missile_medusa missile_enemy_bullet explosion_basic player)
 
