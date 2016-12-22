@@ -32,16 +32,26 @@ public:
 	void OnCollisionEnter(SaltyEngine::ICollider *collider) override;
 
 private:
-	float m_minShootInterval = 4;
-	float m_maxShootInterval = 9;
+	float m_minShootInterval = 2;
+	float m_maxShootInterval = 3;
 	float m_currDelay = 0;
 	bool m_isDead = false;
 	float m_vel = 1;
-	float m_walkDistance = 100;
-    SaltyEngine::Vector m_startPoint;
+	float m_verticalDistance = 700;
+	float m_horizontalDistance = 850;
     SaltyEngine::SFML::Animation *m_anim;
+    float m_currTransitionDelay = 5;
+    float m_transitionDelay = 5;
 
 	bool m_isInvincible = false;
     SaltyEngine::GameObject *m_canons[4];
+
+private:
+    enum EYE_STATE {E_STATIC, E_MOVING1, E_MOVING2};
+    int m_dir = 1;
+    EYE_STATE m_eyeState = E_STATIC;
+
+protected:
+    void GoToNextState();
 };
 

@@ -2,7 +2,7 @@
 #include <Rtype/Game/Client/SpaceShipController.hpp>
 #include <Rtype/Game/Client/GameGUIBeam.hpp>
 #include <Rtype/Game/Client/GameGUIHighscore.hpp>
-#include <Common/Flags.hpp>
+#include <Rtype/Game/Client/EndScreen.hpp>
 #include "SaltyEngine/SFML.hpp"
 #include "SaltyEngine/SaltyEngine.hpp"
 #include "SaltyEngine/Object.hpp"
@@ -10,33 +10,23 @@
 
 void CreateGUIGame(SaltyEngine::Vector2i const &size, SaltyEngine::SFML::Scene *scene) {
 
-//	SaltyEngine::GameObject *guiBehind = new SaltyEngine::GameObject("GUIBackgroundGame");
-//	guiBehind->AddComponent<SaltyEngine::SFML::Image>(SaltyEngine::SFML::AssetManager::Instance().GetSprite("GUIBackground")); //GUIBackground
-//
-//	guiBehind->transform.position.x = size.x / 2;
-//	guiBehind->transform.position.y = size.y - 75 / 2;
-//	*scene << guiBehind;
-
-	SaltyEngine::GameObject *guiGameBeam = new SaltyEngine::GameObject("GUIBeam");
-
+	SaltyEngine::GameObject     *guiGameBeam = new SaltyEngine::GameObject("GUIBeam");
 	guiGameBeam->AddComponent<GameGUIBeam>();
-
-//	guiGameBeam->transform.position.x = size.x / 2;
 	guiGameBeam->transform.SetPosition(SaltyEngine::Vector2(size.x / 2, guiGameBeam->transform.GetPosition().y));
 
 	SaltyEngine::SFML::SpriteRenderer *sprr = guiGameBeam->GetComponent<SaltyEngine::SFML::SpriteRenderer>();
-//	guiGameBeam->transform.position.y = size.y - ((sprr) ? (sprr->GetSprite()->GetRect()->_height / 2) : 0);
 	guiGameBeam->transform.SetPosition(guiGameBeam->transform.GetPosition().x, size.y - ((sprr) ? (sprr->GetSprite()->GetRect()->_height / 2) : 0));
 	*scene << guiGameBeam;
 
-//	SaltyEngine::GameObject *guiGameHighscore = new SaltyEngine::GameObject("GUIHighscore");
-//
-//	guiGameHighscore->AddComponent<GameGUIHighscore>();
-//
-//	guiGameHighscore->transform.position.x = size.x - 60;
-//	guiGameHighscore->transform.position.y = size.y / 2 - 19;
-//	*scene << guiGameHighscore;
+	SaltyEngine::GameObject     *guiGameHighscore = new SaltyEngine::GameObject("GUIHighscore");
+	guiGameHighscore->AddComponent<GameGUIHighscore>();
+	guiGameHighscore->transform.SetPosition(static_cast<float>(size.x / 1.2), guiGameBeam->transform.GetPosition().y);
+	*scene << guiGameHighscore;
 
+	SaltyEngine::GameObject     *victoryScreen = new SaltyEngine::GameObject("EndScreen");
+	victoryScreen->AddComponent<EndScreen>();
+	victoryScreen->transform.SetPosition(size.x / 2, static_cast<float>(size.y / 2.3));
+	*scene << victoryScreen;
 }
 
 int main(int ac, char **av)

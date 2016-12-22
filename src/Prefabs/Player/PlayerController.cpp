@@ -259,4 +259,5 @@ namespace SaltyEngine
 //        timer = timeoutInvicible;
 //    }
 
+    void PlayerController::SetAction(bool actionMode) {
 }

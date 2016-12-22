@@ -22,6 +22,7 @@ void GameOver::OverAction(GAMEOVER status) {
                                                        static_cast<unsigned char>(status));
     } else {
         std::cout << "c'est la fin ! salut !" << std::endl;
+//        abort();
     }
 }
 

@@ -83,6 +83,8 @@ namespace SaltyEngine {
 
 	public:
         void TakeDamage(int amount) override;
+		void SetAction(bool);
+		bool IsActionMode() const;
 
     public:
 		clock::time_point start;
@@ -109,6 +111,7 @@ namespace SaltyEngine {
 
 	private:
 		CommonPlayerController	*common;
+		bool			action = true;
 	};
 }
 

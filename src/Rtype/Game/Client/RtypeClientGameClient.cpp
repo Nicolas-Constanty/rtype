@@ -13,6 +13,7 @@
 #include <Prefabs/Player/PlayerController.hpp>
 #include <Prefabs/Pod/PodController.hpp>
 #include <Prefabs/Mate/MateComponent.hpp>
+#include <Rtype/Game/Client/EndScreen.hpp>
 
 Rtype::Game::Client::RtypeClientGameClient::RtypeClientGameClient(
         Network::Core::NativeSocketIOOperationDispatcher &dispatcher, const uint32_t secret) :
@@ -56,6 +57,11 @@ bool Rtype::Game::Client::RtypeClientGameClient::OnStart()
     if (gameman)
         gameManager = gameman->GetComponent<GameManager>();
 
+    SaltyEngine::GameObject *endS = SaltyEngine::Engine::Instance().GetCurrentScene()->FindByName("EndScreen");
+
+    if (endS)
+        this->endScreen = endS->GetComponent<EndScreen>();
+
     gameOver = new GameOver(gameManager);
     return true;
 }
@@ -97,6 +103,7 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetCREATEPackage(CREATEPackag
         SaltyEngine::PlayerController *playerController = object->GetComponent<SaltyEngine::PlayerController>();
         if (playerController) {
             playerController->SetColor(playerID);
+            objectIDPlayerController = pack.objectID;
         }
     }
     catch (std::runtime_error const &error)
@@ -283,11 +290,19 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetMATEPackage(MATEPackageGam
 void Rtype::Game::Client::RtypeClientGameClient::onGetGAMEOVERPackage(GAMEOVERPackageGame const &game) {
     OnDiscoveringPackage(game);
     if (gameOver && !gameOver->IsOver()) {
-        gameOver->OverAction(static_cast<GAMEOVER>(game.status));
+        GAMEOVER over = static_cast<GAMEOVER>(game.status);
+        if (over == GAMEOVER::VICTORY) {
+            this->endScreen->VictoryScreen();
+        } else {
+            this->endScreen->DefeatScreen();
+        }
+        SaltyEngine::GameObject *obj = gameManager->gameObjectContainer[this->objectIDPlayerController];
 
-        //TODO
-        // DISPLAY VICTORY SREEN HERE
-        // AVEC LE HIGHSCORE
+        if (obj) {
+            SaltyEngine::PlayerController *playerController = obj->GetComponent<SaltyEngine::PlayerController>();
+            if (playerController)
+                playerController->SetAction(false);
+        }
     }
 }
 
