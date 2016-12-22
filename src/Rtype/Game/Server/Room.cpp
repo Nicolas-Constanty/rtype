@@ -23,7 +23,7 @@ void Rtype::Game::Server::Room::Start(const uint16_t port, const size_t max, con
     //Singleton<SaltyEngine::Engine>::Instance().SetRenderer(renderer);
     unsigned int x = 960;
     unsigned int y = 540;
-    SaltyEngine::SFML::PhysicsHandler *ph = new SaltyEngine::SFML::PhysicsHandler(x, y, true);
+    SaltyEngine::SFML::PhysicsHandler *ph = new SaltyEngine::SFML::PhysicsHandler(x, y, false);
     SaltyEngine::Engine::Instance().SetPhysicsHandler(ph);
 
 //    SaltyEngine::Engine::Instance().SetFrameRate(30);
@@ -31,7 +31,7 @@ void Rtype::Game::Server::Room::Start(const uint16_t port, const size_t max, con
     SaltyEngine::SFML::Scene *scene = new SaltyEngine::SFML::Scene();
 
     // Push scene int SaltyEngine
-    Singleton<SaltyEngine::Engine>::Instance() << scene;
+    SaltyEngine::Engine::Instance() << scene;
 
     // Create player
     SaltyEngine::GameObject *serverGame = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate());
@@ -59,5 +59,5 @@ void Rtype::Game::Server::Room::Start(const uint16_t port, const size_t max, con
 void Rtype::Game::Server::Room::Run()
 {
     // Run the SaltyEngine with default Scene 0
-    Singleton<SaltyEngine::Engine>::Instance().Run();
+    SaltyEngine::Engine::Instance().Run();
 }

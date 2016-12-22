@@ -18,6 +18,9 @@ public:
     void Start();
     void FixedUpdate();
 
+private:
+    void SetQuitAction();
+
 public:
     // beam animation
     void VictoryScreen();

@@ -133,6 +133,7 @@ void GameManager::FixedUpdate() {
         }
     } else if (endOfGame && m_server && gameOver && !gameOver->IsOver() && IsSceneEmpty()) {
         gameOver->OverAction(GAMEOVER::VICTORY);
+        SaltyEngine::Engine::Instance().Stop();
     }
 }
 

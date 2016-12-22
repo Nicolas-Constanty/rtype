@@ -17,13 +17,21 @@ void EndScreen::Start() {
 }
 
 void EndScreen::VictoryScreen() {
+    gameObject->AddComponent<SaltyEngine::GUI::SFML::Label>("Victoire !", 100,
+                                                            SaltyEngine::SFML::AssetManager::Instance().GetFont("arial"),
+                                                            sf::Color::White);
+}
 
+void EndScreen::DefeatScreen() {
+    gameObject->AddComponent<SaltyEngine::GUI::SFML::Label>("Defaite !", 100,
+                                                            SaltyEngine::SFML::AssetManager::Instance().GetFont("arial"),
+                                                            sf::Color::White);
 }
 
 void EndScreen::FixedUpdate() {
 //    SaltyBehaviour::FixedUpdate();
 }
 
-void EndScreen::DefeatScreen() {
-
+void EndScreen::SetQuitAction() {
+//    InputKey::AddAction("Fire", new Input::Action(Input::KeyCode::Space, std::make_pair<unsigned int, int>(0, 1)));
 }

@@ -78,6 +78,8 @@ namespace SaltyEngine {
 
 	public:
         void TakeDamage(int amount) override;
+		void SetAction(bool);
+		bool IsActionMode() const;
 
     public:
 		clock::time_point start;
@@ -106,6 +108,7 @@ namespace SaltyEngine {
 		SaltyEngine::SFML::SpriteCollider2D	*collider2D;
 		float			timer;
 		int 			global_lives;
+		bool			action = true;
 	};
 }
 

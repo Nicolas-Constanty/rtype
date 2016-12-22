@@ -104,6 +104,8 @@ namespace SaltyEngine
 
 	void PlayerController::FixedUpdate()
 	{
+        if (!IsActionMode())
+            return ;
         if (!gameObject->GetActiveSelf())
         {
             if (isServerSide())
@@ -331,6 +333,14 @@ namespace SaltyEngine
             collider2D->SetEnable(false);
         gameObject->SetActive(true);
         timer = timeoutInvicible;
+    }
+
+    void PlayerController::SetAction(bool actionMode) {
+        this->action = actionMode;
+    }
+
+    bool PlayerController::IsActionMode() const {
+        return action;
     }
 
 }

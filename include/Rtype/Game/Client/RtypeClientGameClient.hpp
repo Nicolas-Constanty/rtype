@@ -8,6 +8,7 @@
 #include <Rtype/Game/Common/RtypeGameClient.hpp>
 #include "GameOver.hpp"
 #include "GameGUIHighscore.hpp"
+#include "EndScreen.hpp"
 //#include "GameManager.hpp"
 
 class GameManager;
@@ -53,6 +54,8 @@ namespace Rtype
                 GameManager *gameManager;
                 GameOver    *gameOver;
                 GameGUIHighscore *gameGUIHighscore;
+                EndScreen   *endScreen;
+                unsigned short objectIDPlayerController = 0;
             };
         }
     }

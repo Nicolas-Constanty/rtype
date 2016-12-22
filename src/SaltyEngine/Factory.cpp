@@ -12,6 +12,7 @@ namespace SaltyEngine {
     }
 
     Factory::~Factory() {
+        std::cout << "DELETE FACTORY " << this << std::endl;
     }
 
 	Object *Factory::Create()
