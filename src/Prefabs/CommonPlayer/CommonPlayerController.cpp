@@ -57,7 +57,7 @@ void CommonPlayerController::FixedUpdate()
 
 void CommonPlayerController::Die()
 {
-    if (!isAlive())
+    if (isServerSide() && !isAlive())
         return;
     gameObject->SetActive(false);
     status = DEAD;
@@ -89,8 +89,8 @@ bool CommonPlayerController::isAlive()
 void CommonPlayerController::Reborn()
 {
     status = INVINCIBLE;
-    gameObject->SetActive(true);
     timer = timeoutInvicible;
+    gameObject->SetActive(true);
 }
 
 SaltyEngine::Component *CommonPlayerController::CloneComponent(SaltyEngine::GameObject *const obj)
@@ -101,4 +101,9 @@ SaltyEngine::Component *CommonPlayerController::CloneComponent(SaltyEngine::Game
 bool CommonPlayerController::isDead()
 {
     return status == DEAD;
+}
+
+void CommonPlayerController::setInvincible()
+{
+    status = INVINCIBLE;
 }

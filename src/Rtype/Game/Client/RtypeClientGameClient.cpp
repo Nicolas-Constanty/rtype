@@ -299,9 +299,9 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetGAMEOVERPackage(GAMEOVERPa
         SaltyEngine::GameObject *obj = gameManager->gameObjectContainer[this->objectIDPlayerController];
 
         if (obj) {
-            SaltyEngine::PlayerController *playerController = obj->GetComponent<SaltyEngine::PlayerController>();
+            CommonPlayerController *playerController = obj->GetComponent<CommonPlayerController>();
             if (playerController)
-                playerController->SetAction(false);
+                playerController->setInvincible();
         }
     }
 }

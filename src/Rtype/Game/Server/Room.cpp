@@ -23,7 +23,7 @@ void Rtype::Game::Server::Room::Start(const uint16_t port, const size_t max, con
     //Singleton<SaltyEngine::Engine>::Instance().SetRenderer(renderer);
     unsigned int x = 960;
     unsigned int y = 540;
-    SaltyEngine::SFML::PhysicsHandler *ph = new SaltyEngine::SFML::PhysicsHandler(x, y, false);
+    SaltyEngine::SFML::PhysicsHandler *ph = new SaltyEngine::SFML::PhysicsHandler(x, y, true);
     SaltyEngine::Engine::Instance().SetPhysicsHandler(ph);
 
 //    SaltyEngine::Engine::Instance().SetFrameRate(30);

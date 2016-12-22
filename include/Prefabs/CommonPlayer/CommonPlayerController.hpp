@@ -40,6 +40,7 @@ public:
 public:
     bool isAlive();
     bool isDead();
+    void setInvincible();
 
 private:
     int global_lives;

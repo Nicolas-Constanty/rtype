@@ -199,7 +199,7 @@ namespace SaltyEngine
     void PlayerController::TakeDamage(int amount) {
         AGenericController::TakeDamage(amount);
 
-        if (m_health <= 0)
+        if (isServerSide() && m_health <= 0)
         {
             common->Die();
         }
@@ -259,5 +259,4 @@ namespace SaltyEngine
 //        timer = timeoutInvicible;
 //    }
 
-    void PlayerController::SetAction(bool actionMode) {
 }

@@ -3,6 +3,7 @@
 #include <Rtype/Game/Client/GameGUIBeam.hpp>
 #include <Rtype/Game/Client/GameGUIHighscore.hpp>
 #include <Rtype/Game/Client/EndScreen.hpp>
+#include <Common/Flags.hpp>
 #include "SaltyEngine/SFML.hpp"
 #include "SaltyEngine/SaltyEngine.hpp"
 #include "SaltyEngine/Object.hpp"
