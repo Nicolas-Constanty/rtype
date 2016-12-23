@@ -17,6 +17,8 @@ public:
     virtual SaltyEngine::Component *CloneComponent(SaltyEngine::GameObject* const obj) {
         return new MissileNeunoeilController(obj);
     }
+
+    void Start() override;
 };
 
 #endif //MISSILENEUNOEIL_CONTROLLER_HPP

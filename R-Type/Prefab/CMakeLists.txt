@@ -56,8 +56,8 @@ target_link_libraries(missile_medusa ${PREFAB_LIBRARIES})
 
 # MISSILE NEUNOEIL
 file(GLOB MISSILE_NEUNOEIL_SOURCE_FILE
-		"src/Prefabs/MissileNeunoeil/*.cpp" "src/Prefabs/Missile/*.cpp"
-		"include/Prefabs/Missile/*.hpp" "include/Prefabs/MissileNeunoeil/*.hpp")
+		"src/Prefabs/Missile/MissileNeunoeil/*.cpp" "src/Prefabs/Missile/*.cpp"
+		"include/Prefabs/Missile/*.hpp" "include/Prefabs/Missile/MissileNeunoeil/*.hpp")
 add_library(missile_neunoeil SHARED ${MISSILE_NEUNOEIL_SOURCE_FILE})
 target_link_libraries(missile_neunoeil ${PREFAB_LIBRARIES})
 

@@ -37,8 +37,8 @@ void MonsterNeunoeilController::Start()
         go->transform.SetRotation(90 * i);
         go->transform.SetPosition(go->transform.GetPosition() + go->transform.right() * 110);
         go->transform.SetParent(&this->gameObject->transform);
-        SaltyEngine::SFML::Animation *animation = go->AddComponent<SaltyEngine::SFML::Animation>(true, SaltyEngine::AnimationConstants::WrapMode::LOOP);
-        animation->AddClip(SaltyEngine::SFML::AssetManager::Instance().GetAnimation("Laser/loading"), "Loading");
+//        SaltyEngine::SFML::Animation *animation = go->AddComponent<SaltyEngine::SFML::Animation>(true, SaltyEngine::AnimationConstants::WrapMode::LOOP);
+//        animation->AddClip(SaltyEngine::SFML::AssetManager::Instance().GetAnimation("Laser/loading"), "Loading");
         m_canons[i] = go;
     }
 
@@ -106,7 +106,7 @@ void MonsterNeunoeilController::Shot() {
    {
        if (m_eyeState == E_MOVING1)
        {
-           SaltyEngine::GameObject *missile = (SaltyEngine::GameObject *) SaltyEngine::Instantiate("EnemyBullet",
+           SaltyEngine::GameObject *missile = (SaltyEngine::GameObject *) SaltyEngine::Instantiate("MissileNeunoeil",
                                                                                                    m_canons[2]->transform.GetPosition(),
                                                                                                    m_canons[2]->transform.GetRotation());
            getManager()->gameObjectContainer.Add(GameObjectID::NewID(), missile);
@@ -117,7 +117,7 @@ void MonsterNeunoeilController::Shot() {
        {
            for (int i = 0; i < 4; ++i)
            {
-               SaltyEngine::GameObject *missile = (SaltyEngine::GameObject *) SaltyEngine::Instantiate("EnemyBullet",
+               SaltyEngine::GameObject *missile = (SaltyEngine::GameObject *) SaltyEngine::Instantiate("MissileNeunoeil",
                                                                                                        m_canons[i]->transform.GetPosition(),
                                                                                                        m_canons[i]->transform.GetRotation());
                getManager()->gameObjectContainer.Add(GameObjectID::NewID(), missile);

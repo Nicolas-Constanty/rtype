@@ -12,6 +12,7 @@
     "dependencies": [
     	"Missile",
         "EnemyBullet",
-        "ExplosionBasic"
+        "ExplosionBasic",
+        "MissileNeunoeil"
     ]
 }
