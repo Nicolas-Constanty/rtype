@@ -244,6 +244,8 @@ bool PodController::Attach(PodHandler *podController, bool front)
     if (!attachedPlayer && !podController->HasPod())
     {
         speed = 0;
+        if (shooter)
+            shooter->UnlinkPod();
         shooter = NULL;
         caller = NULL;
         attachedPlayer = podController;

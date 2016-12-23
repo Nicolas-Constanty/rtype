@@ -5,6 +5,7 @@
 #include <SaltyEngine/GameObject.hpp>
 #include <Prefabs/RtypePrefab.hpp>
 #include <Prefabs/PodHandler/PodHandler.hpp>
+#include <Prefabs/Missile/Laser/LaserController.hpp>
 
 PodHandler::PodHandler(SaltyEngine::GameObject *object) :
         RtypePrefab("PodHandler", object),
@@ -32,6 +33,7 @@ bool PodHandler::Attach(PodController *toattach)
         std::cout << "I alreay have a pod" << std::endl;
         return false;
     }
+    lastPod = nullptr;
     pod = toattach;
     return true;
 }
@@ -46,6 +48,7 @@ bool PodHandler::Launch()
         if (res)
         {
             std::cout << "Resetting pod" << std::endl;
+            lastPod = pod;
             pod = NULL;
         }
         return res;
@@ -94,4 +97,26 @@ PodController *PodHandler::getPod() const
 SaltyEngine::Component *PodHandler::CloneComponent(SaltyEngine::GameObject *const obj)
 {
     return new PodHandler(obj);
+}
+
+bool PodHandler::Shot()
+{
+    if (lastPod)
+    {
+        if (isServerSide())
+        {
+            SendPackage<SHOTPackageGame>(
+                    getManager()->gameObjectContainer.GetServerObjectID(lastPod->gameObject), 1, 0,
+                    lastPod->gameObject->transform.GetPosition().x, lastPod->gameObject->transform.GetPosition().y
+            );
+        }
+        SaltyEngine::Instantiate("Laser", lastPod->gameObject->transform.GetPosition());
+    }
+    return false;
+}
+
+void PodHandler::UnlinkPod()
+{
+    lastPod = nullptr;
+    pod = nullptr;
 }

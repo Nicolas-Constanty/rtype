@@ -26,7 +26,6 @@ public:
 public:
     void Power(int damage);
 
-
 private:
     float m_vel = 13; // 50
     int m_damage = 1;

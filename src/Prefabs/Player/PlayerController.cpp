@@ -191,6 +191,7 @@ namespace SaltyEngine
         } else if (tick >= 250) {
             power = 2;
         }
+        handler->Shot();
         return (power);
     }
 
@@ -212,7 +213,7 @@ namespace SaltyEngine
     }
 
     void PlayerController::Shot() {
-        // TODO
+
     }
 
     void PlayerController::Beam() {

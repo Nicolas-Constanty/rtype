@@ -26,6 +26,8 @@ public:
     bool Call();
     bool Call(PodController *tocall);
     bool HasPod() const;
+    bool Shot();
+    void UnlinkPod();
 
 public:
     PodController   *getPod() const;
@@ -35,6 +37,7 @@ public:
 
 private:
     PodController	*pod;
+    PodController   *lastPod;
 };
 
 #endif //RTYPE_PODHANDLER_HPP

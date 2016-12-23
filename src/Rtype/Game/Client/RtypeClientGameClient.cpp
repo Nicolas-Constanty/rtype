@@ -267,6 +267,7 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetENEMYSHOTPackage(ENEMYSHOT
     SaltyEngine::GameObject *obj = gameManager->gameObjectContainer[pack.objectID];
     if (obj) {
         AGenericController *aGenericController = obj->GetComponent<AGenericController>();
+
         if (aGenericController) {
             aGenericController->Shot();
         }
