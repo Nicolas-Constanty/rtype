@@ -34,8 +34,8 @@ public:
 	void OnCollisionEnter(SaltyEngine::ICollider *collider) override;
 
 private:
-	float m_minShootInterval = 2;
-	float m_maxShootInterval = 3;
+	float m_minShootInterval = 1;
+	float m_maxShootInterval = 2;
 	float m_currDelay = 0;
 	bool m_isDead = false;
 	float m_vel = 1;
