@@ -1,6 +1,6 @@
 #include <Rtype/Game/Common/GameObjectID.hpp>
 #include <Rtype/Game/Common/RtypeNetworkFactory.hpp>
-#include "Prefabs/Missile/MissileController.hpp"
+#include <Prefabs/Player/PlayerController.hpp>
 #include "Prefabs/MonsterNeunoeil/MonsterNeunoeilController.hpp"
 
 MonsterNeunoeilController::MonsterNeunoeilController(SaltyEngine::GameObject *obj) :
@@ -73,38 +73,38 @@ void MonsterNeunoeilController::FixedUpdate()
 }
 
 void MonsterNeunoeilController::Move() {
-    if (m_eyeState == E_STATIC)
+    switch (m_state)
     {
-        this->gameObject->transform.Rotate(-this->gameObject->transform.GetRotation());
-        this->gameObject->transform.Translate(SaltyEngine::Vector2::up() * m_vel * m_dir);
-        if (this->gameObject->transform.GetPosition().y <= 200)
-            m_dir = 1;
-        else if (this->gameObject->transform.GetPosition().y >= 300)
-            m_dir = -1;
-    }
-    else if (m_eyeState == E_MOVING1)
-    {
-        this->gameObject->transform.Translate(SaltyEngine::Vector2::up() * m_vel * m_dir);
-        if (this->gameObject->transform.GetPosition().y <= 100)
-            m_dir = 1;
-        else if (this->gameObject->transform.GetPosition().y >= m_verticalDistance)
-            m_dir = -1;
-    }
-    else if (m_eyeState == E_MOVING2)
-    {
-        this->gameObject->transform.Rotate(0.7f);
-        this->gameObject->transform.Translate(-SaltyEngine::Vector2::left() * m_vel * m_dir * 2);
-        if (this->gameObject->transform.GetPosition().x <= 100)
-            m_dir = 1;
-        else if (this->gameObject->transform.GetPosition().x >= m_horizontalDistance)
-            m_dir = -1;
+        case E_STATIC:
+            this->gameObject->transform.Rotate(-this->gameObject->transform.GetRotation());
+            this->gameObject->transform.Translate(SaltyEngine::Vector2::up() * m_vel * m_dir);
+            if (this->gameObject->transform.GetPosition().y <= 200)
+                m_dir = 1;
+            else if (this->gameObject->transform.GetPosition().y >= 300)
+                m_dir = -1;
+            break;
+        case E_MOVING1:
+            this->gameObject->transform.Translate(SaltyEngine::Vector2::up() * m_vel * m_dir);
+            if (this->gameObject->transform.GetPosition().y <= 100)
+                m_dir = 1;
+            else if (this->gameObject->transform.GetPosition().y >= m_verticalDistance)
+                m_dir = -1;
+            break;
+        case E_MOVING2:
+            this->gameObject->transform.Rotate(1.2f);
+            this->gameObject->transform.Translate(-SaltyEngine::Vector2::left() * m_vel * m_dir * 2);
+            if (this->gameObject->transform.GetPosition().x <= 100)
+                m_dir = 1;
+            else if (this->gameObject->transform.GetPosition().x >= m_horizontalDistance)
+                m_dir = -1;
+            break;
     }
 }
 
 void MonsterNeunoeilController::Shot() {
    if (isServerSide())
    {
-       if (m_eyeState == E_MOVING1)
+       if (m_state == E_MOVING1)
        {
            SaltyEngine::GameObject *missile = (SaltyEngine::GameObject *) SaltyEngine::Instantiate("MissileNeunoeil",
                                                                                                    m_canons[2]->transform.GetPosition(),
@@ -113,7 +113,7 @@ void MonsterNeunoeilController::Shot() {
 
            BroadCastReliable<ENEMYSHOTPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(gameObject));
        }
-       else if (m_eyeState == E_MOVING2)
+       else if (m_state == E_MOVING2)
        {
            for (int i = 0; i < 4; ++i)
            {
@@ -174,29 +174,27 @@ void MonsterNeunoeilController::OnCollisionEnter(SaltyEngine::ICollider *collide
         {
             SaltyEngine::Instantiate("ExplosionBasic", col->gameObject->transform.GetPosition());
             Destroy(col->gameObject);
-//            if (isServerSide())
-//            {
-//                SendPackage<CREATEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>,
-//                                               gameObject->transform.position.x,
-//                                               gameObject->transform.position.y,
-//                                               RtypeNetworkFactory::GetIDFromName("ExplosionBasic"),
-//                                               getManager()->gameObjectContainer.GetServerObjectID(gameObject));
-//            }
+        }
+        if (isServerSide() && col->gameObject->CompareTag(SaltyEngine::Layer::Tag::Player))
+        {
+            SaltyEngine::PlayerController *controller = col->gameObject->GetComponent<SaltyEngine::PlayerController>();
+            if (controller)
+            {
+                controller->TakeDamage(1);
+            }
         }
     }
 }
 
 void MonsterNeunoeilController::GoToNextState()
 {
-    int curr = (int)m_eyeState;
-    curr += 1;
-    curr %= (int)E_MOVING2 + 1;
-    m_eyeState = (EYE_STATE)curr;
+    m_state++;
+
     if (!isServerSide())
     {
-        if (m_eyeState == E_STATIC)
+        if (m_state == E_STATIC)
             m_anim->Play("EyeClose");
-        if (m_eyeState == E_MOVING1 || m_eyeState == E_MOVING2)
+        if (m_state == E_MOVING1 || m_state == E_MOVING2)
             m_anim->Play("EyeOpen");
     }
 }

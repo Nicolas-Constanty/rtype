@@ -3,6 +3,8 @@
 #include "SaltyEngine/GameObject.hpp"
 #include "SaltyEngine/SFML/Animation.hpp"
 #include "Prefabs/GenericController.hpp"
+#include "Common/CustomEnum.hpp"
+
 
 class MonsterNeunoeilController : public AGenericController
 {
@@ -47,9 +49,9 @@ private:
     SaltyEngine::GameObject *m_canons[4];
 
 private:
-    enum EYE_STATE {E_STATIC, E_MOVING1, E_MOVING2};
+    enum EYE_STATE {E_STATIC, E_MOVING1, E_MOVING2, E_FIRST = E_STATIC, E_LAST = E_MOVING2};
     int m_dir = 1;
-    EYE_STATE m_eyeState = E_STATIC;
+    Enum<EYE_STATE> m_state;
 
 protected:
     void GoToNextState();
