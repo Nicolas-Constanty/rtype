@@ -18,6 +18,7 @@ PodController::PodController(SaltyEngine::GameObject *const object) :
         RtypePrefab("PodController", object),
         attachedPlayer(NULL),
         caller(NULL),
+        shooter(NULL),
         isAtFront(true),
         anim(NULL),
         level(0),
@@ -31,6 +32,7 @@ PodController::PodController(const std::string &name, SaltyEngine::GameObject *c
         RtypePrefab(name, object),
         attachedPlayer(NULL),
         caller(NULL),
+        shooter(NULL),
         isAtFront(true),
         anim(NULL),
         level(0),
@@ -86,8 +88,9 @@ void PodController::Start()
     max = SaltyEngine::Vector2(
             winsize.x / gameObject->transform.GetLocalScale().x - min.x,
             winsize.y / gameObject->transform.GetLocalScale().y - min.y);
-    speed = 10; //todo set to 10
+    speed = 10;
     anim = gameObject->GetComponent<SaltyEngine::SFML::Animation>();
+    getManager()->addPod(gameObject);
 }
 
 void PodController::FixedUpdate()
@@ -108,6 +111,15 @@ void PodController::FixedUpdate()
         {
             speed = 0;
         }
+    }
+    else if (caller)
+    {
+        SaltyEngine::Vector2    direction = caller->gameObject->transform.GetPosition() - gameObject->transform.GetPosition();
+        double l = 1.0 / sqrt(direction.x * direction.x + direction.y * direction.y);
+
+        direction.x *= l;
+        direction.y *= l;
+        gameObject->transform.SetPosition(gameObject->transform.GetPosition() + direction);
     }
 //    else if (!isAttached())
 //    {
@@ -191,6 +203,7 @@ bool PodController::Launch()
         BroadCastReliable<LAUNCHPackageGame>(pod, player, gameObject->transform.GetPosition().x, gameObject->transform.GetPosition().y);
     }
     gameObject->transform.SetParent(NULL);
+    shooter = attachedPlayer;
     attachedPlayer = NULL;
     speed = 10;
     return true;
@@ -214,7 +227,7 @@ bool PodController::Call(PodHandler *player)
             std::cerr << "Pod call: " << err.what() << " (while getting pod id)" << std::endl;
             return false;
         }
-        BroadCastReliable<CALLPackageGame>(podid, getManager()->GetPlayerID(player->gameObject));
+        BroadCastReliable<CALLPackageGame>(podid, getManager()->gameObjectContainer.GetServerObjectID(player->gameObject));
     }
     caller = player;
     return true;
@@ -227,9 +240,12 @@ bool PodController::Attach(PodHandler *podController)
 
 bool PodController::Attach(PodHandler *podController, bool front)
 {
+    std::cout << std::boolalpha << "att player: " << attachedPlayer << ", has pod: " << podController->HasPod() << std::endl;
     if (!attachedPlayer && !podController->HasPod())
     {
         speed = 0;
+        shooter = NULL;
+        caller = NULL;
         attachedPlayer = podController;
         gameObject->transform.SetParent(&attachedPlayer->gameObject->transform);
         if (front)

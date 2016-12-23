@@ -164,6 +164,7 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetDIEPackage(DIEPackageGame 
 void Rtype::Game::Client::RtypeClientGameClient::onGetTAKEPackage(TAKEPackageGame const &pack)
 {
     OnDiscoveringPackage(pack);
+    std::cout << "Receiving take" << std::endl;
     //todo resolve take in the game
     SaltyEngine::GameObject *object = gameManager->gameObjectContainer[pack.objectID];
     SaltyEngine::GameObject *play = gameManager->gameObjectContainer[pack.playerObjectID];
@@ -174,8 +175,9 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetTAKEPackage(TAKEPackageGam
         PodHandler      *podHandler = play->GetComponent<PodHandler>();
 
         std::cout << "Pod controller: " << podController << ", Pod handler: " << podHandler << std::endl;
-        if (podHandler && podController && !podController->isAttached())
+        if (podHandler && podController)
         {
+            std::cout << "Attach at: " << static_cast<bool>(pack.front) << std::endl;
             podController->Attach(podHandler, static_cast<bool>(pack.front));
         }
     }
@@ -185,17 +187,18 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetCALLPackage(CALLPackageGam
 {
     OnDiscoveringPackage(pack);
     SaltyEngine::GameObject *object = gameManager->gameObjectContainer[pack.objectID];
+    SaltyEngine::GameObject *player = gameManager->gameObjectContainer[pack.playerObjectID];
 
     if (object)
     {
         PodController   *podController = object->GetComponent<PodController>();
+        PodHandler      *handler = player->GetComponent<PodHandler>();
 
-        if (podController && podController->isAttached())
+        if (podController && handler)
         {
-            podController->getAttachedPlayer()->Call();
+            handler->Call(podController);
         }
     }
-    //todo resolve drop package
 }
 
 void Rtype::Game::Client::RtypeClientGameClient::onGetMOVEPackage(MOVEPackageGame const &pack)

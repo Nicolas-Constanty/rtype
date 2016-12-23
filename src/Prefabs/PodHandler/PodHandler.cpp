@@ -21,11 +21,12 @@ PodHandler::~PodHandler()
 void PodHandler::Start()
 {
     LoadManager();
-    pod = gameObject->GetComponent<PodController>();
+//    pod = gameObject->GetComponent<PodController>();
 }
 
 bool PodHandler::Attach(PodController *toattach)
 {
+    std::cout << "Call attach: " << pod << std::endl;
     if (pod)
     {
         std::cout << "I alreay have a pod" << std::endl;
@@ -54,19 +55,21 @@ bool PodHandler::Launch()
 
 bool PodHandler::Call()
 {
-    if (!pod)
+    return Call(FindFirstAvailablePod());
+}
+
+bool PodHandler::Call(PodController *tocall)
+{
+    if (!pod && tocall)
     {
-        pod = FindFirstAvailablePod();
-        if (pod)
-            return pod->Call(this);
+        return tocall->Call(this);
     }
     return false;
 }
 
 bool PodHandler::HasPod() const
 {
-    std::cout << "Pod: " << pod << std::endl;
-    return pod != NULL;
+    return pod != nullptr;
 }
 
 PodController *PodHandler::FindFirstAvailablePod()

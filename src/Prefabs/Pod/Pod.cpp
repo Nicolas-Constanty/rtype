@@ -4,6 +4,7 @@
 
 #include <Prefabs/Pod/PodController.hpp>
 #include <SaltyEngine/SFML/SpriteRenderer.hpp>
+#include <Prefabs/PositionReplicator/PositionReplicator.hpp>
 #include "Prefabs/Pod/Pod.hpp"
 
 Pod::Pod() :
@@ -13,6 +14,7 @@ Pod::Pod() :
     AddComponent < SaltyEngine::SFML::Animation>(true, SaltyEngine::AnimationConstants::WrapMode::LOOP);
     GetComponent<SaltyEngine::SFML::Animation>()->AddClip(SaltyEngine::SFML::AssetManager::Instance().GetAnimation("Nacelle/Nacelle0"), "Nacelle");
     AddComponent<SaltyEngine::SFML::SpriteCollider2D>();
+//    AddComponent<PositionReplicator>();
 //    AddComponent<SaltyEngine::AAnimationClip>();
 }
 

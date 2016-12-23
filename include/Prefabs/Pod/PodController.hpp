@@ -41,6 +41,7 @@ public:
 private:
     PodHandler *attachedPlayer;
     PodHandler *caller;
+    PodHandler *shooter;
     bool isAtFront;
     SaltyEngine::SFML::Animation *anim;
     size_t level;

@@ -160,9 +160,11 @@ namespace SaltyEngine
                 {
                     PodController   *tocall = handler->FindFirstAvailablePod();
 
-//                    std::cout << "\e[31mCalling Pod\e[0m" << std::endl;
+                    std::cout << "\e[31mCalling Pod\e[0m: " << tocall << std::endl;
                     if (tocall)
-                        SendPackage<CALLPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(tocall->gameObject));
+                        SendPackage<CALLPackageGame>(
+                                getManager()->gameObjectContainer.GetServerObjectID(tocall->gameObject),
+                                getManager()->gameObjectContainer.GetServerObjectID(gameObject));
                 }
             }
         }

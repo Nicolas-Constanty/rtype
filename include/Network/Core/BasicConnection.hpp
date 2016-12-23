@@ -21,11 +21,6 @@ namespace Network
          */
         class BasicConnection : public IConnection
         {
-        private:
-            static size_t       nbPackets;
-            static Core::Timer  lastRefresh;
-            static int          stats[19];
-
         public:
             BasicConnection(NativeSocketIOOperationDispatcher &dispatcher);
             virtual ~BasicConnection();
@@ -54,20 +49,7 @@ namespace Network
             template <typename T>
             void SendData(T const &towr)
             {
-                ++nbPackets;
-                if (lastRefresh.timeout(std::chrono::milliseconds(1000)))
-                {
-                    std::cout << "Envoie: " << nbPackets << " packet/s" << std::endl;
-                    for (int i = 0; i < 19; ++i)
-                    {
-                        std::cout << "Pack" << i << ": " << stats[i] << std::endl;
-                        stats[i] = 0;
-                    }
-                    nbPackets = 0;
-                    lastRefresh.refresh();
-                }
                 toWrite.emplace(towr);
-                ++stats[toWrite.back().buff<PackageGameHeader>()->purpose - 1];
                 WantSend();
             }
 

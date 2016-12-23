@@ -4,10 +4,6 @@
 
 #include <Network/Core/BasicConnection.hpp>
 
-size_t       Network::Core::BasicConnection::nbPackets;
-Network::Core::Timer  Network::Core::BasicConnection::lastRefresh;
-int          Network::Core::BasicConnection::stats[19];
-
 /**
  * @brief Basic constructor that initialize the internal dispatcher reference
  * @param dispatcher The reference on the dispatcher to work with

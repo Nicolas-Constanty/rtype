@@ -24,6 +24,7 @@ public:
     bool Attach(PodController *toattach);
     bool Launch();
     bool Call();
+    bool Call(PodController *tocall);
     bool HasPod() const;
 
 public:

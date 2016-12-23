@@ -234,17 +234,19 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetTAKEPackage(TAKEPackageGam
 void Rtype::Game::Server::RtypeServerGameClient::onGetCALLPackage(CALLPackageGame const &pack)
 {
     OnDiscoveringPackage(pack);
-    if (gameManager->gameObjectContainer[pack.playerObjectID] == gameManager->GetPlayer(playerID))
+    SaltyEngine::GameObject *player = gameManager->gameObjectContainer[pack.playerObjectID];
+    if (player && player == gameManager->GetPlayer(playerID))
     {
         SaltyEngine::GameObject *object = gameManager->gameObjectContainer[pack.objectID];
+        PodHandler  *handler = player->GetComponent<PodHandler>();
 
-        if (object)
+        if (object && handler)
         {
             PodController   *podController = object->GetComponent<PodController>();
 
-            if (podController && podController->isAttachedTo(gameManager->GetPlayer(playerID)))
+            if (podController && !podController->isAttached())
             {
-                podController->Call(podController->getAttachedPlayer());
+                podController->Call(handler);
             }
         }
     }
@@ -279,33 +281,20 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetMOVEPackage(MOVEPackageGam
 void Rtype::Game::Server::RtypeServerGameClient::onGetLAUNCHPackage(LAUNCHPackageGame const &pack)
 {
     OnDiscoveringPackage(pack);
-
-    std::cout << "Receiving launch: " << pack << std::endl;
     if (gameManager->gameObjectContainer[pack.playerObjectID] == gameManager->GetPlayer(playerID))
     {
         SaltyEngine::GameObject *object = gameManager->gameObjectContainer[pack.objectID];
         PodController   *controller;
 
-        std::cout << "Right player: obj: " << object << std::endl;
         if (object)
         {
             controller = object->GetComponent<PodController>();
-            std::cout << "controller:  " << controller << std::endl;
             if (controller && controller->isAttachedTo(gameManager->GetPlayer(playerID)))
             {
-                std::cout << "Attached" << std::endl;
                 controller->getAttachedPlayer()->Launch();
             }
         }
     }
-//    todo if (okay on gameside)
-//    {
-//        BroadcastReliable(*server1->create<LAUNCHPackageGame>(pack.objectID));
-//    }
-//    else
-//    {
-//        SendReliable(*server1->create<FAILUREPackageGame>(pack.purpose, pack.sequenceID));
-//    }
 }
 
 void Rtype::Game::Server::RtypeServerGameClient::onGetREBORNPackage(REBORNPackageGame const &pack)
