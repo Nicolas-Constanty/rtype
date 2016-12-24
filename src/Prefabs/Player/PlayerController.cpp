@@ -89,8 +89,6 @@ namespace SaltyEngine
                         renderer->GetRenderWindow()->getSize().y / gameObject->transform.GetLocalScale().y - m_min.y
                 );
                 std::cout << m_max << std::endl;
-                sprr->SetColor(SaltyEngine::Color(1, 0, 0));
-
             }
         }
         common = gameObject->GetComponent<CommonPlayerController>();

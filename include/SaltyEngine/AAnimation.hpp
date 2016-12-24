@@ -31,7 +31,7 @@ namespace SaltyEngine
 		 * @brief Animation functions
 		 */
 	public:
-        bool IsPlaying() const;
+		virtual bool IsPlaying(std::string const &name) const = 0;
 
 		virtual void Play() = 0;
 

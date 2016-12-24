@@ -24,9 +24,12 @@ void MonsterNeunoeilController::Start()
     if (!isServerSide())
     {
         m_anim = gameObject->GetComponent<SaltyEngine::SFML::Animation>();
+        m_sprr = this->gameObject->GetComponent<SaltyEngine::SFML::SpriteRenderer>();
 
         m_anim->GetClip("EyeClose")->AddEvent(std::bind(&MonsterNeunoeilController::SetInvincibility, this, true));
         m_anim->GetClip("EyeOpen")->AddEvent(std::bind(&MonsterNeunoeilController::SetInvincibility, this, false));
+        m_anim->GetClip("EyeBlink")->AddEvent([this](){ m_sprr->SetColor(SaltyEngine::Color(1, 0, 0)); }, 0);
+        m_anim->GetClip("EyeBlink")->AddEvent([this](){ m_sprr->SetColor(SaltyEngine::Color(1, 1, 1)); }, 1);
         m_anim->Play("EyeClose");
     }
 
@@ -164,16 +167,23 @@ void MonsterNeunoeilController::TakeDamage(int amount)
 void MonsterNeunoeilController::SetInvincibility(bool invincible)
 {
     m_isInvincible = invincible;
+    m_sprr->SetColor(SaltyEngine::Color(1, 1, 1));
 }
 
 void MonsterNeunoeilController::OnCollisionEnter(SaltyEngine::ICollider *collider) {
     SaltyEngine::SFML::SpriteCollider2D *col = dynamic_cast<SaltyEngine::SFML::SpriteCollider2D*>(collider);
     if (col)
     {
-        if (m_isInvincible && col->gameObject->CompareTag(SaltyEngine::Layer::Tag::BulletPlayer))
+        if (!isServerSide() && col->gameObject->CompareTag(SaltyEngine::Layer::Tag::BulletPlayer))
         {
-            SaltyEngine::Instantiate("ExplosionBasic", col->gameObject->transform.GetPosition());
-            Destroy(col->gameObject);
+            if (m_isInvincible) {
+                SaltyEngine::Instantiate("ExplosionBasic", col->gameObject->transform.GetPosition());
+                Destroy(col->gameObject);
+            }
+            else {
+                if (!m_anim->IsPlaying("EyeBlink"))
+                    m_anim->Play("EyeBlink");
+            }
         }
         if (isServerSide() && col->gameObject->CompareTag(SaltyEngine::Layer::Tag::Player))
         {
