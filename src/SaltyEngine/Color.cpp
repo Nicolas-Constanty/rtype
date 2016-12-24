@@ -49,3 +49,7 @@ SaltyEngine::Color &SaltyEngine::Color::operator*(float val) {
 SaltyEngine::Color SaltyEngine::Color::White(void) {
     return SaltyEngine::Color(1, 1, 1, 1);
 }
+
+SaltyEngine::Color &SaltyEngine::Color::operator*=(float val) {
+    return *this * val;
+}

@@ -24,6 +24,7 @@ namespace SaltyEngine
         Color const& GetColor() const;
 
         Color &operator*(float val);
+        Color &operator*=(float val);
 
         static Color White(void);
 
