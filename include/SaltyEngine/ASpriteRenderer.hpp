@@ -7,6 +7,7 @@
 #include "SaltyEngine/Sprite.hpp"
 #include "SaltyEngine/Config.hpp"
 #include "SaltyEngine/IWindow.hpp"
+#include "SaltyEngine/Color.hpp"
 
 namespace SaltyEngine
 {
@@ -47,11 +48,14 @@ namespace SaltyEngine
 		virtual int GetLayer() const { return (m_layer); }
 		virtual void SetSprite(Sprite<T> * const sprite) { m_sprite = sprite; }
 		virtual void SetLayout(Layout layout) { m_layer = layout; }
+        virtual void SetColor(Color color) { m_color = color; }
+        virtual Color const& GetColor(void) { return m_color; }
 
 	protected:
 
 		Layout			m_layer;
 		IWindow			*m_window;
+		Color			m_color;
 
 	public:
 		Sprite<T>		*m_sprite;

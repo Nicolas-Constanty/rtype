@@ -50,8 +50,13 @@ namespace SaltyEngine
 //						(*it).gm->transform.position.x * (*it).gm->transform.localScale.x - ((*it).rect->width * (*it).gm->transform.localScale.x / 2),
 //						(*it).gm->transform.position.y * (*it).gm->transform.localScale.y - ((*it).rect->height * (*it).gm->transform.localScale.y / 2)
 //				 );
-				if ((*it).gm->GetActiveSelf())
+				if ((*it).gm->GetActiveSelf()) {
+                    // TODO : instead of getting component, just save a reference to the renderer in Drawable
+                    Color color = (*it).gm->GetComponent<SFML::SpriteRenderer>()->GetColor();
+                    color = color * 255;
+                    (*(*it).spr)->setColor(sf::Color(color.r(), color.g(), color.b(), color.a()));
 					(*it).wind->draw((*(*(*it).spr)));
+				}
 			}
 		}
 

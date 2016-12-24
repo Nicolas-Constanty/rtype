@@ -66,7 +66,6 @@ void LaserController::OnCollisionEnter(SaltyEngine::ICollider *col)
 
 void LaserController::Power(int damage) {
     std::string anim;
-    std::cout << "lolilol" << std::endl;
 
     //this switch case is here because we can't use a static global map
     //      --> bug observed program tries to double free this global because

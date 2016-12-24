@@ -89,6 +89,8 @@ namespace SaltyEngine
                         renderer->GetRenderWindow()->getSize().y / gameObject->transform.GetLocalScale().y - m_min.y
                 );
                 std::cout << m_max << std::endl;
+                sprr->SetColor(SaltyEngine::Color(1, 0, 0));
+
             }
         }
         common = gameObject->GetComponent<CommonPlayerController>();
@@ -234,6 +236,7 @@ namespace SaltyEngine
 
         anim = "SpaceShip/SpaceShip" + std::to_string(color) + "-1";
         gameObject->GetComponent<::SaltyEngine::SFML::SpriteRenderer>()->SetSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite(anim));
+        gameObject->GetComponent<::SaltyEngine::SFML::SpriteRenderer>()->SetColor(SaltyEngine::Color(1, 0, 0));
     }
 
     void PlayerController::SetHighScore(int highScore) {
