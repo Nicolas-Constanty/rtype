@@ -18,11 +18,11 @@ void AEnemyBulletController::Start()
 {
     if (isServerSide())
     {
-        std::list<SaltyEngine::GameObject*> players = SaltyEngine::GameObject::FindGameObjectsWithTag(SaltyEngine::Layer::Tag::Player);
+        std::vector<SaltyEngine::GameObject*> players = SaltyEngine::GameObject::FindGameObjectsWithTag(SaltyEngine::Layer::Tag::Player);
 
         if (players.size() > 0)
         {
-            this->SetTarget(*std::next(players.begin(), rand() % players.size()));
+            this->SetTarget(players[rand() % players.size()]);
         }
     }
 

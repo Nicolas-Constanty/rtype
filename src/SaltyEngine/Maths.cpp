@@ -39,3 +39,22 @@ std::vector<float> SaltyEngine::Mathf::m_sin = {
 std::vector<float> SaltyEngine::Mathf::m_cos = {
 #include "SaltyEngine/SFML/cosinus.cos"
 };
+
+float SaltyEngine::Mathf::LerpAngle(float min, float max, float t) {
+    t = Clamp01(t);
+    if (min > max)
+        return min - (min - max) * t;
+    return min + (max - min) * t;
+}
+
+float SaltyEngine::Mathf::Clamp(float min, float max, float current) {
+    return std::min(std::max(current, min), max);
+}
+
+float SaltyEngine::Mathf::Clamp01(float value) {
+    return Clamp(0, 1, value);
+}
+
+float SaltyEngine::Mathf::Sign(float value) {
+    return value >= 0 ? 1 : -1;
+}

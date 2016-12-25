@@ -19,6 +19,10 @@ namespace SaltyEngine
     public:
         static float Cos(float angle);
         static float Sin(float angle);
+        static float LerpAngle(float min, float max, float t);
+        static float Clamp(float min, float max, float current);
+        static float Clamp01(float value);
+        static float Sign(float value);
 
     public:
         constexpr static const float rad2deg = (180 / M_PI);

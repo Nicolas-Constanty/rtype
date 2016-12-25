@@ -57,7 +57,7 @@ namespace SaltyEngine
 		return std::unique_ptr<Object>(obj);
 	}
 
-	std::list<GameObject *> GameObject::FindGameObjectsWithTag(Layer::Tag tag) {
+	std::vector<GameObject *> GameObject::FindGameObjectsWithTag(Layer::Tag tag) {
 		return Factory::Instance().FindAllByTag(tag);
 	}
 

@@ -21,6 +21,12 @@ public:
     void Start() override;
 
     void OnCollisionEnter(SaltyEngine::ICollider *collider) override;
+
+    void FixedUpdate() override;
+
+private:
+    SaltyEngine::GameObject *m_target = nullptr;
+    float m_rotationVel = 100;
 };
 
 #endif //MISSILEHOMING_CONTROLLER_HPP

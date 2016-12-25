@@ -106,9 +106,9 @@ SaltyEngine::GameObject *SaltyEngine::Factory::FindByTag(Layer::Tag tag)
     return dynamic_cast<GameObject*>((*it).get());
 }
 
-std::list<SaltyEngine::GameObject*> SaltyEngine::Factory::FindAllByTag(Layer::Tag tag)
+std::vector<SaltyEngine::GameObject *> SaltyEngine::Factory::FindAllByTag(Layer::Tag tag)
 {
-    std::list<GameObject *> objs;
+    std::vector<GameObject *> objs;
     GameObject *go = nullptr;
 
     for (std::list<std::unique_ptr<Object>>::const_iterator it = m_objects.begin(); it != m_objects.end(); ++it)
