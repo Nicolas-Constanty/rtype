@@ -8,7 +8,7 @@
 #include "Prefabs/Missile/AEnemyBulletController.hpp"
 #include "Prefabs/GenericController.hpp"
 
-class MissileHomingController: public AEnemyBulletController {
+class MissileHomingController: public ABulletController {
 public:
     MissileHomingController(SaltyEngine::GameObject *go);
     virtual ~MissileHomingController();
@@ -19,6 +19,8 @@ public:
     }
 
     void Start() override;
+
+    void OnCollisionEnter(SaltyEngine::ICollider *collider) override;
 };
 
 #endif //MISSILEHOMING_CONTROLLER_HPP

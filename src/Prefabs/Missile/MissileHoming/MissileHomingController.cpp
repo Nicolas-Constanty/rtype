@@ -3,7 +3,7 @@
 #include "Prefabs/Missile/MissileHoming/MissileHomingController.hpp"
 
 MissileHomingController::MissileHomingController(SaltyEngine::GameObject *go) :
-        AEnemyBulletController(go, "MissileHoming")
+        ABulletController(go, "MissileHoming")
 {
     m_vel = 4;
     m_fireSound = "fire";
@@ -16,21 +16,17 @@ MissileHomingController::~MissileHomingController()
 }
 
 void MissileHomingController::Start() {
-    LoadManager();
+    ABulletController::Start();
+}
 
-    if (!isServerSide())
+void MissileHomingController::OnCollisionEnter(SaltyEngine::ICollider *col) {
+    SaltyEngine::ACollider2D<sf::Vector2i> *c = dynamic_cast<SaltyEngine::ACollider2D<sf::Vector2i>*>(col);
+    if (c)
     {
-//        SaltyEngine::Sound::ISound *fire = SaltyEngine::SFML::AssetManager::Instance().GetSound(m_fireSound);
-//        fire->Play();
-    }
-
-    if (isServerSide())
-    {
-        BroadCastReliable<CREATEPackageGame>(
-                gameObject->transform.GetPosition().x,
-                gameObject->transform.GetPosition().y,
-                RtypeNetworkFactory::GetIDFromName(m_objectNameReplication),
-                getManager()->gameObjectContainer.GetServerObjectID(gameObject),
-                gameObject->transform.GetRotation());
+        if (c->gameObject->GetTag() == SaltyEngine::Layer::Tag::Enemy) {
+            AGenericController *controller = c->gameObject->GetComponent<AGenericController>();
+            if (controller)
+                controller->TakeDamage(m_damage);
+        }
     }
 }

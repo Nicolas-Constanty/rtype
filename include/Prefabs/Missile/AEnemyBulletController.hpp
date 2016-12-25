@@ -9,11 +9,12 @@
 #include <string>
 #include "Prefabs/RtypePrefab.hpp"
 #include "SaltyEngine/SaltyEngine.hpp"
+#include "Prefabs/Missile/ABulletController.hpp"
 
 /**
  * @brief Base model for enemy's bullets
  */
-class AEnemyBulletController : public RtypePrefab
+class AEnemyBulletController : public ABulletController
 {
 public:
     AEnemyBulletController(SaltyEngine::GameObject *go, std::string const& name = "AEnemyBulletController");
@@ -25,24 +26,9 @@ public:
      */
     void Start();
     /**
-     * @brief Will go right by default
-     */
-    void FixedUpdate();
-    /**
      * @brief Triggered on collision
      */
     void OnCollisionEnter(SaltyEngine::ICollider *);
-    /**
-     * @brief Sets the target for the bullet
-     * @param target
-     */
-    virtual void SetTarget(SaltyEngine::GameObject const* target);
-
-protected:
-    float m_vel = 4;
-    std::string m_fireSound = "fire";
-    int m_damage = 1;
-    std::string m_objectNameReplication;
 };
 
 #endif //RTYPE_AENEMYBULLETCONTROLLER_HPP
