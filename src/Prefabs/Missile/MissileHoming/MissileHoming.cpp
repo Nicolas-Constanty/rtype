@@ -4,7 +4,7 @@
 /**
  * \brief You can add your properties here
  */
-MissileHoming::MissileHoming() : GameObject("MissileHoming", SaltyEngine::Layer::Tag::BulletEnemy)
+MissileHoming::MissileHoming() : GameObject("MissileHoming", SaltyEngine::Layer::Tag::BulletPlayer)
 {
     AddComponent<SaltyEngine::SFML::SpriteRenderer>(SaltyEngine::SFML::AssetManager::Instance().GetSprite("MissileHoming/Bullet1"), SaltyEngine::Layout::normal);
     AddComponent < SaltyEngine::SFML::Animation>(true, SaltyEngine::AnimationConstants::WrapMode::PING_PONG);

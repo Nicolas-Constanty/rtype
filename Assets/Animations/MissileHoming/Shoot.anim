@@ -2,9 +2,9 @@
   "mode": "PING_PONG",
   "framerate": "12",
   "sprites": [
-    "Missile/Bullet1",
-    "Missile/Bullet2",
-    "Missile/Bullet3",
-    "Missile/Bullet4"
+    "MissileHoming/Bullet1",
+    "MissileHoming/Bullet2",
+    "MissileHoming/Bullet3",
+    "MissileHoming/Bullet4"
   ]
 }
