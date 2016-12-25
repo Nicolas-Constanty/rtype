@@ -1,0 +1,9 @@
+{
+    "texture": "missilehoming",
+    "rect": {
+        "x": "0",
+        "y": "0",
+        "width": "18",
+        "heigth": "12"
+    }
+}

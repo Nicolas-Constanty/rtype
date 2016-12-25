@@ -1,0 +1,10 @@
+{
+  "mode": "PING_PONG",
+  "framerate": "12",
+  "sprites": [
+    "Missile/Bullet1",
+    "Missile/Bullet2",
+    "Missile/Bullet3",
+    "Missile/Bullet4"
+  ]
+}
