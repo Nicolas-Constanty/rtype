@@ -1,0 +1,10 @@
+{
+  "mode": "LOOP",
+  "framerate": "12",
+  "sprites": [
+    "LaserSpiral/Bullet1",
+    "LaserSpiral/Bullet2",
+    "LaserSpiral/Bullet3",
+    "LaserSpiral/Bullet4"
+  ]
+}

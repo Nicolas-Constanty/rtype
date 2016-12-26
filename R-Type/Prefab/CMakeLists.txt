@@ -75,6 +75,13 @@ file(GLOB MISSILE_LASER_SOURCE_FILE
 add_library(missile_laser SHARED ${MISSILE_LASER_SOURCE_FILE})
 target_link_libraries(missile_laser ${PREFAB_LIBRARIES})
 
+# MISSILE LASER SPIRAL
+file(GLOB MISSILE_LASER_SPIRAL_SOURCE_FILE
+		"src/Prefabs/Missile/LaserSpiral/*.cpp"
+		"include/Prefabs/Missile/LaserSpiral/*.hpp")
+add_library(missile_laser_spiral SHARED ${MISSILE_LASER_SPIRAL_SOURCE_FILE})
+target_link_libraries(missile_laser_spiral ${PREFAB_LIBRARIES})
+
 # DEFAULT ENEMY BULLET
 file(GLOB MISSILE_ENEMY_BULLET
 		"src/Prefabs/Missile/EnemyBullet/*.cpp"
@@ -176,6 +183,7 @@ set(PREFABS_TARGET
 		missile_neunoeil
         missile_homing
 		missile_laser
+		missile_laser_spiral
 		missile_enemy_bullet
 		explosion_basic
 		player

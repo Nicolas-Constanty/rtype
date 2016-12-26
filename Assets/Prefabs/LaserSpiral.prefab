@@ -1,0 +1,9 @@
+{
+    "sprites": [
+        "LaserSpiral/Bullet1",
+        "LaserSpiral/Bullet2",
+        "LaserSpiral/Bullet3",
+        "LaserSpiral/Bullet4"
+    ],
+    "lib": "libmissile_laser_spiral"
+}
