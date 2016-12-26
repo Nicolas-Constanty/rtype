@@ -270,6 +270,14 @@ namespace SaltyEngine
             m_anim->Play("Invincibility");
     }
 
+    void PlayerController::SetHealth(int health) {
+        AGenericController::SetHealth(health);
+        if (m_anim) {
+            m_anim->Stop("Invincibility");
+            m_renderer->SetColor(SaltyEngine::Color(1, 1, 1));
+        }
+    }
+
 //    void PlayerController::Reborn()
 //    {
 //        collider2D->SetEnable(false);
