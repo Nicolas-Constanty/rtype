@@ -288,11 +288,15 @@ public:
 class UPGRADEPackageGame : public ObjectIDPackageGame
 {
 public:
-    UPGRADEPackageGame(unsigned short sequenceID = 0, unsigned short podID = 0, unsigned short transactionID = 0) :
-            ObjectIDPackageGame(sizeof(UPGRADEPackageGame), GamePurpose::GAMEUPGRADE, sequenceID, podID, true, transactionID)
+    UPGRADEPackageGame(unsigned short sequenceID = 0, unsigned short podID = 0, unsigned short rocket = 0, unsigned short transactionID = 0) :
+            ObjectIDPackageGame(sizeof(UPGRADEPackageGame), GamePurpose::GAMEUPGRADE, sequenceID, podID, true, transactionID),
+            rocket(rocket)
     {
 
     }
+
+public:
+    unsigned short rocket;
 };
 
 class MATEPackageGame : public ObjectIDPackageGame

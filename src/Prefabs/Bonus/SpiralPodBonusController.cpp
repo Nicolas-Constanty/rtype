@@ -6,6 +6,8 @@
 #include <Rtype/Game/Common/GameObjectID.hpp>
 #include <Rtype/Game/Common/RtypeNetworkFactory.hpp>
 
+const char SpiralPodBonusController::missile[12] = "LaserSpiral";
+
 SpiralPodBonusController::SpiralPodBonusController(SaltyEngine::GameObject *object) :
         APodBonusController("SpiralPodBonusController", object)
 {
@@ -35,4 +37,9 @@ void SpiralPodBonusController::Start()
                                              RtypeNetworkFactory::GetIDFromName("SpiralBonus"),
                                              gameobjectId);
     }
+}
+
+std::string SpiralPodBonusController::getMissile() const
+{
+    return missile;
 }

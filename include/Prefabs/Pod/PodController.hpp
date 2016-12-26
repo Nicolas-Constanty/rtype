@@ -24,7 +24,7 @@ public:
     virtual void OnCollisionEnter(SaltyEngine::ICollider *);
 
 public:
-    bool Upgrade();
+    bool Upgrade(std::string const &rocket);
     bool Launch();
     bool Call(PodHandler *podController);
     bool Attach(PodHandler *podController);
@@ -34,6 +34,9 @@ public:
     bool isAttached() const;
     bool isAttachedTo(SaltyEngine::GameObject *obj) const;
     PodHandler   *getAttachedPlayer() const;
+
+public:
+    bool Shot();
 
 private:
     PodHandler *attachedPlayer;
@@ -46,6 +49,7 @@ private:
     SaltyEngine::SFML::SpriteRenderer   *sprr;
     SaltyEngine::Vector2    min;
     SaltyEngine::Vector2    max;
+    std::string missile;
 };
 
 

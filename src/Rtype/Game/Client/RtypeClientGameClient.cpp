@@ -85,7 +85,7 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetPINGPackage(PINGPackageGam
 
 void Rtype::Game::Client::RtypeClientGameClient::onGetAUTHENTICATEPackage(AUTHENTICATEPackageGame const &pack)
 {
-    std::cout << "\e[32mAuthenticated\e[0m: " << pack << std::endl;
+    Debug::PrintSuccess("Authenticated");
     reply = false;
     OnDiscoveringPackage(pack);
     playerID = pack.playerId;
@@ -97,7 +97,6 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetCREATEPackage(CREATEPackag
 
     try
     {
-        std::cout << "===> Creating: " << pack.ID << std::endl;
         SaltyEngine::GameObject *object = RtypeNetworkFactory::Create(pack.ID, SaltyEngine::Vector((float)pack.posX, (float)pack.posY), pack.rotation);
 
         gameManager->gameObjectContainer.Add(pack.objectID, object);
@@ -109,7 +108,7 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetCREATEPackage(CREATEPackag
     }
     catch (std::runtime_error const &error)
     {
-        std::cerr << "\e[31mCreate Package\e[0m: " << error.what() << std::endl;
+        Debug::PrintError("Create package: " + std::string(error.what()));
     }
 
 }
@@ -136,9 +135,14 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetSHOTPackage(SHOTPackageGam
     laser->GetComponent<LaserController>()->Power(pack.power);
     SaltyEngine::GameObject *gameObject;
     if ((gameObject = gameManager->gameObjectContainer[pack.objectID])) {
+        PodHandler  *podHandler = gameObject->GetComponent<PodHandler>();
         MateComponent *playerController = gameObject->GetComponent<MateComponent>();
         if (playerController) {
             playerController->m_beamSFX->SetActive(false);
+        }
+        if (podHandler)
+        {
+            podHandler->Shot();
         }
     }
 
@@ -156,7 +160,7 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetDIEPackage(DIEPackageGame 
             aGenericController->Die();
         } else {
             SaltyEngine::Object::Destroy(obj);
-            std::cout << "\e[43m Warning: No AGenericController set \e[0m" << std::endl;
+            Debug::PrintWarning("Warning: No AGenericController set");
         }
     }
     //todo resolve die in the game
@@ -165,8 +169,6 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetDIEPackage(DIEPackageGame 
 void Rtype::Game::Client::RtypeClientGameClient::onGetTAKEPackage(TAKEPackageGame const &pack)
 {
     OnDiscoveringPackage(pack);
-    std::cout << "Receiving take" << std::endl;
-    //todo resolve take in the game
     SaltyEngine::GameObject *object = gameManager->gameObjectContainer[pack.objectID];
     SaltyEngine::GameObject *play = gameManager->gameObjectContainer[pack.playerObjectID];
 
@@ -175,10 +177,8 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetTAKEPackage(TAKEPackageGam
         PodController   *podController = object->GetComponent<PodController>();
         PodHandler      *podHandler = play->GetComponent<PodHandler>();
 
-        std::cout << "Pod controller: " << podController << ", Pod handler: " << podHandler << std::endl;
         if (podHandler && podController)
         {
-            std::cout << "Attach at: " << static_cast<bool>(pack.front) << std::endl;
             podController->Attach(podHandler, static_cast<bool>(pack.front));
         }
     }
@@ -208,17 +208,12 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetMOVEPackage(MOVEPackageGam
     SaltyEngine::GameObject *obj = gameManager->gameObjectContainer[pack.objectID];
     if (obj) {
         obj->transform.SetPosition(SaltyEngine::Vector(pack.posX, pack.posY));
-//        SaltyEngine::SFML::SpriteRenderer *resetColorRenderer = obj->GetComponent<SaltyEngine::SFML::SpriteRenderer>();
-//        if (resetColorRenderer) {
-//            resetColorRenderer->SetColor(SaltyEngine::Color::White());
-//        }
     }
 }
 
 void Rtype::Game::Client::RtypeClientGameClient::onGetLAUNCHPackage(LAUNCHPackageGame const &pack)
 {
     OnDiscoveringPackage(pack);
-    std::cout << pack << std::endl;
     SaltyEngine::GameObject *object = gameManager->gameObjectContainer[pack.objectID];
 
     if (object)
@@ -266,7 +261,14 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetUPGRADEPackage(UPGRADEPack
 
         if (podController)
         {
-            podController->Upgrade();
+            try
+            {
+                podController->Upgrade(RtypeNetworkFactory::GetStringFromID(pack.rocket));
+            }
+            catch (std::runtime_error const &err)
+            {
+                Debug::PrintError(err.what());
+            }
         }
     }
 }

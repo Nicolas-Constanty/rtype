@@ -15,6 +15,7 @@ public:
 
 public:
     virtual void ExecuteBonus(SaltyEngine::GameObject *object);
+    virtual std::string getMissile() const = 0;
 };
 
 #endif //RTYPE_PODBONUS_HPP

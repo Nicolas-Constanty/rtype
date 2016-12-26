@@ -9,13 +9,16 @@
 
 class SpiralPodBonusController : public APodBonusController
 {
+private:
+    static const char missile[12];
+
 public:
     SpiralPodBonusController(SaltyEngine::GameObject *object);
     virtual ~SpiralPodBonusController();
 
 public:
     virtual void Start();
-    //système pour différencier les missiles
+    std::string getMissile() const;
 
 public:
     virtual SaltyEngine::Component *CloneComponent(SaltyEngine::GameObject* const obj);

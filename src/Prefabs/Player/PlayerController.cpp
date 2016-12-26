@@ -145,13 +145,10 @@ namespace SaltyEngine
 
         if (InputKey::GetAction("Pod", Input::ActionType::Down))
         {
-//            std::cout << "Pod action ok" << std::endl;
             if (!isServerSide())
             {
-//                std::cout << "Client side" << std::endl;
                 if (handler->HasPod())
                 {
-//                    std::cout << "\e[31mSending pod\e[0m" << std::endl;
                     SendPackage<LAUNCHPackageGame>(
                             getManager()->gameObjectContainer.GetServerObjectID(handler->getPod()->gameObject),
                             getManager()->gameObjectContainer.GetServerObjectID(gameObject));
@@ -160,7 +157,6 @@ namespace SaltyEngine
                 {
                     PodController   *tocall = handler->FindFirstAvailablePod();
 
-                    std::cout << "\e[31mCalling Pod\e[0m: " << tocall << std::endl;
                     if (tocall)
                         SendPackage<CALLPackageGame>(
                                 getManager()->gameObjectContainer.GetServerObjectID(tocall->gameObject),

@@ -12,7 +12,7 @@ class RtypeNetworkFactory
 public:
     static SaltyEngine::GameObject *Create(unsigned short id, SaltyEngine::Vector const &pos, float rotation);
     static unsigned short GetIDFromName(std::string const &);
-//    static std::string GetStringFromID(unsigned short);
+    static std::string const &GetStringFromID(unsigned short);
 //    static unsigned short GetMateColorFromPlayerID(int playerID);
 //    static bool IsMateColor(unsigned short);
 

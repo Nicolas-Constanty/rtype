@@ -26,10 +26,8 @@ void PodHandler::Start()
 
 bool PodHandler::Attach(PodController *toattach)
 {
-    std::cout << "Call attach: " << pod << std::endl;
     if (pod)
     {
-        std::cout << "I alreay have a pod" << std::endl;
         return false;
     }
     lastPod = nullptr;
@@ -43,10 +41,8 @@ bool PodHandler::Launch()
     {
         bool res = pod->Launch();
 
-        std::cout << std::boolalpha << "Res: " << res << std::endl;
         if (res)
         {
-            std::cout << "Resetting pod" << std::endl;
             lastPod = pod;
             pod = NULL;
         }
@@ -100,18 +96,7 @@ SaltyEngine::Component *PodHandler::CloneComponent(SaltyEngine::GameObject *cons
 
 bool PodHandler::Shot()
 {
-    if (lastPod)
-    {
-        if (isServerSide())
-        {
-            SendPackage<SHOTPackageGame>(
-                    getManager()->gameObjectContainer.GetServerObjectID(lastPod->gameObject), 1, 0,
-                    lastPod->gameObject->transform.GetPosition().x, lastPod->gameObject->transform.GetPosition().y
-            );
-        }
-        SaltyEngine::Instantiate("Laser", lastPod->gameObject->transform.GetPosition());
-    }
-    return false;
+    return ((pod && pod->Shot()) || (lastPod && lastPod->Shot()));
 }
 
 void PodHandler::UnlinkPod()

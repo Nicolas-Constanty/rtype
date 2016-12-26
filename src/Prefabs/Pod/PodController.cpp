@@ -17,7 +17,8 @@ PodController::PodController(SaltyEngine::GameObject *const object) :
         anim(NULL),
         level(0),
         speed(0),
-        sprr(NULL)
+        sprr(NULL),
+        missile("Laser")
 {
 
 }
@@ -31,7 +32,8 @@ PodController::PodController(const std::string &name, SaltyEngine::GameObject *c
         anim(NULL),
         level(0),
         speed(0),
-        sprr(NULL)
+        sprr(NULL),
+        missile("Laser")
 {
 
 }
@@ -147,7 +149,7 @@ void PodController::OnCollisionEnter(SaltyEngine::ICollider *collider)
                 }
                 catch (std::runtime_error const &err)
                 {
-                    std::cerr << "Pod trigger enter: " << err.what() << " (while getting if of pod)" << std::endl;
+                    Debug::PrintError("Pod trigger enter: " + std::string(err.what()) + " (while getting if of pod)");
                     throw err;
                 }
             }
@@ -157,15 +159,14 @@ void PodController::OnCollisionEnter(SaltyEngine::ICollider *collider)
     {
         //todo deal damage
         SaltyEngine::Instantiate("ExplosionBasic", c->gameObject->transform.GetPosition());
-        Destroy(c->gameObject);
+//        Destroy(c->gameObject);
     }
 }
 
-bool PodController::Upgrade()
+bool PodController::Upgrade(std::string const &rocket)
 {
     if (!anim)
     {
-        Debug::Print("No such Animation");
         return false;
     }
 
@@ -174,17 +175,16 @@ bool PodController::Upgrade()
         std::string exanim = "Nacelle" + std::to_string(level);
         std::string newanim = "Nacelle" + std::to_string(level + 1);
 
-        Debug::Print("Upgrading: " + exanim);
         ++level;
         if (anim->IsPlaying(exanim))
         {
-            Debug::Print("Stoping");
-            anim->Stop("Nacelle" + std::to_string(level - 1));
+            anim->Stop(exanim);
         }
-        Debug::Print("Playing: " + newanim);
+        if (level > 0)
+            missile = rocket;
         anim->Play(newanim);
         if (isServerSide())
-            BroadCastReliable<UPGRADEPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(gameObject));
+            BroadCastReliable<UPGRADEPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(gameObject), RtypeNetworkFactory::GetIDFromName(missile));
         return true;
     }
     return false;
@@ -207,7 +207,7 @@ bool PodController::Launch()
         }
         catch (std::runtime_error const &err)
         {
-            std::cerr << "Pod launch: " << err.what() << " (while getting attached player)" << std::endl;
+            Debug::PrintError("Pod launch: " + std::string(err.what()) + " (while getting attached player)");
             return false;
         }
         BroadCastReliable<LAUNCHPackageGame>(pod, player, gameObject->transform.GetPosition().x, gameObject->transform.GetPosition().y);
@@ -234,7 +234,7 @@ bool PodController::Call(PodHandler *player)
         }
         catch (std::runtime_error const &err)
         {
-            std::cerr << "Pod call: " << err.what() << " (while getting pod id)" << std::endl;
+            Debug::PrintError("Pod call: " + std::string(err.what()) + " (while getting pod id)");
             return false;
         }
         BroadCastReliable<CALLPackageGame>(podid, getManager()->gameObjectContainer.GetServerObjectID(player->gameObject));
@@ -251,7 +251,6 @@ bool PodController::Attach(PodHandler *podController)
 
 bool PodController::Attach(PodHandler *podController, bool front)
 {
-    std::cout << std::boolalpha << "att player: " << attachedPlayer << ", has pod: " << podController->HasPod() << std::endl;
     if (!attachedPlayer && !podController->HasPod())
     {
         speed = 0;
@@ -289,4 +288,22 @@ bool PodController::isAttachedTo(SaltyEngine::GameObject *object) const
 PodHandler *PodController::getAttachedPlayer() const
 {
     return attachedPlayer;
+}
+
+bool PodController::Shot()
+{
+    if (attachedPlayer == NULL)
+        SaltyEngine::Instantiate("Laser", gameObject->transform.GetPosition());
+    else if (level > 0)
+        SaltyEngine::Instantiate(missile, gameObject->transform.GetPosition());
+    else
+        return false;
+    if (isServerSide())
+    {
+        SendPackage<SHOTPackageGame>(
+                getManager()->gameObjectContainer.GetServerObjectID(gameObject), 1, 0,
+                gameObject->transform.GetPosition().x, gameObject->transform.GetPosition().y
+        );
+    }
+    return true;
 }

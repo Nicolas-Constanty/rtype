@@ -56,18 +56,20 @@ unsigned short RtypeNetworkFactory::GetIDFromName(std::string const &id) {
     throw std::runtime_error("No suck object for id =>" + id);
     //return 0;
 }
+
+std::string const &RtypeNetworkFactory::GetStringFromID(unsigned short id) {
+    std::map<unsigned short, std::string>::const_iterator it = rtypeObjects.find(id);
+    if (it != rtypeObjects.end()) {
+        return (it->second);
+    }
+    throw new std::runtime_error("No such object for id: " + std::to_string(id));
+}
+
 //
 //bool RtypeNetworkFactory::IsMateColor(unsigned short id) {
 //    return id >= 8 && id <= 11;
 //}
 //
-//std::string RtypeNetworkFactory::GetStringFromID(unsigned short id) {
-//    std::map<unsigned short, std::string>::const_iterator it = rtypeObjects.find(id);
-//    if (it != rtypeObjects.end()) {
-//        return (it->second);
-//    }
-//    return ("unknown");
-//}
 //
 //unsigned short RtypeNetworkFactory::GetMateColorFromPlayerID(int playerID) {
 //    return (static_cast<unsigned short>(playerID + 8));
