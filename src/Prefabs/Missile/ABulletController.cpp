@@ -19,6 +19,7 @@ ABulletController::~ABulletController()
 
 void ABulletController::Start()
 {
+    LoadManager();
     if (!isServerSide())
     {
         m_sound = SaltyEngine::SFML::AssetManager::Instance().GetSound(m_fireSound);
