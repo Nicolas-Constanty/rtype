@@ -13,6 +13,13 @@
         "y": "500"
       }
     },
+    "BLOCK": {
+      "prefabName": "BlockSimple",
+      "position": {
+        "x" : "200",
+        "y": "200"
+      }
+    },
         "Monster2": {
           "prefabName": "Monster",
           "position": {

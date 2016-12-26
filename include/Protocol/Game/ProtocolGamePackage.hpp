@@ -37,7 +37,8 @@ typedef enum : unsigned char {
     GAMEUPGRADE = 16,
     GAMEMATE = 17,
     GAMEGAMEOVER = 18,
-    GAMEDEATH = 19
+    GAMEDEATH = 19,
+    GAMERECONNECT = 20
 } GamePurpose;
 
 class PackageGameHeader {
@@ -284,22 +285,6 @@ public:
     unsigned short failSequence;
 };
 
-//class INPUTPackageGame : public PackageGameHeader {
-//public:
-//    INPUTPackageGame(unsigned short sequenceID = 0, std::string const &axes = "", float value = 0, unsigned short transactionID = 0) :
-//            PackageGameHeader(true, sizeof(INPUTPackageGame), sequenceID, GAMEINPUT, transactionID)
-//    {
-//        this->value = value;
-//        memset(this->axes, 0, sizeof(this->axes));
-//        if (axes.length() < sizeof(this->axes)) {
-//            strncpy(this->axes, axes.c_str(), axes.length());
-//        }
-//    }
-//
-//    char axes[16];
-//    float value;
-//};
-
 class UPGRADEPackageGame : public ObjectIDPackageGame
 {
 public:
@@ -338,6 +323,19 @@ public:
 
 public:
     unsigned char status;
+};
+
+class RECONNECTPackageGame : public PackageGameHeader
+{
+public:
+    RECONNECTPackageGame(unsigned short sequenceID = 0, unsigned char playerID = 0, unsigned short transactionID = 0) :
+            PackageGameHeader(true, sizeof(RECONNECTPackageGame), sequenceID, GamePurpose::GAMERECONNECT, transactionID)
+    {
+        this->playerID = playerID;
+    }
+
+public:
+    unsigned char playerID;
 };
 
 #endif //RTYPE_PROTOCOLGAMEPACKAGE_HPP

@@ -31,6 +31,7 @@ public:
     virtual void onGetMATEPackage(MATEPackageGame const &) = 0;
     virtual void onGetGAMEOVERPackage(GAMEOVERPackageGame const &) = 0;
     virtual void onGetDEATHPackage(DEATHPackage const &) = 0;
+    virtual void onGetRECONNECTPackage(RECONNECTPackageGame const &) = 0;
 };
 
 #endif //RTYPE_IPROTOCOLGAMEHANDLER_HPP

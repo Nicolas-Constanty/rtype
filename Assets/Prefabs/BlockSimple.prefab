@@ -1,0 +1,15 @@
+{
+  "sprites": [
+    "MonsterWalker/WalkL1",
+    "Laser/simple"
+  ],
+  "animations": [
+    "Laser/simple",
+    "Laser/power1",
+    "Laser/power2",
+    "Laser/power3",
+    "Laser/power4",
+    "Laser/loading"
+  ],
+  "lib": "libBlockSimple"
+}

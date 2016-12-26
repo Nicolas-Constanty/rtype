@@ -258,3 +258,13 @@ std::ostream &operator<<(std::ostream &ostream, DEATHPackage const &disablePacka
     ostream << "}" << std::endl;
     return ostream;
 }
+
+std::ostream    &operator<<(std::ostream &output, RECONNECTPackageGame const &reconnectPackageGame)
+{
+    output << "\e[32m" << static_cast<void const *>(&reconnectPackageGame) << "\e[0m" << std::endl;
+    output << "RECONNECTPackageGame = {" << std::endl;
+    output << *dynamic_cast<PackageGameHeader const *>(&reconnectPackageGame);
+    output << "playerID=" << reconnectPackageGame.playerID << std::endl;
+    output << "}" << std::endl;
+    return output;
+}

@@ -49,6 +49,8 @@ namespace Rtype
                 virtual void onGetMATEPackage(MATEPackageGame const &);
                 virtual void onGetGAMEOVERPackage(GAMEOVERPackageGame const &game);
                 virtual void onGetDEATHPackage(DEATHPackage const &);
+                virtual void onGetDISCONNECTPackage(DISCONNECTPackageGame const &pack);
+                virtual void onGetRECONNECTPackage(RECONNECTPackageGame const &);
 
             private:
                 GameManager *gameManager;

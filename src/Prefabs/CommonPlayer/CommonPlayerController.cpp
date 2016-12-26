@@ -120,3 +120,7 @@ void CommonPlayerController::OnCollisionEnter(SaltyEngine::ICollider *collider) 
         }
     }
 }
+
+CommonPlayerController::Status CommonPlayerController::GetStatus(void) const {
+    return status;
+}
