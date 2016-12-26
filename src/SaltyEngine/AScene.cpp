@@ -153,8 +153,10 @@ namespace SaltyEngine
 		{
 			const std::list<SaltyBehaviour *> &Sb = (*obj)->GetSaltyBehaviour();
 			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
-				if ((*it)->enabled)
+				if ((*it)->enabled) {
 					(*it)->FixedUpdate();
+				}
+			(*obj)->m_shouldBeRendered = true;
 		}
 	}
 
