@@ -24,7 +24,7 @@
             "prefabName": "MonsterWalker",
             "position": {
               "x" : "500",
-              "y": "100"
+              "y": "300"
             }
           }
     }

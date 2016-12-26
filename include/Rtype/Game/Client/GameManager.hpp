@@ -87,7 +87,7 @@ private:
 	double currentPosition = SCREEN_X;
 	int velocity = 8;
     bool endOfGame = false;
-    GameOver *gameOver;
+    std::unique_ptr<GameOver> gameOver;
     int     canSend = 0;
 
 private:

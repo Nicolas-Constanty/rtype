@@ -13,12 +13,12 @@
 GameManager::GameManager(SaltyEngine::GameObject * const gamObj) : SaltyBehaviour("GameManager", gamObj)
 {
 //    gameObject->AddComponent<BackgroundController>();
-    gameOver = new GameOver(this);
+    gameOver.reset(new GameOver(this));
 }
 
 GameManager::GameManager(const std::string & name, SaltyEngine::GameObject * const gamObj) : SaltyBehaviour(name, gamObj)
 {
-    gameOver = new GameOver(this);
+    gameOver.reset(new GameOver(this));
 }
 
 GameManager::~GameManager()

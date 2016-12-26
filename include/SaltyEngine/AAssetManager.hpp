@@ -84,11 +84,6 @@ namespace SaltyEngine {
         }
 
         virtual ~AAssetManager() {
-            while (!m_loaders.empty())
-            {
-                m_loaders.top()->Unload();
-                m_loaders.pop();
-            }
         }
 
     protected:
@@ -110,7 +105,6 @@ namespace SaltyEngine {
         std::map<std::string, AnimationDefault>         m_animations;
         std::list<std::string>                          m_prefabs;
 
-        std::stack<std::unique_ptr<SaltyEngine::Asset::ASSET_LOADER> >  m_loaders;
         std::unique_ptr<SceneDefault>                                   m_current_scene;
 
     public:
@@ -378,10 +372,7 @@ namespace SaltyEngine {
                     }
 
                     if (!lib.empty()) {
-                        SaltyEngine::Asset::ASSET_LOADER *loader = Factory::Instance().LoadAsset(path_metas + lib + Asset::META_EXTENSION);
-
-                        if (loader)
-                            m_loaders.emplace(loader);
+                        /*SaltyEngine::Asset::ASSET_LOADER *loader = */Factory::Instance().LoadAsset(path_metas + lib + Asset::META_EXTENSION);
                     }
 
                     m_prefabs.push_back(filename);
@@ -519,10 +510,7 @@ namespace SaltyEngine {
                 }
                 if (filename.substr(dotPos) == Asset::META_EXTENSION) {
                     Debug::PrintSuccess("Loading prefab [ " + filename + " ]");
-                    SaltyEngine::Asset::ASSET_LOADER *loader = Factory::Instance().LoadAsset(path_metas + filename);
-
-                    if (loader)
-                        m_loaders.emplace(loader);
+                    /*SaltyEngine::Asset::ASSET_LOADER *loader = */Factory::Instance().LoadAsset(path_metas + filename);
                 }
             }
         }

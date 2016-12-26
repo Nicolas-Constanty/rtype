@@ -1,3 +1,4 @@
+#include <SaltyEngine/AAssetManager.hpp>
 #include "SaltyEngine/Constants.hpp"
 #include "SaltyEngine/Factory.hpp"
 #include "SaltyEngine/GameObject.hpp"
@@ -12,7 +13,12 @@ namespace SaltyEngine {
     }
 
     Factory::~Factory() {
-        std::cout << "DELETE FACTORY " << this << std::endl;
+        Clear();
+        while (!m_loaders.empty())
+        {
+            m_loaders.top()->Unload();
+            m_loaders.pop();
+        }
     }
 
 	Object *Factory::Create()
@@ -25,7 +31,8 @@ namespace SaltyEngine {
     }
 
     Object  *Factory::Create(std::string const &name, Vector const& pos, float rot) {
-		if (m_prefabs.find(name) == m_prefabs.end()) {
+
+        if (m_prefabs.find(name) == m_prefabs.end()) {
             Debug::PrintWarning("Cannot find prefab [" + name + "]");
             m_objects.push_front(std::unique_ptr<Object>(new GameObject("EmptyGameObject(Clone)")));
             GameObject *go = static_cast<GameObject*>(m_objects.front().get());
@@ -78,6 +85,7 @@ namespace SaltyEngine {
         m_prefabs[obj->GetName()] = std::unique_ptr<Object>(obj);
         Debug::PrintSuccess("Factory: loaded [" + obj->GetName() + "]");
         //loader.Unload();
+        m_loaders.emplace(loader);
 		return loader;
 	}
 }
@@ -120,4 +128,10 @@ std::list<SaltyEngine::GameObject*> SaltyEngine::Factory::FindAllByTag(Layer::Ta
         }
     }
     return objs;
+}
+
+void SaltyEngine::Factory::Clear()
+{
+    m_prefabs.clear();
+    m_objects.clear();
 }

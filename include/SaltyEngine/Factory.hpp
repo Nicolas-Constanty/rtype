@@ -7,6 +7,7 @@
 #include <list>
 #include <map>
 #include <algorithm>
+#include <stack>
 #include "SaltyEngine/Constants.hpp"
 #include "Common/Singleton.hpp"
 #include "Vector2.hpp"
@@ -29,6 +30,7 @@ namespace SaltyEngine
 	private:
 		std::map<std::string, std::unique_ptr<Object>>	m_prefabs;
 		std::list<std::unique_ptr<Object>>				m_objects;
+		std::stack<std::unique_ptr<SaltyEngine::Asset::ASSET_LOADER> >  m_loaders;
 
 	public:
 		Object *Create();
@@ -70,6 +72,11 @@ namespace SaltyEngine
          * @brief Loads an asset into the memory from a path
          */
 		Asset::ASSET_LOADER *LoadAsset(std::string const& path);
+
+        /**
+         * @brief Clear the entire factory. Prefabs and instantiated gameobjects will be removed
+         */
+        void Clear();
 	};
 }
 template class Singleton<SaltyEngine::Factory>;

@@ -22,7 +22,6 @@ PodHandler::~PodHandler()
 void PodHandler::Start()
 {
     LoadManager();
-//    pod = gameObject->GetComponent<PodController>();
 }
 
 bool PodHandler::Attach(PodController *toattach)
