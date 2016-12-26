@@ -1,6 +1,6 @@
 #include <Rtype/Game/Common/GameObjectID.hpp>
 #include <Rtype/Game/Common/RtypeNetworkFactory.hpp>
-#include "Prefabs/Missile/MissileController.hpp"
+#include <Prefabs/Player/PlayerController.hpp>
 #include "Prefabs/MonsterNeunoeil/MonsterNeunoeilController.hpp"
 
 MonsterNeunoeilController::MonsterNeunoeilController(SaltyEngine::GameObject *obj) :
@@ -24,9 +24,12 @@ void MonsterNeunoeilController::Start()
     if (!isServerSide())
     {
         m_anim = gameObject->GetComponent<SaltyEngine::SFML::Animation>();
+        m_sprr = this->gameObject->GetComponent<SaltyEngine::SFML::SpriteRenderer>();
 
         m_anim->GetClip("EyeClose")->AddEvent(std::bind(&MonsterNeunoeilController::SetInvincibility, this, true));
         m_anim->GetClip("EyeOpen")->AddEvent(std::bind(&MonsterNeunoeilController::SetInvincibility, this, false));
+        m_anim->GetClip("EyeBlink")->AddEvent([this](){ m_sprr->SetColor(SaltyEngine::Color(1, 0, 0)); }, 0);
+        m_anim->GetClip("EyeBlink")->AddEvent([this](){ m_sprr->SetColor(SaltyEngine::Color(1, 1, 1)); }, 1);
         m_anim->Play("EyeClose");
     }
 
@@ -37,8 +40,8 @@ void MonsterNeunoeilController::Start()
         go->transform.SetRotation(90 * i);
         go->transform.SetPosition(go->transform.GetPosition() + go->transform.right() * 110);
         go->transform.SetParent(&this->gameObject->transform);
-        SaltyEngine::SFML::Animation *animation = go->AddComponent<SaltyEngine::SFML::Animation>(true, SaltyEngine::AnimationConstants::WrapMode::LOOP);
-        animation->AddClip(SaltyEngine::SFML::AssetManager::Instance().GetAnimation("Laser/loading"), "Loading");
+//        SaltyEngine::SFML::Animation *animation = go->AddComponent<SaltyEngine::SFML::Animation>(true, SaltyEngine::AnimationConstants::WrapMode::LOOP);
+//        animation->AddClip(SaltyEngine::SFML::AssetManager::Instance().GetAnimation("Laser/loading"), "Loading");
         m_canons[i] = go;
     }
 
@@ -73,51 +76,51 @@ void MonsterNeunoeilController::FixedUpdate()
 }
 
 void MonsterNeunoeilController::Move() {
-    if (m_eyeState == E_STATIC)
+    switch (m_state)
     {
-        this->gameObject->transform.Rotate(-this->gameObject->transform.GetRotation());
-        this->gameObject->transform.Translate(SaltyEngine::Vector2::up() * m_vel * m_dir);
-        if (this->gameObject->transform.GetPosition().y <= 200)
-            m_dir = 1;
-        else if (this->gameObject->transform.GetPosition().y >= 300)
-            m_dir = -1;
-    }
-    else if (m_eyeState == E_MOVING1)
-    {
-        this->gameObject->transform.Translate(SaltyEngine::Vector2::up() * m_vel * m_dir);
-        if (this->gameObject->transform.GetPosition().y <= 100)
-            m_dir = 1;
-        else if (this->gameObject->transform.GetPosition().y >= m_verticalDistance)
-            m_dir = -1;
-    }
-    else if (m_eyeState == E_MOVING2)
-    {
-        this->gameObject->transform.Rotate(0.7f);
-        this->gameObject->transform.Translate(-SaltyEngine::Vector2::left() * m_vel * m_dir * 2);
-        if (this->gameObject->transform.GetPosition().x <= 100)
-            m_dir = 1;
-        else if (this->gameObject->transform.GetPosition().x >= m_horizontalDistance)
-            m_dir = -1;
+        case E_STATIC:
+            this->gameObject->transform.Rotate(-this->gameObject->transform.GetRotation());
+            this->gameObject->transform.Translate(SaltyEngine::Vector2::up() * m_vel * m_dir);
+            if (this->gameObject->transform.GetPosition().y <= 200)
+                m_dir = 1;
+            else if (this->gameObject->transform.GetPosition().y >= 300)
+                m_dir = -1;
+            break;
+        case E_MOVING1:
+            this->gameObject->transform.Translate(SaltyEngine::Vector2::up() * m_vel * m_dir);
+            if (this->gameObject->transform.GetPosition().y <= 100)
+                m_dir = 1;
+            else if (this->gameObject->transform.GetPosition().y >= m_verticalDistance)
+                m_dir = -1;
+            break;
+        case E_MOVING2:
+            this->gameObject->transform.Rotate(1.2f);
+            this->gameObject->transform.Translate(-SaltyEngine::Vector2::left() * m_vel * m_dir * 2);
+            if (this->gameObject->transform.GetPosition().x <= 100)
+                m_dir = 1;
+            else if (this->gameObject->transform.GetPosition().x >= m_horizontalDistance)
+                m_dir = -1;
+            break;
     }
 }
 
 void MonsterNeunoeilController::Shot() {
    if (isServerSide())
    {
-       if (m_eyeState == E_MOVING1)
+       if (m_state == E_MOVING1)
        {
-           SaltyEngine::GameObject *missile = (SaltyEngine::GameObject *) SaltyEngine::Instantiate("EnemyBullet",
+           SaltyEngine::GameObject *missile = (SaltyEngine::GameObject *) SaltyEngine::Instantiate("MissileNeunoeil",
                                                                                                    m_canons[2]->transform.GetPosition(),
                                                                                                    m_canons[2]->transform.GetRotation());
            getManager()->gameObjectContainer.Add(GameObjectID::NewID(), missile);
 
            BroadCastReliable<ENEMYSHOTPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(gameObject));
        }
-       else if (m_eyeState == E_MOVING2)
+       else if (m_state == E_MOVING2)
        {
            for (int i = 0; i < 4; ++i)
            {
-               SaltyEngine::GameObject *missile = (SaltyEngine::GameObject *) SaltyEngine::Instantiate("EnemyBullet",
+               SaltyEngine::GameObject *missile = (SaltyEngine::GameObject *) SaltyEngine::Instantiate("MissileNeunoeil",
                                                                                                        m_canons[i]->transform.GetPosition(),
                                                                                                        m_canons[i]->transform.GetRotation());
                getManager()->gameObjectContainer.Add(GameObjectID::NewID(), missile);
@@ -164,39 +167,44 @@ void MonsterNeunoeilController::TakeDamage(int amount)
 void MonsterNeunoeilController::SetInvincibility(bool invincible)
 {
     m_isInvincible = invincible;
+    m_sprr->SetColor(SaltyEngine::Color(1, 1, 1));
 }
 
 void MonsterNeunoeilController::OnCollisionEnter(SaltyEngine::ICollider *collider) {
     SaltyEngine::SFML::SpriteCollider2D *col = dynamic_cast<SaltyEngine::SFML::SpriteCollider2D*>(collider);
     if (col)
     {
-        if (m_isInvincible && col->gameObject->CompareTag(SaltyEngine::Layer::Tag::BulletPlayer))
+        if (!isServerSide() && col->gameObject->CompareTag(SaltyEngine::Layer::Tag::BulletPlayer))
         {
-            SaltyEngine::Instantiate("ExplosionBasic", col->gameObject->transform.GetPosition());
-            Destroy(col->gameObject);
-//            if (isServerSide())
-//            {
-//                SendPackage<CREATEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>,
-//                                               gameObject->transform.position.x,
-//                                               gameObject->transform.position.y,
-//                                               RtypeNetworkFactory::GetIDFromName("ExplosionBasic"),
-//                                               getManager()->gameObjectContainer.GetServerObjectID(gameObject));
-//            }
+            if (m_isInvincible) {
+                SaltyEngine::Instantiate("ExplosionBasic", col->gameObject->transform.GetPosition());
+                Destroy(col->gameObject);
+            }
+            else {
+                if (!m_anim->IsPlaying("EyeBlink"))
+                    m_anim->Play("EyeBlink");
+            }
+        }
+        if (isServerSide() && col->gameObject->CompareTag(SaltyEngine::Layer::Tag::Player))
+        {
+            SaltyEngine::PlayerController *controller = col->gameObject->GetComponent<SaltyEngine::PlayerController>();
+            if (controller)
+            {
+                controller->TakeDamage(1);
+            }
         }
     }
 }
 
 void MonsterNeunoeilController::GoToNextState()
 {
-    int curr = (int)m_eyeState;
-    curr += 1;
-    curr %= (int)E_MOVING2 + 1;
-    m_eyeState = (EYE_STATE)curr;
+    m_state++;
+
     if (!isServerSide())
     {
-        if (m_eyeState == E_STATIC)
+        if (m_state == E_STATIC)
             m_anim->Play("EyeClose");
-        if (m_eyeState == E_MOVING1 || m_eyeState == E_MOVING2)
+        if (m_state == E_MOVING1 || m_state == E_MOVING2)
             m_anim->Play("EyeOpen");
     }
 }

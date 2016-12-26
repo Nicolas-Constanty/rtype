@@ -45,6 +45,7 @@ namespace SaltyEngine
 
 	public:
 		virtual void Start() { std::cout << "On start of: " << GetName() << std::endl; };
+		virtual void OnEnable() {};
 
 		virtual void FixedUpdate() {};
 

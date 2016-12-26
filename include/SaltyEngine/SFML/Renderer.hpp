@@ -23,10 +23,12 @@ namespace SaltyEngine
 		public:
 			struct Drawable
 			{
-				Drawable(Sprite **s, sf::RenderWindow *w, GameObject *g) : spr(s), wind(w), gm(g) {}
+				Drawable(Sprite **s, sf::RenderWindow *w, GameObject *g, SpriteRenderer *sr) :
+						spr(s), wind(w), gm(g), sprr(sr) {}
 				Sprite **spr;
 				sf::RenderWindow *wind;
 				GameObject *gm;
+				SpriteRenderer *sprr;
 			};
 		public:
 			typedef std::list<Drawable> SpriteList;

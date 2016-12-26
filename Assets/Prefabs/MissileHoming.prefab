@@ -1,0 +1,9 @@
+{
+    "sprites": [
+        "MissileHoming/Bullet1",
+        "MissileHoming/Bullet2",
+        "MissileHoming/Bullet3",
+        "MissileHoming/Bullet4"
+    ],
+    "lib": "libmissile_homing"
+}

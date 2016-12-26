@@ -23,6 +23,8 @@ namespace SaltyEngine
 	void GameObject::SetActive(bool value)
 	{
 		m_activeSelf = value;
+        if (value)
+            scene->m_enabled.push(this);
 	}
 
 	Layer::Tag GameObject::GetTag(void) const
@@ -57,7 +59,7 @@ namespace SaltyEngine
 		return std::unique_ptr<Object>(obj);
 	}
 
-	std::list<GameObject *> GameObject::FindGameObjectsWithTag(Layer::Tag tag) {
+	std::vector<GameObject *> GameObject::FindGameObjectsWithTag(Layer::Tag tag) {
 		return Factory::Instance().FindAllByTag(tag);
 	}
 

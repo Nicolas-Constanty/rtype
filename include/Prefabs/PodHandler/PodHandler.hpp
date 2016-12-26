@@ -36,8 +36,8 @@ public:
     PodController	*FindFirstAvailablePod();
 
 private:
-    PodController	*pod;
-    PodController   *lastPod;
+    PodController	*pod = nullptr;
+    PodController   *lastPod = nullptr;
 };
 
 #endif //RTYPE_PODHANDLER_HPP

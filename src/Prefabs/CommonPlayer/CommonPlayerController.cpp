@@ -43,7 +43,7 @@ void CommonPlayerController::FixedUpdate()
             }
             break;
         case INVINCIBLE:
-            if (isServerSide() && timer <= 0)
+            if (/*isServerSide() &&*/ timer <= 0)
             {
                 status = ALIVE;
                 if (controller)

@@ -183,7 +183,7 @@ namespace SaltyEngine
 
 		static GameObject *FindGameObjectWithTag(Layer::Tag tag);
 
-        static std::list<GameObject*> FindGameObjectsWithTag(Layer::Tag tag);
+        static std::vector<GameObject *> FindGameObjectsWithTag(Layer::Tag tag);
 
 		public:
 			virtual std::unique_ptr<Object> Clone();

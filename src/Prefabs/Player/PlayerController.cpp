@@ -233,7 +233,17 @@ namespace SaltyEngine
         std::string anim;
 
         anim = "SpaceShip/SpaceShip" + std::to_string(color) + "-1";
-        gameObject->GetComponent<::SaltyEngine::SFML::SpriteRenderer>()->SetSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite(anim));
+        m_renderer = gameObject->GetComponent<::SaltyEngine::SFML::SpriteRenderer>();
+        m_renderer->SetSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite(anim));
+
+        // invincibility animation
+        m_anim = this->gameObject->AddComponent<SaltyEngine::SFML::Animation>(false, SaltyEngine::AnimationConstants::WrapMode::LOOP);
+        SaltyEngine::SFML::AnimationClip *clip = new SaltyEngine::SFML::AnimationClip("Invincibility", 4, SaltyEngine::AnimationConstants::WrapMode::LOOP);
+        clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite(anim));
+        clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite(anim));
+        clip->AddEvent([this](){ m_renderer->SetColor(SaltyEngine::Color(1, 1, 1, 0)); }, 0);
+        clip->AddEvent([this](){ m_renderer->SetColor(SaltyEngine::Color(1, 1, 1, 1)); }, 1);
+        m_anim->AddClip(clip, "Invincibility");
     }
 
     void PlayerController::SetHighScore(int highScore) {
@@ -253,6 +263,19 @@ namespace SaltyEngine
 
     void PlayerController::SetUpdateHighScore(bool update) {
         updateHighScore = update;
+    }
+
+    void PlayerController::OnEnable() {
+        if (m_anim)
+            m_anim->Play("Invincibility");
+    }
+
+    void PlayerController::SetHealth(int health) {
+        AGenericController::SetHealth(health);
+        if (m_anim) {
+            m_anim->Stop("Invincibility");
+            m_renderer->SetColor(SaltyEngine::Color(1, 1, 1));
+        }
     }
 
 //    void PlayerController::Reborn()

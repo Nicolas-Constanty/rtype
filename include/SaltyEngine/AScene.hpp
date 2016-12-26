@@ -20,6 +20,7 @@ namespace SaltyEngine
 	class AScene : public Object
 	{
         friend class Engine;
+        friend class GameObject;
 	public:
 		AScene();
 		explicit AScene(const std::string &name);
@@ -42,6 +43,7 @@ namespace SaltyEngine
 
 	public:
 		void OnStart(void);
+		void OnEnable(void);
 
 		void FixedUpdate(void);
 
@@ -84,6 +86,7 @@ namespace SaltyEngine
 		float						m_gravity;
 		std::list<GameObject *>		m_deleted;
 		Vector2f					m_scale;
+		std::queue<GameObject *>    m_enabled;
 
 	protected:
 		std::queue<std::function<void()>>	m_onCollisionEnter;

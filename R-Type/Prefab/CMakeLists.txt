@@ -56,10 +56,17 @@ target_link_libraries(missile_medusa ${PREFAB_LIBRARIES})
 
 # MISSILE NEUNOEIL
 file(GLOB MISSILE_NEUNOEIL_SOURCE_FILE
-		"src/Prefabs/MissileNeunoeil/*.cpp" "src/Prefabs/Missile/*.cpp"
-		"include/Prefabs/Missile/*.hpp" "include/Prefabs/MissileNeunoeil/*.hpp")
+		"src/Prefabs/Missile/MissileNeunoeil/*.cpp" "src/Prefabs/Missile/*.cpp"
+		"include/Prefabs/Missile/*.hpp" "include/Prefabs/Missile/MissileNeunoeil/*.hpp")
 add_library(missile_neunoeil SHARED ${MISSILE_NEUNOEIL_SOURCE_FILE})
 target_link_libraries(missile_neunoeil ${PREFAB_LIBRARIES})
+
+# MISSILE HOMING
+file(GLOB MISSILE_HOMING_SOURCE_FILE
+		"src/Prefabs/Missile/MissileHoming/*.cpp" "src/Prefabs/Missile/*.cpp"
+		"include/Prefabs/Missile/*.hpp" "include/Prefabs/Missile/MissileHoming/*.hpp")
+add_library(missile_homing SHARED ${MISSILE_HOMING_SOURCE_FILE})
+target_link_libraries(missile_homing ${PREFAB_LIBRARIES})
 
 # MISSILE LASER
 file(GLOB MISSILE_LASER_SOURCE_FILE
@@ -134,7 +141,7 @@ target_link_libraries(monster_flying ${PREFAB_LIBRARIES} missile_medusa missile_
 
 # BOSSES
 
-# WALKER
+# NEUNOEIL
 file(GLOB NEUNOEILMONSTER_SOURCE_FILE
 		"src/Prefabs/MonsterNeunoeil/*.cpp"
 		"include/Prefabs/MonsterNeunoeil/*.hpp"
@@ -150,6 +157,7 @@ add_dependencies(beam ${PREFAB_DEPENDENCIES})
 
 #Missiles
 add_dependencies(missile_medusa ${PREFAB_DEPENDENCIES})
+add_dependencies(missile_homing ${PREFAB_DEPENDENCIES})
 add_dependencies(missile_laser ${PREFAB_DEPENDENCIES})
 add_dependencies(explosion_basic ${PREFAB_DEPENDENCIES})
 add_dependencies(missile_enemy_bullet ${PREFAB_DEPENDENCIES})
@@ -166,6 +174,7 @@ add_dependencies(mate ${PREFAB_DEPENDENCIES} missile_laser)
 set(PREFABS_TARGET
 		missile_medusa
 		missile_neunoeil
+        missile_homing
 		missile_laser
 		missile_enemy_bullet
 		explosion_basic

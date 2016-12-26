@@ -50,8 +50,12 @@ namespace SaltyEngine
 //						(*it).gm->transform.position.x * (*it).gm->transform.localScale.x - ((*it).rect->width * (*it).gm->transform.localScale.x / 2),
 //						(*it).gm->transform.position.y * (*it).gm->transform.localScale.y - ((*it).rect->height * (*it).gm->transform.localScale.y / 2)
 //				 );
-				if ((*it).gm->GetActiveSelf())
+				if ((*it).gm->GetActiveSelf()) {
+                    Color color = (*it).sprr->GetColor();
+                    color *= 255;
+                    (*(*it).spr)->setColor(sf::Color(color.r(), color.g(), color.b(), color.a()));
 					(*it).wind->draw((*(*(*it).spr)));
+				}
 			}
 		}
 
@@ -63,7 +67,7 @@ namespace SaltyEngine
 			if (w == nullptr)
 				w = m_window.get();
 			if (s && w)
-				m_spriteRenderers.at(sprr->GetLayer()).push_back(Drawable((Sprite **) (s), w, sprr->gameObject));
+				m_spriteRenderers.at(sprr->GetLayer()).push_back(Drawable((Sprite **) (s), w, sprr->gameObject, sprr));
 		}
 
 		void Renderer::AddLabel(SaltyEngine::GUI::SFML::Label *label)

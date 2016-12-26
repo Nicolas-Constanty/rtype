@@ -2,7 +2,10 @@
 // Created by wery_a on 30/11/16.
 //
 
+#include <iostream>
 #include "SaltyEngine/SFML/Sound.hpp"
+
+bool SaltyEngine::SFML::Sound::Enable = true;
 
 namespace SaltyEngine {
     namespace SFML {
@@ -28,15 +31,21 @@ namespace SaltyEngine {
         }
 
         void Sound::Play() {
-            play();
+            if (Enable) {
+                play();
+            }
         }
 
         void Sound::Pause() {
-            pause();
+            if (Enable) {
+                pause();
+            }
         }
 
         void Sound::Stop() {
-            stop();
+            if (Enable) {
+                stop();
+            }
         }
 
         ::SaltyEngine::Sound::Status Sound::GetStatus() const {

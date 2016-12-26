@@ -66,7 +66,7 @@ namespace SaltyEngine
          * @return
          */
 		GameObject* FindByTag(Layer::Tag tag);
-		std::list<GameObject*> FindAllByTag(Layer::Tag tag);
+		std::vector<GameObject *> FindAllByTag(Layer::Tag tag);
 
 		/**
          * @brief Loads an asset into the memory from a path

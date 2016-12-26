@@ -102,6 +102,7 @@ namespace SaltyEngine
 			lag += std::chrono::duration_cast<std::chrono::nanoseconds>(m_delta_time);
 			m_even_manager->Update();
             m_scenes[m_current]->OnStart();
+			m_scenes[m_current]->OnEnable();
 			// Control Frame Rate
 //			if (m_physics_handler)
 //			{

@@ -28,8 +28,4 @@ namespace SaltyEngine
     void AAnimation::SetWrapMode(AnimationConstants::WrapMode mode) {
         m_wrapMode = mode;
     }
-
-    bool AAnimation::IsPlaying() const {
-        return m_isPlaying;
-    }
 }
