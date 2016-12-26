@@ -1,8 +1,8 @@
 {
   "texture": "LaserSpiral",
   "rect": {
-    "x": "0",
-    "y": "0",
+    "x": "128",
+    "y": "128",
     "width": "64",
     "heigth": "64"
   }

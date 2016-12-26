@@ -19,15 +19,10 @@ public:
     void FixedUpdate();
     void OnCollisionEnter(SaltyEngine::ICollider *);
 
-    void AddPlayerController(SaltyEngine::PlayerController *playerController);
-
-public:
-    void Power(int damage);
-
 private:
-    float m_vel = 13; // 50
-    int m_damage = 1;
-    int m_targetNbr = 1;
+    float m_vel = 12; // 50
+    int m_damage = 5;
+    int m_targetNbr = 100;
 
 private:
     SaltyEngine::Sound::ISound *soundFire;

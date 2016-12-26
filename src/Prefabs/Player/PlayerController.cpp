@@ -238,7 +238,7 @@ namespace SaltyEngine
 
         // invincibility animation
         m_anim = this->gameObject->AddComponent<SaltyEngine::SFML::Animation>(false, SaltyEngine::AnimationConstants::WrapMode::LOOP);
-        SaltyEngine::SFML::AnimationClip *clip = new SaltyEngine::SFML::AnimationClip("Invincibility", 6, SaltyEngine::AnimationConstants::WrapMode::LOOP);
+        SaltyEngine::SFML::AnimationClip *clip = new SaltyEngine::SFML::AnimationClip("Invincibility", 4, SaltyEngine::AnimationConstants::WrapMode::LOOP);
         clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite(anim));
         clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite(anim));
         clip->AddEvent([this](){ m_renderer->SetColor(SaltyEngine::Color(1, 1, 1, 0)); }, 0);

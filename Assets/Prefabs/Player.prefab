@@ -4,6 +4,7 @@
   "lib": "libplayer",
   "dependencies": [
     "Laser",
+    "LaserSpiral",
     "Mate",
     "Beam",
     "MissileHoming"
