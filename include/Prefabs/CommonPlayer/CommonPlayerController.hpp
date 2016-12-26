@@ -14,7 +14,7 @@ private:
     static const float    timeoutDeath;
     static const float    timeoutInvicible;
 
-private:
+public:
     enum Status
     {
         ALIVE,
@@ -29,6 +29,7 @@ public:
 public:
     void Start();
     void FixedUpdate();
+    Status GetStatus(void) const;
 
 public:
     virtual SaltyEngine::Component *CloneComponent(SaltyEngine::GameObject* const obj);

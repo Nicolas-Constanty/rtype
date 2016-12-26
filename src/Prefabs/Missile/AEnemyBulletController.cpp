@@ -16,6 +16,8 @@ AEnemyBulletController::~AEnemyBulletController()
 
 void AEnemyBulletController::Start()
 {
+    LoadManager();
+
     if (isServerSide())
     {
         std::vector<SaltyEngine::GameObject*> players = SaltyEngine::GameObject::FindGameObjectsWithTag(SaltyEngine::Layer::Tag::Player);
