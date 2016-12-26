@@ -84,6 +84,10 @@ namespace SaltyEngine {
 	public:
         void TakeDamage(int amount) override;
 
+        void OnEnable() override;
+
+        void SetHealth(int health) override;
+
     public:
 		clock::time_point start;
 
@@ -106,6 +110,8 @@ namespace SaltyEngine {
 		SaltyEngine::GameObject *objGUIBeam = NULL;
 		Vector2			m_min;
 		Vector2			m_max;
+		SaltyEngine::SFML::SpriteRenderer *m_renderer = nullptr;
+		SaltyEngine::SFML::Animation *m_anim = nullptr;
 
 	private:
 		CommonPlayerController	*common;

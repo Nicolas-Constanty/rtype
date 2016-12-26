@@ -44,7 +44,7 @@ public:
 		return (10);
 	}
 
-	void SetHealth(int health)
+    virtual void SetHealth(int health)
 	{
 		m_health = health;
 	}

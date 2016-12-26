@@ -47,6 +47,7 @@ private:
 
 	bool m_isInvincible = false;
     SaltyEngine::GameObject *m_canons[4];
+	SaltyEngine::SFML::SpriteRenderer *m_sprr;
 
 private:
     enum EYE_STATE {E_STATIC, E_MOVING1, E_MOVING2, E_FIRST = E_STATIC, E_LAST = E_MOVING2};

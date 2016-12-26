@@ -87,7 +87,8 @@ SaltyEngine::GameObject *SaltyEngine::Factory::Find(std::string const &name)
     std::list<std::unique_ptr<Object>>::iterator it = std::find_if(m_objects.begin(), m_objects.end(),
                                                                    [&](const std::unique_ptr<Object> &obj)
                                                                    {
-                                                                       return obj.get()->GetName() == name;
+                                                                       return obj.get()->GetName() == name &&
+                                                                               dynamic_cast<GameObject*>(obj.get())->GetActiveSelf();
                                                                    });
     return dynamic_cast<GameObject*>((*it).get());
 }
@@ -99,23 +100,22 @@ SaltyEngine::GameObject *SaltyEngine::Factory::FindByTag(Layer::Tag tag)
                                                                    {
                                                                        GameObject *go = dynamic_cast<GameObject*>(obj.get());
                                                                        if (go != nullptr)
-                                                                           return go->GetTag() == tag;
+                                                                           return go->GetTag() == tag && go->GetActiveSelf();
                                                                        return false;
                                                                    });
     return dynamic_cast<GameObject*>((*it).get());
 }
 
-std::list<SaltyEngine::GameObject*> SaltyEngine::Factory::FindAllByTag(Layer::Tag tag)
+std::vector<SaltyEngine::GameObject *> SaltyEngine::Factory::FindAllByTag(Layer::Tag tag)
 {
-    std::list<GameObject *> objs;
-    GameObject *go;
+    std::vector<GameObject *> objs;
+    GameObject *go = nullptr;
 
     for (std::list<std::unique_ptr<Object>>::const_iterator it = m_objects.begin(); it != m_objects.end(); ++it)
     {
-        go = nullptr;
         if ((go = dynamic_cast<GameObject*>(it->get())) != nullptr)
         {
-            if (go->CompareTag(tag))
+            if (go->CompareTag(tag) && go->GetActiveSelf())
                 objs.push_back(go);
         }
     }

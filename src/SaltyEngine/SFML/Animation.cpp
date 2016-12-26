@@ -87,27 +87,23 @@ namespace SaltyEngine
             if (m_isPlaying && clip != nullptr && clip->GetFrames().size()) {
                 // If we do not have animData yet
                 if (animData == nullptr) {
-                    animData = new AnimData(
-                            clip->GetFrames().size(),
-                            gameObject->GetComponent<SpriteRenderer>(),
-                            clip->GetFrames(),
-                            (1.0 / clip->GetFrameRate())
-                    );
+                    animData = new AnimData(clip, gameObject->GetComponent<SpriteRenderer>());
                 }
                 // Update anim
                 if (animData != nullptr) {
                     animData->UpdateAnimTimeline(Engine::Instance().GetFixedDeltaTime());
                     if (animData->IsAnimOver()) {
 
-                        clip->OnAnimEnd();
-
                         // If we have some anims queued, play them
                         if (m_queuedAnims.size() > 0) {
 
                             Play(m_queuedAnims.back());
                             m_queuedAnims.pop();
-                        } else {
-                            switch (clip->GetWrapMode()) {
+                        }
+                        else
+                        {
+                            switch (clip->GetWrapMode())
+                            {
                                 case AnimationConstants::ONCE:
                                     m_isPlaying = false;
                                     break;
@@ -121,7 +117,9 @@ namespace SaltyEngine
                         }
                     }
                 }
-            } else {
+            }
+            else
+            {
                 ClearAnimData();
             }
         }
@@ -164,6 +162,61 @@ namespace SaltyEngine
             return std::next(m_clips.begin(), id)->second;
         }
 
+        bool Animation::IsPlaying(std::string const &name) const {
+            return m_isPlaying && clip != nullptr && clip->GetName() == name;
+        }
+
+        Animation::AnimData::AnimData(AnimationClip *clip, SFML::SpriteRenderer *sprite) :
+                m_clip(clip),
+                m_frameCount(clip->GetFrames().size()),
+                m_spriteRenderer(sprite),
+                m_frames(clip->GetFrames()),
+                m_frameRate(1.0 / clip->GetFrameRate()),
+                m_iterator(m_frames.begin()),
+                m_reviterator(m_frames.rbegin())
+        {
+            m_spriteRenderer->SetSprite(*m_frames.begin());
+        }
+
+        bool Animation::AnimData::IsAnimOver() const {
+            if (!m_playBackwards)
+                return m_iterator == m_frames.end();
+            else
+                return m_reviterator == m_frames.rend();
+        }
+
+        void Animation::AnimData::Reset() {
+            m_iterator = m_frames.begin();
+            m_reviterator = m_frames.rbegin();
+            m_currentFrame = 0;
+        }
+
+        void Animation::AnimData::ReverseAndReset() {
+            m_playBackwards = !m_playBackwards;
+            Reset();
+            m_currentFrame = m_frameCount - 1;
+        }
+
+        void Animation::AnimData::UpdateAnimTimeline(double deltaTime) {
+            m_elapsed += deltaTime;
+            if (m_elapsed >= m_frameRate) {
+                m_elapsed = 0;
+                m_clip->operator[](m_currentFrame)();
+                if (!m_playBackwards) {
+                    m_spriteRenderer->SetSprite(*m_iterator);
+                    ++m_iterator;
+                    ++m_currentFrame;
+                } else {
+                    m_spriteRenderer->SetSprite(*m_reviterator);
+                    ++m_reviterator;
+                    --m_currentFrame;
+                }
+            }
+            if (IsAnimOver())
+            {
+                m_clip->OnAnimEnd();
+            }
+        }
     }
 }
 

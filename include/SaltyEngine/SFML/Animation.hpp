@@ -22,58 +22,24 @@ namespace SaltyEngine
 
             class AnimData {
             public:
-                AnimData(size_t frameCount, SFML::SpriteRenderer *sprite, const std::list<SFML::Sprite *> &frames,
-                         double frameRate) :
-                        m_frameCount(frameCount),
-                        m_sprite(sprite),
-                        m_frames(frames),
-                        m_frameRate(frameRate),
-                        m_iterator(frames.begin()),
-                        m_reviterator(frames.rbegin())
-                {
-                    m_sprite->SetSprite(*frames.begin());
-                }
+                AnimData(AnimationClip * clip, SFML::SpriteRenderer *sprite);
 
-                bool IsAnimOver() const {
-                    if (!m_playBackwards)
-                        return m_iterator == m_frames.end();
-                    else
-                        return m_reviterator == m_frames.rend();
-                }
-
-                void Reset() {
-                    m_iterator = m_frames.begin();
-                    m_reviterator = m_frames.rbegin();
-                }
-
-                void ReverseAndReset() {
-                    m_playBackwards = !m_playBackwards;
-                    Reset();
-                }
-
-                void UpdateAnimTimeline(double deltaTime) {
-                    m_elapsed += deltaTime;
-                    if (m_elapsed >= m_frameRate) {
-                        m_elapsed = 0;
-                        if (!m_playBackwards) {
-                            m_sprite->SetSprite(*m_iterator);
-                            ++m_iterator;
-                        } else {
-                            m_sprite->SetSprite(*m_reviterator);
-                            ++m_reviterator;
-                        }
-                    }
-                }
+                bool IsAnimOver() const;
+                void Reset();
+                void ReverseAndReset();
+                void UpdateAnimTimeline(double deltaTime);
 
             private:
+                AnimationClip *m_clip;
                 size_t m_frameCount;
-                SFML::SpriteRenderer *m_sprite;
+                SFML::SpriteRenderer *m_spriteRenderer;
                 const std::list<SFML::Sprite *> &m_frames;
                 double m_frameRate;
                 typename std::list<SFML::Sprite *>::const_iterator m_iterator;
                 typename std::list<SFML::Sprite *>::const_reverse_iterator m_reviterator;
                 double m_elapsed = 0;
                 bool m_playBackwards = false;
+                size_t m_currentFrame = 0;
             };
 
             AnimData *animData = nullptr;
@@ -121,6 +87,8 @@ namespace SaltyEngine
             virtual Component *CloneComponent(GameObject *const obj);
 
             void Stop() override;
+
+            bool IsPlaying(std::string const &name) const override;
 
         private:
             void ClearAnimData(void);

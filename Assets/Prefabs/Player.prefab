@@ -5,6 +5,7 @@
   "dependencies": [
     "Laser",
     "Mate",
-    "Beam"
+    "Beam",
+    "MissileHoming"
   ]
 }
