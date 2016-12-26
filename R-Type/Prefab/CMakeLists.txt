@@ -40,10 +40,21 @@ target_link_libraries(PrefabCommunication SaltyEngine SFMLSaltyEngine Network Pa
 
 add_dependencies(PrefabCommunication SFMLSaltyEngine)
 
+# BLOCK
+file(GLOB BEAM_SOURCE_FILE "src/Prefabs/Block/*.cpp"  "include/Prefabs/Block/*.hpp")
+add_library(BlockSimple SHARED ${BEAM_SOURCE_FILE})
+target_link_libraries(BlockSimple ${PREFAB_LIBRARIES})
+
 # BEAM
 file(GLOB BEAM_SOURCE_FILE "src/Prefabs/Beam/*.cpp"  "include/Prefabs/Beam/*.hpp")
 add_library(beam SHARED ${BEAM_SOURCE_FILE})
 target_link_libraries(beam ${PREFAB_LIBRARIES})
+
+# BONUS
+
+file(GLOB BONUS_INC include/Prefabs/Bonus/*.hpp)
+file(GLOB BONUS_SRC src/Prefabs/Bonus/*.cpp)
+add_library(spiralbonus SHARED ${BONUS_SRC} ${BONUS_INC})
 
 # MISSILES
 
@@ -188,10 +199,13 @@ set(PREFABS_TARGET
 		explosion_basic
 		player
 		mate
+        pod
+        spiralbonus
 		monster
 		monster_walker
 		monster_flying
 		monster_neunoeil
-		beam)
+		beam
+		BlockSimple)
 
 add_custom_target(prefabs DEPENDS ${PREFABS_TARGET})

@@ -8,12 +8,6 @@
 #include <Rtype/Game/Common/GameObjectID.hpp>
 #include "Prefabs/Pod/PodController.hpp"
 
-const std::vector<std::string>    PodController::lvlsprites = {
-        "Nacelle/Nacelle0",
-        "Nacelle/Nacelle1",
-        "Nacelle/Nacelle2"
-};
-
 PodController::PodController(SaltyEngine::GameObject *const object) :
         RtypePrefab("PodController", object),
         attachedPlayer(NULL),
@@ -95,7 +89,16 @@ void PodController::Start()
 
 void PodController::FixedUpdate()
 {
-    if (speed > 0)
+    if (caller)
+    {
+        SaltyEngine::Vector2    direction = caller->gameObject->transform.GetPosition() - gameObject->transform.GetPosition();
+        double l = 1.0 / sqrt(direction.x * direction.x + direction.y * direction.y);
+
+        direction.x *= l * speed;
+        direction.y *= l * speed;
+        gameObject->transform.SetPosition(gameObject->transform.GetPosition() + direction);
+    }
+    else if (speed > 0)
     {
         SaltyEngine::Vector2 newpos = gameObject->transform.GetPosition() + (SaltyEngine::Vector::left() * (isAtFront ? -1 : 1)) * speed;
         SaltyEngine::Vector2 const &pos = gameObject->transform.GetPosition();
@@ -111,15 +114,6 @@ void PodController::FixedUpdate()
         {
             speed = 0;
         }
-    }
-    else if (caller)
-    {
-        SaltyEngine::Vector2    direction = caller->gameObject->transform.GetPosition() - gameObject->transform.GetPosition();
-        double l = 1.0 / sqrt(direction.x * direction.x + direction.y * direction.y);
-
-        direction.x *= l;
-        direction.y *= l;
-        gameObject->transform.SetPosition(gameObject->transform.GetPosition() + direction);
     }
 //    else if (!isAttached())
 //    {
@@ -161,6 +155,7 @@ void PodController::OnCollisionEnter(SaltyEngine::ICollider *collider)
     }
     if (c->gameObject->GetTag() == SaltyEngine::Layer::Tag::Enemy || c->gameObject->GetTag() == SaltyEngine::Layer::Tag::BulletEnemy)
     {
+        //todo deal damage
         SaltyEngine::Instantiate("ExplosionBasic", c->gameObject->transform.GetPosition());
         Destroy(c->gameObject);
     }
@@ -168,13 +163,28 @@ void PodController::OnCollisionEnter(SaltyEngine::ICollider *collider)
 
 bool PodController::Upgrade()
 {
-    if (level < lvlsprites.size() - 1)
+    if (!anim)
     {
+        Debug::Print("No such Animation");
+        return false;
+    }
+
+    if (level < anim->GetClipCount() - 1)
+    {
+        std::string exanim = "Nacelle" + std::to_string(level);
+        std::string newanim = "Nacelle" + std::to_string(level + 1);
+
+        Debug::Print("Upgrading: " + exanim);
         ++level;
-        if (anim)
+        if (anim->IsPlaying(exanim))
         {
-            anim->AddClip(SaltyEngine::SFML::AssetManager::Instance().GetAnimation(lvlsprites[level]), "Nacelle");
+            Debug::Print("Stoping");
+            anim->Stop("Nacelle" + std::to_string(level - 1));
         }
+        Debug::Print("Playing: " + newanim);
+        anim->Play(newanim);
+        if (isServerSide())
+            BroadCastReliable<UPGRADEPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(gameObject));
         return true;
     }
     return false;
@@ -229,6 +239,7 @@ bool PodController::Call(PodHandler *player)
         }
         BroadCastReliable<CALLPackageGame>(podid, getManager()->gameObjectContainer.GetServerObjectID(player->gameObject));
     }
+    speed = 5;
     caller = player;
     return true;
 }

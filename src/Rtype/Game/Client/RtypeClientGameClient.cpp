@@ -97,6 +97,7 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetCREATEPackage(CREATEPackag
 
     try
     {
+        std::cout << "===> Creating: " << pack.ID << std::endl;
         SaltyEngine::GameObject *object = RtypeNetworkFactory::Create(pack.ID, SaltyEngine::Vector((float)pack.posX, (float)pack.posY), pack.rotation);
 
         gameManager->gameObjectContainer.Add(pack.objectID, object);
@@ -257,6 +258,17 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetFAILUREPackage(FAILUREPack
 void Rtype::Game::Client::RtypeClientGameClient::onGetUPGRADEPackage(UPGRADEPackageGame const &pack)
 {
     OnDiscoveringPackage(pack);
+    SaltyEngine::GameObject *object = gameManager->gameObjectContainer[pack.objectID];
+
+    if (object)
+    {
+        PodController   *podController = object->GetComponent<PodController>();
+
+        if (podController)
+        {
+            podController->Upgrade();
+        }
+    }
 }
 
 void Rtype::Game::Client::RtypeClientGameClient::OnDisconnect()
