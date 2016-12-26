@@ -89,7 +89,16 @@ void PodController::Start()
 
 void PodController::FixedUpdate()
 {
-    if (speed > 0)
+    if (caller)
+    {
+        SaltyEngine::Vector2    direction = caller->gameObject->transform.GetPosition() - gameObject->transform.GetPosition();
+        double l = 1.0 / sqrt(direction.x * direction.x + direction.y * direction.y);
+
+        direction.x *= l * speed;
+        direction.y *= l * speed;
+        gameObject->transform.SetPosition(gameObject->transform.GetPosition() + direction);
+    }
+    else if (speed > 0)
     {
         SaltyEngine::Vector2 newpos = gameObject->transform.GetPosition() + (SaltyEngine::Vector::left() * (isAtFront ? -1 : 1)) * speed;
         SaltyEngine::Vector2 const &pos = gameObject->transform.GetPosition();
@@ -105,15 +114,6 @@ void PodController::FixedUpdate()
         {
             speed = 0;
         }
-    }
-    else if (caller)
-    {
-        SaltyEngine::Vector2    direction = caller->gameObject->transform.GetPosition() - gameObject->transform.GetPosition();
-        double l = 1.0 / sqrt(direction.x * direction.x + direction.y * direction.y);
-
-        direction.x *= l;
-        direction.y *= l;
-        gameObject->transform.SetPosition(gameObject->transform.GetPosition() + direction);
     }
 //    else if (!isAttached())
 //    {
@@ -239,6 +239,7 @@ bool PodController::Call(PodHandler *player)
         }
         BroadCastReliable<CALLPackageGame>(podid, getManager()->gameObjectContainer.GetServerObjectID(player->gameObject));
     }
+    speed = 5;
     caller = player;
     return true;
 }
