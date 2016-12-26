@@ -42,6 +42,8 @@ public:
     bool isDead();
     void setInvincible();
 
+    void OnCollisionEnter(SaltyEngine::ICollider *collider) override;
+
 private:
     int global_lives;
     Status status;

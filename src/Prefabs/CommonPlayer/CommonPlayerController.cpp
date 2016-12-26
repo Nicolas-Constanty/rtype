@@ -107,3 +107,16 @@ void CommonPlayerController::setInvincible()
 {
     status = INVINCIBLE;
 }
+
+void CommonPlayerController::OnCollisionEnter(SaltyEngine::ICollider *collider) {
+    SaltyEngine::SFML::SpriteCollider2D *col = dynamic_cast<SaltyEngine::SFML::SpriteCollider2D*>(collider);
+    if (col)
+    {
+        if (isServerSide() && isAlive()) {
+            if (!col->gameObject->CompareTag(SaltyEngine::Layer::Tag::BulletPlayer)
+                && !col->gameObject->CompareTag(SaltyEngine::Layer::Tag::Player)) {
+                Die();
+            }
+        }
+    }
+}
