@@ -48,7 +48,7 @@ void MonsterWalkerController::FixedUpdate()
 }
 
 void MonsterWalkerController::Move() {
-//    this->gameObject->transform.Translate(-gameObject->transform.right() * m_vel);
+    this->gameObject->transform.Translate(-gameObject->transform.right() * m_vel);
 }
 
 void MonsterWalkerController::Shot() {
