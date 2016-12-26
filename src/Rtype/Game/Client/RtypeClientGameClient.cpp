@@ -207,6 +207,10 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetMOVEPackage(MOVEPackageGam
     SaltyEngine::GameObject *obj = gameManager->gameObjectContainer[pack.objectID];
     if (obj) {
         obj->transform.SetPosition(SaltyEngine::Vector(pack.posX, pack.posY));
+//        SaltyEngine::SFML::SpriteRenderer *resetColorRenderer = obj->GetComponent<SaltyEngine::SFML::SpriteRenderer>();
+//        if (resetColorRenderer) {
+//            resetColorRenderer->SetColor(SaltyEngine::Color::White());
+//        }
     }
 }
 
@@ -259,7 +263,6 @@ void Rtype::Game::Client::RtypeClientGameClient::OnDisconnect()
 {
     Common::RtypeGameClient::OnDisconnect();
     SaltyEngine::Engine::Instance().Stop();
-
 }
 
 void Rtype::Game::Client::RtypeClientGameClient::onGetENEMYSHOTPackage(ENEMYSHOTPackageGame const &pack) {
@@ -282,6 +285,7 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetMATEPackage(MATEPackageGam
                                                                       0);
 
         gameManager->gameObjectContainer.Add(matePackageGame.objectID, object);
+        gameManager->gameObjectContainer.AddMate(matePackageGame.playerID, object);
         MateComponent *component = object->GetComponent<MateComponent>();
         if (component) {
             component->SetColor(matePackageGame.playerID);
@@ -326,3 +330,28 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetDEATHPackage(DEATHPackage 
     }
 }
 
+void Rtype::Game::Client::RtypeClientGameClient::onGetDISCONNECTPackage(DISCONNECTPackageGame const &pack)
+{
+    Rtype::Game::Common::RtypeGameClient::onGetDISCONNECTPackage(pack);
+    SaltyEngine::GameObject *obj = gameManager->gameObjectContainer.GetMateObjectID(pack.playerID);
+
+    if (obj) {
+        SaltyEngine::SFML::SpriteRenderer *mateComponent = obj->GetComponent<SaltyEngine::SFML::SpriteRenderer>();
+        if (mateComponent) {
+            mateComponent->SetColor(SaltyEngine::Color::Red());
+        }
+    }
+}
+
+void Rtype::Game::Client::RtypeClientGameClient::onGetRECONNECTPackage(RECONNECTPackageGame const &pack) {
+//    Rtype::Game::Common::RtypeGameClient::onGetDISCONNECTPackage(pack);
+    OnDiscoveringPackage(pack);
+    SaltyEngine::GameObject *obj = gameManager->gameObjectContainer.GetMateObjectID(pack.playerID);
+
+    if (obj) {
+        SaltyEngine::SFML::SpriteRenderer *mateComponent = obj->GetComponent<SaltyEngine::SFML::SpriteRenderer>();
+        if (mateComponent) {
+            mateComponent->SetColor(SaltyEngine::Color::White());
+        }
+    }
+}

@@ -108,7 +108,6 @@ void Rtype::Game::Common::RtypeGameClient::onGetDISCONNECTPackage(DISCONNECTPack
     if (playerID == pack.playerID)
     {
         getDisconnected = true;
-        //todo destroy gameobject
     }
 }
 

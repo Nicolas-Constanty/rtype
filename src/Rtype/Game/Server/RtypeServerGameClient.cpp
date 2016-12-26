@@ -384,6 +384,9 @@ void Rtype::Game::Server::RtypeServerGameClient::StartDisplayInformation(int y) 
     this->SendPackage<CREATEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>,
                                          player->transform.GetPosition().x, player->transform.GetPosition().y, 0, gameManager->gameObjectContainer.GetServerObjectID(player));
 
+//    this->SendPackage<RECONNECTPackageGame>(&Network::UDP::AUDPConnection::SendReliable<RECONNECTPackageGame>,
+//                                         player->transform.GetPosition().x, player->transform.GetPosition().y, 0, gameManager->gameObjectContainer.GetServerObjectID(player));
+
     for (std::unique_ptr<Network::Socket::ISockStreamHandler> &curr : clients->Streams())
     {
         Rtype::Game::Server::RtypeServerGameClient *client = dynamic_cast<Rtype::Game::Server::RtypeServerGameClient *>(curr.get());
@@ -393,6 +396,9 @@ void Rtype::Game::Server::RtypeServerGameClient::StartDisplayInformation(int y) 
             client->SendPackage<MATEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<MATEPackageGame>,
                                                  player->transform.GetPosition().x, player->transform.GetPosition().y, __playerID,
                                                  gameManager->gameObjectContainer.GetServerObjectID(player));
+
+//            client->BroadCastPackage<RECONNECTPackageGame>(&Network::UDP::AUDPConnection::SendReliable<RECONNECTPackageGame>,
+//                                                 __playerID);
         }
     }
 }
@@ -409,5 +415,9 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetMATEPackage(MATEPackageGam
 
 void Rtype::Game::Server::RtypeServerGameClient::onGetDEATHPackage(DEATHPackage const &pack)
 {
+    OnDiscoveringPackage(pack);
+}
+
+void Rtype::Game::Server::RtypeServerGameClient::onGetRECONNECTPackage(RECONNECTPackageGame const &pack) {
     OnDiscoveringPackage(pack);
 }

@@ -40,3 +40,20 @@ unsigned short GameObjectContainer::GetServerObjectID(SaltyEngine::GameObject *g
     }
     throw std::runtime_error("unknown obj");
 }
+
+int GameObjectContainer::AddMate(int serverID, SaltyEngine::GameObject *gameObject) {
+    idsMate[serverID] = static_cast<unsigned short>(gameObject->GetInstanceID());
+    return serverID;
+}
+
+SaltyEngine::GameObject *GameObjectContainer::GetMateObjectID(int serverID) const {
+    std::map<int, unsigned short>::const_iterator it = idsMate.find(serverID);
+
+    if (it != idsMate.end()) {
+        SaltyEngine::AScene *scene = SaltyEngine::Engine::Instance().GetCurrentScene();
+        if (scene) {
+            return scene->FindById(it->second);
+        }
+    }
+    return (NULL);
+}

@@ -136,6 +136,8 @@ void Rtype::Game::Server::RtypeGameServer::OnStartGame(Rtype::Game::Common::Rtyp
                 if (playerController) {
                     if (playerID == playerController->GetPlayerID()) {
                         name = "Player";
+                        this->BroadCastPackage<RECONNECTPackageGame>(&Network::UDP::AUDPConnection::SendReliable<RECONNECTPackageGame>,
+                                                                     static_cast<unsigned short>(playerID));
                     }
 
                     if (name == "Mate") {

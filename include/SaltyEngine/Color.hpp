@@ -27,6 +27,7 @@ namespace SaltyEngine
         Color &operator*=(float val);
 
         static Color White(void);
+        static Color Red(void);
 
     private:
         float _r = 1;

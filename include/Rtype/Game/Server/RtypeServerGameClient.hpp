@@ -52,6 +52,7 @@ namespace Rtype
                 virtual void onGetMATEPackage(MATEPackageGame const &);
                 virtual void onGetGAMEOVERPackage(GAMEOVERPackageGame const &game);
                 virtual void onGetDEATHPackage(DEATHPackage const &);
+                virtual void onGetRECONNECTPackage(RECONNECTPackageGame const &);
 
             public:
                 void StartDisplayInformation(int y);
