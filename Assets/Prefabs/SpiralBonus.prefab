@@ -1,0 +1,9 @@
+{
+    "sprites": [
+        "Bonus/SpiralBonus"
+    ],
+    "lib": "libspiralbonus",
+    "dependencies": [
+        "Pod"
+    ]
+}

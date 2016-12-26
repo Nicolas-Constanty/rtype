@@ -11,9 +11,6 @@
 
 class PodController : public RtypePrefab
 {
-private:
-    static const std::vector<std::string>    lvlsprites;
-
 public:
     explicit PodController(SaltyEngine::GameObject* const object);
     PodController(const std::string &name, SaltyEngine::GameObject * const object);

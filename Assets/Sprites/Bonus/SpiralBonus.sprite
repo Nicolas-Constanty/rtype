@@ -1,0 +1,13 @@
+{
+    "texture": "crystals",
+    "scale": {
+        "width": "1",
+        "height": "1"
+      },
+    "rect": {
+        "x": "0",
+        "y": "0",
+        "width": "40",
+        "heigth": "36"
+    }
+}

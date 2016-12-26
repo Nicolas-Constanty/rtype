@@ -150,6 +150,7 @@ void Rtype::Game::Server::RtypeGameServer::OnStartGame(Rtype::Game::Common::Rtyp
             }
 
             if (!alreadySend) {
+                std::cout << "Send create of " << name << " : " << RtypeNetworkFactory::GetIDFromName(name) << std::endl;
                 client->SendPackage<CREATEPackageGame>(
                         &Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>,
                         gameObject->transform.GetPosition().x,

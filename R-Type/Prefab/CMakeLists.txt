@@ -45,6 +45,12 @@ file(GLOB BEAM_SOURCE_FILE "src/Prefabs/Beam/*.cpp"  "include/Prefabs/Beam/*.hpp
 add_library(beam SHARED ${BEAM_SOURCE_FILE})
 target_link_libraries(beam ${PREFAB_LIBRARIES})
 
+# BONUS
+
+file(GLOB BONUS_INC include/Prefabs/Bonus/*.hpp)
+file(GLOB BONUS_SRC src/Prefabs/Bonus/*.cpp)
+add_library(spiralbonus SHARED ${BONUS_SRC} ${BONUS_INC})
+
 # MISSILES
 
 # MISSILE MEDUSA
@@ -180,6 +186,8 @@ set(PREFABS_TARGET
 		explosion_basic
 		player
 		mate
+        pod
+        spiralbonus
 		monster
 		monster_walker
 		monster_flying
