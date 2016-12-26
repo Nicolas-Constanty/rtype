@@ -39,8 +39,10 @@ namespace SaltyEngine
 		std::list<std::unique_ptr<Component>> 			m_components;
 		std::list<SaltyBehaviour *>						m_behaviour;
 		size_t											m_bcount;
+		bool											m_shouldBeRendered = false;
 
 	public:
+		bool ShouldBeRenderer(void) const { return m_shouldBeRendered; }
 		bool GetActiveSelf(void) const;
 		void SetScene(AScene *);
 		AScene *GetScene() const;
