@@ -1,9 +1,7 @@
 #include "SaltyEngine/SFML/Animation.hpp"
 #include "Prefabs/Player/Player.hpp"
 #include "Prefabs/Player/PlayerController.hpp"
-#include "SaltyEngine/SFML/AssetManager.hpp"
-#include "SaltyEngine/SFML/SpriteRenderer.hpp"
-#include <Prefabs/PodHandler/PodHandler.hpp>
+#include "Prefabs/PodHandler/PodHandler.hpp"
 
 Player::Player() : GameObject("Player", SaltyEngine::Layer::Tag::Player)
 {

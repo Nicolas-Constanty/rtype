@@ -53,8 +53,9 @@ void MissileHomingController::FixedUpdate() {
         float lerpRot = SaltyEngine::Mathf::LerpAngle(currRot, targetRot,
                                                       SaltyEngine::Engine::Instance().GetFixedDeltaTime() * 6);
 
-//        std::cout << "Current rotation = " << currRot << std::endl;
-//        std::cout << "Target rotation = " << targetRot << std::endl;
+        // TODO : fix :(
+//        std::cout << "Current rotation = " << currRot << " Current position = " << this->gameObject->transform.GetPosition() << std::endl;
+//        std::cout << "Target rotation = " << targetRot << " Target position = " << m_target->transform.GetPosition() << std::endl;
 //        std::cout << "Once lerped = " << lerpRot << std::endl;
 
         this->gameObject->transform.SetRotation(lerpRot);

@@ -23,6 +23,8 @@ namespace SaltyEngine
 	void GameObject::SetActive(bool value)
 	{
 		m_activeSelf = value;
+        if (value)
+            scene->m_enabled.push(this);
 	}
 
 	Layer::Tag GameObject::GetTag(void) const
