@@ -16,11 +16,39 @@
     "BLOCK" : {
       "prefabName": "BlockSimple",
       "position": {
-        "x": "200",
-        "y": "200"
+        "x": "0",
+        "y": "20"
       }
     },
-      "Bonus1" : {
+    "BLOCK1" : {
+      "prefabName": "BlockSimple",
+      "position": {
+        "x": "90",
+        "y": "20"
+      }
+    },
+    "BLOCK2" : {
+      "prefabName": "BlockSimple",
+      "position": {
+        "x": "180",
+        "y": "20"
+      }
+    },
+    "BLOCK3" : {
+      "prefabName": "BlockSimple",
+      "position": {
+        "x": "270",
+        "y": "20"
+      }
+    },
+    "BLOCK4" : {
+      "prefabName": "BlockSimple",
+      "position": {
+        "x": "350",
+        "y": "20"
+      }
+    },
+    "Bonus1" : {
           "prefabName": "SpiralBonus",
           "position": {
               "x": "300",
