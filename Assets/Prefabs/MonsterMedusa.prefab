@@ -1,0 +1,13 @@
+{
+    "sprites": [
+        "MonsterMedusa/Medusa1"
+    ],
+    "animations": [
+        "MonsterMedusa/Fly"
+    ],
+    "lib": "monster_medusa",
+    "dependencies": [
+        "ExplosionBasic",
+        "MissileMedusa"
+    ]
+}

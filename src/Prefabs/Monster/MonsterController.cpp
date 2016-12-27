@@ -51,7 +51,7 @@ void MonsterController::Move() {
 
 void MonsterController::Shot() {
     if (isServerSide()) {
-        SaltyEngine::GameObject *missile = (SaltyEngine::GameObject *) SaltyEngine::Instantiate("MissileMedusa",
+        SaltyEngine::GameObject *missile = (SaltyEngine::GameObject *) SaltyEngine::Instantiate("EnemyBullet",
                                                                                                 this->gameObject->transform.GetPosition());
 
         getManager()->gameObjectContainer.Add(GameObjectID::NewID(), missile);

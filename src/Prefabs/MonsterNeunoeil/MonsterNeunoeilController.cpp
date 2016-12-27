@@ -1,6 +1,5 @@
 #include <Rtype/Game/Common/GameObjectID.hpp>
 #include <Rtype/Game/Common/RtypeNetworkFactory.hpp>
-#include <Prefabs/Player/PlayerController.hpp>
 #include "Prefabs/MonsterNeunoeil/MonsterNeunoeilController.hpp"
 
 MonsterNeunoeilController::MonsterNeunoeilController(SaltyEngine::GameObject *obj) :
@@ -44,8 +43,6 @@ void MonsterNeunoeilController::Start()
 //        animation->AddClip(SaltyEngine::SFML::AssetManager::Instance().GetAnimation("Laser/loading"), "Loading");
         m_canons[i] = go;
     }
-
-    gameObject->transform.SetPosition(SaltyEngine::Vector2(800, 100));
 
     if (isServerSide()) {
         BroadCastReliable<CREATEPackageGame>(gameObject->transform.GetPosition().x,
@@ -183,14 +180,6 @@ void MonsterNeunoeilController::OnCollisionEnter(SaltyEngine::ICollider *collide
             else {
                 if (!m_anim->IsPlaying("EyeBlink"))
                     m_anim->Play("EyeBlink");
-            }
-        }
-        if (isServerSide() && col->gameObject->CompareTag(SaltyEngine::Layer::Tag::Player))
-        {
-            SaltyEngine::PlayerController *controller = col->gameObject->GetComponent<SaltyEngine::PlayerController>();
-            if (controller)
-            {
-                controller->TakeDamage(1);
             }
         }
     }
