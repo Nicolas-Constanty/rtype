@@ -84,10 +84,6 @@ namespace SaltyEngine {
 	public:
         void TakeDamage(int amount) override;
 
-        void OnEnable() override;
-
-        void SetHealth(int health) override;
-
     public:
 		clock::time_point start;
 

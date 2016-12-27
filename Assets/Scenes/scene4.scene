@@ -30,7 +30,7 @@
       "MonsterWalker": {
             "prefabName": "MonsterWalker",
             "position": {
-              "x" : "2000",
+              "x" : "500",
               "y": "300"
             }
           }

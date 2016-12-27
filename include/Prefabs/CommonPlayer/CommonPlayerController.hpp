@@ -47,10 +47,12 @@ public:
 
 private:
     int global_lives;
+    float timer;
     Status status;
     SaltyEngine::SFML::SpriteCollider2D    *collider2D;
     AGenericController  *controller;
-    float timer;
+    SaltyEngine::SFML::Animation *anim;
+    SaltyEngine::SFML::SpriteRenderer *renderer;
 };
 
 #endif //RTYPE_COMMONPLAYERCONTROLLER_HPP

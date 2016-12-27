@@ -7,6 +7,7 @@
 
 #include <SaltyEngine/SaltyBehaviour.hpp>
 #include <Prefabs/RtypePrefab.hpp>
+#include <Prefabs/CommonPlayer/CommonPlayerController.hpp>
 
 class MateComponent : public RtypePrefab
 {
@@ -25,6 +26,9 @@ public:
 
 public:
     SaltyEngine::GameObject *m_beamSFX = nullptr;
+
+private:
+    CommonPlayerController  *common;
 };
 
 
