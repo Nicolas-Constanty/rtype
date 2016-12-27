@@ -13,6 +13,13 @@
         "y": "500"
       }
     },
+    "BLOCK" : {
+      "prefabName": "BlockSimple",
+      "position": {
+        "x": "200",
+        "y": "200"
+      }
+    },
       "Bonus1" : {
           "prefabName": "SpiralBonus",
           "position": {
@@ -33,6 +40,13 @@
               "x" : "500",
               "y": "300"
             }
-        }
+        },
+  "MonsterWalker2": {
+    "prefabName": "MonsterWalker",
+    "position": {
+      "x" : "2000",
+      "y": "300"
     }
+  }
+  }
 }
