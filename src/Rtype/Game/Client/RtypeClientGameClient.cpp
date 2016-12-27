@@ -204,7 +204,6 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetCALLPackage(CALLPackageGam
 void Rtype::Game::Client::RtypeClientGameClient::onGetMOVEPackage(MOVEPackageGame const &pack)
 {
     OnDiscoveringPackage(pack);
-    Debug::PrintInfo("Receive packet move: (" + std::to_string(pack.posX) + ", " + std::to_string(pack.posY) + ") : " + std::to_string(pack.objectID));
     SaltyEngine::GameObject *obj = gameManager->gameObjectContainer[pack.objectID];
     if (obj) {
         obj->transform.SetPosition(SaltyEngine::Vector(pack.posX, pack.posY));
