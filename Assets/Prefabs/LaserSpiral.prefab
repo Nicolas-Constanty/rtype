@@ -26,5 +26,5 @@
         "LaserSpiral/Bullet24",
         "LaserSpiral/Bullet25"
     ],
-    "lib": "libmissile_laser_spiral"
+    "lib": "missile_laser_spiral"
 }
