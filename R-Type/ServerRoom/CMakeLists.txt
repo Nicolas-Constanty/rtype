@@ -11,10 +11,10 @@ elseif(MSVC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3")
 endif()
 
-add_executable(serverRoom
+add_executable(RoomServer
         ${serverRoomSrc} ${serverRoomIrc}
         src/ServerRoom/main.cpp)
 
-target_link_libraries(serverRoom dl Network Common ProtocolGame ProtocolServer ProtocolRoom)
+target_link_libraries(RoomServer dl Network Common ProtocolGame ProtocolServer ProtocolRoom)
 
 add_dependencies(Network Common ProtocolGame ProtocolServer ProtocolRoom)

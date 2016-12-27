@@ -58,10 +58,10 @@ int main()
             std::getline(std::cin, buffer);
             std::vector<std::string> cmds = split(buffer, ' ');
             if (!cmds.empty()) {
-                if (cmds[0] == "CREATE" && cmds.size() == 3) {
+                if (cmds[0] == "CREATE" && cmds.size() == 4) {
                     client.SendData(
                             *(factory.create<CREATEPackageRoom>(0, (unsigned short) std::atoi(cmds[1].c_str()), cmds[2],
-                                                                0, 1)));
+                                                                0, (unsigned short) std::atoi(cmds[3].c_str()))));
                 } else if (cmds[0] == "JOIN" && cmds.size() == 2) {
                     client.SendData(*(factory.create<JOINPackageRoom>((unsigned short) std::atoi(cmds[1].c_str()))));
                 } else if (cmds[0] == "QUIT" && cmds.size() == 3) {
