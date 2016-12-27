@@ -305,7 +305,7 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetMATEPackage(MATEPackageGam
             component->SetColor(matePackageGame.playerID);
         }
     } catch (...) {
-        std::cout << "unkown obj" << std::endl;
+        Debug::PrintError("Unknown object");
     }
 }
 

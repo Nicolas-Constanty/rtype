@@ -41,19 +41,11 @@ bool Rtype::Game::Server::RtypeGameServer::OnDataReceived(unsigned int)
 
     if (client)
         client->setManager(manager);
-
-//    SaltyEngine::GameObject *ship = new SaltyEngine::GameObject("Player " + std::to_string(newclient->getId()));
-    //todo add script component to <ship> and set it to <newclient> in order to call script functions in each network callback
-
-    //    Singleton<SaltyEngine::SaltyEngine>::Instance()-> todo add gameobject to scene
-//    SendData(*factory.create<CREATEPackageGame>(ship->transform.localPosition.x, ship->transform.localPosition.y, TODEFINE, ship->GetInstanceID())); todo define correspondance id for gameobjects type
-    std::cout << "Hey j'ai reçu " << buff << std::endl;
     return true;
 }
 
 bool Rtype::Game::Server::RtypeGameServer::OnDataSent(unsigned int)
 {
-//    std::cout << "On send des choses: " << len << std::endl;
     return true;
 }
 
@@ -69,23 +61,12 @@ void Rtype::Game::Server::RtypeGameServer::OnReadCheck()
         {
             client->ping();
         }
-//        else
-//        {
-//            std::cout << "Checking ping: " << client << std::endl;
-//            if (client && client->pong() && pingtimer.default_timeout(pingtimeout))
-//            {
-//                std::cout << "===\e[32mPING\e[0m===" << std::endl;
-
-//                pingtimer.refresh();
-//            }
-//            ++it;
-//        }
     }
 }
 
 void Rtype::Game::Server::RtypeGameServer::setSecret(uint32_t secret)
 {
-    std::cout << "\x1b[33mSetting secret to\x1b[0m: " << secret << std::endl;
+    Debug::PrintSuccess("Setting secret to: " + std::to_string(secret));
     this->secret = secret;
 }
 
@@ -108,7 +89,7 @@ bool Rtype::Game::Server::RtypeGameServer::OnStart()
         playersConnected[(int)i] = false;
         ++i;
     }
-    std::cout << "\x1b[32mServer started\x1b[0m: maximum number of players => " << maxSize << ", secure => " << std::boolalpha << secure << std::endl;
+    Debug::PrintSuccess("Server started: maximum number of players => " + std::to_string(maxSize) + ", secure => " + (secure ? "true" : "false"));
     return true;
 }
 
@@ -152,7 +133,6 @@ void Rtype::Game::Server::RtypeGameServer::OnStartGame(Rtype::Game::Common::Rtyp
             }
 
             if (!alreadySend) {
-                std::cout << "Send create of " << name << " : " << RtypeNetworkFactory::GetIDFromName(name) << std::endl;
                 client->SendPackage<CREATEPackageGame>(
                         &Network::UDP::AUDPConnection::SendReliable<CREATEPackageGame>,
                         gameObject->transform.GetPosition().x,
@@ -180,7 +160,6 @@ void Rtype::Game::Server::RtypeGameServer::OnStartGame() {
 
 void Rtype::Game::Server::RtypeGameServer::setManager(GameManager *manager)
 {
-    std::cout << "=====> Setting manager in RtypeGameServer" << std::endl;
     this->manager = manager;
 }
 
@@ -204,7 +183,7 @@ int Rtype::Game::Server::RtypeGameServer::PlayerID() {
 }
 
 void Rtype::Game::Server::RtypeGameServer::DisconnectConnectedPlayer(int playerID) {
-    std::cout << "DISCONNECT player ID == " << playerID << std::endl;
+    Debug::Print("DISCONNECT player ID == " + std::to_string(playerID));
     std::map<int, bool>::iterator it = playersConnected.find(playerID);
     if (it != playersConnected.end()) {
         it->second = false;
