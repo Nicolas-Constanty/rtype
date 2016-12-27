@@ -30,9 +30,9 @@ namespace SaltyEngine
         constexpr static const float deg2rad = static_cast<float>(M_PI / 180);
 
     private:
-        static std::vector<float> m_sin;
+        static const std::vector<float> m_sin;
 
-        static std::vector<float> m_cos;
+        static const std::vector<float> m_cos;
     };
 }
 
