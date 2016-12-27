@@ -20,7 +20,7 @@ Beam::Beam() : GameObject("Beam", SaltyEngine::Layer::Tag::Untagged) {
 Beam::~Beam() {
 }
 
-SaltyEngine::Object const*GetObjectPrefab()
+LIB_EXPORT  SaltyEngine::Object const*GetObjectPrefab()
 {
     return new Beam();
 }

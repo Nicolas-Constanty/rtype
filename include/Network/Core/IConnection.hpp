@@ -5,15 +5,16 @@
 #ifndef RTYPE_ICONNECTION_HPP
 #define RTYPE_ICONNECTION_HPP
 
-#include <Network/Socket/ISockStreamHandler.hpp>
-#include <Network/Socket/ISockStreamHandlersContainer.hpp>
+#include "Network/Socket/ISockStreamHandler.hpp"
+#include "Network/Socket/ISockStreamHandlersContainer.hpp"
 #include "NativeSocketIOOperationDispatcher.hpp"
+#include "Common/DLLexport.hpp"
 
 namespace Network
 {
     namespace Core
     {
-        class IConnection : public Socket::ISockStreamHandler
+        class LIB_EXPORT IConnection : public Socket::ISockStreamHandler
         {
         public:
             virtual ~IConnection(){}

@@ -12,7 +12,7 @@ namespace SaltyEngine
 {
 	namespace SFML
 	{
-		class Scene : public AScene
+		class LIB_EXPORT Scene : public AScene
 		{
 			typedef std::map <::SaltyEngine::ACollider2D<sf::Vector2i> *, std::map<::SaltyEngine::ACollider2D<sf::Vector2i> *, bool>> CollisionTab;
             typedef std::map <std::pair<::SaltyEngine::ACollider2D<sf::Vector2i> *, ::SaltyEngine::ACollider2D<sf::Vector2i> *>, bool> Coll;

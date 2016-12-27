@@ -8,10 +8,11 @@
 #include <utility>
 #include "SaltyEngine/Input/KeyCodes.hpp"
 #include "SaltyEngine/Input/ActionType.hpp"
+#include "Common/DLLexport.hpp"
 
 namespace SaltyEngine {
     namespace Input {
-        class Action {
+        class LIB_EXPORT Action {
         public:
             Action(KeyCode::Key key, bool shift = false, bool ctrl = false, bool alt = false, bool cmd = false);
             Action(KeyCode::Key key, std::pair<unsigned int, int> joystick, bool shift = false, bool ctrl = false, bool alt = false, bool cmd = false);

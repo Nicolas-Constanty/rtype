@@ -4,7 +4,7 @@
 #include "SaltyEngine/SFML/Animation.hpp"
 #include "Prefabs/GenericController.hpp"
 
-class ExplosionController : public SaltyEngine::SaltyBehaviour
+class LIB_EXPORT ExplosionController : public SaltyEngine::SaltyBehaviour
 {
 public:
 	ExplosionController(SaltyEngine::GameObject *object);

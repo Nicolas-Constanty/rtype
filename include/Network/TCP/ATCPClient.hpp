@@ -14,7 +14,7 @@ namespace Network
         /**
          * @brief Abstraction of a TCP Client
          */
-        class ATCPClient : public ATCPConnection
+        class LIB_EXPORT ATCPClient : public ATCPConnection
         {
         public:
             ATCPClient(Core::NativeSocketIOOperationDispatcher &dispatcher);

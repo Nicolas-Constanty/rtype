@@ -7,10 +7,11 @@
 
 #include <vector>
 #include <cmath>
+#include "Common/DLLexport.hpp"
 
 namespace SaltyEngine
 {
-    class Mathf
+    class LIB_EXPORT Mathf
     {
 
 #define VALUE_COUNT 10000

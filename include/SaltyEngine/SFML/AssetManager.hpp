@@ -13,7 +13,7 @@
 
 namespace SaltyEngine {
     namespace SFML {
-        class AssetManager: public AAssetManager<Texture, Sprite, AnimationClip, sf::Font>, public Singleton<AssetManager> {
+        class LIB_EXPORT AssetManager: public AAssetManager<Texture, Sprite, AnimationClip, sf::Font>, public Singleton<AssetManager> {
         public:
             friend class Singleton<AssetManager>;
 

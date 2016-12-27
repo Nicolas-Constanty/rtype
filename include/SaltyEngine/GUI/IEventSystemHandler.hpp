@@ -3,11 +3,13 @@
 #ifndef IEVENTSYSTEMHANDLER_HPP_
 #define IEVENTSYSTEMHANDLER_HPP_
 
+#include "Common/DLLexport.hpp"
+
 namespace SaltyEngine
 {
 	namespace GUI
 	{
-		class IEventSystemHandler
+		class LIB_EXPORT IEventSystemHandler
 		{
 		public:
 			virtual ~IEventSystemHandler() {};

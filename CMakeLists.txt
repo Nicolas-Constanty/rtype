@@ -30,7 +30,8 @@ elseif(MSVC)
 	include_directories(include ${CMAKE_HOME_DIRECTORY}/Dependencies/SFML/Win/include ${CMAKE_HOME_DIRECTORY}/Dependencies/Boost/Win/include)
 
 	#libraries files
-	link_directories(${CMAKE_HOME_DIRECTORY}/Dependencies/SFML/Win/x64/Release)
+	#link_directories(${CMAKE_HOME_DIRECTORY}/Dependencies/SFML/Win/x64/Release)
+	link_directories(${CMAKE_HOME_DIRECTORY}/Dependencies/SFML/Win/x64/Debug)
 endif()
 
 ############################## LIBRARIES ##############################

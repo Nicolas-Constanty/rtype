@@ -5,6 +5,8 @@
 #ifndef RTYPE_ISOUND_HPP
 #define RTYPE_ISOUND_HPP
 
+#include "Common/DLLexport.hpp"
+
 namespace SaltyEngine {
     namespace Sound {
         enum  	Status {
@@ -13,7 +15,7 @@ namespace SaltyEngine {
             Playing
         };
 
-        class ISound {
+        class LIB_EXPORT ISound {
         public:
             virtual ~ISound() {};
 

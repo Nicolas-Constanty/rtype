@@ -183,7 +183,6 @@ elseif(MSVC)
 	file(GLOB BEAM_SOURCE_FILE "src/Prefabs/Beam/*.cpp" ${SRC_RTYPE})
 	add_library(beam SHARED ${BEAM_SOURCE_FILE})
 	target_link_libraries(beam ${PREFAB_LIBRARIES})
-
 	# BONUS
 	file(GLOB BONUS_SRC "src/Prefabs/Bonus/*.cpp" ${SRC_RTYPE})
 	add_library(spiralbonus SHARED ${BONUS_SRC})
@@ -225,54 +224,52 @@ elseif(MSVC)
 
 	# SPACESHIPS
 
-		# PLAYER
-		file(GLOB PLAYER_SOURCE_FILE "src/Prefabs/Player/*.cpp" "src/Prefabs/PodHandler/*.cpp" "src/Prefabs/CommonPlayer/*.cpp" ${SRC_RTYPE})
-		add_library(player SHARED ${PLAYER_SOURCE_FILE})
-		target_link_libraries(player ${PREFAB_LIBRARIES} missile_laser)
+	# PLAYER
+	file(GLOB PLAYER_SOURCE_FILE "src/Prefabs/Player/*.cpp" ${SRC_RTYPE})
+	add_library(player SHARED ${PLAYER_SOURCE_FILE})
+	target_link_libraries(player ${PREFAB_LIBRARIES} missile_laser)
 
-		# MATE (network managed client)
-		file(GLOB MATE_SOURCE_FILES "src/Prefabs/Mate/*.cpp" "src/Prefabs/PodHandler/*.cpp" "src/Prefabs/CommonPlayer/*.cpp" ${SRC_RTYPE})
-		add_library(mate SHARED ${MATE_SOURCE_FILES})
-		target_link_libraries(mate ${PREFAB_LIBRARIES} missile_laser)
+	# MATE (network managed client)
+	file(GLOB MATE_SOURCE_FILES "src/Prefabs/Mate/*.cpp" ${SRC_RTYPE})
+	add_library(mate SHARED ${MATE_SOURCE_FILES})
+	target_link_libraries(mate ${PREFAB_LIBRARIES} missile_laser)
 
-		# POD
-		file(GLOB POD_SOURCE_FILES "src/Prefabs/Pod/*.cpp" "src/Prefabs/PodHandler/*.cpp" "src/Prefabs/Missile/ABulletController.cpp" ${SRC_RTYPE})
-		add_library(pod SHARED ${POD_SOURCE_FILES})
-		target_link_libraries(pod ${PREFAB_LIBRARIES})
+	# POD
+	file(GLOB POD_SOURCE_FILES
+		"src/Prefabs/Pod/*.cpp"
+		"src/Rtype/Game/Client/*.cpp"
+		"src/Rtype/Game/Server/*.cpp"
+		"src/Rtype/Game/Common/*.cpp"
+		"src/Prefabs/RtypePrefab.cpp"
+		"src/Prefabs/PodHandler/PodHandler.cpp"
+		"src/Prefabs/CommonPlayer/CommonPlayerController.cpp"
+	)
+	add_library(pod SHARED ${POD_SOURCE_FILES})
+	target_link_libraries(pod ${PREFAB_LIBRARIES} missile_laser)
 
 	# MONSTERS
 
-		# BASIC
-		file(GLOB MONSTER_SOURCE_FILE
-				"src/Prefabs/Monster/*.cpp"
-				"src/Prefabs/PositionReplicator/*.cpp" ${SRC_RTYPE})
-		add_library(monster SHARED ${MONSTER_SOURCE_FILE})
-		target_link_libraries(monster ${PREFAB_LIBRARIES} missile_medusa)
+	# BASIC
+	file(GLOB MONSTER_SOURCE_FILE "src/Prefabs/Monster/*.cpp" ${SRC_RTYPE})
+	add_library(monster SHARED ${MONSTER_SOURCE_FILE})
+	target_link_libraries(monster ${PREFAB_LIBRARIES} missile_medusa)
 
-		# WALKER
-		file(GLOB WALKINGMONSTER_SOURCE_FILE
-				"src/Prefabs/MonsterWalker/*.cpp"
-				"src/Prefabs/PositionReplicator/*.cpp" ${SRC_RTYPE})
-		add_library(monster_walker SHARED ${WALKINGMONSTER_SOURCE_FILE})
-		target_link_libraries(monster_walker ${PREFAB_LIBRARIES} missile_medusa missile_enemy_bullet explosion_basic player)
+	# WALKER
+	file(GLOB WALKINGMONSTER_SOURCE_FILE "src/Prefabs/MonsterWalker/*.cpp" ${SRC_RTYPE})
+	add_library(monster_walker SHARED ${WALKINGMONSTER_SOURCE_FILE})
+	target_link_libraries(monster_walker ${PREFAB_LIBRARIES} missile_medusa missile_enemy_bullet explosion_basic player)
 
-		# FLYING
-		file(GLOB FLYINGMONSTER_SOURCE_FILE
-				"src/Prefabs/MonsterFlying/*.cpp"
-				"src/Prefabs/PositionReplicator/*.cpp" ${SRC_RTYPE})
-		add_library(monster_flying SHARED ${FLYINGMONSTER_SOURCE_FILE})
-		target_link_libraries(monster_flying ${PREFAB_LIBRARIES} missile_medusa missile_enemy_bullet explosion_basic)
+	# FLYING
+	file(GLOB FLYINGMONSTER_SOURCE_FILE "src/Prefabs/MonsterFlying/*.cpp" ${SRC_RTYPE})
+	add_library(monster_flying SHARED ${FLYINGMONSTER_SOURCE_FILE})
+	target_link_libraries(monster_flying ${PREFAB_LIBRARIES} missile_medusa missile_enemy_bullet explosion_basic)
 
-		# BOSSES
+	# BOSSES
 
-		# NEUNOEIL
-		file(GLOB NEUNOEILMONSTER_SOURCE_FILE
-				"src/Prefabs/MonsterNeunoeil/*.cpp"
-				"src/Prefabs/PositionReplicator/*.cpp"
-				${SRC_RTYPE}
-		)
-		add_library(monster_neunoeil SHARED ${NEUNOEILMONSTER_SOURCE_FILE})
-		target_link_libraries(monster_neunoeil ${PREFAB_LIBRARIES} missile_medusa missile_enemy_bullet explosion_basic player)
+	# WALKER
+	file(GLOB NEUNOEILMONSTER_SOURCE_FILE "src/Prefabs/MonsterNeunoeil/*.cpp" ${SRC_RTYPE})
+	add_library(monster_neunoeil SHARED ${NEUNOEILMONSTER_SOURCE_FILE})
+	target_link_libraries(monster_neunoeil ${PREFAB_LIBRARIES} missile_medusa missile_enemy_bullet explosion_basic player)
 
 endif()
 

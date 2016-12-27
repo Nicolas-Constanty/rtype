@@ -18,7 +18,7 @@ namespace SaltyEngine
 	{
 		class SpriteRenderer;
 		class BoxCollider2D;
-		class Renderer : public ARenderer<sf::Vector2i>
+		class LIB_EXPORT Renderer : public ARenderer<sf::Vector2i>, public sf::RenderWindow
 		{
 		public:
 			struct Drawable
@@ -37,18 +37,18 @@ namespace SaltyEngine
 		public:
 			Renderer(sf::VideoMode const &vm, const std::string &name);
 			virtual ~Renderer();
-			void Display() const override;
+			void Display() override;
             virtual void RemoveSpriteRenderer(GameObject * const gm) override;
-			sf::RenderWindow *GetRenderWindow(void) const;
-			void DrawDebug() const;
+			//sf::RenderWindow *GetRenderWindow(void) const;
+			void DrawDebug();
 
 		protected:
-			std::unique_ptr<sf::RenderWindow> m_window;
+			//std::unique_ptr<sf::RenderWindow> m_window;
 
 		private:
 			void DrawGame() const;
 			void DrawGUI() const;
-			void DrawLabel() const;
+			void DrawLabel();
 			void DrawSprites(const SpriteList &sprite_list) const;
 
 		private:

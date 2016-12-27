@@ -108,7 +108,11 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetCREATEPackage(CREATEPackag
     }
     catch (std::runtime_error const &error)
     {
+<<<<<<< HEAD
         Debug::PrintError("Create package: " + std::string(error.what()));
+=======
+		Debug::PrintError(error.what());
+>>>>>>> Compilation windows ok 
     }
 
 }
@@ -160,7 +164,11 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetDIEPackage(DIEPackageGame 
             aGenericController->Die();
         } else {
             SaltyEngine::Object::Destroy(obj);
+<<<<<<< HEAD
             Debug::PrintWarning("Warning: No AGenericController set");
+=======
+			Debug::PrintWarning("No AGenericController set");
+>>>>>>> Compilation windows ok 
         }
     }
     //todo resolve die in the game

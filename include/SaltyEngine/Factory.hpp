@@ -19,7 +19,7 @@ namespace SaltyEngine
 	 */
 	class Object;
 	class GameObject;
-	class Factory: public Singleton<Factory> {
+	class LIB_EXPORT Factory: public Singleton<Factory> {
 	public:
 		friend class Singleton<Factory>;
 

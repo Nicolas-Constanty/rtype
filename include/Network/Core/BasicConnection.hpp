@@ -10,7 +10,7 @@
 #include "IConnection.hpp"
 #include "NativeSocketIOOperationDispatcher.hpp"
 #include "Timer.hpp"
-#include <Protocol/Game/ProtocolGamePackage.hpp>
+#include "Protocol/Game/ProtocolGamePackage.hpp"
 
 namespace Network
 {
@@ -19,7 +19,7 @@ namespace Network
         /**
          * @brief Class that abstract the Connection concept. It's here for dispatcher and clients container. It also provides some space for messages queue
          */
-        class BasicConnection : public IConnection
+        class LIB_EXPORT BasicConnection : public IConnection
         {
         public:
             BasicConnection(NativeSocketIOOperationDispatcher &dispatcher);

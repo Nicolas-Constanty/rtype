@@ -10,7 +10,7 @@
 
 namespace SaltyEngine {
     namespace SFML {
-        class Music: public ::SaltyEngine::Sound::ISound, private sf::Music {
+        class LIB_EXPORT Music: public ::SaltyEngine::Sound::ISound, private sf::Music {
         public:
             Music();
             virtual ~Music();

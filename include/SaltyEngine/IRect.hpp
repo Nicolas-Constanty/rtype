@@ -3,10 +3,12 @@
 #ifndef IRECT_HPP_
 #define IRECT_HPP_
 
+#include "Common/DLLexport.hpp"
+
 namespace SaltyEngine
 {
 	template <class T>
-	class IRect
+	class LIB_EXPORT IRect
 	{
 	public:
 		virtual ~IRect() {};

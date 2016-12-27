@@ -4,7 +4,7 @@
 #include "SaltyEngine/SFML/Animation.hpp"
 #include "Prefabs/GenericController.hpp"
 
-class MonsterFlyingController : public AGenericController
+class LIB_EXPORT MonsterFlyingController : public AGenericController
 {
 private:
 	static float movetimer;

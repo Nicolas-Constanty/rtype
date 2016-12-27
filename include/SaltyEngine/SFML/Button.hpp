@@ -12,7 +12,7 @@ namespace SaltyEngine
 	{
 		namespace SFML
 		{
-			class Button : public ::SaltyEngine::GUI::Button
+			class LIB_EXPORT Button : public ::SaltyEngine::GUI::Button
 			{
 			public:
 				explicit Button(GameObject* gameObj, ::SaltyEngine::SFML::Sprite * const sprite);

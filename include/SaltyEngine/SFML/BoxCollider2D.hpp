@@ -9,7 +9,7 @@ namespace SaltyEngine
 {
 	namespace SFML
 	{
-		class BoxCollider2D : public SpriteCollider2D {
+		class LIB_EXPORT BoxCollider2D : public SpriteCollider2D {
 		    public:
                 BoxCollider2D(GameObject * const gameObj, const sf::Vector2u &size, bool debug = true);
 

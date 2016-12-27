@@ -17,7 +17,7 @@ namespace SaltyEngine
 #define WaitForMicrosecond(x) coroutine::await(std::bind(&SaltyBehaviour::__Wait_For_Microseconds, x))
 #define StartCoroutine(x) m_coroutines.push_back(coroutine::create(std::bind(x, this)))
 
-	class SaltyBehaviour : public Behaviour
+	class LIB_EXPORT SaltyBehaviour : public Behaviour
 	{
 	public:
 		// delete copy and move constructors and assign operators

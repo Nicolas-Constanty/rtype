@@ -10,7 +10,7 @@ namespace SaltyEngine
 {
 	namespace SFML
 	{
-		class Texture : public sf::Texture, public ::SaltyEngine::Texture<sf::Vector2i>
+		class LIB_EXPORT Texture : public sf::Texture, public ::SaltyEngine::Texture<sf::Vector2i>
 		{
 		public:
 

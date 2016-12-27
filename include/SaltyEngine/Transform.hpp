@@ -13,7 +13,7 @@ namespace SaltyEngine
 {
     class GameObject;
 	template <class T>
-	class BaseTransform : public Component
+	class LIB_EXPORT BaseTransform : public Component
 	{
 	public:
 		// delete copy and move constructors and assign operators

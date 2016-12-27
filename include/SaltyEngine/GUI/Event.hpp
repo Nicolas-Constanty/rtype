@@ -7,6 +7,7 @@
 #include <functional>
 #include <map>
 #include "Common/Debug.hpp"
+#include "Common/DLLexport.hpp"
 
 namespace SaltyEngine
 {
@@ -14,7 +15,7 @@ namespace SaltyEngine
 	{
 		typedef std::function<void()> EventDelegate;
 		typedef std::map<std::string, EventDelegate> EventList;
-		class Event
+		class LIB_EXPORT Event
 		{
 		public:
 			void Invoke(const std::string &name);

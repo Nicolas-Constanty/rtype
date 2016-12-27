@@ -22,7 +22,7 @@ namespace SaltyEngine
 	class AScene;
 #define print_status(x) x
 
-	class Engine : public Singleton<Engine>
+	class LIB_EXPORT Engine : public Singleton<Engine>
 	{
 		friend class Singleton<Engine>;
 	public:

@@ -5,9 +5,11 @@
 #ifndef RTYPE_IEVENTMANAGER_HPP
 #define RTYPE_IEVENTMANAGER_HPP
 
+#include "Common/DLLexport.hpp"
+
 namespace SaltyEngine {
     namespace Input {
-        class IEventManager {
+        class LIB_EXPORT IEventManager {
         public:
             virtual ~IEventManager() {};
 

@@ -15,7 +15,7 @@ namespace SaltyEngine {
     namespace Input {
         typedef std::function<void(float)>  CallbackAxis;
         typedef std::function<void()>       CallbackAction;
-        class Mapping {
+        class LIB_EXPORT Mapping {
         private:
             static std::map<std::string, std::unique_ptr<Axis>>     m_axis;
             static std::map<std::string, std::unique_ptr<Action>>   m_actions;

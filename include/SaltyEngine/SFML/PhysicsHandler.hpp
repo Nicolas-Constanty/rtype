@@ -15,7 +15,7 @@ namespace SaltyEngine
 {
     namespace SFML
     {
-        class PhysicsHandler : public IPhysicsHandler {
+        class LIB_EXPORT PhysicsHandler : public IPhysicsHandler {
             static const sf::Uint32 m_IntColors[];
             static const sf::Color m_collisionLayersColor[];
 //            static std::map<const sf::Uint32, const Layer> m_collisionLayers;

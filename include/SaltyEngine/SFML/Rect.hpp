@@ -10,7 +10,7 @@ namespace SaltyEngine
 {
 	namespace SFML
 	{
-		class Rect : public ::SaltyEngine::BasicRect<sf::Vector2i>, public sf::IntRect
+		class LIB_EXPORT Rect : public ::SaltyEngine::BasicRect<sf::Vector2i>, public sf::IntRect
 		{
 		public:
             Rect(int rectLeft, int rectTop, int rectWidth, int rectHeight);

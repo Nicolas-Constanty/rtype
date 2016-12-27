@@ -61,7 +61,7 @@ namespace SaltyEngine {
     /// \tparam Sprite
     /// \tparam Sound
     template <class Texture, class Sprite, class Animation, class Font, class Sound = ::SaltyEngine::Sound::ISound>
-    class AAssetManager {
+    class LIB_EXPORT AAssetManager {
     protected:
         AAssetManager() {
 #if _WIN32

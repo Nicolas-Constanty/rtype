@@ -14,7 +14,7 @@ namespace SaltyEngine
     {
         namespace SFML {
 
-            class Label : public GUI::UIBehaviour, public sf::Text
+            class LIB_EXPORT Label : public GUI::UIBehaviour, public sf::Text
             {
             public:
                 Label(GameObject *gameObj, const std::string &text, unsigned int size, const sf::Font *fnt, const sf::Color &col = sf::Color::White);

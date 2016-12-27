@@ -11,7 +11,7 @@ namespace Network
 {
     namespace Core
     {
-        class IIOOperationDispatcher
+        class LIB_EXPORT IIOOperationDispatcher
         {
         public:
             virtual ~IIOOperationDispatcher(){}

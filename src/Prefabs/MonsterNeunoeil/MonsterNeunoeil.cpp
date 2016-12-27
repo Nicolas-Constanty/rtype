@@ -23,7 +23,7 @@ MonsterNeunoeil::~MonsterNeunoeil()
 {
 }
 
-SaltyEngine::Object const*GetObjectPrefab()
+LIB_EXPORT SaltyEngine::Object const*GetObjectPrefab()
 {
 	return new MonsterNeunoeil();
 }

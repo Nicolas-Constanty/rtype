@@ -7,16 +7,16 @@
 
 #ifdef __linux__
 #include <queue>
-#include <Network/Socket/UnixSocket.hpp>
+#include "Network/Socket/UnixSocket.hpp"
 #elif _WIN32
 #include <queue>
-#include <Network/Socket/WinSocket.hpp>
+#include "Network/Socket/WinSocket.hpp"
 #endif
 
-#include <Network/Socket/ISockStreamHandler.hpp>
-#include <Network/Socket/ASocket.hpp>
-#include <Network/Core/NativeSocketIOOperationDispatcher.hpp>
-#include <Network/Core/BasicConnection.hpp>
+#include "Network/Socket/ISockStreamHandler.hpp"
+#include "Network/Socket/ASocket.hpp"
+#include "Network/Core/NativeSocketIOOperationDispatcher.hpp"
+#include "Network/Core/BasicConnection.hpp"
 
 namespace Network
 {
@@ -25,7 +25,7 @@ namespace Network
         /**
          * @brief Abstraction of a TCP connection
          */
-        class ATCPConnection : public Core::BasicConnection
+        class LIB_EXPORT ATCPConnection : public Core::BasicConnection
         {
         public:
             ATCPConnection(Core::NativeSocketIOOperationDispatcher &dispatcher);

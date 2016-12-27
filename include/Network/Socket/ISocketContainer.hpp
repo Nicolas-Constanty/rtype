@@ -5,13 +5,13 @@
 #ifndef RTYPE_ISOCKETCONTAINER_HPP
 #define RTYPE_ISOCKETCONTAINER_HPP
 
-#include <Network/Socket/ISocket.hpp>
+#include "Network/Socket/ISocket.hpp"
 
 namespace Network
 {
     namespace Socket
     {
-        class ISocketContainer
+        class LIB_EXPORT ISocketContainer
         {
         public:
             virtual ~ISocketContainer(){}

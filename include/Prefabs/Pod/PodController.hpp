@@ -9,7 +9,7 @@
 #include <Prefabs/Player/PlayerController.hpp>
 #include <Prefabs/PodHandler/PodHandler.hpp>
 
-class PodController : public RtypePrefab
+class LIB_EXPORT PodController : public RtypePrefab
 {
 public:
     explicit PodController(SaltyEngine::GameObject* const object);

@@ -1,12 +1,3 @@
-#ifdef _WIN32
-    #ifdef MONSTERNEUNOEIL_EXPORTS
-        #define MONSTERNEUNOEIL_API __declspec(dllexport)
-    #else
-        #define MONSTERNEUNOEIL_API __declspec(dllimport)
-    #endif
-#else
-#define MONSTERNEUNOEIL_API
-#endif
 
 #ifndef MONSTERNEUNOEIL_HPP_
 #define MONSTERNEUNOEIL_HPP_
@@ -15,14 +6,14 @@
 
 extern "C"
 {
-	class MonsterNeunoeil : public SaltyEngine::GameObject
+	class LIB_EXPORT MonsterNeunoeil : public SaltyEngine::GameObject
 	{
 	public:
 		MonsterNeunoeil();
 		virtual ~MonsterNeunoeil();
 	};
 
-	SaltyEngine::Object const *GetObjectPrefab();
+	LIB_EXPORT SaltyEngine::Object const *GetObjectPrefab();
 }
 
 #endif

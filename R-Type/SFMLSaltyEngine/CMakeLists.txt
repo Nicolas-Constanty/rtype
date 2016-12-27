@@ -34,7 +34,7 @@ elseif(MSVC)
 	add_library(SFMLSaltyEngine STATIC ${SFMLSaltyEngineSrc})
 
 	#Link libraries
-	target_link_libraries(SFMLSaltyEngine Common Parser SaltyEngine sfml-system sfml-window sfml-graphics sfml-audio)
+	target_link_libraries(SFMLSaltyEngine Common Parser SaltyEngine sfml-system-d sfml-window-d sfml-graphics-d sfml-audio-d)
 endif()
 
 add_dependencies(SFMLSaltyEngine SaltyEngine)

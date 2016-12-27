@@ -4,7 +4,7 @@
 #include "SaltyEngine/SFML/Animation.hpp"
 #include "Prefabs/GenericController.hpp"
 
-class MonsterWalkerController : public AGenericController
+class LIB_EXPORT MonsterWalkerController : public AGenericController
 {
 public:
 	MonsterWalkerController(SaltyEngine::GameObject *object);

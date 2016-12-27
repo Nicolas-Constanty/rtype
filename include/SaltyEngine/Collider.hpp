@@ -12,7 +12,7 @@
 namespace SaltyEngine
 {
 	template <class T>
-	class ACollider2D : public Component, public ICollider
+	class LIB_EXPORT ACollider2D : public Component, public ICollider
 	{
 	public:
 		explicit ACollider2D(GameObject * const gameObj) : Component("Collider2D", gameObj), m_enabled(true), m_trigger(false) {

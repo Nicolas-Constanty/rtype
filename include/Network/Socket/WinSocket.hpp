@@ -12,7 +12,7 @@ namespace Network
 {
     namespace Socket
     {
-        class WinSocket : public ASocket
+        class LIB_EXPORT WinSocket : public ASocket
         {
         public:
             static void Start();

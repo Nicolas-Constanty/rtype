@@ -8,7 +8,7 @@
 #include <SaltyEngine/SaltyBehaviour.hpp>
 #include <SaltyEngine/ISound.hpp>
 
-class BeamController : public SaltyEngine::SaltyBehaviour
+class LIB_EXPORT BeamController : public SaltyEngine::SaltyBehaviour
 {
 public:
     BeamController(SaltyEngine::GameObject *const object);

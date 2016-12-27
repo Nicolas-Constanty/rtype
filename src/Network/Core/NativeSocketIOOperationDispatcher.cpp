@@ -123,6 +123,7 @@ void Network::Core::NativeSocketIOOperationDispatcher::HandleOperations()
         ret = select(static_cast<int>(std::max(bindFdsToSet(readset, m_readWatch), bindFdsToSet(writeset, m_writeWatch))) + 1, &readset, &writeset, nullptr, timeout.get());
     } while (ret == -1 && errno == EINTR);
 	if (ret == -1) {
+		std::cout << WSAGetLastError() << std::endl;
 		throw std::runtime_error(strerror(errno));
     }
     performOperations(readset, NativeSocketIOOperationDispatcher::read);

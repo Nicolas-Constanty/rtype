@@ -68,7 +68,7 @@ elseif(MSVC)
 			missile_laser
 			mate
 			pod
-			sfml-system sfml-audio sfml-graphics sfml-window)
+			sfml-system-d sfml-audio-d sfml-graphics-d sfml-window-d)
 
 endif()
 
