@@ -41,7 +41,10 @@ void MonsterMedusaController::FixedUpdate()
         m_currDelay -= static_cast<float>(SaltyEngine::Engine::Instance().GetFixedDeltaTime());
 
         if (m_currDelay <= 0) {
-            m_currDelay = m_minShootInterval + rand() % (int) (m_maxShootInterval - m_minShootInterval);
+            if (m_state == E_LAUNCH_SALVE)
+                m_currDelay = 0.4;
+            else
+                m_currDelay = m_minShootInterval + rand() % (int) (m_maxShootInterval - m_minShootInterval);
             Shot();
         }
     }
@@ -56,7 +59,7 @@ void MonsterMedusaController::FixedUpdate()
 void MonsterMedusaController::Move() {
     switch (m_state)
     {
-        case E_SPAWNING:
+        case E_CREATING:
 //            break;
         case E_MOVING:
             this->gameObject->transform.Translate(SaltyEngine::Vector2::up() * m_vel * m_dir);
@@ -71,12 +74,32 @@ void MonsterMedusaController::Move() {
 void MonsterMedusaController::Shot() {
    if (isServerSide())
    {
-       SaltyEngine::GameObject *missile = (SaltyEngine::GameObject *) SaltyEngine::Instantiate("MissileMedusa",
-                                                                                               gameObject->transform.GetPosition(),
-                                                                                               gameObject->transform.GetRotation());
-       getManager()->gameObjectContainer.Add(GameObjectID::NewID(), missile);
+       if (m_state == E_LAUNCH_SALVE)
+       {
+           --m_salveCountCurrent;
+           if (m_salveCountCurrent <= 0)
+           {
+               m_salveCountCurrent = m_salveCount;
+           }
+           else
+           {
+               SaltyEngine::GameObject *missile = (SaltyEngine::GameObject *) SaltyEngine::Instantiate("MissileMedusa",
+                                                                                                       gameObject->transform.GetPosition(),
+                                                                                                       gameObject->transform.GetRotation());
+               getManager()->gameObjectContainer.Add(GameObjectID::NewID(), missile);
 
-       BroadCastReliable<ENEMYSHOTPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(gameObject));
+               BroadCastReliable<ENEMYSHOTPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(gameObject));
+           }
+       }
+       else if (m_state == E_MOVING)
+       {
+           SaltyEngine::GameObject *missile = (SaltyEngine::GameObject *) SaltyEngine::Instantiate("MissileMedusa",
+                                                                                                   gameObject->transform.GetPosition(),
+                                                                                                   gameObject->transform.GetRotation());
+           getManager()->gameObjectContainer.Add(GameObjectID::NewID(), missile);
+
+           BroadCastReliable<ENEMYSHOTPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(gameObject));
+       }
     }
 }
 

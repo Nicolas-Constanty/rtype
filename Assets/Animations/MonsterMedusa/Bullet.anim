@@ -1,6 +1,6 @@
 {
   "mode": "LOOP",
-  "framerate": "5",
+  "framerate": "8",
   "sprites": [
     "MonsterMedusa/Bullet1",
     "MonsterMedusa/Bullet2",

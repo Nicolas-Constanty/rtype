@@ -32,8 +32,8 @@ public:
 	void OnCollisionEnter(SaltyEngine::ICollider *collider) override;
 
 private:
-	float m_minShootInterval = 1;
-	float m_maxShootInterval = 2;
+	float m_minShootInterval = 2;
+	float m_maxShootInterval = 3;
 	float m_currDelay = 0;
 	bool m_isDead = false;
 	float m_vel = 1;
@@ -43,11 +43,13 @@ private:
     float m_currTransitionDelay = 5;
     float m_transitionDelay = 5;
     int m_dir = 1;
+    int m_salveCount = 20;
+    int m_salveCountCurrent = 20;
 
 	SaltyEngine::SFML::SpriteRenderer *m_sprr;
 
 private:
-    enum MEDUSA_STATE {E_MOVING, E_SPAWNING, E_FIRST = E_MOVING, E_LAST = E_SPAWNING};
+    enum MEDUSA_STATE {E_MOVING, E_LAUNCH_SALVE, E_CREATING, E_FIRST = E_MOVING, E_LAST = E_CREATING};
     Enum<MEDUSA_STATE> m_state;
 
 protected:
