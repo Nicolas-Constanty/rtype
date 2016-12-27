@@ -27,7 +27,7 @@ elseif(MSVC)
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3 /EHsc")
 
 	#include files
-	include_directories(${CMAKE_HOME_DIRECTORY}/Dependencies/SFML/Win/include ${CMAKE_HOME_DIRECTORY}/Dependencies/Boost/Win/include)
+	include_directories(include ${CMAKE_HOME_DIRECTORY}/Dependencies/SFML/Win/include ${CMAKE_HOME_DIRECTORY}/Dependencies/Boost/Win/include)
 
 	#libraries files
 	link_directories(${CMAKE_HOME_DIRECTORY}/Dependencies/SFML/Win/x64/Release)

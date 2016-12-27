@@ -52,7 +52,7 @@ elseif(MSVC)
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3 -DRTYPESERVER")
 
 	#Create GameClient
-	add_executable(GameClient ${GameClientSrc} ${GameClientInc})
+	add_executable(GameClient ${GameClientSrc})
 
 	#Link libraries
 	target_link_libraries(GameClient

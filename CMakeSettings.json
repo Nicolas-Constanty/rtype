@@ -22,7 +22,7 @@
         "generator": "Visual Studio 15 2017 Win64",
         "configurationType": "Debug",
         "buildRoot": "${projectDir}\\cmake-build-debug",
-        "cmakeCommandArgs": "",
+        "cmakeCommandArgs": "-m 1",
         "buildCommandArgs": "-m -v:minimal"
       },
       {
@@ -30,7 +30,7 @@
         "generator": "Visual Studio 15 2017 Win64",
         "configurationType": "Release",
         "buildRoot": "${projectDir}\\cmake-build-release",
-        "cmakeCommandArgs": "",
+        "cmakeCommandArgs": "-m 1",
         "buildCommandArgs": "-m -v:minimal"
       }
     ]

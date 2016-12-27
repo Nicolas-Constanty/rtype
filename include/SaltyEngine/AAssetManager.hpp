@@ -372,7 +372,14 @@ namespace SaltyEngine {
                     }
 
                     if (!lib.empty()) {
-                        /*SaltyEngine::Asset::ASSET_LOADER *loader = */Factory::Instance().LoadAsset(path_metas + lib + Asset::META_EXTENSION);
+#if _WIN32
+                        SaltyEngine::Asset::ASSET_LOADER *loader = Factory::Instance().LoadAsset(path_metas + lib + Asset::META_EXTENSION);
+#else
+						SaltyEngine::Asset::ASSET_LOADER *loader = Factory::Instance().LoadAsset(path_metas + "lib" + lib + Asset::META_EXTENSION);
+#endif
+
+                        if (loader)
+                            m_loaders.emplace(loader);
                     }
 
                     m_prefabs.push_back(filename);

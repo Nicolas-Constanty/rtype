@@ -31,7 +31,7 @@ elseif(MSVC)
 	#set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS true)
 
 	#Create library
-	add_library(SFMLSaltyEngine STATIC ${SFMLSaltyEngineSrc} ${SFMLSaltyEngineInc})
+	add_library(SFMLSaltyEngine STATIC ${SFMLSaltyEngineSrc})
 
 	#Link libraries
 	target_link_libraries(SFMLSaltyEngine Common Parser SaltyEngine sfml-system sfml-window sfml-graphics sfml-audio)

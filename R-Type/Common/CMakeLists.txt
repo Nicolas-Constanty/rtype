@@ -28,7 +28,7 @@ if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 elseif(MSVC)
 
 	#Export all symbol for dll
-	set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS true)
+	#set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS true)
 
 	#Create library
 	add_library(Common STATIC ${Commonsrc} ${Commoninc})

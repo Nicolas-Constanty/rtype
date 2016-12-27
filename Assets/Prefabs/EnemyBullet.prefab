@@ -5,5 +5,5 @@
     "animations": [
         "Missile/Fire"
     ],
-    "lib": "libmissile_enemy_bullet"
+    "lib": "missile_enemy_bullet"
 }

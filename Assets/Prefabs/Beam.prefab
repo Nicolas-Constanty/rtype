@@ -2,7 +2,7 @@
   "sprites": [
     "Laser/loading1"
   ],
-  "lib": "libbeam",
+  "lib": "beam",
   "animations": [
     "Laser/loading"
   ]

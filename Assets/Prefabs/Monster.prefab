@@ -5,7 +5,7 @@
     "animations": [
         "Monster/Walk"
     ],
-    "lib": "libmonster",
+    "lib": "monster",
     "dependencies": [
         "Missile"
     ]

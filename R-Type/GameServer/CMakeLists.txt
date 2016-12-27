@@ -27,7 +27,7 @@ if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wextra -DRTYPESERVER")
 
 	#Create GameServer
-	add_executable(GameServer ${GameServerSrc} ${GameServerInc})
+	add_executable(GameServer ${GameServerSrc})
 
 	#Link libraries
 	target_link_libraries(GameServer

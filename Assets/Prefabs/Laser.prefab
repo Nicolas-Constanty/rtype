@@ -14,5 +14,5 @@
         "Laser/loading",
         "Laser/fire"
     ],
-    "lib": "libmissile_laser"
+    "lib": "missile_laser"
 }

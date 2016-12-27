@@ -10,5 +10,5 @@
     "animations": [
         "Explosion/basic"
     ],
-    "lib": "libexplosion_basic"
+    "lib": "explosion_basic"
 }

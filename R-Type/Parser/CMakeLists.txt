@@ -24,7 +24,10 @@ if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 #Windows
 elseif(MSVC)
 
+	#
+	set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS true)
+
 	#Create library
-	add_library(Parser STATIC ${ParserSrc} ${ParserInc})
+	add_library(Parser STATIC ${ParserSrc})
 
 endif()
