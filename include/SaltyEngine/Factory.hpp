@@ -8,6 +8,7 @@
 #include <map>
 #include <algorithm>
 #include <stack>
+#include <vector>
 #include "SaltyEngine/Constants.hpp"
 #include "Common/Singleton.hpp"
 #include "Vector2.hpp"

@@ -5,6 +5,7 @@
 #ifndef RTYPE_ISOUND_HPP
 #define RTYPE_ISOUND_HPP
 
+#include <string>
 #include "Common/DLLexport.hpp"
 
 namespace SaltyEngine {

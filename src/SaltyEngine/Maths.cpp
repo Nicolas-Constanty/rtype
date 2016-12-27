@@ -3,6 +3,7 @@
 //
 
 #include <cmath>
+#include <algorithm>
 #include "SaltyEngine/Maths.hpp"
 
 float SaltyEngine::Mathf::Cos(float angle)
