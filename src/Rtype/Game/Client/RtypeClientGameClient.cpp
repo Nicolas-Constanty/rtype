@@ -108,11 +108,7 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetCREATEPackage(CREATEPackag
     }
     catch (std::runtime_error const &error)
     {
-<<<<<<< HEAD
-        Debug::PrintError("Create package: " + std::string(error.what()));
-=======
 		Debug::PrintError(error.what());
->>>>>>> Compilation windows ok 
     }
 
 }
