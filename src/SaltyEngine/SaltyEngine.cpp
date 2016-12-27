@@ -103,6 +103,7 @@ namespace SaltyEngine
 			m_even_manager->Update();
 			AScene *scene = m_scenes[m_current].get();
 			scene->OnStart();
+			scene->OnEnable();
 			// Control Frame Rate
 //			if (m_physics_handler)
 //			{
