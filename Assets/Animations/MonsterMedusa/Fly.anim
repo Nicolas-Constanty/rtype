@@ -1,0 +1,22 @@
+{
+  "mode": "LOOP",
+  "framerate": "10",
+  "sprites": [
+    "MonsterMedusa/Medusa1",
+    "MonsterMedusa/Medusa2",
+    "MonsterMedusa/Medusa3",
+    "MonsterMedusa/Medusa4",
+    "MonsterMedusa/Medusa5",
+    "MonsterMedusa/Medusa6",
+    "MonsterMedusa/Medusa7",
+    "MonsterMedusa/Medusa8",
+    "MonsterMedusa/Medusa9",
+    "MonsterMedusa/Medusa10",
+    "MonsterMedusa/Medusa11",
+    "MonsterMedusa/Medusa12",
+    "MonsterMedusa/Medusa13",
+    "MonsterMedusa/Medusa14",
+    "MonsterMedusa/Medusa15",
+    "MonsterMedusa/Medusa16"
+  ]
+}

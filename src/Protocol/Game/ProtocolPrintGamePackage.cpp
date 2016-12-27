@@ -84,6 +84,7 @@ std::ostream &operator<<(std::ostream &ostream, MOVEPackageGame const &movePacka
     ostream << "objectID=" << movePackageGame.objectID << std::endl;
     ostream << "posX=" << movePackageGame.posX << std::endl;
     ostream << "posY=" << movePackageGame.posY << std::endl;
+    ostream << "rotation=" << movePackageGame.rotation << std::endl;
     ostream << "}";
     return (ostream);
 }

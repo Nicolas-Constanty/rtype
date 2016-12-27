@@ -208,6 +208,7 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetMOVEPackage(MOVEPackageGam
     SaltyEngine::GameObject *obj = gameManager->gameObjectContainer[pack.objectID];
     if (obj) {
         obj->transform.SetPosition(SaltyEngine::Vector(pack.posX, pack.posY));
+        obj->transform.SetRotation(pack.rotation);
     }
 }
 

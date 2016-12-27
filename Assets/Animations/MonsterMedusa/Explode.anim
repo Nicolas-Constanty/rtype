@@ -1,0 +1,11 @@
+{
+  "mode": "LOOP",
+  "framerate": "5",
+  "sprites": [
+    "MonsterMedusa/Explode1",
+    "MonsterMedusa/Explode2",
+    "MonsterMedusa/Explode3",
+    "MonsterMedusa/Explode4",
+    "MonsterMedusa/Explode5"
+  ]
+}

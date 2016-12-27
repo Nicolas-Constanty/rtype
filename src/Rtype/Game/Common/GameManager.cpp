@@ -33,6 +33,11 @@ void GameManager::Start()
 
     if (m_client) {
         gameObject->AddComponent<BackgroundController>();
+        SaltyEngine::Sound::ISound *sound = SaltyEngine::SFML::AssetManager::Instance().GetSound("rtype-ost");
+        if (sound) {
+            sound->SetLoop(true);
+            sound->Play();
+        }
     }
     if (m_server) {
     monsterMap = SaltyEngine::SFML::AssetManager::Instance().LoadScene("scene" + std::to_string(m_server->GetLevel()));
