@@ -5,9 +5,11 @@
 #ifndef RTYPE_IPHYSICHANDLER_HPP
 #define RTYPE_IPHYSICHANDLER_HPP
 
+#include "Common/DLLexport.hpp"
+
 namespace SaltyEngine
 {
-    class IPhysicsHandler
+    class LIB_EXPORT IPhysicsHandler
     {
     public:
         virtual void Clear() = 0;

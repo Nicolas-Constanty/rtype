@@ -5,7 +5,7 @@
     "animations": [
         "MonsterFlying/FlyLeft"
     ],
-    "lib": "libmonster_flying",
+    "lib": "monster_flying",
     "dependencies": [
     	"Missile",
         "EnemyBullet",

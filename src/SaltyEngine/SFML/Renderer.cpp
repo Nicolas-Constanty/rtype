@@ -4,31 +4,30 @@
 namespace SaltyEngine
 {
 	namespace SFML {
-		Renderer::Renderer(sf::VideoMode const &vm, const std::string &name) : m_window(
-				Make_unique<sf::RenderWindow>(vm, name)) {
+		Renderer::Renderer(sf::VideoMode const &vm, const std::string &name) : sf::RenderWindow(vm, name) {
 		}
 
-		void Renderer::Display() const {
-			if (m_window->isOpen()) {
-				m_window->clear();
+		void Renderer::Display() {
+			if (isOpen()) {
+				clear();
 				DrawGame();
 				DrawGUI();
 				DrawDebug();
 				DrawLabel();
-				m_window->display();
+				display();
 			} else
 				Debug::PrintWarning("Main window has been closed!");
 		}
 
-		sf::RenderWindow *Renderer::GetRenderWindow(void) const {
+		/*sf::RenderWindow *Renderer::GetRenderWindow(void) const {
 			return m_window.get();
-		}
+		}*/
 
-		void Renderer::DrawDebug() const {
+		void Renderer::DrawDebug() {
 			for (std::list<BoxCollider2D *>::const_iterator it = m_debug.begin(); it != m_debug.end(); ++it) {
                 if ((*it)->IsDebug())
 				    (*it)->Display();
-				m_window->draw((*it)->GetVertex());
+				draw((*it)->GetVertex());
 			}
 		}
 
@@ -65,7 +64,7 @@ namespace SaltyEngine
 			::SaltyEngine::Sprite<sf::Vector2i> **s = &sprr->m_sprite;
 			sf::RenderWindow *w = dynamic_cast<sf::RenderWindow *>(sprr->GetWindow());
 			if (w == nullptr)
-				w = m_window.get();
+				w = this;
 			if (s && w)
 				m_spriteRenderers.at(sprr->GetLayer()).push_back(Drawable((Sprite **) (s), w, sprr->gameObject, sprr));
 		}
@@ -111,16 +110,16 @@ namespace SaltyEngine
         }
 
         ::SaltyEngine::Vector2i Renderer::GetRealSize() const {
-			sf::Vector2u size = GetRenderWindow()->getSize();
+			sf::Vector2u size = getSize();
 			SaltyEngine::Vector2f	scale = SaltyEngine::Engine::Instance().GetCurrentScene()->GetScale();
             return SaltyEngine::Vector2i(static_cast<int>(size.x / scale.x), static_cast<int>(size.y / scale.y));
         }
 
-		void Renderer::DrawLabel() const {
+		void Renderer::DrawLabel() {
 			for (LabelList::const_iterator lab = m_labels.begin(); lab != m_labels.end() ; ++lab) {
                 const Transform &t = (*lab)->gameObject->transform;
                 (*lab)->setPosition(t.GetPosition().x * t.GetLocalScale().x, t.GetPosition().y * t.GetLocalScale().y);
-				m_window->draw(*(*lab));
+				draw(*(*lab));
 			}
 		}
 	}

@@ -16,7 +16,7 @@
 
 namespace SaltyEngine {
     namespace SFML {
-        class EventManager : public ::SaltyEngine::Input::IEventManager {
+        class LIB_EXPORT EventManager : public ::SaltyEngine::Input::IEventManager {
         public:
             EventManager(sf::RenderWindow *const window);
 

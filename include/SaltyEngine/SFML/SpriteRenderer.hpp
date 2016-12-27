@@ -14,7 +14,7 @@ namespace SaltyEngine
 {
     namespace SFML
     {
-        class SpriteRenderer : public ASpriteRenderer<sf::Vector2i>
+        class LIB_EXPORT SpriteRenderer : public ASpriteRenderer<sf::Vector2i>
         {
         public:
             // delete copy and move constructors and assign operators

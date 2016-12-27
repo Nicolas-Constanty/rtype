@@ -14,7 +14,7 @@
 /**
  * @brief Base model for enemy's bullets
  */
-class AEnemyBulletController : public ABulletController
+class LIB_EXPORT AEnemyBulletController : public ABulletController
 {
 public:
     AEnemyBulletController(SaltyEngine::GameObject *go, std::string const& name = "AEnemyBulletController");

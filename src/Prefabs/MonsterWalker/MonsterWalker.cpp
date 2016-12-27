@@ -27,7 +27,7 @@ MonsterWalker::~MonsterWalker()
 {
 }
 
-SaltyEngine::Object const*GetObjectPrefab()
+LIB_EXPORT SaltyEngine::Object const*GetObjectPrefab()
 {
 	return new MonsterWalker();
 }

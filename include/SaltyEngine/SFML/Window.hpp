@@ -10,7 +10,7 @@ namespace SaltyEngine
 {
 	namespace SFML
 	{
-		class Window : public IWindow, public sf::RenderWindow
+		class LIB_EXPORT Window : public IWindow, public sf::RenderWindow
 		{
 		public:
 			Window(const sf::VideoMode &vm, const std::string &name)

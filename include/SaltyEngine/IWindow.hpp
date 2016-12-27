@@ -3,9 +3,11 @@
 #ifndef IWINDOW_HPP_
 #define IWINDOW_HPP_
 
+#include "Common/DLLexport.hpp"
+
 namespace SaltyEngine
 {
-	class IWindow
+	class LIB_EXPORT IWindow
 	{
 	public:
 		virtual ~IWindow() {};

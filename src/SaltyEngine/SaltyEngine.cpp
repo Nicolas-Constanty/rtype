@@ -101,8 +101,9 @@ namespace SaltyEngine
 			time_start = std::chrono::high_resolution_clock::now();
 			lag += std::chrono::duration_cast<std::chrono::nanoseconds>(m_delta_time);
 			m_even_manager->Update();
-            m_scenes[m_current]->OnStart();
-			m_scenes[m_current]->OnEnable();
+			AScene *scene = m_scenes[m_current].get();
+			scene->OnStart();
+			scene->OnEnable();
 			// Control Frame Rate
 //			if (m_physics_handler)
 //			{
@@ -117,7 +118,7 @@ namespace SaltyEngine
 				{
 					if (m_status != EngineStatus::pause)
 					{
-                        m_scenes[m_current]->FixedUpdate();
+						scene->FixedUpdate();
 						//m_scenes[m_current]->UpdatePhysics();
 						if (m_physics_handler)
 						{
@@ -126,17 +127,17 @@ namespace SaltyEngine
 							m_physics_handler->Collide();
 						}
 
-						m_scenes[m_current]->OnTriggerEnter();
-						m_scenes[m_current]->OnTriggerExit();
-						m_scenes[m_current]->OnTriggerStay();
+						scene->OnTriggerEnter();
+						scene->OnTriggerExit();
+						scene->OnTriggerStay();
 
-						m_scenes[m_current]->OnCollisionEnter();
-						m_scenes[m_current]->OnCollisionExit();
-						m_scenes[m_current]->OnCollisionStay();
+						scene->OnCollisionEnter();
+						scene->OnCollisionExit();
+						scene->OnCollisionStay();
 
-						m_scenes[m_current]->OnMouseEnter();
-						m_scenes[m_current]->OnMouseExit();
-						m_scenes[m_current]->OnMouseOver();
+						scene->OnMouseEnter();
+						scene->OnMouseExit();
+						scene->OnMouseOver();
 					}
 					else
 					{
@@ -147,12 +148,12 @@ namespace SaltyEngine
 					std::cerr << "You run an empty game!" << std::endl;
 			}
 			
-			m_scenes[m_current]->Update();
+			scene->Update();
 			if (m_physics_handler)
 				m_physics_handler->Display();
-			m_scenes[m_current]->CallCoroutines();
-			m_scenes[m_current]->OnGui();
-			m_scenes[m_current]->OnDestroy();
+			scene->CallCoroutines();
+			scene->OnGui();
+			scene->OnDestroy();
 //			if (m_physics_handler && st)
 //			{
 //				std::cout << "pouet" << std::endl;
@@ -161,7 +162,7 @@ namespace SaltyEngine
 //				st = false;
 //			}
 			m_renderer->Display();
-			m_scenes[m_current]->Destroy();
+			scene->Destroy();
 		}
 	}
 

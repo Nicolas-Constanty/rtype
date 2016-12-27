@@ -9,7 +9,7 @@ namespace SaltyEngine
 {
 	namespace GUI
 	{
-		class Widget : public Component
+		class LIB_EXPORT Widget : public Component
 		{
 			enum class State {
 				NORMAL = 0,

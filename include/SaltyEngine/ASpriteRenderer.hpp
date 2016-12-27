@@ -12,7 +12,7 @@
 namespace SaltyEngine
 {
 	template <class T>
-	class ASpriteRenderer : public Component
+	class LIB_EXPORT ASpriteRenderer : public Component
 	{
 	public:
 		// delete copy and move constructors and assign operators

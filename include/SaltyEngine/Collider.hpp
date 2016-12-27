@@ -4,20 +4,19 @@
 #define COLLIDER_HPP_
 
 #include "SaltyEngine/Component.hpp"
-#include "SaltyEngine/RigidBody.hpp"
 #include "SaltyEngine/BasicRect.hpp"
 #include "SaltyEngine/ASpriteRenderer.hpp"
 #include "SaltyEngine/ICollider.hpp"
+#include "SaltyEngine/GameObject.hpp"
 #include "Common/Debug.hpp"
 
 namespace SaltyEngine
 {
 	template <class T>
-	class ACollider2D : public Component, public ICollider
+	class LIB_EXPORT ACollider2D : public Component, public ICollider
 	{
 	public:
 		explicit ACollider2D(GameObject * const gameObj) : Component("Collider2D", gameObj), m_enabled(true), m_trigger(false) {
-			m_attachedRigidbody = gameObject->AddComponent<RigidBody2D>();
 			ASpriteRenderer<T> *sprr = gameObject->GetComponent<ASpriteRenderer<T>>();
 			if (sprr)
 			{
@@ -31,7 +30,6 @@ namespace SaltyEngine
             }
 		};
 		ACollider2D(const std::string &name, GameObject * const gameObj) : Component(name, gameObj), m_enabled(true), m_trigger(false) {
-			m_attachedRigidbody = gameObject->AddComponent<RigidBody2D>();
 			ASpriteRenderer<T> *sprr = gameObject->GetComponent<ASpriteRenderer<T>>();
 			if (sprr)
 				m_bounds = sprr->GetSprite()->GetBounds();
@@ -43,13 +41,12 @@ namespace SaltyEngine
             }
 		};
         ACollider2D(const std::string &name, GameObject * const gameObj, BasicRect<T> *rect) : Component(name, gameObj), m_enabled(true), m_trigger(false) {
-            m_attachedRigidbody = gameObject->AddComponent<RigidBody2D>();
             m_bounds = rect;
         };
 		virtual ~ACollider2D() {};
 
 	protected:
-		RigidBody2D	*m_attachedRigidbody;	// The rigidbody the collider is attached to.
+		//RigidBody2D	*m_attachedRigidbody;	// The rigidbody the collider is attached to.
 		BasicRect<T>	*m_bounds;				// The world space bounding volume of the collider.
 		bool		m_enabled;				// Enabled Colliders will collide with other colliders, disabled Colliders won't.
 		bool		m_trigger;				// Is the collider a trigger ?
@@ -58,7 +55,6 @@ namespace SaltyEngine
 		bool IsTrigger(void) const { return m_trigger; };
 		bool IsEnable(void) const { return m_enabled; };
 		BasicRect<T> *GetBound(void) const { return m_bounds; };
-		RigidBody2D *GetRigidBody(void) const { return m_attachedRigidbody; };
 
 	public:
 		void SetTrigger(bool trigger) { m_trigger = trigger; };
@@ -67,11 +63,6 @@ namespace SaltyEngine
 			if (m_bounds)
 				delete m_bounds;
 			m_bounds = rect; 
-		};
-		void SetRigidBody(RigidBody2D * const rigid) { 
-			if (m_attachedRigidbody)
-				delete m_attachedRigidbody;
-			m_attachedRigidbody = rigid; 
 		};
 
 	public:

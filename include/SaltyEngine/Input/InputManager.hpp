@@ -16,7 +16,7 @@ namespace SaltyEngine {
     namespace Input {
 #include "KeyCodesString.inl"
         template <class Input>
-        class InputManager {
+        class LIB_EXPORT InputManager {
         public:
             static inline bool GetKey(KeyCode::Key key) {
                 return Input::IsKey(key);

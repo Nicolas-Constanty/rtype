@@ -8,6 +8,7 @@
 #include <map>
 #include <algorithm>
 #include <stack>
+#include <vector>
 #include "SaltyEngine/Constants.hpp"
 #include "Common/Singleton.hpp"
 #include "Vector2.hpp"
@@ -19,7 +20,7 @@ namespace SaltyEngine
 	 */
 	class Object;
 	class GameObject;
-	class Factory: public Singleton<Factory> {
+	class LIB_EXPORT Factory: public Singleton<Factory> {
 	public:
 		friend class Singleton<Factory>;
 

@@ -9,7 +9,7 @@ namespace SaltyEngine
 {
 	namespace GUI
 	{
-		class IPointerExitHandler : public IEventSystemHandler
+		class LIB_EXPORT IPointerExitHandler : public IEventSystemHandler
 		{
 		public:
 			virtual ~IPointerExitHandler() {};

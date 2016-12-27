@@ -9,14 +9,14 @@
 
 extern "C"
 {
-    class Pod : public SaltyEngine::GameObject
+    class LIB_EXPORT Pod : public SaltyEngine::GameObject
     {
     public:
         Pod();
         virtual ~Pod();
     };
 
-    SaltyEngine::Object const *GetObjectPrefab();
+	LIB_EXPORT SaltyEngine::Object const *GetObjectPrefab();
 };
 
 

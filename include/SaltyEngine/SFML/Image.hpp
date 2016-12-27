@@ -8,7 +8,7 @@ namespace SaltyEngine
 	{
 		namespace GUI
 		{
-			class Image : public ::SaltyEngine::GUI::UIBehaviour
+			class LIB_EXPORT Image : public ::SaltyEngine::GUI::UIBehaviour
 			{
 			public:
 				explicit Image(GameObject* gameObj, ::SaltyEngine::SFML::Sprite * const sprite);

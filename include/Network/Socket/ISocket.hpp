@@ -62,7 +62,7 @@ namespace Network
             using std::runtime_error::what;
         };
 
-        class ISocket : public INativeSocketContainer, public ISockStream
+        class LIB_EXPORT ISocket : public INativeSocketContainer, public ISockStream
         {
         public:
             virtual void Open() throw(SocketException) = 0;

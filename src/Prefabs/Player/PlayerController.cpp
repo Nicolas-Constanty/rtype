@@ -85,8 +85,8 @@ namespace SaltyEngine
                 );
                 std::cout << m_min << std::endl;
                 m_max = Vector2(
-                        renderer->GetRenderWindow()->getSize().x / gameObject->transform.GetLocalScale().x - m_min.x,
-                        renderer->GetRenderWindow()->getSize().y / gameObject->transform.GetLocalScale().y - m_min.y
+                        renderer->getSize().x / gameObject->transform.GetLocalScale().x - m_min.x,
+                        renderer->getSize().y / gameObject->transform.GetLocalScale().y - m_min.y
                 );
                 std::cout << m_max << std::endl;
             }

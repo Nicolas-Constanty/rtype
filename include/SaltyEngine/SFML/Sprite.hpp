@@ -13,7 +13,7 @@ namespace SaltyEngine
 {
 	namespace SFML
 	{
-		class Sprite : public ::SaltyEngine::Sprite<sf::Vector2i>, public sf::Sprite
+		class LIB_EXPORT Sprite : public ::SaltyEngine::Sprite<sf::Vector2i>, public sf::Sprite
 		{
 			Rect	*m_bounds;
 		public:

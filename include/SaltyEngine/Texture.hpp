@@ -8,7 +8,7 @@
 namespace SaltyEngine
 {
 	template <class T>
-	class Texture : public Object
+	class LIB_EXPORT Texture : public Object
 	{
 	public:
 		explicit Texture(const std::string& name) : Object(name)

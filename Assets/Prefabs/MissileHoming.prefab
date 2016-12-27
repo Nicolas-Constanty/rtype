@@ -5,5 +5,5 @@
         "MissileHoming/Bullet3",
         "MissileHoming/Bullet4"
     ],
-    "lib": "libmissile_homing"
+    "lib": "missile_homing"
 }

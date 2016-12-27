@@ -63,8 +63,8 @@ void PodController::Start()
     {
         SaltyEngine::SFML::Renderer *renderer = dynamic_cast<SaltyEngine::SFML::Renderer *>(SaltyEngine::Engine::Instance().GetRenderer());
 
-        winsize = SaltyEngine::Vector2(renderer->GetRenderWindow()->getSize().x,
-                                       renderer->GetRenderWindow()->getSize().y);
+        winsize = SaltyEngine::Vector2(renderer->getSize().x,
+                                       renderer->getSize().y);
     }
     else
     {

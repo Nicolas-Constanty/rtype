@@ -9,7 +9,7 @@
 
 namespace SaltyEngine {
     namespace Input {
-        class DefaultEventManager : public IEventManager {
+        class LIB_EXPORT DefaultEventManager : public IEventManager {
         public:
             DefaultEventManager() {};
 

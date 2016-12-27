@@ -18,7 +18,7 @@ namespace SaltyEngine
 {
 	namespace GUI
 	{
-		class Selectable : public UIBehaviour, public IDeselectHandler, public IMoveHandler, public IPointerDownHandler,
+		class LIB_EXPORT Selectable : public UIBehaviour, public IDeselectHandler, public IMoveHandler, public IPointerDownHandler,
 			public IPointerEnterHandler, public IPointerExitHandler, public IPointerUpHandler, public ISelectHandler
 		{
 		public:

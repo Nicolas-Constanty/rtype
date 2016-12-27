@@ -10,7 +10,7 @@
 namespace SaltyEngine
 {
 	template <class T>
-	class BasicRect : public IRect<T>
+	class LIB_EXPORT BasicRect : public IRect<T>
 	{
 	public:
 		BasicRect(int l, int t, int w, int h) : IRect<T>(), _left(l), _top(t), _width(w), _height(h) {};

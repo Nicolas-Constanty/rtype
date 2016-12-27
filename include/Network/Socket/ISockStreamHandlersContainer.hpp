@@ -14,7 +14,7 @@ namespace Network
 {
     namespace Socket
     {
-        class ISockStreamHandlersContainer
+        class LIB_EXPORT ISockStreamHandlersContainer
         {
         public:
             virtual ~ISockStreamHandlersContainer(){}

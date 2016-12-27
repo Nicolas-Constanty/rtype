@@ -24,13 +24,13 @@ if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 elseif(MSVC)
 
 	#Export all symbol for dll
-	set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS true)
+#	set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS true)
 
 	#C++ FLAGS
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3 -DNOMINMAX -D_WINSOCK_DEPRECATED_NO_WARNINGS -DWIN32_LEAN_AND_MEAN")
 
 	#Create library
-	add_library(Network STATIC ${NETWORK_SRC} ${NETWORK_INCLUDE})
+	add_library(Network STATIC ${NETWORK_SRC})
 
 	#Link libraries
 	target_link_libraries(Network wsock32 ws2_32)

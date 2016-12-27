@@ -61,7 +61,7 @@ namespace SaltyEngine {
     /// \tparam Sprite
     /// \tparam Sound
     template <class Texture, class Sprite, class Animation, class Font, class Sound = ::SaltyEngine::Sound::ISound>
-    class AAssetManager {
+    class LIB_EXPORT AAssetManager {
     protected:
         AAssetManager() {
 #if _WIN32
@@ -372,7 +372,11 @@ namespace SaltyEngine {
                     }
 
                     if (!lib.empty()) {
-                        /*SaltyEngine::Asset::ASSET_LOADER *loader = */Factory::Instance().LoadAsset(path_metas + lib + Asset::META_EXTENSION);
+#if _WIN32
+                        Factory::Instance().LoadAsset(path_metas + lib + Asset::META_EXTENSION);
+#else
+						Factory::Instance().LoadAsset(path_metas + "lib" + lib + Asset::META_EXTENSION);
+#endif
                     }
 
                     m_prefabs.push_back(filename);

@@ -1,13 +1,3 @@
-#ifdef _WIN32
-    #ifdef MONSTERWALKER_EXPORTS
-        #define MONSTERWALKER_API __declspec(dllexport)
-    #else
-        #define MONSTERWALKER_API __declspec(dllimport)
-    #endif
-#else
-#define MONSTERWALKER_API
-#endif
-
 #ifndef MONSTERWALKER_HPP_
 #define MONSTERWALKER_HPP_
 
@@ -15,14 +5,14 @@
 
 extern "C"
 {
-	class MonsterWalker : public SaltyEngine::GameObject
+	class LIB_EXPORT MonsterWalker : public SaltyEngine::GameObject
 	{
 	public:
 		MonsterWalker();
 		virtual ~MonsterWalker();
 	};
 
-	SaltyEngine::Object const *GetObjectPrefab();
+	LIB_EXPORT SaltyEngine::Object const *GetObjectPrefab();
 }
 
 #endif

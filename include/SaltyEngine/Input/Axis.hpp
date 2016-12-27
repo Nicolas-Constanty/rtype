@@ -8,10 +8,11 @@
 #include <map>
 #include <iostream>
 #include "SaltyEngine/Input/KeyCodes.hpp"
+#include "Common/DLLexport.hpp"
 
 namespace SaltyEngine {
     namespace Input {
-        class Axis {
+        class LIB_EXPORT Axis {
         public:
             Axis(std::map<KeyCode::Key, float> keys);
             Axis(std::map<KeyCode::Key, float> keys, std::pair<unsigned int, MotionController::Axis> joystick);

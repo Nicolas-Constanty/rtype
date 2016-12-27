@@ -15,7 +15,7 @@ namespace SaltyEngine
 {
     namespace SFML
     {
-        class SpriteCollider2D : public ACollider2D<sf::Vector2i> {
+        class LIB_EXPORT SpriteCollider2D : public ACollider2D<sf::Vector2i> {
             static std::atomic<uint32_t> m_id;
             static std::vector<uint32_t> m_colors;
         public:

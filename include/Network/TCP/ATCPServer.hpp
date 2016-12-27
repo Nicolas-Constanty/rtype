@@ -13,8 +13,8 @@
 #include <queue>
 #endif
 
-#include <Network/Core/NativeSocketIOOperationDispatcher.hpp>
-#include <Network/Socket/BasicSockStreamsContainer.hpp>
+#include "Network/Core/NativeSocketIOOperationDispatcher.hpp"
+#include "Network/Socket/BasicSockStreamsContainer.hpp"
 #include "ATCPConnection.hpp"
 
 namespace Network
@@ -22,7 +22,7 @@ namespace Network
     namespace TCP
     {
         template <typename ClientType>
-        class ATCPServer : public ATCPConnection
+        class LIB_EXPORT ATCPServer : public ATCPConnection
         {
         public:
             /**

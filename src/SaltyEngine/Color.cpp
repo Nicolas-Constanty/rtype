@@ -15,7 +15,19 @@ SaltyEngine::Color::Color(float r, float g, float b, float a) :
 }
 
 float SaltyEngine::Color::operator[](int idx) {
-    return ((float[]){_r, _g, _b, _a})[idx];
+	switch (idx)
+	{
+	case 0:
+		return _r;
+	case 1:
+		return _g;
+	case 2:
+		return _b;
+	case 3:
+		return _a;
+	default:
+		return -1.0f;
+	};
 }
 
 float SaltyEngine::Color::r() const {

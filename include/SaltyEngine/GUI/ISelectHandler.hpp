@@ -9,7 +9,7 @@ namespace SaltyEngine
 {
 	namespace GUI
 	{
-		class ISelectHandler : public IEventSystemHandler
+		class LIB_EXPORT ISelectHandler : public IEventSystemHandler
 		{
 		public:
 			virtual ~ISelectHandler() {};

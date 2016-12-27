@@ -10,6 +10,7 @@
 #include <utility>
 #include "Vector2.hpp"
 #include "Common/ICloneable.hpp"
+#include "Common/DLLexport.hpp"
 #include "Factory.hpp"
 
 namespace SaltyEngine
@@ -23,7 +24,7 @@ namespace SaltyEngine
 	typedef size_t uid;
 
 
-	class Object: protected ICloneable<Object>
+	class LIB_EXPORT Object: protected ICloneable<Object>
 	{
 		static std::atomic<uid> s_id;
 	public:

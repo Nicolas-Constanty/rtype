@@ -8,7 +8,7 @@
 #include "SaltyEngine/SaltyBehaviour.hpp"
 #include "SaltyEngine/GameObject.hpp"
 
-class EnemyBulletController : public AEnemyBulletController
+class LIB_EXPORT EnemyBulletController : public AEnemyBulletController
 {
 public:
     EnemyBulletController(SaltyEngine::GameObject *go);

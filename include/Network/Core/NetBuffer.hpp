@@ -14,6 +14,7 @@
 #define MAX_MTU 1024
 
 #include <typeinfo>
+#include "Common/DLLexport.hpp"
 
 namespace Network
 {
@@ -22,7 +23,7 @@ namespace Network
         /**
          * \brief Class used to abstract the network buffer in which packets will be stored. You can either serialize or deserialize objects
          */
-        class NetBuffer
+        class LIB_EXPORT NetBuffer
         {
         public:
             static const size_t size;

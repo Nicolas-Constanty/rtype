@@ -7,11 +7,12 @@
 #include <string>
 #include <iostream>
 #include <stdexcept>
+#include "Common/DLLexport.hpp"
 
 namespace SaltyEngine
 {
 	template<class T>
-	class BaseVector2
+	class LIB_EXPORT BaseVector2
 	{
 	public:
 		BaseVector2() {

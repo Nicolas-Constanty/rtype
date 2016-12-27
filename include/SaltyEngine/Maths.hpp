@@ -7,10 +7,11 @@
 
 #include <vector>
 #include <cmath>
+#include "Common/DLLexport.hpp"
 
 namespace SaltyEngine
 {
-    class Mathf
+    class LIB_EXPORT Mathf
     {
 
 #define VALUE_COUNT 10000
@@ -25,8 +26,8 @@ namespace SaltyEngine
         static float Sign(float value);
 
     public:
-        constexpr static const float rad2deg = (180 / M_PI);
-        constexpr static const float deg2rad = (M_PI / 180);
+        constexpr static const float rad2deg = static_cast<float>(180 / M_PI);
+        constexpr static const float deg2rad = static_cast<float>(M_PI / 180);
 
     private:
         static std::vector<float> m_sin;

@@ -13,14 +13,14 @@ namespace SaltyEngine
 {
 	class Scene;
 	template <class T>
-	class ARenderer : public IRenderer
+	class LIB_EXPORT ARenderer : public IRenderer
 	{
 	public:
 		typedef std::list<std::unique_ptr<ASpriteRenderer<T>>> SpriteList;
 		typedef  std::map<int, SpriteList> SpriteMap;
 	public:
 		virtual ~ARenderer() {};
-		void Display() const override = 0;
+		void Display() override = 0;
 
 	private:
 		static SpriteMap m_spriteRenderers;

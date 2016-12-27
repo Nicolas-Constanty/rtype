@@ -6,8 +6,9 @@
 #define SPIDER_SERVER_ICONNECTABLE_HPP
 
 #include <string>
+#include "Common/DLLexport.hpp"
 
-class IConnectable
+class LIB_EXPORT IConnectable
 {
 public:
     virtual ~IConnectable(){}

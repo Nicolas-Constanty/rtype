@@ -7,7 +7,7 @@
 
 namespace SaltyEngine
 {
-	class DefaultScene : public AScene
+	class LIB_EXPORT DefaultScene : public AScene
 	{
 	public:
 		DefaultScene() : AScene() {};

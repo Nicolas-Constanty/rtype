@@ -20,7 +20,7 @@ class PodHandler;
 
 //todo add method to check if a pod is already attached to it
 namespace SaltyEngine {
-	class PlayerController : public AGenericController
+	class LIB_EXPORT PlayerController : public AGenericController
 	{
 		typedef std::chrono::high_resolution_clock clock;
 

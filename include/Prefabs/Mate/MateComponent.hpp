@@ -9,7 +9,7 @@
 #include <Prefabs/RtypePrefab.hpp>
 #include <Prefabs/CommonPlayer/CommonPlayerController.hpp>
 
-class MateComponent : public RtypePrefab
+class LIB_EXPORT MateComponent : public RtypePrefab
 {
 public:
     explicit MateComponent(SaltyEngine::GameObject *const object);

@@ -4,6 +4,7 @@
 #define VECTOR3_HPP_
 
 #include <iostream>
+#include "Common/DLLexport.hpp"
 
 namespace SaltyEngine
 {

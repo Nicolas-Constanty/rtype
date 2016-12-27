@@ -7,7 +7,7 @@
 
 namespace SaltyEngine
 {
-	class ICollider
+	class LIB_EXPORT ICollider
 	{
 	public:
 		virtual void Display(void) = 0;

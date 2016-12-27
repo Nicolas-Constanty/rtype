@@ -10,7 +10,7 @@ namespace SaltyEngine
 {
 	namespace GUI
 	{
-		class UIBehaviour : public SaltyBehaviour
+		class LIB_EXPORT UIBehaviour : public SaltyBehaviour
 		{
 		public:
 			UIBehaviour(GameObject * const gameObj);

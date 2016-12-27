@@ -9,7 +9,7 @@
 namespace SaltyEngine
 {
 	template <class T>
-	class Sprite : public Object 
+	class LIB_EXPORT Sprite : public Object
 	{
 	public:
 		explicit Sprite(Texture<T>* const texture,

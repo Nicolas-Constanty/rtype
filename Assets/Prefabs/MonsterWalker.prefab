@@ -8,7 +8,7 @@
         "MonsterWalker/JumpLeft",
         "MonsterWalker/JumpRight"
     ],
-    "lib": "libmonster_walker",
+    "lib": "monster_walker",
     "dependencies": [
     	"Missile",
         "EnemyBullet",

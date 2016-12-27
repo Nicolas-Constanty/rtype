@@ -6,7 +6,7 @@
 #include "Common/CustomEnum.hpp"
 
 
-class MonsterNeunoeilController : public AGenericController
+class LIB_EXPORT MonsterNeunoeilController : public AGenericController
 {
 public:
 	MonsterNeunoeilController(SaltyEngine::GameObject *object);

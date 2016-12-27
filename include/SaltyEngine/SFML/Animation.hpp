@@ -12,12 +12,13 @@
 #include "SaltyEngine/SaltyEngine.hpp"
 #include "SaltyEngine/AAnimation.hpp"
 #include "Common/Debug.hpp"
+#include "Common/DLLexport.hpp"
 
 namespace SaltyEngine
 {
     namespace SFML
     {
-        class Animation : public AAnimation {
+        class LIB_EXPORT Animation : public AAnimation {
         private:
 
             class AnimData {

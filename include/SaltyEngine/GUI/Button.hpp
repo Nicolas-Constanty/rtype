@@ -10,7 +10,7 @@ namespace SaltyEngine
 {
 	namespace GUI
 	{
-		class Button : public Selectable
+		class LIB_EXPORT Button : public Selectable
 		{
 		public:
 			explicit Button(GameObject* gameObj)

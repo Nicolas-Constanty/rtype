@@ -7,12 +7,13 @@
 
 
 #include <chrono>
+#include "Common/DLLexport.hpp"
 
 namespace Network
 {
     namespace Core
     {
-        class Timer
+        class LIB_EXPORT Timer
         {
         public:
             Timer();

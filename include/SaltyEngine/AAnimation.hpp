@@ -1,7 +1,6 @@
 #pragma once
 
 #include <queue>
-#include "SaltyEngine/SFML/AnimationClip.hpp"
 #include "SaltyEngine.hpp"
 #include "SaltyBehaviour.hpp"
 #include "Constants.hpp"
@@ -12,7 +11,7 @@
 
 namespace SaltyEngine
 {
-	class AAnimation : public SaltyBehaviour
+	class LIB_EXPORT AAnimation : public SaltyBehaviour
 	{
 	protected:
 		bool m_isPlaying = false;

@@ -8,7 +8,7 @@
         "MonsterNeunoeil/EyeClose",
         "MonsterNeunoeil/EyeBlink"
     ],
-    "lib": "libmonster_neunoeil",
+    "lib": "monster_neunoeil",
     "dependencies": [
     	"Missile",
         "EnemyBullet",

@@ -7,7 +7,7 @@
 namespace SaltyEngine
 {
 //	template <class T>
-	class AAnimationClip : public Object
+	class LIB_EXPORT AAnimationClip : public Object
 	{
 	protected:
 //		std::list<std::function<void()>> m_events;

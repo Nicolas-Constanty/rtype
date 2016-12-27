@@ -12,9 +12,6 @@ namespace SaltyEngine
     namespace SFML
     {
         std::atomic<uint32_t> SpriteCollider2D::m_id(0);
-        std::vector<uint32_t> SpriteCollider2D::m_colors = {
-#include "SaltyEngine/SFML/colors.col"
-        };
 
         SpriteCollider2D::SpriteCollider2D(const string &name, GameObject *const gameObj)
                 : ACollider2D(name, gameObj)
@@ -212,6 +209,10 @@ namespace SaltyEngine
         Component *SpriteCollider2D::CloneComponent(GameObject *const obj) {
             return new SpriteCollider2D(obj);
         }
+
+		std::vector<uint32_t> SpriteCollider2D::m_colors = {
+#include "SaltyEngine/SFML/colors.col"
+		};
     }
 }
 

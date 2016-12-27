@@ -1,15 +1,5 @@
 ﻿#pragma once
 
-#ifdef _WIN32
-#ifdef PLAYER_EXPORTS
-#define PLAYER_API __declspec(dllexport)
-#else
-#define PLAYER_API __declspec(dllimport)
-#endif
-#else
-#define PLAYER_API
-#endif
-
 #ifndef PLAYER_HPP_
 #define PLAYER_HPP_
 
@@ -18,7 +8,7 @@
 
 extern "C"
 {
-	class Player : public SaltyEngine::GameObject
+	class LIB_EXPORT Player : public SaltyEngine::GameObject
 	{
 	public:
 		Player();
@@ -27,7 +17,7 @@ extern "C"
 
 	//extern PLAYER_API int nPlayer;
 
-	SaltyEngine::Object const *GetObjectPrefab();
+	LIB_EXPORT SaltyEngine::Object const *GetObjectPrefab();
 }
 
 #endif

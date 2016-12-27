@@ -8,7 +8,7 @@
 #include <Prefabs/Missile/AEnemyBulletController.hpp>
 #include "Prefabs/GenericController.hpp"
 
-class MissileNeunoeilController: public AEnemyBulletController {
+class LIB_EXPORT MissileNeunoeilController: public AEnemyBulletController {
 public:
     MissileNeunoeilController(SaltyEngine::GameObject *go);
     virtual ~MissileNeunoeilController();

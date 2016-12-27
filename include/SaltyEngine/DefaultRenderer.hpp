@@ -7,11 +7,11 @@
 
 namespace SaltyEngine
 {
-	class DefaultRenderer : public IRenderer
+	class LIB_EXPORT DefaultRenderer : public IRenderer
 	{
 	public:
 		virtual ~DefaultRenderer() {};
-		void Display() const override {};
+		void Display() override {};
 		virtual void RemoveSpriteRenderer(GameObject * const gm) { (void)gm; };
 	};
 }

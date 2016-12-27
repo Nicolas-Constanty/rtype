@@ -11,7 +11,7 @@ namespace Network
 {
     namespace Core
     {
-        class INetBufferContainer
+        class LIB_EXPORT INetBufferContainer
         {
         public:
             virtual ~INetBufferContainer(){}

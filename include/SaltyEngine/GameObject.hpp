@@ -17,7 +17,7 @@ namespace SaltyEngine
 {
 
 	//class Scene;
-	class GameObject : public Object
+	class LIB_EXPORT GameObject : public Object
 	{
 		friend class AScene;
 	public:

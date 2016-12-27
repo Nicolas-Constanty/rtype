@@ -17,7 +17,7 @@ namespace Network
         /**
          * @brief Struct that defines a Network communication Protocol
          */
-        struct Protocol
+        struct LIB_EXPORT Protocol
         {
             const int proto;
             const int type;
@@ -46,22 +46,22 @@ namespace Network
         /**
          * @brief Definition of TCP protocol
          */
-        static const Protocol TCP = {IPPROTO_TCP, SOCK_STREAM};
+		static const Protocol TCP = {IPPROTO_TCP, SOCK_STREAM};
 
         /**
          * @brief Definition of UDP protocol
          */
-        static const Protocol UDP = {IPPROTO_UDP, SOCK_DGRAM};
+		static const Protocol UDP = {IPPROTO_UDP, SOCK_DGRAM};
 
         /**
          * @brief Definition on DEFAULT socket
          */
-        static const SOCKET      DEFAULT = (SOCKET)-1;
+		static const SOCKET      DEFAULT = (SOCKET)-1;
 
         /**
          * @brief Class that abstracts the socket characteristics
          */
-        class ASocket : public ISocket
+        class LIB_EXPORT ASocket : public ISocket
         {
         public:
             ASocket(const Protocol &protocol = Socket::TCP, const sa_family_t domain = AF_INET, int option = 1);

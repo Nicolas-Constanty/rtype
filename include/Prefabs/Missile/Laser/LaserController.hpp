@@ -9,7 +9,7 @@
 #include <map>
 #include <Prefabs/Player/PlayerController.hpp>
 
-class LaserController : public SaltyEngine::SaltyBehaviour
+class LIB_EXPORT LaserController : public SaltyEngine::SaltyBehaviour
 {
 public:
     LaserController(SaltyEngine::GameObject *go);

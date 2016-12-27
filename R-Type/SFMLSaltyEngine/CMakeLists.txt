@@ -1,9 +1,6 @@
 cmake_minimum_required(VERSION 2.8)
 project(rtype)
 
-#include files
-include_directories(include)
-
 #C++ files
 file(GLOB SFMLSaltyEngineSrc "src/SaltyEngine/SFML/*.cpp")
 
@@ -31,16 +28,13 @@ if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 elseif(MSVC)
 
 	#Export all symbol for dll
-	set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS true)
-
-	#C++ FLAGS
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3")
+	#set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS true)
 
 	#Create library
-	add_library(SFMLSaltyEngine SHARED ${SFMLSaltyEngineSrc} ${SFMLSaltyEngineInc})
+	add_library(SFMLSaltyEngine STATIC ${SFMLSaltyEngineSrc})
 
 	#Link libraries
-	target_link_libraries(SFMLSaltyEngine Common Parser SaltyEngine sfml-system sfml-window sfml-graphics sfml-audio)
+	target_link_libraries(SFMLSaltyEngine Common Parser SaltyEngine sfml-system-d sfml-window-d sfml-graphics-d sfml-audio-d)
 endif()
 
 add_dependencies(SFMLSaltyEngine SaltyEngine)
