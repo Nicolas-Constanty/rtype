@@ -82,6 +82,14 @@ if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 				"src/Prefabs/Missile/Laser/*.cpp"
 				"include/Prefabs/Missile/Laser/*.hpp")
 		add_library(missile_laser SHARED ${MISSILE_LASER_SOURCE_FILE})
+
+		# MISSILE LASER SPIRAL
+		file(GLOB MISSILE_LASER_SPIRAL_SOURCE_FILE
+				"src/Prefabs/Missile/LaserSpiral/*.cpp"
+				"include/Prefabs/Missile/LaserSpiral/*.hpp")
+		add_library(missile_laser_spiral SHARED ${MISSILE_LASER_SPIRAL_SOURCE_FILE})
+		target_link_libraries(missile_laser_spiral ${PREFAB_LIBRARIES})
+
 		target_link_libraries(missile_laser ${PREFAB_LIBRARIES})
 
 		# DEFAULT ENEMY BULLET
@@ -221,6 +229,11 @@ elseif(MSVC)
 		add_library(missile_laser SHARED ${MISSILE_LASER_SOURCE_FILE})
 		target_link_libraries(missile_laser ${PREFAB_LIBRARIES})
 
+		# MISSILE LASER SPIRAL
+		file(GLOB MISSILE_LASER_SPIRAL_SOURCE_FILE  "src/Prefabs/Missile/LaserSpiral/*.cpp")
+		add_library(missile_laser_spiral SHARED ${MISSILE_LASER_SPIRAL_SOURCE_FILE})
+		target_link_libraries(missile_laser_spiral ${PREFAB_LIBRARIES})
+
 		# DEFAULT ENEMY BULLET
 		file(GLOB MISSILE_ENEMY_BULLET "src/Prefabs/Missile/EnemyBullet/*.cpp" "src/Prefabs/Missile/*.cpp")
 		add_library(missile_enemy_bullet SHARED ${MISSILE_ENEMY_BULLET})
@@ -289,6 +302,7 @@ add_dependencies(beam ${PREFAB_DEPENDENCIES})
 add_dependencies(missile_medusa ${PREFAB_DEPENDENCIES})
 add_dependencies(missile_homing ${PREFAB_DEPENDENCIES})
 add_dependencies(missile_laser ${PREFAB_DEPENDENCIES})
+add_dependencies(missile_laser_spiral ${PREFAB_DEPENDENCIES})
 add_dependencies(explosion_basic ${PREFAB_DEPENDENCIES})
 add_dependencies(missile_enemy_bullet ${PREFAB_DEPENDENCIES})
 
