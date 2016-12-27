@@ -158,6 +158,9 @@ if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 				"include/Prefabs/PositionReplicator/*.hpp")
 		add_library(monster_neunoeil SHARED ${NEUNOEILMONSTER_SOURCE_FILE})
 		target_link_libraries(monster_neunoeil ${PREFAB_LIBRARIES} missile_medusa missile_enemy_bullet explosion_basic player)
+
+		set(PREFAB_DEPENDENCIES SFMLSaltyEngine Network PrefabCommunication Common ProtocolGame)
+
 	#Windows
 elseif(MSVC)
 
@@ -274,9 +277,10 @@ elseif(MSVC)
 	add_library(monster_neunoeil SHARED ${NEUNOEILMONSTER_SOURCE_FILE})
 	target_link_libraries(monster_neunoeil ${PREFAB_LIBRARIES} missile_medusa missile_enemy_bullet explosion_basic player)
 
+	set(PREFAB_DEPENDENCIES SFMLSaltyEngine Network PrefabCommunication Common ProtocolGame RtypeLib)
+
 endif()
 
-set(PREFAB_DEPENDENCIES SFMLSaltyEngine Network PrefabCommunication Common ProtocolGame RtypeLib)
 
 #BEAM
 add_dependencies(beam ${PREFAB_DEPENDENCIES})
