@@ -4,14 +4,8 @@
 namespace SaltyEngine
 {
 	namespace SFML {
-#if _WIN32
 		Renderer::Renderer(sf::VideoMode const &vm, const std::string &name) : sf::RenderWindow(vm, name) {
 		}
-#else
-		Renderer::Renderer(sf::VideoMode const &vm, const std::string &name) : m_window(
-			Make_unique<sf::RenderWindow>(vm, name)) {
-		}
-#endif
 
 		void Renderer::Display() {
 			if (isOpen()) {
