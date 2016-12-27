@@ -164,7 +164,13 @@ elseif(MSVC)
 #Export all symbol for dll
 	#set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS true)
 
-	add_library(PrefabCommunication SHARED ${SRC_COMMMUNICATION})
+	add_library(RtypeLib STATIC ${SRC_RTYPE})
+	target_link_libraries(RtypeLib)
+	target_link_libraries(RtypeLib SaltyEngine SFMLSaltyEngine Network)
+
+	add_dependencies(RtypeLib SFMLSaltyEngine Network)
+
+	add_library(PrefabCommunication STATIC ${SRC_COMMMUNICATION})
 	target_link_libraries(PrefabCommunication SaltyEngine SFMLSaltyEngine Network Parser ProtocolGame)
 
 	add_dependencies(PrefabCommunication SFMLSaltyEngine ProtocolGame)
@@ -172,48 +178,48 @@ elseif(MSVC)
 	#C++ FLAGS
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3 -DWIN32_LEAN_AND_MEAN -D_CRT_SECURE_NO_WARNINGS -D_USE_MATH_DEFINES -DBUILD_SHARED_LIBS -DEXPORT_LIB")
 
-	set(PREFAB_LIBRARIES SaltyEngine SFMLSaltyEngine Network PrefabCommunication)
+	set(PREFAB_LIBRARIES SaltyEngine SFMLSaltyEngine Network PrefabCommunication RtypeLib)
 
 	# BLOCK
-	file(GLOB BEAM_SOURCE_FILE "src/Prefabs/Block/*.cpp" ${SRC_RTYPE})
+	file(GLOB BEAM_SOURCE_FILE "src/Prefabs/Block/*.cpp")
 	add_library(BlockSimple SHARED ${BEAM_SOURCE_FILE})
 	target_link_libraries(BlockSimple ${PREFAB_LIBRARIES})
 
 	# BEAM
-	file(GLOB BEAM_SOURCE_FILE "src/Prefabs/Beam/*.cpp" ${SRC_RTYPE})
+	file(GLOB BEAM_SOURCE_FILE "src/Prefabs/Beam/*.cpp")
 	add_library(beam SHARED ${BEAM_SOURCE_FILE})
 	target_link_libraries(beam ${PREFAB_LIBRARIES})
 	# BONUS
-	file(GLOB BONUS_SRC "src/Prefabs/Bonus/*.cpp" ${SRC_RTYPE})
+	file(GLOB BONUS_SRC "src/Prefabs/Bonus/*.cpp")
 	add_library(spiralbonus SHARED ${BONUS_SRC})
 	target_link_libraries(spiralbonus ${PREFAB_LIBRARIES})
 
 	# MISSILES
 
 		# MISSILE MEDUSA
-		file(GLOB MISSILE_MEDUSA_SOURCE_FILE "src/Prefabs/Missile/MissileMedusa/*.cpp" "src/Prefabs/Missile/*.cpp" ${SRC_RTYPE})
+		file(GLOB MISSILE_MEDUSA_SOURCE_FILE "src/Prefabs/Missile/MissileMedusa/*.cpp" "src/Prefabs/Missile/*.cpp")
 		add_library(missile_medusa SHARED ${MISSILE_MEDUSA_SOURCE_FILE})
 		target_link_libraries(missile_medusa ${PREFAB_LIBRARIES})
 
 		# MISSILE NEUNOEIL
 		file(GLOB MISSILE_NEUNOEIL_SOURCE_FILE
-				"src/Prefabs/Missile/MissileNeunoeil/*.cpp" "src/Prefabs/Missile/*.cpp" ${SRC_RTYPE})
+				"src/Prefabs/Missile/MissileNeunoeil/*.cpp" "src/Prefabs/Missile/*.cpp")
 		add_library(missile_neunoeil SHARED ${MISSILE_NEUNOEIL_SOURCE_FILE})
 		target_link_libraries(missile_neunoeil ${PREFAB_LIBRARIES})
 
 		# MISSILE HOMING
 		file(GLOB MISSILE_HOMING_SOURCE_FILE
-				"src/Prefabs/Missile/MissileHoming/*.cpp" "src/Prefabs/Missile/*.cpp" ${SRC_RTYPE})
+				"src/Prefabs/Missile/MissileHoming/*.cpp" "src/Prefabs/Missile/*.cpp")
 		add_library(missile_homing SHARED ${MISSILE_HOMING_SOURCE_FILE})
 		target_link_libraries(missile_homing ${PREFAB_LIBRARIES})
 
 		# MISSILE LASER
-		file(GLOB MISSILE_LASER_SOURCE_FILE "src/Prefabs/Missile/Laser/*.cpp" "src/Prefabs/Missile/*.cpp" ${SRC_RTYPE})
+		file(GLOB MISSILE_LASER_SOURCE_FILE "src/Prefabs/Missile/Laser/*.cpp" "src/Prefabs/Missile/*.cpp")
 		add_library(missile_laser SHARED ${MISSILE_LASER_SOURCE_FILE})
 		target_link_libraries(missile_laser ${PREFAB_LIBRARIES})
 
 		# DEFAULT ENEMY BULLET
-		file(GLOB MISSILE_ENEMY_BULLET "src/Prefabs/Missile/EnemyBullet/*.cpp" "src/Prefabs/Missile/*.cpp" ${SRC_RTYPE})
+		file(GLOB MISSILE_ENEMY_BULLET "src/Prefabs/Missile/EnemyBullet/*.cpp" "src/Prefabs/Missile/*.cpp")
 		add_library(missile_enemy_bullet SHARED ${MISSILE_ENEMY_BULLET})
 		target_link_libraries(missile_enemy_bullet ${PREFAB_LIBRARIES})
 
@@ -225,21 +231,18 @@ elseif(MSVC)
 	# SPACESHIPS
 
 	# PLAYER
-	file(GLOB PLAYER_SOURCE_FILE "src/Prefabs/Player/*.cpp" ${SRC_RTYPE})
+	file(GLOB PLAYER_SOURCE_FILE "src/Prefabs/Player/*.cpp")
 	add_library(player SHARED ${PLAYER_SOURCE_FILE})
 	target_link_libraries(player ${PREFAB_LIBRARIES} missile_laser)
 
 	# MATE (network managed client)
-	file(GLOB MATE_SOURCE_FILES "src/Prefabs/Mate/*.cpp" ${SRC_RTYPE})
+	file(GLOB MATE_SOURCE_FILES "src/Prefabs/Mate/*.cpp")
 	add_library(mate SHARED ${MATE_SOURCE_FILES})
 	target_link_libraries(mate ${PREFAB_LIBRARIES} missile_laser)
 
 	# POD
 	file(GLOB POD_SOURCE_FILES
 		"src/Prefabs/Pod/*.cpp"
-		"src/Rtype/Game/Client/*.cpp"
-		"src/Rtype/Game/Server/*.cpp"
-		"src/Rtype/Game/Common/*.cpp"
 		"src/Prefabs/RtypePrefab.cpp"
 		"src/Prefabs/PodHandler/PodHandler.cpp"
 		"src/Prefabs/CommonPlayer/CommonPlayerController.cpp"
@@ -250,30 +253,30 @@ elseif(MSVC)
 	# MONSTERS
 
 	# BASIC
-	file(GLOB MONSTER_SOURCE_FILE "src/Prefabs/Monster/*.cpp" ${SRC_RTYPE})
+	file(GLOB MONSTER_SOURCE_FILE "src/Prefabs/Monster/*.cpp")
 	add_library(monster SHARED ${MONSTER_SOURCE_FILE})
 	target_link_libraries(monster ${PREFAB_LIBRARIES} missile_medusa)
 
 	# WALKER
-	file(GLOB WALKINGMONSTER_SOURCE_FILE "src/Prefabs/MonsterWalker/*.cpp" ${SRC_RTYPE})
+	file(GLOB WALKINGMONSTER_SOURCE_FILE "src/Prefabs/MonsterWalker/*.cpp")
 	add_library(monster_walker SHARED ${WALKINGMONSTER_SOURCE_FILE})
 	target_link_libraries(monster_walker ${PREFAB_LIBRARIES} missile_medusa missile_enemy_bullet explosion_basic player)
 
 	# FLYING
-	file(GLOB FLYINGMONSTER_SOURCE_FILE "src/Prefabs/MonsterFlying/*.cpp" ${SRC_RTYPE})
+	file(GLOB FLYINGMONSTER_SOURCE_FILE "src/Prefabs/MonsterFlying/*.cpp")
 	add_library(monster_flying SHARED ${FLYINGMONSTER_SOURCE_FILE})
 	target_link_libraries(monster_flying ${PREFAB_LIBRARIES} missile_medusa missile_enemy_bullet explosion_basic)
 
 	# BOSSES
 
 	# WALKER
-	file(GLOB NEUNOEILMONSTER_SOURCE_FILE "src/Prefabs/MonsterNeunoeil/*.cpp" ${SRC_RTYPE})
+	file(GLOB NEUNOEILMONSTER_SOURCE_FILE "src/Prefabs/MonsterNeunoeil/*.cpp")
 	add_library(monster_neunoeil SHARED ${NEUNOEILMONSTER_SOURCE_FILE})
 	target_link_libraries(monster_neunoeil ${PREFAB_LIBRARIES} missile_medusa missile_enemy_bullet explosion_basic player)
 
 endif()
 
-set(PREFAB_DEPENDENCIES SFMLSaltyEngine Network PrefabCommunication Common ProtocolGame)
+set(PREFAB_DEPENDENCIES SFMLSaltyEngine Network PrefabCommunication Common ProtocolGame RtypeLib)
 
 #BEAM
 add_dependencies(beam ${PREFAB_DEPENDENCIES})
