@@ -156,7 +156,6 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetDIEPackage(DIEPackageGame 
     if (obj) {
         AGenericController *aGenericController = obj->GetComponent<AGenericController>();
         if (aGenericController) {
-            std::cout << pack << std::endl;
             aGenericController->Die();
         } else {
             SaltyEngine::Object::Destroy(obj);
@@ -205,6 +204,7 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetCALLPackage(CALLPackageGam
 void Rtype::Game::Client::RtypeClientGameClient::onGetMOVEPackage(MOVEPackageGame const &pack)
 {
     OnDiscoveringPackage(pack);
+    Debug::PrintInfo("Receive packet move: (" + std::to_string(pack.posX) + ", " + std::to_string(pack.posY) + ") : " + std::to_string(pack.objectID));
     SaltyEngine::GameObject *obj = gameManager->gameObjectContainer[pack.objectID];
     if (obj) {
         obj->transform.SetPosition(SaltyEngine::Vector(pack.posX, pack.posY));

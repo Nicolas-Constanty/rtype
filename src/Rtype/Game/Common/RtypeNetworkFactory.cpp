@@ -30,13 +30,8 @@ SaltyEngine::GameObject *RtypeNetworkFactory::Create(unsigned short id, SaltyEng
 {
     std::map<unsigned short, std::string>::const_iterator   it = rtypeObjects.find(id);
 
-    std::cout << "with id == " << id << std::endl;
     if (it != rtypeObjects.end())
     {
-//        std::string name = it->second;
-//        if (IsMateColor(id)) {
-//            name = "Mate";
-//        }
         SaltyEngine::GameObject *object = dynamic_cast<SaltyEngine::GameObject*>(SaltyEngine::Instantiate(it->second, pos, rotation));
         if (object)
             return object;

@@ -20,7 +20,7 @@ PositionReplicator::~PositionReplicator()
 
 void PositionReplicator::Start()
 {
-
+    LoadManager();
 }
 
 void PositionReplicator::FixedUpdate()
