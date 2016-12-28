@@ -146,7 +146,6 @@ namespace Network
                 if (newclient == NULL)
                     newclient = new TimedUDPClient(Dispatcher());
                 if (newclient == NULL) {
-                    std::cout << "newClient still NULL" << std::endl;
                     return;
                 }
                 buff.reset();
@@ -176,7 +175,6 @@ namespace Network
                             return ;
                         }
                     }
-                    std::cout << "New client joined: " << (Socket::ASocket const &)newclient->getSocket() << std::endl;
                     //Either it mean that it's a new client, so push it in <clients> list
                     clients->Add(newclient);
                     newclient->setServer(this);

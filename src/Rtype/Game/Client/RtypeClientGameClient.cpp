@@ -156,7 +156,6 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetDIEPackage(DIEPackageGame 
     if (obj) {
         AGenericController *aGenericController = obj->GetComponent<AGenericController>();
         if (aGenericController) {
-            std::cout << pack << std::endl;
             aGenericController->Die();
         } else {
             SaltyEngine::Object::Destroy(obj);
@@ -306,7 +305,7 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetMATEPackage(MATEPackageGam
             component->SetColor(matePackageGame.playerID);
         }
     } catch (...) {
-        std::cout << "unkown obj" << std::endl;
+        Debug::PrintError("Unknown object");
     }
 }
 

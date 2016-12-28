@@ -92,7 +92,6 @@ namespace SaltyEngine
             }
         }
         common = gameObject->GetComponent<CommonPlayerController>();
-        std::cout << "Common: " << common << std::endl;
 	}
 
 	void PlayerController::FixedUpdate()
