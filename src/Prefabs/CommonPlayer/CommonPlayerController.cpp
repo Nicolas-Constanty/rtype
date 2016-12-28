@@ -141,3 +141,7 @@ void CommonPlayerController::OnCollisionEnter(SaltyEngine::ICollider *collider) 
 CommonPlayerController::Status CommonPlayerController::GetStatus(void) const {
     return status;
 }
+
+int CommonPlayerController::GetGlobalLives() const {
+    return global_lives;
+}

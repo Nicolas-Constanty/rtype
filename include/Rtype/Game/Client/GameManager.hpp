@@ -62,7 +62,7 @@ public:
 	SaltyEngine::GameObject	*GetPlayer(unsigned char playerID) const;
 	unsigned char	GetPlayerID(SaltyEngine::GameObject *player) const;
 
-	void OnPlayerDeath();
+	bool IsAllPlayerDeath() const;
 	void StartTheGame();
 
 public:
