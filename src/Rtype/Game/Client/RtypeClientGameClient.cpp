@@ -315,6 +315,7 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetGAMEOVERPackage(GAMEOVERPa
         GAMEOVER over = static_cast<GAMEOVER>(game.status);
         if (over == GAMEOVER::VICTORY) {
             this->endScreen->VictoryScreen();
+            gameManager->PlaySound("r-type_stage_clear", false);
         } else {
             this->endScreen->DefeatScreen();
         }

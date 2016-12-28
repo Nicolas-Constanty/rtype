@@ -189,7 +189,7 @@ bool GameManager::IsSceneEmpty() const {
     return true;
 }
 
-void GameManager::PlaySound(std::string const &sound) {
+void GameManager::PlaySound(std::string const &sound, bool loop) {
     if (m_backgroudnSound) {
         m_backgroudnSound->Stop();
         m_backgroudnSound = NULL;
@@ -197,7 +197,7 @@ void GameManager::PlaySound(std::string const &sound) {
 
     m_backgroudnSound = SaltyEngine::SFML::AssetManager::Instance().GetSound(sound); // rtype-ost
     if (m_backgroudnSound) {
-        m_backgroudnSound->SetLoop(true);
+        m_backgroudnSound->SetLoop(loop);
         m_backgroudnSound->Play();
     }
 }

@@ -24,7 +24,7 @@ public:
     void OnCollisionEnter(SaltyEngine::ICollider *collider);
 
 public:
-	void		PlaySound(std::string const &sound);
+	void		PlaySound(std::string const &sound, bool loop = true);
 
 public:
 	template <typename Pack, typename Send, typename ... Args>
