@@ -16,6 +16,9 @@
 #define LIB_EXPORT
 #endif
 
+#if !_WIN32
+#define NO_EXPORT
+#endif
 #if defined(EXPORT_PREF)
 	#define  PREF_EXPORT __declspec(dllexport)
 #else
