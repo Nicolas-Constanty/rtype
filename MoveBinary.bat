@@ -1,4 +1,5 @@
 mkdir build\Debug
+mkdir Assets\Metas
 
 set "cp=xcopy /d"
 
