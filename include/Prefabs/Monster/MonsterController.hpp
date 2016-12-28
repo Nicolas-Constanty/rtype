@@ -30,8 +30,8 @@ public:
 	virtual int GetHighScore() const;
 
 private:
-	float m_minShootInterval = 4;
-	float m_maxShootInterval = 9;
+	float m_minShootInterval = 1;
+	float m_maxShootInterval = 4;
 	float m_currDelay = 0;
 	bool m_isDead = false;
 	float m_vel = 50;
