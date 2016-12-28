@@ -29,11 +29,17 @@ elseif(MSVC)
 
 	#Hpp files
 	file(GLOB ParserInc "../../include/Parser/*.hpp")
-	#
-	#set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS true)
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DNO_EXPORT")
+	if(EXPORT_DLL)
+		set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS true)
+		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DNO_EXPORT")
 
-	#Create library
-	add_library(Parser STATIC ${ParserSrc})
+		#Create library
+		add_library(Parser SHARED ${ParserSrc})
+	else()
+		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DNO_EXPORT")
+
+		#Create library
+		add_library(Parser STATIC ${ParserSrc})
+	endif()
 
 endif()

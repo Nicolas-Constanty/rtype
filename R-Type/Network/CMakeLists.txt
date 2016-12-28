@@ -25,15 +25,25 @@ elseif(MSVC)
 
 	file(GLOB NETWORK_INCLUDE "../../include/Network/*/*.hpp" "../../include/Network/*.hpp")
 
-	#Export all symbol for dll
-#	set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS true)
-
-	#C++ FLAGS
-    #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3 -DBUILD_SHARED_LIBS -DEXPORT_LIB -DEXPORT_PREF")
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3 -DNO_EXPORT")
 	
-	#Create library
-	add_library(Network STATIC ${NETWORK_SRC} ${NETWORK_INCLUDE})
+
+	if(EXPORT_DLL)
+		#Export all symbol for dll
+		set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS true)
+
+		#C++ FLAGS
+		#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3 -DBUILD_SHARED_LIBS -DEXPORT_LIB -DEXPORT_PREF")
+		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3 -DNO_EXPORT")
+		
+		#Create library
+		add_library(Network SHARED ${NETWORK_SRC} ${NETWORK_INCLUDE})
+	else()
+		#C++ FLAGS
+		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3 -DNO_EXPORT")
+	
+		#Create library
+		add_library(Network STATIC ${NETWORK_SRC} ${NETWORK_INCLUDE})
+	endif()
 
 	#Link libraries
 	target_link_libraries(Network wsock32 ws2_32)

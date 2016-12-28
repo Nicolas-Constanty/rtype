@@ -63,6 +63,8 @@ include(${PROJECT_SOURCE_DIR}/Tests/Animations/CMakeLists.txt)
 #Windows
 elseif(MSVC)
 
+	set(EXPORT_DLL true)
+	
 	#C++ FLAGS
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3 /EHsc -DNOMINMAX -D_WINSOCK_DEPRECATED_NO_WARNINGS -DWIN32_LEAN_AND_MEAN")
 
