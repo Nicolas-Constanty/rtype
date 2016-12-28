@@ -49,15 +49,22 @@ elseif(MSVC)
 		"../../include/SaltyEngine/Input/*.hpp"
 	)
 
-	#Export all symbol for dll
-	#set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS true)
+	if(EXPORT_DLL)
+		#Export all symbol for dll
+		#set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS true)
+		
+		#C++ FLAGS
+		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DWIN32_LEAN_AND_MEAN -D_USE_MATH_DEFINES -DBUILD_SHARED_LIBS -DEXPORT_LIB -DEXPORT_PREF")
 
-	#C++ FLAGS
-    #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DWIN32_LEAN_AND_MEAN -D_USE_MATH_DEFINES -DBUILD_SHARED_LIBS -DEXPORT_LIB -DEXPORT_PREF")
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DNO_EXPORT")
+		#Create library
+		add_library(SaltyEngine SHARED ${SaltyEngineSrc} ${SaltyEngineInc})
+	else()
+		#C++ FLAGS
+		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DNO_EXPORT")
 
-	#Create library
-	add_library(SaltyEngine STATIC ${SaltyEngineSrc} ${SaltyEngineInc})
+		#Create library
+		add_library(SaltyEngine STATIC ${SaltyEngineSrc} ${SaltyEngineInc})
+	endif()
 
 	#Link libraries
 	target_link_libraries(SaltyEngine Common)

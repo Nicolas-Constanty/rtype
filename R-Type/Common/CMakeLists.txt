@@ -30,11 +30,20 @@ elseif(MSVC)
 	#Hpp files
 	file(GLOB Commonsrc "../../src/Common/*.cpp")
 
-	#Export all symbol for dll
-	#set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS true)
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DNO_EXPORT")
+	
+	
+	if(EXPORT_DLL)
+		#Export all symbol for dll
+		set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS true)
+		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DNO_EXPORT")
 
-	#Create library
-	add_library(Common STATIC ${Commonsrc} ${Commoninc})
+		#Create library
+		add_library(Common SHARED ${Commonsrc} ${Commoninc})
+	else()
+		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DNO_EXPORT")
+
+		#Create library
+		add_library(Common STATIC ${Commonsrc} ${Commoninc})
+	endif()
 
 endif()
