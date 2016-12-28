@@ -8,7 +8,7 @@ include_directories(include)
 if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 
 	#C++ FLAGS
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wextra -DBUILD_SHARED_LIBS -DEXPORT_LIB -DEXPORT_PREF")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wextra -DBUILD_SHARED_LIBS -DEXPORT_LIB")
 
 	#C++ files
 	file(GLOB GameClientSrc

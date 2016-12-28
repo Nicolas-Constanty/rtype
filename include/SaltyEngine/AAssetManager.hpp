@@ -402,7 +402,7 @@ namespace SaltyEngine {
 #if _WIN32
             m_current_scene = std::make_unique<SceneDefault>();
 #else
-			m_current_scene(new SceneDefault());
+			m_current_scene = Make_unique<SceneDefault>();
 #endif
 
             try {
