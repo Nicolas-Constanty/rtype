@@ -13,16 +13,10 @@
                 "y": "500"
             }
         },
-        "MonsterNeunoeil": {
-            "prefabName": "MonsterMedusa",
-            "position": {
-                "x" : "950",
-                "y": "500"
-            }
-        }, "Monster5": {
+        "Monster5": {
             "prefabName": "Monster",
             "position": {
-                "x" : "1420",
+                "x" : "700",
                 "y": "150"
             }
         }

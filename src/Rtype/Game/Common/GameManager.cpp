@@ -33,11 +33,12 @@ void GameManager::Start()
 
     if (m_client) {
         gameObject->AddComponent<BackgroundController>();
-        SaltyEngine::Sound::ISound *sound = SaltyEngine::SFML::AssetManager::Instance().GetSound("rtype-ost");
-        if (sound) {
-            sound->SetLoop(true);
-            sound->Play();
-        }
+        PlaySound("rtype-ost");
+//        SaltyEngine::Sound::ISound *sound = SaltyEngine::SFML::AssetManager::Instance().GetSound("rtype-ost");
+//        if (sound) {
+//            sound->SetLoop(true);
+//            sound->Play();
+//        }
     }
     if (m_server) {
     monsterMap = SaltyEngine::SFML::AssetManager::Instance().LoadScene("scene" + std::to_string(m_server->GetLevel()));
@@ -186,4 +187,17 @@ bool GameManager::IsSceneEmpty() const {
         }
     }
     return true;
+}
+
+void GameManager::PlaySound(std::string const &sound) {
+    if (m_backgroudnSound) {
+        m_backgroudnSound->Stop();
+        m_backgroudnSound = NULL;
+    }
+
+    m_backgroudnSound = SaltyEngine::SFML::AssetManager::Instance().GetSound(sound); // rtype-ost
+    if (m_backgroudnSound) {
+        m_backgroudnSound->SetLoop(true);
+        m_backgroudnSound->Play();
+    }
 }
