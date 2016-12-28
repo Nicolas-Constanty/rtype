@@ -34,13 +34,14 @@ elseif(MSVC)
 	file(GLOB SFMLSaltyEngineInc "../../include/SaltyEngine/SFML/*.hpp")
 
 	#C++ FLAGS
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DWIN32_LEAN_AND_MEAN -D_USE_MATH_DEFINES -DBUILD_SHARED_LIBS -DEXPORT_LIB -DEXPORT_PREF")
+    #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DWIN32_LEAN_AND_MEAN -D_USE_MATH_DEFINES -DBUILD_SHARED_LIBS -DEXPORT_LIB -DEXPORT_PREF")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DNO_EXPORT")
 
 	#Export all symbol for dll
 	#set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS true)
 
 	#Create library
-	add_library(SFMLSaltyEngine SHARED ${SFMLSaltyEngineSrc} ${SFMLSaltyEngineInc})
+	add_library(SFMLSaltyEngine STATIC ${SFMLSaltyEngineSrc} ${SFMLSaltyEngineInc})
 
 	#Link libraries
 	target_link_libraries(SFMLSaltyEngine Common Parser SaltyEngine sfml-system-d sfml-window-d sfml-graphics-d sfml-audio-d)

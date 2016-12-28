@@ -38,17 +38,18 @@ int main(int ac, char **av)
 #if _WIN32
 	Network::Socket::WinSocket::Start();
 #endif
-    try
-    {
+    /*try
+    {*/
         //SaltyEngine::SFML::AssetManager::Instance().LoadScene("scene" + level);
         //SaltyEngine::SFML::AssetManager::Instance().LoadAssets();
+		std::cout << secret << " " << level << std::endl;
         room.Start(port, max, secret, level);
-    }
+    /*}
     catch (std::runtime_error const &err)
     {
         std::cerr << "Fail to start room: " << err.what() << std::endl;
         return 1;
-    }
+    }*/
     room.Run();
 #if _WIN32
 	Network::Socket::WinSocket::Stop();

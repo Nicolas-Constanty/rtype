@@ -33,6 +33,8 @@ void Rtype::Game::Server::Room::Start(const uint16_t port, const size_t max, con
     // Push scene int SaltyEngine
     SaltyEngine::Engine::Instance() << scene;
 
+	std::cout << &SaltyEngine::Engine::Instance() << std::endl;
+
     // Create player
     SaltyEngine::GameObject *serverGame = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate());
 
