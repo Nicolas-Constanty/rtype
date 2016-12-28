@@ -3,30 +3,30 @@ project(rtype CXX)
 
 include_directories("include")
 
-file(GLOB SRC_RTYPE
-	"../../src/Rtype/Game/Client/*.cpp"
-	"../../src/Rtype/Game/Server/*.cpp"
-	"../../src/Rtype/Game/Common/*.cpp"
-)
-
-file(GLOB SRC_COMMMUNICATION
-	"../../src/Rtype/Game/Client/*.cpp"
-	"../../src/Rtype/Game/Server/*.cpp"
-	"../../src/Rtype/Game/Common/*.cpp"
-	"../../src/Prefabs/Player/PlayerController.cpp"
-	"../../src/Prefabs/RtypePrefab.cpp"
-	"../../src/Prefabs/CommonPlayer/CommonPlayerController.cpp"
-	"../../src/Prefabs/Mate/MateComponent.cpp"
-	"../../src/Prefabs/Missile/Laser/LaserController.cpp"
-	"../../src/Prefabs/Pod/PodController.cpp"
-	"../../src/Prefabs/GenericController.cpp"
-	"../../src/Prefabs/PodHandler/PodHandler.cpp"
-	"../../src/Prefabs/PositionReplicator/PositionReplicator.cpp"
-)
-
 
 #Linux
 if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
+
+file(GLOB SRC_RTYPE
+	"src/Rtype/Game/Client/*.cpp"
+	"src/Rtype/Game/Server/*.cpp"
+	"src/Rtype/Game/Common/*.cpp"
+)
+
+file(GLOB SRC_COMMMUNICATION
+	"src/Rtype/Game/Client/*.cpp"
+	"src/Rtype/Game/Server/*.cpp"
+	"src/Rtype/Game/Common/*.cpp"
+	"src/Prefabs/Player/PlayerController.cpp"
+	"src/Prefabs/RtypePrefab.cpp"
+	"src/Prefabs/CommonPlayer/CommonPlayerController.cpp"
+	"src/Prefabs/Mate/MateComponent.cpp"
+	"src/Prefabs/Missile/Laser/LaserController.cpp"
+	"src/Prefabs/Pod/PodController.cpp"
+	"src/Prefabs/GenericController.cpp"
+	"src/Prefabs/PodHandler/PodHandler.cpp"
+	"src/Prefabs/PositionReplicator/PositionReplicator.cpp"
+)
 
 	add_library(PrefabCommunication SHARED ${SRC_COMMMUNICATION})
 	target_link_libraries(PrefabCommunication SaltyEngine SFMLSaltyEngine Network Parser ProtocolGame)
@@ -184,6 +184,26 @@ if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 
 	#Windows
 elseif(MSVC)
+file(GLOB SRC_RTYPE
+	"../../src/Rtype/Game/Client/*.cpp"
+	"../../src/Rtype/Game/Server/*.cpp"
+	"../../src/Rtype/Game/Common/*.cpp"
+)
+
+file(GLOB SRC_COMMMUNICATION
+	"../../src/Rtype/Game/Client/*.cpp"
+	"../../src/Rtype/Game/Server/*.cpp"
+	"../../src/Rtype/Game/Common/*.cpp"
+	"../../src/Prefabs/Player/PlayerController.cpp"
+	"../../src/Prefabs/RtypePrefab.cpp"
+	"../../src/Prefabs/CommonPlayer/CommonPlayerController.cpp"
+	"../../src/Prefabs/Mate/MateComponent.cpp"
+	"../../src/Prefabs/Missile/Laser/LaserController.cpp"
+	"../../src/Prefabs/Pod/PodController.cpp"
+	"../../src/Prefabs/GenericController.cpp"
+	"../../src/Prefabs/PodHandler/PodHandler.cpp"
+	"../../src/Prefabs/PositionReplicator/PositionReplicator.cpp"
+)
 
 #Export all symbol for dll
 	#set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS true)
