@@ -39,6 +39,7 @@ public:
     void Reborn();
 
 public:
+    int GetGlobalLives() const;
     bool isAlive();
     bool isDead();
     void setInvincible();

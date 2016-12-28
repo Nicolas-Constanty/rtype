@@ -71,6 +71,7 @@ void GameManager::OnCollisionEnter(SaltyEngine::ICollider *)
 
 void GameManager::addPlayer(SaltyEngine::GameObject *player, unsigned char playerID)
 {
+//    std::cout << "PLAYER ADDED" << std::endl;
     m_players[playerID] = player;
 }
 
@@ -79,18 +80,18 @@ std::map<unsigned char, SaltyEngine::GameObject *> const &GameManager::getPlayer
     return m_players;
 }
 
-void GameManager::OnPlayerDeath()
+bool GameManager::IsAllPlayerDeath() const
 {
-//    for (SaltyEngine::GameObject *curr : m_players)
-//    {
-//        SaltyEngine::PlayerController *player = curr->GetComponent<SaltyEngine::PlayerController>();
-//
-//        if (player && player->GetHealth() > 0)
-//        {
-//            return;
-//        }
-//    }
-    //todo handle end of the game
+    for (std::pair<unsigned char, SaltyEngine::GameObject *> const &curr : m_players)
+    {
+        CommonPlayerController *player = curr.second->GetComponent<CommonPlayerController>();
+
+        if (player && player->GetGlobalLives() >= 0)
+        {
+            return (false);
+        }
+    }
+    return (true);
 }
 
 void GameManager::addPod(SaltyEngine::GameObject *pod)
@@ -112,6 +113,12 @@ void GameManager::StartTheGame() {
 void GameManager::FixedUpdate() {
     OnSendHighScore();
 
+    if (m_server && m_server->Server()->IsLaunch()) {
+        if (IsAllPlayerDeath()) {
+            gameOver->OverAction(GAMEOVER::DEFEAT);
+            SaltyEngine::Engine::Instance().Stop();
+        }
+    }
     if (m_server && m_server->Server()->IsLaunch() && !endOfGame) {
         this->currentPosition = this->currentPosition + velocity * SaltyEngine::Engine::Instance().GetFixedDeltaTime();
 
