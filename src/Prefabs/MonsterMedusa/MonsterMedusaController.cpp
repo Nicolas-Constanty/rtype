@@ -1,3 +1,4 @@
+#include <SaltyEngine/Maths.hpp>
 #include "Rtype/Game/Common/GameObjectID.hpp"
 #include "Rtype/Game/Common/RtypeNetworkFactory.hpp"
 #include "Prefabs/MonsterMedusa/MonsterMedusaController.hpp"
@@ -32,6 +33,11 @@ void MonsterMedusaController::Start()
                                              RtypeNetworkFactory::GetIDFromName("MonsterMedusa"),
                                              getManager()->gameObjectContainer.GetServerObjectID(gameObject));
     }
+
+    m_canon = (SaltyEngine::GameObject*)SaltyEngine::Instantiate();
+    m_canon->transform.SetPosition(this->gameObject->transform.GetPosition());
+    m_canon->transform.SetRotation(180);
+    m_canon->transform.SetParent(&gameObject->transform);
 }
 
 void MonsterMedusaController::FixedUpdate()
@@ -39,6 +45,7 @@ void MonsterMedusaController::FixedUpdate()
     m_currTransitionDelay -= static_cast<float>(SaltyEngine::Engine::Instance().GetFixedDeltaTime());
     if (isServerSide()) {
         m_currDelay -= static_cast<float>(SaltyEngine::Engine::Instance().GetFixedDeltaTime());
+        m_spawnIntervalCurr -= static_cast<float>(SaltyEngine::Engine::Instance().GetFixedDeltaTime());
 
         if (m_currDelay <= 0) {
             if (m_state == E_LAUNCH_SALVE)
@@ -60,7 +67,19 @@ void MonsterMedusaController::Move() {
     switch (m_state)
     {
         case E_CREATING:
-//            break;
+            if (isServerSide() && m_spawnIntervalCurr <= 0)
+            {
+                m_spawnIntervalCurr = m_spawnInterval;
+                // Spawns a monster in a circle arc in front of the medusa
+                float rand = (std::rand() % 90 + 135) * SaltyEngine::Mathf::deg2rad;
+                SaltyEngine::Vector2 coord;
+                coord.x = m_canon->transform.GetPosition().x + 200 * std::cos(rand);
+                coord.y = m_canon->transform.GetPosition().y + 200 * std::sin(rand);
+                getManager()->gameObjectContainer.Add(GameObjectID::NewID(),
+                                                      (SaltyEngine::GameObject*)SaltyEngine::Instantiate("Monster", coord));
+            }
+            break;
+        case E_MOVING2:
         case E_MOVING:
             this->gameObject->transform.Translate(SaltyEngine::Vector2::up() * m_vel * m_dir);
             if (this->gameObject->transform.GetPosition().y <= 100)
@@ -83,19 +102,23 @@ void MonsterMedusaController::Shot() {
            }
            else
            {
+               m_canon->transform.SetRotation(m_canonRot);
+               m_canonRot += 10;
                SaltyEngine::GameObject *missile = (SaltyEngine::GameObject *) SaltyEngine::Instantiate("MissileMedusa",
-                                                                                                       gameObject->transform.GetPosition(),
-                                                                                                       gameObject->transform.GetRotation());
+                                                                                                       m_canon->transform.GetPosition(),
+                                                                                                       m_canon->transform.GetRotation());
                getManager()->gameObjectContainer.Add(GameObjectID::NewID(), missile);
 
                BroadCastReliable<ENEMYSHOTPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(gameObject));
            }
        }
-       else if (m_state == E_MOVING)
+       else if (m_state == E_MOVING || m_state == E_MOVING2)
        {
+           m_canonRot = 135;
+           m_canon->transform.SetRotation(180);
            SaltyEngine::GameObject *missile = (SaltyEngine::GameObject *) SaltyEngine::Instantiate("MissileMedusa",
-                                                                                                   gameObject->transform.GetPosition(),
-                                                                                                   gameObject->transform.GetRotation());
+                                                                                                   m_canon->transform.GetPosition(),
+                                                                                                   m_canon->transform.GetRotation());
            getManager()->gameObjectContainer.Add(GameObjectID::NewID(), missile);
 
            BroadCastReliable<ENEMYSHOTPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(gameObject));
