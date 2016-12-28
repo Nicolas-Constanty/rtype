@@ -30,6 +30,7 @@ void MonsterNeunoeilController::Start()
         m_anim->GetClip("EyeBlink")->AddEvent([this](){ m_sprr->SetColor(SaltyEngine::Color(1, 0, 0)); }, 0);
         m_anim->GetClip("EyeBlink")->AddEvent([this](){ m_sprr->SetColor(SaltyEngine::Color(1, 1, 1)); }, 1);
         m_anim->Play("EyeClose");
+        PlayNewBackgroundSound("r-type-boss");
     }
 
     for (size_t i = 0; i < 4 ; ++i)

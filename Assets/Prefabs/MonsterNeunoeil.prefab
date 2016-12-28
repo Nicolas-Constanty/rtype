@@ -14,5 +14,8 @@
         "EnemyBullet",
         "ExplosionBasic",
         "MissileNeunoeil"
+    ],
+    "sounds": [
+        "r-type-boss"
     ]
 }

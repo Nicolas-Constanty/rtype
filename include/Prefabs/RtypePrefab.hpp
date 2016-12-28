@@ -23,6 +23,9 @@ protected:
     GameManager *getManager();
 
 protected:
+
+    void    PlayNewBackgroundSound(std::string const &sound);
+
     /**
      * @brief Allow prefab to Broadcast reliable packages
      * @tparam Pack The packet type to send

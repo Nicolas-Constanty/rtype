@@ -46,3 +46,8 @@ GameManager *RtypePrefab::getManager()
     }
     return m_manager;
 }
+
+void RtypePrefab::PlayNewBackgroundSound(std::string const &sound) {
+    if (m_manager)
+        m_manager->PlaySound(sound);
+}
