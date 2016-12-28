@@ -33,11 +33,11 @@ float SaltyEngine::Mathf::Sin(float angle)
 
 }
 
-std::vector<float> SaltyEngine::Mathf::m_sin = {
+const std::vector<float> SaltyEngine::Mathf::m_sin = {
 #include "SaltyEngine/SFML/sinus.sin"
 };
 
-std::vector<float> SaltyEngine::Mathf::m_cos = {
+const std::vector<float> SaltyEngine::Mathf::m_cos = {
 #include "SaltyEngine/SFML/cosinus.cos"
 };
 

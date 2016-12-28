@@ -1,0 +1,30 @@
+mkdir build\Debug
+
+set "cp=xcopy /d"
+
+%cp% cmake-build-debug\R-Type\Common\Debug\* build\Debug
+%cp% cmake-build-debug\R-Type\GameClient\Debug\* build\Debug
+%cp% cmake-build-debug\R-Type\GameServer\Debug\* build\Debug
+%cp% cmake-build-debug\R-Type\Network\Debug\* build\Debug
+%cp% cmake-build-debug\R-Type\Parser\Debug\* build\Debug
+%cp% cmake-build-debug\R-Type\Prefab\Debug\* build\Debug
+%cp% cmake-build-debug\R-Type\Protocol\Game\Debug\* build\Debug
+%cp% cmake-build-debug\R-Type\Protocol\Room\Debug\* build\Debug
+%cp% cmake-build-debug\R-Type\Protocol\Server\Debug\* build\Debug
+%cp% cmake-build-debug\R-Type\SaltyEngine\Debug\* build\Debug
+%cp% cmake-build-debug\R-Type\SFMLSaltyEngine\Debug\* build\Debug
+%cp% Dependencies\SFML\Win\x64\Debug\*.dll build\Debug
+
+mkdir build\Release
+
+%cp% cmake-build-debug\R-Type\Common\Release\* build\Release
+%cp% cmake-build-debug\R-Type\GameClient\Release\* build\Release
+%cp% cmake-build-debug\R-Type\GameServer\Release\* build\Release
+%cp% cmake-build-debug\R-Type\Network\Release\* build\Release
+%cp% cmake-build-debug\R-Type\Parser\Release\* build\Release
+%cp% cmake-build-debug\R-Type\Prefab\Release\* build\Release
+%cp% cmake-build-debug\R-Type\Protocol\Game\Release\* build\Debug
+%cp% cmake-build-debug\R-Type\Protocol\Room\Release\* build\Debug
+%cp% cmake-build-debug\R-Type\Protocol\Server\Release\* build\Debug
+%cp% cmake-build-debug\R-Type\SaltyEngine\Release\* build\Release
+%cp% cmake-build-debug\R-Type\SFMLSaltyEngine\Release\* build\Release

@@ -8,7 +8,7 @@
 #include "SaltyEngine/SFML.hpp"
 
 BlockSimple::BlockSimple() : GameObject("BlockSimple", SaltyEngine::Layer::Tag::Wall) {
-    AddComponent<SaltyEngine::SFML::SpriteRenderer>(SaltyEngine::SFML::AssetManager::Instance().GetSprite("MonsterWalker/WalkL1"), ::SaltyEngine::Layout::normal);
+    AddComponent<SaltyEngine::SFML::SpriteRenderer>(SaltyEngine::SFML::AssetManager::Instance().GetSprite("Wall/WallSimple"), ::SaltyEngine::Layout::normal);
     AddComponent<BlockSimpleController>();
     AddComponent<SaltyEngine::SFML::SpriteCollider2D>();
 //    AddComponent<SaltyEngine::SFML::Animation>();

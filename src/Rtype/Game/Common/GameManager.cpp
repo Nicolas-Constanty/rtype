@@ -33,6 +33,11 @@ void GameManager::Start()
 
     if (m_client) {
         gameObject->AddComponent<BackgroundController>();
+        SaltyEngine::Sound::ISound *sound = SaltyEngine::SFML::AssetManager::Instance().GetSound("rtype-ost");
+        if (sound) {
+            sound->SetLoop(true);
+            sound->Play();
+        }
     }
     if (m_server) {
     monsterMap = SaltyEngine::SFML::AssetManager::Instance().LoadScene("scene" + std::to_string(m_server->GetLevel()));
@@ -54,7 +59,6 @@ void GameManager::OnCollisionExit(SaltyEngine::ICollider *collider)
 
     if (c && c->gameObject->GetTag() != SaltyEngine::Layer::Tag::Player)
     {
-        std::cout << "Object destroyed" << std::endl;
         Destroy(c->gameObject);
     }
 }
@@ -115,10 +119,8 @@ void GameManager::FixedUpdate() {
         while (it != monsterMap->objects.end()) {
             if ((*it).second.x < this->currentPosition) {
                 if ((*it).first != "Player") {
-                    std::cout << "create " << (*it).first << std::endl;
 
                     SaltyEngine::Vector2f pos = (*it).second;
-//                    pos.x = SCREEN_X + 100;
 
                     SaltyEngine::GameObject *object = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate((*it).first, pos, 0));
                     gameObjectContainer.Add(GameObjectID::NewID(), object);

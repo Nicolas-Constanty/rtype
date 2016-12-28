@@ -13,7 +13,42 @@
         "y": "500"
       }
     },
-      "Bonus1" : {
+    "BLOCK" : {
+      "prefabName": "BlockSimple",
+      "position": {
+        "x": "0",
+        "y": "20"
+      }
+    },
+    "BLOCK1" : {
+      "prefabName": "BlockSimple",
+      "position": {
+        "x": "90",
+        "y": "20"
+      }
+    },
+    "BLOCK2" : {
+      "prefabName": "BlockSimple",
+      "position": {
+        "x": "180",
+        "y": "20"
+      }
+    },
+    "BLOCK3" : {
+      "prefabName": "BlockSimple",
+      "position": {
+        "x": "270",
+        "y": "20"
+      }
+    },
+    "BLOCK4" : {
+      "prefabName": "BlockSimple",
+      "position": {
+        "x": "350",
+        "y": "20"
+      }
+    },
+    "Bonus1" : {
           "prefabName": "SpiralBonus",
           "position": {
               "x": "300",
@@ -30,9 +65,16 @@
       "MonsterWalker": {
             "prefabName": "MonsterWalker",
             "position": {
-              "x" : "2000",
+              "x" : "500",
               "y": "300"
             }
-          }
+        },
+  "MonsterWalker2": {
+    "prefabName": "MonsterWalker",
+    "position": {
+      "x" : "2000",
+      "y": "300"
     }
+  }
+  }
 }

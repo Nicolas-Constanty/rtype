@@ -47,7 +47,10 @@ void Lobby::CreateServerGame() {
 
     ///TODO changer le sleep 10 par le binaire du server Game
     mutex.unlock();
-    process.Launch("sleep 10");
+    process.Launch("./GameServer -l " + std::to_string(lobbyInfo->GetMapID())
+                   + " -m " + std::to_string(lobbyInfo->GetMaxNbrClient())
+                   + " -p " + std::to_string(lobbyInfo->GetPort())
+                   + " -s " + std::to_string(lobbyInfo->GetSecret()));
     if (!process.IsChild()) {
         lobbyHandler.OnProcessBegin(lobbyInfo);
     }

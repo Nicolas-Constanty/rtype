@@ -22,20 +22,16 @@ const std::map<unsigned short, std::string>  RtypeNetworkFactory::rtypeObjects =
         {12, "MissileHoming"},
         {13, "SpiralBonus"},
         {14, "BlockSimple"},
-        {15, "LaserSpiral"}
+        {15, "LaserSpiral"},
+        {16, "MonsterMedusa"}
 };
 
 SaltyEngine::GameObject *RtypeNetworkFactory::Create(unsigned short id, SaltyEngine::Vector const &pos, float rotation)
 {
     std::map<unsigned short, std::string>::const_iterator   it = rtypeObjects.find(id);
 
-    std::cout << "with id == " << id << std::endl;
     if (it != rtypeObjects.end())
     {
-//        std::string name = it->second;
-//        if (IsMateColor(id)) {
-//            name = "Mate";
-//        }
         SaltyEngine::GameObject *object = dynamic_cast<SaltyEngine::GameObject*>(SaltyEngine::Instantiate(it->second, pos, rotation));
         if (object)
             return object;

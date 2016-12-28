@@ -1,0 +1,9 @@
+{
+    "sprites": [
+        "MonsterMedusa/Bullet1"
+    ],
+    "animations": [
+        "MonsterMedusa/Bullet"
+    ],
+    "lib": "missile_medusa"
+}

@@ -19,6 +19,8 @@ public:
 	virtual SaltyEngine::Component *CloneComponent(SaltyEngine::GameObject* const obj) {
 		return new MissileController(obj);
 	}
+
+	void Start() override;
 };
 
 #endif

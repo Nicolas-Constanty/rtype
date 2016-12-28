@@ -2,7 +2,7 @@
     "sprites": [
         "Bonus/SpiralBonus"
     ],
-    "lib": "libspiralbonus",
+    "lib": "spiralbonus",
     "dependencies": [
         "Pod"
     ]

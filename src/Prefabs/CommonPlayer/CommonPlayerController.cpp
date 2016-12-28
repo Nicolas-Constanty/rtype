@@ -10,8 +10,12 @@ const float    CommonPlayerController::timeoutInvicible = 3;
 CommonPlayerController::CommonPlayerController(SaltyEngine::GameObject * const object, int lives) :
     RtypePrefab("CommonPlayerController", object),
     global_lives(lives),
+    timer(0),
     status(ALIVE),
-    collider2D(nullptr)
+    collider2D(nullptr),
+    controller(nullptr),
+    anim(nullptr),
+    renderer(nullptr)
 {
 
 }
@@ -26,6 +30,16 @@ void CommonPlayerController::Start()
     LoadManager();
     collider2D = gameObject->GetComponent<SaltyEngine::SFML::SpriteCollider2D>();
     controller = gameObject->GetComponent<AGenericController>();
+    renderer = gameObject->GetComponent<SaltyEngine::SFML::SpriteRenderer>();
+    anim = gameObject->AddComponent<SaltyEngine::SFML::Animation>(false, SaltyEngine::AnimationConstants::WrapMode::LOOP);
+    std::string sprr = renderer->GetSprite()->GetName();
+
+    SaltyEngine::SFML::AnimationClip *clip = new SaltyEngine::SFML::AnimationClip("Invincibility", 4, SaltyEngine::AnimationConstants::WrapMode::LOOP);
+    clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite(sprr));
+    clip->AddSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite(sprr));
+    clip->AddEvent([this](){ renderer->SetColor(SaltyEngine::Color(1, 1, 1, 0)); }, 0);
+    clip->AddEvent([this](){ renderer->SetColor(SaltyEngine::Color(1, 1, 1, 1)); }, 1);
+    anim->AddClip(clip, "Invincibility");
 }
 
 void CommonPlayerController::FixedUpdate()
@@ -43,11 +57,13 @@ void CommonPlayerController::FixedUpdate()
             }
             break;
         case INVINCIBLE:
-            if (/*isServerSide() &&*/ timer <= 0)
+            if (timer <= 0)
             {
                 status = ALIVE;
                 if (controller)
                     controller->SetHealth(1);
+                anim->Stop("Invincibility");
+                renderer->SetColor(SaltyEngine::Color(1, 1, 1));
             }
             break;
         default:
@@ -91,6 +107,7 @@ void CommonPlayerController::Reborn()
     status = INVINCIBLE;
     timer = timeoutInvicible;
     gameObject->SetActive(true);
+    anim->Play("Invincibility");
 }
 
 SaltyEngine::Component *CommonPlayerController::CloneComponent(SaltyEngine::GameObject *const obj)

@@ -24,7 +24,7 @@ public:
     /**
      * @brief Will emmit a sound and target a player by default
      */
-    void Start();
+    virtual void Start();
     /**
      * @brief Triggered on collision
      */

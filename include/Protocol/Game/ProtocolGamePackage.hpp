@@ -155,16 +155,18 @@ public:
 
 class  MOVEPackageGame : public ObjectIDPackageGame {
 public:
-    MOVEPackageGame(unsigned short sequenceID = 0, int posX = 0, int posY = 0, unsigned short objectID = 0,
+    MOVEPackageGame(unsigned short sequenceID = 0, int posX = 0, int posY = 0, unsigned short objectID = 0, float rotation = 0,
                     unsigned short transactionID = 0)
             : ObjectIDPackageGame(sizeof(MOVEPackageGame), GamePurpose::GAMEMOVE, sequenceID, objectID, false, transactionID) {
         this->posX = posX;
         this->posY = posY;
+        this->rotation = rotation;
     }
 
 public:
     int posX;
     int posY;
+    float rotation;
 };
 
 class  BEAMPackageGame : public ObjectIDPackageGame {

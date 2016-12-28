@@ -5,5 +5,5 @@
     "animations": [
         "Nacelle/Nacelle0"
     ],
-    "lib": "libpod"
+    "lib": "pod"
 }

@@ -84,6 +84,7 @@ PREF_EXPORT std::ostream &operator<<(std::ostream &ostream, MOVEPackageGame cons
     ostream << "objectID=" << movePackageGame.objectID << std::endl;
     ostream << "posX=" << movePackageGame.posX << std::endl;
     ostream << "posY=" << movePackageGame.posY << std::endl;
+    ostream << "rotation=" << movePackageGame.rotation << std::endl;
     ostream << "}";
     return (ostream);
 }

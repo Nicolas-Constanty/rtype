@@ -12,3 +12,10 @@ MissileController::MissileController(SaltyEngine::GameObject *go) : AEnemyBullet
 MissileController::~MissileController()
 {
 }
+
+void MissileController::Start()
+{
+    LoadManager();
+    // Skip AEnemyBulletController to avoid auto-targeting
+    ABulletController::Start();
+}

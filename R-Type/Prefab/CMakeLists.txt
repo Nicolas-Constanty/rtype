@@ -171,6 +171,15 @@ if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 		add_library(monster_neunoeil SHARED ${NEUNOEILMONSTER_SOURCE_FILE})
 		target_link_libraries(monster_neunoeil ${PREFAB_LIBRARIES} missile_medusa missile_enemy_bullet explosion_basic player)
 
+		# MEDUSA
+		file(GLOB MEDUSAMONSTER_SOURCE_FILE
+				"src/Prefabs/MonsterMedusa/*.cpp"
+				"include/Prefabs/MonsterMedusa/*.hpp"
+				"src/Prefabs/PositionReplicator/*.cpp"
+				"include/Prefabs/PositionReplicator/*.hpp")
+		add_library(monster_medusa SHARED ${MEDUSAMONSTER_SOURCE_FILE})
+		target_link_libraries(monster_medusa ${PREFAB_LIBRARIES} missile_medusa missile_enemy_bullet explosion_basic player)
+
 		set(PREFAB_DEPENDENCIES SFMLSaltyEngine Network PrefabCommunication Common ProtocolGame)
 
 	#Windows
@@ -340,6 +349,7 @@ set(PREFABS_TARGET
 		monster_walker
 		monster_flying
 		monster_neunoeil
+		monster_medusa
 		beam
 		BlockSimple)
 
