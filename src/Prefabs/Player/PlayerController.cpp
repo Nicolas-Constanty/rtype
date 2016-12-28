@@ -43,19 +43,19 @@ namespace SaltyEngine
         start = clock::now();
 		InputKey::AddAxis("Horizontal", new Input::Axis(
 				{
-						{Input::KeyCode::Left, -1},
-						{Input::KeyCode::Right, 1},
-						{Input::KeyCode::Q, -1},
-						{Input::KeyCode::D, 1}
+						{Input::KeyCode::Left, -1.0f},
+						{Input::KeyCode::Right, 1.0f },
+						{Input::KeyCode::Q, -1.0f },
+						{Input::KeyCode::D, 1.0f }
 				},
 				std::make_pair<unsigned int, Input::MotionController::Axis>(0, Input::MotionController::X)
 		));
 		InputKey::AddAxis("Vertical", new Input::Axis(
 				{
-						{Input::KeyCode::Up, -1},
-						{Input::KeyCode::Down, 1},
-						{Input::KeyCode::Z, -1},
-						{Input::KeyCode::S, 1}
+						{Input::KeyCode::Up, -1.0f },
+						{Input::KeyCode::Down, 1.0f },
+						{Input::KeyCode::Z, -1.0f },
+						{Input::KeyCode::S, 1.0f }
 				},
 				std::make_pair<unsigned int, Input::MotionController::Axis>(0, Input::MotionController::Y)
 		));

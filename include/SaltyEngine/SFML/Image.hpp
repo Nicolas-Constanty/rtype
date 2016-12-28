@@ -1,6 +1,7 @@
 #pragma once
-#include "SaltyEngine/GUI/UIBehaviour.hpp"
+
 #include "SaltyEngine/SFML/Sprite.hpp"
+#include "SaltyEngine/GUI/UIBehaviour.hpp"
 
 namespace SaltyEngine
 {

@@ -19,7 +19,7 @@ namespace Network
         /**
          * @brief Class that abstract the Connection concept. It's here for dispatcher and clients container. It also provides some space for messages queue
          */
-        class LIB_EXPORT BasicConnection : public IConnection
+        class PREF_EXPORT BasicConnection : public IConnection
         {
         public:
             BasicConnection(NativeSocketIOOperationDispatcher &dispatcher);

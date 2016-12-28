@@ -11,7 +11,7 @@ namespace Rtype
 	{
 		namespace Client
 		{
-			class GameClientObject : public SaltyEngine::SaltyBehaviour
+			class PREF_EXPORT GameClientObject : public SaltyEngine::SaltyBehaviour
 			{
 			public:
 				explicit GameClientObject(SaltyEngine::GameObject* const gamObj, const std::string &ip, const uint16_t port, const uint16_t secret);

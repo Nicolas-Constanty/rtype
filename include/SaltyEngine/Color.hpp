@@ -6,10 +6,11 @@
 #define RTYPE_COLOR_HPP
 
 #include <ostream>
+#include "Common/DLLexport.hpp"
 
 namespace SaltyEngine
 {
-    class Color
+    class LIB_EXPORT Color
     {
     public:
         Color();

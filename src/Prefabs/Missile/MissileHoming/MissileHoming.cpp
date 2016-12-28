@@ -18,7 +18,7 @@ MissileHoming::~MissileHoming()
 {
 }
 
-SaltyEngine::Object const*GetObjectPrefab()
+PREF_EXPORT SaltyEngine::Object const*GetObjectPrefab()
 {
     return new MissileHoming();
 }

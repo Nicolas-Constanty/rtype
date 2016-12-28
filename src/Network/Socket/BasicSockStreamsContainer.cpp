@@ -18,7 +18,12 @@ Network::Socket::BasicSockStreamsContainer::BasicSockStreamsContainer()
  */
 Network::Socket::BasicSockStreamsContainer::~BasicSockStreamsContainer()
 {
-
+	while (!streams.empty())
+	{
+		ISockStreamHandler *s = streams.back();
+		streams.pop_back();
+		delete s;
+	}
 }
 
 /**
@@ -27,7 +32,7 @@ Network::Socket::BasicSockStreamsContainer::~BasicSockStreamsContainer()
  */
 void Network::Socket::BasicSockStreamsContainer::Add(Network::Socket::ISockStreamHandler *toadd)
 {
-    streams.emplace_back(toadd);
+    streams.push_back(toadd);
 }
 
 /**
@@ -36,9 +41,9 @@ void Network::Socket::BasicSockStreamsContainer::Add(Network::Socket::ISockStrea
  */
 void Network::Socket::BasicSockStreamsContainer::Remove(Network::Socket::ISockStreamHandler *torm)
 {
-    for (std::list<std::unique_ptr<Socket::ISockStreamHandler>>::iterator it = streams.begin(), end = streams.end(); it != end; ++it)
+    for (std::list<Socket::ISockStreamHandler *>::iterator it = streams.begin(), end = streams.end(); it != end; ++it)
     {
-        if (torm == it->get())
+        if (torm == *it)
         {
             streams.erase(it);
             return;
@@ -54,10 +59,13 @@ void Network::Socket::BasicSockStreamsContainer::Remove(Network::Socket::ISockSt
 void Network::Socket::BasicSockStreamsContainer::Move(Network::Socket::ISockStreamHandler *old,
                                                       Network::Socket::ISockStreamHandler *newone)
 {
-    for (std::unique_ptr<ISockStreamHandler> &curr : streams)
+    for (ISockStreamHandler *curr : streams)
     {
-        if (curr.get() == old)
-            return curr.reset(newone);
+		if (curr == old)
+		{
+			curr = newone;
+			break;
+		}
     }
 }
 
@@ -68,7 +76,7 @@ void Network::Socket::BasicSockStreamsContainer::Move(Network::Socket::ISockStre
  */
 void Network::Socket::BasicSockStreamsContainer::Broadcast(Network::Core::NetBuffer &tosnd, Socket::ISockStream &sender)
 {
-    for (std::unique_ptr<Socket::ISockStreamHandler> &curr : streams)
+    for (Socket::ISockStreamHandler *curr : streams)
     {
         sender.SendTo(tosnd, curr->getSocket());
     }
@@ -78,7 +86,7 @@ void Network::Socket::BasicSockStreamsContainer::Broadcast(Network::Core::NetBuf
  * @brief Allow user to get a reference on streams list internally handled
  * @return A reference on stream list
  */
-std::list<std::unique_ptr<Network::Socket::ISockStreamHandler>> &Network::Socket::BasicSockStreamsContainer::Streams()
+std::list<Network::Socket::ISockStreamHandler *> &Network::Socket::BasicSockStreamsContainer::Streams()
 {
     return streams;
 }

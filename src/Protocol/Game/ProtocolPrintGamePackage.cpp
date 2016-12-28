@@ -5,7 +5,7 @@
 #include "Protocol/Game/ProtocolPrintGamePackage.hpp"
 #include <string>
 
-std::ostream &operator<<(std::ostream &ostream, PackageGameHeader const &packageGameHeader) {
+PREF_EXPORT std::ostream &operator<<(std::ostream &ostream, PackageGameHeader const &packageGameHeader) {
     ostream << "verleft=" << packageGameHeader.headerGameInfo.verLeft << std::endl;
     ostream << "verRight=" << packageGameHeader.headerGameInfo.verRight << std::endl;
     ostream << "reservedLeftOne=" << packageGameHeader.headerGameInfo.reservedLeftOne << std::endl;
@@ -21,7 +21,7 @@ std::ostream &operator<<(std::ostream &ostream, PackageGameHeader const &package
     return (ostream);
 }
 
-std::ostream &operator<<(std::ostream &ostream, PINGPackageGame const &pingPackageGame) {
+PREF_EXPORT std::ostream &operator<<(std::ostream &ostream, PINGPackageGame const &pingPackageGame) {
     ostream << "PINGPackageGame = {" << std::endl;
 
     PackageGameHeader const *header = dynamic_cast<PackageGameHeader const *>(&pingPackageGame);
@@ -33,7 +33,7 @@ std::ostream &operator<<(std::ostream &ostream, PINGPackageGame const &pingPacka
     return (ostream);
 }
 
-std::ostream &operator<<(std::ostream &ostream, AUTHENTICATEPackageGame const &authenticatePackageGame) {
+PREF_EXPORT std::ostream &operator<<(std::ostream &ostream, AUTHENTICATEPackageGame const &authenticatePackageGame) {
     ostream << "AUTHENTICATEPackageGame = {" << std::endl;
 
     PackageGameHeader const *header = dynamic_cast<PackageGameHeader const *>(&authenticatePackageGame);
@@ -46,7 +46,7 @@ std::ostream &operator<<(std::ostream &ostream, AUTHENTICATEPackageGame const &a
     return (ostream);
 }
 
-std::ostream &operator<<(std::ostream &ostream, CREATEPackageGame const &createPackageGame) {
+PREF_EXPORT std::ostream &operator<<(std::ostream &ostream, CREATEPackageGame const &createPackageGame) {
     ostream << "CREATEPackageGame = {" << std::endl;
 
     PackageGameHeader const *header = dynamic_cast<PackageGameHeader const *>(&createPackageGame);
@@ -61,7 +61,7 @@ std::ostream &operator<<(std::ostream &ostream, CREATEPackageGame const &createP
     return (ostream);
 }
 
-std::ostream &operator<<(std::ostream &ostream, STATUSPackageGame const &statusPackageGame) {
+PREF_EXPORT std::ostream &operator<<(std::ostream &ostream, STATUSPackageGame const &statusPackageGame) {
     ostream << "STATUSPackageGame = {" << std::endl;
 
     PackageGameHeader const *header = dynamic_cast<PackageGameHeader const *>(&statusPackageGame);
@@ -74,7 +74,7 @@ std::ostream &operator<<(std::ostream &ostream, STATUSPackageGame const &statusP
     return (ostream);
 }
 
-std::ostream &operator<<(std::ostream &ostream, MOVEPackageGame const &movePackageGame) {
+PREF_EXPORT std::ostream &operator<<(std::ostream &ostream, MOVEPackageGame const &movePackageGame) {
     ostream << "MOVEPackageGame = {" << std::endl;
 
     PackageGameHeader const *header = dynamic_cast<PackageGameHeader const *>(&movePackageGame);
@@ -88,7 +88,7 @@ std::ostream &operator<<(std::ostream &ostream, MOVEPackageGame const &movePacka
     return (ostream);
 }
 
-std::ostream &operator<<(std::ostream &ostream, BEAMPackageGame const &beamPackageGame) {
+PREF_EXPORT std::ostream &operator<<(std::ostream &ostream, BEAMPackageGame const &beamPackageGame) {
     ostream << "BEAMPackageGame = {" << std::endl;
 
     PackageGameHeader const *header = dynamic_cast<PackageGameHeader const *>(&beamPackageGame);
@@ -100,7 +100,7 @@ std::ostream &operator<<(std::ostream &ostream, BEAMPackageGame const &beamPacka
     return (ostream);
 }
 
-std::ostream &operator<<(std::ostream &ostream, SHOTPackageGame const &shotPackageGame) {
+PREF_EXPORT std::ostream &operator<<(std::ostream &ostream, SHOTPackageGame const &shotPackageGame) {
     ostream << "SHOTPackageGame = {" << std::endl;
 
     PackageGameHeader const *header = dynamic_cast<PackageGameHeader const *>(&shotPackageGame);
@@ -113,7 +113,7 @@ std::ostream &operator<<(std::ostream &ostream, SHOTPackageGame const &shotPacka
     return (ostream);
 }
 
-std::ostream &operator<<(std::ostream &ostream, DIEPackageGame const &diePackageGame) {
+PREF_EXPORT std::ostream &operator<<(std::ostream &ostream, DIEPackageGame const &diePackageGame) {
     ostream << "DIEPackageGame = {" << std::endl;
 
     PackageGameHeader const *header = dynamic_cast<PackageGameHeader const *>(&diePackageGame);
@@ -125,7 +125,7 @@ std::ostream &operator<<(std::ostream &ostream, DIEPackageGame const &diePackage
     return (ostream);
 }
 
-std::ostream &operator<<(std::ostream &ostream, TAKEPackageGame const &takePackageGame) {
+PREF_EXPORT std::ostream &operator<<(std::ostream &ostream, TAKEPackageGame const &takePackageGame) {
     ostream << "TAKEPackageGame = {" << std::endl;
 
     PackageGameHeader const *header = dynamic_cast<PackageGameHeader const *>(&takePackageGame);
@@ -137,7 +137,7 @@ std::ostream &operator<<(std::ostream &ostream, TAKEPackageGame const &takePacka
     return (ostream);
 }
 
-std::ostream &operator<<(std::ostream &ostream, CALLPackageGame const &callPackageGame) {
+PREF_EXPORT std::ostream &operator<<(std::ostream &ostream, CALLPackageGame const &callPackageGame) {
     ostream << "CALLPackageGame = {" << std::endl;
 
     PackageGameHeader const *header = dynamic_cast<PackageGameHeader const *>(&callPackageGame);
@@ -150,7 +150,7 @@ std::ostream &operator<<(std::ostream &ostream, CALLPackageGame const &callPacka
 }
 
 
-std::ostream &operator<<(std::ostream &ostream, LAUNCHPackageGame const &launchPackageGame) {
+PREF_EXPORT std::ostream &operator<<(std::ostream &ostream, LAUNCHPackageGame const &launchPackageGame) {
     ostream << "LAUNCHPackageGame = {" << std::endl;
 
     PackageGameHeader const *header = dynamic_cast<PackageGameHeader const *>(&launchPackageGame);
@@ -165,7 +165,7 @@ std::ostream &operator<<(std::ostream &ostream, LAUNCHPackageGame const &launchP
     return (ostream);
 }
 
-std::ostream &operator<<(std::ostream &ostream, REBORNPackageGame const &rebornPackageGame)
+PREF_EXPORT std::ostream &operator<<(std::ostream &ostream, REBORNPackageGame const &rebornPackageGame)
 {
     ostream << "REBORNPackageGame = {" << std::endl;
     PackageGameHeader const *header = dynamic_cast<PackageGameHeader const *>(&rebornPackageGame);
@@ -177,7 +177,7 @@ std::ostream &operator<<(std::ostream &ostream, REBORNPackageGame const &rebornP
     return ostream;
 }
 
-std::ostream &operator<<(std::ostream &ostream, FAILUREPackageGame const &failurePackageGame)
+PREF_EXPORT std::ostream &operator<<(std::ostream &ostream, FAILUREPackageGame const &failurePackageGame)
 {
     ostream << "FAILUREPackageGame = {" << std::endl;
     PackageGameHeader const *header = dynamic_cast<PackageGameHeader const *>(&failurePackageGame);
@@ -203,9 +203,13 @@ std::ostream &operator<<(std::ostream &ostream, FAILUREPackageGame const &failur
 //    return ostream;
 //}
 
-std::ostream    &operator<<(std::ostream &output, DISCONNECTPackageGame const &disconnectPackageGame)
+PREF_EXPORT std::ostream    &operator<<(std::ostream &output, DISCONNECTPackageGame const &disconnectPackageGame)
 {
-    output << "\e[32m" << static_cast<void const *>(&disconnectPackageGame) << "\e[0m" << std::endl;
+#if _WIN32
+	output << static_cast<void const *>(&disconnectPackageGame) << std::endl;
+#else
+	output << "\e[32m" << static_cast<void const *>(&disconnectPackageGame) << "\e[0m" << std::endl;
+#endif
     output << "DISCONNECTPackageGame = {" << std::endl;
     output << *dynamic_cast<PackageGameHeader const *>(&disconnectPackageGame);
     output << "errcode=" << disconnectPackageGame.errcode << std::endl;
@@ -213,16 +217,20 @@ std::ostream    &operator<<(std::ostream &output, DISCONNECTPackageGame const &d
     output << "}" << std::endl;
     return output;
 }
-std::ostream    &operator<<(std::ostream &output, ENEMYSHOTPackageGame const &enemyshotPackageGame)
+PREF_EXPORT std::ostream    &operator<<(std::ostream &output, ENEMYSHOTPackageGame const &enemyshotPackageGame)
 {
-    output << "\e[32m" << static_cast<void const *>(&enemyshotPackageGame) << "\e[0m" << std::endl;
+#if _WIN32
+	output << static_cast<void const *>(&enemyshotPackageGame) << std::endl;
+#else
+	output << "\e[32m" << static_cast<void const *>(&enemyshotPackageGame) << "\e[0m" << std::endl;
+#endif
     output << "ENEMYSHOTPackageGame = {" << std::endl;
     output << *dynamic_cast<PackageGameHeader const *>(&enemyshotPackageGame);
     output << "}" << std::endl;
     return output;
 }
 
-std::ostream &operator<<(std::ostream &ostream, UPGRADEPackageGame const &upgradePackageGame)
+PREF_EXPORT std::ostream &operator<<(std::ostream &ostream, UPGRADEPackageGame const &upgradePackageGame)
 {
     ostream << "UPGRADEPackageGame = {" << std::endl;
     ostream << dynamic_cast<ObjectIDPackageGame const &>(upgradePackageGame) << std::endl;
@@ -230,7 +238,7 @@ std::ostream &operator<<(std::ostream &ostream, UPGRADEPackageGame const &upgrad
     return ostream;
 }
 
-std::ostream &operator<<(std::ostream &ostream, MATEPackageGame const &matePackageGame)
+PREF_EXPORT std::ostream &operator<<(std::ostream &ostream, MATEPackageGame const &matePackageGame)
 {
     ostream << "MATEPackageGame = {" << std::endl;
     ostream << dynamic_cast<ObjectIDPackageGame const &>(matePackageGame) << std::endl;
@@ -242,7 +250,7 @@ std::ostream &operator<<(std::ostream &ostream, MATEPackageGame const &matePacka
     return ostream;
 }
 
-std::ostream &operator<<(std::ostream &ostream, GAMEOVERPackageGame const &gameoverPackageGame)
+PREF_EXPORT std::ostream &operator<<(std::ostream &ostream, GAMEOVERPackageGame const &gameoverPackageGame)
 {
     ostream << "GAMEOVERPackageGame = {" << std::endl;
     ostream << dynamic_cast<PackageGameHeader const &>(gameoverPackageGame) << std::endl;
@@ -251,7 +259,7 @@ std::ostream &operator<<(std::ostream &ostream, GAMEOVERPackageGame const &gameo
     return ostream;
 }
 
-std::ostream &operator<<(std::ostream &ostream, DEATHPackage const &disablePackage)
+PREF_EXPORT std::ostream &operator<<(std::ostream &ostream, DEATHPackage const &disablePackage)
 {
     ostream << "DISABLEPackageGame = {" << std::endl;
     ostream << dynamic_cast<ObjectIDPackageGame const &>(disablePackage) << std::endl;
@@ -259,9 +267,13 @@ std::ostream &operator<<(std::ostream &ostream, DEATHPackage const &disablePacka
     return ostream;
 }
 
-std::ostream    &operator<<(std::ostream &output, RECONNECTPackageGame const &reconnectPackageGame)
+PREF_EXPORT std::ostream    &operator<<(std::ostream &output, RECONNECTPackageGame const &reconnectPackageGame)
 {
-    output << "\e[32m" << static_cast<void const *>(&reconnectPackageGame) << "\e[0m" << std::endl;
+#if _WIN32
+	output << static_cast<void const *>(&reconnectPackageGame) << std::endl;
+#else
+	output << "\e[32m" << static_cast<void const *>(&reconnectPackageGame) << "\e[0m" << std::endl;
+#endif
     output << "RECONNECTPackageGame = {" << std::endl;
     output << *dynamic_cast<PackageGameHeader const *>(&reconnectPackageGame);
     output << "playerID=" << reconnectPackageGame.playerID << std::endl;

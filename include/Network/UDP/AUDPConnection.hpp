@@ -23,7 +23,7 @@ namespace Network
         /**
          * @brief Abstraction of an UDP connection
          */
-        class AUDPConnection : public Core::BasicConnection
+        class PREF_EXPORT AUDPConnection : public Core::BasicConnection
         {
         protected:
             constexpr static const size_t reliability = 15;

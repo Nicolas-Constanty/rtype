@@ -23,7 +23,7 @@ namespace Network
         /**
          * \brief Class used to abstract the network buffer in which packets will be stored. You can either serialize or deserialize objects
          */
-        class LIB_EXPORT NetBuffer
+        class PREF_EXPORT NetBuffer
         {
         public:
             static const size_t size;
@@ -164,13 +164,13 @@ namespace Network
         };
 
         template <>
-        bool NetBuffer::serialize<std::string>(std::string const &);
+		PREF_EXPORT bool NetBuffer::serialize<std::string>(std::string const &);
         template <>
-        bool NetBuffer::serialize<const char *>(const char * const &);
+		PREF_EXPORT bool NetBuffer::serialize<const char *>(const char * const &);
         template <>
-        bool NetBuffer::serialize<NetBuffer>(NetBuffer const &);
+		PREF_EXPORT bool NetBuffer::serialize<NetBuffer>(NetBuffer const &);
 
-        std::ostream    &operator<<(std::ostream &output, NetBuffer const &ref);
+		PREF_EXPORT std::ostream    &operator<<(std::ostream &output, NetBuffer const &ref);
     }
 }
 

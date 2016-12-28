@@ -6,14 +6,14 @@
 
 extern "C"
 {
-	class LIB_EXPORT ExplosionBasic : public SaltyEngine::GameObject
+	class PREF_EXPORT ExplosionBasic : public SaltyEngine::GameObject
 	{
 	public:
 		ExplosionBasic();
 		virtual ~ExplosionBasic();
 	};
 
-LIB_EXPORT	SaltyEngine::Object const *GetObjectPrefab();
+	PREF_EXPORT	SaltyEngine::Object const *GetObjectPrefab();
 }
 
 #endif

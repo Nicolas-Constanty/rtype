@@ -8,7 +8,7 @@
 #include "SaltyEngine/GameObject.hpp"
 #include "Prefabs/Player/PlayerController.hpp"
 
-class LaserSpiralController : public SaltyEngine::SaltyBehaviour
+class PREF_EXPORT LaserSpiralController : public SaltyEngine::SaltyBehaviour
 {
 public:
     LaserSpiralController(SaltyEngine::GameObject *go);

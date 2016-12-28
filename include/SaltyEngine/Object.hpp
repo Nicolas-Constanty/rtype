@@ -24,7 +24,7 @@ namespace SaltyEngine
 	typedef size_t uid;
 
 
-	class LIB_EXPORT Object: protected ICloneable<Object>
+	class PREF_EXPORT Object: protected ICloneable<Object>
 	{
 		static std::atomic<uid> s_id;
 	public:

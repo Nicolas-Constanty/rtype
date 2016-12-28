@@ -8,7 +8,7 @@
 /**
  * @brief Function that will initialize Windows sockets
  */
-void Network::Socket::WinSocket::Start()
+PREF_EXPORT void Network::Socket::WinSocket::Start()
 {
     WSADATA  tofill;
 
@@ -19,7 +19,7 @@ void Network::Socket::WinSocket::Start()
 /**
  * @brief Function that will stop windows sockets
  */
-void Network::Socket::WinSocket::Stop()
+PREF_EXPORT void Network::Socket::WinSocket::Stop()
 {
     WSACleanup();
 }

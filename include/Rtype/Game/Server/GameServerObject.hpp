@@ -16,7 +16,7 @@ namespace Rtype
     {
         namespace Server
         {
-            class GameServerObject : public SaltyEngine::SaltyBehaviour
+            class PREF_EXPORT GameServerObject : public SaltyEngine::SaltyBehaviour
             {
             public:
                 GameServerObject(SaltyEngine::GameObject *obj, const uint16_t port = 4242, const size_t maxClient = 0, const uint32_t secret = 0, const uint16_t map = 0);

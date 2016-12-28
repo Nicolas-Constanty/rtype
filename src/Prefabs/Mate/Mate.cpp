@@ -23,7 +23,7 @@ Mate::~Mate()
 
 }
 
-LIB_EXPORT SaltyEngine::Object const *GetObjectPrefab()
+PREF_EXPORT SaltyEngine::Object const *GetObjectPrefab()
 {
     return new Mate();
 }

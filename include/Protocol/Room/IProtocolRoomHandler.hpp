@@ -1,6 +1,6 @@
 //
 // Created by victor on 21/11/16.
-//
+//²
 
 #ifndef RTYPE_IPROTOCOLROOMHANDLER_HPP
 #define RTYPE_IPROTOCOLROOMHANDLER_HPP

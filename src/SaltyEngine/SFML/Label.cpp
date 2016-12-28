@@ -2,8 +2,8 @@
 // Created by nicolas-constanty on 20/12/16.
 //
 
-#include "SaltyEngine/SFML/Label.hpp"
 #include "SaltyEngine/SFML/Renderer.hpp"
+#include "SaltyEngine/SFML/Label.hpp"
 
 namespace SaltyEngine
 {

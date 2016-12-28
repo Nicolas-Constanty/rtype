@@ -8,7 +8,7 @@
 #include <SaltyEngine/SaltyBehaviour.hpp>
 #include <Prefabs/RtypePrefab.hpp>
 
-class LIB_EXPORT MateComponent : public RtypePrefab
+class PREF_EXPORT MateComponent : public RtypePrefab
 {
 public:
     explicit MateComponent(SaltyEngine::GameObject *const object);

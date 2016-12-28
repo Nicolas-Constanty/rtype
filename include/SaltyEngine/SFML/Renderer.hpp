@@ -3,14 +3,13 @@
 #ifndef SFMLRENDERER_HPP_
 #define SFMLRENDERER_HPP_
 
-#include <SFML/Graphics.hpp>
 #include <memory>
-#include "SaltyEngine/ARenderer.hpp"
-#include "SaltyEngine/GUI/Selectable.hpp"
-#include "SaltyEngine/GameObject.hpp"
 #include "SaltyEngine/SFML/Rect.hpp"
 #include "SaltyEngine/SFML/SpriteRenderer.hpp"
 #include "SaltyEngine/SFML/Label.hpp"
+#include "SaltyEngine/ARenderer.hpp"
+#include "SaltyEngine/GUI/Selectable.hpp"
+#include "SaltyEngine/GameObject.hpp"
 
 namespace SaltyEngine
 {

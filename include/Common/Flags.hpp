@@ -18,9 +18,10 @@
 #include <set>
 #include <vector>
 #include <sstream>
+#include "Common/DLLexport.hpp"
 
 
-class Flags {
+class LIB_EXPORT Flags {
   public:
     Flags() : autoId(256) { }
 

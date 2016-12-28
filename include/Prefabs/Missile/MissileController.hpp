@@ -9,7 +9,7 @@
 #include "SaltyEngine/GameObject.hpp"
 #include "Prefabs/Missile/AEnemyBulletController.hpp"
 
-class LIB_EXPORT MissileController : public AEnemyBulletController
+class PREF_EXPORT MissileController : public AEnemyBulletController
 {
 public:
 	MissileController(SaltyEngine::GameObject *go);

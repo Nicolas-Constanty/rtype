@@ -9,7 +9,7 @@
 #include "SaltyEngine/SaltyBehaviour.hpp"
 #include "SaltyEngine/GameObject.hpp"
 
-class GameGUIBeam : public SaltyEngine::SaltyBehaviour {
+class PREF_EXPORT GameGUIBeam : public SaltyEngine::SaltyBehaviour {
 public:
     GameGUIBeam(SaltyEngine::GameObject * const gameObj);
     virtual ~GameGUIBeam();

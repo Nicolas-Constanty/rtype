@@ -7,6 +7,10 @@
 
 #include <vector>
 #include <cmath>
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif // !M_PI
+
 #include "Common/DLLexport.hpp"
 
 namespace SaltyEngine
@@ -15,7 +19,7 @@ namespace SaltyEngine
     {
 
 #define VALUE_COUNT 10000
-#define INDEXER (VALUE_COUNT / 360.0)
+#define INDEXER (VALUE_COUNT / 360.0f)
 
     public:
         static float Cos(float angle);

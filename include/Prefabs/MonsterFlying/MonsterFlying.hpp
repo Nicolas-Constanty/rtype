@@ -6,14 +6,14 @@
 extern "C"
 {
 	// Cette classe est export�e de Monster.dll
-	class LIB_EXPORT MonsterFlying : public SaltyEngine::GameObject
+	class PREF_EXPORT MonsterFlying : public SaltyEngine::GameObject
 	{
 	public:
 		MonsterFlying();
 		virtual ~MonsterFlying();
 	};
 
-LIB_EXPORT	SaltyEngine::Object const *GetObjectPrefab();
+	PREF_EXPORT	SaltyEngine::Object const *GetObjectPrefab();
 }
 
 #endif

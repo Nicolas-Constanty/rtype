@@ -6,18 +6,18 @@ include_directories(include)
 
 #C++ files
 file(GLOB GameServerSrc
-		"src/Rtype/Game/Server/*.cpp"
-		"src/Rtype/Game/Common/*.cpp"
-		"src/Rtype/Game/Client/*.cpp"
-		"src/Prefabs/RtypePrefab.cpp"
-		"R-Type/GameServer/main.cpp"
+		"../../src/Rtype/Game/Server/*.cpp"
+		"../../src/Rtype/Game/Common/*.cpp"
+		"../../src/Rtype/Game/Client/*.cpp"
+		"../../src/Prefabs/RtypePrefab.cpp"
+		"../../R-Type/GameServer/main.cpp"
 		)
 
 #Hpp files
 file(GLOB GameServerInc
-		"include/Rtype/Game/Server/*.hpp"
-		"include/Rtype/Game/Common/*.hpp"
-		"include/Rtype/Game/Common/*.hpp"
+		"../../include/Rtype/Game/Server/*.hpp"
+		"../../include/Rtype/Game/Common/*.hpp"
+		"../../include/Rtype/Game/Common/*.hpp"
 		)
 
 #Linux
@@ -52,7 +52,7 @@ elseif(MSVC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3 -DRTYPESERVER")
 
 	#Create GameServer
-	add_executable(GameServer ${GameServerSrc} ${GameServerInc})
+	add_executable(GameServer "${GameServerSrc}" "${GameServerInc}")
 
 	#Link libraries
 	target_link_libraries(GameServer

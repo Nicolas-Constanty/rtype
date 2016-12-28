@@ -211,7 +211,7 @@ namespace SaltyEngine
         }
 
 		std::vector<uint32_t> SpriteCollider2D::m_colors = {
-#include "SaltyEngine/SFML/colors.col"
+//#include "SaltyEngine/SFML/colors.col"
 		};
     }
 }

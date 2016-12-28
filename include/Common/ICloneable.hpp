@@ -5,7 +5,7 @@
 #include <memory>
 
 template <class T>
-class ICloneable
+class PREF_EXPORT ICloneable
 {
 public:
 	virtual  ~ICloneable() {}

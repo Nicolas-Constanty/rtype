@@ -9,7 +9,9 @@
 	#include <windows.h>
 #endif
 
-class Debug
+#include "Common/DLLexport.hpp"
+
+class LIB_EXPORT Debug
 {
 public:
 	enum COLOR

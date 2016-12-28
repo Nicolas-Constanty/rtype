@@ -16,7 +16,7 @@ namespace Network
         /**
          * @brief Abstraction of a socket stream handler container
          */
-        class BasicSockStreamsContainer : public ISockStreamHandlersContainer
+        class PREF_EXPORT BasicSockStreamsContainer : public ISockStreamHandlersContainer
         {
         public:
             BasicSockStreamsContainer();
@@ -30,10 +30,10 @@ namespace Network
 
             virtual void Broadcast(Core::NetBuffer &tosnd, Socket::ISockStream &sender);
 
-            virtual std::list<std::unique_ptr<Socket::ISockStreamHandler>> &Streams();
+            virtual std::list<Socket::ISockStreamHandler *> &Streams();
 
         private:
-            std::list<std::unique_ptr<ISockStreamHandler>> streams;
+            std::list<ISockStreamHandler *> streams;
         };
     }
 }

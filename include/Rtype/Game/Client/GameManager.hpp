@@ -10,7 +10,7 @@
 
 #define SCREEN_X 1280
 
-class GameManager : public SaltyEngine::SaltyBehaviour
+class PREF_EXPORT GameManager : public SaltyEngine::SaltyBehaviour
 {
 public:
 	explicit GameManager(SaltyEngine::GameObject* const gamObj);

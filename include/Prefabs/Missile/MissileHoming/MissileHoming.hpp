@@ -15,14 +15,14 @@
 
 extern "C"
 {
-class MissileHoming : public SaltyEngine::GameObject
+class PREF_EXPORT MissileHoming : public SaltyEngine::GameObject
 {
 public:
     MissileHoming();
     virtual ~MissileHoming();
 };
 
-SaltyEngine::Object const *GetObjectPrefab();
+PREF_EXPORT SaltyEngine::Object const *GetObjectPrefab();
 }
 
 #endif

@@ -6,8 +6,9 @@
 #define RTYPE_IRTYPEPROTOCOLMANAGER_HPP
 
 #include <cstring>
+#include "Common/DLLexport.hpp"
 
-class IRTypeProtocolManager {
+class PREF_EXPORT IRTypeProtocolManager {
 public:
     virtual ~IRTypeProtocolManager() {}
 

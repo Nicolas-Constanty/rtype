@@ -7,7 +7,7 @@
 
 #include "APodBonusController.hpp"
 
-class SpiralPodBonusController : public APodBonusController
+class PREF_EXPORT SpiralPodBonusController : public APodBonusController
 {
 private:
     static const char missile[12];

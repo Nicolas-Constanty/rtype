@@ -12,13 +12,13 @@
 
 extern "C"
 {
-    class LIB_EXPORT Mate : public SaltyEngine::GameObject
+    class PREF_EXPORT Mate : public SaltyEngine::GameObject
     {
     public:
         Mate();
         virtual ~Mate();
     };
-LIB_EXPORT  SaltyEngine::Object const *GetObjectPrefab();
+	PREF_EXPORT  SaltyEngine::Object const *GetObjectPrefab();
 };
 
 #endif //RTYPE_MATE_HPP

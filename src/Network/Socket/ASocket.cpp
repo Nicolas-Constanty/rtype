@@ -210,7 +210,7 @@ unsigned int Network::Socket::ASocket::getIPFromString(std::string const &ip) {
  * @param ref The reference of the object to dump
  * @return A reference on the output sent
  */
-std::ostream    &Network::Socket::operator<<(std::ostream &output, Network::Socket::ASocket const &ref)
+PREF_EXPORT std::ostream    &Network::Socket::operator<<(std::ostream &output, Network::Socket::ASocket const &ref)
 {
     ref.print(output);
     return output;

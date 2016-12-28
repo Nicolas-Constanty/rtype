@@ -7,7 +7,7 @@
 
 #include "Prefabs/GenericController.hpp"
 
-class BlockSimpleController: public RtypePrefab{
+class  PREF_EXPORT BlockSimpleController: public RtypePrefab{
 public:
     BlockSimpleController(SaltyEngine::GameObject * const gameObj);
     virtual ~BlockSimpleController();

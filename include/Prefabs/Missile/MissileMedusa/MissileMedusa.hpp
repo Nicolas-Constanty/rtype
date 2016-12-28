@@ -4,12 +4,12 @@
 
 extern "C"
 {
-	class LIB_EXPORT MissileMedusa : public SaltyEngine::GameObject
+	class PREF_EXPORT MissileMedusa : public SaltyEngine::GameObject
 	{
 	public:
 		MissileMedusa();
 		virtual ~MissileMedusa();
 	};
 
-LIB_EXPORT	SaltyEngine::Object const*GetObjectPrefab();
+	PREF_EXPORT	SaltyEngine::Object const*GetObjectPrefab();
 }

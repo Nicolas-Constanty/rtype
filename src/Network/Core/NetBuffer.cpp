@@ -164,7 +164,7 @@ void Network::Core::NetBuffer::consume()
  * @return If serialization was done
  */
 template <>
-bool Network::Core::NetBuffer::serialize<std::string>(std::string const &obj)
+PREF_EXPORT bool Network::Core::NetBuffer::serialize<std::string>(std::string const &obj)
 {
     if (length + obj.size() > NetBuffer::size)
         return false;
@@ -185,7 +185,7 @@ bool Network::Core::NetBuffer::serialize<std::string>(std::string const &obj)
  * @return If serialization was done
  */
 template <>
-bool Network::Core::NetBuffer::serialize<const char *>(const char * const &obj)
+PREF_EXPORT bool Network::Core::NetBuffer::serialize<const char *>(const char * const &obj)
 {
     return serialize(std::string(obj));
 }
@@ -196,7 +196,7 @@ bool Network::Core::NetBuffer::serialize<const char *>(const char * const &obj)
  * @return If serialization was done
  */
 template <>
-bool Network::Core::NetBuffer::serialize<Network::Core::NetBuffer>(Network::Core::NetBuffer const &ref)
+PREF_EXPORT bool Network::Core::NetBuffer::serialize<Network::Core::NetBuffer>(Network::Core::NetBuffer const &ref)
 {
     return serialize(ref.toString());
 }
@@ -207,7 +207,7 @@ bool Network::Core::NetBuffer::serialize<Network::Core::NetBuffer>(Network::Core
  * @param ref The buffer to dump
  * @return A reference on the stream in order to allow user to chain '<<'
  */
-std::ostream    &Network::Core::operator<<(std::ostream &output, Network::Core::NetBuffer const &ref)
+PREF_EXPORT std::ostream    &Network::Core::operator<<(std::ostream &output, Network::Core::NetBuffer const &ref)
 {
     unsigned char *bf = ref.buff();
 

@@ -95,8 +95,8 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetAUTHENTICATEPackage(AUTHEN
         if (clients->Streams().size() == this->server1->GetMaxSize()) {
             if (!server1->IsLaunch()) {
                 int y = 100;
-                for (std::unique_ptr<Network::Socket::ISockStreamHandler> &curr : clients->Streams()) {
-                    RtypeServerGameClient *client = dynamic_cast<RtypeServerGameClient *>(curr.get());
+                for (Network::Socket::ISockStreamHandler *curr : clients->Streams()) {
+                    RtypeServerGameClient *client = dynamic_cast<RtypeServerGameClient *>(curr);
                     client->StartDisplayInformation(y);
                     y += 100;
                 }
@@ -152,11 +152,11 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetBEAMPackage(BEAMPackageGam
 
 //            std::cout << "ID SERVER ==" << gameManager->gameObjectContainer.GetServerObjectID(gameObject) << std::endl;
 
-            for (std::unique_ptr<Network::Socket::ISockStreamHandler> &curr : clients->Streams())
+            for (Network::Socket::ISockStreamHandler *curr : clients->Streams())
             {
-                if (curr.get() != this)
+                if (curr != this)
                 {
-                    Rtype::Game::Server::RtypeServerGameClient *receiver = dynamic_cast<Rtype::Game::Server::RtypeServerGameClient *>(curr.get());
+                    Rtype::Game::Server::RtypeServerGameClient *receiver = dynamic_cast<Rtype::Game::Server::RtypeServerGameClient *>(curr);
 
                     if (receiver)
                         receiver->SendPackage<BEAMPackageGame>(&Network::UDP::AUDPConnection::SendReliable<BEAMPackageGame>,
@@ -191,11 +191,11 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetSHOTPackage(SHOTPackageGam
 //            int serverid = gameManager->gameObjectContainer.Add(GameObjectID::NewID(), laser);
             LaserController *laserController;
 
-            for (std::unique_ptr<Network::Socket::ISockStreamHandler> &curr : clients->Streams())
+            for (Network::Socket::ISockStreamHandler *curr : clients->Streams())
             {
-                if (curr.get() != this)
+                if (curr != this)
                 {
-                    Rtype::Game::Server::RtypeServerGameClient *receiver = dynamic_cast<Rtype::Game::Server::RtypeServerGameClient *>(curr.get());
+                    Rtype::Game::Server::RtypeServerGameClient *receiver = dynamic_cast<Rtype::Game::Server::RtypeServerGameClient *>(curr);
 
                     if (receiver)
                         receiver->SendPackage<SHOTPackageGame>(&Network::UDP::AUDPConnection::SendReliable<SHOTPackageGame>,
@@ -262,11 +262,11 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetMOVEPackage(MOVEPackageGam
         gameObject->transform.SetPosition(SaltyEngine::Vector(pack.posX, pack.posY));
     }
 
-    for (std::unique_ptr<Network::Socket::ISockStreamHandler> &curr : clients->Streams())
+    for (Network::Socket::ISockStreamHandler *curr : clients->Streams())
     {
-        if (curr.get() != this)
+        if (curr != this)
         {
-            Rtype::Game::Server::RtypeServerGameClient *receiver = dynamic_cast<Rtype::Game::Server::RtypeServerGameClient *>(curr.get());
+            Rtype::Game::Server::RtypeServerGameClient *receiver = dynamic_cast<Rtype::Game::Server::RtypeServerGameClient *>(curr);
 
             if (receiver) {
                 receiver->SendPackage<MOVEPackageGame>(&Network::Core::BasicConnection::SendData<MOVEPackageGame>,
@@ -387,9 +387,9 @@ void Rtype::Game::Server::RtypeServerGameClient::StartDisplayInformation(int y) 
 //    this->SendPackage<RECONNECTPackageGame>(&Network::UDP::AUDPConnection::SendReliable<RECONNECTPackageGame>,
 //                                         player->transform.GetPosition().x, player->transform.GetPosition().y, 0, gameManager->gameObjectContainer.GetServerObjectID(player));
 
-    for (std::unique_ptr<Network::Socket::ISockStreamHandler> &curr : clients->Streams())
+    for (Network::Socket::ISockStreamHandler *curr : clients->Streams())
     {
-        Rtype::Game::Server::RtypeServerGameClient *client = dynamic_cast<Rtype::Game::Server::RtypeServerGameClient *>(curr.get());
+        Rtype::Game::Server::RtypeServerGameClient *client = dynamic_cast<Rtype::Game::Server::RtypeServerGameClient *>(curr);
 
         if (client && client != this)
         {

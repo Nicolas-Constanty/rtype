@@ -7,7 +7,7 @@
 
 #include "IConnectable.hpp"
 
-class LIB_EXPORT IAcceptor
+class PREF_EXPORT IAcceptor
 {
 public:
     virtual ~IAcceptor(){}

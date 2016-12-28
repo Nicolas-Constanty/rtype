@@ -8,7 +8,7 @@
 #include "SaltyEngine/SaltyBehaviour.hpp"
 #include "SaltyEngine/GameObject.hpp"
 
-class BackgroundController : public SaltyEngine::SaltyBehaviour {
+class PREF_EXPORT BackgroundController : public SaltyEngine::SaltyBehaviour {
 public:
     BackgroundController(SaltyEngine::GameObject * const gameObj);
     virtual ~BackgroundController();

@@ -6,6 +6,7 @@
 #define RTYPE_PROTOCOLGAMEPACKAGE_HPP
 
 #include <cstring>
+#include "Common/DLLexport.hpp"
 
 typedef struct HeaderGameInfo {
     unsigned char verLeft : 1;
@@ -41,7 +42,7 @@ typedef enum : unsigned char {
     GAMERECONNECT = 20
 } GamePurpose;
 
-class PackageGameHeader {
+class  PackageGameHeader {
 public:
     HeaderGameInfo headerGameInfo;
     unsigned short length;
@@ -70,7 +71,7 @@ public:
     }
 };
 
-class PINGPackageGame : public PackageGameHeader {
+class  PINGPackageGame : public PackageGameHeader {
 public:
     PINGPackageGame(unsigned short sequenceID = 0, int secret = 0, unsigned short transactionID = 0)
             : PackageGameHeader(true, sizeof(PINGPackageGame), sequenceID, GamePurpose::GAMEPING, transactionID) {
@@ -81,7 +82,7 @@ public:
     int secret;
 };
 
-class AUTHENTICATEPackageGame : public PackageGameHeader {
+class  AUTHENTICATEPackageGame : public PackageGameHeader {
 public:
     AUTHENTICATEPackageGame(unsigned short sequenceID = 0, unsigned int secret = 0, unsigned char playerId = 0, unsigned short transactionID = 0)
             : PackageGameHeader(true, sizeof(AUTHENTICATEPackageGame), sequenceID, GamePurpose::GAMEAUTHENTICATE, transactionID) {
@@ -94,7 +95,7 @@ public:
     unsigned char playerId;
 };
 
-class DISCONNECTPackageGame : public PackageGameHeader
+class  DISCONNECTPackageGame : public PackageGameHeader
 {
 public:
     DISCONNECTPackageGame(unsigned short sequenceID = 0, unsigned char playerID = 0, unsigned int errcode = 0, unsigned short transactionID = 0) :
@@ -109,7 +110,7 @@ public:
     unsigned char playerID;
 };
 
-class ObjectIDPackageGame : public PackageGameHeader {
+class  ObjectIDPackageGame : public PackageGameHeader {
 public:
     ObjectIDPackageGame(unsigned short size = 0, unsigned char purpose = 0, unsigned short sequenceID = 0,
                         unsigned short objectID = 0, bool reliable = 0, unsigned short transactionID = 0)
@@ -121,7 +122,7 @@ public:
     unsigned short objectID;
 };
 
-class CREATEPackageGame : public ObjectIDPackageGame {
+class  CREATEPackageGame : public ObjectIDPackageGame {
 public:
     CREATEPackageGame(unsigned short sequenceID = 0, int posX = 0, int posY = 0, unsigned short ID = 0,
                       unsigned short objectID = 0, float rotation = 0, unsigned short transactionID = 0)
@@ -139,7 +140,7 @@ public:
     float rotation;
 };
 
-class STATUSPackageGame : public PackageGameHeader {
+class  STATUSPackageGame : public PackageGameHeader {
 public:
     STATUSPackageGame(unsigned short sequenceID = 0, int highScore = 0, unsigned char playerID = 0, unsigned short transactionID = 0)
             : PackageGameHeader(true, sizeof(STATUSPackageGame), sequenceID, GamePurpose::GAMESTATUS, transactionID) {
@@ -152,7 +153,7 @@ public:
     unsigned char playerID;
 };
 
-class MOVEPackageGame : public ObjectIDPackageGame {
+class  MOVEPackageGame : public ObjectIDPackageGame {
 public:
     MOVEPackageGame(unsigned short sequenceID = 0, int posX = 0, int posY = 0, unsigned short objectID = 0,
                     unsigned short transactionID = 0)
@@ -166,7 +167,7 @@ public:
     int posY;
 };
 
-class BEAMPackageGame : public ObjectIDPackageGame {
+class  BEAMPackageGame : public ObjectIDPackageGame {
 public:
     BEAMPackageGame(unsigned short sequenceID = 0, unsigned short objectID = 0, unsigned int id = 0, unsigned short transactionID = 0)
             : ObjectIDPackageGame(sizeof(BEAMPackageGame), GamePurpose::GAMEBEAM, sequenceID, objectID, true, transactionID) {
@@ -177,7 +178,7 @@ public:
     unsigned int id;
 };
 
-class SHOTPackageGame : public ObjectIDPackageGame {
+class  SHOTPackageGame : public ObjectIDPackageGame {
 public:
     SHOTPackageGame(unsigned short sequenceID = 0, unsigned short objectID = 0, int power = 0, unsigned int id = 0, int x = 0, int y = 0, unsigned short transactionID = 0)
             : ObjectIDPackageGame(sizeof(SHOTPackageGame), GamePurpose::GAMESHOT, sequenceID, objectID, true, transactionID) {
@@ -194,7 +195,7 @@ public:
     int y;
 };
 
-class ENEMYSHOTPackageGame : public ObjectIDPackageGame {
+class  ENEMYSHOTPackageGame : public ObjectIDPackageGame {
 public:
     ENEMYSHOTPackageGame(unsigned short sequenceID = 0, unsigned short objectID = 0, unsigned short transactionID = 0)
             : ObjectIDPackageGame(sizeof(ENEMYSHOTPackageGame), GamePurpose::GAMEENEMYSHOT, sequenceID, objectID, true, transactionID) {
@@ -202,14 +203,14 @@ public:
 };
 
 
-class DIEPackageGame : public ObjectIDPackageGame {
+class  DIEPackageGame : public ObjectIDPackageGame {
 public:
     DIEPackageGame(unsigned short sequenceID = 0, unsigned short objectID = 0, unsigned short transactionID = 0)
             : ObjectIDPackageGame(sizeof(DIEPackageGame), GamePurpose::GAMEDIE, sequenceID, objectID, true, transactionID) {
     }
 };
 
-class TAKEPackageGame : public ObjectIDPackageGame {
+class  TAKEPackageGame : public ObjectIDPackageGame {
 public:
     TAKEPackageGame(unsigned short sequenceID = 0, unsigned short podID = 0, unsigned short playerObjectID = 0, unsigned char front = 0, unsigned short transactionID = 0) :
             ObjectIDPackageGame(sizeof(TAKEPackageGame), GamePurpose::GAMETAKE, sequenceID, podID, true, transactionID),
@@ -224,7 +225,7 @@ public:
     unsigned char   front;
 };
 
-class CALLPackageGame : public ObjectIDPackageGame {
+class  CALLPackageGame : public ObjectIDPackageGame {
 public:
     CALLPackageGame(unsigned short sequenceID = 0, unsigned short podID = 0, unsigned short playerObjectID = 0, unsigned short transactionID = 0) :
             ObjectIDPackageGame(sizeof(CALLPackageGame), GamePurpose::GAMECALL, sequenceID, podID, true, transactionID),
@@ -237,7 +238,7 @@ public:
     unsigned short playerObjectID;
 };
 
-class LAUNCHPackageGame : public ObjectIDPackageGame {
+class  LAUNCHPackageGame : public ObjectIDPackageGame {
 public:
     LAUNCHPackageGame(unsigned short sequenceID = 0, unsigned short podID = 0, unsigned short playerObjectID = 0, int posX = 0, int posY = 0, unsigned short transactionID = 0)
             : ObjectIDPackageGame(sizeof(LAUNCHPackageGame), GamePurpose::GAMELAUNCH, sequenceID, podID, true, transactionID),
@@ -254,14 +255,14 @@ public:
     int fromY;
 };
 
-class REBORNPackageGame : public ObjectIDPackageGame {
+class  REBORNPackageGame : public ObjectIDPackageGame {
 public:
     REBORNPackageGame(unsigned short sequenceID = 0, unsigned short objectID = 0, unsigned short transactionID = 0)
             : ObjectIDPackageGame(sizeof(REBORNPackageGame), GamePurpose::GAMEREBORN, sequenceID, objectID, true, transactionID) {
     }
 };
 
-class DEATHPackage : public ObjectIDPackageGame
+class  DEATHPackage : public ObjectIDPackageGame
 {
 public:
     DEATHPackage(unsigned short sequenceID = 0, unsigned short playerObjectID = 0, unsigned short transactionID = 0) :
@@ -271,7 +272,7 @@ public:
     }
 };
 
-class FAILUREPackageGame : public PackageGameHeader {
+class  FAILUREPackageGame : public PackageGameHeader {
 public:
     FAILUREPackageGame(unsigned short sequenceID = 0, unsigned char failPurpose = 0, unsigned short failseq = 0, unsigned short transactionID = 0) :
             PackageGameHeader(true, sizeof(FAILUREPackageGame), sequenceID, GAMEFAILURE, transactionID),
@@ -285,7 +286,7 @@ public:
     unsigned short failSequence;
 };
 
-class UPGRADEPackageGame : public ObjectIDPackageGame
+class  UPGRADEPackageGame : public ObjectIDPackageGame
 {
 public:
     UPGRADEPackageGame(unsigned short sequenceID = 0, unsigned short podID = 0, unsigned short rocket = 0, unsigned short transactionID = 0) :
@@ -299,7 +300,7 @@ public:
     unsigned short rocket;
 };
 
-class MATEPackageGame : public ObjectIDPackageGame
+class  MATEPackageGame : public ObjectIDPackageGame
 {
 public:
     MATEPackageGame(unsigned short sequenceID = 0, int x = 0, int y = 0, int playerID = 0, unsigned short objectID = 0, unsigned short transactionID = 0) :
@@ -316,7 +317,7 @@ public:
     int playerID;
 };
 
-class GAMEOVERPackageGame : public PackageGameHeader
+class  GAMEOVERPackageGame : public PackageGameHeader
 {
 public:
     GAMEOVERPackageGame(unsigned short sequenceID = 0, unsigned char status = 0, unsigned short transactionID = 0) :
@@ -329,7 +330,7 @@ public:
     unsigned char status;
 };
 
-class RECONNECTPackageGame : public PackageGameHeader
+class  RECONNECTPackageGame : public PackageGameHeader
 {
 public:
     RECONNECTPackageGame(unsigned short sequenceID = 0, unsigned char playerID = 0, unsigned short transactionID = 0) :

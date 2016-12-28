@@ -11,8 +11,6 @@ elseif(MSVC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3")
 endif()
 
-add_executable(serverGameDispatcher
-        ${serverGameDispatcherSrc}
-        ${serverGameDispatcherInc})
+add_executable(serverGameDispatcher ${serverGameDispatcherSrc} ${serverGameDispatcherInc})
 
 target_link_libraries(serverGameDispatcher Network ProtocolGame ProtocolServer ProtocolRoom dl pthread)

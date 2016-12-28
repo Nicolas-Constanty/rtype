@@ -23,7 +23,7 @@
         "configurationType": "Debug",
         "buildRoot": "${projectDir}\\cmake-build-debug",
         "cmakeCommandArgs": "-m 1",
-        "buildCommandArgs": "-m -v:minimal"
+        "buildCommandArgs": "-m:4 -v:m -nr:True"
       },
       {
         "name": "x64-Release",
@@ -31,7 +31,7 @@
         "configurationType": "Release",
         "buildRoot": "${projectDir}\\cmake-build-release",
         "cmakeCommandArgs": "-m 1",
-        "buildCommandArgs": "-m -v:minimal"
+        "buildCommandArgs": "-m:4 -v:m -nr:True"
       }
     ]
 }

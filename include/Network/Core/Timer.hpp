@@ -13,7 +13,7 @@ namespace Network
 {
     namespace Core
     {
-        class LIB_EXPORT Timer
+        class PREF_EXPORT Timer
         {
         public:
             Timer();

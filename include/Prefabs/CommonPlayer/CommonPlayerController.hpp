@@ -8,7 +8,7 @@
 #include <Prefabs/RtypePrefab.hpp>
 #include <Prefabs/GenericController.hpp>
 
-class LIB_EXPORT CommonPlayerController : public RtypePrefab
+class PREF_EXPORT CommonPlayerController : public RtypePrefab
 {
 private:
     static const float    timeoutDeath;

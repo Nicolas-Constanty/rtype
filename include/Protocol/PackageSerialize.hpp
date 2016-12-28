@@ -7,8 +7,9 @@
 
 #include <cstring>
 #include <iostream>
+#include "Common/DLLexport.hpp"
 
-class PackageSerialize {
+class PREF_EXPORT PackageSerialize {
 public:
     template <typename T>
     static void print(T const &obj) {

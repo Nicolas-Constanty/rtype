@@ -61,9 +61,9 @@ void Rtype::Game::Server::RtypeGameServer::OnReadCheck()
 {
     Network::UDP::AUDPServer<Rtype::Game::Server::RtypeServerGameClient>::OnReadCheck();
 
-    for (std::unique_ptr<Network::Socket::ISockStreamHandler> &curr : clients->Streams())
+    for (Network::Socket::ISockStreamHandler *curr : clients->Streams())
     {
-        TimedUDPClient *client = dynamic_cast<TimedUDPClient *>(curr.get());
+        TimedUDPClient *client = dynamic_cast<TimedUDPClient *>(curr);
 
         if (client && client->pong() && client->getTimer().timeout(pingtimeout))
         {

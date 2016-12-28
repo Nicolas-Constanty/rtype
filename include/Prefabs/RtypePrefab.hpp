@@ -11,7 +11,7 @@
 /**
  * @brief Basic rtype prefab that other prefabs has to inherit from. Allow the prefab to send package through the network.
  */
-class LIB_EXPORT RtypePrefab : public SaltyEngine::SaltyBehaviour
+class PREF_EXPORT RtypePrefab : public SaltyEngine::SaltyBehaviour
 {
 public:
     RtypePrefab(std::string const &name, SaltyEngine::GameObject *gameObject);

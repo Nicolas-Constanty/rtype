@@ -3,12 +3,12 @@
 #ifndef SPRITERENDERER_HPP_
 #define SPRITERENDERER_HPP_
 
-#include "SaltyEngine/Config.hpp"
-#include "SaltyEngine/ASpriteRenderer.hpp"
-#include "SaltyEngine/SFML/Sprite.hpp"
 #include "SaltyEngine/SFML/Window.hpp"
+#include "SaltyEngine/SFML/Sprite.hpp"
 #include "SaltyEngine/SFML/Renderer.hpp"
 #include "SaltyEngine/SFML/AssetManager.hpp"
+#include "SaltyEngine/Config.hpp"
+#include "SaltyEngine/ASpriteRenderer.hpp"
 
 namespace SaltyEngine
 {

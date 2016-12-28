@@ -14,7 +14,7 @@ namespace Rtype
     {
         namespace Server
         {
-            class Room
+            class PREF_EXPORT Room
             {
             public:
                 Room();

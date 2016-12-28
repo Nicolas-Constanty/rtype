@@ -9,7 +9,7 @@
 namespace SaltyEngine
 {
 	class GameObject;
-	class LIB_EXPORT Behaviour : public Component
+	class PREF_EXPORT Behaviour : public Component
 	{
 	protected:
 		// delete copy and move constructors and assign operators

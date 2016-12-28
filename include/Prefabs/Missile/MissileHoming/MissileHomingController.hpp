@@ -8,7 +8,7 @@
 #include "Prefabs/Missile/AEnemyBulletController.hpp"
 #include "Prefabs/GenericController.hpp"
 
-class MissileHomingController: public ABulletController {
+class PREF_EXPORT MissileHomingController: public ABulletController {
 public:
     MissileHomingController(SaltyEngine::GameObject *go);
     virtual ~MissileHomingController();

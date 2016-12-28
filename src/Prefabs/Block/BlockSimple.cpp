@@ -17,7 +17,7 @@ BlockSimple::BlockSimple() : GameObject("BlockSimple", SaltyEngine::Layer::Tag::
 BlockSimple::~BlockSimple() {
 }
 
-SaltyEngine::Object const*GetObjectPrefab()
+PREF_EXPORT SaltyEngine::Object const*GetObjectPrefab()
 {
     return new BlockSimple();
 }

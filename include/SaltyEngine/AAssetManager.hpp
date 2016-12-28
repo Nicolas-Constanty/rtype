@@ -399,7 +399,11 @@ namespace SaltyEngine {
         /// \param filename
         /// \return SceneDefault*
         SceneDefault *LoadScene(std::string const &filename) {
-            m_current_scene.reset(new SceneDefault());
+#if _WIN32
+            m_current_scene = std::make_unique<SceneDefault>();
+#else
+			m_current_scene(new SceneDefault());
+#endif
 
             try {
                 Parser parser = Parser(JSON, (path_scenes + filename + Asset::SCENE_EXTENSION).c_str());

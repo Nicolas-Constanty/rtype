@@ -1,14 +1,14 @@
 cmake_minimum_required(VERSION 2.8)
 project(rtype)
 
-#C++ files
-file(GLOB ParserSrc "src/Parser/*.cpp")
-
-#Hpp files
-file(GLOB ParserInc "include/Parser/*.hpp")
-
 #Linux
 if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
+
+	#C++ files
+	file(GLOB ParserSrc "src/Parser/*.cpp")
+
+	#Hpp files
+	file(GLOB ParserInc "include/Parser/*.hpp")
 
 	set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
@@ -24,10 +24,15 @@ if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 #Windows
 elseif(MSVC)
 
+	#C++ files
+	file(GLOB ParserSrc "../../src/Parser/*.cpp")
+
+	#Hpp files
+	file(GLOB ParserInc "../../include/Parser/*.hpp")
 	#
 	set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS true)
 
 	#Create library
-	add_library(Parser STATIC ${ParserSrc})
+	add_library(Parser SHARED ${ParserSrc})
 
 endif()

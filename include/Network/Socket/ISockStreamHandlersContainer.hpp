@@ -14,7 +14,7 @@ namespace Network
 {
     namespace Socket
     {
-        class LIB_EXPORT ISockStreamHandlersContainer
+        class PREF_EXPORT ISockStreamHandlersContainer
         {
         public:
             virtual ~ISockStreamHandlersContainer(){}
@@ -28,7 +28,7 @@ namespace Network
             virtual void Broadcast(Core::NetBuffer &tosnd, Socket::ISockStream &sender) = 0;
 
         public:
-            virtual std::list<std::unique_ptr<Socket::ISockStreamHandler>> &Streams() = 0;
+            virtual std::list<Socket::ISockStreamHandler *> &Streams() = 0;
         };
     }
 }

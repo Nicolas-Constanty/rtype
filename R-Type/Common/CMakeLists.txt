@@ -1,17 +1,14 @@
 cmake_minimum_required(VERSION 2.8)
 project(rtype)
 
-#include files
-include_directories("include")
-
-#C++ files
-file(GLOB Commoninc include/Common/*.hpp)
-
-#Hpp files
-file(GLOB Commonsrc src/Common/*.cpp)
-
 #Linux
 if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
+
+	#C++ files
+	file(GLOB Commoninc include/Common/*.hpp)
+
+	#Hpp files
+	file(GLOB Commonsrc src/Common/*.cpp)
 
 	set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
@@ -27,10 +24,16 @@ if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 #Windows
 elseif(MSVC)
 
+	#C++ files
+	file(GLOB Commoninc "../../include/Common/*.hpp")
+
+	#Hpp files
+	file(GLOB Commonsrc "../../src/Common/*.cpp")
+
 	#Export all symbol for dll
-	#set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS true)
+	set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS true)
 
 	#Create library
-	add_library(Common STATIC ${Commonsrc} ${Commoninc})
+	add_library(Common SHARED ${Commonsrc} ${Commoninc})
 
 endif()

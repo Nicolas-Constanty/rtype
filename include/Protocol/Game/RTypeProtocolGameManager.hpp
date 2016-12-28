@@ -9,7 +9,7 @@
 #include "Protocol/IRTypeProtocolManager.hpp"
 #include "Protocol/Game/IProtocolGameHandler.hpp"
 
-class RTypeProtocolGameManager : public IRTypeProtocolManager {
+class PREF_EXPORT RTypeProtocolGameManager : public IRTypeProtocolManager {
 
 public:
     typedef struct GameID {
