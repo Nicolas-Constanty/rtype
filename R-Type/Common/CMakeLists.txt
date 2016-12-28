@@ -31,9 +31,10 @@ elseif(MSVC)
 	file(GLOB Commonsrc "../../src/Common/*.cpp")
 
 	#Export all symbol for dll
-	set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS true)
+	#set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS true)
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DNO_EXPORT")
 
 	#Create library
-	add_library(Common SHARED ${Commonsrc} ${Commoninc})
+	add_library(Common STATIC ${Commonsrc} ${Commoninc})
 
 endif()

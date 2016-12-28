@@ -26,7 +26,8 @@ namespace SaltyEngine {
 		m_objects.push_front(Make_unique<GameObject>("GameObject"));
 		if (m_objects.front().get() == nullptr)
 			Debug::PrintWarning("Factory : could not create game object");
-        *Singleton<::SaltyEngine::Engine>::Instance().GetCurrentScene() << static_cast<GameObject*>(m_objects.front().get());
+		std::cout << &Engine::Instance() << std::endl;
+        *Engine::Instance().GetCurrentScene() << static_cast<GameObject*>(m_objects.front().get());
 		return m_objects.front().get();
     }
 
@@ -38,7 +39,7 @@ namespace SaltyEngine {
             GameObject *go = static_cast<GameObject*>(m_objects.front().get());
             go->transform.SetPosition(pos);
             go->transform.SetRotation(rot);
-            *Singleton<::SaltyEngine::Engine>::Instance().GetCurrentScene() << static_cast<GameObject*>(m_objects.front().get());
+            *Engine::Instance().GetCurrentScene() << static_cast<GameObject*>(m_objects.front().get());
 			return m_objects.front().get();
 		}
         m_objects.push_front(m_prefabs[name]->CloneMemberwise());
@@ -48,7 +49,7 @@ namespace SaltyEngine {
             go->transform.SetPosition(pos);
             go->transform.SetRotation(rot);
         }
-        *Singleton<::SaltyEngine::Engine>::Instance().GetCurrentScene() << static_cast<GameObject*>(m_objects.front().get());
+        *Engine::Instance().GetCurrentScene() << static_cast<GameObject*>(m_objects.front().get());
         return m_objects.front().get();
     }
 

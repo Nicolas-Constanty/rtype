@@ -65,7 +65,7 @@ elseif(MSVC)
 			)
 
 	#C++ FLAGS
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3 -DRTYPESERVER")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3 -DRTYPESERVER  -DNO_EXPORT")
 
 	#Create GameServer
 	add_executable(GameServer "${GameServerSrc}" "${GameServerInc}")
@@ -85,6 +85,10 @@ elseif(MSVC)
 			mate
 			pod
 			sfml-system-d sfml-audio-d sfml-graphics-d sfml-window-d)
+
+	add_custom_command(TARGET GameServer
+        POST_BUILD
+        COMMAND cmd /c "cd ..\\..\\..\\ & MoveBinary.bat")
 
 endif()
 

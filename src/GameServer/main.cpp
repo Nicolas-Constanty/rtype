@@ -12,10 +12,10 @@
 int main(int ac, char **av)
 {
 	Flags   flags;
-	uint16_t port;
-	size_t max;
-	uint32_t secret;
-	uint16_t level;
+	uint16_t port = 4242;
+	size_t max = 2;
+	uint32_t secret = 0;
+	uint16_t level = 2;
 	bool help;
 	Rtype::Game::Server::Room   room;
 
@@ -36,17 +36,17 @@ int main(int ac, char **av)
 #if _WIN32
 	Network::Socket::WinSocket::Start();
 #endif
-	try
-	{
+	/*try
+	{*/
 		//SaltyEngine::SFML::AssetManager::Instance().LoadScene("scene" + level);
 		//SaltyEngine::SFML::AssetManager::Instance().LoadAssets();
 		room.Start(port, max, secret, level);
-	}
+	/*}
 	catch (std::runtime_error const &err)
 	{
 		std::cerr << "Fail to start room: " << err.what() << std::endl;
 		return 1;
-	}
+	}*/
 	room.Run();
 #if _WIN32
 	Network::Socket::WinSocket::Stop();

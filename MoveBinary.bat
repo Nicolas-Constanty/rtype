@@ -1,4 +1,5 @@
 mkdir build\Debug
+mkdir Assets\Metas
 
 set "cp=xcopy /d"
 
@@ -19,8 +20,6 @@ set "cp=xcopy /d"
 cd cmake-build-debug\R-Type\GameClient
 
 %cp% ..\Common\Debug\* .\Debug
-%cp% ..\GameClient\Debug\* .\Debug
-%cp% ..\GameServer\Debug\* .\Debug
 %cp% ..\Network\Debug\* .\Debug
 %cp% ..\Parser\Debug\* .\Debug
 %cp% ..\Prefab\Debug\* .\Debug
@@ -33,6 +32,23 @@ cd cmake-build-debug\R-Type\GameClient
 mklink /J .\Debug\Assets ..\..\..\Assets
 
 cd ..\..\..
+
+cd cmake-build-debug\R-Type\GameServer
+
+%cp% ..\Common\Debug\* .\Debug
+%cp% ..\Network\Debug\* .\Debug
+%cp% ..\Parser\Debug\* .\Debug
+%cp% ..\Prefab\Debug\* .\Debug
+%cp% ..\Protocol\Game\Debug\* .\Debug
+%cp% ..\Protocol\Room\Debug\* .\Debug
+%cp% ..\Protocol\Server\Debug\* .\Debug
+%cp% ..\SaltyEngine\Debug\* .\Debug
+%cp% ..\SFMLSaltyEngine\Debug\* .\Debug
+%cp% ..\..\..\Dependencies\SFML\Win\x64\Debug\*.dll .\Debug
+mklink /J .\Debug\Assets ..\..\..\Assets
+
+cd ..\..\..
+
 mkdir build\Release
 
 %cp% cmake-build-debug\R-Type\Common\Release\* build\Release

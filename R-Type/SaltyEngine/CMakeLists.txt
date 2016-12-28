@@ -53,10 +53,11 @@ elseif(MSVC)
 	#set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS true)
 
 	#C++ FLAGS
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DWIN32_LEAN_AND_MEAN -D_USE_MATH_DEFINES -DBUILD_SHARED_LIBS -DEXPORT_LIB -DEXPORT_PREF")
+    #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DWIN32_LEAN_AND_MEAN -D_USE_MATH_DEFINES -DBUILD_SHARED_LIBS -DEXPORT_LIB -DEXPORT_PREF")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DNO_EXPORT")
 
 	#Create library
-	add_library(SaltyEngine SHARED ${SaltyEngineSrc} ${SaltyEngineInc})
+	add_library(SaltyEngine STATIC ${SaltyEngineSrc} ${SaltyEngineInc})
 
 	#Link libraries
 	target_link_libraries(SaltyEngine Common)
