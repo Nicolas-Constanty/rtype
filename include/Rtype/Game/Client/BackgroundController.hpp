@@ -18,10 +18,13 @@ public:
     void FixedUpdate();
 
 private:
-    SaltyEngine::GameObject *bg1;
-    SaltyEngine::GameObject *bg2;
+    SaltyEngine::GameObject *m_starfieldFar1;
+    SaltyEngine::GameObject *m_starfieldFar2;
+    SaltyEngine::GameObject *m_starfieldNear1;
+    SaltyEngine::GameObject *m_starfieldNear2;
+    SaltyEngine::GameObject *m_background;
     SaltyEngine::Vector2i   windowSize;
-    unsigned int            m_speed = 1;
+    float                   m_speed = 1;
     int                     m_start;
     int                     m_end;
 
