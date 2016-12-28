@@ -5,5 +5,7 @@
     "lib": "spiralbonus",
     "dependencies": [
         "Pod"
+    ], "sounds": [
+        "Coin_Drop"
     ]
 }

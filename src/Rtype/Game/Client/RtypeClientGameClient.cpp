@@ -318,6 +318,7 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetGAMEOVERPackage(GAMEOVERPa
             gameManager->PlaySound("r-type_stage_clear", false);
         } else {
             this->endScreen->DefeatScreen();
+            gameManager->PlaySound("r-type-game_over", false);
         }
         SaltyEngine::GameObject *obj = gameManager->gameObjectContainer[this->objectIDPlayerController];
 
