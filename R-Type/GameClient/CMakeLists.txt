@@ -84,7 +84,7 @@ elseif(MSVC)
 
 	add_custom_command(TARGET GameClient
         POST_BUILD
-        COMMAND cmd /c "MoveBinary & cd ..\\..\\..\\ & MoveBinary.bat")
+        COMMAND cmd /c "cd ..\\..\\..\\ & MoveBinary.bat")
 
 
 

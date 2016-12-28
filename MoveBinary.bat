@@ -14,7 +14,25 @@ set "cp=xcopy /d"
 %cp% cmake-build-debug\R-Type\SaltyEngine\Debug\* build\Debug
 %cp% cmake-build-debug\R-Type\SFMLSaltyEngine\Debug\* build\Debug
 %cp% Dependencies\SFML\Win\x64\Debug\*.dll build\Debug
+%cp% cmake-build-debug\R-Type\Prefab\Debug\* Assets\Metas
 
+cd cmake-build-debug\R-Type\GameClient
+
+%cp% ..\Common\Debug\* .\Debug
+%cp% ..\GameClient\Debug\* .\Debug
+%cp% ..\GameServer\Debug\* .\Debug
+%cp% ..\Network\Debug\* .\Debug
+%cp% ..\Parser\Debug\* .\Debug
+%cp% ..\Prefab\Debug\* .\Debug
+%cp% ..\Protocol\Game\Debug\* .\Debug
+%cp% ..\Protocol\Room\Debug\* .\Debug
+%cp% ..\Protocol\Server\Debug\* .\Debug
+%cp% ..\SaltyEngine\Debug\* .\Debug
+%cp% ..\SFMLSaltyEngine\Debug\* .\Debug
+%cp% ..\..\..\Dependencies\SFML\Win\x64\Debug\*.dll .\Debug
+mklink /J .\Debug\Assets ..\..\..\Assets
+
+cd ..\..\..
 mkdir build\Release
 
 %cp% cmake-build-debug\R-Type\Common\Release\* build\Release
