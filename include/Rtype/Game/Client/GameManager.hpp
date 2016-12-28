@@ -20,9 +20,11 @@ public:
 public:
 	void Start();
 	void FixedUpdate();
-//	void Update();
     void OnCollisionExit(SaltyEngine::ICollider *collider);
     void OnCollisionEnter(SaltyEngine::ICollider *collider);
+
+public:
+	void		PlaySound(std::string const &sound);
 
 public:
 	template <typename Pack, typename Send, typename ... Args>
@@ -93,6 +95,7 @@ private:
 private:
 	std::queue<std::function<void()> >	messages;
 	float	elapseTime;
+	SaltyEngine::Sound::ISound *m_backgroudnSound = NULL;
 
 };
 
