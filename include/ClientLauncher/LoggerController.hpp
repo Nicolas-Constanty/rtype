@@ -13,6 +13,8 @@ class LoggerController : public SaltyEngine::SaltyBehaviour
 public:
     explicit LoggerController(SaltyEngine::GameObject *obj);
     virtual ~LoggerController();
+
+    void Start() override;
 };
 
 

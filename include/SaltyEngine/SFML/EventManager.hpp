@@ -42,7 +42,7 @@ namespace SaltyEngine {
 
             static bool GetButtonPressed(::SaltyEngine::Input::Mouse::Button button);
 
-            static Vector GetPosition(void);
+            static Vector2i GetPosition(void);
 
             static Vector GetPositionRelative(void);
 

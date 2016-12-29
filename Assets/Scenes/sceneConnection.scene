@@ -6,7 +6,7 @@
     "height": "2"
   },
   "fonts" : [
-   "arial"
+    "SFSquareHead"
   ],
   "prefabs": {
     "CanvasPlayerConnect": {

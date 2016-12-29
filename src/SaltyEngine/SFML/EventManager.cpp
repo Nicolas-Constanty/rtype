@@ -89,9 +89,9 @@ namespace SaltyEngine {
             return sf::Mouse::isButtonPressed(sf::Mouse::Button(button));
         }
 
-        ::SaltyEngine::Vector EventManager::GetPosition(void) {
+        ::SaltyEngine::Vector2i EventManager::GetPosition(void) {
             sf::Vector2i position = sf::Mouse::getPosition();
-            return ::SaltyEngine::Vector(static_cast<float>(position.x), static_cast<float>(position.y));
+            return ::SaltyEngine::Vector2i(position.x, position.y);
         }
 
         ::SaltyEngine::Vector EventManager::GetPositionRelative(void) {
