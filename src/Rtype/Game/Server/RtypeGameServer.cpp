@@ -12,7 +12,7 @@
 
 const std::chrono::milliseconds   Rtype::Game::Server::RtypeGameServer::pingtimeout(15000);
 
-Rtype::Game::Server::RtypeGameServer::RtypeGameServer(Network::Core::NativeSocketIOOperationDispatcher &dispatcher, const size_t maxSize, u_int16_t level) :
+Rtype::Game::Server::RtypeGameServer::RtypeGameServer(Network::Core::NativeSocketIOOperationDispatcher &dispatcher, const size_t maxSize, const std::string &level) :
         AUDPServer(dispatcher),
         factory(),
         maxSize(maxSize),

@@ -16,9 +16,6 @@ LoggerController::~LoggerController()
 }
 
 void LoggerController::Start() {
-    gameObject->AddComponent<::SaltyEngine::SFML::SpriteRenderer>(SaltyEngine::SFML::AssetManager::Instance().GetSprite("GUI/launch_button"), ::SaltyEngine::Layout::normal);
-    gameObject->AddComponent<SaltyEngine::GUI::SFML::Button>(SaltyEngine::SFML::AssetManager::Instance().GetSprite("GUI/launch_button"),
-                                                       SaltyEngine::SFML::AssetManager::Instance().GetSprite("GUI/launch_button_over"));
 }
 
 SaltyEngine::Component *LoggerController::CloneComponent(SaltyEngine::GameObject *const obj)
@@ -31,7 +28,7 @@ void LoggerController::OnMouseEnter() {
 }
 
 void LoggerController::OnMouseOver() {
-    Debug::PrintInfo("Mouse Over");
+    //Debug::PrintInfo("Mouse Over");
 }
 
 void LoggerController::OnMouseExit() {

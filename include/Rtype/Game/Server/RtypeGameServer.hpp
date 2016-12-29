@@ -25,7 +25,7 @@ namespace Rtype
                 static const std::chrono::milliseconds   pingtimeout;
 
             public:
-                RtypeGameServer(Network::Core::NativeSocketIOOperationDispatcher &dispatcher, const size_t maxSize = 4, u_int16_t level = 1);
+                RtypeGameServer(Network::Core::NativeSocketIOOperationDispatcher &dispatcher, const size_t maxSize = 4, const std::string &level = "scene1");
                 RtypeGameServer(RtypeGameServer const &ref) = delete;
                 virtual ~RtypeGameServer();
 
@@ -93,7 +93,7 @@ namespace Rtype
                 GameManager *manager;
 
             private:
-                u_int16_t level;
+                std::string level;
                 std::map<int, bool> playersConnected;
                 bool launch;
 //                std::unique_ptr<SaltyEngine::SceneDefault>   monsterMap;

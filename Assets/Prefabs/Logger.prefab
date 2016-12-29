@@ -1,0 +1,7 @@
+{
+  "sprites": [
+    "GUI/launch_button",
+    "GUI/launch_button_over"
+  ],
+  "lib": "gui_logger"
+}

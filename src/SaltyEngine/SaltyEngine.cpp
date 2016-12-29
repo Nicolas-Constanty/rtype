@@ -134,10 +134,6 @@ namespace SaltyEngine
 						scene->OnCollisionEnter();
 						scene->OnCollisionExit();
 						scene->OnCollisionStay();
-
-						scene->OnMouseEnter();
-						scene->OnMouseExit();
-						scene->OnMouseOver();
 					}
 					else
 					{
@@ -382,11 +378,17 @@ namespace SaltyEngine
 			throw new std::runtime_error("Can't push null scene");
 	}
 
-    void Engine::SetPhysicsHandler(IPhysicsHandler *ph) {
+    void Engine::SetPhysicsHandler(APhysicsHandler *ph) {
         m_physics_handler = ph;
     }
 
-    IPhysicsHandler *Engine::GetPhysicsHandler(void) const {
+    APhysicsHandler *Engine::GetPhysicsHandler(void) const {
         return m_physics_handler;
     }
+
+	const Vector2ui &Engine::GetSize(void) const {
+		if (m_physics_handler)
+			return m_physics_handler->GetSize();
+		return m_renderer->GetSize();
+	}
 }

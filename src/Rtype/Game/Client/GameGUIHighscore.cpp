@@ -6,8 +6,7 @@
 
 GameGUIHighscore::GameGUIHighscore(SaltyEngine::GameObject *const gameObj) : SaltyBehaviour("GUIHighscore", gameObj) {
     highscoreLabel = gameObject->AddComponent<SaltyEngine::GUI::SFML::Label>("00000000", 25,
-                                                                             SaltyEngine::SFML::AssetManager::Instance().GetFont("arial"),
-                                                                             sf::Color::White);
+                                                                             SaltyEngine::SFML::AssetManager::Instance().GetFont("arial"));
 }
 
 GameGUIHighscore::~GameGUIHighscore() {

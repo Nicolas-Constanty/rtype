@@ -21,7 +21,7 @@ namespace Rtype
                 ~Room();
 
             public:
-                void Start(const uint16_t port = 4242, const size_t max = 4, const uint32_t secret = 0, const uint16_t map = 0);
+                void Start(const uint16_t port = 4242, const size_t max = 4, const uint32_t secret = 0, const std::string &map = 0);
                 void Run();
 
             private:

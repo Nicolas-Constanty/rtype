@@ -17,7 +17,7 @@ namespace SaltyEngine
                 setCharacterSize(size);
                 setColor(col);
                 setString(m_data);
-                setOrigin(getLocalBounds().width / 2, getGlobalBounds().height / 2);
+                setOrigin(getLocalBounds().width / 2, (getGlobalBounds().height + size / 2) / 2 );
             }
 
             void Label::SetText(const std::string &txt) {

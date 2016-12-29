@@ -6,6 +6,7 @@
 #define RTYPE_LOGGER_HPP
 
 #include "SaltyEngine/GameObject.hpp"
+#include "SaltyEngine/SFML.hpp"
 
 extern "C"
 {

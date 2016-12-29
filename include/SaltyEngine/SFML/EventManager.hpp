@@ -44,7 +44,7 @@ namespace SaltyEngine {
 
             static Vector2i GetPosition(void);
 
-            static Vector GetPositionRelative(void);
+            static Vector2i GetPositionRelative(void);
 
             static bool         IsJoystickConnected(unsigned int id);
             static unsigned int GetButtons(unsigned int id);

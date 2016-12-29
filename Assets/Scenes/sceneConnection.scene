@@ -10,7 +10,7 @@
   ],
   "prefabs": {
     "CanvasPlayerConnect": {
-      "prefabName": "CanvasPlayerConnect",
+      "prefabName": "Logger",
       "position": {
         "x" : "0",
         "y": "0"

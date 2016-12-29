@@ -94,9 +94,9 @@ namespace SaltyEngine {
             return ::SaltyEngine::Vector2i(position.x, position.y);
         }
 
-        ::SaltyEngine::Vector EventManager::GetPositionRelative(void) {
+        ::SaltyEngine::Vector2i EventManager::GetPositionRelative(void) {
             sf::Vector2i position = sf::Mouse::getPosition(*m_window);
-            return ::SaltyEngine::Vector(static_cast<float>(position.x), static_cast<float>(position.y));
+            return ::SaltyEngine::Vector2i(position.x, position.y);
         }
 
         bool EventManager::IsJoystickConnected(unsigned int id) {

@@ -7,7 +7,7 @@
 #include <Rtype/Game/Server/GameServerObject.hpp>
 #include <Rtype/Game/Client/GameManager.hpp>
 
-Rtype::Game::Server::GameServerObject::GameServerObject(SaltyEngine::GameObject *obj, const uint16_t port, const size_t maxClient, const uint32_t secret, uint16_t map) :
+Rtype::Game::Server::GameServerObject::GameServerObject(SaltyEngine::GameObject *obj, const uint16_t port, const size_t maxClient, const uint32_t secret, const std::string &map) :
     SaltyEngine::SaltyBehaviour(obj),
     secret(secret),
     port(port),

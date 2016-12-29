@@ -25,11 +25,11 @@ namespace SaltyEngine
 				virtual ~Button() {};
 
 			public:
-				void OnPointerClick() override {}; //	Registered IPointerClickHandler callback.
+				void OnPointerClick() override; //	Registered IPointerClickHandler callback.
 				void OnSubmit() override {}; //
 				void SetOver(::SaltyEngine::SFML::Sprite* const sprite);
 				void SetNormal(::SaltyEngine::SFML::Sprite* const sprite);
-				void Update();
+				void FixedUpdate() override;
 
 				::SaltyEngine::SFML::Sprite* GetOver(void) const;
 				::SaltyEngine::SFML::Sprite* GetNormal(void) const;
