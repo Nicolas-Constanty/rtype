@@ -59,7 +59,8 @@ namespace SaltyEngine
 	};
 }
 
-template class Singleton<SaltyEngine::Engine>;
+template<>
+SaltyEngine::Engine &Singleton<SaltyEngine::Engine>::Instance();
 
 #endif // !SALTYENGINE_HPP_
 

@@ -23,10 +23,17 @@ void Rtype::Game::Client::GameClientObject::Start()
 	m_rtypeclient = new Rtype::Game::Client::RtypeClientGameClient(m_dispatcher, m_secret);
     m_rtypeclient->Connect(m_ip, m_port);
 	m_dispatcher.Watch(m_rtypeclient, Network::Core::NativeSocketIOOperationDispatcher::READ);
-	m_dispatcher.setTimeout({0, 0});
+	m_dispatcher.setTimeout({0, 2});
 }
 
 void Rtype::Game::Client::GameClientObject::Update()
 {
-	m_dispatcher.Poll();
+	try
+	{
+		m_dispatcher.Poll();
+	}
+	catch (std::runtime_error const &)
+	{
+		SaltyEngine::Engine::Instance().Stop();
+	}
 }

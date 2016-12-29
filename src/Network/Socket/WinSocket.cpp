@@ -104,6 +104,7 @@ void Network::Socket::WinSocket::Open() throw(SocketException)
 		std::cout << std::to_string(WSAGetLastError()) << std::endl;
 		throw Network::Socket::SocketException(std::to_string(WSAGetLastError()));
     }
+	std::cout << "Creating socket: " << fd << std::endl;
 }
 
 void Network::Socket::WinSocket::Close()

@@ -33,6 +33,7 @@ namespace SaltyEngine {
     }
 }
 
-template class Singleton<SaltyEngine::SFML::AssetManager>;
+template<>
+SaltyEngine::SFML::AssetManager &Singleton<SaltyEngine::SFML::AssetManager>::Instance();
 
 #endif //RTYPE_ASSETMANAGER_HPP

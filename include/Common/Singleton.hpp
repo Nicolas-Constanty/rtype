@@ -21,13 +21,7 @@ class Singleton
 	Singleton& operator=(Singleton &&) = delete;      // Move assign
 
 public:
-	static T &Instance()
-    {
-		// C++11 Static Initializer -> avoids any concurrency at creation
-		// See : http://preshing.com/20130930/double-checked-locking-is-fixed-in-cpp11/
-		static T instance;
-        return instance;
-    }
+	static T &Instance();
 
 protected:
     //static T m_instance;

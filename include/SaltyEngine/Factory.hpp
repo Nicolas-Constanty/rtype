@@ -80,7 +80,9 @@ namespace SaltyEngine
         void Clear();
 	};
 }
-template class Singleton<SaltyEngine::Factory>;
+
+template<>
+SaltyEngine::Factory &Singleton<SaltyEngine::Factory>::Instance();
 
 #include "SaltyEngine/Object.hpp"
 

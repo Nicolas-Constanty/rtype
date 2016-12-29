@@ -444,4 +444,8 @@ namespace coroutine {
 	};
 
 }
+
+template<>
+coroutine::Ordinator	&Singleton<coroutine::Ordinator>::Instance();
+
 #endif //STDEX_COROUTINE_H_
