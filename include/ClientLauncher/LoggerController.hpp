@@ -12,8 +12,11 @@ class LoggerController : public SaltyEngine::SaltyBehaviour
 {
 public:
     explicit LoggerController(SaltyEngine::GameObject *obj);
-    virtual ~LoggerController();
-};
 
+    virtual ~LoggerController();
+
+public:
+    virtual SaltyEngine::Component *CloneComponent(SaltyEngine::GameObject *const obj);
+};
 
 #endif //RTYPE_LOGGERCONTROLLER_HPP

@@ -11,3 +11,8 @@ LoggerController::LoggerController(SaltyEngine::GameObject *obj) : SaltyEngine::
 LoggerController::~LoggerController()
 {
 }
+
+SaltyEngine::Component *LoggerController::CloneComponent(SaltyEngine::GameObject *const obj)
+{
+    return new LoggerController(obj);
+}
