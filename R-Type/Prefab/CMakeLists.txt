@@ -41,6 +41,11 @@ file(GLOB SRC_COMMMUNICATION
 
 	set(PREFAB_LIBRARIES SaltyEngine Network dl)
 
+	# GAME MANAGER
+	file(GLOB MANAGER_SOURCE_FILE "src/Prefabs/GameManager/*.cpp"  "include/Prefabs/GameManager/*.hpp")
+	add_library(game_manager SHARED ${MANAGER_SOURCE_FILE})
+	target_link_libraries(game_manager ${PREFAB_LIBRARIES})
+
 	# BLOCK
 	file(GLOB BEAM_SOURCE_FILE "src/Prefabs/Block/*.cpp"  "include/Prefabs/Block/*.hpp")
 	add_library(BlockSimple SHARED ${BEAM_SOURCE_FILE})
@@ -382,6 +387,7 @@ set(PREFABS_TARGET
 		monster_medusa
 		beam
 		BlockSimple
+        game_manager
         gui_logger)
 
 add_custom_target(prefabs DEPENDS ${PREFABS_TARGET})
