@@ -1,0 +1,20 @@
+{
+  "title": "sceneConnection",
+  "preview": "tot.png",
+  "scale": {
+    "width": "2",
+    "height": "2"
+  },
+  "fonts" : [
+   "arial"
+  ],
+  "prefabs": {
+    "CanvasPlayerConnect": {
+      "prefabName": "CanvasPlayerConnect",
+      "position": {
+        "x" : "0",
+        "y": "0"
+      }
+    }
+  }
+}

@@ -180,6 +180,14 @@ file(GLOB SRC_COMMMUNICATION
 		add_library(monster_medusa SHARED ${MEDUSAMONSTER_SOURCE_FILE})
 		target_link_libraries(monster_medusa ${PREFAB_LIBRARIES} missile_medusa missile_enemy_bullet explosion_basic player)
 
+	# GUI
+        # LOG SCREEN
+		file(GLOB GUI_LOGGER_SOURCE_FILE
+				"src/ClientLauncher/*.cpp"
+				"include/ClientLauncher/*.hpp")
+		add_library(gui_logger SHARED ${GUI_LOGGER_SOURCE_FILE})
+		target_link_libraries(gui_logger ${PREFAB_LIBRARIES})
+
 		set(PREFAB_DEPENDENCIES SFMLSaltyEngine Network PrefabCommunication Common ProtocolGame)
 
 	#Windows
@@ -373,6 +381,7 @@ set(PREFABS_TARGET
 		monster_neunoeil
 		monster_medusa
 		beam
-		BlockSimple)
+		BlockSimple
+        gui_logger)
 
 add_custom_target(prefabs DEPENDS ${PREFABS_TARGET})
