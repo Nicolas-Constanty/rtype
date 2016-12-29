@@ -9,13 +9,6 @@
    "arial"
   ],
   "prefabs": {
-    "GameManager": {
-      "prefabName": "GameManager",
-      "position": {
-        "x": "0",
-        "y": "0"
-      }
-    },
     "Player": {
       "prefabName": "Player",
       "position": {
