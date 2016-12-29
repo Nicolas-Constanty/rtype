@@ -40,13 +40,13 @@ int main(int ac, char **av)
 	Flags   flags;
 	std::string	ip;
 	uint16_t port;
-	uint16_t map;
+	std::string map;
 	uint32_t secret;
 	bool help;
 
 	flags.Var(ip, 'h', "host", std::string("127.0.0.1"), "The host to which connect", "Game host");
 	flags.Var(port, 'p', "port", uint16_t(4242), "The port to which connect", "Game port");
-	flags.Var(map, 'l', "level", uint16_t(2), "The level of the game server", "Game level");
+	flags.Var(map, 'l', "level", std::string("scene2"), "The level of the game server", "Game level");
 	flags.Var(secret, 's', "secret", uint32_t(0), "The secret code of the game server", "Game secret");
 
 	flags.Bool(help, 'i', "info", "Show this help message", "Info");
@@ -92,7 +92,13 @@ int main(int ac, char **av)
 //	*scene << guiBehind;
 
 	server.reset(new SaltyEngine::GameObject("Rtype", SaltyEngine::Layer::Tag::Destroy));
-	SaltyEngine::SceneDefault *sceneDefault = SaltyEngine::SFML::AssetManager::Instance().LoadScene("scene" + std::to_string(map));
+	SaltyEngine::SceneDefault *sceneDefault = SaltyEngine::SFML::AssetManager::Instance().LoadScene(map);
+
+	if (sceneDefault == nullptr)
+	{
+		Debug::PrintError("Cannot open scene [" + map + "]");
+		return 1;
+	}
 
 	scene->SetScale(sceneDefault->scale);
 
