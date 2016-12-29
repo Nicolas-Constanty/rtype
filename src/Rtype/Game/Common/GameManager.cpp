@@ -41,11 +41,11 @@ void GameManager::Start()
 //        }
     }
     if (m_server) {
-    monsterMap = SaltyEngine::SFML::AssetManager::Instance().LoadScene("scene" + std::to_string(m_server->GetLevel()));
-
-    monsterMap->objects.sort([](std::pair<std::string, SaltyEngine::Vector2f> obj1, std::pair<std::string, SaltyEngine::Vector2f> obj2) {
-        return (obj1.second.x < obj2.second.x);
-    });
+        monsterMap = SaltyEngine::SFML::AssetManager::Instance().LoadScene(m_server->GetLevel());
+        if (monsterMap)
+            monsterMap->objects.sort([](std::pair<std::string, SaltyEngine::Vector2f> obj1, std::pair<std::string, SaltyEngine::Vector2f> obj2) {
+                return (obj1.second.x < obj2.second.x);
+            });
     }
 }
 

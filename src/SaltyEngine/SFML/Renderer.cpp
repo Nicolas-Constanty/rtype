@@ -4,8 +4,10 @@
 namespace SaltyEngine
 {
 	namespace SFML {
-		Renderer::Renderer(sf::VideoMode const &vm, const std::string &name) : sf::RenderWindow(vm, name) {
-		}
+		Renderer::Renderer(sf::VideoMode const &vm, const std::string &name) :
+				ARenderer<sf::Vector2i>(vm.width, vm.height),
+				sf::RenderWindow(vm, name)
+		{}
 
 		void Renderer::Display() {
 			if (isOpen()) {
@@ -13,6 +15,7 @@ namespace SaltyEngine
 				DrawGame();
 				DrawGUI();
 				DrawDebug();
+                DrawDrawable();
 				DrawLabel();
 				display();
 			} else
@@ -60,18 +63,20 @@ namespace SaltyEngine
 
 		void Renderer::AddSpriteRenderer(SpriteRenderer *const sprr) {
 			if (m_spriteRenderers.find(sprr->GetLayer()) == m_spriteRenderers.end())
+			{
 				m_spriteRenderers.emplace(std::make_pair(sprr->GetLayer(), SpriteList()));
-			::SaltyEngine::Sprite<sf::Vector2i> **s = &sprr->m_sprite;
-			sf::RenderWindow *w = dynamic_cast<sf::RenderWindow *>(sprr->GetWindow());
-			if (w == nullptr)
-				w = this;
-			if (s && w)
-				m_spriteRenderers.at(sprr->GetLayer()).push_back(Drawable((Sprite **) (s), w, sprr->gameObject, sprr));
+				::SaltyEngine::Sprite<sf::Vector2i> **s = &sprr->m_sprite;
+				sf::RenderWindow *w = dynamic_cast<sf::RenderWindow *>(sprr->GetWindow());
+				if (w == nullptr)
+					w = this;
+				if (s && w)
+					m_spriteRenderers.at(sprr->GetLayer()).push_back(Drawable((Sprite **) (s), w, sprr->gameObject, sprr));
+			}
 		}
 
 		void Renderer::AddLabel(SaltyEngine::GUI::SFML::Label *label)
 		{
-			if (label)
+			if (label && std::find(m_labels.begin(), m_labels.end(), label) == m_labels.end())
 				m_labels.push_back(label);
 			else
 				Debug::PrintWarning("Cannot add null label");
@@ -82,7 +87,8 @@ namespace SaltyEngine
 				Debug::PrintWarning("Cannot add empty box collider");
 				return;
 			}
-			m_debug.push_back(box);
+			if (std::find(m_debug.begin(), m_debug.end(), box) == m_debug.end())
+				m_debug.push_back(box);
 		}
 
 		void Renderer::AddSelectable(GUI::Selectable *const select) {
@@ -90,7 +96,8 @@ namespace SaltyEngine
 				Debug::PrintWarning("Cannot add empty select");
 				return;
 			}
-			m_selectables.push_back(select);
+			if (std::find(m_selectables.begin(), m_selectables.end(), select) == m_selectables.end())
+				m_selectables.push_back(select);
 		}
 
 		Renderer::~Renderer() {
@@ -122,7 +129,18 @@ namespace SaltyEngine
 				draw(*(*lab));
 			}
 		}
-	}
+
+        void Renderer::DrawDrawable() {
+            while (!m_drawables.empty()){
+                draw(*m_drawables.front());
+                m_drawables.pop();
+            }
+        }
+
+        void Renderer::AddDrawable(const sf::Drawable *dr) {
+            m_drawables.push(dr);
+        }
+    }
 }
 
 

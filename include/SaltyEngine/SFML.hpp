@@ -20,6 +20,8 @@
 #include "SFML/Window.hpp"
 #include "SFML/SpriteCollider2D.hpp"
 #include "SFML/PhysicsHandler.hpp"
+#include "SFML/TextBox.hpp"
+#include "SFML/Label.hpp"
 
 typedef SaltyEngine::Input::InputManager<SaltyEngine::SFML::EventManager>  InputKey;
 

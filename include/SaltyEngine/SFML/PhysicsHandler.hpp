@@ -15,7 +15,7 @@ namespace SaltyEngine
 {
     namespace SFML
     {
-        class LIB_EXPORT PhysicsHandler : public IPhysicsHandler {
+        class LIB_EXPORT PhysicsHandler : public APhysicsHandler {
             static const sf::Uint32 m_IntColors[];
             static const sf::Color m_collisionLayersColor[];
 //            static std::map<const sf::Uint32, const Layer> m_collisionLayers;
@@ -38,9 +38,6 @@ namespace SaltyEngine
             virtual void Collide();
 
         public:
-            unsigned int GetSizeX() const;
-
-            unsigned int GetSizeY() const;
             void RemoveSpriteCollider(const SpriteCollider2D *);
             void RemoveSpriteRenderer(const SpriteRenderer *);
 
@@ -56,8 +53,6 @@ namespace SaltyEngine
 
         private:
             //std::map<Layer, sf::Image>       m_imgs;
-            unsigned int        m_size_x;
-            unsigned int        m_size_y;
             sf::Image           m_img;
             sf::Texture         m_texture;
             sf::Sprite          m_sprite;

@@ -18,7 +18,7 @@ namespace SaltyEngine
 		}
 		void Event::AddListener(const std::string & name, EventDelegate func)
 		{
-			if (m_events.find(name) != m_events.end())
+			if (m_events.find(name) == m_events.end())
 				m_events[name] = func;
 			else
 				Debug::PrintWarning(name + " is already set, use SetListener instead.");

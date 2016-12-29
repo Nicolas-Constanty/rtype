@@ -39,12 +39,14 @@ namespace SaltyEngine
 		void operator<<(AScene *scene);
 		double GetDeltaTime(void) const;
 		double GetFixedDeltaTime(void) const;
+        Input::IEventManager *GetEventManager() const;
 		void SetRenderer(IRenderer *renderer);
 		void SetEventManager(Input::IEventManager *ev_manager);
-		void SetPhysicsHandler(IPhysicsHandler *renderer);
+		void SetPhysicsHandler(APhysicsHandler *renderer);
 		AScene *GetCurrentScene(void) const;
 		IRenderer *GetRenderer(void) const;
-		IPhysicsHandler *GetPhysicsHandler(void) const;
+		APhysicsHandler *GetPhysicsHandler(void) const;
+		const Vector2ui &GetSize(void) const;
 
 	private:
 		EngineStatus								m_status;
@@ -55,7 +57,7 @@ namespace SaltyEngine
 		std::chrono::duration<long long, std::nano> m_delta_time;
 		IRenderer									*m_renderer;
 		Input::IEventManager						*m_even_manager;
-        IPhysicsHandler                             *m_physics_handler;
+        APhysicsHandler                             *m_physics_handler;
 	};
 }
 

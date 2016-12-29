@@ -16,7 +16,7 @@ Rtype::Game::Server::Room::~Room()
 
 }
 
-void Rtype::Game::Server::Room::Start(const uint16_t port, const size_t max, const uint32_t secret, uint16_t map)
+void Rtype::Game::Server::Room::Start(const uint16_t port, const size_t max, const uint32_t secret, const std::string &map)
 {
     // Create Scene
     //SaltyEngine::SFML::Renderer *renderer = new SaltyEngine::SFML::Renderer(sf::VideoMode(1280, 720), "R-Type Launcher");

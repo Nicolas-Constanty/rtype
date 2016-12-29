@@ -19,8 +19,9 @@ namespace SaltyEngine
 		typedef std::list<std::unique_ptr<ASpriteRenderer<T>>> SpriteList;
 		typedef  std::map<int, SpriteList> SpriteMap;
 	public:
+		ARenderer(unsigned int x, unsigned int y) : IRenderer(x, y) {};
 		virtual ~ARenderer() {};
-		void Display() override = 0;
+		virtual void Display() override = 0;
 
 	private:
 		static SpriteMap m_spriteRenderers;

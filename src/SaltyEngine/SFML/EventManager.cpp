@@ -23,7 +23,10 @@ namespace SaltyEngine {
                 return;
             }
             sf::Event event;
+            while (!m_events.empty())
+                m_events.pop();
             while (m_window->pollEvent(event)) {
+
                 switch (event.type) {
                     case sf::Event::EventType::Closed:
                         m_window->close();
@@ -45,6 +48,9 @@ namespace SaltyEngine {
                     case sf::Event::EventType::JoystickButtonReleased:
                         break;
                     case sf::Event::EventType::JoystickMoved:
+                        break;
+                    case sf::Event::EventType::TextEntered:
+                        m_events.push(event);
                         break;
                     default:
                         break;
@@ -89,14 +95,14 @@ namespace SaltyEngine {
             return sf::Mouse::isButtonPressed(sf::Mouse::Button(button));
         }
 
-        ::SaltyEngine::Vector EventManager::GetPosition(void) {
+        ::SaltyEngine::Vector2i EventManager::GetPosition(void) {
             sf::Vector2i position = sf::Mouse::getPosition();
-            return ::SaltyEngine::Vector(static_cast<float>(position.x), static_cast<float>(position.y));
+            return ::SaltyEngine::Vector2i(position.x, position.y);
         }
 
-        ::SaltyEngine::Vector EventManager::GetPositionRelative(void) {
+        ::SaltyEngine::Vector2i EventManager::GetPositionRelative(void) {
             sf::Vector2i position = sf::Mouse::getPosition(*m_window);
-            return ::SaltyEngine::Vector(static_cast<float>(position.x), static_cast<float>(position.y));
+            return ::SaltyEngine::Vector2i(position.x, position.y);
         }
 
         bool EventManager::IsJoystickConnected(unsigned int id) {
@@ -117,6 +123,10 @@ namespace SaltyEngine {
 
         float EventManager::GetAxisPosition(unsigned int id, ::SaltyEngine::Input::MotionController::Axis axis) {
             return sf::Joystick::getAxisPosition(id, sf::Joystick::Axis(axis));
+        }
+
+        const std::queue<sf::Event> &EventManager::GetEvent() {
+            return m_events;
         }
     }
 }

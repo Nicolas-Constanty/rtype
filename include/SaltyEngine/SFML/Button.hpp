@@ -17,7 +17,6 @@ namespace SaltyEngine
 			public:
 				explicit Button(GameObject* gameObj, ::SaltyEngine::SFML::Sprite * const sprite);
 
-
 				Button(GameObject* gameObj, ::SaltyEngine::SFML::Sprite * const norm, ::SaltyEngine::SFML::Sprite * const over);
 
 
@@ -26,10 +25,11 @@ namespace SaltyEngine
 				virtual ~Button() {};
 
 			public:
-				void OnPointerClick() override {}; //	Registered IPointerClickHandler callback.
+				void OnPointerClick() override; //	Registered IPointerClickHandler callback.
 				void OnSubmit() override {}; //
 				void SetOver(::SaltyEngine::SFML::Sprite* const sprite);
 				void SetNormal(::SaltyEngine::SFML::Sprite* const sprite);
+				void FixedUpdate() override;
 
 				::SaltyEngine::SFML::Sprite* GetOver(void) const;
 				::SaltyEngine::SFML::Sprite* GetNormal(void) const;
@@ -41,6 +41,7 @@ namespace SaltyEngine
 				::SaltyEngine::SFML::Sprite			*m_normal;
 				::SaltyEngine::SFML::Sprite			*m_over;
 				::SaltyEngine::SFML::SpriteRenderer *m_sprr;
+				bool 								m_status;
 
 			public:
 				virtual Component *CloneComponent(GameObject* const obj);

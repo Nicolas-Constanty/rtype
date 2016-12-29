@@ -59,14 +59,14 @@ namespace SaltyEngine
 	    {
 		    PING_PONG,
 			LOOP,
+			LOOP_BACK,
 			ONCE
 	    };
     }
 
 	namespace Layer
 	{
-//		static std::string const Tags[] = { "NONE", "PLAYER", "ENEMY", "BulletPlayer" };
-        enum class Tag : int { Untagged = 0, Player, Enemy, BulletPlayer, BulletEnemy, Destroy, Wall };
+        enum class Tag : int { Untagged = 0, Player, Enemy, BulletPlayer, BulletEnemy, Destroy, Wall, GameManager };
 	}
 
 	enum class NetRole

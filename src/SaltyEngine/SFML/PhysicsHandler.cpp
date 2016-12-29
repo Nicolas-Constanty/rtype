@@ -51,17 +51,17 @@ namespace SaltyEngine
 
 
 
-        PhysicsHandler::PhysicsHandler(unsigned int x, unsigned int y, bool debug) : m_size_x(x), m_size_y(y), m_stop(false) {
+        PhysicsHandler::PhysicsHandler(unsigned int x, unsigned int y, bool debug) : APhysicsHandler(x, y), m_stop(false) {
 
             m_texture.create(x, y);
-            m_img.create(m_size_x, m_size_y, sf::Color::Black);
+            m_img.create(m_size.x, m_size.y, sf::Color::Black);
             m_texture.update(m_img);
             m_sprite.setTexture(m_texture);
             m_renderer = nullptr;
             if (debug)
             {
                 std::cout << "Mode Debug Enabled" << std::endl;
-                m_renderer = new sf::RenderWindow(sf::VideoMode(m_size_x, m_size_y), "Debug Collisions");
+                m_renderer = new sf::RenderWindow(sf::VideoMode(m_size.x, m_size.y), "Debug Collisions");
 //                m_renderer->setFramerateLimit(60);
             }
         }
@@ -146,7 +146,7 @@ namespace SaltyEngine
                                 float pos_x = (cosRot * pos_xa - sinRot * pos_ya) + posX;
                                 float pos_y = (cosRot * pos_ya + sinRot * pos_xa) + posY;
 
-                                if (pos_x >= 0 && pos_y >= 0 && pos_x < m_size_x && pos_y < m_size_y)
+                                if (pos_x >= 0 && pos_y >= 0 && pos_x < m_size.x && pos_y < m_size.y)
                                 {
                                     const sf::Color &color = spr->GetImage().getPixel(x + text_pos_x, y + text_pos_y);
                                     if (color != sf::Color::Transparent)
@@ -188,20 +188,12 @@ namespace SaltyEngine
 //            std::cout << pos.x << " " << pos.y << std::endl;
 //            if (pos.x >= 0 && pos.y >= 0 && pos.x / scale.x < m_size_x && pos.y / scale.y < m_size_y) {
 //                std::cout << " COUCOU " << std::endl;
+            if (m_colliders.find(collider) == m_colliders.end())
                 m_colliders[collider] = false;
+            if (m_col_to_sprite.find(collider->GetColor()) == m_col_to_sprite.end())
                 m_col_to_sprite[collider->GetColor()] = collider;
 //            }
             m_mutext.unlock();
-        }
-
-
-
-        unsigned int PhysicsHandler::GetSizeX() const {
-            return m_size_x;
-        }
-
-        unsigned int PhysicsHandler::GetSizeY() const {
-            return m_size_y;
         }
 
 //        const std::map<Layer, sf::Image> &PhysicsHandler::GetImages() const {
@@ -254,13 +246,13 @@ namespace SaltyEngine
                 unsigned int text_pos_y = (unsigned int) r.top;
                 unsigned int text_pos_h = (unsigned int) r.height;
                 unsigned int text_pos_w = (unsigned int) r.width;
-                if (i_pos_x >= 0 && i_pos_y >= 0 && i_pos_x < m_size_x && i_pos_y < m_size_y)
+                if (i_pos_x >= 0 && i_pos_y >= 0 && i_pos_x < m_size.x && i_pos_y < m_size.y)
                 {
                     for (unsigned int y = 0; y < text_pos_h; ++y) {
                         for (unsigned int x = 0; x < text_pos_w; ++x) {
                             float pos_x = x + offset_x;
                             float pos_y = y + offset_y;
-                            if (pos_x >= 0 && pos_y >= 0 && pos_x < m_size_x && pos_y < m_size_y)
+                            if (pos_x >= 0 && pos_y >= 0 && pos_x < m_size.x && pos_y < m_size.y)
                             {
                                 const sf::Color &color = spr->GetImage().getPixel(x + text_pos_x, y + text_pos_y);
                                 if (color != sf::Color::Transparent)
@@ -358,7 +350,8 @@ namespace SaltyEngine
         }
 
         void PhysicsHandler::AddSprite(const SpriteRenderer *s) {
-            m_sprites.push_back(s);
+            if (std::find(m_sprites.begin(), m_sprites.end(), s) == m_sprites.end())
+                m_sprites.push_back(s);
         }
 
         void PhysicsHandler::RemoveSpriteCollider(const SpriteCollider2D *s) {
