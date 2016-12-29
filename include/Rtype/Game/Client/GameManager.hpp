@@ -54,6 +54,9 @@ public:
 	}
 
 public:
+	virtual SaltyEngine::Component *CloneComponent(SaltyEngine::GameObject *const obj);
+
+public:
     bool isServerSide() const;
 
 public:

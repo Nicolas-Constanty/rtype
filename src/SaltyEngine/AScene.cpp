@@ -390,6 +390,9 @@ namespace SaltyEngine
         m_init.emplace(m_objects.size() - 1);
     }
 
+    /**
+     * @deprecated : use GameObject::Find instead
+     */
     GameObject *AScene::FindByName(std::string const &name) const
     {
 		std::vector<GameObject*> objects = m_objects;

@@ -33,7 +33,7 @@ namespace SaltyEngine
 		std::ostream & print(std::ostream &os) const;
 		GameObject const &operator[](size_t index) const;
 		void Clear();
-		GameObject	*FindByName(std::string const &name) const;
+		DEPRECATED GameObject	*FindByName(std::string const &name) const;
 		GameObject	*FindById(size_t id) const;
 		virtual void operator<<(GameObject * const gameobj);
 		std::vector<SaltyEngine::GameObject *> const &GetAllGameObject() const;
