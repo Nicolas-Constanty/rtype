@@ -1,4 +1,5 @@
 #include "Rtype/Game/Client/GameClientObject.hpp"
+#include "Rtype/Game/Client/GameManager.hpp"
 
 Rtype::Game::Client::GameClientObject::GameClientObject(SaltyEngine::GameObject * const gamObj, const std::string &ip, const uint16_t port, const uint16_t secret) :
 		SaltyBehaviour("GameClientObject", gamObj),
