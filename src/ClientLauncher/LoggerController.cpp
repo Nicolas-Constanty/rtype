@@ -16,6 +16,14 @@ LoggerController::~LoggerController()
 }
 
 void LoggerController::Start() {
+
+    SaltyEngine::SFML::Animation *animation = gameObject->transform.GetParent()->GetChild(2)->gameObject->GetComponent<SaltyEngine::SFML::Animation>();
+    if (animation)
+    {
+        animation->AddClip(SaltyEngine::SFML::AssetManager::Instance().GetAnimation("GUI/animation_login"), "anim");
+        animation->Play("anim");
+        gameObject->transform.GetParent()->SetLocalScale(SaltyEngine::Vector2(1, 1));
+    }
 }
 
 SaltyEngine::Component *LoggerController::CloneComponent(SaltyEngine::GameObject *const obj)

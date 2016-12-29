@@ -15,6 +15,7 @@ namespace SaltyEngine
 				DrawGame();
 				DrawGUI();
 				DrawDebug();
+                DrawDrawable();
 				DrawLabel();
 				display();
 			} else
@@ -128,7 +129,18 @@ namespace SaltyEngine
 				draw(*(*lab));
 			}
 		}
-	}
+
+        void Renderer::DrawDrawable() {
+            while (!m_drawables.empty()){
+                draw(*m_drawables.front());
+                m_drawables.pop();
+            }
+        }
+
+        void Renderer::AddDrawable(const sf::Drawable *dr) {
+            m_drawables.push(dr);
+        }
+    }
 }
 
 

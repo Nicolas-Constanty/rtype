@@ -59,6 +59,7 @@ namespace SaltyEngine
 	    {
 		    PING_PONG,
 			LOOP,
+			LOOP_BACK,
 			ONCE
 	    };
     }

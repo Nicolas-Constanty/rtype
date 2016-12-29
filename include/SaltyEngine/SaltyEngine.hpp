@@ -39,6 +39,7 @@ namespace SaltyEngine
 		void operator<<(AScene *scene);
 		double GetDeltaTime(void) const;
 		double GetFixedDeltaTime(void) const;
+        Input::IEventManager *GetEventManager() const;
 		void SetRenderer(IRenderer *renderer);
 		void SetEventManager(Input::IEventManager *ev_manager);
 		void SetPhysicsHandler(APhysicsHandler *renderer);

@@ -29,6 +29,7 @@ namespace SaltyEngine
                 void Reset();
                 void ReverseAndReset();
                 void UpdateAnimTimeline(double deltaTime);
+                void SetBackward(bool back);
 
             private:
                 AnimationClip *m_clip;

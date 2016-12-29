@@ -28,6 +28,7 @@ namespace SaltyEngine {
 
         protected:
             static sf::RenderWindow *m_window;
+            std::queue<sf::Event> m_events;
 
         public:
             void Update();
@@ -45,6 +46,8 @@ namespace SaltyEngine {
             static Vector2i GetPosition(void);
 
             static Vector2i GetPositionRelative(void);
+
+            const std::queue<sf::Event> &GetEvent(void);
 
             static bool         IsJoystickConnected(unsigned int id);
             static unsigned int GetButtons(unsigned int id);

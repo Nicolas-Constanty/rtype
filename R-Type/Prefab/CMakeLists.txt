@@ -246,7 +246,7 @@ file(GLOB SRC_COMMMUNICATION
 
 	# BEAM
 	file(GLOB BEAM_SOURCE_FILE "../../src/Prefabs/Beam/*.cpp" )
-	add_library(beam SHARED ${BEAM_SOURCE_FILE} $<TARGET_OBJECTS:RtypeLib> $<TARGET_OBJECTS:CommonPrefabs>)
+	add_library(beam SHARED ${BEAM_SOURCE_FILE} $<TARGET_OBJECTS:RtypeLib> $<TARGET_OBJECTS:CommonPrefabs> ../../src/SaltyEngine/SFML/TextBox.cpp ../../include/SaltyEngine/SFML/TextBox.hpp)
 	target_link_libraries(beam ${PREFAB_LIBRARIES})
 	# BONUS
 	file(GLOB BONUS_SRC "../../src/Prefabs/Bonus/*.cpp")

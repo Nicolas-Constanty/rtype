@@ -159,6 +159,10 @@ namespace SaltyEngine
         void SetLocalScale(const T scale)
         {
             localScale = scale;
+			for (BaseTransform *tr : m_children)
+			{
+				tr->localScale = T(localScale.x * tr->localScale.x, localScale.y * tr->localScale.y);
+			}
         }
 
         void SetRotation(float rot)

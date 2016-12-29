@@ -118,11 +118,15 @@ namespace SaltyEngine {
                 mode = AnimationConstants::WrapMode::PING_PONG;
             } else if (it->second.mode == "LOOP") {
                 mode = AnimationConstants::WrapMode::LOOP;
+            } else if (it->second.mode == "LOOP_BACK")
+            {
+                mode = AnimationConstants::WrapMode::LOOP_BACK;
             }
 
             AnimationClip *clip = new SaltyEngine::SFML::AnimationClip(name, it->second.framerate, mode);
             for (std::string const &spriteName: it->second.sprites) {
                 Sprite  *sprite = GetSpriteScale(spriteName, true);
+                std::cout << it->second.scale.x << std::endl;
                 sprite->setScale(it->second.scale.x, it->second.scale.y);
                 clip->AddSprite(sprite);
             }

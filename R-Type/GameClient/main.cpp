@@ -68,8 +68,25 @@ void CallCharabia(const std::string &map,
 	SaltyEngine::Engine::Instance().Run();
 }
 
-void CallGUITest(const std::string &map, SaltyEngine::SFML::Scene *scene)
+void CallGUITest(const std::string &map)
 {
+    unsigned int x = 500;
+    unsigned int y = 440;
+    SaltyEngine::SFML::Renderer *renderer = new SaltyEngine::SFML::Renderer(sf::VideoMode(x * 2, y * 2), "R-Type Launcher");
+    SaltyEngine::SFML::EventManager *event_manager = new SaltyEngine::SFML::EventManager(renderer);
+    SaltyEngine::SFML::PhysicsHandler *ph = new SaltyEngine::SFML::PhysicsHandler(x, y, false);
+    SaltyEngine::Engine::Instance().SetPhysicsHandler(ph);
+    // Set Renderer and EventManager
+    Singleton<SaltyEngine::Engine>::Instance().SetRenderer(renderer);
+    Singleton<SaltyEngine::Engine>::Instance().SetEventManager(event_manager);
+
+//	SaltyEngine::Engine::Instance().SetFrameRate(30);
+
+    // Create Scene
+    SaltyEngine::SFML::Scene *scene = new SaltyEngine::SFML::Scene();
+
+    SaltyEngine::Engine::Instance() << scene;
+
 	SaltyEngine::SceneDefault *sceneDefault = SaltyEngine::SFML::AssetManager::Instance().LoadScene(map);
 	scene->SetScale(sceneDefault->scale);
 	for (std::list<std::pair<std::string, SaltyEngine::Vector2f> >::const_iterator it = sceneDefault->objects.begin(); it != sceneDefault->objects.end(); ++it) {
@@ -107,25 +124,10 @@ int main(int ac, char **av)
 	Network::Socket::WinSocket::Start();
 #endif
 
-	unsigned int x = 960;
-	unsigned int y = 540;
-	SaltyEngine::SFML::Renderer *renderer = new SaltyEngine::SFML::Renderer(sf::VideoMode(x * 2, y * 2), "R-Type Launcher");
-	SaltyEngine::SFML::EventManager *event_manager = new SaltyEngine::SFML::EventManager(renderer);
-	SaltyEngine::SFML::PhysicsHandler *ph = new SaltyEngine::SFML::PhysicsHandler(x, y, false);
-	SaltyEngine::Engine::Instance().SetPhysicsHandler(ph);
-	// Set Renderer and EventManager
-	Singleton<SaltyEngine::Engine>::Instance().SetRenderer(renderer);
-	Singleton<SaltyEngine::Engine>::Instance().SetEventManager(event_manager);
 
-//	SaltyEngine::Engine::Instance().SetFrameRate(30);
-
-	// Create Scene
-	SaltyEngine::SFML::Scene *scene = new SaltyEngine::SFML::Scene();
-
-	SaltyEngine::Engine::Instance() << scene;
 
 	//COMMENT THIS LINE
-	CallGUITest(map, scene);
+	CallGUITest(map);
 
 	//UNCOMMENT THIS LINE TO GET OLD CLIENT
 //	CallCharabia(map, scene, renderer, ip, port, secret);

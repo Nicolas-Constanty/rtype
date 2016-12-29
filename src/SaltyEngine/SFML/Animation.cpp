@@ -113,6 +113,11 @@ namespace SaltyEngine
                                 case AnimationConstants::PING_PONG:
                                     animData->ReverseAndReset();
                                     break;
+                                case AnimationConstants::LOOP_BACK:
+                                {
+                                    animData->SetBackward(true);
+                                    animData->Reset();
+                                }
                             }
                         }
                     }
@@ -216,6 +221,10 @@ namespace SaltyEngine
             {
                 m_clip->OnAnimEnd();
             }
+        }
+
+        void Animation::AnimData::SetBackward(bool back) {
+            m_playBackwards = back;
         }
     }
 }

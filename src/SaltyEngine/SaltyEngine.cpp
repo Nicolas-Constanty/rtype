@@ -391,4 +391,8 @@ namespace SaltyEngine
 			return m_physics_handler->GetSize();
 		return m_renderer->GetSize();
 	}
+
+	Input::IEventManager *Engine::GetEventManager() const {
+        return m_even_manager;
+    }
 }
