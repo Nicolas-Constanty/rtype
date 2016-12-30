@@ -424,7 +424,6 @@ namespace SaltyEngine {
 
                     try {
                         if (!map["scale"]["width"]().empty()) {
-                            std::cout << map["scale"]["width"]() << std::endl;
                             m_current_scene->scale.x = std::stof(map["scale"]["width"]());
                         }
                         if (!map["scale"]["height"]().empty()) {
