@@ -59,10 +59,11 @@ void Network::Socket::BasicSockStreamsContainer::Remove(Network::Socket::ISockSt
 void Network::Socket::BasicSockStreamsContainer::Move(Network::Socket::ISockStreamHandler *old,
                                                       Network::Socket::ISockStreamHandler *newone)
 {
-    for (ISockStreamHandler *curr : streams)
+    for (ISockStreamHandler *&curr : streams)
     {
 		if (curr == old)
 		{
+            delete curr;
 			curr = newone;
 			break;
 		}

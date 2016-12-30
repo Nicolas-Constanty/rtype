@@ -128,7 +128,7 @@ void Network::Core::NativeSocketIOOperationDispatcher::HandleOperations()
 #endif // _WIN32
 
 	if (!wtosend && !rtosend)
-		return;
+        return;
 
     int ret;
     do

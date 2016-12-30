@@ -101,8 +101,11 @@ bool RtypeRoomTCPConnection::OnJoinRoom() {
 }
 
 void RtypeRoomTCPConnection::onGetCREATEPackage(CREATEPackageRoom const &obj) {
+    std::cout << "azoeazazeaz" << std::endl;
     std::cout << obj << std::endl;
+    std::cout << "azoeazazeaz" << std::endl;
     roomService = ServerGameDispatcher::Instance().CreateRoomService(obj.name, obj.roomPlayerMax, obj.mapID);
+    std::cout << "tooaazo" << std::endl;
     if (roomService) {
         // La room a bien été créée par le ServerGameDispatcher.
         this->SendData(*roomPackageFactory.create<CREATEPackageRoom>(roomService->getClientNbr(),

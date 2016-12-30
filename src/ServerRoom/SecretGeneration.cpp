@@ -16,3 +16,11 @@ unsigned int SecretGeneration::generateSecret() {
     ++secretBase;
     return secretBase;
 }
+
+template<>
+SecretGeneration &Singleton<SecretGeneration>::Instance()
+{
+    static SecretGeneration _inst;
+
+    return _inst;
+}
