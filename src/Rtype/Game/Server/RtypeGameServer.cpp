@@ -10,7 +10,7 @@
 #include <Rtype/Game/Client/GameManager.hpp>
 #include <Prefabs/Player/PlayerController.hpp>
 
-const std::chrono::milliseconds   Rtype::Game::Server::RtypeGameServer::pingtimeout(15000);
+const std::chrono::milliseconds   Rtype::Game::Server::RtypeGameServer::pingtimeout(2500);
 
 Rtype::Game::Server::RtypeGameServer::RtypeGameServer(Network::Core::NativeSocketIOOperationDispatcher &dispatcher, const size_t maxSize, const std::string &level) :
         AUDPServer(dispatcher),
