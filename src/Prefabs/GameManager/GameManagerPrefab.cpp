@@ -2,6 +2,7 @@
 // Created by veyrie_f on 29/12/16.
 //
 
+#include <Rtype/Game/Client/GameGUILives.hpp>
 #include "Rtype/Game/Client/GameGUIBeam.hpp"
 #include "Rtype/Game/Client/GameClientObject.hpp"
 #include "Prefabs/GameManager/GameManagerPrefab.hpp"
@@ -35,6 +36,12 @@ GameManagerPrefab::GameManagerPrefab() : GameObject("GameManager", SaltyEngine::
     victoryScreen->transform.SetLocalScale(SaltyEngine::Vector2(2, 2));
     victoryScreen->transform.SetPosition(size.x / 2, static_cast<float>(size.y / 2.3));
     transform.SetLocalScale(SaltyEngine::Vector2(2, 2));
+
+    SaltyEngine::GameObject     *guiLives = (SaltyEngine::GameObject*)SaltyEngine::Instantiate();
+    guiLives->SetName("GUILives");
+    guiLives->AddComponent<GameGUILives>();
+    guiLives->transform.SetLocalScale(SaltyEngine::Vector2(2, 2));
+    guiLives->transform.SetPosition(static_cast<float>(100), guiGameBeam->transform.GetPosition().y);
 
 //    SaltyEngine::GameObject     *buttonEnd = (SaltyEngine::GameObject*)SaltyEngine::Instantiate();
 //    buttonEnd->SetName("EndScreen");

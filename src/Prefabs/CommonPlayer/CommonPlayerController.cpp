@@ -77,9 +77,9 @@ void CommonPlayerController::Die()
         return;
     gameObject->SetActive(false);
     status = DEAD;
+    --global_lives;
     if (isServerSide())
     {
-        --global_lives;
         timer = timeoutDeath;
         BroadCastReliable<DEATHPackage>(getManager()->gameObjectContainer.GetServerObjectID(gameObject));
     }
@@ -131,7 +131,8 @@ void CommonPlayerController::OnCollisionEnter(SaltyEngine::ICollider *collider) 
     {
         if (isServerSide() && isAlive()) {
             if (!col->gameObject->CompareTag(SaltyEngine::Layer::Tag::BulletPlayer)
-                && !col->gameObject->CompareTag(SaltyEngine::Layer::Tag::Player)) {
+                && !col->gameObject->CompareTag(SaltyEngine::Layer::Tag::Player)
+                   && !col->gameObject->CompareTag(SaltyEngine::Layer::Tag::Bonus)) {
                 Die();
             }
         }
