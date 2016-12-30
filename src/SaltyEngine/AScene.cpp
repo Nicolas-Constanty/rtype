@@ -322,6 +322,18 @@ namespace SaltyEngine
 		}
 	}
 
+	void AScene::OnDisable(void)
+	{
+		while (!m_disabled.empty())
+		{
+			const std::list<SaltyBehaviour *> &Sb = m_disabled.front()->GetSaltyBehaviour();
+			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
+				if (!(*it)->enabled)
+					(*it)->OnDisable();
+			m_disabled.pop();
+		}
+	}
+
 	void AScene::OnDestroy()
 	{
 		std::vector<GameObject*> objects = m_objects;

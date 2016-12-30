@@ -20,11 +20,14 @@ namespace SaltyEngine
 	{
 		return (tag == m_tag);
 	}
+
 	void GameObject::SetActive(bool value)
 	{
 		m_activeSelf = value;
         if (value)
             scene->m_enabled.push(this);
+        else
+            scene->m_disabled.push(this);
 		for (Transform *tr : transform.GetChildren())
 		{
 			tr->gameObject->SetActive(value);

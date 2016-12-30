@@ -44,7 +44,7 @@ namespace SaltyEngine
 		void CallCoroutines() const;
 
 	public:
-		virtual void Start() { std::cout << "On start of: " << GetName() << std::endl; };
+		virtual void Start() {};
 		virtual void OnEnable() {};
 
 		virtual void FixedUpdate() {};
@@ -63,6 +63,7 @@ namespace SaltyEngine
 
 		virtual void Update() {};
 		virtual void OnGui() {};
+		virtual void OnDisable() {};
 		virtual void OnDestroy() {};
 
 	private:

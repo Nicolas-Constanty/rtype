@@ -61,6 +61,7 @@ namespace SaltyEngine
 
 		void Update(void);
 		void OnGui(void);
+		void OnDisable(void);
 		void OnDestroy();
 
 		void CallCoroutines();
@@ -87,6 +88,7 @@ namespace SaltyEngine
 		std::list<GameObject *>		m_deleted;
 		Vector2f					m_scale;
 		std::queue<GameObject *>    m_enabled;
+		std::queue<GameObject *>    m_disabled;
 
 	protected:
 		std::queue<std::function<void()>>	m_onCollisionEnter;
