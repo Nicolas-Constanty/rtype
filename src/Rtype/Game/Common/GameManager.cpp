@@ -140,7 +140,6 @@ void GameManager::FixedUpdate() {
             }
         }
         if (monsterMap->objects.empty()) {
-            std::cout << "END OF GAME" << std::endl;
             endOfGame = true;
         }
     } else if (endOfGame && m_server && gameOver && !gameOver->IsOver() && IsSceneEmpty()) {
@@ -194,10 +193,7 @@ bool GameManager::IsSceneEmpty() const {
             && gameObject->GetTag() != SaltyEngine::Layer::Tag::Destroy
             && gameObject->GetTag() != SaltyEngine::Layer::Tag::Untagged
             && gameObject->GetTag() != SaltyEngine::Layer::Tag::BulletEnemy) {
-            std::cout << "false name == " << gameObject->GetName() << std::endl;
             return false;
-        } else {
-            std::cout << "name == " << gameObject->GetName() << std::endl;
         }
     }
     return true;
