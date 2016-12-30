@@ -60,6 +60,7 @@ namespace Rtype
                 EndScreen   *endScreen;
                 unsigned short objectIDPlayerController = 0;
                 GameGUILives *gameGUILives;
+                SaltyEngine::GameObject *gameGUIQuitButton = NULL;
             };
         }
     }

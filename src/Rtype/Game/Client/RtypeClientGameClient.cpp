@@ -65,6 +65,11 @@ bool Rtype::Game::Client::RtypeClientGameClient::OnStart()
     if (endS)
         this->endScreen = endS->GetComponent<EndScreen>();
 
+    this->gameGUIQuitButton = SaltyEngine::GameObject::Find("QUITGameButton");
+    if (this->gameGUIQuitButton) {
+        this->gameGUIQuitButton->SetActive(false);
+    }
+
     gameOver = new GameOver(gameManager);
     return true;
 }
@@ -316,6 +321,14 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetGAMEOVERPackage(GAMEOVERPa
     OnDiscoveringPackage(game);
     if (gameOver && !gameOver->IsOver()) {
         GAMEOVER over = static_cast<GAMEOVER>(game.status);
+        if (gameGUIQuitButton) {
+            std::cout << "enter" << std::endl;
+            sf::Font *font = SaltyEngine::SFML::AssetManager::Instance().GetFont("SFSquareHead");
+            this->gameGUIQuitButton->SetActive(true);
+            this->gameGUIQuitButton->AddComponent<SaltyEngine::GUI::SFML::Label>("QUIT", 54, font);
+        } else {
+            std::cout << "pas enter" << std::endl;
+        }
         if (over == GAMEOVER::VICTORY) {
             this->endScreen->VictoryScreen();
             gameManager->PlaySound("r-type_stage_clear", false);
