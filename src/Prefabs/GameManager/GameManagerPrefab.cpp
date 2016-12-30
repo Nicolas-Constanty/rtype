@@ -21,7 +21,7 @@ GameManagerPrefab::GameManagerPrefab() : GameObject("GameManager", SaltyEngine::
     SaltyEngine::SFML::SpriteRenderer *sprr = guiGameBeam->GetComponent<SaltyEngine::SFML::SpriteRenderer>();
     guiGameBeam->transform.SetLocalScale(SaltyEngine::Vector2(2, 2));
     guiGameBeam->transform.SetPosition(size.x / 2,
-                                       size.y - ((sprr) ? (sprr->GetSprite()->GetRect()->_height) : 0));
+                                       size.y - ((sprr) ? (sprr->GetSprite()->GetRect()->_height / 1.5f) : 0));
 
     SaltyEngine::GameObject     *guiGameHighscore = (SaltyEngine::GameObject*)SaltyEngine::Instantiate();
     guiGameHighscore->SetName("GUIHighscore");
