@@ -70,8 +70,8 @@ void CallCharabia(const std::string &map,
 
 void CallGUITest(const std::string &map)
 {
-    unsigned int x = 500; // 1920
-    unsigned int y = 440; // 1080
+    unsigned int x = 960; // 1920
+    unsigned int y = 540; // 1080
     SaltyEngine::SFML::Renderer *renderer = new SaltyEngine::SFML::Renderer(sf::VideoMode(x * 2, y * 2), "R-Type Launcher");
     SaltyEngine::SFML::EventManager *event_manager = new SaltyEngine::SFML::EventManager(renderer);
     SaltyEngine::SFML::PhysicsHandler *ph = new SaltyEngine::SFML::PhysicsHandler(x, y, false);
