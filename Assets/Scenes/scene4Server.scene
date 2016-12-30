@@ -13,13 +13,6 @@
         "y": "500"
       }
     },
-    "GameManager": {
-      "prefabName": "GameManager",
-      "position": {
-        "x": "0",
-        "y": "0"
-      }
-    },
     "BLOCK" : {
       "prefabName": "BlockSimple",
       "position": {
@@ -56,26 +49,26 @@
       }
     },
     "Bonus1" : {
-          "prefabName": "SpiralBonus",
-          "position": {
-              "x": "300",
-              "y": "100"
-          }
-      },
-      "Bonus2" : {
-          "prefabName": "SpiralBonus",
-          "position": {
-              "x": "500",
-              "y": "100"
-          }
-      },
-      "MonsterWalker": {
-            "prefabName": "MonsterWalker",
-            "position": {
-              "x" : "500",
-              "y": "300"
-            }
-        },
+      "prefabName": "SpiralBonus",
+      "position": {
+        "x": "300",
+        "y": "100"
+      }
+    },
+    "Bonus2" : {
+      "prefabName": "SpiralBonus",
+      "position": {
+        "x": "500",
+        "y": "100"
+      }
+    },
+    "MonsterWalker": {
+      "prefabName": "MonsterWalker",
+      "position": {
+        "x" : "500",
+        "y": "300"
+      }
+    },
     "MonsterNeunoeil": {
       "prefabName": "MonsterNeunoeil",
       "position": {
@@ -83,6 +76,5 @@
         "y": "300"
       }
     }
-  }
   }
 }
