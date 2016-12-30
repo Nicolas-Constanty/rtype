@@ -21,9 +21,5 @@ void GameGUILives::FixedUpdate() {
 
 void GameGUILives::DisplayLives(int lives) {
     std::string value = "Lives : " + std::to_string(lives);
-//    value += std::to_string(highscore);
-//    while (value.size() > 8) {
-//        value.erase(0, 1);
-//    }
     livesLabel->SetText(value);
 }

@@ -9,6 +9,7 @@
 #include "GameOver.hpp"
 #include "GameGUIHighscore.hpp"
 #include "EndScreen.hpp"
+#include <Rtype/Game/Client/GameGUILives.hpp>
 //#include "GameManager.hpp"
 
 class GameManager;
@@ -58,6 +59,7 @@ namespace Rtype
                 const uint32_t secret;
                 EndScreen   *endScreen;
                 unsigned short objectIDPlayerController = 0;
+                GameGUILives *gameGUILives;
             };
         }
     }
