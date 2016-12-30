@@ -37,7 +37,7 @@ namespace SaltyEngine
 	{
         LoadManager();
 
-        objGUIBeam = SaltyEngine::Engine::Instance().GetCurrentScene()->FindByName("GUIBeam");
+        objGUIBeam = SaltyEngine::GameObject::Find("GUIBeam");
 
         beamShot = NULL;
         start = clock::now();
@@ -70,7 +70,7 @@ namespace SaltyEngine
         {
             m_beamSFX = (GameObject*)Instantiate();
             m_beamSFX->AddComponent<SFML::SpriteRenderer>(SFML::AssetManager::Instance().GetSprite("Laser/loading1"), Layout::normal);
-            m_beamSFX->transform.SetPosition(this->gameObject->transform.GetPosition() + Vector(50, 3));
+            m_beamSFX->transform.SetPosition(this->gameObject->transform.GetPosition() + Vector(30, 3));
             SaltyEngine::SFML::Animation *animation = m_beamSFX->AddComponent<SaltyEngine::SFML::Animation>(true, SaltyEngine::AnimationConstants::WrapMode::LOOP);
             animation->AddClip(SaltyEngine::SFML::AssetManager::Instance().GetAnimation("Laser/loading"), "Loading");
             m_beamSFX->transform.SetParent(&this->gameObject->transform);
@@ -257,5 +257,4 @@ namespace SaltyEngine
 //        gameObject->SetActive(true);
 //        timer = timeoutInvicible;
 //    }
-
 }

@@ -94,13 +94,13 @@ namespace SaltyEngine {
 		unsigned int	idShot;
 
 	public:
-        GameObject     *beamShot;
+        GameObject     *beamShot = nullptr;
 		int				beamServerID = 0;
 		GameObject		*m_beamSFX = nullptr;
 
 	private:
 		int				playerID;
-        PodHandler      *handler;
+        PodHandler      *handler = nullptr;
         int             highScore;
 		bool			updateHighScore = true;
 		SaltyEngine::GameObject *objGUIBeam = NULL;

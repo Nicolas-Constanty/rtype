@@ -25,6 +25,10 @@ namespace SaltyEngine
 		m_activeSelf = value;
         if (value)
             scene->m_enabled.push(this);
+		for (Transform *tr : transform.GetChildren())
+		{
+			tr->gameObject->SetActive(value);
+		}
 	}
 
 	Layer::Tag GameObject::GetTag(void) const
