@@ -146,9 +146,9 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetBEAMPackage(BEAMPackageGam
 
             SaltyEngine::Vector pos = gameObject->transform.GetPosition();
             pos.x += 30;
-            SaltyEngine::GameObject *beam = dynamic_cast<SaltyEngine::GameObject*>(SaltyEngine::Object::Instantiate("Beam", pos));
-
-            playerController->beamServerID = gameManager->gameObjectContainer.Add(GameObjectID::NewID(), beam);
+//            SaltyEngine::GameObject *beam = dynamic_cast<SaltyEngine::GameObject*>(SaltyEngine::Object::Instantiate("Beam", pos));
+//
+//            playerController->beamServerID = gameManager->gameObjectContainer.Add(GameObjectID::NewID(), beam);
 
 //            std::cout << "ID SERVER ==" << gameManager->gameObjectContainer.GetServerObjectID(gameObject) << std::endl;
 
@@ -164,7 +164,7 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetBEAMPackage(BEAMPackageGam
                 }
             }
 
-            playerController->beamShot = beam;
+//            playerController->beamShot = beam;
             playerController->OnBeamAction();
 
         }
@@ -208,12 +208,12 @@ void Rtype::Game::Server::RtypeServerGameClient::onGetSHOTPackage(SHOTPackageGam
                 laserController->Power(power);
 
                 laserController->AddPlayerController(playerController);
-                if (playerController->beamShot) {
-                    this->BroadCastPackage<DIEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<DIEPackageGame>,
-                                                           playerController->beamServerID);
-                    SaltyEngine::Object::Destroy(playerController->beamShot);
-                    playerController->beamShot = NULL;
-                }
+//                if (playerController->beamShot) {
+//                    this->BroadCastPackage<DIEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<DIEPackageGame>,
+//                                                           playerController->beamServerID);
+//                    SaltyEngine::Object::Destroy(playerController->beamShot);
+//                    playerController->beamShot = NULL;
+//                }
             }
             playerController->IncIdShot();
         }

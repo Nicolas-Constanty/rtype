@@ -17,7 +17,7 @@ namespace SaltyEngine
 		speed = 8.0f; // 20
         idShot = 1;
         power = 0;
-        beamShot = NULL;
+//        beamShot = NULL;
         playerID = 0;
         highScore = 0;
         m_health = 1;
@@ -27,7 +27,7 @@ namespace SaltyEngine
 		speed = 8.0f; // 20
         idShot = 1;
         power = 0;
-        beamShot = NULL;
+//        beamShot = NULL;
         playerID = 0;
         highScore = 0;
         m_health = 1;
@@ -39,7 +39,7 @@ namespace SaltyEngine
 
         objGUIBeam = SaltyEngine::GameObject::Find("GUIBeam");
 
-        beamShot = NULL;
+//        beamShot = NULL;
         start = clock::now();
 		InputKey::AddAxis("Horizontal", new Input::Axis(
 				{
@@ -123,6 +123,7 @@ namespace SaltyEngine
                 OnBeamAction();
                 SendPackage<BEAMPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(gameObject), idShot);
                 common->m_beamSFX->SetActive(true);
+                common->BeamSoundActive(true);
 
                 if (!isServerSide() && objGUIBeam) {
                     objGUIBeam->GetComponent<GameGUIBeam>()->StartAnimation();
@@ -135,6 +136,7 @@ namespace SaltyEngine
                 m_canShoot = false;
                 SendPackage<SHOTPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(gameObject), power, idShot++);
                 common->m_beamSFX->SetActive(false);
+                common->BeamSoundActive(false);
 
                 SaltyEngine::GameObject *gameObject1 = dynamic_cast<SaltyEngine::GameObject *>(::SaltyEngine::Instantiate("Laser", gameObject->transform.GetPosition()));
                 int power = OnShotAction();

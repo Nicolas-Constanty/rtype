@@ -83,6 +83,7 @@ void CommonPlayerController::Die()
 {
     if (isServerSide() && !isAlive())
         return;
+    BeamSoundActive(false);
     gameObject->SetActive(false);
     status = DEAD;
     --global_lives;
@@ -154,6 +155,19 @@ CommonPlayerController::Status CommonPlayerController::GetStatus(void) const {
 
 int CommonPlayerController::GetGlobalLives() const {
     return global_lives;
+}
+
+void CommonPlayerController::BeamSoundActive(bool action) {
+    if (beamSound) {
+        beamSound->Stop();
+        delete beamSound;
+        beamSound = nullptr;
+    }
+    if (action) {
+        beamSound = SaltyEngine::SFML::AssetManager::Instance().GetSound("Laser/loading");
+        beamSound->SetLoop(true);
+        beamSound->Play();
+    }
 }
 
 //void CommonPlayerController::EnableBeam() {

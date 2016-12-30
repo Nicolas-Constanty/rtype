@@ -95,9 +95,9 @@ namespace SaltyEngine {
 	private:
 		unsigned int	idShot;
 
-	public:
-        GameObject     *beamShot = nullptr;
-		int				beamServerID = 0;
+//	public:
+//        GameObject     *beamShot = nullptr;
+//		int				beamServerID = 0;
 //		GameObject		*m_beamSFX = nullptr;
 
 	private:

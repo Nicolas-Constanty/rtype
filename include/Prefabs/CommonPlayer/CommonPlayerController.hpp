@@ -37,6 +37,7 @@ public:
 public:
     void Die();
     void Reborn();
+    void BeamSoundActive(bool action);
 //    void EnableBeam();
 
 public:
@@ -58,6 +59,9 @@ private:
 
 public:
     SaltyEngine::GameObject		*m_beamSFX = nullptr;
+
+private:
+    SaltyEngine::Sound::ISound *beamSound = nullptr;
 };
 
 #endif //RTYPE_COMMONPLAYERCONTROLLER_HPP
