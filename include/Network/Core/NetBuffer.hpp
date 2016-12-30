@@ -26,7 +26,7 @@ namespace Network
         class LIB_EXPORT NetBuffer
         {
         public:
-            //static const size_t size;
+//            static const size_t size;
 
         public:
             NetBuffer();
