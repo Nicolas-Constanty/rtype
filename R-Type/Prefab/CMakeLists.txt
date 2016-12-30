@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
 project(rtype CXX)
 
-include_directories("include")
+include_directories(include)
 
 
 #Linux
@@ -342,6 +342,12 @@ file(GLOB SRC_COMMMUNICATION
 	file(GLOB NEUNOEILMONSTER_SOURCE_FILE "../../src/Prefabs/MonsterNeunoeil/*.cpp")
 	add_library(monster_neunoeil SHARED ${NEUNOEILMONSTER_SOURCE_FILE} $<TARGET_OBJECTS:RtypeLib> $<TARGET_OBJECTS:CommonPrefabs>)
 	target_link_libraries(monster_neunoeil ${PREFAB_LIBRARIES} missile_medusa missile_enemy_bullet explosion_basic player)
+
+	# GUI
+        # LOG SCREEN
+		file(GLOB GUI_LOGGER_SOURCE_FILE "src/ClientLauncher/*.cpp")
+		add_library(gui_logger SHARED ${GUI_LOGGER_SOURCE_FILE} $<TARGET_OBJECTS:RtypeLib> $<TARGET_OBJECTS:CommonPrefabs>)
+		target_link_libraries(gui_logger ${PREFAB_LIBRARIES})
 
 	set(PREFAB_DEPENDENCIES SFMLSaltyEngine Network Common ProtocolGame)
 
