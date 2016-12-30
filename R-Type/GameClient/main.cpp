@@ -70,8 +70,8 @@ void CallCharabia(const std::string &map,
 
 void CallGUITest(const std::string &map)
 {
-    unsigned int x = 500;
-    unsigned int y = 440;
+    unsigned int x = 500; // 1920
+    unsigned int y = 440; // 1080
     SaltyEngine::SFML::Renderer *renderer = new SaltyEngine::SFML::Renderer(sf::VideoMode(x * 2, y * 2), "R-Type Launcher");
     SaltyEngine::SFML::EventManager *event_manager = new SaltyEngine::SFML::EventManager(renderer);
     SaltyEngine::SFML::PhysicsHandler *ph = new SaltyEngine::SFML::PhysicsHandler(x, y, false);
@@ -90,8 +90,10 @@ void CallGUITest(const std::string &map)
 	SaltyEngine::SceneDefault *sceneDefault = SaltyEngine::SFML::AssetManager::Instance().LoadScene(map);
 	scene->SetScale(sceneDefault->scale);
 	for (std::list<std::pair<std::string, SaltyEngine::Vector2f> >::const_iterator it = sceneDefault->objects.begin(); it != sceneDefault->objects.end(); ++it) {
-		SaltyEngine::Vector2f pos = it->second;
-		SaltyEngine::Instantiate(it->first, pos, 0);
+		if (it->first == "GameManager") {
+			SaltyEngine::Vector2f pos = it->second;
+			SaltyEngine::Instantiate(it->first, pos, 0);
+		}
 	}
 	SaltyEngine::Engine::Instance().Run();
 }
