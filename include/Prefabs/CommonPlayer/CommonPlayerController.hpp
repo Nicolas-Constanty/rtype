@@ -37,6 +37,7 @@ public:
 public:
     void Die();
     void Reborn();
+//    void EnableBeam();
 
 public:
     int GetGlobalLives() const;
@@ -54,6 +55,9 @@ private:
     AGenericController  *controller;
     SaltyEngine::SFML::Animation *anim;
     SaltyEngine::SFML::SpriteRenderer *renderer;
+
+public:
+    SaltyEngine::GameObject		*m_beamSFX = nullptr;
 };
 
 #endif //RTYPE_COMMONPLAYERCONTROLLER_HPP

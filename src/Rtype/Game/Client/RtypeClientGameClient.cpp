@@ -128,7 +128,7 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetBEAMPackage(BEAMPackageGam
     if ((gameObject = gameManager->gameObjectContainer[pack.objectID])) {
         MateComponent *playerController = gameObject->GetComponent<MateComponent>();
         if (playerController) {
-            playerController->m_beamSFX->SetActive(true);
+            playerController->SetBeamFXActive(true);
         }
     }
 
@@ -146,7 +146,7 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetSHOTPackage(SHOTPackageGam
         PodHandler  *podHandler = gameObject->GetComponent<PodHandler>();
         MateComponent *playerController = gameObject->GetComponent<MateComponent>();
         if (playerController) {
-            playerController->m_beamSFX->SetActive(false);
+            playerController->SetBeamFXActive(false);
         }
         if (podHandler)
         {

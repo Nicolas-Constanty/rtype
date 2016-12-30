@@ -68,13 +68,13 @@ namespace SaltyEngine
         // Beam SFX for the player
         if (!isServerSide())
         {
-            m_beamSFX = (GameObject*)Instantiate();
-            m_beamSFX->AddComponent<SFML::SpriteRenderer>(SFML::AssetManager::Instance().GetSprite("Laser/loading1"), Layout::normal);
-            m_beamSFX->transform.SetPosition(this->gameObject->transform.GetPosition() + Vector(30, 3));
-            SaltyEngine::SFML::Animation *animation = m_beamSFX->AddComponent<SaltyEngine::SFML::Animation>(true, SaltyEngine::AnimationConstants::WrapMode::LOOP);
-            animation->AddClip(SaltyEngine::SFML::AssetManager::Instance().GetAnimation("Laser/loading"), "Loading");
-            m_beamSFX->transform.SetParent(&this->gameObject->transform);
-            m_beamSFX->SetActive(false);
+//            m_beamSFX = (GameObject*)Instantiate();
+//            m_beamSFX->AddComponent<SFML::SpriteRenderer>(SFML::AssetManager::Instance().GetSprite("Laser/loading1"), Layout::normal);
+//            m_beamSFX->transform.SetPosition(this->gameObject->transform.GetPosition() + Vector(30, 3));
+//            SaltyEngine::SFML::Animation *animation = m_beamSFX->AddComponent<SaltyEngine::SFML::Animation>(true, SaltyEngine::AnimationConstants::WrapMode::LOOP);
+//            animation->AddClip(SaltyEngine::SFML::AssetManager::Instance().GetAnimation("Laser/loading"), "Loading");
+//            m_beamSFX->transform.SetParent(&this->gameObject->transform);
+//            m_beamSFX->SetActive(false);
             SFML::Renderer *renderer = dynamic_cast<SFML::Renderer *>(Engine::Instance().GetRenderer());
             SFML::SpriteRenderer *sprr = gameObject->GetComponent<SFML::SpriteRenderer>();
             if (renderer)
@@ -96,8 +96,12 @@ namespace SaltyEngine
 
 	void PlayerController::FixedUpdate()
 	{
-        if (common->isDead())
+//        if (m_beamSFX && m_beamSFX->GetActiveSelf() == true) {
+//            std::cout << "mais what ?" << std::endl;
+//        }
+        if (common->isDead()) {
             return;
+        }
 
 		float h = InputKey::GetAxis("Horizontal");
 		float v = InputKey::GetAxis("Vertical");
@@ -118,7 +122,8 @@ namespace SaltyEngine
                 m_canShoot = true;
                 OnBeamAction();
                 SendPackage<BEAMPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(gameObject), idShot);
-                m_beamSFX->SetActive(true);
+                common->m_beamSFX->SetActive(true);
+
                 if (!isServerSide() && objGUIBeam) {
                     objGUIBeam->GetComponent<GameGUIBeam>()->StartAnimation();
                 }
@@ -129,7 +134,7 @@ namespace SaltyEngine
             if (!isServerSide() && m_canShoot) {
                 m_canShoot = false;
                 SendPackage<SHOTPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(gameObject), power, idShot++);
-                m_beamSFX->SetActive(false);
+                common->m_beamSFX->SetActive(false);
 
                 SaltyEngine::GameObject *gameObject1 = dynamic_cast<SaltyEngine::GameObject *>(::SaltyEngine::Instantiate("Laser", gameObject->transform.GetPosition()));
                 int power = OnShotAction();
@@ -257,8 +262,8 @@ namespace SaltyEngine
     {
         power = 0;
         m_canShoot = false;
-        if (m_beamSFX)
-            m_beamSFX->SetActive(false);
+        if (common->m_beamSFX)
+            common->m_beamSFX->SetActive(false);
         if (objGUIBeam)
             objGUIBeam->GetComponent<GameGUIBeam>()->ResetAnimation();
     }
