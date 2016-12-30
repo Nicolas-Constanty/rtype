@@ -6,7 +6,7 @@
 #include <Prefabs/Bonus/SpiralPodBonusController.hpp>
 
 SpiralPodBonus::SpiralPodBonus() :
-    SaltyEngine::GameObject("SpiralBonus", SaltyEngine::Layer::Tag::Player)
+    SaltyEngine::GameObject("SpiralBonus", SaltyEngine::Layer::Tag::Bonus)
 {
     AddComponent<SpiralPodBonusController>();
     AddComponent<SaltyEngine::SFML::SpriteRenderer>(SaltyEngine::SFML::AssetManager::Instance().GetSprite("Bonus/SpiralBonus"), ::SaltyEngine::Layout::normal);

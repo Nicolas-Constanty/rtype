@@ -131,7 +131,8 @@ void CommonPlayerController::OnCollisionEnter(SaltyEngine::ICollider *collider) 
     {
         if (isServerSide() && isAlive()) {
             if (!col->gameObject->CompareTag(SaltyEngine::Layer::Tag::BulletPlayer)
-                && !col->gameObject->CompareTag(SaltyEngine::Layer::Tag::Player)) {
+                && !col->gameObject->CompareTag(SaltyEngine::Layer::Tag::Player)
+                   && !col->gameObject->CompareTag(SaltyEngine::Layer::Tag::Bonus)) {
                 Die();
             }
         }

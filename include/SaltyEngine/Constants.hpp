@@ -66,7 +66,7 @@ namespace SaltyEngine
 
 	namespace Layer
 	{
-        enum class Tag : int { Untagged = 0, Player, Enemy, BulletPlayer, BulletEnemy, Destroy, Wall, GameManager };
+        enum class Tag : int { Untagged = 0, Player, Enemy, BulletPlayer, BulletEnemy, Destroy, Wall, GameManager, Bonus };
 	}
 
 	enum class NetRole
