@@ -40,6 +40,14 @@ void CommonPlayerController::Start()
     clip->AddEvent([this](){ renderer->SetColor(SaltyEngine::Color(1, 1, 1, 0)); }, 0);
     clip->AddEvent([this](){ renderer->SetColor(SaltyEngine::Color(1, 1, 1, 1)); }, 1);
     anim->AddClip(clip, "Invincibility");
+
+    m_beamSFX = (SaltyEngine::GameObject*)SaltyEngine::Instantiate();
+    m_beamSFX->AddComponent<SaltyEngine::SFML::SpriteRenderer>(SaltyEngine::SFML::AssetManager::Instance().GetSprite("Laser/loading1"), SaltyEngine::Layout::normal);
+    m_beamSFX->transform.SetPosition(this->gameObject->transform.GetPosition() + SaltyEngine::Vector(30, 3));
+    SaltyEngine::SFML::Animation *animation = m_beamSFX->AddComponent<SaltyEngine::SFML::Animation>(true, SaltyEngine::AnimationConstants::WrapMode::LOOP);
+    animation->AddClip(SaltyEngine::SFML::AssetManager::Instance().GetAnimation("Laser/loading"), "Loading");
+    m_beamSFX->transform.SetParent(&this->gameObject->transform);
+    m_beamSFX->SetActive(false);
 }
 
 void CommonPlayerController::FixedUpdate()
@@ -77,9 +85,9 @@ void CommonPlayerController::Die()
         return;
     gameObject->SetActive(false);
     status = DEAD;
+    --global_lives;
     if (isServerSide())
     {
-        --global_lives;
         timer = timeoutDeath;
         BroadCastReliable<DEATHPackage>(getManager()->gameObjectContainer.GetServerObjectID(gameObject));
     }
@@ -107,6 +115,7 @@ void CommonPlayerController::Reborn()
     status = INVINCIBLE;
     timer = timeoutInvicible;
     gameObject->SetActive(true);
+    m_beamSFX->SetActive(false);
     anim->Play("Invincibility");
 }
 
@@ -146,3 +155,13 @@ CommonPlayerController::Status CommonPlayerController::GetStatus(void) const {
 int CommonPlayerController::GetGlobalLives() const {
     return global_lives;
 }
+
+//void CommonPlayerController::EnableBeam() {
+//    m_beamSFX = (GameObject*)Instantiate();
+//    m_beamSFX->AddComponent<SFML::SpriteRenderer>(SFML::AssetManager::Instance().GetSprite("Laser/loading1"), Layout::normal);
+//    m_beamSFX->transform.SetPosition(this->gameObject->transform.GetPosition() + Vector(30, 3));
+//    SaltyEngine::SFML::Animation *animation = m_beamSFX->AddComponent<SaltyEngine::SFML::Animation>(true, SaltyEngine::AnimationConstants::WrapMode::LOOP);
+//    animation->AddClip(SaltyEngine::SFML::AssetManager::Instance().GetAnimation("Laser/loading"), "Loading");
+//    m_beamSFX->transform.SetParent(&this->gameObject->transform);
+//    m_beamSFX->SetActive(false);
+//}

@@ -14,6 +14,7 @@
 #include <Prefabs/Pod/PodController.hpp>
 #include <Prefabs/Mate/MateComponent.hpp>
 #include <Rtype/Game/Client/EndScreen.hpp>
+#include <Rtype/Game/Client/GameGUILives.hpp>
 
 Rtype::Game::Client::RtypeClientGameClient::RtypeClientGameClient(
         Network::Core::NativeSocketIOOperationDispatcher &dispatcher, const uint32_t secret) :
@@ -49,6 +50,11 @@ bool Rtype::Game::Client::RtypeClientGameClient::OnStart()
     if (goHighscore)
         this->gameGUIHighscore = goHighscore->GetComponent<GameGUIHighscore>();
 
+    SaltyEngine::GameObject *goLives = SaltyEngine::GameObject::Find("GUILives");
+
+    if (goLives)
+        this->gameGUILives = goLives->GetComponent<GameGUILives>();
+
     SaltyEngine::GameObject *gameman = SaltyEngine::GameObject::FindGameObjectWithTag(SaltyEngine::Layer::Tag::GameManager);
 
     if (gameman)
@@ -58,6 +64,11 @@ bool Rtype::Game::Client::RtypeClientGameClient::OnStart()
 
     if (endS)
         this->endScreen = endS->GetComponent<EndScreen>();
+
+    this->gameGUIQuitButton = SaltyEngine::GameObject::Find("QUITGameButton");
+    if (this->gameGUIQuitButton) {
+        this->gameGUIQuitButton->SetActive(false);
+    }
 
     gameOver = new GameOver(gameManager);
     return true;
@@ -117,7 +128,7 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetBEAMPackage(BEAMPackageGam
     if ((gameObject = gameManager->gameObjectContainer[pack.objectID])) {
         MateComponent *playerController = gameObject->GetComponent<MateComponent>();
         if (playerController) {
-            playerController->m_beamSFX->SetActive(true);
+            playerController->SetBeamFXActive(true);
         }
     }
 
@@ -135,7 +146,7 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetSHOTPackage(SHOTPackageGam
         PodHandler  *podHandler = gameObject->GetComponent<PodHandler>();
         MateComponent *playerController = gameObject->GetComponent<MateComponent>();
         if (playerController) {
-            playerController->m_beamSFX->SetActive(false);
+            playerController->SetBeamFXActive(false);
         }
         if (podHandler)
         {
@@ -310,6 +321,14 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetGAMEOVERPackage(GAMEOVERPa
     OnDiscoveringPackage(game);
     if (gameOver && !gameOver->IsOver()) {
         GAMEOVER over = static_cast<GAMEOVER>(game.status);
+        if (gameGUIQuitButton) {
+            std::cout << "enter" << std::endl;
+            sf::Font *font = SaltyEngine::SFML::AssetManager::Instance().GetFont("SFSquareHead");
+            this->gameGUIQuitButton->SetActive(true);
+            this->gameGUIQuitButton->AddComponent<SaltyEngine::GUI::SFML::Label>("QUIT", 54, font);
+        } else {
+            std::cout << "pas enter" << std::endl;
+        }
         if (over == GAMEOVER::VICTORY) {
             this->endScreen->VictoryScreen();
             gameManager->PlaySound("r-type_stage_clear", false);
@@ -335,10 +354,14 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetDEATHPackage(DEATHPackage 
     if (obj)
     {
         CommonPlayerController   *playerController = obj->GetComponent<CommonPlayerController>();
+        SaltyEngine::PlayerController *playerController2 = obj->GetComponent<SaltyEngine::PlayerController>();
 
         if (playerController)
         {
             playerController->Die();
+            if (playerController2) {
+                gameGUILives->DisplayLives(playerController->GetGlobalLives() == -1 ? 0 : playerController->GetGlobalLives());
+            }
         }
     }
 }

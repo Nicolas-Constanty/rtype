@@ -9,8 +9,6 @@
 #include "Network/Socket/WinSocket.hpp"
 #endif
 
-//bool SaltyEngine::SFML::Sound::Enable = false;
-
 int main(int ac, char **av)
 {
     Flags   flags;

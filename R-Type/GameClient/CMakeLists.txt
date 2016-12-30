@@ -45,6 +45,13 @@ if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 			pod
 			dl sfml-system sfml-audio sfml-graphics sfml-window)
 
+	add_custom_target(
+			compilation
+			COMMAND aplay ${CMAKE_CURRENT_SOURCE_DIR}/Assets/Sounds/MusicMenu.wav&
+	)
+
+	add_dependencies(GameClient compilation Common ProtocolServer ProtocolGame ProtocolRoom SaltyEngine SFMLSaltyEngine Parser prefabs)
+
 	#Windows
 elseif(MSVC)
 
@@ -86,8 +93,7 @@ elseif(MSVC)
         POST_BUILD
         COMMAND cmd /c "cd ..\\..\\..\\ & MoveBinary.bat")
 
-
+	add_dependencies(GameClient Common ProtocolServer ProtocolGame ProtocolRoom SaltyEngine SFMLSaltyEngine Parser prefabs)
 
 endif()
 
-add_dependencies(GameClient Common ProtocolServer ProtocolGame ProtocolRoom SaltyEngine SFMLSaltyEngine Parser prefabs)

@@ -43,6 +43,25 @@ GameManagerPrefab::GameManagerPrefab() : GameObject("GameManager", SaltyEngine::
     guiLives->transform.SetLocalScale(SaltyEngine::Vector2(2, 2));
     guiLives->transform.SetPosition(static_cast<float>(100), guiGameBeam->transform.GetPosition().y);
 
+
+    // on set le button de fin
+    SaltyEngine::GameObject *launch_button = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate());
+    launch_button->SetName("QUITGameButton");
+    SaltyEngine::GUI::SFML::Button *b = launch_button->AddComponent<SaltyEngine::GUI::SFML::Button>(SaltyEngine::SFML::AssetManager::Instance().GetSprite("GUI/launch_button"),
+                                                                                                    SaltyEngine::SFML::AssetManager::Instance().GetSprite("GUI/launch_button_over"));
+
+    launch_button->transform.SetParent(&transform);
+    launch_button->transform.SetPosition(size.x / 2, victoryScreen->transform.GetPosition().y + 100);
+    launch_button->transform.SetLocalScale(SaltyEngine::Vector2(2, 2));
+    b->onClick.AddListener("SayOuch", [](){
+        std::cout << "Ouch!!!" << std::endl;
+        //TODO retour dans la guiRoom
+        SaltyEngine::Engine::Instance().Stop();
+    });
+
+
+
+
 //    SaltyEngine::GameObject     *buttonEnd = (SaltyEngine::GameObject*)SaltyEngine::Instantiate();
 //    buttonEnd->SetName("EndScreen");
 //    victoryScreen->AddComponent<EndScreen>();

@@ -149,6 +149,7 @@ namespace SaltyEngine
 				m_physics_handler->Display();
 			scene->CallCoroutines();
 			scene->OnGui();
+			scene->OnDisable();
 			scene->OnDestroy();
 //			if (m_physics_handler && st)
 //			{

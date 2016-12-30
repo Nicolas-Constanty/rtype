@@ -35,13 +35,9 @@ void GameManager::Start()
     if (m_client) {
         gameObject->AddComponent<BackgroundController>();
         PlaySound("rtype-ost");
-//        SaltyEngine::Sound::ISound *sound = SaltyEngine::SFML::AssetManager::Instance().GetSound("rtype-ost");
-//        if (sound) {
-//            sound->SetLoop(true);
-//            sound->Play();
-//        }
     }
     if (m_server) {
+        SaltyEngine::SFML::Sound::Enable = false;
         monsterMap = SaltyEngine::SFML::AssetManager::Instance().LoadScene(m_server->GetLevel());
         if (monsterMap)
             monsterMap->objects.sort([](std::pair<std::string, SaltyEngine::Vector2f> obj1, std::pair<std::string, SaltyEngine::Vector2f> obj2) {

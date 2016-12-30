@@ -30,18 +30,19 @@ MateComponent::~MateComponent()
 void MateComponent::Start()
 {
     LoadManager();
-    if (!isServerSide())
-    {
-        m_beamSFX = (SaltyEngine::GameObject*)SaltyEngine::Instantiate();
-        m_beamSFX->AddComponent<SaltyEngine::SFML::SpriteRenderer>(SaltyEngine::SFML::AssetManager::Instance().GetSprite("Laser/loading1"), SaltyEngine::Layout::normal);
-        m_beamSFX->AddComponent<SaltyEngine::SFML::SpriteCollider2D>();
-//        m_beamSFX->transform.position = (this->gameObject->transform.position + SaltyEngine::Vector(30, 3));
-        m_beamSFX->transform.SetPosition(this->gameObject->transform.GetPosition() + SaltyEngine::Vector(30, 3));
-        SaltyEngine::SFML::Animation *animation = m_beamSFX->AddComponent<SaltyEngine::SFML::Animation>(true, SaltyEngine::AnimationConstants::WrapMode::LOOP);
-        animation->AddClip(SaltyEngine::SFML::AssetManager::Instance().GetAnimation("Laser/loading"), "Loading");
-        m_beamSFX->transform.SetParent(&this->gameObject->transform);
-        m_beamSFX->SetActive(false);
-    }
+//    if (!isServerSide())
+//    {
+
+//        m_beamSFX = (SaltyEngine::GameObject*)SaltyEngine::Instantiate();
+//        m_beamSFX->AddComponent<SaltyEngine::SFML::SpriteRenderer>(SaltyEngine::SFML::AssetManager::Instance().GetSprite("Laser/loading1"), SaltyEngine::Layout::normal);
+//        m_beamSFX->AddComponent<SaltyEngine::SFML::SpriteCollider2D>();
+////        m_beamSFX->transform.position = (this->gameObject->transform.position + SaltyEngine::Vector(30, 3));
+//        m_beamSFX->transform.SetPosition(this->gameObject->transform.GetPosition() + SaltyEngine::Vector(30, 3));
+//        SaltyEngine::SFML::Animation *animation = m_beamSFX->AddComponent<SaltyEngine::SFML::Animation>(true, SaltyEngine::AnimationConstants::WrapMode::LOOP);
+//        animation->AddClip(SaltyEngine::SFML::AssetManager::Instance().GetAnimation("Laser/loading"), "Loading");
+//        m_beamSFX->transform.SetParent(&this->gameObject->transform);
+//        m_beamSFX->SetActive(false);
+//    }
     common = gameObject->GetComponent<CommonPlayerController>();
 }
 
@@ -70,4 +71,8 @@ void MateComponent::SetColor(int color) {
 
     anim = "SpaceShip/SpaceShip" + std::to_string(color) + "-1";
     gameObject->GetComponent<::SaltyEngine::SFML::SpriteRenderer>()->SetSprite(SaltyEngine::SFML::AssetManager::Instance().GetSprite(anim));
+}
+
+void MateComponent::SetBeamFXActive(bool active) {
+    common->m_beamSFX->SetActive(active);
 }

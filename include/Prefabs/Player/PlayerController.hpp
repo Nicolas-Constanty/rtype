@@ -84,7 +84,9 @@ namespace SaltyEngine {
 	public:
         void TakeDamage(int amount) override;
 
-    public:
+		void OnDisable() override;
+
+	public:
 		clock::time_point start;
 
 	private:
@@ -94,13 +96,13 @@ namespace SaltyEngine {
 		unsigned int	idShot;
 
 	public:
-        GameObject     *beamShot;
+        GameObject     *beamShot = nullptr;
 		int				beamServerID = 0;
-		GameObject		*m_beamSFX = nullptr;
+//		GameObject		*m_beamSFX = nullptr;
 
 	private:
 		int				playerID;
-        PodHandler      *handler;
+        PodHandler      *handler = nullptr;
         int             highScore;
 		bool			updateHighScore = true;
 		SaltyEngine::GameObject *objGUIBeam = NULL;
@@ -108,6 +110,7 @@ namespace SaltyEngine {
 		Vector2			m_max;
 		SaltyEngine::SFML::SpriteRenderer *m_renderer = nullptr;
 		SaltyEngine::SFML::Animation *m_anim = nullptr;
+        bool            m_canShoot = false;
 
 	private:
 		CommonPlayerController	*common;
