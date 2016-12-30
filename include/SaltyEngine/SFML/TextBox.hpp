@@ -25,7 +25,8 @@ namespace SaltyEngine
                         const sf::Color &color = sf::Color::Black,
                         const sf::Color &fill_color = sf::Color::White,
                         const sf::Color &color_outline = sf::Color::Black,
-                        unsigned int outline_thickness = 2);
+                        unsigned int outline_thickness = 2,
+                        size_t max_char = -1);
 
             public:
                 void Start() override;
@@ -47,6 +48,7 @@ namespace SaltyEngine
                 bool m_clignot;
                 SaltyEngine::SFML::Renderer *m_renderer;
                 SaltyEngine::SFML::EventManager *eve = nullptr;
+                size_t m_max_char = -1;
             };
         }
     }
