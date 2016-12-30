@@ -77,9 +77,9 @@ void CommonPlayerController::Die()
         return;
     gameObject->SetActive(false);
     status = DEAD;
+    --global_lives;
     if (isServerSide())
     {
-        --global_lives;
         timer = timeoutDeath;
         BroadCastReliable<DEATHPackage>(getManager()->gameObjectContainer.GetServerObjectID(gameObject));
     }

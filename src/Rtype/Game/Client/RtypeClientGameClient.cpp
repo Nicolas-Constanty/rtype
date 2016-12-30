@@ -14,6 +14,7 @@
 #include <Prefabs/Pod/PodController.hpp>
 #include <Prefabs/Mate/MateComponent.hpp>
 #include <Rtype/Game/Client/EndScreen.hpp>
+#include <Rtype/Game/Client/GameGUILives.hpp>
 
 Rtype::Game::Client::RtypeClientGameClient::RtypeClientGameClient(
         Network::Core::NativeSocketIOOperationDispatcher &dispatcher, const uint32_t secret) :
@@ -48,6 +49,11 @@ bool Rtype::Game::Client::RtypeClientGameClient::OnStart()
 
     if (goHighscore)
         this->gameGUIHighscore = goHighscore->GetComponent<GameGUIHighscore>();
+
+    SaltyEngine::GameObject *goLives = SaltyEngine::GameObject::Find("GUILives");
+
+    if (goLives)
+        this->gameGUILives = goLives->GetComponent<GameGUILives>();
 
     SaltyEngine::GameObject *gameman = SaltyEngine::GameObject::FindGameObjectWithTag(SaltyEngine::Layer::Tag::GameManager);
 
@@ -335,10 +341,14 @@ void Rtype::Game::Client::RtypeClientGameClient::onGetDEATHPackage(DEATHPackage 
     if (obj)
     {
         CommonPlayerController   *playerController = obj->GetComponent<CommonPlayerController>();
+        SaltyEngine::PlayerController *playerController2 = obj->GetComponent<SaltyEngine::PlayerController>();
 
         if (playerController)
         {
             playerController->Die();
+            if (playerController2) {
+                gameGUILives->DisplayLives(playerController->GetGlobalLives() == -1 ? 0 : playerController->GetGlobalLives());
+            }
         }
     }
 }

@@ -19,11 +19,7 @@ public:
     void FixedUpdate();
 
 public:
-    // display highscore
     void DisplayHighScore(int highscore);
-
-private:
-    SaltyEngine::SFML::Animation *beamAnimation;
 
 public:
     virtual SaltyEngine::Component *CloneComponent(SaltyEngine::GameObject* const obj) {
