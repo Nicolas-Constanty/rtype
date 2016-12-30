@@ -84,7 +84,9 @@ namespace SaltyEngine {
 	public:
         void TakeDamage(int amount) override;
 
-    public:
+		void OnDisable() override;
+
+	public:
 		clock::time_point start;
 
 	private:
@@ -108,6 +110,7 @@ namespace SaltyEngine {
 		Vector2			m_max;
 		SaltyEngine::SFML::SpriteRenderer *m_renderer = nullptr;
 		SaltyEngine::SFML::Animation *m_anim = nullptr;
+        bool            m_canShoot = false;
 
 	private:
 		CommonPlayerController	*common;

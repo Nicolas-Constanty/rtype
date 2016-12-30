@@ -328,8 +328,8 @@ namespace SaltyEngine
 		{
 			const std::list<SaltyBehaviour *> &Sb = m_disabled.front()->GetSaltyBehaviour();
 			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
-				if (!(*it)->enabled)
-					(*it)->OnDisable();
+                if ((*it)->enabled)
+                    (*it)->OnDisable();
 			m_disabled.pop();
 		}
 	}
