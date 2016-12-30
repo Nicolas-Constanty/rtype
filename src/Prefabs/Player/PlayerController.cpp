@@ -115,6 +115,7 @@ namespace SaltyEngine
 
         if (InputKey::GetAction("Fire", Input::ActionType::Down)) {
             if (!isServerSide()) {
+                m_canShoot = true;
                 OnBeamAction();
                 SendPackage<BEAMPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(gameObject), idShot);
                 m_beamSFX->SetActive(true);
@@ -125,7 +126,8 @@ namespace SaltyEngine
         }
         if (InputKey::GetAction("Fire", Input::ActionType::Up)) {
 
-            if (!isServerSide()) {
+            if (!isServerSide() && m_canShoot) {
+                m_canShoot = false;
                 SendPackage<SHOTPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(gameObject), power, idShot++);
                 m_beamSFX->SetActive(false);
 
@@ -249,6 +251,16 @@ namespace SaltyEngine
 
     void PlayerController::SetUpdateHighScore(bool update) {
         updateHighScore = update;
+    }
+
+    void PlayerController::OnDisable()
+    {
+        power = 0;
+        m_canShoot = false;
+        if (m_beamSFX)
+            m_beamSFX->SetActive(false);
+        if (objGUIBeam)
+            objGUIBeam->GetComponent<GameGUIBeam>()->ResetAnimation();
     }
 
 //    void PlayerController::Reborn()
