@@ -44,7 +44,7 @@ bool Rtype::Game::Client::RtypeClientGameClient::OnStart()
     SendPackage<AUTHENTICATEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<AUTHENTICATEPackageGame>, secret);
     connected = true;
 
-    SaltyEngine::GameObject *goHighscore = SaltyEngine::Engine::Instance().GetCurrentScene()->FindByName("GUIHighscore");
+    SaltyEngine::GameObject *goHighscore = SaltyEngine::GameObject::Find("GUIHighscore");
 
     if (goHighscore)
         this->gameGUIHighscore = goHighscore->GetComponent<GameGUIHighscore>();
@@ -54,7 +54,7 @@ bool Rtype::Game::Client::RtypeClientGameClient::OnStart()
     if (gameman)
         gameManager = gameman->GetComponent<GameManager>();
 
-    SaltyEngine::GameObject *endS = SaltyEngine::Engine::Instance().GetCurrentScene()->FindByName("EndScreen");
+    SaltyEngine::GameObject *endS = SaltyEngine::GameObject::Find("EndScreen");
 
     if (endS)
         this->endScreen = endS->GetComponent<EndScreen>();
