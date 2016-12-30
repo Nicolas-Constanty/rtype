@@ -32,7 +32,7 @@ namespace SaltyEngine
 		Transform transform;
 
 	private:
-		bool 											m_activeSelf;
+		bool 											m_activeSelf = true;
 		size_t 											layer;
 		AScene 											*scene;
 		Layer::Tag 										m_tag;

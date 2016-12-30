@@ -99,6 +99,9 @@ SaltyEngine::GameObject *SaltyEngine::Factory::Find(std::string const &name)
                                                                        return obj.get()->GetName() == name &&
                                                                                dynamic_cast<GameObject*>(obj.get())->GetActiveSelf();
                                                                    });
+
+    if (it == m_objects.end())
+        return nullptr;
     return dynamic_cast<GameObject*>((*it).get());
 }
 
@@ -112,6 +115,8 @@ SaltyEngine::GameObject *SaltyEngine::Factory::FindByTag(Layer::Tag tag)
                                                                            return go->GetTag() == tag && go->GetActiveSelf();
                                                                        return false;
                                                                    });
+    if (it == m_objects.end())
+        return nullptr;
     return dynamic_cast<GameObject*>((*it).get());
 }
 

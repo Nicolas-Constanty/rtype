@@ -28,6 +28,7 @@ GameManager::~GameManager()
 
 void GameManager::Start()
 {
+    gameObject->SetName("GameManager");
     m_client = gameObject->GetComponent<Rtype::Game::Client::GameClientObject>();
     m_server = gameObject->GetComponent<Rtype::Game::Server::GameServerObject>();
 
@@ -207,4 +208,9 @@ void GameManager::PlaySound(std::string const &sound, bool loop) {
         m_backgroudnSound->SetLoop(loop);
         m_backgroudnSound->Play();
     }
+}
+
+SaltyEngine::Component *GameManager::CloneComponent(SaltyEngine::GameObject *const obj)
+{
+    return new GameManager(obj);
 }

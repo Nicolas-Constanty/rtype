@@ -127,7 +127,7 @@ int main(int ac, char **av)
 
 
 	//COMMENT THIS LINE
-	CallGUITest(map);
+//	CallGUITest(map);
 
 	//UNCOMMENT THIS LINE TO GET OLD CLIENT
 //	CallCharabia(map, scene, renderer, ip, port, secret);
