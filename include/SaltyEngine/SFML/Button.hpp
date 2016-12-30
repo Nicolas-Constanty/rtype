@@ -5,6 +5,7 @@
 
 #include "SaltyEngine/SFML/SpriteRenderer.hpp"
 #include "SaltyEngine/GUI/Button.hpp"
+#include "SaltyEngine/SFML/EventManager.hpp"
 
 namespace SaltyEngine
 {
@@ -42,6 +43,7 @@ namespace SaltyEngine
 				::SaltyEngine::SFML::Sprite			*m_over;
 				::SaltyEngine::SFML::SpriteRenderer *m_sprr;
 				bool 								m_status;
+				SaltyEngine::SFML::EventManager 	*eve = nullptr;
 
 			public:
 				virtual Component *CloneComponent(GameObject* const obj);

@@ -29,6 +29,7 @@ namespace SaltyEngine {
         protected:
             static sf::RenderWindow *m_window;
             std::queue<sf::Event> m_events;
+            bool m_isFocused = false;
 
         public:
             void Update();
@@ -48,6 +49,10 @@ namespace SaltyEngine {
             static Vector2i GetPositionRelative(void);
 
             const std::queue<sf::Event> &GetEvent(void);
+            /**
+             * @brief Is application currently focused ?
+             */
+            bool IsWindowFocused(void) const;
 
             static bool         IsJoystickConnected(unsigned int id);
             static unsigned int GetButtons(unsigned int id);

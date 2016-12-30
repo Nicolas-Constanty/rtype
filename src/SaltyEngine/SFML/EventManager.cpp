@@ -51,6 +51,11 @@ namespace SaltyEngine {
                         break;
                     case sf::Event::EventType::TextEntered:
                         m_events.push(event);
+                    case sf::Event::EventType::GainedFocus:
+                        m_isFocused = true;
+                        break;
+                    case sf::Event::EventType::LostFocus:
+                        m_isFocused = false;
                         break;
                     default:
                         break;
@@ -127,6 +132,11 @@ namespace SaltyEngine {
 
         const std::queue<sf::Event> &EventManager::GetEvent() {
             return m_events;
+        }
+
+        bool EventManager::IsWindowFocused(void) const
+        {
+            return m_isFocused;
         }
     }
 }

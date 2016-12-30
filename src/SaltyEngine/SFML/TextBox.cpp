@@ -30,6 +30,7 @@ SaltyEngine::GUI::SFML::TextBox::TextBox(SaltyEngine::GameObject *gameObj, const
     const SaltyEngine::Engine &engine = SaltyEngine::Engine::Instance();
     m_renderer = dynamic_cast<::SaltyEngine::SFML::Renderer *>(engine.GetRenderer());
     m_entry.setOrigin(size.x / 2, size.y /2);
+    eve = dynamic_cast<SaltyEngine::SFML::EventManager *>(SaltyEngine::Engine::Instance().GetEventManager());
 }
 
 void SaltyEngine::GUI::SFML::TextBox::FixedUpdate() {
@@ -37,11 +38,10 @@ void SaltyEngine::GUI::SFML::TextBox::FixedUpdate() {
 
 void SaltyEngine::GUI::SFML::TextBox::Update() {
 
-    SaltyEngine::SFML::EventManager *eve = dynamic_cast<SaltyEngine::SFML::EventManager *>(SaltyEngine::Engine::Instance().GetEventManager());
     const Vector2 &vec = gameObject->transform.GetPosition();
     const Vector2 &sc = gameObject->transform.GetLocalScale();
 
-    if (!eve->GetEvent().empty())
+    if (!eve->GetEvent().empty() && eve->IsWindowFocused())
     {
         const sf::Event &ev = eve->GetEvent().front();
         if (ev.text.unicode < 128)

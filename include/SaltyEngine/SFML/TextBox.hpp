@@ -46,6 +46,7 @@ namespace SaltyEngine
                 size_t m_max_size;
                 bool m_clignot;
                 SaltyEngine::SFML::Renderer *m_renderer;
+                SaltyEngine::SFML::EventManager *eve = nullptr;
             };
         }
     }
