@@ -33,7 +33,7 @@ void Rtype::Game::Server::Room::Start(const uint16_t port, const size_t max, con
     // Push scene int SaltyEngine
     SaltyEngine::Engine::Instance() << scene;
 
-	std::cout << &SaltyEngine::Engine::Instance() << std::endl;
+	std::cout << "Engine instance -> " << &SaltyEngine::Engine::Instance() << std::endl;
 
     // Create player
     SaltyEngine::GameObject *serverGame = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate());
@@ -44,18 +44,18 @@ void Rtype::Game::Server::Room::Start(const uint16_t port, const size_t max, con
         throw std::runtime_error("Fatal error: Cannot Instantiate a gameobject");
     }
 
-    serverGame->SetName("Rtype");
+    serverGame->SetName("GameManager");
     //Adding GameServerObject as component for network gestion
     serverGame->AddComponent<Rtype::Game::Server::GameServerObject>(port, max > 4 ? 4 : max, secret, map);
     serverGame->AddComponent<GameManager>();
 
     //Adding object to scene
     //*scene << serverGame;
-    serverGame->AddComponent<SaltyEngine::SFML::BoxCollider2D>(
-            sf::Vector2u(40, 40)
-    );
+//    serverGame->AddComponent<SaltyEngine::SFML::BoxCollider2D>(
+//            sf::Vector2u(40, 40)
+//    );
 //    serverGame->transform.position = SaltyEngine::Vector2(20, 20);
-    serverGame->transform.SetPosition(SaltyEngine::Vector2(20, 20));
+//    serverGame->transform.SetPosition(SaltyEngine::Vector2(20, 20));
 }
 
 void Rtype::Game::Server::Room::Run()

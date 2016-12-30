@@ -1,4 +1,5 @@
 #include "Rtype/Game/Client/GameClientObject.hpp"
+#include "Rtype/Game/Client/GameManager.hpp"
 
 Rtype::Game::Client::GameClientObject::GameClientObject(SaltyEngine::GameObject * const gamObj, const std::string &ip, const uint16_t port, const uint16_t secret) :
 		SaltyBehaviour("GameClientObject", gamObj),
@@ -30,4 +31,9 @@ void Rtype::Game::Client::GameClientObject::Start()
 void Rtype::Game::Client::GameClientObject::Update()
 {
 	m_dispatcher.Poll();
+}
+
+SaltyEngine::Component *Rtype::Game::Client::GameClientObject::CloneComponent(SaltyEngine::GameObject *const obj)
+{
+	return new GameClientObject(obj, m_ip, m_port, m_secret);
 }

@@ -82,6 +82,13 @@ namespace SaltyEngine
             NetRole::CLIENT;
         #endif
 
+    #ifdef __GNUC__
+        #define DEPRECATED __attribute__((deprecated))
+    #elif defined(_MSC_VER)
+        #define DEPRECATED __declspec(deprecated)
+    #else
+        #define DEPRECATED
+    #endif
 }
 
 #endif //RTYPE_CONSTANTS_HPP

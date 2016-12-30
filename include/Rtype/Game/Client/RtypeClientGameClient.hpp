@@ -53,7 +53,6 @@ namespace Rtype
                 virtual void onGetRECONNECTPackage(RECONNECTPackageGame const &);
 
             private:
-                GameManager *gameManager;
                 GameOver    *gameOver;
                 GameGUIHighscore *gameGUIHighscore;
                 const uint32_t secret;

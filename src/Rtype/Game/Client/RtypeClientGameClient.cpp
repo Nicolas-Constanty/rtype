@@ -18,7 +18,6 @@
 Rtype::Game::Client::RtypeClientGameClient::RtypeClientGameClient(
         Network::Core::NativeSocketIOOperationDispatcher &dispatcher, const uint32_t secret) :
         Rtype::Game::Common::RtypeGameClient(dispatcher),
-        gameManager(nullptr),
         gameOver(nullptr),
         gameGUIHighscore(nullptr),
         secret(secret)
@@ -28,7 +27,6 @@ Rtype::Game::Client::RtypeClientGameClient::RtypeClientGameClient(
 
 Rtype::Game::Client::RtypeClientGameClient::RtypeClientGameClient(const Rtype::Game::Client::RtypeClientGameClient &ref) :
     Rtype::Game::Common::RtypeGameClient(ref),
-    gameManager(nullptr),
     gameOver(nullptr),
     gameGUIHighscore(nullptr),
     secret(ref.secret)
@@ -51,8 +49,7 @@ bool Rtype::Game::Client::RtypeClientGameClient::OnStart()
     if (goHighscore)
         this->gameGUIHighscore = goHighscore->GetComponent<GameGUIHighscore>();
 
-
-    SaltyEngine::GameObject *gameman = SaltyEngine::Engine::Instance().GetCurrentScene()->FindByName("Rtype");
+    SaltyEngine::GameObject *gameman = SaltyEngine::GameObject::FindGameObjectWithTag(SaltyEngine::Layer::Tag::GameManager);
 
     if (gameman)
         gameManager = gameman->GetComponent<GameManager>();

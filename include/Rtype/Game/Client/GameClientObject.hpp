@@ -33,6 +33,8 @@ namespace Rtype
 					m_rtypeclient->BroadCastPackage<Package>(func, args...);
 				}
 
+				SaltyEngine::Component *CloneComponent(SaltyEngine::GameObject *const obj) override;
+
 			private:
 				uint16_t m_port;
 				std::string m_ip;
