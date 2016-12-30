@@ -7,6 +7,9 @@
 
 BackgroundController::BackgroundController(SaltyEngine::GameObject * const gameObj)
         : SaltyBehaviour("BackgroundController", gameObj) {
+    m_background = static_cast<SaltyEngine::GameObject*>(SaltyEngine::Instantiate());
+    m_background->AddComponent<SaltyEngine::SFML::SpriteRenderer>(SaltyEngine::SFML::AssetManager::Instance().GetSprite("Background"), ::SaltyEngine::Layout::background);
+
     m_starfieldFar1 = static_cast<SaltyEngine::GameObject*>(SaltyEngine::Instantiate());
     m_starfieldFar1->AddComponent<SaltyEngine::SFML::SpriteRenderer>(SaltyEngine::SFML::AssetManager::Instance().GetSprite("StarfieldFar"), ::SaltyEngine::Layout::backgroundColor);
 
@@ -18,9 +21,6 @@ BackgroundController::BackgroundController(SaltyEngine::GameObject * const gameO
 
     m_starfieldNear2 = static_cast<SaltyEngine::GameObject*>(SaltyEngine::Instantiate());
     m_starfieldNear2->AddComponent<SaltyEngine::SFML::SpriteRenderer>(SaltyEngine::SFML::AssetManager::Instance().GetSprite("StarfieldNear"), ::SaltyEngine::Layout::backgroundColor);
-
-    m_background = static_cast<SaltyEngine::GameObject*>(SaltyEngine::Instantiate());
-    m_background->AddComponent<SaltyEngine::SFML::SpriteRenderer>(SaltyEngine::SFML::AssetManager::Instance().GetSprite("Background"), ::SaltyEngine::Layout::background);
 }
 
 BackgroundController::~BackgroundController() {
@@ -28,11 +28,8 @@ BackgroundController::~BackgroundController() {
 }
 
 void BackgroundController::Start() {
-    SaltyEngine::SFML::Renderer *renderer = dynamic_cast<SaltyEngine::SFML::Renderer*>(SaltyEngine::Engine::Instance().GetRenderer());
-    if (renderer == nullptr) {
-        return;
-    }
-    windowSize = renderer->GetRealSize();
+    windowSize.x = SaltyEngine::Engine::Instance().GetSize().x;
+    windowSize.y = SaltyEngine::Engine::Instance().GetSize().y;
     m_start = windowSize.x / 2;
     m_end = windowSize.x + windowSize.x / 2;
     m_starfieldFar1->transform.SetPosition(m_start, windowSize.y / 2);

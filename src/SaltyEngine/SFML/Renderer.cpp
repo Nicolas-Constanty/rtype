@@ -62,16 +62,13 @@ namespace SaltyEngine
 		}
 
 		void Renderer::AddSpriteRenderer(SpriteRenderer *const sprr) {
-			if (m_spriteRenderers.find(sprr->GetLayer()) == m_spriteRenderers.end())
-			{
-				m_spriteRenderers.emplace(std::make_pair(sprr->GetLayer(), SpriteList()));
-				::SaltyEngine::Sprite<sf::Vector2i> **s = &sprr->m_sprite;
-				sf::RenderWindow *w = dynamic_cast<sf::RenderWindow *>(sprr->GetWindow());
-				if (w == nullptr)
-					w = this;
-				if (s && w)
-					m_spriteRenderers.at(sprr->GetLayer()).push_back(Drawable((Sprite **) (s), w, sprr->gameObject, sprr));
-			}
+			m_spriteRenderers.emplace(std::make_pair(sprr->GetLayer(), SpriteList()));
+			::SaltyEngine::Sprite<sf::Vector2i> **s = &sprr->m_sprite;
+			sf::RenderWindow *w = dynamic_cast<sf::RenderWindow *>(sprr->GetWindow());
+			if (w == nullptr)
+				w = this;
+			if (s && w)
+				m_spriteRenderers.at(sprr->GetLayer()).push_back(Drawable((Sprite **) (s), w, sprr->gameObject, sprr));
 		}
 
 		void Renderer::AddLabel(SaltyEngine::GUI::SFML::Label *label)

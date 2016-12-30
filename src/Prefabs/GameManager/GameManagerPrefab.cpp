@@ -34,6 +34,7 @@ GameManagerPrefab::GameManagerPrefab() : GameObject("GameManager", SaltyEngine::
     victoryScreen->AddComponent<EndScreen>();
     victoryScreen->transform.SetLocalScale(SaltyEngine::Vector2(2, 2));
     victoryScreen->transform.SetPosition(size.x / 2, static_cast<float>(size.y / 2.3));
+    transform.SetLocalScale(SaltyEngine::Vector2(2, 2));
 
 //    SaltyEngine::GameObject     *buttonEnd = (SaltyEngine::GameObject*)SaltyEngine::Instantiate();
 //    buttonEnd->SetName("EndScreen");
