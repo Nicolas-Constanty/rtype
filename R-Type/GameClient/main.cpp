@@ -107,7 +107,7 @@ int main(int ac, char **av)
 
 	flags.Var(ip, 'h', "host", std::string("127.0.0.1"), "The host to which connect", "Game host");
 	flags.Var(port, 'p', "port", uint16_t(4242), "The port to which connect", "Game port");
-	flags.Var(map, 'l', "level", std::string("scene2"), "The level of the game server", "Game level");
+	flags.Var(map, 'l', "level", std::string("sceneConnection"), "The level of the game server", "Game level");
 	flags.Var(secret, 's', "secret", uint32_t(0), "The secret code of the game server", "Game secret");
 
 	flags.Bool(help, 'i', "info", "Show this help message", "Info");
