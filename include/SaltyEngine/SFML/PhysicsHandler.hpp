@@ -8,7 +8,7 @@
 #include <stack>
 #include <list>
 #include "SaltyEngine/SFML/SpriteRenderer.hpp"
-#include "SaltyEngine/IPhysicHandler.hpp"
+#include "SaltyEngine/APhysicsHandler.hpp"
 
 // TODO Optimisation en sauvegadant une seul image par sf::Texture
 namespace SaltyEngine

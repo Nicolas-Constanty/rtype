@@ -56,25 +56,11 @@ void PodController::Start()
                                              RtypeNetworkFactory::GetIDFromName("Pod"),
                                              gameobjectId);
     }
-    SaltyEngine::Vector2 winsize;
+	SaltyEngine::Vector2 winsize = SaltyEngine::Vector2(
+		SaltyEngine::Engine::Instance().GetSize().x,
+		SaltyEngine::Engine::Instance().GetSize().y
+	);
     SaltyEngine::Vector2 spritesize;
-
-    if (!isServerSide())
-    {
-        SaltyEngine::SFML::Renderer *renderer = dynamic_cast<SaltyEngine::SFML::Renderer *>(SaltyEngine::Engine::Instance().GetRenderer());
-
-        winsize = SaltyEngine::Vector2(renderer->getSize().x,
-                                       renderer->getSize().y);
-    }
-    else
-    {
-        SaltyEngine::SFML::PhysicsHandler   *physicsHandler = dynamic_cast<SaltyEngine::SFML::PhysicsHandler *>(SaltyEngine::Engine::Instance().GetPhysicsHandler());
-
-        winsize = SaltyEngine::Vector2(
-                physicsHandler->GetSizeX(),
-                physicsHandler->GetSizeY()
-        );
-    }
 
     sprr = gameObject->GetComponent<SaltyEngine::SFML::SpriteRenderer>();
 

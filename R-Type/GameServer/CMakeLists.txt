@@ -92,4 +92,4 @@ elseif(MSVC)
 
 endif()
 
-add_dependencies(GameServer Common ProtocolServer ProtocolGame ProtocolRoom SaltyEngine SFMLSaltyEngine Parser)
+add_dependencies(GameServer Prefabs Common ProtocolServer ProtocolGame ProtocolRoom SaltyEngine SFMLSaltyEngine Parser)

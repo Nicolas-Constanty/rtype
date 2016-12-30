@@ -12,7 +12,7 @@
 #include "SaltyEngine/Input/DefaultEventManager.hpp"
 #include "Common/Singleton.hpp"
 #include "SaltyEngine/Object.hpp"
-#include "SaltyEngine/IPhysicHandler.hpp"
+#include "SaltyEngine/APhysicsHandler.hpp"
 
 
 #define DEFAULT_FRAME_RATE 60
