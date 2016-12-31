@@ -349,6 +349,11 @@ file(GLOB SRC_COMMMUNICATION
 		add_library(gui_logger SHARED ${GUI_LOGGER_SOURCE_FILE} $<TARGET_OBJECTS:RtypeLib> $<TARGET_OBJECTS:CommonPrefabs>)
 		target_link_libraries(gui_logger ${PREFAB_LIBRARIES})
 
+	# GAME MANAGER
+	file(GLOB MANAGER_SOURCE_FILE "src/Prefabs/GameManager/*.cpp"  "include/Prefabs/GameManager/*.hpp")
+	add_library(game_manager SHARED ${MANAGER_SOURCE_FILE} $<TARGET_OBJECTS:RtypeLib> $<TARGET_OBJECTS:CommonPrefabs>)
+	target_link_libraries(game_manager ${PREFAB_LIBRARIES})
+
 	set(PREFAB_DEPENDENCIES SFMLSaltyEngine Network Common ProtocolGame)
 
 endif()

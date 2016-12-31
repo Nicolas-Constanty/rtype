@@ -37,7 +37,7 @@ void GameManager::Start()
         PlaySound("rtype-ost");
     }
     if (m_server) {
-        SaltyEngine::SFML::Sound::Enable = false;
+		SaltyEngine::SFML::Sound::SetEnable(false);
         monsterMap = SaltyEngine::SFML::AssetManager::Instance().LoadScene(m_server->GetLevel());
         if (monsterMap)
             monsterMap->objects.sort([](std::pair<std::string, SaltyEngine::Vector2f> obj1, std::pair<std::string, SaltyEngine::Vector2f> obj2) {
