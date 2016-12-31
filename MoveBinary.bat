@@ -1,7 +1,7 @@
 mkdir build\Debug
 mkdir Assets\Metas
 
-set "cp=xcopy /d /y"
+set "cp=xcopy /d"
 
 %cp% cmake-build-debug\R-Type\Common\Debug\* build\Debug\
 %cp% cmake-build-debug\R-Type\GameClient\Debug\* build\Debug\
