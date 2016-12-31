@@ -84,10 +84,6 @@ void CommonPlayerController::Die()
 {
     if (isServerSide() && !isAlive())
         return;
-    BeamSoundActive(false);
-    gameObject->SetActive(false);
-    status = DEAD;
-    --global_lives;
     if (isServerSide())
     {
         timer = timeoutDeath;
@@ -98,6 +94,10 @@ void CommonPlayerController::Die()
     {
         SaltyEngine::Instantiate("ExplosionBasic", gameObject->transform.GetPosition());
     }
+    BeamSoundActive(false);
+    gameObject->SetActive(false);
+    status = DEAD;
+    --global_lives;
     if (global_lives == -1)
     {
         if (isServerSide())
@@ -144,7 +144,8 @@ void CommonPlayerController::OnCollisionEnter(SaltyEngine::ICollider *collider) 
         if (isServerSide() && isAlive()) {
             if (!col->gameObject->CompareTag(SaltyEngine::Layer::Tag::BulletPlayer)
                 && !col->gameObject->CompareTag(SaltyEngine::Layer::Tag::Player)
-                   && !col->gameObject->CompareTag(SaltyEngine::Layer::Tag::Bonus)) {
+                   && !col->gameObject->CompareTag(SaltyEngine::Layer::Tag::Bonus)
+                    && !col->gameObject->CompareTag(SaltyEngine::Layer::Tag::Pod)) {
                 Die();
             }
         }

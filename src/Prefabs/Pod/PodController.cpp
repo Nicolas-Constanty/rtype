@@ -6,6 +6,7 @@
 #include <SaltyEngine/Collider.hpp>
 #include <Rtype/Game/Common/RtypeNetworkFactory.hpp>
 #include <Rtype/Game/Common/GameObjectID.hpp>
+#include <Prefabs/GenericController.hpp>
 #include "Prefabs/PodHandler/PodHandler.hpp"
 #include "Prefabs/Pod/PodController.hpp"
 
@@ -69,8 +70,8 @@ void PodController::Start()
             sprr->GetSprite()->getTextureRect().width / 2,
             sprr->GetSprite()->getTextureRect().height / 2);
     max = SaltyEngine::Vector2(
-            winsize.x / gameObject->transform.GetLocalScale().x - min.x,
-            winsize.y / gameObject->transform.GetLocalScale().y - min.y);
+            winsize.x - min.x,
+            winsize.y - min.y);
 
     speed = 10;
     anim = gameObject->GetComponent<SaltyEngine::SFML::Animation>();
@@ -142,11 +143,31 @@ void PodController::OnCollisionEnter(SaltyEngine::ICollider *collider)
                 }
             }
         }
+        else if (c->gameObject->GetTag() == SaltyEngine::Layer::Tag::BulletEnemy)
+        {
+            BroadCastReliable<DIEPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(c->gameObject));
+            Destroy(c->gameObject);
+        }
     }
-    if (c->gameObject->GetTag() == SaltyEngine::Layer::Tag::BulletEnemy)
+    else
     {
-        SaltyEngine::Instantiate("ExplosionBasic", c->gameObject->transform.GetPosition());
-        Destroy(c->gameObject);
+        if (c->gameObject->GetTag() == SaltyEngine::Layer::Tag::BulletEnemy)
+        {
+            SaltyEngine::Instantiate("ExplosionBasic", c->gameObject->transform.GetPosition());
+        }
+    }
+    if (c->gameObject->GetTag() == SaltyEngine::Layer::Tag::Enemy)
+    {
+        AGenericController  *controller = c->gameObject->GetComponent<AGenericController>();
+
+        if (controller)
+        {
+            if (controller->GetHealth() > 1)
+            {
+                speed = 0;
+            }
+            controller->TakeDamage(1);
+        }
     }
 }
 
