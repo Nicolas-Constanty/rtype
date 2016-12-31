@@ -11,7 +11,8 @@ int main()
 #ifdef _WIN32
     Network::Socket::WinSocket::Start();
 #endif
-    Network::Core::NativeSocketIOOperationDispatcher    dispatcher((struct timeval){5, 0});
+	struct timeval timeout = { 5, 0 };
+    Network::Core::NativeSocketIOOperationDispatcher    dispatcher(timeout);
     RtypeRoomServer    server(dispatcher);
 
     dispatcher.Watch(server, Network::Core::NativeSocketIOOperationDispatcher::WatchMode::READ);

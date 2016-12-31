@@ -5,8 +5,8 @@
 #include <string>
 #include <iostream>
 #include <unistd.h>
+#include <Process/Process.hpp>
 #include "ServerGame/CreateRoomGameServer/Lobby.hpp"
-#include "Process/UnixProcess.hpp"
 
 Lobby::Lobby(IMutex &mutex, ILobbyHandler &lobbyHandler) : mutex(mutex), lobbyHandler(lobbyHandler) {
     lobbyInfo = NULL;
@@ -43,7 +43,7 @@ bool Lobby::IsLaunch() const {
 }
 
 void Lobby::CreateServerGame() {
-    UnixProcess    process;
+    OSProcess    process;
 
     ///TODO changer le sleep 10 par le binaire du server Game
     mutex.unlock();

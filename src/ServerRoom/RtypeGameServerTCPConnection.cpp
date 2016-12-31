@@ -118,7 +118,7 @@ unsigned int RtypeGameServerTCPConnection::getID() const {
 }
 
 unsigned long RtypeGameServerTCPConnection::getActualRoomNumber() const {
-    return (this->roomServiceList.size());
+    return ((unsigned long)this->roomServiceList.size());
 }
 
 RoomService *RtypeGameServerTCPConnection::AddRoomService(std::string const &name, unsigned short clientMaxNbr,
