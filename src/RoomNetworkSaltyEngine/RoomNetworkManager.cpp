@@ -30,6 +30,7 @@ void RoomNetworkManager::Start() {
         dispatcher.setTimeout({0, 0});
         dispatcher.Watch(*clientRoomNetworkManager, Network::Core::NativeSocketIOOperationDispatcher::READ);
         m_isConnected = true;
+        clientRoomNetworkManager->SetTransitionNetworkManager(this);
     } catch (...) {
         m_isConnected = false;
     }
@@ -67,4 +68,48 @@ void RoomNetworkManager::SendAuthenticate(const std::string &name)
 SaltyEngine::Component *RoomNetworkManager::CloneComponent(SaltyEngine::GameObject *const obj)
 {
     return new RoomNetworkManager(obj, ip, port);
+}
+
+void RoomNetworkManager::onGetAUTHENTICATE(AUTHENTICATEPackageRoom const &obj) {
+    std::cout << obj << std::endl;
+}
+
+void RoomNetworkManager::onGetCREATE(CREATEPackageRoom const &obj) {
+    std::cout << obj << std::endl;
+}
+
+void RoomNetworkManager::onGetJOIN(JOINPackageRoom const &obj) {
+    std::cout << obj << std::endl;
+}
+
+void RoomNetworkManager::onGetQUIT(QUITPackageRoom const &obj) {
+    std::cout << obj << std::endl;
+}
+
+void RoomNetworkManager::onGetPLUGGED(PLUGGEDPackageRoom const &obj) {
+    std::cout << obj << std::endl;
+}
+
+void RoomNetworkManager::onGetSWAP(SWAPPackageRoom const &obj) {
+    std::cout << obj << std::endl;
+}
+
+void RoomNetworkManager::onGetGET(GETPackageRoom const &obj) {
+    std::cout << obj << std::endl;
+}
+
+void RoomNetworkManager::onGetFAILURE(FAILUREPackageRoom const &obj) {
+    std::cout << obj << std::endl;
+}
+
+void RoomNetworkManager::onGetLAUNCH(LAUNCHPackageRoom const &obj) {
+    std::cout << obj << std::endl;
+}
+
+void RoomNetworkManager::onGetDELETE(DELETEPackageRoom const &obj) {
+    std::cout << obj << std::endl;
+}
+
+void RoomNetworkManager::onGetCHAT(CHATPackageRoom const &obj) {
+    std::cout << obj << std::endl;
 }
