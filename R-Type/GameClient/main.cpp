@@ -72,8 +72,12 @@ void CallCharabia(const std::string &map,
 void StartGame(const std::string &map)
 {
 	SaltyEngine::SFML::Scene *scene = new SaltyEngine::SFML::Scene();
+	SaltyEngine::SFML::Scene *scene2 = new SaltyEngine::SFML::Scene();
 
+    scene->SetName("sceneConnection");
+    scene2->SetName("scene2");
 	SaltyEngine::Engine::Instance() << scene;
+	SaltyEngine::Engine::Instance() << scene2;
 
 	SaltyEngine::SceneDefault *sceneDefault = SaltyEngine::SFML::AssetManager::Instance().LoadSize(map);
 

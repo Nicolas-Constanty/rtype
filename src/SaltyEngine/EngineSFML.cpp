@@ -28,7 +28,7 @@ namespace SaltyEngine
 		return new SaltyEngine::SFML::Scene();
     }
 
-    std::list<std::pair<string, Vector2f>> const& EngineSFML::CreateSceneDefault(std::string const &sceneName) const
+    std::list<std::pair<string, Vector2f>> const& EngineSFML::GetSceneObjects(std::string const &sceneName) const
     {
 		return SaltyEngine::SFML::AssetManager::Instance().LoadScene(sceneName)->objects;
     }

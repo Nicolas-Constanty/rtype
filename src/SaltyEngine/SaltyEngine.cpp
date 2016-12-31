@@ -202,7 +202,7 @@ namespace SaltyEngine
 			m_current = index;
             this->operator<<(m_sceneLoader->CreateScene());
             m_scenes[m_current]->SetScale(m_sceneLoader->GetSceneScale(m_scenes[m_current]->GetName()));
-            for (auto it : m_sceneLoader->CreateSceneDefault(m_scenes[m_current]->GetName()) )
+            for (auto it : m_sceneLoader->GetSceneObjects(m_scenes[m_current]->GetName()) )
             {
                 if (it.first == "GameManager") {
                     SaltyEngine::Vector2f pos = it.second;
