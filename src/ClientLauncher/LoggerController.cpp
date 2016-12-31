@@ -45,7 +45,7 @@ SaltyEngine::Component *LoggerController::CloneComponent(SaltyEngine::GameObject
 }
 
 void LoggerController::OnMouseEnter() {
-    Debug::PrintSuccess("Mouse Enter");
+//    Debug::PrintSuccess("Mouse Enter");
 }
 
 void LoggerController::OnMouseOver() {
@@ -53,7 +53,7 @@ void LoggerController::OnMouseOver() {
 }
 
 void LoggerController::OnMouseExit() {
-    Debug::PrintSuccess("Mouse Exit");
+//    Debug::PrintSuccess("Mouse Exit");
 }
 
 void LoggerController::onGetAUTHENTICATE(AUTHENTICATEPackageRoom const &)

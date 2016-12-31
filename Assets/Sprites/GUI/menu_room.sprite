@@ -1,0 +1,13 @@
+{
+    "texture": "menu_room",
+    "scale": {
+        "width": "1",
+        "height": "1"
+    },
+    "rect": {
+        "x": "0",
+        "y": "0",
+        "width": "1920",
+        "heigth": "1080"
+    }
+}

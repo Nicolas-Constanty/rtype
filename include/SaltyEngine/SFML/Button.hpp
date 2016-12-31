@@ -31,7 +31,7 @@ namespace SaltyEngine
 				void OnSubmit() override {}; //
 				void SetOver(::SaltyEngine::SFML::Sprite* const sprite);
 				void SetNormal(::SaltyEngine::SFML::Sprite* const sprite);
-				void FixedUpdate() override;
+				void Update() override;
 
 				::SaltyEngine::SFML::Sprite* GetOver(void) const;
 				::SaltyEngine::SFML::Sprite* GetNormal(void) const;

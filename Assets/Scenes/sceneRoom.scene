@@ -2,8 +2,8 @@
   "title": "sceneRoom",
   "preview": "tot.png",
   "scale": {
-    "width": "2",
-    "height": "2"
+    "width": "1",
+    "height": "1"
   },
   "size": {
     "width": "960",
@@ -14,7 +14,7 @@
   ],
   "prefabs": {
     "CanvasPlayerConnect": {
-      "prefabName": "Logger",
+      "prefabName": "SelectMap",
       "position": {
         "x" : "0",
         "y": "0"

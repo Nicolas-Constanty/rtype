@@ -83,11 +83,10 @@ namespace SaltyEngine
                         over = new ::SaltyEngine::SFML::Sprite(texture, new SaltyEngine::SFML::Rect(rect->left, rect->top, rect->width, rect->height));
                     }
                 }
-                std::cout << "CLONE" << std::endl;
                 return new Button(obj, normal, over);
             }
 
-            void Button::FixedUpdate() {
+            void Button::Update() {
                 if (!eve || !eve->IsWindowFocused() || !this->gameObject->GetActiveSelf())
                     return;
                 Vector2i vec = InputKey::GetPositionRelative();
