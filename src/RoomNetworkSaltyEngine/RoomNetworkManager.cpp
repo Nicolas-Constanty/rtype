@@ -24,14 +24,15 @@ RoomNetworkManager::~RoomNetworkManager() {
 }
 
 void RoomNetworkManager::Start() {
-    clientRoomNetworkManager = new ClientRoomNetworkManager(dispatcher);
+    if (clientRoomNetworkManager == nullptr)
+        clientRoomNetworkManager = new ClientRoomNetworkManager(dispatcher);
     try {
         clientRoomNetworkManager->Connect(ip, port);
         dispatcher.setTimeout({0, 0});
         dispatcher.Watch(*clientRoomNetworkManager, Network::Core::NativeSocketIOOperationDispatcher::READ);
         m_isConnected = true;
-        if (clientRoomNetworkManager->GetTransitionNetworkManager() == nullptr)
-            clientRoomNetworkManager->SetTransitionNetworkManager(this);
+//        if (clientRoomNetworkManager->GetTransitionNetworkManager() == nullptr)
+//            clientRoomNetworkManager->SetTransitionNetworkManager(this);
     } catch (...) {
         m_isConnected = false;
     }
