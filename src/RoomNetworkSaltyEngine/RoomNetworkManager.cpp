@@ -28,16 +28,6 @@ void RoomNetworkManager::Start() {
     if (clientRoomNetworkManager == nullptr)
         clientRoomNetworkManager = new ClientRoomNetworkManager(dispatcher);
     try {
-        Flags flags;
-
-        std::string map;
-        flags.Reset();
-        flags.Var(ip, 'h', "host", std::string("127.0.0.1"), "The host to which connect", "Game host");
-        flags.Var(port, 'p', "port", uint16_t(4242), "The port to which connect", "Game port");
-        flags.Var(map, 'l', "level", std::string("sceneConnection"), "The level of the game server", "Game level");
-        flags.Var(secret, 's', "secret", uint32_t(0), "The secret code of the game server", "Game secret");
-        if (!flags.Parse(SaltyEngine::Engine::Instance().GetArgc(), (char **)SaltyEngine::Engine::Instance().GetArgv()))
-            return;
         clientRoomNetworkManager->Connect(ip, port);
         dispatcher.setTimeout({0, 0});
         dispatcher.Watch(*clientRoomNetworkManager, Network::Core::NativeSocketIOOperationDispatcher::READ);

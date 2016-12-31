@@ -41,7 +41,6 @@ public:
 private:
     std::string                                         ip;
     unsigned short                                      port;
-    uint32_t                                     		secret;
     mutable ClientRoomNetworkManager                    *clientRoomNetworkManager = nullptr;
     mutable Network::Core::NativeSocketIOOperationDispatcher    dispatcher;
 	RoomPackageFactory									factory;
