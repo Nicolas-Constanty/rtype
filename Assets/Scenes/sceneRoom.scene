@@ -1,13 +1,13 @@
 {
-  "title": "sceneConnection",
+  "title": "sceneRoom",
   "preview": "tot.png",
   "scale": {
     "width": "2",
     "height": "2"
   },
   "size": {
-    "width": "500",
-    "height": "440"
+    "width": "960",
+    "height": "540"
   },
   "fonts" : [
     "SFSquareHead"
