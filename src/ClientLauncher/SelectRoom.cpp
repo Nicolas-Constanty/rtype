@@ -15,33 +15,45 @@ SelectRoom::SelectRoom() : GameObject("SelectRoom")
     SaltyEngine::GameObject *background = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate());
     background->AddComponent<SaltyEngine::SFML::GUI::Image>(SaltyEngine::SFML::AssetManager::Instance().GetSprite("GUI/menu_room"));
     background->transform.SetParent(&transform);
-
-//    SaltyEngine::GameObject *text_box = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate());
-//    SaltyEngine::GUI::SFML::Label *l = text_box->AddComponent<SaltyEngine::GUI::SFML::Label>("Enter your pseudo : ", 40, font);
-//    text_box->AddComponent<SaltyEngine::GUI::SFML::TextBox>(l, sf::Vector2f(256.0f, 50.0f), 50, font, sf::Color::White, sf::Color(0x246b9cff), sf::Color(0xbcdbe9ff), 4, 7);
-//    text_box->SetName("TextBox");
-//    text_box->transform.SetParent(&transform);
-//    text_box->transform.SetPosition(0, -130.0f);
-//    text_box->transform.SetLocalScale(SaltyEngine::Vector2(2, 2));
-//
-//    SaltyEngine::GameObject *launch_button = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate());
-//    launch_button->AddComponent<SelectRoomController>();
+    SaltyEngine::GameObject *join_button = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate());
+    join_button->AddComponent<SelectRoomController>();
 //    launch_button->AddComponent<RoomNetworkManager>("127.0.0.1", 4242);
-//    launch_button->AddComponent<SaltyEngine::GUI::SFML::Label>("START", 54, font);
-//    launch_button->SetName("LaunchButton");
-//    SaltyEngine::GUI::SFML::Button *b = launch_button->AddComponent<SaltyEngine::GUI::SFML::Button>(SaltyEngine::SFML::AssetManager::Instance().GetSprite("GUI/launch_button"),
-//                                                 );
-//
-//    launch_button->transform.SetParent(&transform);
-//    launch_button->transform.SetPosition(0, 80.0f);
-//    launch_button->transform.SetLocalScale(SaltyEngine::Vector2(2, 2));
-//
-//    SaltyEngine::GameObject *background_animation = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate());
-//    background_animation->SetName("background");
-//    background_animation->AddComponent<SaltyEngine::SFML::SpriteRenderer>(nullptr, ::SaltyEngine::Layout::normal);
-//    background_animation->AddComponent<SaltyEngine::SFML::Animation>();
-//    background_animation->transform.SetLocalScale(SaltyEngine::Vector2(2, 2));
-//    background_animation->transform.SetParent(&transform);
+    join_button->AddComponent<SaltyEngine::GUI::SFML::Label>("Join Game", 54, font);
+    join_button->SetName("Join Button");
+    SaltyEngine::SFML::Sprite *normal = SaltyEngine::SFML::AssetManager::Instance().GetSprite("GUI/launch_button");
+    SaltyEngine::SFML::Sprite *over = SaltyEngine::SFML::AssetManager::Instance().GetSprite("GUI/launch_button_over");
+    normal->setScale(1.5f, 1.7f);
+    over->setScale(1.5f, 1.7f);
+    join_button->AddComponent<SaltyEngine::GUI::SFML::Button>(normal, over);
+    join_button->transform.SetParent(&transform);
+    join_button->transform.SetPosition(-102.0f, 70.0f);
+
+
+    SaltyEngine::GameObject *quit_button = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate());
+    quit_button->AddComponent<SelectRoomController>();
+//    launch_button->AddComponent<RoomNetworkManager>("127.0.0.1", 4242);
+    quit_button->AddComponent<SaltyEngine::GUI::SFML::Label>("Quit Game", 54, font);
+    quit_button->SetName("Quit Button");
+    normal = SaltyEngine::SFML::AssetManager::Instance().GetSprite("GUI/launch_button");
+    over = SaltyEngine::SFML::AssetManager::Instance().GetSprite("GUI/launch_button_over");
+    normal->setScale(2.0f, 2.0f);
+    over->setScale(2.0f, 2.0f);
+    quit_button->AddComponent<SaltyEngine::GUI::SFML::Button>(normal, over);
+    quit_button->transform.SetParent(&transform);
+    quit_button->transform.SetPosition(570.0f, 290.0f);
+
+    SaltyEngine::GameObject *create_button = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate());
+    create_button->AddComponent<SelectRoomController>();
+//    launch_button->AddComponent<RoomNetworkManager>("127.0.0.1", 4242);
+    create_button->AddComponent<SaltyEngine::GUI::SFML::Label>("Create Game", 54, font);
+    create_button->SetName("Create Button");
+    normal = SaltyEngine::SFML::AssetManager::Instance().GetSprite("GUI/launch_button");
+    over = SaltyEngine::SFML::AssetManager::Instance().GetSprite("GUI/launch_button_over");
+    normal->setScale(2.0f, 2.0f);
+    over->setScale(2.0f, 2.0f);
+    create_button->AddComponent<SaltyEngine::GUI::SFML::Button>(normal, over);
+    create_button->transform.SetParent(&transform);
+    create_button->transform.SetPosition(-260.0f, 385.0f);
 
     transform.SetPosition(engine.GetSize().x, engine.GetSize().y);
 }

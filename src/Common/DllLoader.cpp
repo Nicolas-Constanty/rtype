@@ -11,7 +11,7 @@ DllLoader::~DllLoader()
 {
 }
 
-HINSTANCE DllLoader::Load(std::string const& path)
+HMODULE DllLoader::Load(std::string const& path)
 {
 	return m_inst = LoadLibrary(path.c_str());
 }

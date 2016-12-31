@@ -80,6 +80,7 @@ namespace SaltyEngine
 
 	protected:
 		virtual void Destroy();
+		void CleanScene();
 
 	protected:
 		std::vector<GameObject *>	m_objects;

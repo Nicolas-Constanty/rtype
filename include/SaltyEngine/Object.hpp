@@ -45,12 +45,17 @@ namespace SaltyEngine
 		uid m_uid;
 		std::string m_name;
 
+	protected:
+		bool m_shouldBeDestroyedOnLoad = true;
+
 	public:
 		static void Destroy(Object *original);
 		static Object *Instantiate(std::string const& obj, Vector pos = Vector::zero(), float rot = 0)
 		{
 			return Factory::Instance().Create(obj, pos, rot);
 		}
+
+		static void DontDestroyOnLoad(Object *target);
 
 		static Object *Instantiate()
 		{
@@ -78,6 +83,7 @@ namespace SaltyEngine
 		{
 			return Factory::Instance().GetObjectsOfType<Type>();
 		}
+
 		virtual void Destroy();
 	};
 

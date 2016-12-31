@@ -10,13 +10,19 @@
 #include <Rtype/Game/Client/GameGUIBeam.hpp>
 #include "Common/Debug.hpp"
 
-GameManager::GameManager(SaltyEngine::GameObject * const gamObj) : SaltyBehaviour("GameManager", gamObj)
+GameManager::GameManager(SaltyEngine::GameObject * const gamObj) :
+        SaltyBehaviour("GameManager", gamObj),
+        m_server(nullptr),
+        m_client(nullptr)
 {
 //    gameObject->AddComponent<BackgroundController>();
     gameOver.reset(new GameOver(this));
 }
 
-GameManager::GameManager(const std::string & name, SaltyEngine::GameObject * const gamObj) : SaltyBehaviour(name, gamObj)
+GameManager::GameManager(const std::string & name, SaltyEngine::GameObject * const gamObj) :
+        SaltyBehaviour(name, gamObj),
+        m_server(nullptr),
+        m_client(nullptr)
 {
     gameOver.reset(new GameOver(this));
 }
@@ -37,8 +43,13 @@ void GameManager::Start()
         PlaySound("rtype-ost");
     }
     if (m_server) {
-        SaltyEngine::SFML::Sound::Enable = false;
+		SaltyEngine::SFML::Sound::SetEnable(false);
+        //	SaltyEngine::Engine::Instance().SetFrameRate(30);
+
+        // Create Scene
         monsterMap = SaltyEngine::SFML::AssetManager::Instance().LoadScene(m_server->GetLevel());
+        SaltyEngine::Engine::Instance().GetCurrentScene()->SetScale(monsterMap->scale);
+
         if (monsterMap)
             monsterMap->objects.sort([](std::pair<std::string, SaltyEngine::Vector2f> obj1, std::pair<std::string, SaltyEngine::Vector2f> obj2) {
                 return (obj1.second.x < obj2.second.x);
@@ -188,7 +199,8 @@ bool GameManager::IsSceneEmpty() const {
             && gameObject->GetTag() != SaltyEngine::Layer::Tag::BulletPlayer
             && gameObject->GetTag() != SaltyEngine::Layer::Tag::Destroy
             && gameObject->GetTag() != SaltyEngine::Layer::Tag::Untagged
-            && gameObject->GetTag() != SaltyEngine::Layer::Tag::BulletEnemy) {
+            && gameObject->GetTag() != SaltyEngine::Layer::Tag::BulletEnemy
+            && gameObject->GetTag() != SaltyEngine::Layer::Tag::Pod) {
             return false;
         }
     }

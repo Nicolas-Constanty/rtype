@@ -11,7 +11,7 @@ int main()
 #ifdef _WIN32
     Network::Socket::WinSocket::Start();
 #endif
-	struct timeval timeout = { 5, 0 };
+	struct timeval timeout = { 1, 0 };
     Network::Core::NativeSocketIOOperationDispatcher    dispatcher(timeout);
     RtypeRoomServer    server(dispatcher);
 

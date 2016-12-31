@@ -48,6 +48,7 @@ void CommonPlayerController::Start()
     animation->AddClip(SaltyEngine::SFML::AssetManager::Instance().GetAnimation("Laser/loading"), "Loading");
     m_beamSFX->transform.SetParent(&this->gameObject->transform);
     m_beamSFX->SetActive(false);
+    handler = gameObject->GetComponent<PodHandler>();
 }
 
 void CommonPlayerController::FixedUpdate()
@@ -83,19 +84,20 @@ void CommonPlayerController::Die()
 {
     if (isServerSide() && !isAlive())
         return;
-    BeamSoundActive(false);
-    gameObject->SetActive(false);
-    status = DEAD;
-    --global_lives;
     if (isServerSide())
     {
         timer = timeoutDeath;
+        handler->Launch();
         BroadCastReliable<DEATHPackage>(getManager()->gameObjectContainer.GetServerObjectID(gameObject));
     }
     else
     {
         SaltyEngine::Instantiate("ExplosionBasic", gameObject->transform.GetPosition());
     }
+    BeamSoundActive(false);
+    gameObject->SetActive(false);
+    status = DEAD;
+    --global_lives;
     if (global_lives == -1)
     {
         if (isServerSide())
@@ -142,7 +144,8 @@ void CommonPlayerController::OnCollisionEnter(SaltyEngine::ICollider *collider) 
         if (isServerSide() && isAlive()) {
             if (!col->gameObject->CompareTag(SaltyEngine::Layer::Tag::BulletPlayer)
                 && !col->gameObject->CompareTag(SaltyEngine::Layer::Tag::Player)
-                   && !col->gameObject->CompareTag(SaltyEngine::Layer::Tag::Bonus)) {
+                   && !col->gameObject->CompareTag(SaltyEngine::Layer::Tag::Bonus)
+                    && !col->gameObject->CompareTag(SaltyEngine::Layer::Tag::Pod)) {
                 Die();
             }
         }

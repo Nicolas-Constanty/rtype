@@ -12,6 +12,7 @@
 #include "Protocol/Room/IProtocolRoomHandler.hpp"
 #include "Protocol/Room/RTypeProtocolRoomManager.hpp"
 #include "Protocol/Room/ProtocolPrintRoomPackage.hpp"
+#include "ITransitionNetworkManager.hpp"
 
 class ClientRoomNetworkManager : public Network::TCP::ATCPClient, public IProtocolRoomHandler
 {
@@ -38,9 +39,14 @@ public:
     virtual void onGetDELETEPackage(DELETEPackageRoom const &obj);
     virtual void onGetCHATPackage(CHATPackageRoom const &obj);
 
+public:
+    void SetTransitionNetworkManager(ITransitionNetworkManager *manager) const;
+    ITransitionNetworkManager const*GetTransitionNetworkManager(void) const;
+
 private:
     RTypeProtocolRoomManager protocolRoomManager;
     RoomPackageFactory factory;
+    mutable ITransitionNetworkManager   *transitionNetworkManager = NULL;
 };
 
 #endif //RTYPE_CLIENTROOMNETWORKMANAGER_HPP

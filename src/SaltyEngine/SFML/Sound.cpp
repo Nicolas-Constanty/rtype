@@ -16,6 +16,11 @@ namespace SaltyEngine {
 
         }
 
+		void Sound::SetEnable(bool enable)
+		{
+			Enable = enable;
+		}
+
         bool Sound::LoadFromFile(const std::string &filename) {
             m_buffer = new sf::SoundBuffer();
             if (!m_buffer->loadFromFile(filename)) {

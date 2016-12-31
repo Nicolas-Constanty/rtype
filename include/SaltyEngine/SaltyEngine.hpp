@@ -13,6 +13,7 @@
 #include "Common/Singleton.hpp"
 #include "SaltyEngine/Object.hpp"
 #include "SaltyEngine/APhysicsHandler.hpp"
+#include "ISceneLoader.hpp"
 
 
 #define DEFAULT_FRAME_RATE 60
@@ -29,26 +30,27 @@ namespace SaltyEngine
 		Engine();
 		virtual ~Engine();
 
-		void Start();
-		void Stop();
+		virtual void Start();
+		virtual void Stop();
 		virtual void Run(void);
-		EngineStatus GetStatus(void) const;
-		bool LoadScene(size_t index);
-		bool LoadScene(const std::string &name);
-		void SetFrameRate(size_t fr);
-		void operator<<(AScene *scene);
-		double GetDeltaTime(void) const;
-		double GetFixedDeltaTime(void) const;
-        Input::IEventManager *GetEventManager() const;
-		void SetRenderer(IRenderer *renderer);
-		void SetEventManager(Input::IEventManager *ev_manager);
-		void SetPhysicsHandler(APhysicsHandler *renderer);
-		AScene *GetCurrentScene(void) const;
-		IRenderer *GetRenderer(void) const;
-		APhysicsHandler *GetPhysicsHandler(void) const;
-		const Vector2ui &GetSize(void) const;
+		virtual EngineStatus GetStatus(void) const;
+		virtual bool LoadScene(size_t index);
+		virtual bool LoadScene(const std::string &name);
+		virtual void SetFrameRate(size_t fr);
+		virtual void operator<<(AScene *scene);
+		virtual double GetDeltaTime(void) const;
+		virtual double GetFixedDeltaTime(void) const;
+        virtual Input::IEventManager *GetEventManager() const;
+		virtual void SetRenderer(IRenderer *renderer);
+		virtual void SetEventManager(Input::IEventManager *ev_manager);
+		virtual void SetPhysicsHandler(APhysicsHandler *renderer);
+		virtual AScene *GetCurrentScene(void) const;
+		virtual IRenderer *GetRenderer(void) const;
+		virtual APhysicsHandler *GetPhysicsHandler(void) const;
+		virtual const Vector2ui &GetSize(void) const;
+        virtual void SetSceneLoader(ISceneLoader *sceneLoader);
 
-	private:
+	protected:
 		EngineStatus								m_status;
 		std::vector<std::unique_ptr<AScene>>		m_scenes;
 		size_t										m_current;
@@ -58,6 +60,9 @@ namespace SaltyEngine
 		IRenderer									*m_renderer;
 		Input::IEventManager						*m_even_manager;
         APhysicsHandler                             *m_physics_handler;
+
+    private:
+        ISceneLoader        *m_sceneLoader = nullptr;
 	};
 }
 

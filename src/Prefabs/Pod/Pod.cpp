@@ -8,7 +8,7 @@
 #include "Prefabs/Pod/Pod.hpp"
 
 Pod::Pod() :
-    SaltyEngine::GameObject("Pod", SaltyEngine::Layer::Tag::BulletPlayer)
+    SaltyEngine::GameObject("Pod", SaltyEngine::Layer::Tag::Pod)
 {
     AddComponent<PodController>();
     AddComponent < SaltyEngine::SFML::Animation>(true, SaltyEngine::AnimationConstants::WrapMode::LOOP);

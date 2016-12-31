@@ -64,4 +64,10 @@ namespace SaltyEngine
 		m_uid = s_id;
 		++s_id;
     }
+
+    void Object::DontDestroyOnLoad(Object *target)
+    {
+		if (target)
+			target->m_shouldBeDestroyedOnLoad = false;
+    }
 }

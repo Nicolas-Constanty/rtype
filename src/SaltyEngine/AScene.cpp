@@ -480,6 +480,18 @@ namespace SaltyEngine
 	const Vector2f &AScene::GetScale() const {
 		return m_scale;
 	}
+
+	/**
+	 * @brief Called to clean the scene. Will destroy all the objects but the ones marked by DontDestroyOnLoad
+	 */
+	void AScene::CleanScene()
+	{
+		for (GameObject *go : m_objects)
+		{
+			if (go->m_shouldBeDestroyedOnLoad)
+				Destroy(go);
+		}
+	}
 }
 
 /**

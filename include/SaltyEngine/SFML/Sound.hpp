@@ -11,8 +11,11 @@
 namespace SaltyEngine {
     namespace SFML {
         class LIB_EXPORT Sound: public ::SaltyEngine::Sound::ISound, private sf::Sound {
-        public:
+        private:
             static bool Enable;
+
+		public:
+			static void SetEnable(bool enable = true);
 
         public:
             Sound();
