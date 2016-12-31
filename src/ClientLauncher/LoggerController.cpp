@@ -57,7 +57,7 @@ void LoggerController::OnMouseExit() {
 
 void LoggerController::onGetAUTHENTICATE(AUTHENTICATEPackageRoom const &)
 {
-    std::cout << "Got authenticate package !!" << std::endl;
+    SaltyEngine::Engine::Instance().LoadScene("MenuRoom");
 }
 
 void LoggerController::onGetCREATE(CREATEPackageRoom const &)
