@@ -20,7 +20,7 @@ namespace SaltyEngine
                     m_sprr = gameObject->AddComponent<::SaltyEngine::SFML::SpriteRenderer>(m_normal, Layout::gui);
                 else
                     m_sprr->SetSprite(m_normal);
-                eve = dynamic_cast<SaltyEngine::SFML::EventManager *>(SaltyEngine::Engine::Instance().GetEventManager());
+                eve = nullptr;
             }
 
             Button::Button(GameObject *gameObj, ::SaltyEngine::SFML::Sprite *const norm,
@@ -32,7 +32,7 @@ namespace SaltyEngine
                     m_sprr = gameObject->AddComponent<::SaltyEngine::SFML::SpriteRenderer>(m_normal, Layout::gui);
                 else
                     m_sprr->SetSprite(m_normal);
-                eve = dynamic_cast<SaltyEngine::SFML::EventManager *>(SaltyEngine::Engine::Instance().GetEventManager());
+                eve = nullptr;
             }
 
             Button::Button(const std::string &name, GameObject *gameObj, ::SaltyEngine::SFML::Sprite *const sprite) :
@@ -43,7 +43,7 @@ namespace SaltyEngine
                     m_sprr = gameObject->AddComponent<::SaltyEngine::SFML::SpriteRenderer>(m_normal, Layout::gui);
                 else
                     m_sprr->SetSprite(m_normal);
-                eve = dynamic_cast<SaltyEngine::SFML::EventManager *>(SaltyEngine::Engine::Instance().GetEventManager());
+                eve = nullptr;
             }
 
             void Button::SetOver(::SaltyEngine::SFML::Sprite *const sprite) {
@@ -121,6 +121,10 @@ namespace SaltyEngine
 
             void Button::OnPointerClick() {
                 onClick.InvokeAll();
+            }
+
+            void Button::Start() {
+                eve = dynamic_cast<SaltyEngine::SFML::EventManager *>(SaltyEngine::Engine::Instance().GetEventManager());
             }
         }
     }

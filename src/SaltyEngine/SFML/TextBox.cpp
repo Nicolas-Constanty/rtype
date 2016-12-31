@@ -63,7 +63,7 @@ void SaltyEngine::GUI::SFML::TextBox::Update() {
             }
             else if (ev.key.code != 8)
             {
-                if (m_max_char == -1 || (m_field.size() < m_max_char))
+                if (m_max_char == 0 || (m_field.size() < m_max_char))
                 {
                     m_field += static_cast<char>(ev.key.code);
                     m_aff += static_cast<char>(ev.key.code);
@@ -102,4 +102,9 @@ void SaltyEngine::GUI::SFML::TextBox::Start() {
     const Vector2 &sc = gameObject->transform.GetLocalScale();
     m_cursor.setPosition(vec.x * sc.x - m_entry.getSize().x + 8 + m_text.getGlobalBounds().width, vec.y * sc.y + m_entry.getSize().y / 2);
     m_cursor.setCharacterSize(m_text.getCharacterSize());
+}
+
+std::string const &SaltyEngine::GUI::SFML::TextBox::GetText(void) const
+{
+    return m_field;
 }
