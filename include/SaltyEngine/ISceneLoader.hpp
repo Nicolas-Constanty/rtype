@@ -5,10 +5,12 @@
 #ifndef RTYPE_IENGINESFML_HPP
 #define RTYPE_IENGINESFML_HPP
 
+#include "Common/DllLoader.hpp"
 #include "SaltyEngine/AScene.hpp"
+
 namespace SaltyEngine
 {
-    class ISceneLoader
+    class LIB_EXPORT ISceneLoader
     {
     public:
         virtual ~ISceneLoader()

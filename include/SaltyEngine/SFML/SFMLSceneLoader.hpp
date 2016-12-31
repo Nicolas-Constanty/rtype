@@ -3,6 +3,7 @@
 #ifndef SALTENGINESFML_HPP_
 #define SALTENGINESFML_HPP_
 
+#include "Common/DLLexport.hpp"
 #include "SaltyEngine/SFML/Scene.hpp"
 #include "SaltyEngine/ISceneLoader.hpp"
 #include "SaltyEngine/AAssetManager.hpp"
@@ -11,7 +12,7 @@ namespace SaltyEngine
 {
     namespace SFML
     {
-        class SFMLSceneLoader : public ISceneLoader
+        class LIB_EXPORT SFMLSceneLoader : public ISceneLoader
         {
         public:
             SFMLSceneLoader();

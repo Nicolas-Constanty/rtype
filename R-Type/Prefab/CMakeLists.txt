@@ -354,7 +354,7 @@ file(GLOB SRC_COMMMUNICATION
 	add_library(game_manager SHARED ${MANAGER_SOURCE_FILE} $<TARGET_OBJECTS:RtypeLib> $<TARGET_OBJECTS:CommonPrefabs>)
 	target_link_libraries(game_manager ${PREFAB_LIBRARIES})
 
-	set(PREFAB_DEPENDENCIES SFMLSaltyEngine Network Common ProtocolGame)
+	set(PREFAB_DEPENDENCIES SaltyEngine SFMLSaltyEngine Network Common ProtocolGame)
 
 endif()
 
