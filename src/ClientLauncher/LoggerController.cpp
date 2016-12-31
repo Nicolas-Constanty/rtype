@@ -21,12 +21,10 @@ void LoggerController::Start() {
     m_buttonSubmit = SaltyEngine::GameObject::Find("LaunchButton");
     m_submit = m_buttonSubmit->GetComponent<SaltyEngine::GUI::SFML::Button>();
     m_text = m_textBox->GetComponent<SaltyEngine::GUI::SFML::TextBox>();
+    m_buttonSubmit->GetComponent<RoomNetworkManager>()->GetNetworkManager()->SetTransitionNetworkManager(this);
 
     m_submit->onClick.AddListener("Login", [this]()
                            {
-                               std::cout << "CLICK !" << std::endl;
-                               std::cout << "Sending logging package -> " << m_text->GetText() << std::endl;
-                               std::cout << "Room network -> " << gameObject->GetComponent<RoomNetworkManager>() << std::endl;
                                m_buttonSubmit->GetComponent<RoomNetworkManager>()->SendAuthenticate(m_text->GetText());
                            }
     );
@@ -55,4 +53,59 @@ void LoggerController::OnMouseOver() {
 
 void LoggerController::OnMouseExit() {
     Debug::PrintSuccess("Mouse Exit");
+}
+
+void LoggerController::onGetAUTHENTICATE(AUTHENTICATEPackageRoom const &)
+{
+    std::cout << "Got authenticate package !!" << std::endl;
+}
+
+void LoggerController::onGetCREATE(CREATEPackageRoom const &)
+{
+
+}
+
+void LoggerController::onGetJOIN(JOINPackageRoom const &)
+{
+
+}
+
+void LoggerController::onGetQUIT(QUITPackageRoom const &)
+{
+
+}
+
+void LoggerController::onGetPLUGGED(PLUGGEDPackageRoom const &)
+{
+
+}
+
+void LoggerController::onGetSWAP(SWAPPackageRoom const &)
+{
+
+}
+
+void LoggerController::onGetGET(GETPackageRoom const &)
+{
+
+}
+
+void LoggerController::onGetFAILURE(FAILUREPackageRoom const &)
+{
+
+}
+
+void LoggerController::onGetLAUNCH(LAUNCHPackageRoom const &)
+{
+
+}
+
+void LoggerController::onGetDELETE(DELETEPackageRoom const &)
+{
+
+}
+
+void LoggerController::onGetCHAT(CHATPackageRoom const &)
+{
+
 }

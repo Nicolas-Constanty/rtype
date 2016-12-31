@@ -40,12 +40,12 @@ public:
     virtual void onGetCHATPackage(CHATPackageRoom const &obj);
 
 public:
-    void SetTransitionNetworkManager(ITransitionNetworkManager *manager);
+    void SetTransitionNetworkManager(ITransitionNetworkManager *manager) const;
 
 private:
     RTypeProtocolRoomManager protocolRoomManager;
     RoomPackageFactory factory;
-    ITransitionNetworkManager   *transitionNetworkManager = NULL;
+    mutable ITransitionNetworkManager   *transitionNetworkManager = NULL;
 };
 
 #endif //RTYPE_CLIENTROOMNETWORKMANAGER_HPP

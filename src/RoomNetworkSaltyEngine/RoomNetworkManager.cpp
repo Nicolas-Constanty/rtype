@@ -113,3 +113,10 @@ void RoomNetworkManager::onGetDELETE(DELETEPackageRoom const &obj) {
 void RoomNetworkManager::onGetCHAT(CHATPackageRoom const &obj) {
     std::cout << obj << std::endl;
 }
+
+ClientRoomNetworkManager const *RoomNetworkManager::GetNetworkManager(void) const
+{
+    if (clientRoomNetworkManager == nullptr)
+        clientRoomNetworkManager = new ClientRoomNetworkManager(dispatcher);
+    return clientRoomNetworkManager;
+}

@@ -35,12 +35,14 @@ public:
 	virtual void onGetDELETE(DELETEPackageRoom const &);
 	virtual void onGetCHAT(CHATPackageRoom const &);
 
+    ClientRoomNetworkManager const*GetNetworkManager(void) const;
+
 
 private:
     std::string                                         ip;
     unsigned short                                      port;
-    ClientRoomNetworkManager                            *clientRoomNetworkManager;
-    Network::Core::NativeSocketIOOperationDispatcher    dispatcher;
+    mutable ClientRoomNetworkManager                    *clientRoomNetworkManager = nullptr;
+    mutable Network::Core::NativeSocketIOOperationDispatcher    dispatcher;
 	RoomPackageFactory									factory;
 	bool 												m_isConnected = false;
 };

@@ -113,6 +113,6 @@ void ClientRoomNetworkManager::onGetCHATPackage(CHATPackageRoom const &obj) {
     buff += sizeof(obj);
 }
 
-void ClientRoomNetworkManager::SetTransitionNetworkManager(ITransitionNetworkManager *manager) {
+void ClientRoomNetworkManager::SetTransitionNetworkManager(ITransitionNetworkManager *manager) const {
     transitionNetworkManager = manager;
 }
