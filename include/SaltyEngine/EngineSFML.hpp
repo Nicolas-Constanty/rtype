@@ -19,7 +19,7 @@ namespace SaltyEngine
 
         Vector2 GetSceneScale(std::string const &sceneName) const override;
 
-        std::list<std::pair<string, Vector2f>> const& CreateSceneDefault(std::string const &sceneName) const override;
+        std::list<std::pair<string, Vector2f>> const& GetSceneObjects(std::string const &sceneName) const override;
 	};
 
 }

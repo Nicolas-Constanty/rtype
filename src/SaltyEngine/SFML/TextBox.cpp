@@ -43,7 +43,7 @@ void SaltyEngine::GUI::SFML::TextBox::Update() {
     const Vector2 &vec = gameObject->transform.GetPosition();
     const Vector2 &sc = gameObject->transform.GetLocalScale();
 
-    if (!eve->GetEvent().empty() && eve->IsWindowFocused())
+    if (!eve->GetEvent().empty() && eve->IsWindowFocused() && this->gameObject->GetActiveSelf())
     {
         const sf::Event &ev = eve->GetEvent().front();
         if (ev.text.unicode < 128)

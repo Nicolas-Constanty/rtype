@@ -57,7 +57,7 @@ void LoggerController::OnMouseExit() {
 
 void LoggerController::onGetAUTHENTICATE(AUTHENTICATEPackageRoom const &)
 {
-    SaltyEngine::Engine::Instance().LoadScene("MenuRoom");
+    SaltyEngine::Engine::Instance().LoadScene("scene2");
 }
 
 void LoggerController::onGetCREATE(CREATEPackageRoom const &)
