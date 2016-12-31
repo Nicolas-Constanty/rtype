@@ -5,6 +5,10 @@
     "width": "2",
     "height": "2"
   },
+  "size": {
+    "width": "960",
+    "height": "540"
+  },
   "prefabs": {
     "Player": {
       "prefabName": "Player",
