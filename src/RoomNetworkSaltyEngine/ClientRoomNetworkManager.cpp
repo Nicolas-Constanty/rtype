@@ -116,3 +116,8 @@ void ClientRoomNetworkManager::onGetCHATPackage(CHATPackageRoom const &obj) {
 void ClientRoomNetworkManager::SetTransitionNetworkManager(ITransitionNetworkManager *manager) const {
     transitionNetworkManager = manager;
 }
+
+ITransitionNetworkManager const *ClientRoomNetworkManager::GetTransitionNetworkManager(void) const
+{
+    return transitionNetworkManager;
+}

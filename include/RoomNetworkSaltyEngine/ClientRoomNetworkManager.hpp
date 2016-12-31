@@ -41,6 +41,7 @@ public:
 
 public:
     void SetTransitionNetworkManager(ITransitionNetworkManager *manager) const;
+    ITransitionNetworkManager const*GetTransitionNetworkManager(void) const;
 
 private:
     RTypeProtocolRoomManager protocolRoomManager;

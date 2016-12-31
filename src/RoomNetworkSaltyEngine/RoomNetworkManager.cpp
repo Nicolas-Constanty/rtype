@@ -30,7 +30,8 @@ void RoomNetworkManager::Start() {
         dispatcher.setTimeout({0, 0});
         dispatcher.Watch(*clientRoomNetworkManager, Network::Core::NativeSocketIOOperationDispatcher::READ);
         m_isConnected = true;
-        clientRoomNetworkManager->SetTransitionNetworkManager(this);
+        if (clientRoomNetworkManager->GetTransitionNetworkManager() == nullptr)
+            clientRoomNetworkManager->SetTransitionNetworkManager(this);
     } catch (...) {
         m_isConnected = false;
     }
