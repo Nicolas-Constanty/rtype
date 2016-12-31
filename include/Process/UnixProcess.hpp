@@ -5,6 +5,8 @@
 #ifndef RTYPE_UNIXPROCESS_HPP
 #define RTYPE_UNIXPROCESS_HPP
 
+#ifdef __linux__
+
 #include "IProcess.hpp"
 
 class UnixProcess : public IProcess {
@@ -24,5 +26,9 @@ private:
     pid_t pid;
     mutable bool alive;
 };
+
+typedef UnixProcess OSProcess;
+
+#endif
 
 #endif //RTYPE_UNIXPROCESS_HPP

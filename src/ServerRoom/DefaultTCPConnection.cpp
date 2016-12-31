@@ -34,6 +34,7 @@ bool DefaultTCPConnection::OnDataReceived(unsigned int)
         if ((!protocolRoomManager.handleProtocol(buff.buff(), buff.getLength()))) {
             std::cout << "unknown command" << std::endl;
             Disconnect();
+            return (false);
         }
     }
     return (true);

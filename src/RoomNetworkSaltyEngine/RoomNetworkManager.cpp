@@ -23,17 +23,33 @@ RoomNetworkManager::~RoomNetworkManager() {
 
 void RoomNetworkManager::Start() {
     clientRoomNetworkManager = new ClientRoomNetworkManager(dispatcher);
-
-    clientRoomNetworkManager->Connect(ip, port);
-    dispatcher.setTimeout({0, 0});
-    dispatcher.Watch(*clientRoomNetworkManager, Network::Core::NativeSocketIOOperationDispatcher::READ);
 }
 
 void RoomNetworkManager::Update() {
-    dispatcher.Poll();
+    if (!m_isConnected)
+    {
+        try
+        {
+            clientRoomNetworkManager->Connect(ip, port);
+            dispatcher.setTimeout({0, 0});
+            dispatcher.Watch(*clientRoomNetworkManager, Network::Core::NativeSocketIOOperationDispatcher::READ);
+            m_isConnected = true;
+        }
+        catch (...)
+        {
+            m_isConnected = false;
+        }
+    }
+    else
+        dispatcher.Poll();
 }
 
 void RoomNetworkManager::SendAuthenticate(const std::string &name)
 {
 	clientRoomNetworkManager->SendData(*factory.create<AUTHENTICATEPackageRoom>(name, 0));
+}
+
+SaltyEngine::Component *RoomNetworkManager::CloneComponent(SaltyEngine::GameObject *const obj)
+{
+    return new RoomNetworkManager(obj, ip, port);
 }

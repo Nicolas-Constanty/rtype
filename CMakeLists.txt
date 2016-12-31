@@ -59,6 +59,7 @@ include(${PROJECT_SOURCE_DIR}/Tests/GameServer/CMakeLists.txt)
 #include(${PROJECT_SOURCE_DIR}/Tests/Network/CMakeLists.txt)
 #include(${PROJECT_SOURCE_DIR}/Tests/GUI/CMakeLists.txt)
 include(${PROJECT_SOURCE_DIR}/Tests/Animations/CMakeLists.txt)
+include(${PROJECT_SOURCE_DIR}/Tests/Process/CMakeLists.txt)
 
 #Windows
 elseif(MSVC)
@@ -100,4 +101,6 @@ elseif(MSVC)
 
 	############### PREFABS ##############
 	add_subdirectory(${PROJECT_SOURCE_DIR}/R-Type/Prefab)
+
+	add_subdirectory(${PROJECT_SOURCE_DIR}/TESTS/Process)
 endif()
