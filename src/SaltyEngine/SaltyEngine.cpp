@@ -7,10 +7,12 @@
  #include <unistd.h>
 #endif
 
+#include <thread>
+#include <list>
 #include "SaltyEngine/SaltyEngine.hpp"
 #include <SaltyEngine/Constants.hpp>
 #include <SFML/System/Thread.hpp>
-#include <thread>
+#include <SaltyEngine/ISceneLoader.hpp>
 #include "SaltyEngine/AScene.hpp"
 #include "Common/Debug.hpp"
 
@@ -198,6 +200,15 @@ namespace SaltyEngine
 		{
 			m_scenes[m_current]->CleanScene();
 			m_current = index;
+            this->operator<<(m_sceneLoader->CreateScene());
+            m_scenes[m_current]->SetScale(m_sceneLoader->GetSceneScale(m_scenes[m_current]->GetName()));
+            for (auto it : m_sceneLoader->CreateSceneDefault(m_scenes[m_current]->GetName()) )
+            {
+                if (it.first == "GameManager") {
+                    SaltyEngine::Vector2f pos = it.second;
+                    SaltyEngine::Instantiate(it.first, pos, 0);
+                }
+            }
 		}
 		else
 		{
@@ -402,5 +413,10 @@ namespace SaltyEngine
 
 	Input::IEventManager *Engine::GetEventManager() const {
         return m_even_manager;
+    }
+
+    void Engine::SetSceneLoader(ISceneLoader *sceneLoader)
+    {
+        m_sceneLoader = sceneLoader;
     }
 }

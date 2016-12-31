@@ -4,6 +4,7 @@
 #include <Rtype/Game/Client/GameGUIHighscore.hpp>
 #include <Rtype/Game/Client/EndScreen.hpp>
 #include <Common/Flags.hpp>
+#include <SaltyEngine/EngineSFML.hpp>
 #include "SaltyEngine/SFML.hpp"
 
 void CreateGUIGame(SaltyEngine::Vector2i const &size, SaltyEngine::SFML::Scene *scene) {
@@ -97,6 +98,7 @@ void StartGame(const std::string &map)
 			SaltyEngine::Instantiate(it->first, pos, 0);
 		}
 	}
+	SaltyEngine::Engine::Instance().SetSceneLoader(new SaltyEngine::EngineSFML());
 	SaltyEngine::Engine::Instance().Run();
 }
 
