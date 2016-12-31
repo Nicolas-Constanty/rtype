@@ -84,7 +84,7 @@ namespace SaltyEngine
 
 	protected:
 		std::vector<GameObject *>	m_objects;
-		std::queue<size_t>			m_init;
+		std::queue<GameObject *>	m_init;
 		float						m_gravity;
 		std::list<GameObject *>		m_deleted;
 		Vector2f					m_scale;

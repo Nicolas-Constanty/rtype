@@ -26,7 +26,7 @@ SaltyEngine::Component *SelectRoomController::CloneComponent(SaltyEngine::GameOb
 }
 
 void SelectRoomController::OnMouseEnter() {
-    Debug::PrintSuccess("Mouse Enter");
+//    Debug::PrintSuccess("Mouse Enter");
 }
 
 void SelectRoomController::OnMouseOver() {
@@ -34,5 +34,5 @@ void SelectRoomController::OnMouseOver() {
 }
 
 void SelectRoomController::OnMouseExit() {
-    Debug::PrintSuccess("Mouse Exit");
+//    Debug::PrintSuccess("Mouse Exit");
 }

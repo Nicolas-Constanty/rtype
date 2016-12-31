@@ -55,6 +55,11 @@ SelectRoom::SelectRoom() : GameObject("SelectRoom")
     create_button->transform.SetParent(&transform);
     create_button->transform.SetPosition(-260.0f, 385.0f);
 
+    SaltyEngine::GameObject *display_selected = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate());
+    display_selected->AddComponent<SaltyEngine::GUI::SFML::Label>("Please select a map...", 25, font);
+    display_selected->transform.SetParent(&transform);
+    display_selected->transform.SetPosition(-540.0f, 70.0f);
+
     transform.SetPosition(engine.GetSize().x, engine.GetSize().y);
 }
 

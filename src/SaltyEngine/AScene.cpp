@@ -100,12 +100,13 @@ namespace SaltyEngine
 	{
 		while (!m_init.empty())
 		{
-			const std::list<SaltyBehaviour *> &Sb = m_objects[m_init.front()]->GetSaltyBehaviour();
+			GameObject *gm = m_init.front();
+			const std::list<SaltyBehaviour *> &Sb = gm->GetSaltyBehaviour();
 			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
 				if ((*it)->enabled) {
 					(*it)->Start();
 				}
-            m_enabled.push(m_objects[m_init.front()]);
+            m_enabled.push(gm);
             m_init.pop();
 		}
 	}
@@ -399,7 +400,7 @@ namespace SaltyEngine
 		}
 		gameobj->transform.SetLocalScale(m_scale);
 		m_objects.push_back(gameobj);
-        m_init.emplace(m_objects.size() - 1);
+        m_init.push(gameobj);
     }
 
     /**
