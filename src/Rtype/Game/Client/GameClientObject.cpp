@@ -20,8 +20,9 @@ Rtype::Game::Client::GameClientObject::GameClientObject(const std::string & name
 {
 }
 
-void Rtype::Game::Client::GameClientObject::Start()
-{
+void Rtype::Game::Client::GameClientObject::Start() {
+	std::cout << "start gameClientObject" << std::endl;
+	
 	m_rtypeclient = new Rtype::Game::Client::RtypeClientGameClient(m_dispatcher, m_secret);
     m_rtypeclient->Connect(m_ip, m_port);
 	m_dispatcher.Watch(m_rtypeclient, Network::Core::NativeSocketIOOperationDispatcher::READ);

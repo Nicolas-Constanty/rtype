@@ -196,17 +196,22 @@ namespace SaltyEngine
 
 	bool Engine::LoadScene(size_t index)
 	{
+//		bool test = true;
+
 		if (index < m_scenes.size())
 		{
 			m_scenes[m_current]->CleanScene();
 			m_current = index;
-            this->operator<<(m_sceneLoader->CreateScene());
-            m_scenes[m_current]->SetScale(m_sceneLoader->GetSceneScale(m_scenes[m_current]->GetName()));
-            for (auto it : m_sceneLoader->GetSceneObjects(m_scenes[m_current]->GetName()) )
+//            this->operator<<(m_sceneLoader->CreateScene());
+            m_sceneLoader->LoadScene(m_scenes[m_current]->GetName());
+            m_scenes[m_current]->SetScale(m_sceneLoader->GetSceneScale());
+            for (auto &it : m_sceneLoader->GetSceneObjects())
             {
+                std::cout << "In scene [" << m_scenes[m_current]->GetName() << "] " << it.first << std::endl;
                 if (it.first == "GameManager") {
                     SaltyEngine::Vector2f pos = it.second;
                     SaltyEngine::Instantiate(it.first, pos, 0);
+//					test = false;
                 }
             }
 		}

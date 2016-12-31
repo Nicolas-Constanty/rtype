@@ -11,7 +11,7 @@
 GameManagerPrefab::GameManagerPrefab() : GameObject("GameManager", SaltyEngine::Layer::Tag::GameManager)
 {
     AddComponent<GameManager>();
-    AddComponent<Rtype::Game::Client::GameClientObject>("127.0.0.1", 4242, 0);
+    AddComponent<Rtype::Game::Client::GameClientObject>("127.0.0.1", 4241, 0);
 
     const SaltyEngine::Engine &engine = SaltyEngine::Engine::Instance();
     const SaltyEngine::Vector2ui size = engine.GetSize();
