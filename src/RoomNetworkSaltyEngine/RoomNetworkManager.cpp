@@ -2,6 +2,8 @@
 // Created by victor on 09/12/16.
 //
 
+#include <Common/Debug.hpp>
+#include <SaltyEngine/SaltyEngine.hpp>
 #include "RoomNetworkSaltyEngine/RoomNetworkManager.hpp"
 
 RoomNetworkManager::RoomNetworkManager(SaltyEngine::GameObject *const gameObject, std::string const &ip,
@@ -23,25 +25,38 @@ RoomNetworkManager::~RoomNetworkManager() {
 
 void RoomNetworkManager::Start() {
     clientRoomNetworkManager = new ClientRoomNetworkManager(dispatcher);
+    try {
+        clientRoomNetworkManager->Connect(ip, port);
+        dispatcher.setTimeout({0, 0});
+        dispatcher.Watch(*clientRoomNetworkManager, Network::Core::NativeSocketIOOperationDispatcher::READ);
+        m_isConnected = true;
+    } catch (...) {
+        m_isConnected = false;
+    }
 }
 
 void RoomNetworkManager::Update() {
-    if (!m_isConnected)
-    {
-        try
-        {
-            clientRoomNetworkManager->Connect(ip, port);
-            dispatcher.setTimeout({0, 0});
-            dispatcher.Watch(*clientRoomNetworkManager, Network::Core::NativeSocketIOOperationDispatcher::READ);
-            m_isConnected = true;
-        }
-        catch (...)
-        {
-            m_isConnected = false;
-        }
-    }
-    else
+//    if (!m_isConnected)
+//    {
+////        try
+////        {
+////            clientRoomNetworkManager->Connect(ip, port);
+////            dispatcher.setTimeout({0, 0});
+////            dispatcher.Watch(*clientRoomNetworkManager, Network::Core::NativeSocketIOOperationDispatcher::READ);
+////            m_isConnected = true;
+////        }
+////        catch (...)
+////        {
+////            m_isConnected = false;
+////        }
+//    }
+//    else
+    if (m_isConnected)
         dispatcher.Poll();
+    else {
+        Debug::PrintError("Server room not found !");
+        SaltyEngine::Engine::Instance().Stop();
+    }
 }
 
 void RoomNetworkManager::SendAuthenticate(const std::string &name)
