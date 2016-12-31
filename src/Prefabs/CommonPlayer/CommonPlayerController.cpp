@@ -48,6 +48,7 @@ void CommonPlayerController::Start()
     animation->AddClip(SaltyEngine::SFML::AssetManager::Instance().GetAnimation("Laser/loading"), "Loading");
     m_beamSFX->transform.SetParent(&this->gameObject->transform);
     m_beamSFX->SetActive(false);
+    handler = gameObject->GetComponent<PodHandler>();
 }
 
 void CommonPlayerController::FixedUpdate()
@@ -90,6 +91,7 @@ void CommonPlayerController::Die()
     if (isServerSide())
     {
         timer = timeoutDeath;
+        handler->Launch();
         BroadCastReliable<DEATHPackage>(getManager()->gameObjectContainer.GetServerObjectID(gameObject));
     }
     else
