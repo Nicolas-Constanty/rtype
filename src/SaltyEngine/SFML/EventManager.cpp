@@ -50,6 +50,8 @@ namespace SaltyEngine {
                     case sf::Event::EventType::JoystickMoved:
                         break;
                     case sf::Event::EventType::TextEntered:
+                    case sf::Event::EventType::MouseButtonPressed:
+                    case sf::Event::EventType::MouseButtonReleased:
                         m_events.push(event);
                     case sf::Event::EventType::GainedFocus:
                         m_isFocused = true;

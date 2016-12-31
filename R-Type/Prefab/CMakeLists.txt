@@ -188,10 +188,21 @@ file(GLOB SRC_COMMMUNICATION
 	# GUI
         # LOG SCREEN
 		file(GLOB GUI_LOGGER_SOURCE_FILE
-				"src/ClientLauncher/*.cpp"
-				"include/ClientLauncher/*.hpp")
+			"src/ClientLauncher/Logger.cpp"
+			"src/ClientLauncher/LoggerController.cpp"
+			"src/ClientLauncher/Logger.hpp"
+			"src/ClientLauncher/LoggerController.hpp")
 		add_library(gui_logger SHARED ${GUI_LOGGER_SOURCE_FILE})
 		target_link_libraries(gui_logger ${PREFAB_LIBRARIES})
+
+		# ROOM SCREEN
+		file(GLOB GUI_SELECT_ROOM_SOURCE_FILE
+			"src/ClientLauncher/SelectRoom.cpp"
+			"src/ClientLauncher/SelectRoomController.cpp"
+			"src/ClientLauncher/SelectRoom.hpp"
+			"src/ClientLauncher/SelectRoomController.hpp")
+		add_library(gui_menu_room SHARED ${GUI_SELECT_ROOM_SOURCE_FILE})
+		target_link_libraries(gui_menu_room ${PREFAB_LIBRARIES})
 
 		set(PREFAB_DEPENDENCIES SFMLSaltyEngine Network PrefabCommunication Common ProtocolGame)
 
@@ -345,7 +356,12 @@ file(GLOB SRC_COMMMUNICATION
 
 	# GUI
         # LOG SCREEN
-		file(GLOB GUI_LOGGER_SOURCE_FILE "../../src/ClientLauncher/*.cpp" "../../src/RoomNetworkSaltyEngine/*.cpp")
+		file(GLOB GUI_LOGGER_SOURCE_FILE
+				"../../src/ClientLauncher/Logger.cpp"
+				"../../src/ClientLauncher/LoggerController.cpp"
+				"../../src/ClientLauncher/Logger.hpp"
+				"../../src/ClientLauncher/LoggerController.hpp"
+				"../../src/RoomNetworkSaltyEngine/*.cpp")
 		add_library(gui_logger SHARED ${GUI_LOGGER_SOURCE_FILE} $<TARGET_OBJECTS:RtypeLib> $<TARGET_OBJECTS:CommonPrefabs>)
 		target_link_libraries(gui_logger ${PREFAB_LIBRARIES} ProtocolRoom)
 
@@ -355,6 +371,14 @@ file(GLOB SRC_COMMMUNICATION
 	target_link_libraries(game_manager ${PREFAB_LIBRARIES})
 
 	set(PREFAB_DEPENDENCIES SaltyEngine SFMLSaltyEngine Network Common ProtocolGame)
+		# ROOM SCREEN
+		file(GLOB GUI_SELECT_ROOM_SOURCE_FILE
+				"src/ClientLauncher/SelectRoom.cpp"
+				"src/ClientLauncher/SelectRoomController.cpp"
+				"src/ClientLauncher/SelectRoom.hpp"
+				"src/ClientLauncher/SelectRoomController.hpp")
+		add_library(gui_menu_room SHARED ${GUI_SELECT_ROOM_SOURCE_FILE} $<TARGET_OBJECTS:RtypeLib> $<TARGET_OBJECTS:CommonPrefabs>)
+		target_link_libraries(gui_menu_room ${PREFAB_LIBRARIES})
 
 endif()
 
@@ -401,6 +425,7 @@ set(PREFABS_TARGET
 		beam
 		BlockSimple
         game_manager
-        gui_logger)
+        gui_logger
+		gui_menu_room)
 
 add_custom_target(prefabs DEPENDS ${PREFABS_TARGET})

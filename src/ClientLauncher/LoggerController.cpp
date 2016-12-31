@@ -19,13 +19,14 @@ LoggerController::~LoggerController()
 void LoggerController::Start() {
     m_textBox = SaltyEngine::GameObject::Find("TextBox");
     m_buttonSubmit = SaltyEngine::GameObject::Find("LaunchButton");
+    m_roomNetworkManager = SaltyEngine::GameObject::Find("RoomNetworkManager");
     m_submit = m_buttonSubmit->GetComponent<SaltyEngine::GUI::SFML::Button>();
     m_text = m_textBox->GetComponent<SaltyEngine::GUI::SFML::TextBox>();
-    m_buttonSubmit->GetComponent<RoomNetworkManager>()->GetNetworkManager()->SetTransitionNetworkManager(this);
+    m_roomNetworkManager->GetComponent<RoomNetworkManager>()->GetNetworkManager()->SetTransitionNetworkManager(this);
 
     m_submit->onClick.AddListener("Login", [this]()
                            {
-                               m_buttonSubmit->GetComponent<RoomNetworkManager>()->SendAuthenticate(m_text->GetText());
+                               m_roomNetworkManager->GetComponent<RoomNetworkManager>()->SendAuthenticate(m_text->GetText());
                            }
     );
 
@@ -44,7 +45,7 @@ SaltyEngine::Component *LoggerController::CloneComponent(SaltyEngine::GameObject
 }
 
 void LoggerController::OnMouseEnter() {
-    Debug::PrintSuccess("Mouse Enter");
+//    Debug::PrintSuccess("Mouse Enter");
 }
 
 void LoggerController::OnMouseOver() {
@@ -52,12 +53,21 @@ void LoggerController::OnMouseOver() {
 }
 
 void LoggerController::OnMouseExit() {
-    Debug::PrintSuccess("Mouse Exit");
+//    Debug::PrintSuccess("Mouse Exit");
 }
 
 void LoggerController::onGetAUTHENTICATE(AUTHENTICATEPackageRoom const &)
 {
+//    std::cout << "ohle" << std::endl;
+//    std::list<SaltyEngine::Object *> list2 = SaltyEngine::GameObject::FindObjectsOfType<SaltyEngine::GameObject>();
+//    for (SaltyEngine::Object *object : list2) {
+//        std::cout << object->GetName() << std::endl;
+//    }
     SaltyEngine::Engine::Instance().LoadScene("scene2");
+//    std::list<SaltyEngine::Object *> list = SaltyEngine::GameObject::FindObjectsOfType<SaltyEngine::GameObject>();
+//    for (SaltyEngine::Object *object : list) {
+//        std::cout << object->GetName() << std::endl;
+//    }
 }
 
 void LoggerController::onGetCREATE(CREATEPackageRoom const &)

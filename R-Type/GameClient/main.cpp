@@ -69,13 +69,14 @@ void CallCharabia(const std::string &map,
 	SaltyEngine::Engine::Instance().Run();
 }
 
-void StartGame(const std::string &map)
+void StartGame(int ac, char **av, const std::string &map)
 {
 	SaltyEngine::SFML::Scene *scene = new SaltyEngine::SFML::Scene();
 	SaltyEngine::SFML::Scene *scene2 = new SaltyEngine::SFML::Scene();
 
     scene->SetName("sceneConnection");
     scene2->SetName("scene2");
+    SaltyEngine::Engine::Instance().SetArguments(ac, (const char**)av);
 	SaltyEngine::Engine::Instance() << scene;
 	SaltyEngine::Engine::Instance() << scene2;
 
@@ -137,7 +138,7 @@ int main(int ac, char **av)
 
 
 	//COMMENT THIS LINE
-	StartGame(map);
+	StartGame(ac, av, map);
 
 	//UNCOMMENT THIS LINE TO GET OLD CLIENT
 //	CallCharabia(map, scene, renderer, ip, port, secret);

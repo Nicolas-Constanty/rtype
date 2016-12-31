@@ -2,6 +2,7 @@
 // Created by veyrie_f on 29/12/16.
 //
 
+#include <Common/Flags.hpp>
 #include "ClientLauncher/Logger.hpp"
 #include "ClientLauncher/LoggerController.hpp"
 #include "RoomNetworkSaltyEngine/RoomNetworkManager.hpp"
@@ -19,17 +20,34 @@ Logger::Logger() : GameObject("Logger")
     text_box->transform.SetPosition(0, -130.0f);
     text_box->transform.SetLocalScale(SaltyEngine::Vector2(2, 2));
 
+    Flags flags;
+
+    std::string	ip;
+    uint16_t port;
+    std::string map;
+    uint32_t secret;
+    flags.Reset();
+    flags.Var(ip, 'h', "host", std::string("127.0.0.1"), "The host to which connect", "Game host");
+    flags.Var(port, 'p', "port", uint16_t(4242), "The port to which connect", "Game port");
+    flags.Var(map, 'l', "level", std::string("sceneConnection"), "The level of the game server", "Game level");
+    flags.Var(secret, 's', "secret", uint32_t(0), "The secret code of the game server", "Game secret");
+    flags.Parse(SaltyEngine::Engine::Instance().GetArgc(), (char **)SaltyEngine::Engine::Instance().GetArgv());
+
     SaltyEngine::GameObject *launch_button = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate());
     launch_button->AddComponent<LoggerController>();
-    launch_button->AddComponent<RoomNetworkManager>("127.0.0.1", 4242);
     launch_button->AddComponent<SaltyEngine::GUI::SFML::Label>("START", 54, font);
     launch_button->SetName("LaunchButton");
-    SaltyEngine::GUI::SFML::Button *b = launch_button->AddComponent<SaltyEngine::GUI::SFML::Button>(SaltyEngine::SFML::AssetManager::Instance().GetSprite("GUI/launch_button"),
+    launch_button->AddComponent<SaltyEngine::GUI::SFML::Button>(SaltyEngine::SFML::AssetManager::Instance().GetSprite("GUI/launch_button"),
                                                  SaltyEngine::SFML::AssetManager::Instance().GetSprite("GUI/launch_button_over"));
 
     launch_button->transform.SetParent(&transform);
     launch_button->transform.SetPosition(0, 80.0f);
     launch_button->transform.SetLocalScale(SaltyEngine::Vector2(2, 2));
+
+    SaltyEngine::GameObject *tcp_connector = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate());
+    tcp_connector->SetName("RoomNetworkManager");
+    tcp_connector->AddComponent<RoomNetworkManager>(ip, port);
+    SaltyEngine::Object::DontDestroyOnLoad(tcp_connector);
 
     SaltyEngine::GameObject *background_animation = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate());
     background_animation->SetName("background");

@@ -50,6 +50,10 @@ namespace SaltyEngine
 		virtual const Vector2ui &GetSize(void) const;
         virtual void SetSceneLoader(ISceneLoader *sceneLoader);
 
+        int GetArgc(void) const;
+        char const** GetArgv(void) const;
+        void SetArguments(int ac, char const**av);
+
 	protected:
 		EngineStatus								m_status;
 		std::vector<std::unique_ptr<AScene>>		m_scenes;
@@ -63,6 +67,8 @@ namespace SaltyEngine
 
     private:
         ISceneLoader        *m_sceneLoader = nullptr;
+		char 				const**m_av = nullptr;
+		int 				m_ac = 0;
 	};
 }
 

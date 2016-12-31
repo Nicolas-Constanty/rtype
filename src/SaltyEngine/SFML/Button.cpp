@@ -83,11 +83,10 @@ namespace SaltyEngine
                         over = new ::SaltyEngine::SFML::Sprite(texture, new SaltyEngine::SFML::Rect(rect->left, rect->top, rect->width, rect->height));
                     }
                 }
-                std::cout << "CLONE" << std::endl;
                 return new Button(obj, normal, over);
             }
 
-            void Button::FixedUpdate() {
+            void Button::Update() {
                 if (!eve || !eve->IsWindowFocused() || !this->gameObject->GetActiveSelf())
                     return;
                 Vector2i vec = InputKey::GetPositionRelative();
@@ -96,6 +95,7 @@ namespace SaltyEngine
                     const std::list<SaltyBehaviour *> & list = gameObject->GetSaltyBehaviour();
 
                     if (!m_status) {
+                        m_over->setPosition(m_normal->getPosition());
                         m_sprr->SetSprite(m_over);
                         for (std::list<SaltyBehaviour *>::const_iterator it = list.begin(); it != list.end(); ++it)
                             (*it)->OnMouseEnter();
@@ -104,7 +104,8 @@ namespace SaltyEngine
                         for (std::list<SaltyBehaviour *>::const_iterator it = list.begin(); it != list.end(); ++it)
                             (*it)->OnMouseOver();
                     }
-                    if (InputKey::GetButtonPressed(::SaltyEngine::Input::Mouse::Button::Left))
+                    const sf::Event &e = eve->GetEvent().front();
+                    if (e.type == sf::Event::MouseButtonPressed && e.mouseButton.button == sf::Mouse::Left)
                     {
                         OnPointerClick();
                     }
