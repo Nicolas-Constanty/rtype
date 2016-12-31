@@ -58,7 +58,16 @@ void LoggerController::OnMouseExit() {
 
 void LoggerController::onGetAUTHENTICATE(AUTHENTICATEPackageRoom const &)
 {
+//    std::cout << "ohle" << std::endl;
+//    std::list<SaltyEngine::Object *> list2 = SaltyEngine::GameObject::FindObjectsOfType<SaltyEngine::GameObject>();
+//    for (SaltyEngine::Object *object : list2) {
+//        std::cout << object->GetName() << std::endl;
+//    }
     SaltyEngine::Engine::Instance().LoadScene("scene2");
+//    std::list<SaltyEngine::Object *> list = SaltyEngine::GameObject::FindObjectsOfType<SaltyEngine::GameObject>();
+//    for (SaltyEngine::Object *object : list) {
+//        std::cout << object->GetName() << std::endl;
+//    }
 }
 
 void LoggerController::onGetCREATE(CREATEPackageRoom const &)

@@ -94,6 +94,7 @@ bool Rtype::Game::Common::RtypeGameClient::OnDataSent(unsigned int)
 
 void Rtype::Game::Common::RtypeGameClient::onGetDISCONNECTPackage(DISCONNECTPackageGame const &pack)
 {
+    std::cout << pack << std::endl;
     OnDiscoveringPackage(pack);
     Debug::PrintInfo("Get disconnected");
     if (playerID == pack.playerID)

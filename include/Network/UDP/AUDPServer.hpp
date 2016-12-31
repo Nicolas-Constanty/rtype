@@ -19,7 +19,7 @@ namespace Network
         /**
          * @brief The timeout after which disconnet user
          */
-        constexpr static const std::chrono::milliseconds    default_timeout = std::chrono::milliseconds(5000);
+        constexpr static const std::chrono::milliseconds    default_timeout = std::chrono::milliseconds(10000);
 
         /**
          * @brief Class that corresponds to an UDP server

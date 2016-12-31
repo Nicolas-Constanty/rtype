@@ -196,6 +196,8 @@ namespace SaltyEngine
 
 	bool Engine::LoadScene(size_t index)
 	{
+//		bool test = true;
+
 		if (index < m_scenes.size())
 		{
 			m_scenes[m_current]->CleanScene();
@@ -209,6 +211,7 @@ namespace SaltyEngine
                 if (it.first == "GameManager") {
                     SaltyEngine::Vector2f pos = it.second;
                     SaltyEngine::Instantiate(it.first, pos, 0);
+//					test = false;
                 }
             }
 		}
