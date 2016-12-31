@@ -88,7 +88,7 @@ namespace SaltyEngine
             }
 
             void Button::FixedUpdate() {
-                if (!eve->IsWindowFocused())
+                if (!eve->IsWindowFocused() || !this->gameObject->GetActiveSelf())
                     return;
                 Vector2i vec = InputKey::GetPositionRelative();
                 if (m_sprr->GetSprite()->getGlobalBounds().contains(sf::Vector2<float>(vec.x, vec.y)))
