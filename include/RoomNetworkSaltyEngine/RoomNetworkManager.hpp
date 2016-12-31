@@ -20,6 +20,8 @@ public:
     void Update();
 	void SendAuthenticate(const std::string &name);
 
+	SaltyEngine::Component *CloneComponent(SaltyEngine::GameObject *const obj) override;
+
 
 private:
     std::string                                         ip;
@@ -27,6 +29,7 @@ private:
     ClientRoomNetworkManager                            *clientRoomNetworkManager;
     Network::Core::NativeSocketIOOperationDispatcher    dispatcher;
 	RoomPackageFactory									factory;
+	bool 												m_isConnected = false;
 };
 
 #endif //RTYPE_ROOMNETWORKMANAGER_HPP

@@ -17,6 +17,7 @@ if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 			"src/Rtype/Game/Client/*.cpp"
 			"src/Prefabs/RtypePrefab.cpp"
 			"R-Type/GameClient/main.cpp"
+			"src/RoomNetworkSaltyEngine/*.cpp"
 			)
 
 	#Hpp files
@@ -24,6 +25,7 @@ if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 			"include/Rtype/Game/Server/*.hpp"
 			"include/Rtype/Game/Common/*.hpp"
 			"include/Rtype/Game/Common/*.hpp"
+			"include/RoomNetworkSaltyEngine/*.hpp"
 			)
 	
 	#Create GameClient
@@ -45,10 +47,10 @@ if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 			pod
 			dl sfml-system sfml-audio sfml-graphics sfml-window)
 
-	add_custom_target(
-			compilation
-			COMMAND aplay ${CMAKE_CURRENT_SOURCE_DIR}/Assets/Sounds/MusicMenu.wav&
-	)
+#	add_custom_target(
+#			compilation
+#			COMMAND aplay ${CMAKE_CURRENT_SOURCE_DIR}/Assets/Sounds/MusicMenu.wav&
+#	)
 
 	add_dependencies(GameClient compilation Common ProtocolServer ProtocolGame ProtocolRoom SaltyEngine SFMLSaltyEngine Parser prefabs)
 

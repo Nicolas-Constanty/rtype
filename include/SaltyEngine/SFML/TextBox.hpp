@@ -5,8 +5,7 @@
 #ifndef RTYPE_TEXTBOX_HPP
 #define RTYPE_TEXTBOX_HPP
 
-#include "SaltyEngine/SFML/Label.hpp"
-#include "SaltyEngine/SFML/Renderer.hpp"
+#include "SaltyEngine/SFML.hpp"
 
 namespace SaltyEngine
 {
@@ -26,13 +25,15 @@ namespace SaltyEngine
                         const sf::Color &fill_color = sf::Color::White,
                         const sf::Color &color_outline = sf::Color::Black,
                         unsigned int outline_thickness = 2,
-                        size_t max_char = -1);
+                        size_t max_char = 0);
 
             public:
                 void Start() override;
                 void Update() override;
 
                 void FixedUpdate() override;
+
+                std::string const& GetText(void) const;
 
             private:
                 const Label *m_title;

@@ -6,6 +6,8 @@
 #define RTYPE_LOGGERCONTROLLER_HPP
 
 
+#include "SaltyEngine/SFML/TextBox.hpp"
+#include "SaltyEngine/SFML/Button.hpp"
 #include "SaltyEngine/GameObject.hpp"
 
 class LoggerController : public SaltyEngine::SaltyBehaviour
@@ -24,6 +26,12 @@ public:
 
 public:
     virtual SaltyEngine::Component *CloneComponent(SaltyEngine::GameObject *const obj);
+
+private:
+    SaltyEngine::GameObject *m_textBox = nullptr;
+    SaltyEngine::GameObject *m_buttonSubmit = nullptr;
+    SaltyEngine::GUI::SFML::Button *m_submit = nullptr;
+    SaltyEngine::GUI::SFML::TextBox *m_text = nullptr;
 };
 
 #endif //RTYPE_LOGGERCONTROLLER_HPP
