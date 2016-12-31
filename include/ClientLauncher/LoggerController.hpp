@@ -48,6 +48,7 @@ private:
     SaltyEngine::GameObject *m_buttonSubmit = nullptr;
     SaltyEngine::GUI::SFML::Button *m_submit = nullptr;
     SaltyEngine::GUI::SFML::TextBox *m_text = nullptr;
+    SaltyEngine::GameObject *m_roomNetworkManager = nullptr;
 };
 
 #endif //RTYPE_LOGGERCONTROLLER_HPP

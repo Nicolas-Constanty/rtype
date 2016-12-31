@@ -35,15 +35,19 @@ Logger::Logger() : GameObject("Logger")
 
     SaltyEngine::GameObject *launch_button = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate());
     launch_button->AddComponent<LoggerController>();
-    launch_button->AddComponent<RoomNetworkManager>(ip, port);
     launch_button->AddComponent<SaltyEngine::GUI::SFML::Label>("START", 54, font);
     launch_button->SetName("LaunchButton");
-    SaltyEngine::GUI::SFML::Button *b = launch_button->AddComponent<SaltyEngine::GUI::SFML::Button>(SaltyEngine::SFML::AssetManager::Instance().GetSprite("GUI/launch_button"),
+    launch_button->AddComponent<SaltyEngine::GUI::SFML::Button>(SaltyEngine::SFML::AssetManager::Instance().GetSprite("GUI/launch_button"),
                                                  SaltyEngine::SFML::AssetManager::Instance().GetSprite("GUI/launch_button_over"));
 
     launch_button->transform.SetParent(&transform);
     launch_button->transform.SetPosition(0, 80.0f);
     launch_button->transform.SetLocalScale(SaltyEngine::Vector2(2, 2));
+
+    SaltyEngine::GameObject *tcp_connector = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate());
+    tcp_connector->SetName("RoomNetworkManager");
+    tcp_connector->AddComponent<RoomNetworkManager>(ip, port);
+    SaltyEngine::Object::DontDestroyOnLoad(tcp_connector);
 
     SaltyEngine::GameObject *background_animation = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate());
     background_animation->SetName("background");
