@@ -5,9 +5,9 @@
 #ifndef RTYPE_PODCONTROLLER_HPP
 #define RTYPE_PODCONTROLLER_HPP
 
-#include <Prefabs/GenericController.hpp>
-#include <Prefabs/Player/PlayerController.hpp>
-#include <Prefabs/PodHandler/PodHandler.hpp>
+#include "Prefabs/RtypePrefab.hpp"
+
+class PodHandler;
 
 class PREF_EXPORT PodController : public RtypePrefab
 {

@@ -7,6 +7,7 @@
 
 #include <Prefabs/RtypePrefab.hpp>
 #include <Prefabs/GenericController.hpp>
+#include <Prefabs/PodHandler/PodHandler.hpp>
 
 class PREF_EXPORT CommonPlayerController : public RtypePrefab
 {
@@ -62,6 +63,9 @@ public:
 
 private:
     SaltyEngine::Sound::ISound *beamSound = nullptr;
+
+private:
+    PodHandler *handler;
 };
 
 #endif //RTYPE_COMMONPLAYERCONTROLLER_HPP

@@ -6,6 +6,7 @@
 #include <SaltyEngine/Collider.hpp>
 #include <Rtype/Game/Common/RtypeNetworkFactory.hpp>
 #include <Rtype/Game/Common/GameObjectID.hpp>
+#include "Prefabs/PodHandler/PodHandler.hpp"
 #include "Prefabs/Pod/PodController.hpp"
 
 PodController::PodController(SaltyEngine::GameObject *const object) :
@@ -57,8 +58,8 @@ void PodController::Start()
                                              gameobjectId);
     }
 	SaltyEngine::Vector2 winsize = SaltyEngine::Vector2(
-		SaltyEngine::Engine::Instance().GetSize().x,
-		SaltyEngine::Engine::Instance().GetSize().y
+            SaltyEngine::Engine::Instance().GetPhysicsHandler()->GetSizeX(),
+            SaltyEngine::Engine::Instance().GetPhysicsHandler()->GetSizeY()
 	);
     SaltyEngine::Vector2 spritesize;
 
@@ -70,6 +71,7 @@ void PodController::Start()
     max = SaltyEngine::Vector2(
             winsize.x / gameObject->transform.GetLocalScale().x - min.x,
             winsize.y / gameObject->transform.GetLocalScale().y - min.y);
+
     speed = 10;
     anim = gameObject->GetComponent<SaltyEngine::SFML::Animation>();
     getManager()->addPod(gameObject);
@@ -141,11 +143,10 @@ void PodController::OnCollisionEnter(SaltyEngine::ICollider *collider)
             }
         }
     }
-    if (c->gameObject->GetTag() == SaltyEngine::Layer::Tag::Enemy || c->gameObject->GetTag() == SaltyEngine::Layer::Tag::BulletEnemy)
+    if (c->gameObject->GetTag() == SaltyEngine::Layer::Tag::BulletEnemy)
     {
-        //todo deal damage
         SaltyEngine::Instantiate("ExplosionBasic", c->gameObject->transform.GetPosition());
-//        Destroy(c->gameObject);
+        Destroy(c->gameObject);
     }
 }
 
