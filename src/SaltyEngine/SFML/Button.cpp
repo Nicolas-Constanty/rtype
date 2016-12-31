@@ -86,7 +86,7 @@ namespace SaltyEngine
                 return new Button(obj, normal, over);
             }
 
-            void Button::FixedUpdate() {
+            void Button::Update() {
                 if (!eve || !eve->IsWindowFocused() || !this->gameObject->GetActiveSelf())
                     return;
                 Vector2i vec = InputKey::GetPositionRelative();
