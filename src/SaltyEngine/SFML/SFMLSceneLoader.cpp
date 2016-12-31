@@ -25,19 +25,19 @@ namespace SaltyEngine
 		{
 		}
 
-		AScene *SFMLSceneLoader::CreateScene(void) const
+		void SFMLSceneLoader::LoadScene(std::string const &sceneName)
 		{
-			return new SaltyEngine::SFML::Scene();
+			m_scene = SaltyEngine::SFML::AssetManager::Instance().LoadScene(sceneName);
 		}
 
-		std::list<std::pair<string, Vector2f>> const &SFMLSceneLoader::GetSceneObjects(std::string const &sceneName) const
+		std::list<std::pair<std::string, Vector2f>> const &SFMLSceneLoader::GetSceneObjects(void) const
 		{
-			return SaltyEngine::SFML::AssetManager::Instance().LoadScene(sceneName)->objects;
+			return m_scene->objects;
 		}
 
-		Vector2 SFMLSceneLoader::GetSceneScale(std::string const &sceneName) const
+		Vector2 SFMLSceneLoader::GetSceneScale(void) const
 		{
-			return SaltyEngine::SFML::AssetManager::Instance().LoadScene(sceneName)->scale;
+			return m_scene->scale;
 		}
 	}
 }
