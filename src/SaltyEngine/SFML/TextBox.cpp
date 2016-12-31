@@ -8,7 +8,8 @@
 SaltyEngine::GUI::SFML::TextBox::TextBox(SaltyEngine::GameObject *gameObj, const Label *label,
                                          const sf::Vector2f &size, unsigned int font_size, const sf::Font *font,
                                          const sf::Color &font_color, const sf::Color &fill_color,
-                                         const sf::Color &color_outline, unsigned int outline_thickness) :
+                                         const sf::Color &color_outline, unsigned int outline_thickness,
+                                         size_t max_char) :
         UIBehaviour("TextBoxGUI", gameObj),
         m_font(*font),
         m_entry(size)
@@ -27,9 +28,11 @@ SaltyEngine::GUI::SFML::TextBox::TextBox(SaltyEngine::GameObject *gameObj, const
     m_text.setCharacterSize(font_size);
     m_max_size = 0;
     m_title = label;
+    m_max_char = max_char;
     const SaltyEngine::Engine &engine = SaltyEngine::Engine::Instance();
     m_renderer = dynamic_cast<::SaltyEngine::SFML::Renderer *>(engine.GetRenderer());
     m_entry.setOrigin(size.x / 2, size.y /2);
+    eve = dynamic_cast<SaltyEngine::SFML::EventManager *>(SaltyEngine::Engine::Instance().GetEventManager());
 }
 
 void SaltyEngine::GUI::SFML::TextBox::FixedUpdate() {
@@ -37,11 +40,10 @@ void SaltyEngine::GUI::SFML::TextBox::FixedUpdate() {
 
 void SaltyEngine::GUI::SFML::TextBox::Update() {
 
-    SaltyEngine::SFML::EventManager *eve = dynamic_cast<SaltyEngine::SFML::EventManager *>(SaltyEngine::Engine::Instance().GetEventManager());
     const Vector2 &vec = gameObject->transform.GetPosition();
     const Vector2 &sc = gameObject->transform.GetLocalScale();
 
-    if (!eve->GetEvent().empty())
+    if (!eve->GetEvent().empty() && eve->IsWindowFocused())
     {
         const sf::Event &ev = eve->GetEvent().front();
         if (ev.text.unicode < 128)
@@ -61,14 +63,17 @@ void SaltyEngine::GUI::SFML::TextBox::Update() {
             }
             else if (ev.key.code != 8)
             {
-                m_field += static_cast<char>(ev.key.code);
-                m_aff += static_cast<char>(ev.key.code);
-                m_text.setString(m_aff);
-                while (m_text.getLocalBounds().width > m_entry.getGlobalBounds().width - 10)
+                if (m_max_char == -1 || (m_field.size() < m_max_char))
                 {
-                    m_aff = m_aff.substr(1, m_aff.size());
-                    m_max_size = m_aff.size();
+                    m_field += static_cast<char>(ev.key.code);
+                    m_aff += static_cast<char>(ev.key.code);
                     m_text.setString(m_aff);
+                    while (m_text.getLocalBounds().width > m_entry.getGlobalBounds().width - 10)
+                    {
+                        m_aff = m_aff.substr(1, m_aff.size());
+                        m_max_size = m_aff.size();
+                        m_text.setString(m_aff);
+                    }
                 }
             }
             m_text.setString(m_aff);

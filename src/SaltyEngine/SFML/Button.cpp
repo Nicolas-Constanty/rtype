@@ -20,6 +20,7 @@ namespace SaltyEngine
                     m_sprr = gameObject->AddComponent<::SaltyEngine::SFML::SpriteRenderer>(m_normal, Layout::gui);
                 else
                     m_sprr->SetSprite(m_normal);
+                eve = dynamic_cast<SaltyEngine::SFML::EventManager *>(SaltyEngine::Engine::Instance().GetEventManager());
             }
 
             Button::Button(GameObject *gameObj, ::SaltyEngine::SFML::Sprite *const norm,
@@ -31,6 +32,7 @@ namespace SaltyEngine
                     m_sprr = gameObject->AddComponent<::SaltyEngine::SFML::SpriteRenderer>(m_normal, Layout::gui);
                 else
                     m_sprr->SetSprite(m_normal);
+                eve = dynamic_cast<SaltyEngine::SFML::EventManager *>(SaltyEngine::Engine::Instance().GetEventManager());
             }
 
             Button::Button(const std::string &name, GameObject *gameObj, ::SaltyEngine::SFML::Sprite *const sprite) :
@@ -41,6 +43,7 @@ namespace SaltyEngine
                     m_sprr = gameObject->AddComponent<::SaltyEngine::SFML::SpriteRenderer>(m_normal, Layout::gui);
                 else
                     m_sprr->SetSprite(m_normal);
+                eve = dynamic_cast<SaltyEngine::SFML::EventManager *>(SaltyEngine::Engine::Instance().GetEventManager());
             }
 
             void Button::SetOver(::SaltyEngine::SFML::Sprite *const sprite) {
@@ -85,6 +88,8 @@ namespace SaltyEngine
             }
 
             void Button::FixedUpdate() {
+                if (!eve->IsWindowFocused())
+                    return;
                 Vector2i vec = InputKey::GetPositionRelative();
                 if (m_sprr->GetSprite()->getGlobalBounds().contains(sf::Vector2<float>(vec.x, vec.y)))
                 {

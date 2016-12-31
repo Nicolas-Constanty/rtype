@@ -75,4 +75,5 @@ void MateComponent::SetColor(int color) {
 
 void MateComponent::SetBeamFXActive(bool active) {
     common->m_beamSFX->SetActive(active);
+    common->BeamSoundActive(active);
 }

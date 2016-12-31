@@ -59,3 +59,10 @@ RoomService *ServerGameDispatcher::GetRoomServiceFromID(unsigned short id) const
 std::list<RtypeGameServerTCPConnection *> ServerGameDispatcher::GetServerList() const {
     return this->serverList;
 }
+
+template<>
+ServerGameDispatcher &Singleton<ServerGameDispatcher>::Instance() {
+    static ServerGameDispatcher _inst;
+
+    return _inst;
+}

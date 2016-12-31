@@ -22,6 +22,8 @@ private:
     unsigned int secretBase;
 };
 
-template class Singleton<SecretGeneration>;
+//template class Singleton<SecretGeneration>;
+template<>
+SecretGeneration &Singleton<SecretGeneration>::Instance();
 
 #endif //RTYPE_SECRETGENERATION_HPP
