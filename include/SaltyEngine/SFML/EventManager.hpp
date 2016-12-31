@@ -29,7 +29,7 @@ namespace SaltyEngine {
         protected:
             static sf::RenderWindow *m_window;
             std::queue<sf::Event> m_events;
-            bool m_isFocused = false;
+            bool m_isFocused = true;
 
         public:
             void Update();

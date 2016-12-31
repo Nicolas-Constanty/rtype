@@ -33,6 +33,8 @@ class LIB_EXPORT Flags {
     bool Parse(int argc, char ** argv);
     void PrintHelp(char * argv0, std::ostream & to = std::cout);
 
+    void Reset(void);
+
   private:
     int autoId;
     std::map<int, std::function< void(std::string optarg) > > setters; // flag id -> setters
@@ -163,6 +165,12 @@ inline void Flags::set(T & var, std::string optarg) {
   std::stringstream ss(optarg);
   ss >> var;
 }
+
+inline void Flags::Reset(void)
+{
+    optind = 1;
+}
+
 template <>
 inline void Flags::set<std::string>(std::string & var, std::string optarg) {
   var = optarg;

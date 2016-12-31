@@ -4,6 +4,7 @@
 
 #include <Common/Debug.hpp>
 #include <SaltyEngine/SaltyEngine.hpp>
+#include <Common/Flags.hpp>
 #include "RoomNetworkSaltyEngine/RoomNetworkManager.hpp"
 
 RoomNetworkManager::RoomNetworkManager(SaltyEngine::GameObject *const gameObject, std::string const &ip,
@@ -31,8 +32,6 @@ void RoomNetworkManager::Start() {
         dispatcher.setTimeout({0, 0});
         dispatcher.Watch(*clientRoomNetworkManager, Network::Core::NativeSocketIOOperationDispatcher::READ);
         m_isConnected = true;
-//        if (clientRoomNetworkManager->GetTransitionNetworkManager() == nullptr)
-//            clientRoomNetworkManager->SetTransitionNetworkManager(this);
     } catch (...) {
         m_isConnected = false;
     }

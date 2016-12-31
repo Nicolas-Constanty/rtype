@@ -419,4 +419,20 @@ namespace SaltyEngine
     {
         m_sceneLoader = sceneLoader;
     }
+
+    int Engine::GetArgc(void) const
+    {
+        return m_ac;
+    }
+
+    char const** Engine::GetArgv(void) const
+    {
+        return m_av;
+    }
+
+    void Engine::SetArguments(int ac, char const **av)
+    {
+        m_ac = ac;
+        m_av = av;
+    }
 }

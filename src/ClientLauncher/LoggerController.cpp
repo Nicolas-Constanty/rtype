@@ -19,13 +19,14 @@ LoggerController::~LoggerController()
 void LoggerController::Start() {
     m_textBox = SaltyEngine::GameObject::Find("TextBox");
     m_buttonSubmit = SaltyEngine::GameObject::Find("LaunchButton");
+    m_roomNetworkManager = SaltyEngine::GameObject::Find("RoomNetworkManager");
     m_submit = m_buttonSubmit->GetComponent<SaltyEngine::GUI::SFML::Button>();
     m_text = m_textBox->GetComponent<SaltyEngine::GUI::SFML::TextBox>();
-    m_buttonSubmit->GetComponent<RoomNetworkManager>()->GetNetworkManager()->SetTransitionNetworkManager(this);
+    m_roomNetworkManager->GetComponent<RoomNetworkManager>()->GetNetworkManager()->SetTransitionNetworkManager(this);
 
     m_submit->onClick.AddListener("Login", [this]()
                            {
-                               m_buttonSubmit->GetComponent<RoomNetworkManager>()->SendAuthenticate(m_text->GetText());
+                               m_roomNetworkManager->GetComponent<RoomNetworkManager>()->SendAuthenticate(m_text->GetText());
                            }
     );
 
