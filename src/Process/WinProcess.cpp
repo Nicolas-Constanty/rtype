@@ -1,6 +1,8 @@
 #include <iostream>
 #include "Process/WinProcess.hpp"
 
+#if _WIN32
+
 WinProcess::WinProcess() :
     ProcessInfo(),
     StartupInfo(),
@@ -63,3 +65,5 @@ int WinProcess::WaitSon() const
     CloseHandle(ProcessInfo.hProcess);
     return static_cast<int>(status);
 }
+
+#endif
