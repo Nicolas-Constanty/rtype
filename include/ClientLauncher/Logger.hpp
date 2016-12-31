@@ -10,14 +10,14 @@
 
 extern "C"
 {
-class LIB_EXPORT Logger : public SaltyEngine::GameObject
+class PREF_EXPORT Logger : public SaltyEngine::GameObject
 {
 public:
     Logger();
     virtual ~Logger();
 };
 
-LIB_EXPORT SaltyEngine::Object const *GetObjectPrefab();
+PREF_EXPORT SaltyEngine::Object const *GetObjectPrefab();
 }
 
 #endif //RTYPE_LOGGER_HPP

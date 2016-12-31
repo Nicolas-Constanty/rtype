@@ -17,7 +17,6 @@
 
 #include "SaltyEngine/SaltyEngine.hpp"
 #include "SaltyEngine/GameObject.hpp"
-#include "Common/DLLexport.hpp"
 
 extern "C"
 {

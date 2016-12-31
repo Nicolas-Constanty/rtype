@@ -222,7 +222,7 @@ file(GLOB SRC_COMMMUNICATION
 	#set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS true)
 
 	#C++ FLAGS
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3 -D_CRT_SECURE_NO_WARNINGS -D_USE_MATH_DEFINES -DBUILD_SHARED_LIBS -DEXPORT_LIB")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3 -D_CRT_SECURE_NO_WARNINGS -D_USE_MATH_DEFINES -DBUILD_SHARED_LIBS -DEXPORT_LIB -DEXPORT_PREF")
 
 	add_library(RtypeLib OBJECT 
 		${SRC_RTYPE}
@@ -345,12 +345,12 @@ file(GLOB SRC_COMMMUNICATION
 
 	# GUI
         # LOG SCREEN
-		file(GLOB GUI_LOGGER_SOURCE_FILE "src/ClientLauncher/*.cpp")
+		file(GLOB GUI_LOGGER_SOURCE_FILE "../../src/ClientLauncher/*.cpp" "../../src/RoomNetworkSaltyEngine/*.cpp")
 		add_library(gui_logger SHARED ${GUI_LOGGER_SOURCE_FILE} $<TARGET_OBJECTS:RtypeLib> $<TARGET_OBJECTS:CommonPrefabs>)
-		target_link_libraries(gui_logger ${PREFAB_LIBRARIES})
+		target_link_libraries(gui_logger ${PREFAB_LIBRARIES} ProtocolRoom)
 
 	# GAME MANAGER
-	file(GLOB MANAGER_SOURCE_FILE "src/Prefabs/GameManager/*.cpp"  "include/Prefabs/GameManager/*.hpp")
+	file(GLOB MANAGER_SOURCE_FILE "../../src/Prefabs/GameManager/*.cpp")
 	add_library(game_manager SHARED ${MANAGER_SOURCE_FILE} $<TARGET_OBJECTS:RtypeLib> $<TARGET_OBJECTS:CommonPrefabs>)
 	target_link_libraries(game_manager ${PREFAB_LIBRARIES})
 
@@ -378,6 +378,8 @@ add_dependencies(monster_flying ${PREFAB_DEPENDENCIES} missile_medusa missile_en
 #Player
 add_dependencies(player ${PREFAB_DEPENDENCIES} missile_laser)
 add_dependencies(mate ${PREFAB_DEPENDENCIES} missile_laser)
+
+add_dependencies(game_manager ${PREFAB_DEPENDENCIES})
 
 set(PREFABS_TARGET
 		missile_medusa
