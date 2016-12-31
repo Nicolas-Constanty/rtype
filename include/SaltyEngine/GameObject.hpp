@@ -196,6 +196,9 @@ namespace SaltyEngine
 
 		private:
 			void __Destroy();
+
+	private:
+		using Object::m_shouldBeDestroyedOnLoad;
 	};
 }
 

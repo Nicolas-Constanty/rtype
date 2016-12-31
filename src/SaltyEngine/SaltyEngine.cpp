@@ -195,9 +195,14 @@ namespace SaltyEngine
 	bool Engine::LoadScene(size_t index)
 	{
 		if (index < m_scenes.size())
+		{
+			m_scenes[m_current]->CleanScene();
 			m_current = index;
+		}
 		else
+		{
 			std::cerr << "Invalid scene index[" << index << "]!" << std::endl;
+		}
 		return (index < m_scenes.size());
 	}
 
@@ -224,7 +229,9 @@ namespace SaltyEngine
 			++index;
 		}
 		if (index < m_scenes.size())
-			return (true);
+        {
+            return LoadScene(index);
+        }
 		else
 			std::cerr << "Invalid scene index[" << index << "]!" << std::endl;
 		return (index < m_scenes.size());
