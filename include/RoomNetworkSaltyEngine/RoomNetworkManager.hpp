@@ -45,6 +45,14 @@ public:
 
 	void OnDestroy() override;
 
+public:
+	void SetUDPIP(std::string const &);
+	void SetUDPPort(unsigned int);
+	void SetUDPSecret(unsigned int);
+
+	std::string const &GetUDPIP() const;
+	unsigned int GetUDPPort() const;
+	unsigned int GetUDPSecret() const;
 
 private:
     std::string                                         ip;
@@ -53,6 +61,9 @@ private:
     mutable Network::Core::NativeSocketIOOperationDispatcher    dispatcher;
 	RoomPackageFactory									factory;
 	bool 												m_isConnected = false;
+	std::string udpIP = "127.0.0.1";
+	unsigned int udpPort = 0;
+	unsigned int udpSecret = 0;
 };
 
 #endif //RTYPE_ROOMNETWORKMANAGER_HPP

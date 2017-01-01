@@ -116,9 +116,12 @@ namespace SaltyEngine
             {
                 (*it).second.remove_if([gm](Drawable drawable) { return (gm == drawable.gm); });
             }
-			GUI::SFML::Label *lb = gm->GetComponent<GUI::SFML::Label>();
-			if (lb)
-				m_labels.remove(lb);
+			std::list<GUI::SFML::Label *> lb = gm->GetComponents<GUI::SFML::Label>();
+            for (std::list<GUI::SFML::Label *>::const_iterator j = lb.begin(); j != lb.end(); ++j)
+            {
+                m_labels.remove(*j);
+            }
+
             m_debug.remove_if([gm](BoxCollider2D *box) { return (gm == box->gameObject); });
         }
 
@@ -130,7 +133,6 @@ namespace SaltyEngine
 
 		void Renderer::DrawLabel() {
 			for (LabelList::const_iterator lab = m_labels.begin(); lab != m_labels.end() ; ++lab) {
-                const Transform &t = (*lab)->gameObject->transform;
 				draw(*(*lab));
 			}
 		}

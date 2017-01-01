@@ -14,7 +14,8 @@ LoggerController::LoggerController(SaltyEngine::GameObject *obj) : SaltyEngine::
 LoggerController::~LoggerController()
 {
     std::cout << "delete LoggerController" << std::endl;
-    m_roomNetworkManager->GetComponent<RoomNetworkManager>()->GetNetworkManager()->SetTransitionNetworkManager(NULL);
+//    if (m_roomNetworkManager->GetComponent<RoomNetworkManager>())
+//        m_roomNetworkManager->GetComponent<RoomNetworkManager>()->GetNetworkManager()->SetTransitionNetworkManager(NULL);
 }
 
 void LoggerController::Start() {
@@ -60,6 +61,7 @@ void LoggerController::OnMouseExit() {
 
 void LoggerController::onGetAUTHENTICATE(AUTHENTICATEPackageRoom const &)
 {
+    m_roomNetworkManager->GetComponent<RoomNetworkManager>()->GetNetworkManager()->SetTransitionNetworkManager(NULL);
 //    SaltyEngine::Engine::Instance().LoadScene("scene2");
     SaltyEngine::Engine::Instance().LoadScene("sceneRoom");
 }

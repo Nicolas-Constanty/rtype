@@ -10,8 +10,21 @@
 
 GameManagerPrefab::GameManagerPrefab() : GameObject("GameManager", SaltyEngine::Layer::Tag::GameManager)
 {
+
+//    std::string ip = "127.0.0.1";
+//    unsigned int port = 4241;
+//    unsigned int secret = 0;
+
     AddComponent<GameManager>();
-    AddComponent<Rtype::Game::Client::GameClientObject>("127.0.0.1", 4241, 0);
+//    SaltyEngine::GameObject *m_roomNetworkManager = SaltyEngine::GameObject::Find("RoomNetworkManager");
+
+//    if (m_roomNetworkManager) {
+//        ip = m_roomNetworkManager->GetComponent<RoomNetworkManager>()->GetUDPIP();
+//        port = m_roomNetworkManager->GetComponent<RoomNetworkManager>()->GetUDPPort();
+//        secret = m_roomNetworkManager->GetComponent<RoomNetworkManager>()->GetUDPSecret();
+//    }
+
+//    AddComponent<Rtype::Game::Client::GameClientObject>(ip, port, secret);
 
     const SaltyEngine::Engine &engine = SaltyEngine::Engine::Instance();
     const SaltyEngine::Vector2ui size = engine.GetSize();

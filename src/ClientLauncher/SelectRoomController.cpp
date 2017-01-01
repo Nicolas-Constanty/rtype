@@ -1,3 +1,4 @@
+#include <Rtype/Game/Client/GameClientObject.hpp>
 #include "RoomNetworkSaltyEngine/RoomNetworkManager.hpp"
 #include "ClientLauncher/SelectRoomController.hpp"
 #include "SaltyEngine/SFML.hpp"
@@ -14,16 +15,24 @@ SelectRoomController::~SelectRoomController()
 void SelectRoomController::Start() {
 
     SaltyEngine::GameObject *obj = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate());
+    obj->SetName("GameObjectLabelList");
     SaltyEngine::GUI::SFML::LabelList *ll = obj->AddComponent<SaltyEngine::GUI::SFML::LabelList>();
     sf::Font *font = SaltyEngine::SFML::AssetManager::Instance().GetFont("SFSquareHead");
     obj->transform.SetPosition(SaltyEngine::Vector2(360, 200));
 
-    ll->AddLabel(obj->AddComponent<SaltyEngine::GUI::SFML::Label>("Item 1", 30, font));
-    ll->AddLabel(obj->AddComponent<SaltyEngine::GUI::SFML::Label>("Item 2", 30, font));
-    ll->AddLabel(obj->AddComponent<SaltyEngine::GUI::SFML::Label>("Item 3", 30, font));
-    ll->AddLabel(obj->AddComponent<SaltyEngine::GUI::SFML::Label>("Item 4", 30, font));
-    ll->AddLabel(obj->AddComponent<SaltyEngine::GUI::SFML::Label>("Item 5", 30, font));
+//    ll->AddLabel(obj->AddComponent<SaltyEngine::GUI::SFML::Label>("Item 1", 30, font));
+//    ll->AddLabel(obj->AddComponent<SaltyEngine::GUI::SFML::Label>("Item 2", 30, font));
+//    ll->AddLabel(obj->AddComponent<SaltyEngine::GUI::SFML::Label>("Item 3", 30, font));
+//    ll->AddLabel(obj->AddComponent<SaltyEngine::GUI::SFML::Label>("Item 4", 30, font));
+//    ll->AddLabel(obj->AddComponent<SaltyEngine::GUI::SFML::Label>("Item 5", 30, font));
 
+//    m_create_button = gameObject->transform.GetChild(3)->gameObject;
+    gameObject->GetComponent<SaltyEngine::GUI::SFML::Button>()->onClick.AddListener(
+            "create",
+            std::bind(&SelectRoomController::Create, this)
+    );
+    m_select_sprite = SaltyEngine::SFML::AssetManager::Instance().GetSprite("GUI/menu_room");
+    m_create_sprite = SaltyEngine::SFML::AssetManager::Instance().GetSprite("GUI/menu_create");
 
     std::cout << "start ?" << this << std::endl;
 
@@ -40,11 +49,22 @@ void SelectRoomController::Start() {
         m_roomNetworkManager->GetComponent<RoomNetworkManager>()->GetNetworkManager()->canAddGETPackage = false;
 
         //TODO A ENLEVER
-        m_roomNetworkManager->GetComponent<RoomNetworkManager>()->SendJoin(1);
+//        m_roomNetworkManager->GetComponent<RoomNetworkManager>()->SendJoin(1);
     }
 }
 
+void SelectRoomController::Create() {
+    SaltyEngine::SFML::SpriteRenderer *sprr = gameObject->GetComponent<SaltyEngine::SFML::SpriteRenderer>();
+    sprr->SetSprite(m_select_sprite);
+}
+
 void SelectRoomController::ListRoomGestion(GETPackageRoom const &pack) {
+    SaltyEngine::GameObject *obj = SaltyEngine::GameObject::Find("GameObjectLabelList");
+    sf::Font *font = SaltyEngine::SFML::AssetManager::Instance().GetFont("SFSquareHead");
+    SaltyEngine::GUI::SFML::LabelList *ll = NULL;
+    if (obj)
+        ll = obj->GetComponent<SaltyEngine::GUI::SFML::LabelList>();
+
     std::cout << "listRoomGestion" << std::endl;
     std::cout << pack << std::endl;
     bool check = false;
@@ -60,6 +80,8 @@ void SelectRoomController::ListRoomGestion(GETPackageRoom const &pack) {
         GETPackageRoom *getPackageRoom = new GETPackageRoom(pack.roomPlayer, pack.roomPlayerMax, std::string(pack.name),
                                                             pack.roomID, pack.mapID, pack.launch);
         listActualRoom.push_back(getPackageRoom);
+        if (ll)
+            ll->AddLabel(obj->AddComponent<SaltyEngine::GUI::SFML::Label>(std::string(pack.name), 30, font));
     }
 
     std::cout << "ON DISPLAY LA ROOM" << std::endl;
@@ -93,8 +115,8 @@ void SelectRoomController::onGetCREATE(CREATEPackageRoom const& ) {
 
 }
 
-void SelectRoomController::onGetJOIN(JOINPackageRoom const& ) {
-
+void SelectRoomController::onGetJOIN(JOINPackageRoom const &) {
+//    m_roomNetworkManager->GetComponent<RoomNetworkManager>()->SendLaunch(1);
 }
 
 void SelectRoomController::onGetQUIT(QUITPackageRoom const& ) {
@@ -110,9 +132,23 @@ void SelectRoomController::onGetSWAP(SWAPPackageRoom const &swapPackageRoom) {
     unsigned int port = swapPackageRoom.port;
     unsigned int secret = swapPackageRoom.secret;
 
+    m_roomNetworkManager->GetComponent<RoomNetworkManager>()->SetUDPIP(ip);
+    m_roomNetworkManager->GetComponent<RoomNetworkManager>()->SetUDPPort(port);
+    m_roomNetworkManager->GetComponent<RoomNetworkManager>()->SetUDPSecret(secret);
+
     std::cout << "lancement sur le port " << port << " avec ip " << ip << " avec secret " << secret << std::endl;
 
+    m_roomNetworkManager->GetComponent<RoomNetworkManager>()->GetNetworkManager()->SetTransitionNetworkManager(
+            NULL);
+    m_roomNetworkManager->GetComponent<RoomNetworkManager>()->GetNetworkManager()->canAddGETPackage = true;
     SaltyEngine::Engine::Instance().LoadScene("scene2");
+
+    SaltyEngine::GameObject *gameManager = SaltyEngine::GameObject::FindGameObjectWithTag(SaltyEngine::Layer::Tag::GameManager);
+
+    if (gameManager) {
+        gameManager->AddComponent<Rtype::Game::Client::GameClientObject>(ip, port, secret);
+    }
+
 }
 
 void SelectRoomController::onGetGET(GETPackageRoom const& room) {
@@ -130,13 +166,22 @@ void SelectRoomController::onGetLAUNCH(LAUNCHPackageRoom const& ) {
 }
 
 void SelectRoomController::onGetDELETE(DELETEPackageRoom const &deletePackageRoom) {
+    size_t i = 0;
+    SaltyEngine::GameObject *obj = SaltyEngine::GameObject::Find("GameObjectLabelList");
+    SaltyEngine::GUI::SFML::LabelList *ll = NULL;
+    if (obj)
+        ll = obj->GetComponent<SaltyEngine::GUI::SFML::LabelList>();
+
     std::list<GETPackageRoom *>::iterator it = listActualRoom.begin();
     while (it != listActualRoom.end()) {
         if ((*it)->roomID == deletePackageRoom.roomID) {
             delete (*it);
             listActualRoom.erase(it);
+            if (ll)
+                ll->RemoveLabel(i);
             return ;
         }
+        ++i;
         ++it;
     }
 }

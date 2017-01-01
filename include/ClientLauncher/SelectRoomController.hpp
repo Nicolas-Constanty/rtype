@@ -17,6 +17,9 @@ public:
     explicit SelectRoomController(SaltyEngine::GameObject *obj);
 
     virtual ~SelectRoomController();
+
+    void Create();
+
     void Start() override;
 
     void OnMouseEnter() override;
@@ -52,6 +55,10 @@ private:
     SaltyEngine::GUI::SFML::TextBox *m_text = nullptr;
     SaltyEngine::GameObject *m_roomNetworkManager = nullptr;
     std::list<GETPackageRoom *>             listActualRoom;
+
+    SaltyEngine::GameObject             *m_create_button;
+    SaltyEngine::SFML::Sprite           *m_select_sprite;
+    SaltyEngine::SFML::Sprite           *m_create_sprite;
 };
 
 #endif //RTYPE_LOGGERCONTROLLER_HPP
