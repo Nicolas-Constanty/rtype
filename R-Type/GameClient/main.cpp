@@ -27,7 +27,7 @@ void CreateGUIGame(SaltyEngine::Vector2i const &size, SaltyEngine::SFML::Scene *
 	victoryScreen->transform.SetPosition(size.x / 2, static_cast<float>(size.y / 2.3));
 	*scene << victoryScreen;
 
-    SaltyEngine::GameObject     *buttonEnd = new SaltyEngine::GameObject("EndScreen");
+//    SaltyEngine::GameObject     *buttonEnd = new SaltyEngine::GameObject("EndScreen");
     victoryScreen->AddComponent<EndScreen>();
     victoryScreen->transform.SetPosition(size.x / 2, static_cast<float>(size.y / 2.3));
     *scene << victoryScreen;
@@ -73,14 +73,16 @@ void StartGame(int ac, char **av, const std::string &map)
 {
 	SaltyEngine::SFML::Scene *scene = new SaltyEngine::SFML::Scene();
 	SaltyEngine::SFML::Scene *scene2 = new SaltyEngine::SFML::Scene();
+    SaltyEngine::SFML::Scene *scene3 = new SaltyEngine::SFML::Scene();
 
     scene->SetName("sceneConnection");
-    scene2->SetName("scene2");
+    scene3->SetName("scene2");
     scene2->SetName("sceneRoom");
 
     SaltyEngine::Engine::Instance().SetArguments(ac, (const char**)av);
 	SaltyEngine::Engine::Instance() << scene;
 	SaltyEngine::Engine::Instance() << scene2;
+    SaltyEngine::Engine::Instance() << scene3;
 
 	SaltyEngine::SceneDefault *sceneDefault = SaltyEngine::SFML::AssetManager::Instance().LoadSize(map);
 

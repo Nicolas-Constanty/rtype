@@ -33,25 +33,25 @@ namespace SaltyEngine
 
             void LabelList::OnGui() {
                 int offset = 10;
-                for (int j = 0; j < m_labels.size(); ++j) {
+                for (unsigned int j = 0; j < m_labels.size(); ++j) {
                     m_labels[j]->setPosition(gameObject->transform.GetPosition().x, gameObject->transform.GetPosition().y  + j * m_labels[j]->getCharacterSize() + offset);
                 }
                 if (InputKey::GetKeyDown(Input::KeyCode::Down))
                 {
-                    m_labels[m_index]->setColor(sf::Color::White);
+                    m_labels[m_index]->setFillColor(sf::Color::White);
                     ++m_index;
-                    if (m_index >= m_labels.size())
+                    if (m_index >= static_cast<long>(m_labels.size()))
                         m_index = 0;
                 }
                 else if (InputKey::GetKeyDown(Input::KeyCode::Up))
                 {
-                    m_labels[m_index]->setColor(sf::Color::White);
+                    m_labels[m_index]->setFillColor(sf::Color::White);
                     --m_index;
                     if (m_index < 0)
                         m_index = m_labels.size() -1;
                 }
-                if (m_labels.size() && m_labels[m_index]->getColor() != sf::Color::Cyan)
-                    m_labels[m_index]->setColor(sf::Color::Cyan);
+                if (m_labels.size() && m_labels[m_index]->getFillColor() != sf::Color::Cyan)
+                    m_labels[m_index]->setFillColor(sf::Color::Cyan);
             }
 
             const std::string &LabelList::GetSelected() {

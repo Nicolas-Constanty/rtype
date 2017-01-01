@@ -102,6 +102,7 @@ namespace Network
 
         public:
             static unsigned int getIPFromString(std::string const &);
+            static std::string getIPFromUInt(unsigned int);
 
         public:
             void print(std::ostream &output = std::cout) const;

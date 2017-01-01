@@ -483,7 +483,7 @@ namespace SaltyEngine
 	/**
 	 * @brief Called to clean the scene. Will destroy all the objects but the ones marked by DontDestroyOnLoad
 	 *
-	 * @return The objects that wiil survive through the clean
+	 * @return The objects that will survive through the clean
 	 */
     std::list<GameObject *> AScene::CleanScene()
 	{
