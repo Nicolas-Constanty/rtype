@@ -36,8 +36,8 @@ public:
     virtual SaltyEngine::Component *CloneComponent(SaltyEngine::GameObject *const obj);
 
     /**
- * @brief Implement ITransitionNetworkManager
- */
+     * @brief Implement ITransitionNetworkManager
+     */
     void onGetAUTHENTICATE(AUTHENTICATEPackageRoom const& room) override;
     void onGetCREATE(CREATEPackageRoom const& room) override;
     void onGetJOIN(JOINPackageRoom const& room) override;
