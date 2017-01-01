@@ -29,6 +29,9 @@ private:
     std::list<RtypeGameServerTCPConnection *>   serverList;
 };
 
-template class Singleton<ServerGameDispatcher>;
+//template class Singleton<ServerGameDispatcher>;
+
+template<>
+ServerGameDispatcher &Singleton<ServerGameDispatcher>::Instance();
 
 #endif //RTYPE_SERVERGAMEDISPATCHER_HPP

@@ -6,12 +6,12 @@
 #include "SaltyEngine/GameObject.hpp"
 
 extern "C" {
-	class LIB_EXPORT Laser : public SaltyEngine::GameObject {
+	class PREF_EXPORT Laser : public SaltyEngine::GameObject {
 	public:
 		Laser();
 		virtual ~Laser();
 	};
-LIB_EXPORT	SaltyEngine::Object const *GetObjectPrefab();
+	PREF_EXPORT	SaltyEngine::Object const *GetObjectPrefab();
 }
 
 #endif

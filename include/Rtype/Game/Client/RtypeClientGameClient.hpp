@@ -9,6 +9,7 @@
 #include "GameOver.hpp"
 #include "GameGUIHighscore.hpp"
 #include "EndScreen.hpp"
+#include <Rtype/Game/Client/GameGUILives.hpp>
 //#include "GameManager.hpp"
 
 class GameManager;
@@ -19,7 +20,7 @@ namespace Rtype
     {
         namespace Client
         {
-            class RtypeClientGameClient : public Rtype::Game::Common::RtypeGameClient
+            class PREF_EXPORT RtypeClientGameClient : public Rtype::Game::Common::RtypeGameClient
             {
             public:
                 RtypeClientGameClient(Network::Core::NativeSocketIOOperationDispatcher &dispatcher, const uint32_t secret = 0);
@@ -53,12 +54,13 @@ namespace Rtype
                 virtual void onGetRECONNECTPackage(RECONNECTPackageGame const &);
 
             private:
-                GameManager *gameManager;
                 GameOver    *gameOver;
                 GameGUIHighscore *gameGUIHighscore;
                 const uint32_t secret;
                 EndScreen   *endScreen;
                 unsigned short objectIDPlayerController = 0;
+                GameGUILives *gameGUILives;
+                SaltyEngine::GameObject *gameGUIQuitButton = NULL;
             };
         }
     }

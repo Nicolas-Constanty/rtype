@@ -5,10 +5,22 @@
     "width": "2",
     "height": "2"
   },
+  "size": {
+    "width": "960",
+    "height": "540"
+  },
   "fonts" : [
-   "arial"
+   "arial",
+    "SFSquareHead"
   ],
   "prefabs": {
+    "GameManager": {
+      "prefabName": "GameManager",
+      "position": {
+        "x": "0",
+        "y": "0"
+      }
+    },
     "Player": {
       "prefabName": "Player",
       "position": {

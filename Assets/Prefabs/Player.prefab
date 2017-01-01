@@ -8,5 +8,8 @@
     "Mate",
     "Beam",
     "MissileHoming"
+  ], "sounds": [
+    "r-type-game_over",
+    "r-type_stage_clear"
   ]
 }

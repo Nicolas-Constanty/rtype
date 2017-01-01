@@ -8,7 +8,12 @@
 /**
  * \brief The internal size of the buffer. Limited in order to resolve MTU bug
  */
-const size_t Network::Core::NetBuffer::size = MAX_MTU;
+//const size_t Network::Core::NetBuffer::size = MAX_MTU;
+
+size_t Network::Core::NetBuffer::Size()
+{
+	return MAX_MTU;
+}
 
 /**
  * \brief Basic constructor
@@ -80,7 +85,7 @@ Network::Core::NetBuffer Network::Core::NetBuffer::operator+(const Network::Core
  */
 bool Network::Core::NetBuffer::ConcatTo(const Network::Core::NetBuffer &ref)
 {
-    if (length + ref.length > NetBuffer::size)
+    if (length + ref.length > NetBuffer::Size())
         return false;
     consume();
     memcpy(&data[length], ref.buff(), ref.length);
@@ -140,7 +145,7 @@ void Network::Core::NetBuffer::addLength(size_t len)
  */
 bool Network::Core::NetBuffer::isFull()
 {
-    return length == size;
+    return length == Size();
 }
 
 /**
@@ -149,7 +154,7 @@ bool Network::Core::NetBuffer::isFull()
  */
 size_t Network::Core::NetBuffer::getAvailableSpace() const
 {
-    return NetBuffer::size - length;
+    return NetBuffer::Size() - length;
 }
 
 void Network::Core::NetBuffer::consume()
@@ -164,12 +169,12 @@ void Network::Core::NetBuffer::consume()
  * @return If serialization was done
  */
 template <>
-bool Network::Core::NetBuffer::serialize<std::string>(std::string const &obj)
+PREF_EXPORT bool Network::Core::NetBuffer::serialize<std::string>(std::string const &obj)
 {
-    if (length + obj.size() > NetBuffer::size)
+    if (length + obj.size() > Size())
         return false;
 #if _WIN32
-	strncpy_s(buff<char>(), NetBuffer::size, obj.c_str(), obj.size());
+	strncpy_s(buff<char>(), Size(), obj.c_str(), obj.size());
 #else
 	strncpy(buff<char>(), obj.c_str(), obj.size());
 #endif // _WIN32
@@ -185,7 +190,7 @@ bool Network::Core::NetBuffer::serialize<std::string>(std::string const &obj)
  * @return If serialization was done
  */
 template <>
-bool Network::Core::NetBuffer::serialize<const char *>(const char * const &obj)
+PREF_EXPORT bool Network::Core::NetBuffer::serialize<const char *>(const char * const &obj)
 {
     return serialize(std::string(obj));
 }
@@ -196,7 +201,7 @@ bool Network::Core::NetBuffer::serialize<const char *>(const char * const &obj)
  * @return If serialization was done
  */
 template <>
-bool Network::Core::NetBuffer::serialize<Network::Core::NetBuffer>(Network::Core::NetBuffer const &ref)
+PREF_EXPORT bool Network::Core::NetBuffer::serialize<Network::Core::NetBuffer>(Network::Core::NetBuffer const &ref)
 {
     return serialize(ref.toString());
 }
@@ -207,7 +212,7 @@ bool Network::Core::NetBuffer::serialize<Network::Core::NetBuffer>(Network::Core
  * @param ref The buffer to dump
  * @return A reference on the stream in order to allow user to chain '<<'
  */
-std::ostream    &Network::Core::operator<<(std::ostream &output, Network::Core::NetBuffer const &ref)
+PREF_EXPORT std::ostream    &Network::Core::operator<<(std::ostream &output, Network::Core::NetBuffer const &ref)
 {
     unsigned char *bf = ref.buff();
 

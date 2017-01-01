@@ -3,13 +3,11 @@ project(rtype)
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-include_directories("include")
-
-file(GLOB NETWORK_SRC src/Network/*/*.cpp)
-file(GLOB NETWORK_INCLUDE include/Network/*/*.hpp)
-
 #Linux
 if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
+
+	file(GLOB NETWORK_SRC src/Network/*/*.cpp)
+	file(GLOB NETWORK_INCLUDE include/Network/*/*.hpp)
 	
 	#Set Output Directories
 	set(CMAKE_LIBRARY_OUTPUT_DIRECTORY lib)
@@ -23,14 +21,29 @@ if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 #Windows
 elseif(MSVC)
 
-	#Export all symbol for dll
-#	set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS true)
+	file(GLOB NETWORK_SRC "../../src/Network/*/*.cpp")
 
-	#C++ FLAGS
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3 -DNOMINMAX -D_WINSOCK_DEPRECATED_NO_WARNINGS -DWIN32_LEAN_AND_MEAN")
+	file(GLOB NETWORK_INCLUDE "../../include/Network/*/*.hpp" "../../include/Network/*.hpp")
 
-	#Create library
-	add_library(Network STATIC ${NETWORK_SRC})
+	
+
+	if(EXPORT_DLL)
+		#Export all symbol for dll
+		set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS true)
+
+		#C++ FLAGS
+		#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3 -DBUILD_SHARED_LIBS -DEXPORT_LIB -DEXPORT_PREF")
+		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3 -DNO_EXPORT")
+		
+		#Create library
+		add_library(Network SHARED ${NETWORK_SRC} ${NETWORK_INCLUDE})
+	else()
+		#C++ FLAGS
+		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3 -DNO_EXPORT")
+	
+		#Create library
+		add_library(Network STATIC ${NETWORK_SRC} ${NETWORK_INCLUDE})
+	endif()
 
 	#Link libraries
 	target_link_libraries(Network wsock32 ws2_32)

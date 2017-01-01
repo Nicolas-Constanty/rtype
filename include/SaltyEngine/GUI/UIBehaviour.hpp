@@ -23,7 +23,7 @@ namespace SaltyEngine
 				return new UIBehaviour(obj);
 			}
 
-			void OnGui() override;
+			virtual void OnGui() override;
 		};
 	}
 }

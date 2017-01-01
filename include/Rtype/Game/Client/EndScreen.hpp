@@ -9,7 +9,7 @@
 #include "SaltyEngine/SaltyBehaviour.hpp"
 #include "SaltyEngine/GameObject.hpp"
 
-class EndScreen : public SaltyEngine::SaltyBehaviour {
+class PREF_EXPORT EndScreen : public SaltyEngine::SaltyBehaviour {
 public:
     EndScreen(SaltyEngine::GameObject * const gameObj);
     virtual ~EndScreen();

@@ -9,5 +9,8 @@
     "dependencies": [
         "ExplosionBasic",
         "MissileMedusa"
+    ],
+    "sounds": [
+        "r-type-boss"
     ]
 }

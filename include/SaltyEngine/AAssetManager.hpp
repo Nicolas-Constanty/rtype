@@ -52,6 +52,7 @@ namespace SaltyEngine {
         std::string preview;
         std::string background;
         Vector2f    scale;
+        Vector2     size;
         std::list<std::pair<std::string, Vector2f> > objects;
     };
 
@@ -398,9 +399,44 @@ namespace SaltyEngine {
         /// \brief Return struct SceneDefault
         /// \param filename
         /// \return SceneDefault*
-        SceneDefault *LoadScene(std::string const &filename) {
-            m_current_scene.reset(new SceneDefault());
+        SceneDefault *LoadSize(std::string const &filename)
+        {
+#if _WIN32
+            m_current_scene = std::make_unique<SceneDefault>();
+#else
+            m_current_scene = Make_unique<SceneDefault>();
+#endif
 
+            try {
+                Parser parser = Parser(JSON, (path_scenes + filename + Asset::SCENE_EXTENSION).c_str());
+                JsonVariant::json_pair map;
+                if (parser.parse(&map)) {
+                    try {
+                        if (!map["size"]["width"]().empty()) {
+                            m_current_scene->size.x = std::stoi(map["size"]["width"]());
+                        }
+                        if (!map["size"]["height"]().empty()) {
+                            m_current_scene->size.y = std::stoi(map["size"]["height"]());
+                        }
+                    } catch (std::exception const &) {
+
+                    }
+                }
+            } catch (std::exception const &e) {
+                Debug::PrintError(std::string(e.what()) + " " + filename);
+                return nullptr;
+            }
+            return m_current_scene.get();
+        }
+
+        SceneDefault *LoadScene(std::string const &filename) {
+#if _WIN32
+            if (m_current_scene.get() == nullptr)
+                m_current_scene = std::make_unique<SceneDefault>();
+#else
+            if (m_current_scene.get() == nullptr)
+                m_current_scene = Make_unique<SceneDefault>();
+#endif
             try {
                 Parser parser = Parser(JSON, (path_scenes + filename + Asset::SCENE_EXTENSION).c_str());
                 JsonVariant::json_pair map;
@@ -420,7 +456,6 @@ namespace SaltyEngine {
 
                     try {
                         if (!map["scale"]["width"]().empty()) {
-                            std::cout << map["scale"]["width"]() << std::endl;
                             m_current_scene->scale.x = std::stof(map["scale"]["width"]());
                         }
                         if (!map["scale"]["height"]().empty()) {

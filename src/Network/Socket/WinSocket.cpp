@@ -8,7 +8,7 @@
 /**
  * @brief Function that will initialize Windows sockets
  */
-void Network::Socket::WinSocket::Start()
+PREF_EXPORT void Network::Socket::WinSocket::Start()
 {
     WSADATA  tofill;
 
@@ -19,7 +19,7 @@ void Network::Socket::WinSocket::Start()
 /**
  * @brief Function that will stop windows sockets
  */
-void Network::Socket::WinSocket::Stop()
+PREF_EXPORT void Network::Socket::WinSocket::Stop()
 {
     WSACleanup();
 }
@@ -104,6 +104,7 @@ void Network::Socket::WinSocket::Open() throw(SocketException)
 		std::cout << std::to_string(WSAGetLastError()) << std::endl;
 		throw Network::Socket::SocketException(std::to_string(WSAGetLastError()));
     }
+	std::cout << "Creating socket: " << fd << std::endl;
 }
 
 void Network::Socket::WinSocket::Close()

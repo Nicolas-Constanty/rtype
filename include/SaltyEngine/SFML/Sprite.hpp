@@ -4,9 +4,9 @@
 #define SFMLSPRITE_HPP_
 
 //#include <SFML/Graphics.hpp>
-#include "SaltyEngine/Sprite.hpp"
 #include "SaltyEngine/SFML/Texture.hpp"
 #include "SaltyEngine/SFML/Rect.hpp"
+#include "SaltyEngine/Sprite.hpp"
 #include "SaltyEngine/GameObject.hpp"
 
 namespace SaltyEngine

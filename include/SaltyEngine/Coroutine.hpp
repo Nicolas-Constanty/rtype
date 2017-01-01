@@ -50,169 +50,170 @@ using std::wstring;
 
 #include "Common/Singleton.hpp"
 
-namespace coroutine {
+namespace coroutine
+{
 
 	typedef size_t routine_t;
 
 #ifdef _MSC_VER
 
-	struct Routine
-	{
-		std::function<void()> func;
-		bool finished;
-		LPVOID fiber;
+    struct Routine
+    {
+        std::function<void()> func;
+        bool finished;
+        LPVOID fiber;
 
-		explicit Routine(std::function<void()> f)
-		{
-			func = f;
-			finished = false;
-			fiber = nullptr;
-		}
+        explicit Routine(std::function<void()> f)
+        {
+            func = f;
+            finished = false;
+            fiber = nullptr;
+        }
 
-		~Routine()
-		{
-			DeleteFiber(fiber);
-		}
-	};
+        ~Routine()
+        {
+            DeleteFiber(fiber);
+        }
+    };
 
-	struct Ordinator
-	{
-		std::vector<Routine *> routines;
-		std::list<routine_t> indexes;
-		routine_t current;
-		size_t stack_size;
-		LPVOID fiber;
+    struct Ordinator
+    {
+        std::vector<Routine *> routines;
+        std::list<routine_t> indexes;
+        routine_t current;
+        size_t stack_size;
+        LPVOID fiber;
 
-		explicit Ordinator(size_t ss = STACK_LIMIT)
-		{
-			current = 0;
-			stack_size = ss;
-			fiber = ConvertThreadToFiber(nullptr);
-		}
+        explicit Ordinator(size_t ss = STACK_LIMIT)
+        {
+            current = 0;
+            stack_size = ss;
+            fiber = ConvertThreadToFiber(nullptr);
+        }
 
-		~Ordinator()
-		{
-			for (auto &routine : routines)
-				delete routine;
-		}
-	};
+        ~Ordinator()
+        {
+            for (auto &routine : routines)
+                delete routine;
+        }
+    };
 
-	//thread_local  static  Singleton<Ordinator> Singleton<Ordinator>::Instance();
+    //thread_local  static  Singleton<Ordinator> Singleton<Ordinator>::Instance();
 
-	inline routine_t create(std::function<void()> f)
-	{
-		Routine *routine = new Routine(f);
+    inline routine_t create(std::function<void()> f)
+    {
+        Routine *routine = new Routine(f);
 
-		if (Singleton<Ordinator>::Instance().indexes.empty())
-		{
-			Singleton<Ordinator>::Instance().routines.push_back(routine);
-			return Singleton<Ordinator>::Instance().routines.size();
-		}
-		else
-		{
-			routine_t id = Singleton<Ordinator>::Instance().indexes.front();
-			Singleton<Ordinator>::Instance().indexes.pop_front();
-			assert(Singleton<Ordinator>::Instance().routines[id - 1] == nullptr);
-			Singleton<Ordinator>::Instance().routines[id - 1] = routine;
-			return id;
-		}
-	}
+        if (Singleton<Ordinator>::Instance().indexes.empty())
+        {
+            Singleton<Ordinator>::Instance().routines.push_back(routine);
+            return Singleton<Ordinator>::Instance().routines.size();
+        }
+        else
+        {
+            routine_t id = Singleton<Ordinator>::Instance().indexes.front();
+            Singleton<Ordinator>::Instance().indexes.pop_front();
+            assert(Singleton<Ordinator>::Instance().routines[id - 1] == nullptr);
+            Singleton<Ordinator>::Instance().routines[id - 1] = routine;
+            return id;
+        }
+    }
 
-	inline void destroy(routine_t id)
-	{
-		Routine *routine = Singleton<Ordinator>::Instance().routines[id - 1];
-		assert(routine != nullptr);
+    inline void destroy(routine_t id)
+    {
+        Routine *routine = Singleton<Ordinator>::Instance().routines[id - 1];
+        assert(routine != nullptr);
 
-		delete routine;
-		Singleton<Ordinator>::Instance().routines[id - 1] = nullptr;
-		Singleton<Ordinator>::Instance().indexes.push_back(id);
-	}
+        delete routine;
+        Singleton<Ordinator>::Instance().routines[id - 1] = nullptr;
+        Singleton<Ordinator>::Instance().indexes.push_back(id);
+    }
 
-	inline void __stdcall entry(LPVOID lpParameter)
-	{
-		(void)lpParameter;
-		routine_t id = Singleton<Ordinator>::Instance().current;
-		Routine *routine = Singleton<Ordinator>::Instance().routines[id - 1];
-		assert(routine != nullptr);
+    inline void __stdcall entry(LPVOID lpParameter)
+    {
+        (void)lpParameter;
+        routine_t id = Singleton<Ordinator>::Instance().current;
+        Routine *routine = Singleton<Ordinator>::Instance().routines[id - 1];
+        assert(routine != nullptr);
 
-		routine->func();
+        routine->func();
 
-		routine->finished = true;
-		Singleton<Ordinator>::Instance().current = 0;
+        routine->finished = true;
+        Singleton<Ordinator>::Instance().current = 0;
 
-		SwitchToFiber(Singleton<Ordinator>::Instance().fiber);
-	}
+        SwitchToFiber(Singleton<Ordinator>::Instance().fiber);
+    }
 
-	inline int resume(routine_t id)
-	{
-		assert(Singleton<Ordinator>::Instance().current == 0);
+    inline int resume(routine_t id)
+    {
+        assert(Singleton<Ordinator>::Instance().current == 0);
 
-		Routine *routine = Singleton<Ordinator>::Instance().routines[id - 1];
-		if (routine == nullptr)
-			return -1;
+        Routine *routine = Singleton<Ordinator>::Instance().routines[id - 1];
+        if (routine == nullptr)
+            return -1;
 
-		if (routine->finished)
-			return -2;
+        if (routine->finished)
+            return -2;
 
-		if (routine->fiber == nullptr)
-		{
-			routine->fiber = CreateFiber(Singleton<Ordinator>::Instance().stack_size, entry, 0);
-			Singleton<Ordinator>::Instance().current = id;
-			SwitchToFiber(routine->fiber);
-		}
-		else
-		{
-			Singleton<Ordinator>::Instance().current = id;
-			SwitchToFiber(routine->fiber);
-		}
+        if (routine->fiber == nullptr)
+        {
+            routine->fiber = CreateFiber(Singleton<Ordinator>::Instance().stack_size, entry, 0);
+            Singleton<Ordinator>::Instance().current = id;
+            SwitchToFiber(routine->fiber);
+        }
+        else
+        {
+            Singleton<Ordinator>::Instance().current = id;
+            SwitchToFiber(routine->fiber);
+        }
 
-		return 0;
-	}
+        return 0;
+    }
 
-	inline void yield()
-	{
-		routine_t id = Singleton<Ordinator>::Instance().current;
-		Routine *routine = Singleton<Ordinator>::Instance().routines[id - 1];
-		assert(routine != nullptr);
+    inline void yield()
+    {
+        routine_t id = Singleton<Ordinator>::Instance().current;
+        Routine *routine = Singleton<Ordinator>::Instance().routines[id - 1];
+        assert(routine != nullptr);
 
-		Singleton<Ordinator>::Instance().current = 0;
-		SwitchToFiber(Singleton<Ordinator>::Instance().fiber);
-	}
+        Singleton<Ordinator>::Instance().current = 0;
+        SwitchToFiber(Singleton<Ordinator>::Instance().fiber);
+    }
 
 #if 0
-	template<typename Function>
-	typename std::result_of<Function()>::type
-		await(Function &&func)
-	{
-		auto future = std::async(std::launch::async, func);
-		std::future_status status = future.wait_for(std::chrono::milliseconds(100));
-		while (status == std::future_status::default_timeout)
-		{
-			if (Singleton<Ordinator>::Instance().current != 0)
-				yield();
-			status = future.wait_for(std::chrono::milliseconds(0));
-		}
-		return future.get();
-	}
+    template<typename Function>
+    typename std::result_of<Function()>::type
+        await(Function &&func)
+    {
+        auto future = std::async(std::launch::async, func);
+        std::future_status status = future.wait_for(std::chrono::milliseconds(100));
+        while (status == std::future_status::default_timeout)
+        {
+            if (Singleton<Ordinator>::Instance().current != 0)
+                yield();
+            status = future.wait_for(std::chrono::milliseconds(0));
+        }
+        return future.get();
+    }
 #endif
 
 #if 1
-	template<typename Function>
-	std::result_of_t<std::decay_t<Function>()>
-		await(Function &&func)
-	{
-		auto future = std::async(std::launch::async, func);
-		std::future_status status = future.wait_for(std::chrono::milliseconds(100));
+    template<typename Function>
+    std::result_of_t<std::decay_t<Function>()>
+        await(Function &&func)
+    {
+        auto future = std::async(std::launch::async, func);
+        std::future_status status = future.wait_for(std::chrono::milliseconds(100));
 
-		while (status == std::future_status::default_timeout)
-		{
-			if (Singleton<Ordinator>::Instance().current != 0)
-				yield();
+        while (status == std::future_status::default_timeout)
+        {
+            if (Singleton<Ordinator>::Instance().current != 0)
+                yield();
 
-			status = future.wait_for(std::chrono::milliseconds(0));
-		}
-		return future.get();
-	}
+            status = future.wait_for(std::chrono::milliseconds(0));
+        }
+        return future.get();
+    }
 #endif
 
 #else
@@ -220,14 +221,14 @@ namespace coroutine {
 	struct Routine
 	{
 		std::function<void()> func;
-		char *stack;
+		char                  *stack;
 		bool finished;
-		ucontext_t ctx;
+		ucontext_t            ctx;
 
 		Routine(std::function<void()> f)
 		{
-			func = f;
-			stack = nullptr;
+			func     = f;
+			stack    = nullptr;
 			finished = false;
 		}
 
@@ -240,14 +241,14 @@ namespace coroutine {
 	struct Ordinator
 	{
 		std::vector<Routine *> routines;
-		std::list<routine_t> indexes;
-		routine_t current;
-		size_t stack_size;
-		ucontext_t ctx;
+		std::list<routine_t>   indexes;
+		routine_t              current;
+		size_t                 stack_size;
+		ucontext_t             ctx;
 
 		inline Ordinator(size_t ss = STACK_LIMIT)
 		{
-			current = 0;
+			current    = 0;
 			stack_size = ss;
 		}
 
@@ -257,7 +258,13 @@ namespace coroutine {
 				delete routine;
 		}
 	};
+}
 
+template<>
+coroutine::Ordinator	&Singleton<coroutine::Ordinator>::Instance();
+
+namespace coroutine
+{
 //	thread_local static Ordinator Singleton<Ordinator>::Instance();
 
 	inline routine_t create(std::function<void()> f)
@@ -444,4 +451,5 @@ namespace coroutine {
 	};
 
 }
+
 #endif //STDEX_COROUTINE_H_

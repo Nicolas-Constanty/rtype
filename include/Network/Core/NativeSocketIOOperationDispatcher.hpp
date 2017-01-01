@@ -19,7 +19,7 @@ namespace Network
          * \brief Class that will handle the entire system of Input/Output operations dispatchment through the call of
          * <select> then through the callbacks implemented by INativeSocketStreamHandler
          */
-        class LIB_EXPORT NativeSocketIOOperationDispatcher : public IIOOperationDispatcher
+        class /*PREF_EXPORT*/ NativeSocketIOOperationDispatcher : public IIOOperationDispatcher
         {
         private:
             struct IOOperation

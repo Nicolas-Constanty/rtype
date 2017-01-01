@@ -9,14 +9,14 @@
 
 extern "C"
 {
-    class SpiralPodBonus : public SaltyEngine::GameObject
+    class PREF_EXPORT SpiralPodBonus : public SaltyEngine::GameObject
     {
     public:
         SpiralPodBonus();
         virtual ~SpiralPodBonus();
     };
 
-    SaltyEngine::Object const *GetObjectPrefab();
+	PREF_EXPORT    SaltyEngine::Object const *GetObjectPrefab();
 };
 
 #endif //RTYPE_SPIRALPODBONUS_HPP

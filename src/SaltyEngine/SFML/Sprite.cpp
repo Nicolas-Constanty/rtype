@@ -20,6 +20,11 @@ namespace SaltyEngine
                 ::SaltyEngine::Sprite<sf::Vector2i>(texture ? dynamic_cast<::SaltyEngine::Texture<sf::Vector2i> *>(texture) : []() { ::SaltyEngine::Texture<sf::Vector2i> *t = new Texture(); t->Create(200, 200); return t; }(), rect, "SFMLSprite"),
                 sf::Sprite(*dynamic_cast<Texture *>(GetTexture()))
         {
+			if (rect->top + rect->height > texture->GetSize().y)
+				rect->height = texture->GetSize().y - rect->top;
+			if (rect->left + rect->width > texture->GetSize().x)
+				rect->width = texture->GetSize().x - rect->left;
+
             setTextureRect(*rect);
             m_bounds = new Rect(static_cast<int>(getTextureRect().left), static_cast<int>(getTextureRect().top), static_cast<int>(getTextureRect().width), static_cast<int>(getTextureRect().height));
 //            setOrigin(m_bounds->width / 2, m_bounds->height / 2);

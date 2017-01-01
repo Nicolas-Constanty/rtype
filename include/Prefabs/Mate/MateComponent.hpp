@@ -9,7 +9,7 @@
 #include <Prefabs/RtypePrefab.hpp>
 #include <Prefabs/CommonPlayer/CommonPlayerController.hpp>
 
-class LIB_EXPORT MateComponent : public RtypePrefab
+class PREF_EXPORT MateComponent : public RtypePrefab
 {
 public:
     explicit MateComponent(SaltyEngine::GameObject *const object);
@@ -20,12 +20,13 @@ public:
     void SetColor(int color);
     void Start();
     void OnCollisionEnter(SaltyEngine::ICollider *collider);
+    void SetBeamFXActive(bool active);
 
 public:
     virtual SaltyEngine::Component *CloneComponent(SaltyEngine::GameObject* const obj);
 
 public:
-    SaltyEngine::GameObject *m_beamSFX = nullptr;
+//    SaltyEngine::GameObject *m_beamSFX = nullptr;
 
 private:
     CommonPlayerController  *common;

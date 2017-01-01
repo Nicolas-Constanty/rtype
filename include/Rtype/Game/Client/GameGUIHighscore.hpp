@@ -9,7 +9,7 @@
 #include "SaltyEngine/SaltyBehaviour.hpp"
 #include "SaltyEngine/GameObject.hpp"
 
-class GameGUIHighscore : public SaltyEngine::SaltyBehaviour {
+class PREF_EXPORT GameGUIHighscore : public SaltyEngine::SaltyBehaviour {
 public:
     GameGUIHighscore(SaltyEngine::GameObject * const gameObj);
     virtual ~GameGUIHighscore();
@@ -19,11 +19,7 @@ public:
     void FixedUpdate();
 
 public:
-    // display highscore
     void DisplayHighScore(int highscore);
-
-private:
-    SaltyEngine::SFML::Animation *beamAnimation;
 
 public:
     virtual SaltyEngine::Component *CloneComponent(SaltyEngine::GameObject* const obj) {

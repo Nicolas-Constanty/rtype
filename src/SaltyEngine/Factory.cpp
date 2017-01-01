@@ -26,7 +26,8 @@ namespace SaltyEngine {
 		m_objects.push_front(Make_unique<GameObject>("GameObject"));
 		if (m_objects.front().get() == nullptr)
 			Debug::PrintWarning("Factory : could not create game object");
-        *Singleton<::SaltyEngine::Engine>::Instance().GetCurrentScene() << static_cast<GameObject*>(m_objects.front().get());
+		std::cout << &Engine::Instance() << std::endl;
+        *Engine::Instance().GetCurrentScene() << static_cast<GameObject*>(m_objects.front().get());
 		return m_objects.front().get();
     }
 
@@ -38,7 +39,7 @@ namespace SaltyEngine {
             GameObject *go = static_cast<GameObject*>(m_objects.front().get());
             go->transform.SetPosition(pos);
             go->transform.SetRotation(rot);
-            *Singleton<::SaltyEngine::Engine>::Instance().GetCurrentScene() << static_cast<GameObject*>(m_objects.front().get());
+            *Engine::Instance().GetCurrentScene() << static_cast<GameObject*>(m_objects.front().get());
 			return m_objects.front().get();
 		}
         m_objects.push_front(m_prefabs[name]->CloneMemberwise());
@@ -48,7 +49,7 @@ namespace SaltyEngine {
             go->transform.SetPosition(pos);
             go->transform.SetRotation(rot);
         }
-        *Singleton<::SaltyEngine::Engine>::Instance().GetCurrentScene() << static_cast<GameObject*>(m_objects.front().get());
+        *Engine::Instance().GetCurrentScene() << static_cast<GameObject*>(m_objects.front().get());
         return m_objects.front().get();
     }
 
@@ -98,6 +99,9 @@ SaltyEngine::GameObject *SaltyEngine::Factory::Find(std::string const &name)
                                                                        return obj.get()->GetName() == name &&
                                                                                dynamic_cast<GameObject*>(obj.get())->GetActiveSelf();
                                                                    });
+
+    if (it == m_objects.end())
+        return nullptr;
     return dynamic_cast<GameObject*>((*it).get());
 }
 
@@ -111,6 +115,8 @@ SaltyEngine::GameObject *SaltyEngine::Factory::FindByTag(Layer::Tag tag)
                                                                            return go->GetTag() == tag && go->GetActiveSelf();
                                                                        return false;
                                                                    });
+    if (it == m_objects.end())
+        return nullptr;
     return dynamic_cast<GameObject*>((*it).get());
 }
 

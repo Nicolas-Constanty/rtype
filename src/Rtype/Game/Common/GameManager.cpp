@@ -10,13 +10,19 @@
 #include <Rtype/Game/Client/GameGUIBeam.hpp>
 #include "Common/Debug.hpp"
 
-GameManager::GameManager(SaltyEngine::GameObject * const gamObj) : SaltyBehaviour("GameManager", gamObj)
+GameManager::GameManager(SaltyEngine::GameObject * const gamObj) :
+        SaltyBehaviour("GameManager", gamObj),
+        m_server(nullptr),
+        m_client(nullptr)
 {
 //    gameObject->AddComponent<BackgroundController>();
     gameOver.reset(new GameOver(this));
 }
 
-GameManager::GameManager(const std::string & name, SaltyEngine::GameObject * const gamObj) : SaltyBehaviour(name, gamObj)
+GameManager::GameManager(const std::string & name, SaltyEngine::GameObject * const gamObj) :
+        SaltyBehaviour(name, gamObj),
+        m_server(nullptr),
+        m_client(nullptr)
 {
     gameOver.reset(new GameOver(this));
 }
@@ -28,23 +34,26 @@ GameManager::~GameManager()
 
 void GameManager::Start()
 {
+    gameObject->SetName("GameManager");
     m_client = gameObject->GetComponent<Rtype::Game::Client::GameClientObject>();
     m_server = gameObject->GetComponent<Rtype::Game::Server::GameServerObject>();
 
     if (m_client) {
         gameObject->AddComponent<BackgroundController>();
-        SaltyEngine::Sound::ISound *sound = SaltyEngine::SFML::AssetManager::Instance().GetSound("rtype-ost");
-        if (sound) {
-            sound->SetLoop(true);
-            sound->Play();
-        }
+        PlaySound("rtype-ost");
     }
     if (m_server) {
-    monsterMap = SaltyEngine::SFML::AssetManager::Instance().LoadScene("scene" + std::to_string(m_server->GetLevel()));
+		SaltyEngine::SFML::Sound::SetEnable(false);
+        //	SaltyEngine::Engine::Instance().SetFrameRate(30);
 
-    monsterMap->objects.sort([](std::pair<std::string, SaltyEngine::Vector2f> obj1, std::pair<std::string, SaltyEngine::Vector2f> obj2) {
-        return (obj1.second.x < obj2.second.x);
-    });
+        // Create Scene
+        monsterMap = SaltyEngine::SFML::AssetManager::Instance().LoadScene(m_server->GetLevel());
+        SaltyEngine::Engine::Instance().GetCurrentScene()->SetScale(monsterMap->scale);
+
+        if (monsterMap)
+            monsterMap->objects.sort([](std::pair<std::string, SaltyEngine::Vector2f> obj1, std::pair<std::string, SaltyEngine::Vector2f> obj2) {
+                return (obj1.second.x < obj2.second.x);
+            });
     }
 }
 
@@ -70,6 +79,7 @@ void GameManager::OnCollisionEnter(SaltyEngine::ICollider *)
 
 void GameManager::addPlayer(SaltyEngine::GameObject *player, unsigned char playerID)
 {
+//    std::cout << "PLAYER ADDED" << std::endl;
     m_players[playerID] = player;
 }
 
@@ -78,18 +88,18 @@ std::map<unsigned char, SaltyEngine::GameObject *> const &GameManager::getPlayer
     return m_players;
 }
 
-void GameManager::OnPlayerDeath()
+bool GameManager::IsAllPlayerDeath() const
 {
-//    for (SaltyEngine::GameObject *curr : m_players)
-//    {
-//        SaltyEngine::PlayerController *player = curr->GetComponent<SaltyEngine::PlayerController>();
-//
-//        if (player && player->GetHealth() > 0)
-//        {
-//            return;
-//        }
-//    }
-    //todo handle end of the game
+    for (std::pair<unsigned char, SaltyEngine::GameObject *> const &curr : m_players)
+    {
+        CommonPlayerController *player = curr.second->GetComponent<CommonPlayerController>();
+
+        if (player && player->GetGlobalLives() >= 0)
+        {
+            return (false);
+        }
+    }
+    return (true);
 }
 
 void GameManager::addPod(SaltyEngine::GameObject *pod)
@@ -111,6 +121,12 @@ void GameManager::StartTheGame() {
 void GameManager::FixedUpdate() {
     OnSendHighScore();
 
+    if (m_server && m_server->Server()->IsLaunch()) {
+        if (IsAllPlayerDeath()) {
+            gameOver->OverAction(GAMEOVER::DEFEAT);
+            SaltyEngine::Engine::Instance().Stop();
+        }
+    }
     if (m_server && m_server->Server()->IsLaunch() && !endOfGame) {
         this->currentPosition = this->currentPosition + velocity * SaltyEngine::Engine::Instance().GetFixedDeltaTime();
 
@@ -134,6 +150,7 @@ void GameManager::FixedUpdate() {
             endOfGame = true;
         }
     } else if (endOfGame && m_server && gameOver && !gameOver->IsOver() && IsSceneEmpty()) {
+        std::cout << "Victory" << std::endl;
         gameOver->OverAction(GAMEOVER::VICTORY);
         SaltyEngine::Engine::Instance().Stop();
     }
@@ -181,9 +198,29 @@ bool GameManager::IsSceneEmpty() const {
         if (gameObject->GetTag() != SaltyEngine::Layer::Tag::Player
             && gameObject->GetTag() != SaltyEngine::Layer::Tag::BulletPlayer
             && gameObject->GetTag() != SaltyEngine::Layer::Tag::Destroy
-            && gameObject->GetTag() != SaltyEngine::Layer::Tag::Untagged) {
+            && gameObject->GetTag() != SaltyEngine::Layer::Tag::Untagged
+            && gameObject->GetTag() != SaltyEngine::Layer::Tag::BulletEnemy
+            && gameObject->GetTag() != SaltyEngine::Layer::Tag::Pod) {
             return false;
         }
     }
     return true;
+}
+
+void GameManager::PlaySound(std::string const &sound, bool loop) {
+    if (m_backgroudnSound) {
+        m_backgroudnSound->Stop();
+        m_backgroudnSound = NULL;
+    }
+
+    m_backgroudnSound = SaltyEngine::SFML::AssetManager::Instance().GetSound(sound); // rtype-ost
+    if (m_backgroudnSound) {
+        m_backgroudnSound->SetLoop(loop);
+        m_backgroudnSound->Play();
+    }
+}
+
+SaltyEngine::Component *GameManager::CloneComponent(SaltyEngine::GameObject *const obj)
+{
+    return new GameManager(obj);
 }

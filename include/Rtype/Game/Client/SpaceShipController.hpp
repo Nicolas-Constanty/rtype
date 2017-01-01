@@ -7,7 +7,7 @@
 #include "GameManager.hpp"
 
 namespace SaltyEngine {
-	class SpaceShipController : public SaltyBehaviour
+	class PREF_EXPORT SpaceShipController : public SaltyBehaviour
 	{
 	public:
 		explicit SpaceShipController(GameObject* const gamObj, bool playable = true);

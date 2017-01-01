@@ -33,7 +33,7 @@ namespace SaltyEngine
 		std::ostream & print(std::ostream &os) const;
 		GameObject const &operator[](size_t index) const;
 		void Clear();
-		GameObject	*FindByName(std::string const &name) const;
+		DEPRECATED GameObject	*FindByName(std::string const &name) const;
 		GameObject	*FindById(size_t id) const;
 		virtual void operator<<(GameObject * const gameobj);
 		std::vector<SaltyEngine::GameObject *> const &GetAllGameObject() const;
@@ -61,6 +61,7 @@ namespace SaltyEngine
 
 		void Update(void);
 		void OnGui(void);
+		void OnDisable(void);
 		void OnDestroy();
 
 		void CallCoroutines();
@@ -79,14 +80,16 @@ namespace SaltyEngine
 
 	protected:
 		virtual void Destroy();
+		std::list<GameObject *> CleanScene();
 
 	protected:
 		std::vector<GameObject *>	m_objects;
-		std::queue<size_t>			m_init;
+		std::queue<GameObject *>	m_init;
 		float						m_gravity;
 		std::list<GameObject *>		m_deleted;
 		Vector2f					m_scale;
 		std::queue<GameObject *>    m_enabled;
+		std::queue<GameObject *>    m_disabled;
 
 	protected:
 		std::queue<std::function<void()>>	m_onCollisionEnter;

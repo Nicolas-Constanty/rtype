@@ -8,18 +8,19 @@
 #include <string>
 #include <iostream>
 #include "ILibraryLoader.hpp"
+#include "Common/DLLexport.hpp"
 
-class DllLoader : public ILibraryLoader<HINSTANCE>
+class LIB_EXPORT DllLoader : public ILibraryLoader<HINSTANCE>
 {
 private:
-	HINSTANCE m_inst;
+	HMODULE m_inst;
 
 public:
 	DllLoader();
 	virtual ~DllLoader();
 
 public:
-	virtual HINSTANCE Load(std::string const& path);
+	virtual HMODULE Load(std::string const& path);
 	virtual int Unload();
 	template <class ... Args>
 	auto Call(std::string const& funcName, Args ... args)

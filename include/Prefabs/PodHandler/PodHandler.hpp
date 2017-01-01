@@ -8,7 +8,7 @@
 #include <Prefabs/RtypePrefab.hpp>
 #include <Prefabs/Pod/PodController.hpp>
 
-class LIB_EXPORT PodHandler : public RtypePrefab
+class PREF_EXPORT PodHandler : public RtypePrefab
 {
 public:
     PodHandler(SaltyEngine::GameObject *object);

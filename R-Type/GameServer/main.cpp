@@ -9,22 +9,20 @@
 #include "Network/Socket/WinSocket.hpp"
 #endif
 
-//bool SaltyEngine::SFML::Sound::Enable = false;
-
 int main(int ac, char **av)
 {
     Flags   flags;
     uint16_t port;
     size_t max;
     uint32_t secret;
-    uint16_t level;
+    std::string level;
     bool help;
     Rtype::Game::Server::Room   room;
 
     flags.Var(port, 'p', "port", uint16_t(4242), "The port on which the room server will be binded", "Room port");
     flags.Var(max, 'm', "max", size_t(2), "The maximum amount of players that are allowed to join the room server", "Maximum amount of players");
     flags.Var(secret, 's', "secret", uint32_t(0), "The secret password of the room", "Secret password");
-    flags.Var(level, 'l', "level", uint16_t(2), "The ID of the level to load", "Level id");
+    flags.Var(level, 'l', "level", std::string("scene2Server"), "The ID of the level to load", "Level id");
 
     flags.Bool(help, 'h', "help", "Show this help message", "Help");
 
@@ -38,17 +36,18 @@ int main(int ac, char **av)
 #if _WIN32
 	Network::Socket::WinSocket::Start();
 #endif
-    try
-    {
+    /*try
+    {*/
         //SaltyEngine::SFML::AssetManager::Instance().LoadScene("scene" + level);
         //SaltyEngine::SFML::AssetManager::Instance().LoadAssets();
+		std::cout << secret << " " << level << std::endl;
         room.Start(port, max, secret, level);
-    }
+    /*}
     catch (std::runtime_error const &err)
     {
         std::cerr << "Fail to start room: " << err.what() << std::endl;
         return 1;
-    }
+    }*/
     room.Run();
 #if _WIN32
 	Network::Socket::WinSocket::Stop();

@@ -5,8 +5,8 @@
 #include <string>
 #include <iostream>
 #include <unistd.h>
+#include <Process/Process.hpp>
 #include "ServerGame/CreateRoomGameServer/Lobby.hpp"
-#include "Process/UnixProcess.hpp"
 
 Lobby::Lobby(IMutex &mutex, ILobbyHandler &lobbyHandler) : mutex(mutex), lobbyHandler(lobbyHandler) {
     lobbyInfo = NULL;
@@ -43,14 +43,15 @@ bool Lobby::IsLaunch() const {
 }
 
 void Lobby::CreateServerGame() {
-    UnixProcess    process;
+    OSProcess    process;
 
     ///TODO changer le sleep 10 par le binaire du server Game
     mutex.unlock();
-    process.Launch("./GameServer -l " + std::to_string(lobbyInfo->GetMapID())
-                   + " -m " + std::to_string(lobbyInfo->GetMaxNbrClient())
-                   + " -p " + std::to_string(lobbyInfo->GetPort())
-                   + " -s " + std::to_string(lobbyInfo->GetSecret()));
+    std::string binary = "./GameServer -l scene" + std::to_string(lobbyInfo->GetMapID()) + "Server"
+                         + " -m " + std::to_string(lobbyInfo->GetMaxNbrClient())
+                         + " -p " + std::to_string(lobbyInfo->GetPort())
+                         + " -s " + std::to_string(lobbyInfo->GetSecret());
+    process.Launch(binary);
     if (!process.IsChild()) {
         lobbyHandler.OnProcessBegin(lobbyInfo);
     }

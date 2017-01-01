@@ -18,13 +18,13 @@ void EndScreen::Start() {
 
 void EndScreen::VictoryScreen() {
     gameObject->AddComponent<SaltyEngine::GUI::SFML::Label>("Victoire !", 100,
-                                                            SaltyEngine::SFML::AssetManager::Instance().GetFont("arial"),
+                                                            SaltyEngine::SFML::AssetManager::Instance().GetFont("SFSquareHead"),
                                                             sf::Color::White);
 }
 
 void EndScreen::DefeatScreen() {
     gameObject->AddComponent<SaltyEngine::GUI::SFML::Label>("Defaite !", 100,
-                                                            SaltyEngine::SFML::AssetManager::Instance().GetFont("arial"),
+                                                            SaltyEngine::SFML::AssetManager::Instance().GetFont("SFSquareHead"),
                                                             sf::Color::White);
 }
 

@@ -16,12 +16,12 @@
 #include "SaltyEngine/GameObject.hpp"
 
 extern "C" {
-class BlockSimple : public SaltyEngine::GameObject {
+class PREF_EXPORT BlockSimple : public SaltyEngine::GameObject {
 public:
     BlockSimple();
     virtual ~BlockSimple();
 };
-SaltyEngine::Object const *GetObjectPrefab();
+PREF_EXPORT SaltyEngine::Object const *GetObjectPrefab();
 }
 
 #endif

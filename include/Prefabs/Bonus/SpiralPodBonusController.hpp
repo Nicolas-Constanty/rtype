@@ -7,7 +7,7 @@
 
 #include "APodBonusController.hpp"
 
-class SpiralPodBonusController : public APodBonusController
+class PREF_EXPORT SpiralPodBonusController : public APodBonusController
 {
 private:
     static const char missile[12];
@@ -18,7 +18,11 @@ public:
 
 public:
     virtual void Start();
+    virtual void FixedUpdate();
     std::string getMissile() const;
+
+private:
+    float m_vel = 1;
 
 public:
     virtual SaltyEngine::Component *CloneComponent(SaltyEngine::GameObject* const obj);

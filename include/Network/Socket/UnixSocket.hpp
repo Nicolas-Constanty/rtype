@@ -17,7 +17,7 @@ namespace Network
         /**
          * @brief Definition of a Unix socket
          */
-        class LIB_EXPORT UnixSocket : public ASocket
+        class PREF_EXPORT UnixSocket : public ASocket
         {
         public:
             UnixSocket(const Protocol &protocol = Socket::TCP, const sa_family_t domain = AF_INET, int option = 1);

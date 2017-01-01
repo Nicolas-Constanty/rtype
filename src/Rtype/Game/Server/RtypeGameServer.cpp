@@ -10,9 +10,9 @@
 #include <Rtype/Game/Client/GameManager.hpp>
 #include <Prefabs/Player/PlayerController.hpp>
 
-const std::chrono::milliseconds   Rtype::Game::Server::RtypeGameServer::pingtimeout(15000);
+const std::chrono::milliseconds   Rtype::Game::Server::RtypeGameServer::pingtimeout(2500);
 
-Rtype::Game::Server::RtypeGameServer::RtypeGameServer(Network::Core::NativeSocketIOOperationDispatcher &dispatcher, const size_t maxSize, u_int16_t level) :
+Rtype::Game::Server::RtypeGameServer::RtypeGameServer(Network::Core::NativeSocketIOOperationDispatcher &dispatcher, const size_t maxSize, const std::string &level) :
         AUDPServer(dispatcher),
         factory(),
         maxSize(maxSize),
@@ -53,9 +53,9 @@ void Rtype::Game::Server::RtypeGameServer::OnReadCheck()
 {
     Network::UDP::AUDPServer<Rtype::Game::Server::RtypeServerGameClient>::OnReadCheck();
 
-    for (std::unique_ptr<Network::Socket::ISockStreamHandler> &curr : clients->Streams())
+    for (Network::Socket::ISockStreamHandler *curr : clients->Streams())
     {
-        TimedUDPClient *client = dynamic_cast<TimedUDPClient *>(curr.get());
+        TimedUDPClient *client = dynamic_cast<TimedUDPClient *>(curr);
 
         if (client && client->pong() && client->getTimer().timeout(pingtimeout))
         {

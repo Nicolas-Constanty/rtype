@@ -53,7 +53,7 @@ namespace SaltyEngine
 		if (original)
 			original->Destroy();
 		else
-			Debug::PrintWarning("Cannot destrol null Object");
+			Debug::PrintWarning("Cannot destroy null Object");
 	}
 
 	void Object::Destroy() {
@@ -63,5 +63,11 @@ namespace SaltyEngine
     Object::Object(const std::string &name) : m_name(name) {
 		m_uid = s_id;
 		++s_id;
+    }
+
+    void Object::DontDestroyOnLoad(Object *target)
+    {
+		if (target)
+			target->m_shouldBeDestroyedOnLoad = false;
     }
 }

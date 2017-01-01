@@ -23,6 +23,10 @@ void ABonusController::OnCollisionEnter(SaltyEngine::ICollider *collider)
         return;
     if (isServerSide())
         ExecuteBonus(c->gameObject);
+    else {
+        SaltyEngine::Sound::ISound *sound = SaltyEngine::SFML::AssetManager::Instance().GetSound("Coin_Drop");
+        sound->Play();
+    }
     Destroy(gameObject);
 }
 

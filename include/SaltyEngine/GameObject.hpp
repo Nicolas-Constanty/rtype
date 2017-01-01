@@ -32,7 +32,7 @@ namespace SaltyEngine
 		Transform transform;
 
 	private:
-		bool 											m_activeSelf;
+		bool 											m_activeSelf = true;
 		size_t 											layer;
 		AScene 											*scene;
 		Layer::Tag 										m_tag;
@@ -85,8 +85,7 @@ namespace SaltyEngine
 				++m_bcount;
 				m_behaviour.push_back(tmp);
 			}
-			if (::SaltyEngine::Engine::Instance().GetStatus() == EngineStatus::start)
-				Engine::Instance().GetCurrentScene()->InitScene(m_components.back().get());
+			Engine::Instance().GetCurrentScene()->InitScene(m_components.back().get());
 			return (dynamic_cast<T *>(m_components.back().get()));
 		}
 
@@ -197,6 +196,9 @@ namespace SaltyEngine
 
 		private:
 			void __Destroy();
+
+	private:
+		using Object::m_shouldBeDestroyedOnLoad;
 	};
 }
 

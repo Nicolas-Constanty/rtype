@@ -19,7 +19,7 @@ namespace Rtype
         {
             class RtypeGameServer;
 
-            class RtypeServerGameClient : public Game::Common::RtypeGameClient
+            class PREF_EXPORT RtypeServerGameClient : public Game::Common::RtypeGameClient
             {
             public:
                 RtypeServerGameClient(Network::Core::NativeSocketIOOperationDispatcher &dispatcher);

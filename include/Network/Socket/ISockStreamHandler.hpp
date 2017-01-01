@@ -12,9 +12,10 @@ namespace Network
 {
     namespace Socket
     {
-        class LIB_EXPORT ISockStreamHandler : public ISocketContainer
+        class PREF_EXPORT ISockStreamHandler : public ISocketContainer
         {
         public:
+			ISockStreamHandler() {}
             virtual ~ISockStreamHandler(){}
 
             //ISocketContainer

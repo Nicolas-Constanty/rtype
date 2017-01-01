@@ -1,5 +1,5 @@
-#include "SaltyEngine/SFML/Image.hpp"
 #include "SaltyEngine/SFML/SpriteRenderer.hpp"
+#include "SaltyEngine/SFML/Image.hpp"
 
 namespace SaltyEngine
 {

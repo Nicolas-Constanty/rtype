@@ -1,0 +1,7 @@
+{
+  "sprites": [
+    "GUI/menu_room",
+    "GUI/menu_create"
+  ],
+  "lib": "gui_menu_room"
+}

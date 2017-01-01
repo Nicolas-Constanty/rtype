@@ -13,7 +13,7 @@
 /**
  * @brief Base model for bullets
  */
-class LIB_EXPORT ABulletController : public RtypePrefab
+class PREF_EXPORT ABulletController : public RtypePrefab
 {
 public:
     ABulletController(SaltyEngine::GameObject *go, std::string const& name = "ABulletController");

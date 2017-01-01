@@ -21,7 +21,7 @@ namespace Network
          * @tparam StatusType The type of the status stored inside
          */
         template <typename SequenceType, typename StatusType = SequenceType>
-        class ReceptionStatus
+        class PREF_EXPORT ReceptionStatus
         {
         public:
             /**

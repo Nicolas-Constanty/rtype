@@ -25,7 +25,7 @@ namespace Network
         /**
          * @brief Abstraction of a TCP connection
          */
-        class LIB_EXPORT ATCPConnection : public Core::BasicConnection
+        class PREF_EXPORT ATCPConnection : public Core::BasicConnection
         {
         public:
             ATCPConnection(Core::NativeSocketIOOperationDispatcher &dispatcher);

@@ -2,8 +2,8 @@
 // Created by nicolas-constanty on 20/12/16.
 //
 
-#include "SaltyEngine/SFML/Label.hpp"
 #include "SaltyEngine/SFML/Renderer.hpp"
+#include "SaltyEngine/SFML/Label.hpp"
 
 namespace SaltyEngine
 {
@@ -15,9 +15,9 @@ namespace SaltyEngine
                     : UIBehaviour("LabelGUI", gameObj), sf::Text(), m_data(text) {
                 setFont(*fnt);
                 setCharacterSize(size);
-                setColor(col);
+                setFillColor(col);
                 setString(m_data);
-                setOrigin(getLocalBounds().width / 2, getGlobalBounds().height / 2);
+                setOrigin(getLocalBounds().width / 2, (getGlobalBounds().height + size / 2) / 2 );
             }
 
             void Label::SetText(const std::string &txt) {
@@ -38,6 +38,11 @@ namespace SaltyEngine
             void Label::Clear() {
                 m_data.clear();
                 setString(m_data);
+            }
+
+            void Label::Update() {
+                const Transform &t = gameObject->transform;
+                setPosition(t.GetPosition().x * t.GetLocalScale().x, t.GetPosition().y * t.GetLocalScale().y);
             }
         }
     }

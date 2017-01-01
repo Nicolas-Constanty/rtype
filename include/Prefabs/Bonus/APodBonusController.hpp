@@ -7,7 +7,7 @@
 
 #include "ABonusController.hpp"
 
-class APodBonusController : public ABonusController
+class PREF_EXPORT APodBonusController : public ABonusController
 {
 public:
     APodBonusController(std::string const &name, SaltyEngine::GameObject *object);

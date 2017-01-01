@@ -25,7 +25,7 @@ RtypePrefab::~RtypePrefab()
 
 void RtypePrefab::LoadManager()
 {
-    SaltyEngine::GameObject *obj = SaltyEngine::Engine::Instance().GetCurrentScene()->FindByName("Rtype");
+    SaltyEngine::GameObject *obj = SaltyEngine::GameObject::Find("GameManager");
 
     if (obj)
         m_manager = obj->GetComponent<GameManager>();
@@ -45,4 +45,9 @@ GameManager *RtypePrefab::getManager()
         LoadManager();
     }
     return m_manager;
+}
+
+void RtypePrefab::PlayNewBackgroundSound(std::string const &sound) {
+    if (m_manager)
+        m_manager->PlaySound(sound);
 }

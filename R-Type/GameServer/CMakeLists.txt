@@ -4,24 +4,24 @@ project(rtype)
 #include files
 include_directories(include)
 
-#C++ files
-file(GLOB GameServerSrc
-		"src/Rtype/Game/Server/*.cpp"
-		"src/Rtype/Game/Common/*.cpp"
-		"src/Rtype/Game/Client/*.cpp"
-		"src/Prefabs/RtypePrefab.cpp"
-		"R-Type/GameServer/main.cpp"
-		)
-
-#Hpp files
-file(GLOB GameServerInc
-		"include/Rtype/Game/Server/*.hpp"
-		"include/Rtype/Game/Common/*.hpp"
-		"include/Rtype/Game/Common/*.hpp"
-		)
-
 #Linux
 if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
+
+	#C++ files
+	file(GLOB GameServerSrc
+			"src/Rtype/Game/Server/*.cpp"
+			"src/Rtype/Game/Common/*.cpp"
+			"src/Rtype/Game/Client/*.cpp"
+			"src/Prefabs/RtypePrefab.cpp"
+			"R-Type/GameServer/main.cpp"
+			)
+
+	#Hpp files
+	file(GLOB GameServerInc
+			"include/Rtype/Game/Server/*.hpp"
+			"include/Rtype/Game/Common/*.hpp"
+			"include/Rtype/Game/Common/*.hpp"
+			)
 
 	#C++ FLAGS
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wextra -DRTYPESERVER")
@@ -48,11 +48,27 @@ if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 #Windows
 elseif(MSVC)
 
+	#C++ files
+	file(GLOB GameServerSrc
+			"../../src/Rtype/Game/Server/*.cpp"
+			"../../src/Rtype/Game/Common/*.cpp"
+			"../../src/Rtype/Game/Client/*.cpp"
+			"../../src/Prefabs/RtypePrefab.cpp"
+			"../../R-Type/GameServer/main.cpp"
+			)
+
+	#Hpp files
+	file(GLOB GameServerInc
+			"../../include/Rtype/Game/Server/*.hpp"
+			"../../include/Rtype/Game/Common/*.hpp"
+			"../../include/Rtype/Game/Common/*.hpp"
+			)
+
 	#C++ FLAGS
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3 -DRTYPESERVER")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3 -DRTYPESERVER  -DNO_EXPORT")
 
 	#Create GameServer
-	add_executable(GameServer ${GameServerSrc} ${GameServerInc})
+	add_executable(GameServer "${GameServerSrc}" "${GameServerInc}")
 
 	#Link libraries
 	target_link_libraries(GameServer
@@ -69,6 +85,10 @@ elseif(MSVC)
 			mate
 			pod
 			sfml-system-d sfml-audio-d sfml-graphics-d sfml-window-d)
+
+	add_custom_command(TARGET GameServer
+        POST_BUILD
+        COMMAND cmd /c "cd ..\\..\\..\\ & MoveBinary.bat")
 
 endif()
 

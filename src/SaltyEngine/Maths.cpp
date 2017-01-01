@@ -16,7 +16,7 @@ float SaltyEngine::Mathf::Cos(float angle)
     if (angle < 0)
         sign = -1;
 
-    return sign * m_cos[sign * fmodf(angle, 360) * INDEXER - 1];
+    return  m_cos[static_cast<unsigned int>(sign * fmodf(angle, 360) * INDEXER - 1)] * sign;
 }
 
 float SaltyEngine::Mathf::Sin(float angle)
@@ -29,7 +29,7 @@ float SaltyEngine::Mathf::Sin(float angle)
     if (angle < 0)
         sign = -1;
 
-    return sign * m_sin[sign * fmodf(angle, 360) * INDEXER - 1];
+    return m_sin[static_cast<unsigned int>(sign * fmodf(angle, 360) * INDEXER - 1)] * sign;
 
 }
 
@@ -57,5 +57,5 @@ float SaltyEngine::Mathf::Clamp01(float value) {
 }
 
 float SaltyEngine::Mathf::Sign(float value) {
-    return value >= 0 ? 1 : -1;
+    return value >= 0 ? 1.0f : -1.0f;
 }

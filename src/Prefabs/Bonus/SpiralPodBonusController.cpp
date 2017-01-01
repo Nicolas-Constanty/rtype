@@ -43,3 +43,7 @@ std::string SpiralPodBonusController::getMissile() const
 {
     return missile;
 }
+
+void SpiralPodBonusController::FixedUpdate() {
+    gameObject->transform.Translate(-gameObject->transform.right() * m_vel);
+}

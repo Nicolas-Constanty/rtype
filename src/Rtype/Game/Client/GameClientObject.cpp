@@ -1,4 +1,5 @@
 #include "Rtype/Game/Client/GameClientObject.hpp"
+#include "Rtype/Game/Client/GameManager.hpp"
 
 Rtype::Game::Client::GameClientObject::GameClientObject(SaltyEngine::GameObject * const gamObj, const std::string &ip, const uint16_t port, const uint16_t secret) :
 		SaltyBehaviour("GameClientObject", gamObj),
@@ -10,7 +11,8 @@ Rtype::Game::Client::GameClientObject::GameClientObject(SaltyEngine::GameObject 
 
 Rtype::Game::Client::GameClientObject::~GameClientObject()
 {
-	delete(m_rtypeclient);
+    if (m_rtypeclient != nullptr)
+	    delete(m_rtypeclient);
 }
 
 Rtype::Game::Client::GameClientObject::GameClientObject(const std::string & name, SaltyEngine::GameObject * const gamObj, const std::string &ip, const uint16_t port, const uint16_t secret)
@@ -18,15 +20,28 @@ Rtype::Game::Client::GameClientObject::GameClientObject(const std::string & name
 {
 }
 
-void Rtype::Game::Client::GameClientObject::Start()
-{
+void Rtype::Game::Client::GameClientObject::Start() {
+	std::cout << "start gameClientObject" << std::endl;
+	
 	m_rtypeclient = new Rtype::Game::Client::RtypeClientGameClient(m_dispatcher, m_secret);
     m_rtypeclient->Connect(m_ip, m_port);
 	m_dispatcher.Watch(m_rtypeclient, Network::Core::NativeSocketIOOperationDispatcher::READ);
-	m_dispatcher.setTimeout({0, 0});
+	m_dispatcher.setTimeout({0, 2});
 }
 
 void Rtype::Game::Client::GameClientObject::Update()
 {
-	m_dispatcher.Poll();
+	try
+	{
+		m_dispatcher.Poll();
+	}
+	catch (std::runtime_error const &)
+	{
+		SaltyEngine::Engine::Instance().Stop();
+	}
+}
+
+SaltyEngine::Component *Rtype::Game::Client::GameClientObject::CloneComponent(SaltyEngine::GameObject *const obj)
+{
+	return new GameClientObject(obj, m_ip, m_port, m_secret);
 }

@@ -8,7 +8,7 @@
 #include <map>
 #include <SaltyEngine/GameObject.hpp>
 
-class GameObjectContainer {
+class PREF_EXPORT GameObjectContainer {
 public:
     GameObjectContainer();
     ~GameObjectContainer();

@@ -19,13 +19,13 @@ namespace Rtype
     {
         namespace Server
         {
-            class RtypeGameServer : public Network::UDP::AUDPServer<Rtype::Game::Server::RtypeServerGameClient>
+            class PREF_EXPORT RtypeGameServer : public Network::UDP::AUDPServer<Rtype::Game::Server::RtypeServerGameClient>
             {
             private:
                 static const std::chrono::milliseconds   pingtimeout;
 
             public:
-                RtypeGameServer(Network::Core::NativeSocketIOOperationDispatcher &dispatcher, const size_t maxSize = 4, u_int16_t level = 1);
+                RtypeGameServer(Network::Core::NativeSocketIOOperationDispatcher &dispatcher, const size_t maxSize = 4, const std::string &level = "scene1");
                 RtypeGameServer(RtypeGameServer const &ref) = delete;
                 virtual ~RtypeGameServer();
 
@@ -40,9 +40,9 @@ namespace Rtype
                 {
                     if (!clients)
                         return;
-                    for (std::unique_ptr<Network::Socket::ISockStreamHandler> &curr : clients->Streams())
+                    for (Network::Socket::ISockStreamHandler *curr : clients->Streams())
                     {
-                        Common::RtypeGameClient *client = dynamic_cast<Common::RtypeGameClient *>(curr.get());
+                        Common::RtypeGameClient *client = dynamic_cast<Common::RtypeGameClient *>(curr);
 
                         if (client)
                             client->SendPackage<Package>(func, args...);
@@ -93,7 +93,7 @@ namespace Rtype
                 GameManager *manager;
 
             private:
-                u_int16_t level;
+                std::string level;
                 std::map<int, bool> playersConnected;
                 bool launch;
 //                std::unique_ptr<SaltyEngine::SceneDefault>   monsterMap;

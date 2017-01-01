@@ -5,40 +5,23 @@
         "width": "2",
         "height": "2"
     },
+    "size": {
+        "width": "960",
+        "height": "540"
+    },
     "prefabs": {
         "Player": {
             "prefabName": "Player",
             "position": {
-                "x" : "50",
+                "x": "50",
                 "y": "500"
             }
         },
-        "Monster": {
+        "Monster5": {
             "prefabName": "Monster",
             "position": {
-                "x" : "1000",
-                "y": "500"
-            }
-        },
-        "Monster2": {
-            "prefabName": "Monster",
-            "position": {
-                "x" : "1200",
-                "y": "500"
-            }
-        },
-        "MonsterWalker": {
-            "prefabName": "MonsterWalker",
-            "position": {
-                "x" : "500",
-                "y": "700"
-            }
-        },
-        "MonsterFlying": {
-            "prefabName": "MonsterFlying",
-            "position": {
-                "x" : "500",
-                "y": "300"
+                "x" : "1420",
+                "y": "150"
             }
         }
     }

@@ -6,6 +6,8 @@
 #include <SaltyEngine/Collider.hpp>
 #include <Rtype/Game/Common/RtypeNetworkFactory.hpp>
 #include <Rtype/Game/Common/GameObjectID.hpp>
+#include <Prefabs/GenericController.hpp>
+#include "Prefabs/PodHandler/PodHandler.hpp"
 #include "Prefabs/Pod/PodController.hpp"
 
 PodController::PodController(SaltyEngine::GameObject *const object) :
@@ -56,25 +58,11 @@ void PodController::Start()
                                              RtypeNetworkFactory::GetIDFromName("Pod"),
                                              gameobjectId);
     }
-    SaltyEngine::Vector2 winsize;
+	SaltyEngine::Vector2 winsize = SaltyEngine::Vector2(
+            SaltyEngine::Engine::Instance().GetPhysicsHandler()->GetSizeX(),
+            SaltyEngine::Engine::Instance().GetPhysicsHandler()->GetSizeY()
+	);
     SaltyEngine::Vector2 spritesize;
-
-    if (!isServerSide())
-    {
-        SaltyEngine::SFML::Renderer *renderer = dynamic_cast<SaltyEngine::SFML::Renderer *>(SaltyEngine::Engine::Instance().GetRenderer());
-
-        winsize = SaltyEngine::Vector2(renderer->getSize().x,
-                                       renderer->getSize().y);
-    }
-    else
-    {
-        SaltyEngine::SFML::PhysicsHandler   *physicsHandler = dynamic_cast<SaltyEngine::SFML::PhysicsHandler *>(SaltyEngine::Engine::Instance().GetPhysicsHandler());
-
-        winsize = SaltyEngine::Vector2(
-                physicsHandler->GetSizeX(),
-                physicsHandler->GetSizeY()
-        );
-    }
 
     sprr = gameObject->GetComponent<SaltyEngine::SFML::SpriteRenderer>();
 
@@ -82,8 +70,9 @@ void PodController::Start()
             sprr->GetSprite()->getTextureRect().width / 2,
             sprr->GetSprite()->getTextureRect().height / 2);
     max = SaltyEngine::Vector2(
-            winsize.x / gameObject->transform.GetLocalScale().x - min.x,
-            winsize.y / gameObject->transform.GetLocalScale().y - min.y);
+            winsize.x - min.x,
+            winsize.y - min.y);
+
     speed = 10;
     anim = gameObject->GetComponent<SaltyEngine::SFML::Animation>();
     getManager()->addPod(gameObject);
@@ -154,12 +143,31 @@ void PodController::OnCollisionEnter(SaltyEngine::ICollider *collider)
                 }
             }
         }
+        else if (c->gameObject->GetTag() == SaltyEngine::Layer::Tag::BulletEnemy)
+        {
+            BroadCastReliable<DIEPackageGame>(getManager()->gameObjectContainer.GetServerObjectID(c->gameObject));
+            Destroy(c->gameObject);
+        }
     }
-    if (c->gameObject->GetTag() == SaltyEngine::Layer::Tag::Enemy || c->gameObject->GetTag() == SaltyEngine::Layer::Tag::BulletEnemy)
+    else
     {
-        //todo deal damage
-        SaltyEngine::Instantiate("ExplosionBasic", c->gameObject->transform.GetPosition());
-//        Destroy(c->gameObject);
+        if (c->gameObject->GetTag() == SaltyEngine::Layer::Tag::BulletEnemy)
+        {
+            SaltyEngine::Instantiate("ExplosionBasic", c->gameObject->transform.GetPosition());
+        }
+    }
+    if (c->gameObject->GetTag() == SaltyEngine::Layer::Tag::Enemy)
+    {
+        AGenericController  *controller = c->gameObject->GetComponent<AGenericController>();
+
+        if (controller)
+        {
+            if (controller->GetHealth() > 1)
+            {
+                speed = 0;
+            }
+            controller->TakeDamage(1);
+        }
     }
 }
 

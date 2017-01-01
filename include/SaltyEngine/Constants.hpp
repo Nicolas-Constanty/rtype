@@ -59,14 +59,14 @@ namespace SaltyEngine
 	    {
 		    PING_PONG,
 			LOOP,
+			LOOP_BACK,
 			ONCE
 	    };
     }
 
 	namespace Layer
 	{
-//		static std::string const Tags[] = { "NONE", "PLAYER", "ENEMY", "BulletPlayer" };
-        enum class Tag : int { Untagged = 0, Player, Enemy, BulletPlayer, BulletEnemy, Destroy, Wall };
+        enum class Tag : int { Untagged = 0, Player, Enemy, BulletPlayer, BulletEnemy, Destroy, Wall, GameManager, Bonus, Pod };
 	}
 
 	enum class NetRole
@@ -82,6 +82,13 @@ namespace SaltyEngine
             NetRole::CLIENT;
         #endif
 
+    #ifdef __GNUC__
+        #define DEPRECATED __attribute__((deprecated))
+    #elif defined(_MSC_VER)
+        #define DEPRECATED __declspec(deprecated)
+    #else
+        #define DEPRECATED
+    #endif
 }
 
 #endif //RTYPE_CONSTANTS_HPP

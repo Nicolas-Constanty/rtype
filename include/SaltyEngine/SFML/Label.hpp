@@ -5,8 +5,8 @@
 #ifndef RTYPE_LABEL_HPP
 #define RTYPE_LABEL_HPP
 
-#include "SaltyEngine/GUI/UIBehaviour.hpp"
 #include "SaltyEngine/SFML/Sprite.hpp"
+#include "SaltyEngine/GUI/UIBehaviour.hpp"
 
 namespace SaltyEngine
 {
@@ -30,6 +30,8 @@ namespace SaltyEngine
                 const Label &operator+=(const std::string &);
 
                 void Clear();
+
+                void Update() override;
             };
         }
     }

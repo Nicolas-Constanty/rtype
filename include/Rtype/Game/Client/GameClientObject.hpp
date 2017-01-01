@@ -11,7 +11,7 @@ namespace Rtype
 	{
 		namespace Client
 		{
-			class GameClientObject : public SaltyEngine::SaltyBehaviour
+			class PREF_EXPORT GameClientObject : public SaltyEngine::SaltyBehaviour
 			{
 			public:
 				explicit GameClientObject(SaltyEngine::GameObject* const gamObj, const std::string &ip, const uint16_t port, const uint16_t secret);
@@ -33,11 +33,13 @@ namespace Rtype
 					m_rtypeclient->BroadCastPackage<Package>(func, args...);
 				}
 
+				SaltyEngine::Component *CloneComponent(SaltyEngine::GameObject *const obj) override;
+
 			private:
 				uint16_t m_port;
 				std::string m_ip;
                 const uint32_t m_secret;
-				Client::RtypeClientGameClient *m_rtypeclient;
+				Client::RtypeClientGameClient *m_rtypeclient = nullptr;
 				Network::Core::NativeSocketIOOperationDispatcher m_dispatcher;
 			};
 		}

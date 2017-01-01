@@ -7,7 +7,7 @@
 
 #include <SaltyEngine/GameObject.hpp>
 
-class RtypeNetworkFactory
+class PREF_EXPORT RtypeNetworkFactory
 {
 public:
     static SaltyEngine::GameObject *Create(unsigned short id, SaltyEngine::Vector const &pos, float rotation);

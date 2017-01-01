@@ -17,17 +17,16 @@
 
 #include "SaltyEngine/SaltyEngine.hpp"
 #include "SaltyEngine/GameObject.hpp"
-#include "Common/DLLexport.hpp"
 
 extern "C"
 {
-class LIB_EXPORT Beam : public SaltyEngine::GameObject
+class PREF_EXPORT Beam : public SaltyEngine::GameObject
 {
 public:
     Beam();
     virtual ~Beam();
 };
-LIB_EXPORT SaltyEngine::Object const *GetObjectPrefab();
+PREF_EXPORT SaltyEngine::Object const *GetObjectPrefab();
 };
 
 

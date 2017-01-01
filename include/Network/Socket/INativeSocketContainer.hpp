@@ -28,7 +28,7 @@ extern  "C"
 
 #include "Common/DLLexport.hpp"
 
-class LIB_EXPORT INativeSocketContainer
+class PREF_EXPORT INativeSocketContainer
 {
 public:
     virtual ~INativeSocketContainer(){}

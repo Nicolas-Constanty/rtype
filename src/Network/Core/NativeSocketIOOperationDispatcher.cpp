@@ -113,18 +113,35 @@ void Network::Core::NativeSocketIOOperationDispatcher::HandleOperations()
     fd_set writeset;
     std::unique_ptr<struct timeval>  timeout = NULL;
 
-    if (m_timeout.get() != NULL) {
-        timeout.reset(new struct timeval(*m_timeout.get()));
-    }
+	fd_set *rtosend = &readset;
+	fd_set *wtosend = &writeset;
+
+#ifdef _WIN32
+	if (m_readWatch.size() == 0)
+	{
+		rtosend = NULL;
+	}
+	if (m_writeWatch.size() == 0)
+	{
+		wtosend = NULL;
+	}
+#endif // _WIN32
+
+	if (!wtosend && !rtosend)
+        return;
 
     int ret;
     do
     {
-        ret = select(static_cast<int>(std::max(bindFdsToSet(readset, m_readWatch), bindFdsToSet(writeset, m_writeWatch))) + 1, &readset, &writeset, nullptr, timeout.get());
+		if (m_timeout.get() != NULL) {
+			timeout.reset(new struct timeval(*m_timeout.get()));
+		}
+
+        ret = select(static_cast<int>(std::max(bindFdsToSet(readset, m_readWatch), bindFdsToSet(writeset, m_writeWatch))) + 1, rtosend, wtosend, nullptr, timeout.get());
     } while (ret == -1 && errno == EINTR);
 	if (ret == -1) {
 #if _WIN32
-		std::cout << WSAGetLastError() << std::endl;
+		std::cout << "Select failure: " << WSAGetLastError() << std::endl;
 #else
         perror("Native Socket select error");
 #endif

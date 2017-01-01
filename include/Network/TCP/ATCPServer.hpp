@@ -22,7 +22,7 @@ namespace Network
     namespace TCP
     {
         template <typename ClientType>
-        class LIB_EXPORT ATCPServer : public ATCPConnection
+        class PREF_EXPORT ATCPServer : public ATCPConnection
         {
         public:
             /**

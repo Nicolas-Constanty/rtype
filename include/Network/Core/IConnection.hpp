@@ -14,7 +14,7 @@ namespace Network
 {
     namespace Core
     {
-        class LIB_EXPORT IConnection : public Socket::ISockStreamHandler
+        class PREF_EXPORT IConnection : public Socket::ISockStreamHandler
         {
         public:
             virtual ~IConnection(){}

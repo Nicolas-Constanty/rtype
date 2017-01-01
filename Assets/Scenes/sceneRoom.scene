@@ -1,0 +1,24 @@
+{
+  "title": "sceneRoom",
+  "preview": "tot.png",
+  "scale": {
+    "width": "1",
+    "height": "1"
+  },
+  "size": {
+    "width": "960",
+    "height": "540"
+  },
+  "fonts" : [
+    "SFSquareHead"
+  ],
+  "prefabs": {
+    "CanvasPlayerConnect": {
+      "prefabName": "SelectMap",
+      "position": {
+        "x" : "0",
+        "y": "0"
+      }
+    }
+  }
+}

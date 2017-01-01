@@ -8,7 +8,7 @@
 #include <string>
 #include "Common/DLLexport.hpp"
 
-class LIB_EXPORT IConnectable
+class PREF_EXPORT IConnectable
 {
 public:
     virtual ~IConnectable(){}

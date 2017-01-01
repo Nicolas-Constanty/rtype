@@ -1,17 +1,14 @@
 cmake_minimum_required(VERSION 2.8)
 project(rtype)
 
-#include files
-include_directories("include")
-
-#C++ files
-file(GLOB Commoninc include/Common/*.hpp)
-
-#Hpp files
-file(GLOB Commonsrc src/Common/*.cpp)
-
 #Linux
 if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
+
+	#C++ files
+	file(GLOB Commoninc include/Common/*.hpp)
+
+	#Hpp files
+	file(GLOB Commonsrc src/Common/*.cpp)
 
 	set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
@@ -27,10 +24,26 @@ if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 #Windows
 elseif(MSVC)
 
-	#Export all symbol for dll
-	#set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS true)
+	#C++ files
+	file(GLOB Commoninc "../../include/Common/*.hpp")
 
-	#Create library
-	add_library(Common STATIC ${Commonsrc} ${Commoninc})
+	#Hpp files
+	file(GLOB Commonsrc "../../src/Common/*.cpp")
+
+	
+	
+	if(EXPORT_DLL)
+		#Export all symbol for dll
+		set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS true)
+		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DNO_EXPORT")
+
+		#Create library
+		add_library(Common SHARED ${Commonsrc} ${Commoninc})
+	else()
+		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DNO_EXPORT")
+
+		#Create library
+		add_library(Common STATIC ${Commonsrc} ${Commoninc})
+	endif()
 
 endif()

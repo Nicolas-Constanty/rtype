@@ -7,10 +7,12 @@
  #include <unistd.h>
 #endif
 
+#include <thread>
+#include <list>
 #include "SaltyEngine/SaltyEngine.hpp"
 #include <SaltyEngine/Constants.hpp>
 #include <SFML/System/Thread.hpp>
-#include <thread>
+#include <SaltyEngine/ISceneLoader.hpp>
 #include "SaltyEngine/AScene.hpp"
 #include "Common/Debug.hpp"
 
@@ -134,10 +136,6 @@ namespace SaltyEngine
 						scene->OnCollisionEnter();
 						scene->OnCollisionExit();
 						scene->OnCollisionStay();
-
-						scene->OnMouseEnter();
-						scene->OnMouseExit();
-						scene->OnMouseOver();
 					}
 					else
 					{
@@ -153,6 +151,7 @@ namespace SaltyEngine
 				m_physics_handler->Display();
 			scene->CallCoroutines();
 			scene->OnGui();
+			scene->OnDisable();
 			scene->OnDestroy();
 //			if (m_physics_handler && st)
 //			{
@@ -198,9 +197,25 @@ namespace SaltyEngine
 	bool Engine::LoadScene(size_t index)
 	{
 		if (index < m_scenes.size())
+		{
+			std::list<GameObject *> undeleted_obj = m_scenes[m_current]->CleanScene();
 			m_current = index;
+            for (GameObject *go : undeleted_obj)
+                m_scenes[m_current]->m_objects.push_back(go);
+            m_sceneLoader->LoadScene(m_scenes[m_current]->GetName());
+            m_scenes[m_current]->SetScale(m_sceneLoader->GetSceneScale());
+            for (std::pair<std::string, SaltyEngine::Vector2> it : m_sceneLoader->GetSceneObjects())
+            {
+                if (it.first == "GameManager") {
+                    SaltyEngine::Vector2f pos = it.second;
+                    SaltyEngine::Instantiate(it.first, pos, 0);
+                }
+            }
+		}
 		else
+		{
 			std::cerr << "Invalid scene index[" << index << "]!" << std::endl;
+		}
 		return (index < m_scenes.size());
 	}
 
@@ -227,7 +242,9 @@ namespace SaltyEngine
 			++index;
 		}
 		if (index < m_scenes.size())
-			return (true);
+        {
+            return LoadScene(index);
+        }
 		else
 			std::cerr << "Invalid scene index[" << index << "]!" << std::endl;
 		return (index < m_scenes.size());
@@ -296,7 +313,7 @@ namespace SaltyEngine
 	AScene * Engine::GetCurrentScene(void) const
 	{
 		if (m_scenes.empty()) {
-			throw std::runtime_error("Not Scene was added");
+			throw std::runtime_error("No Scene was added");
 		}
 		return m_scenes[m_current].get();
 	}
@@ -382,11 +399,42 @@ namespace SaltyEngine
 			throw new std::runtime_error("Can't push null scene");
 	}
 
-    void Engine::SetPhysicsHandler(IPhysicsHandler *ph) {
+    void Engine::SetPhysicsHandler(APhysicsHandler *ph) {
         m_physics_handler = ph;
     }
 
-    IPhysicsHandler *Engine::GetPhysicsHandler(void) const {
+    APhysicsHandler *Engine::GetPhysicsHandler(void) const {
         return m_physics_handler;
+    }
+
+	const Vector2ui &Engine::GetSize(void) const {
+		if (m_physics_handler)
+			return m_physics_handler->GetSize();
+		return m_renderer->GetSize();
+	}
+
+	Input::IEventManager *Engine::GetEventManager() const {
+        return m_even_manager;
+    }
+
+    void Engine::SetSceneLoader(ISceneLoader *sceneLoader)
+    {
+        m_sceneLoader = sceneLoader;
+    }
+
+    int Engine::GetArgc(void) const
+    {
+        return m_ac;
+    }
+
+    char const** Engine::GetArgv(void) const
+    {
+        return m_av;
+    }
+
+    void Engine::SetArguments(int ac, char const **av)
+    {
+        m_ac = ac;
+        m_av = av;
     }
 }

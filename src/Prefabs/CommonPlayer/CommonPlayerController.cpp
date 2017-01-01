@@ -40,6 +40,15 @@ void CommonPlayerController::Start()
     clip->AddEvent([this](){ renderer->SetColor(SaltyEngine::Color(1, 1, 1, 0)); }, 0);
     clip->AddEvent([this](){ renderer->SetColor(SaltyEngine::Color(1, 1, 1, 1)); }, 1);
     anim->AddClip(clip, "Invincibility");
+
+    m_beamSFX = (SaltyEngine::GameObject*)SaltyEngine::Instantiate();
+    m_beamSFX->AddComponent<SaltyEngine::SFML::SpriteRenderer>(SaltyEngine::SFML::AssetManager::Instance().GetSprite("Laser/loading1"), SaltyEngine::Layout::normal);
+    m_beamSFX->transform.SetPosition(this->gameObject->transform.GetPosition() + SaltyEngine::Vector(30, 3));
+    SaltyEngine::SFML::Animation *animation = m_beamSFX->AddComponent<SaltyEngine::SFML::Animation>(true, SaltyEngine::AnimationConstants::WrapMode::LOOP);
+    animation->AddClip(SaltyEngine::SFML::AssetManager::Instance().GetAnimation("Laser/loading"), "Loading");
+    m_beamSFX->transform.SetParent(&this->gameObject->transform);
+    m_beamSFX->SetActive(false);
+    handler = gameObject->GetComponent<PodHandler>();
 }
 
 void CommonPlayerController::FixedUpdate()
@@ -75,18 +84,20 @@ void CommonPlayerController::Die()
 {
     if (isServerSide() && !isAlive())
         return;
-    gameObject->SetActive(false);
-    status = DEAD;
     if (isServerSide())
     {
-        --global_lives;
         timer = timeoutDeath;
+        handler->Launch();
         BroadCastReliable<DEATHPackage>(getManager()->gameObjectContainer.GetServerObjectID(gameObject));
     }
     else
     {
         SaltyEngine::Instantiate("ExplosionBasic", gameObject->transform.GetPosition());
     }
+    BeamSoundActive(false);
+    gameObject->SetActive(false);
+    status = DEAD;
+    --global_lives;
     if (global_lives == -1)
     {
         if (isServerSide())
@@ -107,6 +118,7 @@ void CommonPlayerController::Reborn()
     status = INVINCIBLE;
     timer = timeoutInvicible;
     gameObject->SetActive(true);
+    m_beamSFX->SetActive(false);
     anim->Play("Invincibility");
 }
 
@@ -131,7 +143,9 @@ void CommonPlayerController::OnCollisionEnter(SaltyEngine::ICollider *collider) 
     {
         if (isServerSide() && isAlive()) {
             if (!col->gameObject->CompareTag(SaltyEngine::Layer::Tag::BulletPlayer)
-                && !col->gameObject->CompareTag(SaltyEngine::Layer::Tag::Player)) {
+                && !col->gameObject->CompareTag(SaltyEngine::Layer::Tag::Player)
+                   && !col->gameObject->CompareTag(SaltyEngine::Layer::Tag::Bonus)
+                    && !col->gameObject->CompareTag(SaltyEngine::Layer::Tag::Pod)) {
                 Die();
             }
         }
@@ -141,3 +155,30 @@ void CommonPlayerController::OnCollisionEnter(SaltyEngine::ICollider *collider) 
 CommonPlayerController::Status CommonPlayerController::GetStatus(void) const {
     return status;
 }
+
+int CommonPlayerController::GetGlobalLives() const {
+    return global_lives;
+}
+
+void CommonPlayerController::BeamSoundActive(bool action) {
+    if (beamSound) {
+        beamSound->Stop();
+        delete beamSound;
+        beamSound = nullptr;
+    }
+    if (action) {
+        beamSound = SaltyEngine::SFML::AssetManager::Instance().GetSound("Laser/loading");
+        beamSound->SetLoop(true);
+        beamSound->Play();
+    }
+}
+
+//void CommonPlayerController::EnableBeam() {
+//    m_beamSFX = (GameObject*)Instantiate();
+//    m_beamSFX->AddComponent<SFML::SpriteRenderer>(SFML::AssetManager::Instance().GetSprite("Laser/loading1"), Layout::normal);
+//    m_beamSFX->transform.SetPosition(this->gameObject->transform.GetPosition() + Vector(30, 3));
+//    SaltyEngine::SFML::Animation *animation = m_beamSFX->AddComponent<SaltyEngine::SFML::Animation>(true, SaltyEngine::AnimationConstants::WrapMode::LOOP);
+//    animation->AddClip(SaltyEngine::SFML::AssetManager::Instance().GetAnimation("Laser/loading"), "Loading");
+//    m_beamSFX->transform.SetParent(&this->gameObject->transform);
+//    m_beamSFX->SetActive(false);
+//}

@@ -17,7 +17,7 @@ namespace Network
         /**
          * @brief Struct that defines a Network communication Protocol
          */
-        struct LIB_EXPORT Protocol
+        struct PREF_EXPORT Protocol
         {
             const int proto;
             const int type;
@@ -61,7 +61,7 @@ namespace Network
         /**
          * @brief Class that abstracts the socket characteristics
          */
-        class LIB_EXPORT ASocket : public ISocket
+        class PREF_EXPORT ASocket : public ISocket
         {
         public:
             ASocket(const Protocol &protocol = Socket::TCP, const sa_family_t domain = AF_INET, int option = 1);
@@ -102,6 +102,7 @@ namespace Network
 
         public:
             static unsigned int getIPFromString(std::string const &);
+            static std::string getIPFromUInt(unsigned int);
 
         public:
             void print(std::ostream &output = std::cout) const;
@@ -114,7 +115,7 @@ namespace Network
             SOCKET              fd;
         };
 
-        std::ostream    &operator<<(std::ostream &output, ASocket const &ref);
+		PREF_EXPORT std::ostream    &operator<<(std::ostream &output, ASocket const &ref);
     }
 }
 

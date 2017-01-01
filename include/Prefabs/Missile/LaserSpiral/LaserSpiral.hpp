@@ -16,12 +16,12 @@
 #include "SaltyEngine/GameObject.hpp"
 
 extern "C" {
-	class LaserSpiral : public SaltyEngine::GameObject {
+	class PREF_EXPORT LaserSpiral : public SaltyEngine::GameObject {
 	public:
 		LaserSpiral();
 		virtual ~LaserSpiral();
 	};
-	SaltyEngine::Object const *GetObjectPrefab();
+	PREF_EXPORT SaltyEngine::Object const *GetObjectPrefab();
 }
 
 #endif

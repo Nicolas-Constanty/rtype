@@ -20,21 +20,7 @@ if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 	set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_HOME_DIRECTORY}/lib)
 	set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_HOME_DIRECTORY}/lib)
 
-#Windows
-elseif(MSVC)
-
-	#C++ FLAGS
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3 /EHsc")
-
-	#include files
-	include_directories(include ${CMAKE_HOME_DIRECTORY}/Dependencies/SFML/Win/include ${CMAKE_HOME_DIRECTORY}/Dependencies/Boost/Win/include)
-
-	#libraries files
-	#link_directories(${CMAKE_HOME_DIRECTORY}/Dependencies/SFML/Win/x64/Release)
-	link_directories(${CMAKE_HOME_DIRECTORY}/Dependencies/SFML/Win/x64/Debug)
-endif()
-
-############################## LIBRARIES ##############################
+	############################## LIBRARIES ##############################
 ############### COMMON ###############
 include(${PROJECT_SOURCE_DIR}/R-Type/Common/CMakeLists.txt)
 
@@ -73,3 +59,48 @@ include(${PROJECT_SOURCE_DIR}/Tests/GameServer/CMakeLists.txt)
 #include(${PROJECT_SOURCE_DIR}/Tests/Network/CMakeLists.txt)
 #include(${PROJECT_SOURCE_DIR}/Tests/GUI/CMakeLists.txt)
 include(${PROJECT_SOURCE_DIR}/Tests/Animations/CMakeLists.txt)
+include(${PROJECT_SOURCE_DIR}/Tests/Process/CMakeLists.txt)
+
+#Windows
+elseif(MSVC)
+
+	set(EXPORT_DLL true)
+	
+	#C++ FLAGS
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3 /EHsc -DNOMINMAX -D_WINSOCK_DEPRECATED_NO_WARNINGS -DWIN32_LEAN_AND_MEAN")
+
+	#include files
+	include_directories(include ${CMAKE_HOME_DIRECTORY}/Dependencies/SFML/Win/include ${CMAKE_HOME_DIRECTORY}/Dependencies/Boost/Win/include)
+
+	#libraries files
+	#link_directories(${CMAKE_HOME_DIRECTORY}/Dependencies/SFML/Win/x64/Release)
+	link_directories(${CMAKE_HOME_DIRECTORY}/Dependencies/SFML/Win/x64/Debug)
+
+	add_subdirectory(${PROJECT_SOURCE_DIR}/R-Type/Common)
+
+	############### PARSER ###############
+	add_subdirectory(${PROJECT_SOURCE_DIR}/R-Type/Parser)
+
+	############ SALTYENGINE #############
+	add_subdirectory(${PROJECT_SOURCE_DIR}/R-Type/SaltyEngine)
+	add_subdirectory(${PROJECT_SOURCE_DIR}/R-Type/SFMLSaltyEngine)
+
+	############### NETWORK ###############
+	add_subdirectory(${PROJECT_SOURCE_DIR}/R-Type/Network)
+
+	############## PROTOCOLS #############
+	add_subdirectory(${PROJECT_SOURCE_DIR}/R-Type/Protocol/Game)
+	add_subdirectory(${PROJECT_SOURCE_DIR}/R-Type/Protocol/Room)
+	add_subdirectory(${PROJECT_SOURCE_DIR}/R-Type/Protocol/Server)
+
+	############ GAMESERVER ##############
+	add_subdirectory(${PROJECT_SOURCE_DIR}/R-Type/GameServer)
+
+	############ GAMECLIENT ##############
+	add_subdirectory(${PROJECT_SOURCE_DIR}/R-Type/GameClient)
+
+	############### PREFABS ##############
+	add_subdirectory(${PROJECT_SOURCE_DIR}/R-Type/Prefab)
+
+	add_subdirectory(${PROJECT_SOURCE_DIR}/TESTS/Process)
+endif()

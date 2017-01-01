@@ -1,0 +1,84 @@
+{
+  "title": "scene4",
+  "preview": "tot.png",
+  "scale": {
+    "width": "2",
+    "height": "2"
+  },
+  "size": {
+    "width": "960",
+    "height": "540"
+  },
+  "prefabs": {
+    "Player": {
+      "prefabName": "Player",
+      "position": {
+        "x" : "50",
+        "y": "500"
+      }
+    },
+    "BLOCK" : {
+      "prefabName": "BlockSimple",
+      "position": {
+        "x": "0",
+        "y": "20"
+      }
+    },
+    "BLOCK1" : {
+      "prefabName": "BlockSimple",
+      "position": {
+        "x": "90",
+        "y": "20"
+      }
+    },
+    "BLOCK2" : {
+      "prefabName": "BlockSimple",
+      "position": {
+        "x": "180",
+        "y": "20"
+      }
+    },
+    "BLOCK3" : {
+      "prefabName": "BlockSimple",
+      "position": {
+        "x": "270",
+        "y": "20"
+      }
+    },
+    "BLOCK4" : {
+      "prefabName": "BlockSimple",
+      "position": {
+        "x": "350",
+        "y": "20"
+      }
+    },
+    "Bonus1" : {
+      "prefabName": "SpiralBonus",
+      "position": {
+        "x": "300",
+        "y": "100"
+      }
+    },
+    "Bonus2" : {
+      "prefabName": "SpiralBonus",
+      "position": {
+        "x": "500",
+        "y": "100"
+      }
+    },
+    "MonsterWalker": {
+      "prefabName": "MonsterWalker",
+      "position": {
+        "x" : "500",
+        "y": "300"
+      }
+    },
+    "MonsterNeunoeil": {
+      "prefabName": "MonsterNeunoeil",
+      "position": {
+        "x" : "1300",
+        "y": "300"
+      }
+    }
+  }
+}

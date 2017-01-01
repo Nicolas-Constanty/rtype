@@ -8,7 +8,7 @@
 
 extern "C"
 {
-	class LIB_EXPORT Player : public SaltyEngine::GameObject
+	class PREF_EXPORT Player : public SaltyEngine::GameObject
 	{
 	public:
 		Player();
@@ -17,7 +17,7 @@ extern "C"
 
 	//extern PLAYER_API int nPlayer;
 
-	LIB_EXPORT SaltyEngine::Object const *GetObjectPrefab();
+	PREF_EXPORT SaltyEngine::Object const *GetObjectPrefab();
 }
 
 #endif

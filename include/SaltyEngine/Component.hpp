@@ -10,7 +10,7 @@
 namespace SaltyEngine
 {
     class GameObject;
-	class LIB_EXPORT Component : public Object
+	class PREF_EXPORT Component : public Object
 	{
 	public:
 		// delete copy and move constructors and assign operators

@@ -7,13 +7,15 @@
 
 #include <Network/TCP/ATCPServer.hpp>
 #include <Network/TCP/ATCPClient.hpp>
+#include "Common/DLLexport.hpp"
 #include <Protocol/Room/RoomPackageFactory.hpp>
 #include "Protocol/Room/RoomPackageFactory.hpp"
 #include "Protocol/Room/IProtocolRoomHandler.hpp"
 #include "Protocol/Room/RTypeProtocolRoomManager.hpp"
 #include "Protocol/Room/ProtocolPrintRoomPackage.hpp"
+#include "ITransitionNetworkManager.hpp"
 
-class ClientRoomNetworkManager : public Network::TCP::ATCPClient, public IProtocolRoomHandler
+class LIB_EXPORT ClientRoomNetworkManager : public Network::TCP::ATCPClient, public IProtocolRoomHandler
 {
 public:
     ClientRoomNetworkManager(Network::Core::NativeSocketIOOperationDispatcher &dispatcher);
@@ -38,9 +40,19 @@ public:
     virtual void onGetDELETEPackage(DELETEPackageRoom const &obj);
     virtual void onGetCHATPackage(CHATPackageRoom const &obj);
 
+public:
+    void SetTransitionNetworkManager(ITransitionNetworkManager *manager) const;
+    ITransitionNetworkManager const*GetTransitionNetworkManager(void) const;
+    std::list<GETPackageRoom *> const &GetPackages() const;
+
 private:
     RTypeProtocolRoomManager protocolRoomManager;
     RoomPackageFactory factory;
+    mutable ITransitionNetworkManager   *transitionNetworkManager = NULL;
+    std::list<GETPackageRoom *> getPackages;
+
+public:
+    mutable bool canAddGETPackage = true;
 };
 
 #endif //RTYPE_CLIENTROOMNETWORKMANAGER_HPP

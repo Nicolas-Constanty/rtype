@@ -5,6 +5,8 @@
 #ifndef RTYPE_GAMEOVER_HPP
 #define RTYPE_GAMEOVER_HPP
 
+#include "Common/DLLexport.hpp"
+
 enum GAMEOVER : unsigned char {
     DEFEAT = 0,
     VICTORY = 1
@@ -12,7 +14,7 @@ enum GAMEOVER : unsigned char {
 
 class GameManager;
 
-class GameOver {
+class PREF_EXPORT GameOver {
 public:
     GameOver(GameManager *manager);
     virtual ~GameOver();

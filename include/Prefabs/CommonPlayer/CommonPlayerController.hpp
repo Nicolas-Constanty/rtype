@@ -7,8 +7,9 @@
 
 #include <Prefabs/RtypePrefab.hpp>
 #include <Prefabs/GenericController.hpp>
+#include <Prefabs/PodHandler/PodHandler.hpp>
 
-class LIB_EXPORT CommonPlayerController : public RtypePrefab
+class PREF_EXPORT CommonPlayerController : public RtypePrefab
 {
 private:
     static const float    timeoutDeath;
@@ -37,8 +38,11 @@ public:
 public:
     void Die();
     void Reborn();
+    void BeamSoundActive(bool action);
+//    void EnableBeam();
 
 public:
+    int GetGlobalLives() const;
     bool isAlive();
     bool isDead();
     void setInvincible();
@@ -53,6 +57,15 @@ private:
     AGenericController  *controller;
     SaltyEngine::SFML::Animation *anim;
     SaltyEngine::SFML::SpriteRenderer *renderer;
+
+public:
+    SaltyEngine::GameObject		*m_beamSFX = nullptr;
+
+private:
+    SaltyEngine::Sound::ISound *beamSound = nullptr;
+
+private:
+    PodHandler *handler;
 };
 
 #endif //RTYPE_COMMONPLAYERCONTROLLER_HPP

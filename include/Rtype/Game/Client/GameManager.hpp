@@ -10,7 +10,7 @@
 
 #define SCREEN_X 1280
 
-class GameManager : public SaltyEngine::SaltyBehaviour
+class PREF_EXPORT GameManager : public SaltyEngine::SaltyBehaviour
 {
 public:
 	explicit GameManager(SaltyEngine::GameObject* const gamObj);
@@ -20,9 +20,11 @@ public:
 public:
 	void Start();
 	void FixedUpdate();
-//	void Update();
     void OnCollisionExit(SaltyEngine::ICollider *collider);
     void OnCollisionEnter(SaltyEngine::ICollider *collider);
+
+public:
+	void		PlaySound(std::string const &sound, bool loop = true);
 
 public:
 	template <typename Pack, typename Send, typename ... Args>
@@ -52,6 +54,9 @@ public:
 	}
 
 public:
+	virtual SaltyEngine::Component *CloneComponent(SaltyEngine::GameObject *const obj);
+
+public:
     bool isServerSide() const;
 
 public:
@@ -60,7 +65,7 @@ public:
 	SaltyEngine::GameObject	*GetPlayer(unsigned char playerID) const;
 	unsigned char	GetPlayerID(SaltyEngine::GameObject *player) const;
 
-	void OnPlayerDeath();
+	bool IsAllPlayerDeath() const;
 	void StartTheGame();
 
 public:
@@ -93,6 +98,7 @@ private:
 private:
 	std::queue<std::function<void()> >	messages;
 	float	elapseTime;
+	SaltyEngine::Sound::ISound *m_backgroudnSound = NULL;
 
 };
 

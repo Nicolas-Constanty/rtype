@@ -19,7 +19,7 @@ namespace Network
         /**
          * @brief Class that abstract the Connection concept. It's here for dispatcher and clients container. It also provides some space for messages queue
          */
-        class LIB_EXPORT BasicConnection : public IConnection
+        class PREF_EXPORT BasicConnection : public IConnection
         {
         public:
             BasicConnection(NativeSocketIOOperationDispatcher &dispatcher);
@@ -63,10 +63,10 @@ namespace Network
             void Broadcast(T const &towr) {
                 if (!clients)
                     return;
-                for (std::unique_ptr<Socket::ISockStreamHandler> &curr : clients->Streams()) {
+                for (Socket::ISockStreamHandler *curr : clients->Streams()) {
                     U *basicConnection;
 
-                    if ((basicConnection = dynamic_cast<U *>(curr.get()))) {
+                    if ((basicConnection = dynamic_cast<U *>(curr))) {
                         basicConnection->SendData(towr);
                     }
                 }
@@ -76,10 +76,10 @@ namespace Network
             void BroadcastNow(T const &towr) {
                 if (!clients)
                     return;
-                for (std::unique_ptr<Socket::ISockStreamHandler> &curr : clients->Streams()) {
+                for (Socket::ISockStreamHandler *curr : clients->Streams()) {
                     U *basicConnection;
 
-                    if ((basicConnection = dynamic_cast<U *>(curr.get()))) {
+                    if ((basicConnection = dynamic_cast<U *>(curr))) {
                         basicConnection->giveSocket().Send(towr);
                     }
                 }

@@ -17,7 +17,7 @@ namespace SaltyEngine
 #define WaitForMicrosecond(x) coroutine::await(std::bind(&SaltyBehaviour::__Wait_For_Microseconds, x))
 #define StartCoroutine(x) m_coroutines.push_back(coroutine::create(std::bind(x, this)))
 
-	class LIB_EXPORT SaltyBehaviour : public Behaviour
+	class PREF_EXPORT SaltyBehaviour : public Behaviour
 	{
 	public:
 		// delete copy and move constructors and assign operators
@@ -44,7 +44,7 @@ namespace SaltyEngine
 		void CallCoroutines() const;
 
 	public:
-		virtual void Start() { std::cout << "On start of: " << GetName() << std::endl; };
+		virtual void Start() {};
 		virtual void OnEnable() {};
 
 		virtual void FixedUpdate() {};
@@ -63,6 +63,7 @@ namespace SaltyEngine
 
 		virtual void Update() {};
 		virtual void OnGui() {};
+		virtual void OnDisable() {};
 		virtual void OnDestroy() {};
 
 	private:

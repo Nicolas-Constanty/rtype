@@ -8,7 +8,7 @@
 #include "Prefabs/Pod/Pod.hpp"
 
 Pod::Pod() :
-    SaltyEngine::GameObject("Pod", SaltyEngine::Layer::Tag::BulletPlayer)
+    SaltyEngine::GameObject("Pod", SaltyEngine::Layer::Tag::Pod)
 {
     AddComponent<PodController>();
     AddComponent < SaltyEngine::SFML::Animation>(true, SaltyEngine::AnimationConstants::WrapMode::LOOP);
@@ -25,7 +25,7 @@ Pod::~Pod()
 
 }
 
-LIB_EXPORT SaltyEngine::Object const *GetObjectPrefab()
+PREF_EXPORT SaltyEngine::Object const *GetObjectPrefab()
 {
     return new Pod();
 }

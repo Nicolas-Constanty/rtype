@@ -7,7 +7,7 @@
 
 #include <Prefabs/RtypePrefab.hpp>
 
-class ABonusController : public RtypePrefab
+class PREF_EXPORT ABonusController : public RtypePrefab
 {
 public:
     ABonusController(std::string const &name, SaltyEngine::GameObject *object);

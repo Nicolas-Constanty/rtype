@@ -8,7 +8,7 @@
 #include "../RtypePrefab.hpp"
 #include "../../SaltyEngine/GameObject.hpp"
 
-class LIB_EXPORT PositionReplicator : public RtypePrefab
+class PREF_EXPORT PositionReplicator : public RtypePrefab
 {
 public:
     PositionReplicator(SaltyEngine::GameObject *object, float move_timeout = 1);

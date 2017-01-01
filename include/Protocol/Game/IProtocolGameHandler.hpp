@@ -7,7 +7,7 @@
 
 #include "ProtocolGamePackage.hpp"
 
-class IProtocolGameHandler {
+class PREF_EXPORT IProtocolGameHandler {
 public:
     virtual ~IProtocolGameHandler() {}
 

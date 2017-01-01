@@ -5,7 +5,9 @@
 #ifndef RTYPE_GAMEOBJECTID_H
 #define RTYPE_GAMEOBJECTID_H
 
-class GameObjectID {
+#include "Common/DLLexport.hpp"
+
+class PREF_EXPORT GameObjectID {
 public:
     static unsigned short NewID();
 };

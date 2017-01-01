@@ -26,12 +26,13 @@ namespace Network
         class LIB_EXPORT NetBuffer
         {
         public:
-            static const size_t size;
+//            static const size_t size;
 
         public:
             NetBuffer();
             NetBuffer(NetBuffer const &ref);
             ~NetBuffer();
+			static size_t Size();
 
             /**
              * @brief Template constructor used to directly serialize an object at construction
@@ -61,7 +62,7 @@ namespace Network
             template <typename T>
             bool serialize(T const &obj)
             {
-                if (length + sizeof(T) > size)
+                if (length + sizeof(T) > Size())
                 {
                     return false;
                 }
@@ -164,13 +165,13 @@ namespace Network
         };
 
         template <>
-        bool NetBuffer::serialize<std::string>(std::string const &);
+		PREF_EXPORT bool NetBuffer::serialize<std::string>(std::string const &);
         template <>
-        bool NetBuffer::serialize<const char *>(const char * const &);
+		PREF_EXPORT bool NetBuffer::serialize<const char *>(const char * const &);
         template <>
-        bool NetBuffer::serialize<NetBuffer>(NetBuffer const &);
+		PREF_EXPORT bool NetBuffer::serialize<NetBuffer>(NetBuffer const &);
 
-        std::ostream    &operator<<(std::ostream &output, NetBuffer const &ref);
+		PREF_EXPORT std::ostream    &operator<<(std::ostream &output, NetBuffer const &ref);
     }
 }
 

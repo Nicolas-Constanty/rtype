@@ -1,0 +1,9 @@
+{
+    "texture": "launch_button",
+    "rect": {
+        "x": "0",
+        "y": "0",
+        "width": "256",
+        "heigth": "64"
+    }
+}

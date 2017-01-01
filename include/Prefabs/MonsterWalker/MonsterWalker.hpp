@@ -5,14 +5,14 @@
 
 extern "C"
 {
-	class LIB_EXPORT MonsterWalker : public SaltyEngine::GameObject
+	class PREF_EXPORT MonsterWalker : public SaltyEngine::GameObject
 	{
 	public:
 		MonsterWalker();
 		virtual ~MonsterWalker();
 	};
 
-	LIB_EXPORT SaltyEngine::Object const *GetObjectPrefab();
+	PREF_EXPORT SaltyEngine::Object const *GetObjectPrefab();
 }
 
 #endif

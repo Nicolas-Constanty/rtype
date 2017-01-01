@@ -11,9 +11,10 @@ namespace Network
 {
     namespace Socket
     {
-        class LIB_EXPORT ISocketContainer
+        class PREF_EXPORT ISocketContainer
         {
         public:
+			ISocketContainer() {}
             virtual ~ISocketContainer(){}
 
         public:

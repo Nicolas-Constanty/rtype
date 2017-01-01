@@ -78,11 +78,11 @@ namespace SaltyEngine
 							ph->AddSprite(sprr);
 					}
 				}
-                GUI::SFML::Label *lb = tmp->GetComponent<GUI::SFML::Label>();
-                if (lb && r)
-                {
-                    r->AddLabel(lb);
-                }
+                std::list<GUI::SFML::Label *> lb = tmp->GetComponents<GUI::SFML::Label>();
+				for (std::list<GUI::SFML::Label *>::const_iterator j = lb.begin(); j != lb.end(); ++j) {
+					if (r)
+						r->AddLabel(*j);
+				}
 			}
 
         }

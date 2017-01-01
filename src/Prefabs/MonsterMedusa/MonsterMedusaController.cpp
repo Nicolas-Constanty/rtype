@@ -25,6 +25,7 @@ void MonsterMedusaController::Start()
     {
         m_anim = gameObject->GetComponent<SaltyEngine::SFML::Animation>();
         m_sprr = this->gameObject->GetComponent<SaltyEngine::SFML::SpriteRenderer>();
+        PlayNewBackgroundSound("r-type-boss");
     }
 
     if (isServerSide()) {

@@ -4,7 +4,7 @@
 #include "RtypePrefab.hpp"
 #include <Rtype/Game/Server/GameServerObject.hpp>
 
-class LIB_EXPORT IGenericController
+class PREF_EXPORT IGenericController
 {
 public:
 	virtual ~IGenericController() {}
@@ -18,7 +18,7 @@ public:
 	virtual int GetHighScore() const = 0;
 };
 
-class LIB_EXPORT AGenericController : public RtypePrefab, public IGenericController
+class PREF_EXPORT AGenericController : public RtypePrefab, public IGenericController
 {
 public:
     AGenericController(std::string const& name, SaltyEngine::GameObject *obj) : RtypePrefab(name, obj) {}

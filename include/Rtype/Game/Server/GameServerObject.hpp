@@ -16,10 +16,10 @@ namespace Rtype
     {
         namespace Server
         {
-            class GameServerObject : public SaltyEngine::SaltyBehaviour
+            class PREF_EXPORT GameServerObject : public SaltyEngine::SaltyBehaviour
             {
             public:
-                GameServerObject(SaltyEngine::GameObject *obj, const uint16_t port = 4242, const size_t maxClient = 0, const uint32_t secret = 0, const uint16_t map = 0);
+                GameServerObject(SaltyEngine::GameObject *obj, const uint16_t port = 4242, const size_t maxClient = 0, const uint32_t secret = 0, const std::string &map = 0);
                 ~GameServerObject();
 
             public:
@@ -37,14 +37,14 @@ namespace Rtype
                     return (server);
                 }
 
-                u_int16_t GetLevel() const {
+                const std::string &GetLevel() const {
                     return (map);
                 }
 
             private:
                 const uint32_t secret;
                 const uint16_t port;
-                const uint16_t map;
+                const std::string map;
                 Rtype::Game::Server::RtypeGameServer    *server;
                 Network::Core::NativeSocketIOOperationDispatcher    dispatcher;
                 GameManager *manager;

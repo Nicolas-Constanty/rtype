@@ -7,12 +7,12 @@
 #include "Common/DLLexport.hpp"
 
 extern "C" {
-	class LIB_EXPORT EnemyBullet : public SaltyEngine::GameObject {
+	class PREF_EXPORT EnemyBullet : public SaltyEngine::GameObject {
 	public:
 		EnemyBullet();
 		virtual ~EnemyBullet();
 	};
-LIB_EXPORT	SaltyEngine::Object const *GetObjectPrefab();
+	PREF_EXPORT	SaltyEngine::Object const *GetObjectPrefab();
 }
 
 #endif

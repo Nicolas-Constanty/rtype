@@ -5,12 +5,23 @@
     "width": "2",
     "height": "2"
   },
+  "size": {
+    "width": "960",
+    "height": "540"
+  },
   "prefabs": {
     "Player": {
       "prefabName": "Player",
       "position": {
         "x" : "50",
         "y": "500"
+      }
+    },
+    "GameManager": {
+      "prefabName": "GameManager",
+      "position": {
+        "x": "0",
+        "y": "0"
       }
     },
     "BLOCK" : {
@@ -69,12 +80,12 @@
               "y": "300"
             }
         },
-  "MonsterWalker2": {
-    "prefabName": "MonsterWalker",
-    "position": {
-      "x" : "2000",
-      "y": "300"
+    "MonsterNeunoeil": {
+      "prefabName": "MonsterNeunoeil",
+      "position": {
+        "x" : "1300",
+        "y": "300"
+      }
     }
-  }
   }
 }

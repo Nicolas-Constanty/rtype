@@ -16,7 +16,7 @@ namespace Network
         /**
          * @brief Abstraction of an UDP client
          */
-        class AUDPClient : public AUDPConnection, public Core::INetBufferContainer
+        class PREF_EXPORT AUDPClient : public AUDPConnection, public Core::INetBufferContainer
         {
         public:
             AUDPClient(Core::NativeSocketIOOperationDispatcher &dispatcher);

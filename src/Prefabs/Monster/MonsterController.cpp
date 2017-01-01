@@ -51,6 +51,8 @@ void MonsterController::Move() {
 
 void MonsterController::Shot() {
     if (isServerSide()) {
+        if (SaltyEngine::GameObject::FindGameObjectsWithTag(SaltyEngine::Layer::Tag::Player).size() == 0)
+            return;
         SaltyEngine::GameObject *missile = (SaltyEngine::GameObject *) SaltyEngine::Instantiate("EnemyBullet",
                                                                                                 this->gameObject->transform.GetPosition());
 

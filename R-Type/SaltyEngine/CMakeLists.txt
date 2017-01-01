@@ -1,25 +1,22 @@
 cmake_minimum_required(VERSION 2.8)
 project(rtype)
 
-#include files
-include_directories("include")
-
-#C++ files
-file(GLOB SaltyEngineSrc
-		"src/SaltyEngine/*.cpp"
-		"src/SaltyEngine/GUI/*.cpp"
-		"src/SaltyEngine/Input/*.cpp"
-		)
-
-#Hpp files
-file(GLOB SaltyEngineInc
-		"include/SaltyEngine/*.hpp"
-		"include/SaltyEngine/GUI/*.hpp"
-		"include/SaltyEngine/Input/*.hpp"
-		)
-
 #Linux
 if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
+
+	#C++ files
+	file(GLOB SaltyEngineSrc
+			"src/SaltyEngine/*.cpp"
+			"src/SaltyEngine/GUI/*.cpp"
+			"src/SaltyEngine/Input/*.cpp"
+			)
+
+	#Hpp files
+	file(GLOB SaltyEngineInc
+			"include/SaltyEngine/*.hpp"
+			"include/SaltyEngine/GUI/*.hpp"
+			"include/SaltyEngine/Input/*.hpp"
+			)
 
 	set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
@@ -38,14 +35,36 @@ if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 #Windows
 elseif(MSVC)
 
-	#Export all symbol for dll
-	#set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS true)
+	#C++ files
+	file(GLOB SaltyEngineSrc
+		"../../src/SaltyEngine/*.cpp"
+		"../../src/SaltyEngine/GUI/*.cpp"
+		"../../src/SaltyEngine/Input/*.cpp"
+	)
 
-	#C++ FLAGS
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DWIN32_LEAN_AND_MEAN -D_USE_MATH_DEFINES -DBUILD_SHARED_LIBS -DEXPORT_LIB")
+	#Hpp files
+	file(GLOB SaltyEngineInc
+		"../../include/SaltyEngine/*.hpp"
+		"../../include/SaltyEngine/GUI/*.hpp"
+		"../../include/SaltyEngine/Input/*.hpp"
+	)
 
-	#Create library
-	add_library(SaltyEngine STATIC ${SaltyEngineSrc} ${SaltyEngineInc})
+	if(EXPORT_DLL)
+		#Export all symbol for dll
+		#set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS true)
+		
+		#C++ FLAGS
+		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DWIN32_LEAN_AND_MEAN -D_USE_MATH_DEFINES -DBUILD_SHARED_LIBS -DEXPORT_LIB -DEXPORT_PREF")
+
+		#Create library
+		add_library(SaltyEngine SHARED ${SaltyEngineSrc} ${SaltyEngineInc})
+	else()
+		#C++ FLAGS
+		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DNO_EXPORT")
+
+		#Create library
+		add_library(SaltyEngine STATIC ${SaltyEngineSrc} ${SaltyEngineInc})
+	endif()
 
 	#Link libraries
 	target_link_libraries(SaltyEngine Common)

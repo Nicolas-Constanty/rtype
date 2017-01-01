@@ -25,7 +25,7 @@ namespace Rtype
     {
         namespace Common
         {
-            class RtypeGameClient : public Network::UDP::AUDPClient, public IProtocolGameHandler
+            class PREF_EXPORT RtypeGameClient : public Network::UDP::AUDPClient, public IProtocolGameHandler
             {
             public:
                 enum class DisconnectionCode : unsigned int
@@ -80,9 +80,9 @@ namespace Rtype
                 {
                     if (!clients)
                         return;
-                    for (std::unique_ptr<Network::Socket::ISockStreamHandler> &curr : clients->Streams())
+                    for (Network::Socket::ISockStreamHandler *curr : clients->Streams())
                     {
-                        RtypeGameClient *client = dynamic_cast<RtypeGameClient *>(curr.get());
+                        RtypeGameClient *client = dynamic_cast<RtypeGameClient *>(curr);
 
                         if (client)
                             client->SendPackage<Package>(func, args...);

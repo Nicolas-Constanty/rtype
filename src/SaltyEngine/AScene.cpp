@@ -100,12 +100,14 @@ namespace SaltyEngine
 	{
 		while (!m_init.empty())
 		{
-			const std::list<SaltyBehaviour *> &Sb = m_objects[m_init.front()]->GetSaltyBehaviour();
+			GameObject *gm = m_init.front();
+			const std::list<SaltyBehaviour *> &Sb = gm->GetSaltyBehaviour();
 			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
 				if ((*it)->enabled) {
 					(*it)->Start();
 				}
-            m_enabled.push(m_objects[m_init.front()]);
+            m_enabled.push(gm);
+            m_objects.push_back(gm);
             m_init.pop();
 		}
 	}
@@ -153,9 +155,8 @@ namespace SaltyEngine
 		{
 			const std::list<SaltyBehaviour *> &Sb = (*obj)->GetSaltyBehaviour();
 			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
-				if ((*it)->enabled) {
+				if ((*it)->enabled)
 					(*it)->FixedUpdate();
-				}
 			(*obj)->m_shouldBeRendered = true;
 		}
 	}
@@ -322,16 +323,26 @@ namespace SaltyEngine
 		}
 	}
 
+	void AScene::OnDisable(void)
+	{
+		while (!m_disabled.empty())
+		{
+			const std::list<SaltyBehaviour *> &Sb = m_disabled.front()->GetSaltyBehaviour();
+			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
+                if ((*it)->enabled)
+                    (*it)->OnDisable();
+			m_disabled.pop();
+		}
+	}
+
 	void AScene::OnDestroy()
 	{
-		std::vector<GameObject*> objects = m_objects;
-		for (std::vector<GameObject*>::const_iterator obj = objects.begin(); obj != objects.end(); ++obj)
-		{
-			const std::list<SaltyBehaviour *> &Sb = (*obj)->GetSaltyBehaviour();
-			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
-				if ((*it)->enabled)
-					(*it)->OnDestroy();
-		}
+        for (std::list<GameObject *>::iterator i = m_deleted.begin(); i != m_deleted.end(); ++i) {
+            const std::list<SaltyBehaviour *> &Sb = (*i)->GetSaltyBehaviour();
+            for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
+                if ((*it)->enabled)
+                    (*it)->OnDestroy();
+        }
 	}
 
 	/**
@@ -386,10 +397,13 @@ namespace SaltyEngine
 			return;
 		}
 		gameobj->transform.SetLocalScale(m_scale);
-		m_objects.push_back(gameobj);
-        m_init.emplace(m_objects.size() - 1);
+//		m_objects.push_back(gameobj);
+        m_init.push(gameobj);
     }
 
+    /**
+     * @deprecated : use GameObject::Find instead
+     */
     GameObject *AScene::FindByName(std::string const &name) const
     {
 		std::vector<GameObject*> objects = m_objects;
@@ -464,6 +478,26 @@ namespace SaltyEngine
 
 	const Vector2f &AScene::GetScale() const {
 		return m_scale;
+	}
+
+	/**
+	 * @brief Called to clean the scene. Will destroy all the objects but the ones marked by DontDestroyOnLoad
+	 *
+	 * @return The objects that will survive through the clean
+	 */
+    std::list<GameObject *> AScene::CleanScene()
+	{
+        std::list<GameObject *> remaining_objects;
+
+		for (GameObject *go : m_objects)
+		{
+			if (go->m_shouldBeDestroyedOnLoad)
+				Destroy(go);
+			else
+				remaining_objects.push_back(go);
+		}
+
+        return remaining_objects;
 	}
 }
 

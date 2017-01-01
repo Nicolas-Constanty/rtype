@@ -19,14 +19,14 @@ namespace Network
         /**
          * @brief The timeout after which disconnet user
          */
-        constexpr static const std::chrono::milliseconds    default_timeout = std::chrono::milliseconds(30000);
+        constexpr static const std::chrono::milliseconds    default_timeout = std::chrono::milliseconds(10000);
 
         /**
          * @brief Class that corresponds to an UDP server
          * @tparam ClientType The type of the client to instaciate when receiving a new connection
          */
         template <typename ClientType>
-        class AUDPServer : public AUDPConnection
+        class PREF_EXPORT AUDPServer : public AUDPConnection
         {
         protected:
             /**
@@ -157,9 +157,9 @@ namespace Network
                 if (ret > 0)
                 {
                     //Check which client send us data
-                    for (std::unique_ptr<Socket::ISockStreamHandler> &curr : clients->Streams())
+                    for (Socket::ISockStreamHandler *curr : clients->Streams())
                     {
-                        TimedUDPClient *clt = dynamic_cast<TimedUDPClient *>(curr.get());
+                        TimedUDPClient *clt = dynamic_cast<TimedUDPClient *>(curr);
 
                         if (clt == NULL)
                             continue;
@@ -206,10 +206,10 @@ namespace Network
              */
             virtual void OnReadCheck()
             {
-                std::list<std::unique_ptr<Socket::ISockStreamHandler>> &streams = clients->Streams();
-                for (typename std::list<std::unique_ptr<Socket::ISockStreamHandler> >::iterator it = streams.begin(); it != streams.end();)
+                std::list<Socket::ISockStreamHandler *> &streams = clients->Streams();
+                for (typename std::list<Socket::ISockStreamHandler *>::iterator it = streams.begin(); it != streams.end();)
                 {
-                    TimedUDPClient  *clt = dynamic_cast<TimedUDPClient *>(it->get());
+                    TimedUDPClient  *clt = dynamic_cast<TimedUDPClient *>(*it);
 
                     clt->OnReadCheck();
                     if (clt->timedout())
@@ -227,7 +227,7 @@ namespace Network
              */
             virtual void OnWriteCheck()
             {
-                for (std::unique_ptr<Socket::ISockStreamHandler> &curr : clients->Streams())
+                for (Socket::ISockStreamHandler *curr : clients->Streams())
                 {
                     curr->OnWriteCheck();
                 }
@@ -249,16 +249,16 @@ namespace Network
                 }
 
                 //Send messages that are in each client, to the specified client
-                for (std::unique_ptr<Socket::ISockStreamHandler> &curr : clients->Streams())
+                for (Socket::ISockStreamHandler *curr : clients->Streams())
                 {
-                    std::queue<Core::NetBuffer> &msgs = dynamic_cast<Core::BasicConnection *>(curr.get())->Messages();
+                    std::queue<Core::NetBuffer> &msgs = dynamic_cast<Core::BasicConnection *>(curr)->Messages();
                     Core::NetBuffer tosend;
 
                     while (!msgs.empty())
                     {
                         if (!tosend.ConcatTo(msgs.front()))
                         {
-                            int ret = SendTo(curr.get(), tosend);
+                            int ret = SendTo(curr, tosend);
 
                             if (ret < 0)
                                 return;
@@ -269,7 +269,7 @@ namespace Network
                     }
                     if (tosend.getLength() > 0)
                     {
-                        int ret = SendTo(curr.get(), tosend);
+                        int ret = SendTo(curr, tosend);
 
                         if (ret < 0)
                             return ;
