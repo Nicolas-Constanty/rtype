@@ -9,7 +9,6 @@ SelectRoomController::SelectRoomController(SaltyEngine::GameObject *obj) : Salty
 
 SelectRoomController::~SelectRoomController()
 {
-
 }
 
 void SelectRoomController::Start() {
@@ -23,9 +22,14 @@ void SelectRoomController::Start() {
     ll->AddLabel(gameObject->AddComponent<SaltyEngine::GUI::SFML::Label>("Item 5", 30, font));
 
     std::cout << "start ?" << this << std::endl;
+
     m_roomNetworkManager = SaltyEngine::GameObject::Find("RoomNetworkManager");
 
-    m_roomNetworkManager->GetComponent<RoomNetworkManager>()->GetNetworkManager()->SetTransitionNetworkManager(this);
+    if (m_roomNetworkManager) {
+        std::cout << "on set le network transition" << std::endl;
+        m_roomNetworkManager->GetComponent<RoomNetworkManager>()->GetNetworkManager()->SetTransitionNetworkManager(
+                this);
+    }
 }
 
 SaltyEngine::Component *SelectRoomController::CloneComponent(SaltyEngine::GameObject *const obj)

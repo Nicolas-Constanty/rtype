@@ -20,6 +20,7 @@ RoomNetworkManager::RoomNetworkManager(SaltyEngine::GameObject *const gameObject
 //}
 
 RoomNetworkManager::~RoomNetworkManager() {
+    std::cout << "delete roomNetworkManager" << std::endl;
     if (clientRoomNetworkManager)
         delete clientRoomNetworkManager;
 }
@@ -53,8 +54,9 @@ void RoomNetworkManager::Update() {
 ////        }
 //    }
 //    else
-    if (m_isConnected)
+    if (m_isConnected) {
         dispatcher.Poll();
+    }
     else {
         Debug::PrintError("Server room not found !");
         SaltyEngine::Engine::Instance().Stop();
@@ -120,4 +122,8 @@ ClientRoomNetworkManager const *RoomNetworkManager::GetNetworkManager(void) cons
     if (clientRoomNetworkManager == nullptr)
         clientRoomNetworkManager = new ClientRoomNetworkManager(dispatcher);
     return clientRoomNetworkManager;
+}
+
+void RoomNetworkManager::OnDestroy() {
+    std::cout << "destroyyyy" << std::endl;
 }

@@ -43,11 +43,16 @@ public:
 public:
     void SetTransitionNetworkManager(ITransitionNetworkManager *manager) const;
     ITransitionNetworkManager const*GetTransitionNetworkManager(void) const;
+    std::list<GETPackageRoom *> const &GetPackages() const;
 
 private:
     RTypeProtocolRoomManager protocolRoomManager;
     RoomPackageFactory factory;
     mutable ITransitionNetworkManager   *transitionNetworkManager = NULL;
+    std::list<GETPackageRoom *> getPackages;
+
+public:
+    bool canAddGETPackage = true;
 };
 
 #endif //RTYPE_CLIENTROOMNETWORKMANAGER_HPP
