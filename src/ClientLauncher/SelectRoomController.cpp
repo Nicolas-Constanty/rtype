@@ -15,15 +15,16 @@ SelectRoomController::~SelectRoomController()
 void SelectRoomController::Start() {
 
     SaltyEngine::GameObject *obj = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate());
+    obj->SetName("GameObjectLabelList");
     SaltyEngine::GUI::SFML::LabelList *ll = obj->AddComponent<SaltyEngine::GUI::SFML::LabelList>();
     sf::Font *font = SaltyEngine::SFML::AssetManager::Instance().GetFont("SFSquareHead");
     obj->transform.SetPosition(SaltyEngine::Vector2(360, 200));
 
-    ll->AddLabel(obj->AddComponent<SaltyEngine::GUI::SFML::Label>("Item 1", 30, font));
-    ll->AddLabel(obj->AddComponent<SaltyEngine::GUI::SFML::Label>("Item 2", 30, font));
-    ll->AddLabel(obj->AddComponent<SaltyEngine::GUI::SFML::Label>("Item 3", 30, font));
-    ll->AddLabel(obj->AddComponent<SaltyEngine::GUI::SFML::Label>("Item 4", 30, font));
-    ll->AddLabel(obj->AddComponent<SaltyEngine::GUI::SFML::Label>("Item 5", 30, font));
+//    ll->AddLabel(obj->AddComponent<SaltyEngine::GUI::SFML::Label>("Item 1", 30, font));
+//    ll->AddLabel(obj->AddComponent<SaltyEngine::GUI::SFML::Label>("Item 2", 30, font));
+//    ll->AddLabel(obj->AddComponent<SaltyEngine::GUI::SFML::Label>("Item 3", 30, font));
+//    ll->AddLabel(obj->AddComponent<SaltyEngine::GUI::SFML::Label>("Item 4", 30, font));
+//    ll->AddLabel(obj->AddComponent<SaltyEngine::GUI::SFML::Label>("Item 5", 30, font));
 
 //    m_create_button = gameObject->transform.GetChild(3)->gameObject;
     gameObject->GetComponent<SaltyEngine::GUI::SFML::Button>()->onClick.AddListener(
@@ -58,6 +59,12 @@ void SelectRoomController::Create() {
 }
 
 void SelectRoomController::ListRoomGestion(GETPackageRoom const &pack) {
+    SaltyEngine::GameObject *obj = SaltyEngine::GameObject::Find("GameObjectLabelList");
+    sf::Font *font = SaltyEngine::SFML::AssetManager::Instance().GetFont("SFSquareHead");
+    SaltyEngine::GUI::SFML::LabelList *ll = NULL;
+    if (obj)
+        ll = obj->GetComponent<SaltyEngine::GUI::SFML::LabelList>();
+
     std::cout << "listRoomGestion" << std::endl;
     std::cout << pack << std::endl;
     bool check = false;
@@ -73,6 +80,8 @@ void SelectRoomController::ListRoomGestion(GETPackageRoom const &pack) {
         GETPackageRoom *getPackageRoom = new GETPackageRoom(pack.roomPlayer, pack.roomPlayerMax, std::string(pack.name),
                                                             pack.roomID, pack.mapID, pack.launch);
         listActualRoom.push_back(getPackageRoom);
+        if (ll)
+            ll->AddLabel(obj->AddComponent<SaltyEngine::GUI::SFML::Label>(std::string(pack.name), 30, font));
     }
 
     std::cout << "ON DISPLAY LA ROOM" << std::endl;
@@ -157,13 +166,22 @@ void SelectRoomController::onGetLAUNCH(LAUNCHPackageRoom const& ) {
 }
 
 void SelectRoomController::onGetDELETE(DELETEPackageRoom const &deletePackageRoom) {
+    size_t i = 0;
+    SaltyEngine::GameObject *obj = SaltyEngine::GameObject::Find("GameObjectLabelList");
+    SaltyEngine::GUI::SFML::LabelList *ll = NULL;
+    if (obj)
+        ll = obj->GetComponent<SaltyEngine::GUI::SFML::LabelList>();
+
     std::list<GETPackageRoom *>::iterator it = listActualRoom.begin();
     while (it != listActualRoom.end()) {
         if ((*it)->roomID == deletePackageRoom.roomID) {
             delete (*it);
             listActualRoom.erase(it);
+            if (ll)
+                ll->RemoveLabel(i);
             return ;
         }
+        ++i;
         ++it;
     }
 }
