@@ -20,6 +20,7 @@ if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 
 	#Create library
 	add_library(Common SHARED ${Commonsrc} ${Commoninc})
+    target_link_libraries(Common dl)
 
 #Windows
 elseif(MSVC)
