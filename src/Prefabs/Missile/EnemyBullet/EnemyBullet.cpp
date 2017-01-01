@@ -7,7 +7,7 @@ EnemyBullet::EnemyBullet() : GameObject("EnemyBullet", SaltyEngine::Layer::Tag::
 	AddComponent<EnemyBulletController>();
     AddComponent<SaltyEngine::SFML::SpriteCollider2D>();
 
-	AddComponent < SaltyEngine::SFML::Animation>(true, SaltyEngine::AnimationConstants::WrapMode::LOOP);
+	AddComponent<SaltyEngine::SFML::Animation>(true, SaltyEngine::AnimationConstants::WrapMode::LOOP);
 	GetComponent<SaltyEngine::SFML::Animation>()->AddClip(SaltyEngine::SFML::AssetManager::Instance().GetAnimation("Missile/Fire"), "Fire");
 }
 

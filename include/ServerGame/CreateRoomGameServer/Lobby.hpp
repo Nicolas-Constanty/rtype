@@ -8,6 +8,7 @@
 #include "Thread/IMutex.hpp"
 #include "Process/IProcess.hpp"
 #include "ServerGame/CreateRoomGameServer/ILobbyHandler.hpp"
+#include "Thread/StdMutex.hpp"
 
 class Lobby {
 public:
@@ -59,10 +60,14 @@ public:
 
 public:
     bool        IsLaunch() const;
+	bool		IsRunning() const;
+	void		SetRunning(bool run = false);
 
 private:
     IMutex      &mutex;
     bool        launch;
+	bool		running;
+	mutable StdMutex	runMutex;
     LobbyInfo   *lobbyInfo;
     ILobbyHandler   &lobbyHandler;
 };

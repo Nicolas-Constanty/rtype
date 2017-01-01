@@ -93,6 +93,9 @@ elseif(MSVC)
 	add_subdirectory(${PROJECT_SOURCE_DIR}/R-Type/Protocol/Room)
 	add_subdirectory(${PROJECT_SOURCE_DIR}/R-Type/Protocol/Server)
 
+	add_subdirectory(${PROJECT_SOURCE_DIR}/R-Type/ServerGameDispatcher)
+	add_subdirectory(${PROJECT_SOURCE_DIR}/R-Type/ServerRoom)
+
 	############ GAMESERVER ##############
 	add_subdirectory(${PROJECT_SOURCE_DIR}/R-Type/GameServer)
 

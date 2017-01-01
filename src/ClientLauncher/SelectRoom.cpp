@@ -16,7 +16,6 @@ SelectRoom::SelectRoom() : GameObject("SelectRoom")
     background->AddComponent<SaltyEngine::SFML::GUI::Image>(SaltyEngine::SFML::AssetManager::Instance().GetSprite("GUI/menu_room"));
     background->transform.SetParent(&transform);
     SaltyEngine::GameObject *join_button = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate());
-    join_button->AddComponent<SelectRoomController>();
 //    launch_button->AddComponent<RoomNetworkManager>("127.0.0.1", 4242);
     join_button->AddComponent<SaltyEngine::GUI::SFML::Label>("Join Game", 54, font);
     join_button->SetName("Join Button");
@@ -58,7 +57,30 @@ SelectRoom::SelectRoom() : GameObject("SelectRoom")
     display_selected->transform.SetParent(&transform);
     display_selected->transform.SetPosition(-540.0f, 70.0f);
 
+    SaltyEngine::GameObject *gm = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate());
+    gm->SetName("CreateMenu");
+
+    SaltyEngine::GameObject *cancel_button = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate());
+    cancel_button->AddComponent<SaltyEngine::GUI::SFML::Label>("Cancel", 54, font);
+    cancel_button->SetName("Cancel Button");
+    normal = SaltyEngine::SFML::AssetManager::Instance().GetSprite("GUI/launch_button");
+    over = SaltyEngine::SFML::AssetManager::Instance().GetSprite("GUI/launch_button_over");
+    normal->setScale(1.5f, 1.7f);
+    over->setScale(1.5f, 1.7f);
+    cancel_button->AddComponent<SaltyEngine::GUI::SFML::Button>(normal, over);
+    cancel_button->transform.SetParent(&gm->transform);
+    cancel_button->transform.SetPosition(-102.0f, 70.0f);
+
+    SaltyEngine::GameObject *background_create = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate());
+    background_create->AddComponent<SaltyEngine::SFML::GUI::Image>(SaltyEngine::SFML::AssetManager::Instance().GetSprite("GUI/menu_room"));
+    background_create->transform.SetParent(&gm->transform);
+
+    gm->SetActive(false);
+
+    AddComponent<SelectRoomController>();
     transform.SetPosition(engine.GetSize().x, engine.GetSize().y);
+
+    *SaltyEngine::Engine::Instance().GetCurrentScene() << this;
 }
 
 SelectRoom::~SelectRoom()

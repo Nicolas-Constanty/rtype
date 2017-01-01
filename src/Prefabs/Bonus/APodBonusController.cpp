@@ -4,6 +4,7 @@
 
 #include <Prefabs/Bonus/APodBonusController.hpp>
 #include <Prefabs/PodHandler/PodHandler.hpp>
+#include <Rtype/Game/Common/GameObjectID.hpp>
 
 APodBonusController::APodBonusController(std::string const &name, SaltyEngine::GameObject *object) :
         ABonusController(name, object)
@@ -28,7 +29,12 @@ void APodBonusController::ExecuteBonus(SaltyEngine::GameObject *object)
         }
         else
         {
-            SaltyEngine::Object::Instantiate("Pod", SaltyEngine::Vector2(-100, handler->gameObject->transform.GetPosition().y));
+            SaltyEngine::GameObject *obj = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Object::Instantiate("Pod", SaltyEngine::Vector2(-100, handler->gameObject->transform.GetPosition().y)));
+
+			if (obj)
+			{
+				getManager()->gameObjectContainer.Add(GameObjectID::NewID(), obj);
+			}
         }
     }
 }

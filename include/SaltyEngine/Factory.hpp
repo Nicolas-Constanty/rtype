@@ -60,6 +60,7 @@ namespace SaltyEngine
          * @return
          */
 		GameObject* Find(std::string const& name);
+		GameObject* FindHide(std::string const& name);
 
         /**
          * @brief Find game objects with a certain tag

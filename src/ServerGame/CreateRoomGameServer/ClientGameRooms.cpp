@@ -26,6 +26,11 @@ ClientGameRooms::ClientGameRooms(Network::Core::NativeSocketIOOperationDispatche
 ClientGameRooms::~ClientGameRooms()
 {
 //    std::cout << "\e[31mDestructor called\e[0m" << std::endl;
+	for (std::unique_ptr<Lobby> &lobby : lobbies)
+	{
+		lobby->SetRunning(false);
+	}
+	pool.JoinThreads();
 }
 
 bool ClientGameRooms::OnDataReceived(unsigned int)
@@ -106,7 +111,7 @@ bool ClientGameRooms::OnDataSent(unsigned int) {
 
 bool ClientGameRooms::OnStart() {
     __mutex->lock();
-//    std::cout << "connected" << std::endl;
+    std::cout << "connected" << std::endl;
     this->SendData(*(factory.create<AUTHENTICATEPackageServer>(0, this->threadNbr)));
     __mutex->unlock();
     return (true);

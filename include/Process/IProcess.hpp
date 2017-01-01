@@ -7,6 +7,10 @@
 
 #include <string>
 
+#ifdef _WIN32
+typedef BOOL pid_t;
+#endif
+
 class IProcess {
 public:
     virtual ~IProcess() {}

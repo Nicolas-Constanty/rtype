@@ -12,10 +12,10 @@ namespace SaltyEngine
         namespace SFML
         {
             Label::Label(GameObject *gameObj, const std::string &text, unsigned int size, const sf::Font *fnt, const sf::Color &col)
-                    : UIBehaviour("LabelGUI", gameObj), sf::Text(), m_data(text) {
+                    : UIBehaviour("LabelGUI", gameObj), sf::Text(), m_data(text), m_size(size) {
                 setFont(*fnt);
                 setCharacterSize(size);
-                setFillColor(col);
+                setColor(col);
                 setString(m_data);
                 setOrigin(getLocalBounds().width / 2, (getGlobalBounds().height + size / 2) / 2 );
             }
@@ -43,6 +43,10 @@ namespace SaltyEngine
             void Label::Update() {
                 const Transform &t = gameObject->transform;
                 setPosition(t.GetPosition().x * t.GetLocalScale().x, t.GetPosition().y * t.GetLocalScale().y);
+            }
+
+            Component *Label::CloneComponent(GameObject *const obj) {
+                return new Label(obj, m_data, m_size, getFont(), getColor());
             }
         }
     }

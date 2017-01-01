@@ -46,7 +46,7 @@ namespace SaltyEngine
                 sf::Time m_elapsed;
                 std::string m_field;
                 size_t m_max_size;
-                bool m_clignot;
+                bool m_clignot = true;
                 SaltyEngine::SFML::Renderer *m_renderer;
                 SaltyEngine::SFML::EventManager *eve = nullptr;
                 size_t m_max_char = -1;

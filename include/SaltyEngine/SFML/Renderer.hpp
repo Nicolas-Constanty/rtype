@@ -76,7 +76,9 @@ namespace SaltyEngine
 			void AddLabel(::SaltyEngine::GUI::SFML::Label *label);
 
 			void AddDrawable(const sf::Drawable *dr);
-		};
+
+            void RemoveLabel(GUI::SFML::Label *const la);
+        };
 	}
 }
 

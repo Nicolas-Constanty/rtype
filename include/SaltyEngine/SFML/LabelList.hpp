@@ -27,6 +27,8 @@ namespace SaltyEngine
 
                 const std::string &GetSelected();
 
+                Component *CloneComponent(GameObject *const obj) override;
+
             private:
                 std::vector<Label *> m_labels;
                 long  m_index;

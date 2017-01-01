@@ -16,25 +16,16 @@ void SelectRoomController::Start() {
 
     SaltyEngine::GameObject *obj = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate());
     obj->SetName("GameObjectLabelList");
-    SaltyEngine::GUI::SFML::LabelList *ll = obj->AddComponent<SaltyEngine::GUI::SFML::LabelList>();
-    sf::Font *font = SaltyEngine::SFML::AssetManager::Instance().GetFont("SFSquareHead");
     obj->transform.SetPosition(SaltyEngine::Vector2(360, 200));
 
-//    ll->AddLabel(obj->AddComponent<SaltyEngine::GUI::SFML::Label>("Item 1", 30, font));
-//    ll->AddLabel(obj->AddComponent<SaltyEngine::GUI::SFML::Label>("Item 2", 30, font));
-//    ll->AddLabel(obj->AddComponent<SaltyEngine::GUI::SFML::Label>("Item 3", 30, font));
-//    ll->AddLabel(obj->AddComponent<SaltyEngine::GUI::SFML::Label>("Item 4", 30, font));
-//    ll->AddLabel(obj->AddComponent<SaltyEngine::GUI::SFML::Label>("Item 5", 30, font));
-
-//    m_create_button = gameObject->transform.GetChild(3)->gameObject;
-    gameObject->GetComponent<SaltyEngine::GUI::SFML::Button>()->onClick.AddListener(
+    m_create_button = gameObject->transform.GetChild(3)->gameObject;
+    std::cout << "BUTTON NAME "  << m_create_button->GetName() << std::endl;
+    m_create_button->GetComponent<SaltyEngine::GUI::SFML::Button>()->onClick.AddListener(
             "create",
             std::bind(&SelectRoomController::Create, this)
     );
     m_select_sprite = SaltyEngine::SFML::AssetManager::Instance().GetSprite("GUI/menu_room");
     m_create_sprite = SaltyEngine::SFML::AssetManager::Instance().GetSprite("GUI/menu_create");
-
-    std::cout << "start ?" << this << std::endl;
 
     m_roomNetworkManager = SaltyEngine::GameObject::Find("RoomNetworkManager");
 
@@ -54,8 +45,15 @@ void SelectRoomController::Start() {
 }
 
 void SelectRoomController::Create() {
-    SaltyEngine::SFML::SpriteRenderer *sprr = gameObject->GetComponent<SaltyEngine::SFML::SpriteRenderer>();
-    sprr->SetSprite(m_select_sprite);
+    SaltyEngine::SFML::SpriteRenderer *sprr = gameObject->transform.GetChild(0)->gameObject->GetComponent<SaltyEngine::SFML::SpriteRenderer>();
+    if (sprr)
+    {
+        SaltyEngine::GameObject *gm = SaltyEngine::GameObject::FindHide("CreateMenu");
+        if (gm)
+            gm->SetActive(true);
+        else
+            std::cout << "NULL" << std::endl;
+    }
 }
 
 void SelectRoomController::ListRoomGestion(GETPackageRoom const &pack) {

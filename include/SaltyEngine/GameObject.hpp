@@ -186,6 +186,8 @@ namespace SaltyEngine
 
         static std::vector<GameObject *> FindGameObjectsWithTag(Layer::Tag tag);
 
+		static GameObject *FindHide(const string &name);
+
 		public:
 			virtual std::unique_ptr<Object> Clone();
 
@@ -199,7 +201,7 @@ namespace SaltyEngine
 
 	private:
 		using Object::m_shouldBeDestroyedOnLoad;
-	};
+    };
 }
 
 #endif // !GAMEOBJECT_HPP_
