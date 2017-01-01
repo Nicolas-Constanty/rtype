@@ -11,7 +11,7 @@
 #include "Protocol/Room/ProtocolRoomAuthenticateHandler.hpp"
 #include "Protocol/Server/ProtocolServerAuthenticateHandler.hpp"
 
-class DefaultTCPConnection : public Network::TCP::ATCPClient,
+class PREF_EXPORT DefaultTCPConnection : public Network::TCP::ATCPClient,
                              public ProtocolRoomAuthenticateHandler,
                              public ProtocolServerAuthenticateHandler
 {
