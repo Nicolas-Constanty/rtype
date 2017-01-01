@@ -7,6 +7,7 @@
 
 #include <Network/TCP/ATCPServer.hpp>
 #include <Network/TCP/ATCPClient.hpp>
+#include "Common/DLLexport.hpp"
 #include <Protocol/Room/RoomPackageFactory.hpp>
 #include "Protocol/Room/RoomPackageFactory.hpp"
 #include "Protocol/Room/IProtocolRoomHandler.hpp"
@@ -14,7 +15,7 @@
 #include "Protocol/Room/ProtocolPrintRoomPackage.hpp"
 #include "ITransitionNetworkManager.hpp"
 
-class ClientRoomNetworkManager : public Network::TCP::ATCPClient, public IProtocolRoomHandler
+class LIB_EXPORT ClientRoomNetworkManager : public Network::TCP::ATCPClient, public IProtocolRoomHandler
 {
 public:
     ClientRoomNetworkManager(Network::Core::NativeSocketIOOperationDispatcher &dispatcher);
