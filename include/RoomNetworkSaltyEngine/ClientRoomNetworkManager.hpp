@@ -52,7 +52,7 @@ private:
     std::list<GETPackageRoom *> getPackages;
 
 public:
-    bool canAddGETPackage = true;
+    mutable bool canAddGETPackage = true;
 };
 
 #endif //RTYPE_CLIENTROOMNETWORKMANAGER_HPP

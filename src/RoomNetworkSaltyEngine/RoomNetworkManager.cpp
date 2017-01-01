@@ -39,21 +39,6 @@ void RoomNetworkManager::Start() {
 }
 
 void RoomNetworkManager::Update() {
-//    if (!m_isConnected)
-//    {
-////        try
-////        {
-////            clientRoomNetworkManager->Connect(ip, port);
-////            dispatcher.setTimeout({0, 0});
-////            dispatcher.Watch(*clientRoomNetworkManager, Network::Core::NativeSocketIOOperationDispatcher::READ);
-////            m_isConnected = true;
-////        }
-////        catch (...)
-////        {
-////            m_isConnected = false;
-////        }
-//    }
-//    else
     if (m_isConnected) {
         dispatcher.Poll();
     }
@@ -98,7 +83,7 @@ void RoomNetworkManager::onGetSWAP(SWAPPackageRoom const &obj) {
 }
 
 void RoomNetworkManager::onGetGET(GETPackageRoom const &obj) {
-    std::cout << obj << std::endl;
+//    std::cout << obj << std::endl;
 }
 
 void RoomNetworkManager::onGetFAILURE(FAILUREPackageRoom const &obj) {

@@ -81,7 +81,7 @@ void ClientRoomNetworkManager::onGetSWAPPackage(SWAPPackageRoom const &obj) {
     buff += sizeof(obj);
 }
 void ClientRoomNetworkManager::onGetGETPackage(GETPackageRoom const &obj) {
-    std::cout << obj << std::endl;
+//    std::cout << obj << std::endl;
     if (canAddGETPackage) {
         GETPackageRoom *getPackageRoom = new GETPackageRoom(obj.roomPlayer, obj.roomPlayerMax, std::string(obj.name),
                                                             obj.roomID, obj.mapID, obj.launch);

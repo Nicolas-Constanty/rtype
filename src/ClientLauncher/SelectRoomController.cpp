@@ -29,6 +29,35 @@ void SelectRoomController::Start() {
         std::cout << "on set le network transition" << std::endl;
         m_roomNetworkManager->GetComponent<RoomNetworkManager>()->GetNetworkManager()->SetTransitionNetworkManager(
                 this);
+        std::list<GETPackageRoom *> const &list = m_roomNetworkManager->GetComponent<RoomNetworkManager>()->GetNetworkManager()->GetPackages();
+        for (GETPackageRoom *getPackageRoom : list) {
+            ListRoomGestion(*getPackageRoom);
+        }
+        m_roomNetworkManager->GetComponent<RoomNetworkManager>()->GetNetworkManager()->canAddGETPackage = false;
+    }
+}
+
+void SelectRoomController::ListRoomGestion(GETPackageRoom const &pack) {
+    std::cout << "listRoomGestion" << std::endl;
+    std::cout << pack << std::endl;
+    bool check = false;
+
+    for (GETPackageRoom *getPackageRoom : listActualRoom) {
+        if (getPackageRoom->roomID == pack.roomID) {
+            getPackageRoom->roomPlayer = pack.roomPlayer;
+            getPackageRoom->launch = pack.launch;
+            check = true;
+        }
+    }
+    if (!check) {
+        GETPackageRoom *getPackageRoom = new GETPackageRoom(pack.roomPlayer, pack.roomPlayerMax, std::string(pack.name),
+                                                            pack.roomID, pack.mapID, pack.launch);
+        listActualRoom.push_back(getPackageRoom);
+    }
+
+    std::cout << "ON DISPLAY LA ROOM" << std::endl;
+    for (GETPackageRoom *getPackageRoom : listActualRoom) {
+        std::cout << *getPackageRoom << std::endl;
     }
 }
 
@@ -74,7 +103,9 @@ void SelectRoomController::onGetSWAP(SWAPPackageRoom const& ) {
 }
 
 void SelectRoomController::onGetGET(GETPackageRoom const& room) {
-    std::cout << room << std::endl;
+//    std::cout << "toto" << std::endl;
+//    std::cout << room << std::endl;
+    ListRoomGestion(room);
 }
 
 void SelectRoomController::onGetFAILURE(FAILUREPackageRoom const& ) {
