@@ -21,6 +21,7 @@ namespace SaltyEngine
 
                 void AddLabel(Label * const label);
                 void RemoveLabel(size_t index);
+                void RemoveAllLabel();
 
                 virtual void OnGui() override;
 

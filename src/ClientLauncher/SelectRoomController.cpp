@@ -49,7 +49,7 @@ void SelectRoomController::Start() {
         m_roomNetworkManager->GetComponent<RoomNetworkManager>()->GetNetworkManager()->canAddGETPackage = false;
 
         //TODO A ENLEVER
-//        m_roomNetworkManager->GetComponent<RoomNetworkManager>()->SendJoin(1);
+        m_roomNetworkManager->GetComponent<RoomNetworkManager>()->SendJoin(1);
     }
 }
 
@@ -97,6 +97,7 @@ SaltyEngine::Component *SelectRoomController::CloneComponent(SaltyEngine::GameOb
 
 void SelectRoomController::OnMouseEnter() {
 //    Debug::PrintSuccess("Mouse Enter");
+    m_roomNetworkManager->GetComponent<RoomNetworkManager>()->SendLaunch(1);
 }
 
 void SelectRoomController::OnMouseOver() {
@@ -128,6 +129,15 @@ void SelectRoomController::onGetPLUGGED(PLUGGEDPackageRoom const& ) {
 }
 
 void SelectRoomController::onGetSWAP(SWAPPackageRoom const &swapPackageRoom) {
+    SaltyEngine::GameObject *obj = SaltyEngine::GameObject::Find("GameObjectLabelList");
+    SaltyEngine::GUI::SFML::LabelList *ll = NULL;
+    if (obj)
+        ll = obj->GetComponent<SaltyEngine::GUI::SFML::LabelList>();
+
+    if (ll)
+        ll->RemoveAllLabel();
+
+
     std::string ip = Network::Socket::ASocket::getIPFromUInt(swapPackageRoom.addrIP);
     unsigned int port = swapPackageRoom.port;
     unsigned int secret = swapPackageRoom.secret;
@@ -138,9 +148,10 @@ void SelectRoomController::onGetSWAP(SWAPPackageRoom const &swapPackageRoom) {
 
     std::cout << "lancement sur le port " << port << " avec ip " << ip << " avec secret " << secret << std::endl;
 
-    m_roomNetworkManager->GetComponent<RoomNetworkManager>()->GetNetworkManager()->SetTransitionNetworkManager(
-            NULL);
+    m_roomNetworkManager->GetComponent<RoomNetworkManager>()->GetNetworkManager()->SetTransitionNetworkManager(NULL);
     m_roomNetworkManager->GetComponent<RoomNetworkManager>()->GetNetworkManager()->canAddGETPackage = true;
+
+    // TODO changer la scene2 par la bonne scene
     SaltyEngine::Engine::Instance().LoadScene("scene2");
 
     SaltyEngine::GameObject *gameManager = SaltyEngine::GameObject::FindGameObjectWithTag(SaltyEngine::Layer::Tag::GameManager);
@@ -167,6 +178,8 @@ void SelectRoomController::onGetLAUNCH(LAUNCHPackageRoom const& ) {
 
 void SelectRoomController::onGetDELETE(DELETEPackageRoom const &deletePackageRoom) {
     size_t i = 0;
+
+    std::cout << deletePackageRoom << std::endl;
     SaltyEngine::GameObject *obj = SaltyEngine::GameObject::Find("GameObjectLabelList");
     SaltyEngine::GUI::SFML::LabelList *ll = NULL;
     if (obj)
