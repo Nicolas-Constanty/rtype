@@ -21,6 +21,7 @@ namespace SaltyEngine
 
             private:
                 std::string m_data;
+                unsigned int m_size;
 
             public:
                 void SetText(const std::string &txt);
@@ -30,6 +31,8 @@ namespace SaltyEngine
                 const Label &operator+=(const std::string &);
 
                 void Clear();
+
+                Component *CloneComponent(GameObject *const obj) override;
 
                 void Update() override;
             };

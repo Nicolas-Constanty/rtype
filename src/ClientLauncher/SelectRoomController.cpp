@@ -48,8 +48,11 @@ void SelectRoomController::Create() {
     SaltyEngine::SFML::SpriteRenderer *sprr = gameObject->transform.GetChild(0)->gameObject->GetComponent<SaltyEngine::SFML::SpriteRenderer>();
     if (sprr)
     {
-        gameObject->SetActive(false);
-        sprr->SetSprite(m_create_sprite);
+        SaltyEngine::GameObject *gm = SaltyEngine::GameObject::FindHide("CreateMenu");
+        if (gm)
+            gm->SetActive(true);
+        else
+            std::cout << "NULL" << std::endl;
     }
 }
 

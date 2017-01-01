@@ -58,7 +58,7 @@ SelectRoom::SelectRoom() : GameObject("SelectRoom")
     display_selected->transform.SetPosition(-540.0f, 70.0f);
 
     SaltyEngine::GameObject *gm = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate());
-    gm->SetName("Create Menu");
+    gm->SetName("CreateMenu");
 
     SaltyEngine::GameObject *cancel_button = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate());
     cancel_button->AddComponent<SaltyEngine::GUI::SFML::Label>("Cancel", 54, font);
@@ -76,7 +76,6 @@ SelectRoom::SelectRoom() : GameObject("SelectRoom")
     background_create->transform.SetParent(&gm->transform);
 
     gm->SetActive(false);
-    gm->transform.SetParent(&transform);
 
     AddComponent<SelectRoomController>();
     transform.SetPosition(engine.GetSize().x, engine.GetSize().y);

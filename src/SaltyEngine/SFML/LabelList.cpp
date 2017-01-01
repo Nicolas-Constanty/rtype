@@ -71,6 +71,10 @@ namespace SaltyEngine
                     it = m_labels.erase(it);
                 }
             }
+
+            Component *LabelList::CloneComponent(GameObject *const obj) {
+                return new LabelList(obj);
+            }
         }
     }
 }
