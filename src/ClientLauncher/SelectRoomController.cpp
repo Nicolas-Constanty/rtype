@@ -116,8 +116,16 @@ void SelectRoomController::onGetLAUNCH(LAUNCHPackageRoom const& ) {
 
 }
 
-void SelectRoomController::onGetDELETE(DELETEPackageRoom const& ) {
-
+void SelectRoomController::onGetDELETE(DELETEPackageRoom const &deletePackageRoom) {
+    std::list<GETPackageRoom *>::iterator it = listActualRoom.begin();
+    while (it != listActualRoom.end()) {
+        if ((*it)->roomID == deletePackageRoom.roomID) {
+            delete (*it);
+            listActualRoom.erase(it);
+            return ;
+        }
+        ++it;
+    }
 }
 
 void SelectRoomController::onGetCHAT(CHATPackageRoom const& ) {
