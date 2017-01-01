@@ -204,6 +204,15 @@ unsigned int Network::Socket::ASocket::getIPFromString(std::string const &ip) {
     return addr.s_addr;
 }
 
+std::string Network::Socket::ASocket::getIPFromUInt(unsigned int ip) {
+    struct in_addr ip_addr;
+
+    ip_addr.s_addr = ip;
+    char *stringip = inet_ntoa(ip_addr);
+    return std::string(stringip);
+}
+
+
 /**
  * @brief Basic write operator for ASocket that call print() method
  * @param output The output in which write
