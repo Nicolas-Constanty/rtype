@@ -19,15 +19,15 @@ namespace SaltyEngine {
         class LIB_EXPORT InputManager {
         public:
             static inline bool GetKey(KeyCode::Key key) {
-                return Input::IsKey(key);
+                return Input::GetKey(key);
             }
 
             static inline bool GetKeyDown(KeyCode::Key key) {
-                return Input::IsKeyDown(key);
+                return Input::GetKeyDown(key);
             }
 
             static inline bool GetKeyUp(KeyCode::Key key) {
-                return Input::isKeyUp(key);
+                return Input::GetKeyUp(key);
             }
 
             static inline bool GetKey(std::string const &key) {

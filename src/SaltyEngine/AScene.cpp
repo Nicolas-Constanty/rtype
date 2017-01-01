@@ -337,14 +337,12 @@ namespace SaltyEngine
 
 	void AScene::OnDestroy()
 	{
-		std::vector<GameObject*> objects = m_objects;
-		for (std::vector<GameObject*>::const_iterator obj = objects.begin(); obj != objects.end(); ++obj)
-		{
-			const std::list<SaltyBehaviour *> &Sb = (*obj)->GetSaltyBehaviour();
-			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
-				if ((*it)->enabled)
-					(*it)->OnDestroy();
-		}
+        for (std::list<GameObject *>::iterator i = m_deleted.begin(); i != m_deleted.end(); ++i) {
+            const std::list<SaltyBehaviour *> &Sb = (*i)->GetSaltyBehaviour();
+            for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
+                if ((*it)->enabled)
+                    (*it)->OnDestroy();
+        }
 	}
 
 	/**

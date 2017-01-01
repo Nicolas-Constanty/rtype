@@ -1,7 +1,3 @@
-//
-// Created by veyrie_f on 29/12/16.
-//
-
 #include "RoomNetworkSaltyEngine/RoomNetworkManager.hpp"
 #include "ClientLauncher/SelectRoomController.hpp"
 #include "SaltyEngine/SFML.hpp"
@@ -17,6 +13,15 @@ SelectRoomController::~SelectRoomController()
 }
 
 void SelectRoomController::Start() {
+    SaltyEngine::GUI::SFML::LabelList *ll = gameObject->AddComponent<SaltyEngine::GUI::SFML::LabelList>();
+    sf::Font *font = SaltyEngine::SFML::AssetManager::Instance().GetFont("SFSquareHead");
+
+//    ll->AddLabel(gameObject->AddComponent<SaltyEngine::GUI::SFML::Label>("Item 1", 30, font));
+//    ll->AddLabel(gameObject->AddComponent<SaltyEngine::GUI::SFML::Label>("Item 2", 30, font));
+//    ll->AddLabel(gameObject->AddComponent<SaltyEngine::GUI::SFML::Label>("Item 3", 30, font));
+//    ll->AddLabel(gameObject->AddComponent<SaltyEngine::GUI::SFML::Label>("Item 4", 30, font));
+//    ll->AddLabel(gameObject->AddComponent<SaltyEngine::GUI::SFML::Label>("Item 5", 30, font));
+
     std::cout << "start ?" << this << std::endl;
     m_roomNetworkManager = SaltyEngine::GameObject::Find("RoomNetworkManager");
 
