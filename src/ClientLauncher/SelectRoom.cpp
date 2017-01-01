@@ -13,7 +13,7 @@ SelectRoom::SelectRoom() : GameObject("SelectRoom")
     const SaltyEngine::Engine &engine = SaltyEngine::Engine::Instance();
 
     SaltyEngine::GameObject *background = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate());
-    background->AddComponent<SaltyEngine::SFML::GUI::Image>(SaltyEngine::SFML::AssetManager::Instance().GetSprite("GUI/menu_room"));
+    background->AddComponent<SaltyEngine::SFML::SpriteRenderer>(SaltyEngine::SFML::AssetManager::Instance().GetSprite("GUI/menu_room"), SaltyEngine::Layout::background);
     background->transform.SetParent(&transform);
     SaltyEngine::GameObject *join_button = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate());
 //    launch_button->AddComponent<RoomNetworkManager>("127.0.0.1", 4242);
@@ -72,7 +72,7 @@ SelectRoom::SelectRoom() : GameObject("SelectRoom")
     cancel_button->transform.SetPosition(-102.0f, 70.0f);
 
     SaltyEngine::GameObject *background_create = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate());
-    background_create->AddComponent<SaltyEngine::SFML::GUI::Image>(SaltyEngine::SFML::AssetManager::Instance().GetSprite("GUI/menu_room"));
+    background_create->AddComponent<SaltyEngine::SFML::SpriteRenderer>(SaltyEngine::SFML::AssetManager::Instance().GetSprite("GUI/menu_create"), SaltyEngine::Layout::backgroundColor);
     background_create->transform.SetParent(&gm->transform);
 
     gm->SetActive(false);
@@ -81,6 +81,7 @@ SelectRoom::SelectRoom() : GameObject("SelectRoom")
     transform.SetPosition(engine.GetSize().x, engine.GetSize().y);
 
     *SaltyEngine::Engine::Instance().GetCurrentScene() << this;
+    gm->transform.SetPosition(engine.GetSize().x, engine.GetSize().y);
 }
 
 SelectRoom::~SelectRoom()

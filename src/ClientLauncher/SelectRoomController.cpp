@@ -51,8 +51,6 @@ void SelectRoomController::Create() {
         SaltyEngine::GameObject *gm = SaltyEngine::GameObject::FindHide("CreateMenu");
         if (gm)
             gm->SetActive(true);
-        else
-            std::cout << "NULL" << std::endl;
     }
 }
 

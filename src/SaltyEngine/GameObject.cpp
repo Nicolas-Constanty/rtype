@@ -79,7 +79,7 @@ namespace SaltyEngine
 	}
 
 	GameObject *GameObject::FindHide(std::string const &name) {
-		return Factory::Instance().Find(name);
+		return Factory::Instance().FindHide(name);
 	}
 
 	const std::list<SaltyBehaviour *> &GameObject::GetSaltyBehaviour(void) const {
