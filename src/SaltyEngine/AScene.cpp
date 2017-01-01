@@ -107,6 +107,7 @@ namespace SaltyEngine
 					(*it)->Start();
 				}
             m_enabled.push(gm);
+            m_objects.push_back(gm);
             m_init.pop();
 		}
 	}
@@ -154,9 +155,8 @@ namespace SaltyEngine
 		{
 			const std::list<SaltyBehaviour *> &Sb = (*obj)->GetSaltyBehaviour();
 			for (std::list<SaltyBehaviour *>::const_iterator it = Sb.begin(); it != Sb.end(); ++it)
-				if ((*it)->enabled) {
+				if ((*it)->enabled)
 					(*it)->FixedUpdate();
-				}
 			(*obj)->m_shouldBeRendered = true;
 		}
 	}
@@ -397,7 +397,7 @@ namespace SaltyEngine
 			return;
 		}
 		gameobj->transform.SetLocalScale(m_scale);
-		m_objects.push_back(gameobj);
+//		m_objects.push_back(gameobj);
         m_init.push(gameobj);
     }
 
