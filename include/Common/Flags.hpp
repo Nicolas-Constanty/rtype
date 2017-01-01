@@ -16,6 +16,8 @@
 
 #ifdef _WIN32
 #include "option.h"
+#else
+ #include <getopt.h>
 #endif
 
 
@@ -91,7 +93,8 @@ class LIB_EXPORT Flags {
 			ss << "-" << shortFlag << " ";
 		}
 		if (longFlag.size()) {
-			ss << "--" << longFlag << " ";
+			ss << "--";
+            ss << longFlag << " ";
 		}
 		ss << "[default: " << defaultValue << "]";
 		ss << std::endl;

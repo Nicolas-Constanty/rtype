@@ -2,7 +2,6 @@
 #include "Common/Flags.hpp"
 #include "Common/getopt.h"
 #else
-#include <getopt.h>
 #include "Common/Flags.hpp"
 #endif
 
