@@ -87,9 +87,9 @@ void LoggerController::onGetSWAP(SWAPPackageRoom const &)
 
 }
 
-void LoggerController::onGetGET(GETPackageRoom const &)
+void LoggerController::onGetGET(GETPackageRoom const &pack)
 {
-
+    std::cout << pack << std::endl;
 }
 
 void LoggerController::onGetFAILURE(FAILUREPackageRoom const &)

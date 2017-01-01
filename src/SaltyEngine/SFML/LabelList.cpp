@@ -33,7 +33,7 @@ namespace SaltyEngine
 
             void LabelList::RemoveLabel(size_t index) {
                 size_t i = 0;
-                for (std::vector<Label *>::const_iterator it = m_labels.begin(); it != m_labels.end(); ++it) {
+                for (std::vector<Label *>::iterator it = m_labels.begin(); it != m_labels.end(); ++it) {
                     if (i == index)
                         m_labels.erase(it);
                     ++i;
