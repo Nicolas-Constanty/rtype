@@ -69,7 +69,8 @@ GameManagerPrefab::GameManagerPrefab() : GameObject("GameManager", SaltyEngine::
     b->onClick.AddListener("SayOuch", [](){
         std::cout << "Ouch!!!" << std::endl;
         //TODO retour dans la guiRoom
-        SaltyEngine::Engine::Instance().Stop();
+        SaltyEngine::Engine::Instance().LoadScene("sceneRoom");
+//        SaltyEngine::Engine::Instance().Stop();
     });
 
 

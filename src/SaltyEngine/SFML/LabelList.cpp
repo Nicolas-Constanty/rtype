@@ -25,8 +25,10 @@ namespace SaltyEngine
             void LabelList::RemoveLabel(size_t index) {
                 size_t i = 0;
                 for (std::vector<Label *>::iterator it = m_labels.begin(); it != m_labels.end(); ++it) {
-                    if (i == index)
+                    if (i == index) {
                         m_labels.erase(it);
+                        return ;
+                    }
                     ++i;
                 }
             }
@@ -56,6 +58,13 @@ namespace SaltyEngine
 
             const std::string &LabelList::GetSelected() {
                 return m_labels[m_index]->GetText();
+            }
+
+            void LabelList::RemoveAllLabel() {
+                std::vector<Label *>::iterator it = m_labels.begin();
+                while (it != m_labels.end()) {
+                    it = m_labels.erase(it);
+                }
             }
         }
     }
