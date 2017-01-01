@@ -12,7 +12,10 @@
 class RoomPackageFactory {
 public:
     ~RoomPackageFactory() {
-
+		for (PackageRoomHeader *curr : _vec)
+		{
+			delete curr;
+		}
     }
 
     template <typename T, class ...Args>
@@ -24,7 +27,7 @@ public:
     }
 
 private:
-    std::list<std::unique_ptr<PackageRoomHeader>> _vec;
+    std::list<PackageRoomHeader *> _vec;
 };
 
 #endif //RTYPE_ROOMPACKAGEFACTORY_HPP

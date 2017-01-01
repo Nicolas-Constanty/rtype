@@ -359,8 +359,6 @@ file(GLOB SRC_COMMMUNICATION
 		file(GLOB GUI_LOGGER_SOURCE_FILE
 				"../../src/ClientLauncher/Logger.cpp"
 				"../../src/ClientLauncher/LoggerController.cpp"
-				"../../src/ClientLauncher/Logger.hpp"
-				"../../src/ClientLauncher/LoggerController.hpp"
 				"../../src/RoomNetworkSaltyEngine/*.cpp")
 		add_library(gui_logger SHARED ${GUI_LOGGER_SOURCE_FILE} $<TARGET_OBJECTS:RtypeLib> $<TARGET_OBJECTS:CommonPrefabs>)
 		target_link_libraries(gui_logger ${PREFAB_LIBRARIES} ProtocolRoom)
@@ -372,14 +370,12 @@ file(GLOB SRC_COMMMUNICATION
 
 		# ROOM SCREEN
 		file(GLOB GUI_SELECT_ROOM_SOURCE_FILE
-				"src/ClientLauncher/SelectRoom.cpp"
-				"src/ClientLauncher/SelectRoomController.cpp"
-				"src/ClientLauncher/SelectRoom.hpp"
-				"src/ClientLauncher/SelectRoomController.hpp")
+				"../../src/ClientLauncher/SelectRoom.cpp"
+				"../../src/ClientLauncher/SelectRoomController.cpp")
 		add_library(gui_menu_room SHARED ${GUI_SELECT_ROOM_SOURCE_FILE} $<TARGET_OBJECTS:RtypeLib> $<TARGET_OBJECTS:CommonPrefabs>)
-		target_link_libraries(gui_menu_room ${PREFAB_LIBRARIES})
+		target_link_libraries(gui_menu_room ${PREFAB_LIBRARIES} gui_logger)
 
-	set(PREFAB_DEPENDENCIES SFMLSaltyEngine Network Common ProtocolGame)
+		set(PREFAB_DEPENDENCIES SaltyEngine SFMLSaltyEngine Network Common ProtocolGame)
 
 endif()
 

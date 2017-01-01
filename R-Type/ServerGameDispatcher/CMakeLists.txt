@@ -3,7 +3,7 @@ project(rtype)
 
 file(GLOB serverGameDispatcherSrc src/Thread/*.cpp src/Process/*.cpp src/ServerGame/CreateRoomGameServer/*.cpp)
 
-file(GLOB serverGameDispatcherInc include/Thread/*.hpp include/Process/*.hpp src/ServerGame/CreateRoomGameServer/*.hpp)
+file(GLOB serverGameDispatcherInc include/Thread/*.hpp include/Process/*.hpp include/ServerGame/CreateRoomGameServer/*.hpp include/Common/*.hpp)
 
 if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wextra -rdynamic")
@@ -15,4 +15,4 @@ add_executable(RoomGameDispatcher
         ${serverGameDispatcherSrc}
         ${serverGameDispatcherInc})
 
-target_link_libraries(RoomGameDispatcher Network ProtocolGame ProtocolServer ProtocolRoom dl pthread)
+target_link_libraries(RoomGameDispatcher Network ProtocolGame ProtocolServer ProtocolRoom dl pthread Common)

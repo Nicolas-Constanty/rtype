@@ -6,8 +6,9 @@
 #define RTYPE_IPROTOCOLROOMHANDLER_HPP
 
 #include "ProtocolRoomPackage.hpp"
+#include "Common/DLLexport.hpp"
 
-class IProtocolRoomHandler {
+class LIB_EXPORT IProtocolRoomHandler {
 public:
     virtual ~IProtocolRoomHandler() {}
 

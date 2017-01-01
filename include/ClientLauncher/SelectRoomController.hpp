@@ -5,12 +5,12 @@
 #ifndef RTYPE_LOGGERCONTROLLER_HPP
 #define RTYPE_LOGGERCONTROLLER_HPP
 
-
+#include "Common/DLLexport.hpp"
 #include "SaltyEngine/SFML/TextBox.hpp"
 #include "SaltyEngine/SFML/Button.hpp"
 #include "SaltyEngine/GameObject.hpp"
 
-class SelectRoomController : public SaltyEngine::SaltyBehaviour
+class LIB_EXPORT SelectRoomController : public SaltyEngine::SaltyBehaviour
 {
 public:
     explicit SelectRoomController(SaltyEngine::GameObject *obj);

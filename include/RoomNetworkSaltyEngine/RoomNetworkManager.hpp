@@ -8,8 +8,9 @@
 #include "RoomNetworkSaltyEngine/ClientRoomNetworkManager.hpp"
 #include <Network/Core/NativeSocketIOOperationDispatcher.hpp>
 #include "SaltyEngine/SaltyBehaviour.hpp"
+#include "Common/DLLexport.hpp"
 
-class RoomNetworkManager : public SaltyEngine::SaltyBehaviour, public ITransitionNetworkManager {
+class LIB_EXPORT RoomNetworkManager : public SaltyEngine::SaltyBehaviour, public ITransitionNetworkManager {
 public:
     RoomNetworkManager(SaltyEngine::GameObject * const gameObject, std::string const &ip, unsigned short port);
     //RoomNetworkManager(std::string const &name, SaltyEngine::GameObject * const gameObject, std::string const &ip, unsigned short port);

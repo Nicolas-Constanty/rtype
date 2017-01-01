@@ -6,8 +6,9 @@
 #define RTYPE_ITRANSITIONNETWORKMANAGER_HPP
 
 #include "Protocol/Room/ProtocolRoomPackage.hpp"
+#include "Common/DLLexport.hpp"
 
-class ITransitionNetworkManager {
+class LIB_EXPORT ITransitionNetworkManager {
 public:
     virtual ~ITransitionNetworkManager() {}
 
