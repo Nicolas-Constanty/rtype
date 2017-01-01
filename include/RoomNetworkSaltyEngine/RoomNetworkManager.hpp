@@ -38,6 +38,8 @@ public:
 
     ClientRoomNetworkManager const*GetNetworkManager(void) const;
 
+	void OnDestroy() override;
+
 
 private:
     std::string                                         ip;

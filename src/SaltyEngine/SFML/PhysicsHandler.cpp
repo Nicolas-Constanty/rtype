@@ -367,5 +367,10 @@ namespace SaltyEngine
         void PhysicsHandler::RemoveSpriteRenderer(const SpriteRenderer *s) {
             m_sprites.remove_if([s](const SpriteRenderer *sprr) { return (s == sprr); });
         }
+
+        void PhysicsHandler::SetSize(unsigned int x, unsigned y) {
+            m_size.x = x;
+            m_size.y = y;
+        }
     }
 }
