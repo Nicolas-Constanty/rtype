@@ -15,7 +15,7 @@ namespace SaltyEngine
                     : UIBehaviour("LabelGUI", gameObj), sf::Text(), m_data(text) {
                 setFont(*fnt);
                 setCharacterSize(size);
-                setColor(col);
+                setFillColor(col);
                 setString(m_data);
                 setOrigin(getLocalBounds().width / 2, (getGlobalBounds().height + size / 2) / 2 );
             }

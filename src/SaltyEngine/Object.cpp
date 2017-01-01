@@ -53,7 +53,7 @@ namespace SaltyEngine
 		if (original)
 			original->Destroy();
 		else
-			Debug::PrintWarning("Cannot destrol null Object");
+			Debug::PrintWarning("Cannot destroy null Object");
 	}
 
 	void Object::Destroy() {

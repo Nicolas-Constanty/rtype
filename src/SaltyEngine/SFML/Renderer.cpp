@@ -130,7 +130,6 @@ namespace SaltyEngine
 
 		void Renderer::DrawLabel() {
 			for (LabelList::const_iterator lab = m_labels.begin(); lab != m_labels.end() ; ++lab) {
-                const Transform &t = (*lab)->gameObject->transform;
 				draw(*(*lab));
 			}
 		}

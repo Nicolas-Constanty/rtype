@@ -27,7 +27,7 @@ void CreateGUIGame(SaltyEngine::Vector2i const &size, SaltyEngine::SFML::Scene *
 	victoryScreen->transform.SetPosition(size.x / 2, static_cast<float>(size.y / 2.3));
 	*scene << victoryScreen;
 
-    SaltyEngine::GameObject     *buttonEnd = new SaltyEngine::GameObject("EndScreen");
+//    SaltyEngine::GameObject     *buttonEnd = new SaltyEngine::GameObject("EndScreen");
     victoryScreen->AddComponent<EndScreen>();
     victoryScreen->transform.SetPosition(size.x / 2, static_cast<float>(size.y / 2.3));
     *scene << victoryScreen;
