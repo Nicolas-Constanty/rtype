@@ -75,12 +75,8 @@ namespace SaltyEngine
 		{
 			if (label)
 			{
-                std::cout << label << " : " << label->GetText() << std::endl;
                 if (std::find(m_labels.begin(), m_labels.end(), label) == m_labels.end())
-                {
-                    std::cout << label->GetText() << std::endl;
                     m_labels.push_back(label);
-                }
                 else
                     Debug::PrintWarning("label already load");
 			}
@@ -125,6 +121,12 @@ namespace SaltyEngine
             m_debug.remove_if([gm](BoxCollider2D *box) { return (gm == box->gameObject); });
         }
 
+        void Renderer::RemoveLabel(GUI::SFML::Label * const la)
+        {
+            if (std::find(m_labels.begin(), m_labels.end(), la) != m_labels.end())
+                m_labels.remove(la);
+        }
+
         ::SaltyEngine::Vector2i Renderer::GetRealSize() const {
 			sf::Vector2u size = getSize();
 			SaltyEngine::Vector2f	scale = SaltyEngine::Engine::Instance().GetCurrentScene()->GetScale();
@@ -133,7 +135,8 @@ namespace SaltyEngine
 
 		void Renderer::DrawLabel() {
 			for (LabelList::const_iterator lab = m_labels.begin(); lab != m_labels.end() ; ++lab) {
-				draw(*(*lab));
+                if ((*lab)->gameObject->GetActiveSelf())
+				    draw(*(*lab));
 			}
 		}
 

@@ -262,8 +262,8 @@ namespace SaltyEngine
                                     {
                                         if (m_renderer)
                                             m_img.setPixel((unsigned int) (pos_x), (unsigned int) (pos_y), sf::Color::Green);
-                                        spr->UpdateCollisions(m_col_to_sprite[c.toInteger()]);
-                                        m_col_to_sprite[c.toInteger()]->UpdateCollisions(spr);
+                                        if (m_col_to_sprite[c.toInteger()] != nullptr)
+                                            m_col_to_sprite[c.toInteger()]->UpdateCollisions(spr);
                                     }
                                 }
                             }
