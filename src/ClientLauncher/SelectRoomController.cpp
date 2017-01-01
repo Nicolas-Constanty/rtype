@@ -1,3 +1,4 @@
+#include <Rtype/Game/Client/GameClientObject.hpp>
 #include "RoomNetworkSaltyEngine/RoomNetworkManager.hpp"
 #include "ClientLauncher/SelectRoomController.hpp"
 #include "SaltyEngine/SFML.hpp"
@@ -18,11 +19,11 @@ void SelectRoomController::Start() {
     sf::Font *font = SaltyEngine::SFML::AssetManager::Instance().GetFont("SFSquareHead");
     obj->transform.SetPosition(SaltyEngine::Vector2(360, 200));
 
-    ll->AddLabel(obj->AddComponent<SaltyEngine::GUI::SFML::Label>("Item 1", 30, font));
-    ll->AddLabel(obj->AddComponent<SaltyEngine::GUI::SFML::Label>("Item 2", 30, font));
-    ll->AddLabel(obj->AddComponent<SaltyEngine::GUI::SFML::Label>("Item 3", 30, font));
-    ll->AddLabel(obj->AddComponent<SaltyEngine::GUI::SFML::Label>("Item 4", 30, font));
-    ll->AddLabel(obj->AddComponent<SaltyEngine::GUI::SFML::Label>("Item 5", 30, font));
+//    ll->AddLabel(obj->AddComponent<SaltyEngine::GUI::SFML::Label>("Item 1", 30, font));
+//    ll->AddLabel(obj->AddComponent<SaltyEngine::GUI::SFML::Label>("Item 2", 30, font));
+//    ll->AddLabel(obj->AddComponent<SaltyEngine::GUI::SFML::Label>("Item 3", 30, font));
+//    ll->AddLabel(obj->AddComponent<SaltyEngine::GUI::SFML::Label>("Item 4", 30, font));
+//    ll->AddLabel(obj->AddComponent<SaltyEngine::GUI::SFML::Label>("Item 5", 30, font));
 
 
     std::cout << "start ?" << this << std::endl;
@@ -110,9 +111,23 @@ void SelectRoomController::onGetSWAP(SWAPPackageRoom const &swapPackageRoom) {
     unsigned int port = swapPackageRoom.port;
     unsigned int secret = swapPackageRoom.secret;
 
+    m_roomNetworkManager->GetComponent<RoomNetworkManager>()->SetUDPIP(ip);
+    m_roomNetworkManager->GetComponent<RoomNetworkManager>()->SetUDPPort(port);
+    m_roomNetworkManager->GetComponent<RoomNetworkManager>()->SetUDPSecret(secret);
+
     std::cout << "lancement sur le port " << port << " avec ip " << ip << " avec secret " << secret << std::endl;
 
+    m_roomNetworkManager->GetComponent<RoomNetworkManager>()->GetNetworkManager()->SetTransitionNetworkManager(
+            NULL);
+    m_roomNetworkManager->GetComponent<RoomNetworkManager>()->GetNetworkManager()->canAddGETPackage = true;
     SaltyEngine::Engine::Instance().LoadScene("scene2");
+
+    SaltyEngine::GameObject *gameManager = SaltyEngine::GameObject::Find("GameManager");
+
+    if (gameManager) {
+        gameManager->AddComponent<Rtype::Game::Client::GameClientObject>(ip, port, secret);
+    }
+
 }
 
 void SelectRoomController::onGetGET(GETPackageRoom const& room) {

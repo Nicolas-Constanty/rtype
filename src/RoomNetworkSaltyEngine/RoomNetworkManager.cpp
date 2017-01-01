@@ -132,3 +132,27 @@ void RoomNetworkManager::SendLaunch(unsigned short idRoom) {
 void RoomNetworkManager::SendMsg(unsigned short idRoom, std::string const &msg) {
     clientRoomNetworkManager->SendData(*factory.create<CHATPackageRoom>(idRoom, msg));
 }
+
+void RoomNetworkManager::SetUDPIP(std::string const &ip) {
+    udpIP = ip;
+}
+
+void RoomNetworkManager::SetUDPPort(unsigned int port) {
+    udpPort = port;
+}
+
+void RoomNetworkManager::SetUDPSecret(unsigned int secret) {
+    udpSecret = secret;
+}
+
+std::string const &RoomNetworkManager::GetUDPIP() const {
+    return udpIP;
+}
+
+unsigned int RoomNetworkManager::GetUDPPort() const {
+    return udpPort;
+}
+
+unsigned int RoomNetworkManager::GetUDPSecret() const {
+    return udpSecret;
+}
