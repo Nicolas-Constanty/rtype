@@ -75,6 +75,10 @@ namespace SaltyEngine
             Component *LabelList::CloneComponent(GameObject *const obj) {
                 return new LabelList(obj);
             }
+
+            size_t LabelList::GetIndex() const {
+                return m_index;
+            }
         }
     }
 }
