@@ -82,7 +82,7 @@ void RoomNetworkManager::onGetSWAP(SWAPPackageRoom const &obj) {
     std::cout << obj << std::endl;
 }
 
-void RoomNetworkManager::onGetGET(GETPackageRoom const &obj) {
+void RoomNetworkManager::onGetGET(GETPackageRoom const &) {
 //    std::cout << obj << std::endl;
 }
 
@@ -111,4 +111,24 @@ ClientRoomNetworkManager const *RoomNetworkManager::GetNetworkManager(void) cons
 
 void RoomNetworkManager::OnDestroy() {
     std::cout << "destroyyyy" << std::endl;
+}
+
+void RoomNetworkManager::SendJoin(unsigned short idRoom) {
+    clientRoomNetworkManager->SendData(*factory.create<JOINPackageRoom>(idRoom));
+}
+
+void RoomNetworkManager::SendLeave(unsigned short id, unsigned short idRoom) {
+    clientRoomNetworkManager->SendData(*factory.create<QUITPackageRoom>(id, idRoom));
+}
+
+void RoomNetworkManager::SendCreate(unsigned short roomPlayerMax, std::string const &name, unsigned short mapID) {
+    clientRoomNetworkManager->SendData(*factory.create<CREATEPackageRoom>(0, roomPlayerMax, name, 0, mapID));
+}
+
+void RoomNetworkManager::SendLaunch(unsigned short idRoom) {
+    clientRoomNetworkManager->SendData(*factory.create<LAUNCHPackageRoom>(idRoom));
+}
+
+void RoomNetworkManager::SendMsg(unsigned short idRoom, std::string const &msg) {
+    clientRoomNetworkManager->SendData(*factory.create<CHATPackageRoom>(idRoom, msg));
 }
