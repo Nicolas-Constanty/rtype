@@ -4,9 +4,6 @@
 #ifdef _WIN32
 
 #include <windows.h>
-
-typedef BOOL pid_t;
-
 #include <Process/IProcess.hpp>
 
 class WinProcess : public IProcess

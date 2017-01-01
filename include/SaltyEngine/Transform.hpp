@@ -106,7 +106,7 @@ namespace SaltyEngine
 			{
 				typename std::vector<BaseTransform<T>*>::iterator this_child = std::find_if(m_parent->m_children.begin(),m_parent->m_children.end(),
 											   [&](BaseTransform<T> *other) { return other == this; });
-				if (this_child != m_children.end())
+				if (this_child != m_parent->m_children.end())
 				{
                     m_parent->m_children.erase(this_child);
 				}

@@ -12,7 +12,7 @@ if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 
 	target_link_libraries(RoomGameDispatcher Network ProtocolGame ProtocolServer ProtocolRoom dl pthread Common)
 elseif(MSVC)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3 -DRTYPESERVER -DNO_EXPORT")
 
 	file(GLOB serverGameDispatcherSrc "../../src/Thread/*.cpp" "../../src/Process/*.cpp" "../../src/ServerGame/CreateRoomGameServer/*.cpp")
 
@@ -20,5 +20,5 @@ elseif(MSVC)
 
 	add_executable(RoomGameDispatcher ${serverGameDispatcherSrc} ${serverGameDispatcherInc})
 
-	target_link_libraries(RoomGameDispatcher Network ProtocolGame ProtocolServer ProtocolRoom pthread Common)
+	target_link_libraries(RoomGameDispatcher Network ProtocolGame ProtocolServer ProtocolRoom Common)
 endif()
