@@ -13,10 +13,12 @@ LoggerController::LoggerController(SaltyEngine::GameObject *obj) : SaltyEngine::
 
 LoggerController::~LoggerController()
 {
-
+    std::cout << "delete LoggerController" << std::endl;
+    m_roomNetworkManager->GetComponent<RoomNetworkManager>()->GetNetworkManager()->SetTransitionNetworkManager(NULL);
 }
 
 void LoggerController::Start() {
+    std::cout << "start loggerController ?" << this << std::endl;
     m_textBox = SaltyEngine::GameObject::Find("TextBox");
     m_buttonSubmit = SaltyEngine::GameObject::Find("LaunchButton");
     m_roomNetworkManager = SaltyEngine::GameObject::Find("RoomNetworkManager");
@@ -87,9 +89,8 @@ void LoggerController::onGetSWAP(SWAPPackageRoom const &)
 
 }
 
-void LoggerController::onGetGET(GETPackageRoom const &pack)
+void LoggerController::onGetGET(GETPackageRoom const &)
 {
-    std::cout << pack << std::endl;
 }
 
 void LoggerController::onGetFAILURE(FAILUREPackageRoom const &)

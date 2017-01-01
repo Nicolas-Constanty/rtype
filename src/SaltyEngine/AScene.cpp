@@ -482,14 +482,22 @@ namespace SaltyEngine
 
 	/**
 	 * @brief Called to clean the scene. Will destroy all the objects but the ones marked by DontDestroyOnLoad
+	 *
+	 * @return The objects that wiil survive through the clean
 	 */
-	void AScene::CleanScene()
+    std::list<GameObject *> AScene::CleanScene()
 	{
+        std::list<GameObject *> remaining_objects;
+
 		for (GameObject *go : m_objects)
 		{
 			if (go->m_shouldBeDestroyedOnLoad)
 				Destroy(go);
+			else
+				remaining_objects.push_back(go);
 		}
+
+        return remaining_objects;
 	}
 }
 

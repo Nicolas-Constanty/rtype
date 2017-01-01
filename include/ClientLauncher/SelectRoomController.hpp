@@ -25,6 +25,8 @@ public:
 
     void OnMouseExit() override;
 
+    void ListRoomGestion(GETPackageRoom const &);
+
 public:
     virtual SaltyEngine::Component *CloneComponent(SaltyEngine::GameObject *const obj);
 
@@ -49,6 +51,7 @@ private:
     SaltyEngine::GUI::SFML::Button *m_submit = nullptr;
     SaltyEngine::GUI::SFML::TextBox *m_text = nullptr;
     SaltyEngine::GameObject *m_roomNetworkManager = nullptr;
+    std::list<GETPackageRoom *>             listActualRoom;
 };
 
 #endif //RTYPE_LOGGERCONTROLLER_HPP

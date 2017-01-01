@@ -9,7 +9,6 @@ SelectRoomController::SelectRoomController(SaltyEngine::GameObject *obj) : Salty
 
 SelectRoomController::~SelectRoomController()
 {
-
 }
 
 void SelectRoomController::Start() {
@@ -27,9 +26,43 @@ void SelectRoomController::Start() {
 
 
     std::cout << "start ?" << this << std::endl;
+
     m_roomNetworkManager = SaltyEngine::GameObject::Find("RoomNetworkManager");
 
-    m_roomNetworkManager->GetComponent<RoomNetworkManager>()->GetNetworkManager()->SetTransitionNetworkManager(this);
+    if (m_roomNetworkManager) {
+        std::cout << "on set le network transition" << std::endl;
+        m_roomNetworkManager->GetComponent<RoomNetworkManager>()->GetNetworkManager()->SetTransitionNetworkManager(
+                this);
+        std::list<GETPackageRoom *> const &list = m_roomNetworkManager->GetComponent<RoomNetworkManager>()->GetNetworkManager()->GetPackages();
+        for (GETPackageRoom *getPackageRoom : list) {
+            ListRoomGestion(*getPackageRoom);
+        }
+        m_roomNetworkManager->GetComponent<RoomNetworkManager>()->GetNetworkManager()->canAddGETPackage = false;
+    }
+}
+
+void SelectRoomController::ListRoomGestion(GETPackageRoom const &pack) {
+    std::cout << "listRoomGestion" << std::endl;
+    std::cout << pack << std::endl;
+    bool check = false;
+
+    for (GETPackageRoom *getPackageRoom : listActualRoom) {
+        if (getPackageRoom->roomID == pack.roomID) {
+            getPackageRoom->roomPlayer = pack.roomPlayer;
+            getPackageRoom->launch = pack.launch;
+            check = true;
+        }
+    }
+    if (!check) {
+        GETPackageRoom *getPackageRoom = new GETPackageRoom(pack.roomPlayer, pack.roomPlayerMax, std::string(pack.name),
+                                                            pack.roomID, pack.mapID, pack.launch);
+        listActualRoom.push_back(getPackageRoom);
+    }
+
+    std::cout << "ON DISPLAY LA ROOM" << std::endl;
+    for (GETPackageRoom *getPackageRoom : listActualRoom) {
+        std::cout << *getPackageRoom << std::endl;
+    }
 }
 
 SaltyEngine::Component *SelectRoomController::CloneComponent(SaltyEngine::GameObject *const obj)
@@ -74,7 +107,9 @@ void SelectRoomController::onGetSWAP(SWAPPackageRoom const& ) {
 }
 
 void SelectRoomController::onGetGET(GETPackageRoom const& room) {
-    std::cout << room << std::endl;
+//    std::cout << "toto" << std::endl;
+//    std::cout << room << std::endl;
+    ListRoomGestion(room);
 }
 
 void SelectRoomController::onGetFAILURE(FAILUREPackageRoom const& ) {
@@ -85,8 +120,16 @@ void SelectRoomController::onGetLAUNCH(LAUNCHPackageRoom const& ) {
 
 }
 
-void SelectRoomController::onGetDELETE(DELETEPackageRoom const& ) {
-
+void SelectRoomController::onGetDELETE(DELETEPackageRoom const &deletePackageRoom) {
+    std::list<GETPackageRoom *>::iterator it = listActualRoom.begin();
+    while (it != listActualRoom.end()) {
+        if ((*it)->roomID == deletePackageRoom.roomID) {
+            delete (*it);
+            listActualRoom.erase(it);
+            return ;
+        }
+        ++it;
+    }
 }
 
 void SelectRoomController::onGetCHAT(CHATPackageRoom const& ) {

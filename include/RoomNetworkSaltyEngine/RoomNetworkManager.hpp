@@ -20,6 +20,11 @@ public:
     void Start();
     void Update();
 	void SendAuthenticate(const std::string &name);
+    void SendJoin(unsigned short idRoom);
+    void SendLeave(unsigned short id, unsigned short idRoom);
+    void SendCreate(unsigned short roomPlayerMax, std::string const &name, unsigned short mapID);
+    void SendLaunch(unsigned short idRoom);
+    void SendMsg(unsigned short idRoom, std::string const &msg);
 
 	SaltyEngine::Component *CloneComponent(SaltyEngine::GameObject *const obj) override;
 
@@ -37,6 +42,8 @@ public:
 	virtual void onGetCHAT(CHATPackageRoom const &);
 
     ClientRoomNetworkManager const*GetNetworkManager(void) const;
+
+	void OnDestroy() override;
 
 
 private:
