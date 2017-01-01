@@ -24,6 +24,8 @@ namespace SaltyEngine
 
                 virtual void OnGui() override;
 
+                const std::string &GetSelected();
+
             private:
                 std::vector<Label *> m_labels;
                 long  m_index;

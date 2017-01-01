@@ -53,6 +53,10 @@ namespace SaltyEngine
                 if (m_labels.size() && m_labels[m_index]->getColor() != sf::Color::Cyan)
                     m_labels[m_index]->setColor(sf::Color::Cyan);
             }
+
+            const std::string &LabelList::GetSelected() {
+                return m_labels[m_index]->GetText();
+            }
         }
     }
 }
