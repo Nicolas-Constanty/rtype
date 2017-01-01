@@ -73,8 +73,17 @@ namespace SaltyEngine
 
 		void Renderer::AddLabel(SaltyEngine::GUI::SFML::Label *label)
 		{
-			if (label && std::find(m_labels.begin(), m_labels.end(), label) == m_labels.end())
-				m_labels.push_back(label);
+			if (label)
+			{
+                std::cout << label << " : " << label->GetText() << std::endl;
+                if (std::find(m_labels.begin(), m_labels.end(), label) == m_labels.end())
+                {
+                    std::cout << label->GetText() << std::endl;
+                    m_labels.push_back(label);
+                }
+                else
+                    Debug::PrintWarning("label already load");
+			}
 			else
 				Debug::PrintWarning("Cannot add null label");
 		}
@@ -122,7 +131,6 @@ namespace SaltyEngine
 		void Renderer::DrawLabel() {
 			for (LabelList::const_iterator lab = m_labels.begin(); lab != m_labels.end() ; ++lab) {
                 const Transform &t = (*lab)->gameObject->transform;
-                (*lab)->setPosition(t.GetPosition().x * t.GetLocalScale().x, t.GetPosition().y * t.GetLocalScale().y);
 				draw(*(*lab));
 			}
 		}

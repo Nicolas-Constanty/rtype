@@ -39,6 +39,11 @@ namespace SaltyEngine
                 m_data.clear();
                 setString(m_data);
             }
+
+            void Label::Update() {
+                const Transform &t = gameObject->transform;
+                setPosition(t.GetPosition().x * t.GetLocalScale().x, t.GetPosition().y * t.GetLocalScale().y);
+            }
         }
     }
 }
