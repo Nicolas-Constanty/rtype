@@ -30,7 +30,6 @@ SelectRoom::SelectRoom() : GameObject("SelectRoom")
 
 
     SaltyEngine::GameObject *quit_button = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate());
-    quit_button->AddComponent<SelectRoomController>();
 //    launch_button->AddComponent<RoomNetworkManager>("127.0.0.1", 4242);
     quit_button->AddComponent<SaltyEngine::GUI::SFML::Label>("Quit Game", 54, font);
     quit_button->SetName("Quit Button");
@@ -43,7 +42,6 @@ SelectRoom::SelectRoom() : GameObject("SelectRoom")
     quit_button->transform.SetPosition(570.0f, 290.0f);
 
     SaltyEngine::GameObject *create_button = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate());
-    create_button->AddComponent<SelectRoomController>();
 //    launch_button->AddComponent<RoomNetworkManager>("127.0.0.1", 4242);
     create_button->AddComponent<SaltyEngine::GUI::SFML::Label>("Create Game", 54, font);
     create_button->SetName("Create Button");

@@ -29,8 +29,11 @@ namespace SaltyEngine
 		{
 			m_scene = SaltyEngine::SFML::AssetManager::Instance().LoadSize(sceneName);
 			Renderer *r = dynamic_cast<Renderer *>(SaltyEngine::Engine::Instance().GetRenderer());
-			r->setSize(sf::Vector2u((unsigned int) m_scene->size.x * 2, (unsigned int) m_scene->size.y * 2));
-			r->setView(sf::View(sf::FloatRect(0.f, 0.f, m_scene->size.x * 2, m_scene->size.y * 2)));
+			if (r)
+			{
+				r->setSize(sf::Vector2u((unsigned int) m_scene->size.x * 2, (unsigned int) m_scene->size.y * 2));
+				r->setView(sf::View(sf::FloatRect(0.f, 0.f, m_scene->size.x * 2, m_scene->size.y * 2)));
+			}
 			PhysicsHandler *a = dynamic_cast<PhysicsHandler *>(SaltyEngine::Engine::Instance().GetPhysicsHandler());
 			if (a)
 				a->SetSize((unsigned int) m_scene->size.x, (unsigned int) m_scene->size.y);
