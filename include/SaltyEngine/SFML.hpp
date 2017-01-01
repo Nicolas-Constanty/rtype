@@ -22,6 +22,7 @@
 #include "SFML/PhysicsHandler.hpp"
 #include "SFML/TextBox.hpp"
 #include "SFML/Label.hpp"
+#include "SFML/LabelList.hpp"
 
 typedef SaltyEngine::Input::InputManager<SaltyEngine::SFML::EventManager>  InputKey;
 
