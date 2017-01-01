@@ -25,6 +25,7 @@ namespace SaltyEngine
 
                 virtual void OnGui() override;
 
+                size_t GetIndex() const;
                 const std::string &GetSelected();
 
                 Component *CloneComponent(GameObject *const obj) override;

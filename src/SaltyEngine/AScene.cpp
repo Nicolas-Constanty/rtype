@@ -397,7 +397,6 @@ namespace SaltyEngine
 			return;
 		}
 		gameobj->transform.SetLocalScale(m_scale);
-//		m_objects.push_back(gameobj);
         m_init.push(gameobj);
     }
 
