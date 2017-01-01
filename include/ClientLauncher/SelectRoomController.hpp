@@ -63,6 +63,7 @@ private:
     SaltyEngine::SFML::Sprite           *m_create_sprite;
     SaltyEngine::GameObject             *labelListObj;
     bool                                launch = false;
+    GETPackageRoom                      *_getPackageRoom = nullptr;
 };
 
 #endif //RTYPE_LOGGERCONTROLLER_HPP

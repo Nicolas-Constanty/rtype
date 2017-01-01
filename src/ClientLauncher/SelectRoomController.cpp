@@ -67,6 +67,7 @@ void SelectRoomController::Join() {
 
         for (GETPackageRoom *getPackageRoom :  listActualRoom) {
             if (it == index) {
+                _getPackageRoom = getPackageRoom;
                 m_roomNetworkManager->GetComponent<RoomNetworkManager>()->SendJoin(getPackageRoom->roomID);
                 if (getPackageRoom->roomPlayer + 1 == getPackageRoom->roomPlayerMax) {
                     launch = true;
@@ -155,9 +156,9 @@ void SelectRoomController::onGetCREATE(CREATEPackageRoom const& ) {
 
 }
 
-void SelectRoomController::onGetJOIN(JOINPackageRoom const &) {
+void SelectRoomController::onGetJOIN(JOINPackageRoom const &join) {
     if (launch)
-        m_roomNetworkManager->GetComponent<RoomNetworkManager>()->SendLaunch(0);
+        m_roomNetworkManager->GetComponent<RoomNetworkManager>()->SendLaunch(join.roomID);
 }
 
 void SelectRoomController::onGetQUIT(QUITPackageRoom const& ) {
@@ -191,8 +192,7 @@ void SelectRoomController::onGetSWAP(SWAPPackageRoom const &swapPackageRoom) {
     m_roomNetworkManager->GetComponent<RoomNetworkManager>()->GetNetworkManager()->SetTransitionNetworkManager(NULL);
     m_roomNetworkManager->GetComponent<RoomNetworkManager>()->GetNetworkManager()->canAddGETPackage = true;
 
-    // TODO changer la scene2 par la bonne scene
-    SaltyEngine::Engine::Instance().LoadScene("scene2");
+        SaltyEngine::Engine::Instance().LoadScene("scene2");
 
     SaltyEngine::GameObject *gameManager = SaltyEngine::GameObject::FindGameObjectWithTag(SaltyEngine::Layer::Tag::GameManager);
 
