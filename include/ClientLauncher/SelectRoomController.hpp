@@ -19,6 +19,8 @@ public:
     virtual ~SelectRoomController();
 
     void Create();
+    void Join();
+    void Quit();
 
     void Start() override;
 
@@ -59,6 +61,8 @@ private:
     SaltyEngine::GameObject             *m_create_button;
     SaltyEngine::SFML::Sprite           *m_select_sprite;
     SaltyEngine::SFML::Sprite           *m_create_sprite;
+    SaltyEngine::GameObject             *labelListObj;
+    bool                                launch = false;
 };
 
 #endif //RTYPE_LOGGERCONTROLLER_HPP
