@@ -23,7 +23,7 @@ namespace SaltyEngine
                 if (!m_labels.size())
                 {
                     const Vector2 &vec = gameObject->transform.GetPosition();
-                    label->setPosition();
+//                    label->setPosition();
                 }
                 else
                 {
@@ -32,7 +32,7 @@ namespace SaltyEngine
             }
 
             void LabelList::RemoveLabel(size_t index) {
-                int i = 0;
+                size_t i = 0;
                 for (std::vector<Label *>::const_iterator it = m_labels.begin(); it != m_labels.end(); ++it) {
                     if (i == index)
                         m_labels.erase(it);
@@ -41,20 +41,20 @@ namespace SaltyEngine
             }
 
             void LabelList::Update() {
-                if (InputKey::GetKeyDown(Input::KeyCode::Down))
-                {
-                    ++m_index;
-                    if (m_index >= m_labels.size())
-                        m_index = 0;
-                }
-                else if (InputKey::GetKeyDown(Input::KeyCode::Up))
-                {
-                    --m_index;
-                    if (m_index < 0)
-                        m_index = m_labels.size() -1;
-                }
-                if (m_labels[m_index]->getColor() != sf::Color::Cyan)
-                    m_labels[m_index]->setColor(sf::Color::Cyan);
+//                if (InputKey::GetKeyDown(Input::KeyCode::Down))
+//                {
+//                    ++m_index;
+//                    if (m_index >= m_labels.size())
+//                        m_index = 0;
+//                }
+//                else if (InputKey::GetKeyDown(Input::KeyCode::Up))
+//                {
+//                    --m_index;
+//                    if (m_index < 0)
+//                        m_index = m_labels.size() -1;
+//                }
+//                if (m_labels[m_index]->getColor() != sf::Color::Cyan)
+//                    m_labels[m_index]->setColor(sf::Color::Cyan);
             }
         }
     }
