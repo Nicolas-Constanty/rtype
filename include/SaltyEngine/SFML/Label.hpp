@@ -30,6 +30,8 @@ namespace SaltyEngine
                 const Label &operator+=(const std::string &);
 
                 void Clear();
+
+                void Update() override;
             };
         }
     }
