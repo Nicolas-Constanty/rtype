@@ -22,7 +22,8 @@ namespace SaltyEngine
                 m_labels.push_back(label);
                 int offset = 10;
                 const Vector2 &vec = gameObject->transform.GetPosition();
-                label->setPosition(gameObject->transform.GetPosition().x, gameObject->transform.GetPosition().y  + m_labels.size() * label->getCharacterSize() + offset);
+//                std::cout << gameObject->transform.GetPosition().y  + m_labels.size() * label->getCharacterSize() + offset << std::endl;
+//                label->setPosition(gameObject->transform.GetPosition().x, gameObject->transform.GetPosition().y  + m_labels.size() * label->getCharacterSize() + offset);
             }
 
             void LabelList::RemoveLabel(size_t index) {
@@ -47,7 +48,7 @@ namespace SaltyEngine
                     if (m_index < 0)
                         m_index = m_labels.size() -1;
                 }
-                if (m_labels[m_index]->getColor() != sf::Color::Cyan)
+                if (m_labels.size() && m_labels[m_index]->getColor() != sf::Color::Cyan)
                     m_labels[m_index]->setColor(sf::Color::Cyan);
             }
         }
