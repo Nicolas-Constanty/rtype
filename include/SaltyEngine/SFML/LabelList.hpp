@@ -22,11 +22,13 @@ namespace SaltyEngine
                 void AddLabel(Label * const label);
                 void RemoveLabel(size_t index);
 
-                void Update();
+                virtual void OnGui() override;
+
+                const std::string &GetSelected();
 
             private:
                 std::vector<Label *> m_labels;
-                size_t  m_index;
+                long  m_index;
             };
         }
     }

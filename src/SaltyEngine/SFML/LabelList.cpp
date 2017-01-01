@@ -20,10 +20,6 @@ namespace SaltyEngine
 
             void LabelList::AddLabel(Label *const label) {
                 m_labels.push_back(label);
-                int offset = 10;
-                const Vector2 &vec = gameObject->transform.GetPosition();
-//                std::cout << gameObject->transform.GetPosition().y  + m_labels.size() * label->getCharacterSize() + offset << std::endl;
-//                label->setPosition(gameObject->transform.GetPosition().x, gameObject->transform.GetPosition().y  + m_labels.size() * label->getCharacterSize() + offset);
             }
 
             void LabelList::RemoveLabel(size_t index) {
@@ -35,21 +31,31 @@ namespace SaltyEngine
                 }
             }
 
-            void LabelList::Update() {
+            void LabelList::OnGui() {
+                int offset = 10;
+                for (int j = 0; j < m_labels.size(); ++j) {
+                    m_labels[j]->setPosition(gameObject->transform.GetPosition().x, gameObject->transform.GetPosition().y  + j * m_labels[j]->getCharacterSize() + offset);
+                }
                 if (InputKey::GetKeyDown(Input::KeyCode::Down))
                 {
+                    m_labels[m_index]->setColor(sf::Color::White);
                     ++m_index;
                     if (m_index >= m_labels.size())
                         m_index = 0;
                 }
                 else if (InputKey::GetKeyDown(Input::KeyCode::Up))
                 {
+                    m_labels[m_index]->setColor(sf::Color::White);
                     --m_index;
                     if (m_index < 0)
                         m_index = m_labels.size() -1;
                 }
                 if (m_labels.size() && m_labels[m_index]->getColor() != sf::Color::Cyan)
                     m_labels[m_index]->setColor(sf::Color::Cyan);
+            }
+
+            const std::string &LabelList::GetSelected() {
+                return m_labels[m_index]->GetText();
             }
         }
     }

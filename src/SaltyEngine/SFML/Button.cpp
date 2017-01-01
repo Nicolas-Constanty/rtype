@@ -104,10 +104,13 @@ namespace SaltyEngine
                         for (std::list<SaltyBehaviour *>::const_iterator it = list.begin(); it != list.end(); ++it)
                             (*it)->OnMouseOver();
                     }
-                    const sf::Event &e = eve->GetEvent().front();
-                    if (e.type == sf::Event::MouseButtonPressed && e.mouseButton.button == sf::Mouse::Left)
+                    if (!eve->GetEvent().empty())
                     {
-                        OnPointerClick();
+                        const sf::Event &e = eve->GetEvent().front();
+                        if (e.type == sf::Event::MouseButtonPressed && e.mouseButton.button == sf::Mouse::Left)
+                        {
+                            OnPointerClick();
+                        }
                     }
                 }
                 else if (m_status)
