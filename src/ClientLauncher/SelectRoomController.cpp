@@ -24,6 +24,13 @@ void SelectRoomController::Start() {
     ll->AddLabel(obj->AddComponent<SaltyEngine::GUI::SFML::Label>("Item 4", 30, font));
     ll->AddLabel(obj->AddComponent<SaltyEngine::GUI::SFML::Label>("Item 5", 30, font));
 
+    m_create_button = gameObject->transform.GetChild(3)->gameObject;
+    gameObject->GetComponent<SaltyEngine::GUI::SFML::Button>()->onClick.AddListener(
+            "create",
+            std::bind(&SelectRoomController::Create, this)
+    );
+    m_select_sprite = SaltyEngine::SFML::AssetManager::Instance().GetSprite("GUI/menu_room");
+    m_create_sprite = SaltyEngine::SFML::AssetManager::Instance().GetSprite("GUI/menu_create");
 
     std::cout << "start ?" << this << std::endl;
 
@@ -39,6 +46,11 @@ void SelectRoomController::Start() {
         }
         m_roomNetworkManager->GetComponent<RoomNetworkManager>()->GetNetworkManager()->canAddGETPackage = false;
     }
+}
+
+void SelectRoomController::Create() {
+    SaltyEngine::SFML::SpriteRenderer *sprr = gameObject->GetComponent<SaltyEngine::SFML::SpriteRenderer>();
+    sprr->SetSprite(m_select_sprite);
 }
 
 void SelectRoomController::ListRoomGestion(GETPackageRoom const &pack) {
