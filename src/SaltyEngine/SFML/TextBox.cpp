@@ -20,10 +20,10 @@ SaltyEngine::GUI::SFML::TextBox::TextBox(SaltyEngine::GameObject *gameObj, const
     m_cursor.setFont(m_font);
     m_cursor.setString("|");
     m_cursor.setCharacterSize(font_size);
-    m_cursor.setFillColor(font_color);
+    m_cursor.setColor(font_color);
     m_cursor.setPosition(2, 0);
     m_text.setFont(m_font);
-    m_text.setFillColor(font_color);
+    m_text.setColor(font_color);
     m_text.setPosition(2, 0);
     m_text.setCharacterSize(font_size);
     m_max_size = 0;
