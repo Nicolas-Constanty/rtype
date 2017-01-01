@@ -46,6 +46,7 @@ namespace SaltyEngine
             const sf::Texture &GetTexture() const;
 
             const sf::Sprite &GetSprite() const;
+            void SetSize(unsigned int x, unsigned y);
 
 //            const PixelStack &GetDrawPixels() const;
 
