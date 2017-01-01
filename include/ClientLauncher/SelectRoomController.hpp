@@ -57,10 +57,10 @@ private:
     SaltyEngine::GUI::SFML::TextBox *m_text = nullptr;
     SaltyEngine::GameObject *m_roomNetworkManager = nullptr;
     std::list<GETPackageRoom *>             listActualRoom;
+    SaltyEngine::GameObject             *m_create_menu;
+    SaltyEngine::GameObject             *m_select_menu;
 
     SaltyEngine::GameObject             *m_create_button;
-    SaltyEngine::SFML::Sprite           *m_select_sprite;
-    SaltyEngine::SFML::Sprite           *m_create_sprite;
     SaltyEngine::GameObject             *labelListObj;
     bool                                launch = false;
     GETPackageRoom                      *_getPackageRoom = nullptr;

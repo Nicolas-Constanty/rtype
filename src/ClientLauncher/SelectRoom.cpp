@@ -13,7 +13,7 @@ SelectRoom::SelectRoom() : GameObject("SelectRoom")
     const SaltyEngine::Engine &engine = SaltyEngine::Engine::Instance();
 
     SaltyEngine::GameObject *select_menu = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate());
-    select_menu->SetName("CreateMenu");
+    select_menu->SetName("SelectMenu");
 
     SaltyEngine::GameObject *background = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate());
     background->AddComponent<SaltyEngine::SFML::SpriteRenderer>(SaltyEngine::SFML::AssetManager::Instance().GetSprite("GUI/menu_room"), SaltyEngine::Layout::background);

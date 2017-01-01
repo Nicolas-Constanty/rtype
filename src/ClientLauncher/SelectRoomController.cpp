@@ -14,6 +14,9 @@ SelectRoomController::~SelectRoomController()
 
 void SelectRoomController::Start() {
 
+    m_create_menu = SaltyEngine::GameObject::FindHide("CreateMenu");
+    m_select_menu = SaltyEngine::GameObject::FindHide("SelectMenu");
+
     SaltyEngine::GameObject *obj = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate());
     obj->SetName("GameObjectLabelList");
     obj->AddComponent<SaltyEngine::GUI::SFML::LabelList>();
@@ -21,22 +24,19 @@ void SelectRoomController::Start() {
     labelListObj = obj;
     obj->transform.SetPosition(SaltyEngine::Vector2(360, 200));
 
-    m_create_button = gameObject->transform.GetChild(3)->gameObject;
+    m_create_button = m_select_menu->transform.GetChild(3)->gameObject;
     m_create_button->GetComponent<SaltyEngine::GUI::SFML::Button>()->onClick.AddListener(
             "create",
             std::bind(&SelectRoomController::Create, this)
     );
-    gameObject->transform.GetChild(1)->gameObject->GetComponent<SaltyEngine::GUI::SFML::Button>()->onClick.AddListener(
+    m_select_menu->transform.GetChild(1)->gameObject->GetComponent<SaltyEngine::GUI::SFML::Button>()->onClick.AddListener(
             "join",
             std::bind(&SelectRoomController::Join, this)
     );
-    gameObject->transform.GetChild(2)->gameObject->GetComponent<SaltyEngine::GUI::SFML::Button>()->onClick.AddListener(
+    m_select_menu->transform.GetChild(2)->gameObject->GetComponent<SaltyEngine::GUI::SFML::Button>()->onClick.AddListener(
             "quit",
             std::bind(&SelectRoomController::Quit, this)
     );
-
-    m_select_sprite = SaltyEngine::SFML::AssetManager::Instance().GetSprite("GUI/menu_room");
-    m_create_sprite = SaltyEngine::SFML::AssetManager::Instance().GetSprite("GUI/menu_create");
 
     m_roomNetworkManager = SaltyEngine::GameObject::Find("RoomNetworkManager");
 
@@ -83,13 +83,8 @@ void SelectRoomController::Quit() {
 }
 
 void SelectRoomController::Create() {
-    SaltyEngine::SFML::SpriteRenderer *sprr = gameObject->transform.GetChild(0)->gameObject->GetComponent<SaltyEngine::SFML::SpriteRenderer>();
-    if (sprr)
-    {
-        SaltyEngine::GameObject *gm = SaltyEngine::GameObject::FindHide("CreateMenu");
-        if (gm)
-            gm->SetActive(true);
-    }
+    m_select_menu->SetActive(false);
+    m_create_menu->SetActive(true);
 }
 
 void SelectRoomController::ListRoomGestion(GETPackageRoom const &pack) {
