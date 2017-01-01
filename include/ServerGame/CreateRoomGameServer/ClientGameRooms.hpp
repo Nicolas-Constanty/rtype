@@ -5,11 +5,16 @@
 #ifndef RTYPE_BASETCP_HPP
 #define RTYPE_BASETCP_HPP
 
+#ifdef _WIN32
+
+#else
+#include <unistd.h>
+#include <sys/select.h>
+#endif
+
 #include <memory>
 #include <Network/Core/NativeSocketIOOperationDispatcher.hpp>
-#include <unistd.h>
 #include <vector>
-#include <sys/select.h>
 #include <sstream>
 #include <queue>
 #include <cstdlib>

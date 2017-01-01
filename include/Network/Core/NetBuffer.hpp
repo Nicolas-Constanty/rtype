@@ -23,7 +23,7 @@ namespace Network
         /**
          * \brief Class used to abstract the network buffer in which packets will be stored. You can either serialize or deserialize objects
          */
-        class LIB_EXPORT NetBuffer
+        class PREF_EXPORT NetBuffer
         {
         public:
 //            static const size_t size;

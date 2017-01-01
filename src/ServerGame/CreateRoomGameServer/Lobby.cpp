@@ -2,15 +2,21 @@
 // Created by victor on 06/12/16.
 //
 
+#ifdef _WIN32
+
+#else
+#include <unistd.h>
+#endif
+
 #include <string>
 #include <iostream>
-#include <unistd.h>
 #include <Process/Process.hpp>
 #include "ServerGame/CreateRoomGameServer/Lobby.hpp"
 
 Lobby::Lobby(IMutex &mutex, ILobbyHandler &lobbyHandler) : mutex(mutex), lobbyHandler(lobbyHandler) {
     lobbyInfo = NULL;
     launch = false;
+	running = false;
 }
 
 Lobby::~Lobby() {
@@ -18,7 +24,8 @@ Lobby::~Lobby() {
 }
 
 void Lobby::waitingRoom() {
-    for (;;) {
+	SetRunning(true);
+    for (;IsRunning();) {
         if (mutex.tryLock() > 0) {
             if (launch && lobbyInfo) {
                 CreateServerGame();
@@ -26,7 +33,11 @@ void Lobby::waitingRoom() {
                 mutex.unlock();
             }
         }
-        usleep(5000);
+#ifdef _WIN32
+		Sleep(5000);
+#else
+		usleep(5000);
+#endif // _WIN32
     }
 }
 
@@ -42,15 +53,41 @@ bool Lobby::IsLaunch() const {
     return launch;
 }
 
+bool		Lobby::IsRunning() const
+{
+	bool toret;
+
+	runMutex.lock();
+	toret = running;
+	runMutex.unlock();
+	return toret;
+}
+
+void		Lobby::SetRunning(bool run)
+{
+	runMutex.lock();
+	running = run;
+	runMutex.unlock();
+}
+
 void Lobby::CreateServerGame() {
     OSProcess    process;
 
     ///TODO changer le sleep 10 par le binaire du server Game
     mutex.unlock();
-    std::string binary = "./GameServer -l scene" + std::to_string(lobbyInfo->GetMapID()) + "Server"
+	std::string binary;
+	
+#ifdef _WIN32
+	binary = "./GameServer.exe -l scene" + std::to_string(lobbyInfo->GetMapID()) + "Server"
+		+ " -m " + std::to_string(lobbyInfo->GetMaxNbrClient())
+		+ " -p " + std::to_string(lobbyInfo->GetPort())
+		+ " -s " + std::to_string(lobbyInfo->GetSecret());
+#else
+	binary = "./GameServer -l scene" + std::to_string(lobbyInfo->GetMapID()) + "Server"
                          + " -m " + std::to_string(lobbyInfo->GetMaxNbrClient())
                          + " -p " + std::to_string(lobbyInfo->GetPort())
                          + " -s " + std::to_string(lobbyInfo->GetSecret());
+#endif
     process.Launch(binary);
     if (!process.IsChild()) {
         lobbyHandler.OnProcessBegin(lobbyInfo);
