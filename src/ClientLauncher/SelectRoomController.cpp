@@ -34,6 +34,9 @@ void SelectRoomController::Start() {
             ListRoomGestion(*getPackageRoom);
         }
         m_roomNetworkManager->GetComponent<RoomNetworkManager>()->GetNetworkManager()->canAddGETPackage = false;
+
+        //TODO A ENLEVER
+        m_roomNetworkManager->GetComponent<RoomNetworkManager>()->SendJoin(1);
     }
 }
 
@@ -98,8 +101,14 @@ void SelectRoomController::onGetPLUGGED(PLUGGEDPackageRoom const& ) {
 
 }
 
-void SelectRoomController::onGetSWAP(SWAPPackageRoom const& ) {
+void SelectRoomController::onGetSWAP(SWAPPackageRoom const &swapPackageRoom) {
+    std::string ip = Network::Socket::ASocket::getIPFromUInt(swapPackageRoom.addrIP);
+    unsigned int port = swapPackageRoom.port;
+    unsigned int secret = swapPackageRoom.secret;
 
+    std::cout << "lancement sur le port " << port << " avec ip " << ip << " avec secret " << secret << std::endl;
+
+    SaltyEngine::Engine::Instance().LoadScene("scene2");
 }
 
 void SelectRoomController::onGetGET(GETPackageRoom const& room) {
