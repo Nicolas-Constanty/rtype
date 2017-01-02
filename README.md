@@ -78,10 +78,10 @@ Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c6
 
 ## Authors
 
-* **Victor Gouet** - *Project Manager* - [Github](https://github.com/Gouet)
+* **Victor Gouet** - *Project Manager/Programmer server room/Programmer server game/Programmer gameDispatcher/Protocol* - [Github](https://github.com/Gouet)
 * **Quentin Gasparotto** - *Programmer server* - [Github](https://github.com/GasparQ)
 * **Adrien Wery** - *Programmer server* - [Github](https://github.com/Adpa18)
-* **Fernand Veyrier** - *Programmer client* - [Github](https://github.com/FernandVEYRIER)
+* **Fernand Veyrier** - *Programmer GameEngine/Client* - [Github](https://github.com/FernandVEYRIER)
 * **Nicolas Constanty** - *Programmer GameEngine/GraphicUserInterface client* - [Github](https://github.com/Nicolas-Constanty)
 
 See also the list of [contributors](https://github.com/Nicolas-Constanty/rtype/graphs/contributors) who participated in this project.
