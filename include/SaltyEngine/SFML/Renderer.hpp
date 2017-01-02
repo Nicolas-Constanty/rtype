@@ -40,11 +40,7 @@ namespace SaltyEngine
 			virtual ~Renderer();
 			void Display() override;
             virtual void RemoveSpriteRenderer(GameObject * const gm) override;
-			//sf::RenderWindow *GetRenderWindow(void) const;
 			void DrawDebug();
-
-		protected:
-			//std::unique_ptr<sf::RenderWindow> m_window;
 
 		private:
 			void DrawGame() const;

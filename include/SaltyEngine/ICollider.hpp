@@ -11,7 +11,6 @@ namespace SaltyEngine
 	{
 	public:
 		virtual void Display(void) = 0;
-		//virtual IRect<T> *GetBound(void) const = 0;
 	};
 }
 

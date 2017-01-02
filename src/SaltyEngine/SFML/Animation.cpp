@@ -83,18 +83,13 @@ namespace SaltyEngine
         }
 
         void Animation::UpdateAnimations() {
-            // If we are playing animations and we have a clip
             if (m_isPlaying && clip != nullptr && clip->GetFrames().size()) {
-                // If we do not have animData yet
                 if (animData == nullptr) {
                     animData = new AnimData(clip, gameObject->GetComponent<SpriteRenderer>());
                 }
-                // Update anim
                 if (animData != nullptr) {
                     animData->UpdateAnimTimeline(Engine::Instance().GetFixedDeltaTime());
                     if (animData->IsAnimOver()) {
-
-                        // If we have some anims queued, play them
                         if (m_queuedAnims.size() > 0) {
 
                             Play(m_queuedAnims.back());

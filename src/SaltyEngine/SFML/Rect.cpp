@@ -36,7 +36,6 @@ namespace SaltyEngine
                 BasicRect<sf::Vector2i> *re = dynamic_cast<BasicRect<sf::Vector2i> *>(rect);
                 if (re)
                 {
-//						return BasicRect<sf::Vector2i>::Intersect(re);
                     return intersects(sf::IntRect(re->_left, re->_top, re->_width, re->_height));
                 }
             }

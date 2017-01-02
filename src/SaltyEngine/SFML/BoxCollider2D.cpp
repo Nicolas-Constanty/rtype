@@ -43,17 +43,6 @@ namespace SaltyEngine
                     }
                 }
             }
-//            else
-//            {
-//                //::SaltyEngine::BasicRect<sf::Vector2i> *rect = dynamic_cast<::SaltyEngine::BasicRect<sf::Vector2i> *>(m_bounds);
-//                l = (int) (gameObject->transform.position.x - rect->_width / 2);
-//                rect->_top = (int) (gameObject->transform.position.y - rect->_height / 2);
-//                m_quad[0].position = sf::Vector2f((float)rect->_left, (float)rect->_top);
-//                m_quad[1].position = sf::Vector2f((float)(rect->_left + rect->_width), (float)rect->_top);
-//                m_quad[2].position = sf::Vector2f((float)(rect->_left + rect->_width), (float)(rect->_top + rect->_height));
-//                m_quad[3].position = sf::Vector2f((float)rect->_left, (float)(rect->_top + rect->_height));
-//                m_quad[4].position = sf::Vector2f((float)rect->_left, (float)rect->_top);
-//            }
         }
 
         const sf::VertexArray &BoxCollider2D::GetVertex(void) const {

@@ -265,8 +265,6 @@ coroutine::Ordinator	&Singleton<coroutine::Ordinator>::Instance();
 
 namespace coroutine
 {
-//	thread_local static Ordinator Singleton<Ordinator>::Instance();
-
 	inline routine_t create(std::function<void()> f)
 	{
 		Routine *routine = new Routine(f);
@@ -319,27 +317,16 @@ namespace coroutine
 
 		if (routine->stack == nullptr)
 		{
-			//initializes the structure to the currently active context.
-			//When successful, getcontext() returns 0
-			//On error, return -1 and set errno appropriately.
 			getcontext(&routine->ctx);
 
-			//Before invoking makecontext(), the caller must allocate a new stack
-			//for this context and assign its address to ucp->uc_stack,
-			//and define a successor context and assign its address to ucp->uc_link.
 			routine->stack = new char[Singleton<Ordinator>::Instance().stack_size];
 			routine->ctx.uc_stack.ss_sp = routine->stack;
 			routine->ctx.uc_stack.ss_size = Singleton<Ordinator>::Instance().stack_size;
 			routine->ctx.uc_link = &Singleton<Ordinator>::Instance().ctx;
 			Singleton<Ordinator>::Instance().current = id;
 
-			//When this context is later activated by swapcontext(), the function entry is called.
-			//When this function returns, the  successor context is activated.
-			//If the successor context pointer is NULL, the thread exits.
 			makecontext(&routine->ctx, (void(*)(void))entry, 0);
 
-			//The swapcontext() function saves the current context,
-			//and then activates the context of another.
 			swapcontext(&Singleton<Ordinator>::Instance().ctx, &routine->ctx);
 		}
 		else

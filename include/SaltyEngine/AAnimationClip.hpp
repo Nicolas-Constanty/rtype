@@ -6,11 +6,9 @@
 
 namespace SaltyEngine
 {
-//	template <class T>
 	class LIB_EXPORT AAnimationClip : public Object
 	{
 	protected:
-//		std::list<std::function<void()>> m_events;
 		std::map<size_t, std::function<void()>> m_events;
         std::function<void()> m_event_end = nullptr;
 		int m_frameRate = 60;
@@ -33,7 +31,6 @@ namespace SaltyEngine
             if (frame == -1)
                 m_event_end = event;
             else
-//    			m_events.push_back(event);
     			m_events[frame] = event;
 		}
 

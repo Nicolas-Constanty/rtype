@@ -22,10 +22,6 @@ namespace SaltyEngine
 				Debug::PrintWarning("Main window has been closed!");
 		}
 
-		/*sf::RenderWindow *Renderer::GetRenderWindow(void) const {
-			return m_window.get();
-		}*/
-
 		void Renderer::DrawDebug() {
 			for (std::list<BoxCollider2D *>::const_iterator it = m_debug.begin(); it != m_debug.end(); ++it) {
                 if ((*it)->IsDebug())
@@ -48,14 +44,10 @@ namespace SaltyEngine
 
 		void Renderer::DrawSprites(const SpriteList &sprite_list) const {
 			for (SpriteList::const_iterator it = sprite_list.begin(); it != sprite_list.end(); ++it) {
-//				(*(*it).spr)->setPosition(
-//						(*it).gm->transform.position.x * (*it).gm->transform.localScale.x - ((*it).rect->width * (*it).gm->transform.localScale.x / 2),
-//						(*it).gm->transform.position.y * (*it).gm->transform.localScale.y - ((*it).rect->height * (*it).gm->transform.localScale.y / 2)
-//				 );
 				if ((*it).gm->ShouldBeRenderer() && (*it).gm->GetActiveSelf()) {
                     Color color = (*it).sprr->GetColor();
                     color *= 255;
-                    (*(*it).spr)->setColor(sf::Color(color.r(), color.g(), color.b(), color.a()));
+                    (*(*it).spr)->setColor(sf::Color((sf::Uint8) color.r(), (sf::Uint8) color.g(), (sf::Uint8) color.b(), (sf::Uint8) color.a()));
 					(*it).wind->draw((*(*(*it).spr)));
 				}
 			}

@@ -468,7 +468,6 @@ namespace SaltyEngine {
                         const JsonVariant::json_pair *prefabs = boost::get<JsonVariant::json_pair *>(map["prefabs"].get());
 
                         for (JsonVariant::json_pair::const_iterator prefab = prefabs->begin(); prefab != prefabs->end(); ++prefab) {
-    //                        std::string const &objectName = prefab->first; //not used
                             std::string const &prefabName = prefab->second["prefabName"]();
                             Vector2f    const &position = Vector2f(std::stoi(prefab->second["position"]["x"]()), std::stoi(prefab->second["position"]["y"]()));
                             if (LoadPrefab(prefabName)) {
@@ -549,7 +548,7 @@ namespace SaltyEngine {
                 }
                 if (filename.substr(dotPos) == Asset::META_EXTENSION) {
                     Debug::PrintSuccess("Loading prefab [ " + filename + " ]");
-                    /*SaltyEngine::Asset::ASSET_LOADER *loader = */Factory::Instance().LoadAsset(path_metas + filename);
+                    Factory::Instance().LoadAsset(path_metas + filename);
                 }
             }
         }
@@ -592,7 +591,6 @@ namespace SaltyEngine {
             struct dirent   *ent;
 
             if ((dir = opendir(folder.c_str())) != NULL) {
-                /* get all the files and directories within directory */
                 while ((ent = readdir(dir)) != NULL)
                 {
                     std::string filename = std::string(ent->d_name);

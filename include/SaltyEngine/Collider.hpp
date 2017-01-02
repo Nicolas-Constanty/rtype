@@ -46,7 +46,6 @@ namespace SaltyEngine
 		virtual ~ACollider2D() {};
 
 	protected:
-		//RigidBody2D	*m_attachedRigidbody;	// The rigidbody the collider is attached to.
 		BasicRect<T>	*m_bounds;				// The world space bounding volume of the collider.
 		bool		m_enabled;				// Enabled Colliders will collide with other colliders, disabled Colliders won't.
 		bool		m_trigger;				// Is the collider a trigger ?

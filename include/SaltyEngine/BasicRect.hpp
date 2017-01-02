@@ -40,16 +40,8 @@ namespace SaltyEngine
 			Vector2 downleft(static_cast<float>(r->_left), static_cast<float>(r->_top + r->_height));
 			Vector2 downright(static_cast<float>(r->_left + r->_width), static_cast<float>(r->_top + r->_height));
 
-            bool ret = (_Contain(topleft) || _Contain(topright) ||
-                        _Contain(downleft) || _Contain(downright));
-          //  std::cout << topleft << " " <<  _left << " " << _top << std::endl;
-            if (ret)
-            {
-                std::cout << "==========================================================" << std::endl;
-                std::cout << _left << ", " << _top << ", " << _width<< ", " << _height << std::endl;
-                std::cout << r->_left << ", " << r->_top << ", " << r->_width<< ", " << r->_height << std::endl;
-            }
-			return ret;
+			return (_Contain(topleft) || _Contain(topright) ||
+					_Contain(downleft) || _Contain(downright));
 		};
 
 	public:

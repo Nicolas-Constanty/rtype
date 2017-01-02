@@ -35,13 +35,10 @@ namespace SaltyEngine {
                     case sf::Event::EventType::KeyPressed:
                         m_keys[event.key.code] = ::SaltyEngine::Input::ActionType::Pressed;
                         m_keys_up[event.key.code] = false;
-//                        ::SaltyEngine::Input::Mapping::CallAxis(GetKeyCode(event.key.code));
-//                        ::SaltyEngine::Input::Mapping::CallAction(GetKeyCode(event.key.code), ::SaltyEngine::Input::ActionType::Pressed);
                         break;
                     case sf::Event::EventType::KeyReleased:
                         m_keys[event.key.code] = ::SaltyEngine::Input::ActionType::Released;
                         m_keys_down[event.key.code] = false;
-//                        ::SaltyEngine::Input::Mapping::CallAction(GetKeyCode(event.key.code), ::SaltyEngine::Input::ActionType::Released);
                         break;
                     case sf::Event::EventType::JoystickButtonPressed:
                         break;

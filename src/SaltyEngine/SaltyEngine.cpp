@@ -96,7 +96,6 @@ namespace SaltyEngine
 		Start();
 		std::chrono::nanoseconds lag(0);
 		std::chrono::time_point<std::chrono::high_resolution_clock> time_start = std::chrono::high_resolution_clock::now();
-//		bool st = true;
 		while (m_status != EngineStatus::stop)
 		{
 			m_delta_time = std::chrono::high_resolution_clock::now() - time_start;
@@ -106,12 +105,6 @@ namespace SaltyEngine
 			AScene *scene = m_scenes[m_current].get();
 			scene->OnStart();
 			scene->OnEnable();
-			// Control Frame Rate
-//			if (m_physics_handler)
-//			{
-//				XInitThreads();
-//			}
-
 
 			while (lag >= m_frame_rate)
 			{
@@ -121,7 +114,6 @@ namespace SaltyEngine
 					if (m_status != EngineStatus::pause)
 					{
 						scene->FixedUpdate();
-						//m_scenes[m_current]->UpdatePhysics();
 						if (m_physics_handler)
 						{
 							m_physics_handler->Clear();
@@ -153,13 +145,6 @@ namespace SaltyEngine
 			scene->OnGui();
 			scene->OnDisable();
 			scene->OnDestroy();
-//			if (m_physics_handler && st)
-//			{
-//				std::cout << "pouet" << std::endl;
-//				sf::Thread thread(&IPhysicsHandler::Run, m_physics_handler);
-//				thread.launch();
-//				st = false;
-//			}
 			m_renderer->Display();
 			scene->Destroy();
 		}
@@ -322,64 +307,6 @@ namespace SaltyEngine
 	{
 		return m_renderer;
 	}
-
-//	/**
-//	 * \brief Will load all the assets contained in the folder
-//	 */
-//	void SaltyEngine::LoadAssets() noexcept
-//	{
-//#if _WIN32
-//		WIN32_FIND_DATA findFileData;
-//		HANDLE hFind;
-//		CHAR str[256];
-//
-//		_getcwd(str, sizeof(str));
-//		hFind = FindFirstFile(std::string(std::string(str) + Asset::ASSET_PATH + "\\*").c_str(), &findFileData);
-//
-//		while (hFind != INVALID_HANDLE_VALUE)
-//		{
-//			std::string assetName = std::string(findFileData.cFileName);
-//			if (assetName.length() >= Asset::LIB_EXTENSION.length()
-//				&& assetName.compare(assetName.length() - Asset::LIB_EXTENSION.length(), Asset::LIB_EXTENSION.length(), Asset::LIB_EXTENSION) == 0)
-//			{
-//				std::cout << "Loading asset [" << assetName << "]" << std::endl;
-//				std::string assetPath = std::string(str) + Asset::ASSET_PATH + "\\" + assetName;
-//				Factory::LoadAsset(assetPath);
-//			}
-//			if (FindNextFile(hFind, &findFileData) == FALSE)
-//				break;
-//		}
-//		FindClose(hFind);
-//#else
-//		DIR *dir;
-//		struct dirent *ent;
-//        char str[256];
-//
-//        getcwd(str, sizeof(str));
-//
-//		if ((dir = opendir(std::string(std::string(str) + Asset::ASSET_PATH).c_str())) != NULL)
-//		{
-//			/* get all the files and directories within directory */
-//			while ((ent = readdir(dir)) != NULL)
-//			{
-//                std::string assetName = std::string(ent->d_name);
-//                if (assetName.length() >= Asset::LIB_EXTENSION.length()
-//                    && assetName.compare(assetName.length() - Asset::LIB_EXTENSION.length(), Asset::LIB_EXTENSION.length(), Asset::LIB_EXTENSION) == 0)
-//                {
-//                    std::cout << "Loading asset [" << assetName << "]" << std::endl;
-//                    std::string assetPath = std::string(str) + Asset::ASSET_PATH + "/" + assetName;
-//                    Factory::LoadAsset(assetPath);
-//                }
-//			}
-//			closedir(dir);
-//		}
-//		else
-//		{
-//			/* could not open directory */
-//			perror("");
-//		}
-//#endif
-//	}
 
 	/**
 	 * @fn	void SaltyEngine::operator<<(Scene *scene)

@@ -4,9 +4,6 @@
 
 namespace SaltyEngine
 {
-	/** @brief	Identifier for the object s. */
-	 //int Object::s_id;
-
 	/**
 	* @fn	uid Object::GetInstanceID() const
 	*

@@ -77,7 +77,7 @@ namespace SaltyEngine
             }
 
             size_t LabelList::GetIndex() const {
-                return m_index;
+                return (size_t) m_index;
             }
         }
     }

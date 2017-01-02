@@ -499,20 +499,3 @@ namespace SaltyEngine
         return remaining_objects;
 	}
 }
-
-/**
- * @fn	std::ostream & operator<<(std::ostream &os, SaltyEngine::AScene &scene)
- *
- * @brief	Stream insertion operator.
- *
- * @param [in,out]	os   	The operating system.
- * @param [in,out]	scene	The scene.
- *
- * @return	The shifted result.
- */
-
-//std::ostream & operator<<(std::ostream &os, SaltyEngine::AScene &scene)
-//{
-//	os << "AScene " << scene.GetName() << " :" << std::endl;
-//	return (os);
-//}

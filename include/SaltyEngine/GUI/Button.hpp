@@ -16,7 +16,6 @@ namespace SaltyEngine
 			explicit Button(GameObject* gameObj)
 				: Selectable("Button", gameObj)
 			{
-				//gameObject->AddComponent<>()
 			}
 
 			Button(const std::string& name, GameObject* gameObj)

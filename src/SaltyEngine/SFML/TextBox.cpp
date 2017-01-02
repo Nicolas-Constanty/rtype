@@ -100,7 +100,7 @@ void SaltyEngine::GUI::SFML::TextBox::Update() {
 }
 
 void SaltyEngine::GUI::SFML::TextBox::Start() {
-    m_text.setCharacterSize(m_text.getCharacterSize() * gameObject->transform.GetLocalScale().y);
+    m_text.setCharacterSize((unsigned int) (m_text.getCharacterSize() * gameObject->transform.GetLocalScale().y));
     const Vector2 &vec = gameObject->transform.GetPosition();
     const Vector2 &sc = gameObject->transform.GetLocalScale();
     m_cursor.setPosition(vec.x * sc.x - m_entry.getSize().x + 8 + m_text.getGlobalBounds().width, vec.y * sc.y + m_entry.getSize().y / 2);

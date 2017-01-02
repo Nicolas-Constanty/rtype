@@ -128,11 +128,6 @@ namespace SaltyEngine
         }
 
         void SpriteCollider2D::UpdateCollisions(SpriteCollider2D *col) {
-//            if (!col)
-//            {
-//                Debug::PrintWarning("Cannot collide with null");
-//                return;
-//            }
             AScene *scene = SaltyEngine::Engine::Instance().GetCurrentScene();
             const std::list<SaltyBehaviour *> &sb = gameObject->GetSaltyBehaviour();
             if (m_collisions.find(col) == m_collisions.end())
@@ -159,8 +154,6 @@ namespace SaltyEngine
         }
 
         void SpriteCollider2D::RemoveCollisions() {
-//            std::stack<SpriteCollider2D *> deleted;
-
             AScene *scene = SaltyEngine::Engine::Instance().GetCurrentScene();
             erase_if(m_collisions, [this, scene](const std::pair<SpriteCollider2D *, bool> p){
                 if (!p.second) {
@@ -176,27 +169,6 @@ namespace SaltyEngine
                 }
                 return false;
             });
-//            if (m_collisions.size()) {
-//                for (std::map<SpriteCollider2D *, bool>::iterator p = m_collisions.begin();
-//                     p != m_collisions.end(); ++p) {
-//                    if (!p->second) {
-//                        const std::list<SaltyBehaviour *> &sb = gameObject->GetSaltyBehaviour();
-//                        for (std::list<SaltyBehaviour *>::const_iterator it = sb.begin(); it != sb.end(); ++it) {
-//                            if (p->first->IsTrigger())
-//                                scene->PushOnTriggerExit(std::bind(&SaltyBehaviour::OnTriggerExit, (*it), p->first));
-//                            else
-//                                scene->PushOnCollisionExit(
-//                                        std::bind(&SaltyBehaviour::OnCollisionExit, (*it), p->first));
-//                        }
-//                        deleted.push(p->first);
-//                    }
-//                }
-//                while (!deleted.empty())
-//                {
-//                    m_collisions.erase(deleted.top());
-//                    deleted.pop();
-//                }
-//            }
         }
 
         void SpriteCollider2D::ResetCollisions() {

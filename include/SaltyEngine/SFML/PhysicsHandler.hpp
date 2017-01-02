@@ -18,10 +18,8 @@ namespace SaltyEngine
         class LIB_EXPORT PhysicsHandler : public APhysicsHandler {
             static const sf::Uint32 m_IntColors[];
             static const sf::Color m_collisionLayersColor[];
-//            static std::map<const sf::Uint32, const Layer> m_collisionLayers;
         public:
             typedef std::map<SpriteCollider2D *, bool> ColliderList;
-            //typedef std::map<Layer, ColliderList> ColliderLayerMap;
             typedef std::map<sf::Uint32 , SpriteCollider2D *> ColorToSprite;
             typedef std::stack<sf::Vector2i> PixelStack;
             typedef std::stack<SpriteCollider2D *> SpriteStack;
@@ -41,25 +39,17 @@ namespace SaltyEngine
             void RemoveSpriteCollider(const SpriteCollider2D *);
             void RemoveSpriteRenderer(const SpriteRenderer *);
 
-//            const std::map<Layer, sf::Image> &GetImages() const;
-
             const sf::Texture &GetTexture() const;
 
             const sf::Sprite &GetSprite() const;
             void SetSize(unsigned int x, unsigned y);
 
-//            const PixelStack &GetDrawPixels() const;
-
-//            const ColliderLayerMap &GetColliders() const;
-
         private:
-            //std::map<Layer, sf::Image>       m_imgs;
             sf::Image           m_img;
             sf::Texture         m_texture;
             sf::Sprite          m_sprite;
             PixelStack          m_vecs;
             ColliderList         m_colliders;
-            //ColliderLayerMap    m_colliders;
             bool                m_stop;
             SpriteStack         m_deleted;
             ColorToSprite       m_col_to_sprite;

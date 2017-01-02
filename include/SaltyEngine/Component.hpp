@@ -30,45 +30,7 @@ namespace SaltyEngine
 		virtual Component *CloneComponent(GameObject* const obj) {
 			return new Component("Component", obj);
 		}
-
-//		template<class T>
-//		T GetComponent()
-//		{
-//			return (gameObject->GetComponent<T>());
-//		}
-//
-//		template<class T>
-//		T GetComponentInChildren()
-//		{
-//			return (gameObject->GetComponentInChildren<T>());
-//		}
-//
-//		template<class T>
-//		T GetComponentInParent()
-//		{
-//			return (gameObject->GetComponentInParent<T>());
-//		}
-//
-//		template<class T>
-//		std::list<T> GetComponents()
-//		{
-//			return (gameObject->GetComponents<T>());
-//		}
-//
-//		template<class T>
-//		std::list<T> GetComponentsInChildren()
-//		{
-//			return (gameObject->GetComponentsInChildren<T>());
-//		}
-//
-//		template<class T>
-//		std::list<T> GetComponentsInParent()
-//		{
-//			return (gameObject->GetComponentsInParent<T>());
-//		}
 	};
 }
-
-//#include "SaltyEngine/GameObject.hpp"
 
 #endif // !COMPONENT_HPP_
