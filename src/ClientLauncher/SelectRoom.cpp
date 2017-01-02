@@ -98,8 +98,8 @@ SelectRoom::SelectRoom() : GameObject("SelectRoom")
     SaltyEngine::GameObject *label_list = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate());
     label_list->SetName("ListScene");
     SaltyEngine::GUI::SFML::LabelList *ll = label_list->AddComponent<SaltyEngine::GUI::SFML::LabelList>();
-    ll->AddLabel(text_box->AddComponent<SaltyEngine::GUI::SFML::Label>("scene2", 30, font));
-    ll->AddLabel(text_box->AddComponent<SaltyEngine::GUI::SFML::Label>("scene4", 30, font));
+    ll->AddLabel(text_box->AddComponent<SaltyEngine::GUI::SFML::Label>("scene2-2", 30, font));
+    ll->AddLabel(text_box->AddComponent<SaltyEngine::GUI::SFML::Label>("scene4-4", 30, font));
     label_list->transform.SetPosition(SaltyEngine::Vector2(-660, -170));
     label_list->transform.SetParent(&create_menu->transform);
 

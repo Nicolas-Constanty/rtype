@@ -252,6 +252,35 @@ void SelectRoomController::DisplaySelectMenu() {
     m_create_menu->SetActive(false);
 }
 
+void split(const std::string &s, char delim, std::vector<std::string> &elems) {
+    std::stringstream ss;
+    ss.str(s);
+    std::string item;
+    while (std::getline(ss, item, delim)) {
+        elems.push_back(item);
+    }
+}
+
+
+std::vector<std::string> split(const std::string &s, char delim) {
+    std::vector<std::string> elems;
+    split(s, delim, elems);
+    return elems;
+}
+
 void SelectRoomController::Create() {
-    m_roomNetworkManager->GetComponent<RoomNetworkManager>()->SendCreate(2, "toto", 2);
+    SaltyEngine::GameObject *gm = SaltyEngine::GameObject::Find("NumberPlayer");
+    if (gm)
+    {
+        unsigned short players = (unsigned short) std::atoi(gm->GetComponent<SaltyEngine::GUI::SFML::TextBox>()->GetText().c_str());
+        gm = SaltyEngine::GameObject::Find("ListScene");
+        if (gm)
+        {
+            SaltyEngine::GUI::SFML::LabelList *ll = gm->GetComponent<SaltyEngine::GUI::SFML::LabelList>();
+            std::vector<std::string> scene = split(ll->GetSelected(), '-');
+            m_roomNetworkManager->GetComponent<RoomNetworkManager>()->SendCreate(
+                    players, scene[0], (unsigned short) std::atoi(scene[1].c_str()));
+        }
+        DisplaySelectMenu();
+    }
 }
