@@ -68,14 +68,16 @@ Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c6
 
 * **Victor Gouet** - *Project Manager* - [Github](https://github.com/Gouet)
 * **Quentin Gasparotto** - *Programmer server* - [Github](https://github.com/GasparQ)
-* **Adrien Wery** - *Project server* - [Github](https://github.com/Gouet)
-* **Fernand Veyrier** - *Programmer client* - [Github](https://github.com/Gouet)
-* **Nicolas Constanty** - *Programmer client* - [Github](https://github.com/Gouet)
+* **Adrien Wery** - *Programmer server* - [Github](https://github.com/Adpa18)
+* **Fernand Veyrier** - *Programmer client* - [Github](https://github.com/FernandVEYRIER)
+* **Nicolas Constanty** - *Programmer GameEngine/GraphicUserInterface client* - [Github](https://github.com/Nicolas-Constanty)
 
 See also the list of [contributors](https://github.com/Nicolas-Constanty/rtype/graphs/contributors) who participated in this project.
 
 ## Acknowledgments
 
-* Hat tip to anyone who's code was used
-* Inspiration
-* etc
+* [SFML](http://www.sfml-dev.org/download-fr.php)
+* [Boost/Variant](http://www.boost.org/doc/libs/1_60_0/doc/html/variant.html)
+* [Coroutine](https://github.com/tonbit/coroutine)
+* [GetOpt Windows](https://github.com/skandhurkat/Getopt-for-Visual-Studio/blob/master/getopt.h)
+* [CMAKE Visual Studio RC 2017](https://blogs.msdn.microsoft.com/vcblog/2016/10/05/cmake-support-in-visual-studio/)
