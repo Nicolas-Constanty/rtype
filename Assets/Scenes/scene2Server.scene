@@ -10,10 +10,18 @@
     "height": "540"
   },
   "fonts" : [
-   "arial",
+    "arial",
     "SFSquareHead"
   ],
   "prefabs": {
+    "GameManager": {
+      "prefabName": "GameManager",
+      "instantiate" : "1",
+      "position": {
+        "x": "0",
+        "y": "0"
+      }
+    },
     "Player": {
       "prefabName": "Player",
       "position": {

@@ -74,6 +74,7 @@ public:
 
 private:
     void OnSendHighScore();
+	void CreateGUI();
 
 private:
     bool IsSceneEmpty() const;

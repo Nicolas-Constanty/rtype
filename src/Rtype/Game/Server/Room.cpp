@@ -4,6 +4,7 @@
 
 #include <Rtype/Game/Server/Room.hpp>
 #include <Rtype/Game/Client/GameManager.hpp>
+#include <SaltyEngine/SFML/SFMLSceneLoader.hpp>
 #include "SaltyEngine/SFML.hpp"
 
 Rtype::Game::Server::Room::Room()
@@ -16,38 +17,19 @@ Rtype::Game::Server::Room::~Room()
 
 }
 
-void Rtype::Game::Server::Room::Start(const uint16_t port, const size_t max, const uint32_t secret, const std::string &map)
+void Rtype::Game::Server::Room::Start(int ac, char **av, const uint16_t port, const size_t max, const uint32_t secret, const std::string &map)
 {
-    // Create Scene
-    //SaltyEngine::SFML::Renderer *renderer = new SaltyEngine::SFML::Renderer(sf::VideoMode(1280, 720), "R-Type Launcher");
-    //Singleton<SaltyEngine::Engine>::Instance().SetRenderer(renderer);
-    unsigned int x = 960;
-    unsigned int y = 540;
-    SaltyEngine::SFML::PhysicsHandler *ph = new SaltyEngine::SFML::PhysicsHandler(x, y, true);
-    SaltyEngine::Engine::Instance().SetPhysicsHandler(ph);
+//    SaltyEngine::GameObject *serverGame = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate());
 
-//    SaltyEngine::Engine::Instance().SetFrameRate(30);
+//    if (serverGame == NULL)
+//    {
+//        throw std::runtime_error("Fatal error: Cannot Instantiate a gameobject");
+//    }
 
-    SaltyEngine::SFML::Scene *scene = new SaltyEngine::SFML::Scene();
-
-    // Push scene int SaltyEngine
-    SaltyEngine::Engine::Instance() << scene;
-
-	std::cout << "Engine instance -> " << &SaltyEngine::Engine::Instance() << std::endl;
-
-    // Create player
-    SaltyEngine::GameObject *serverGame = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate());
-
-
-    if (serverGame == NULL)
-    {
-        throw std::runtime_error("Fatal error: Cannot Instantiate a gameobject");
-    }
-
-    serverGame->SetName("GameManager");
+//    serverGame->SetName("GameManager");
     //Adding GameServerObject as component for network gestion
-    serverGame->AddComponent<Rtype::Game::Server::GameServerObject>(port, max > 4 ? 4 : max, secret, map);
-    serverGame->AddComponent<GameManager>();
+//    serverGame->AddComponent<Rtype::Game::Server::GameServerObject>(port, max > 4 ? 4 : max, secret, map);
+//    serverGame->AddComponent<GameManager>();
 
     //Adding object to scene
     //*scene << serverGame;
@@ -56,6 +38,11 @@ void Rtype::Game::Server::Room::Start(const uint16_t port, const size_t max, con
 //    );
 //    serverGame->transform.position = SaltyEngine::Vector2(20, 20);
 //    serverGame->transform.SetPosition(SaltyEngine::Vector2(20, 20));
+
+    // TODO : faire en sorte que le GameManager ait le Rtype::Game::Server::GameServerObject pour la connexion
+    SaltyEngine::Engine::Instance().SetArguments(ac, (const char**)av);
+    SaltyEngine::Engine::Instance().SetSceneLoader(new SaltyEngine::SFML::SFMLSceneLoader());
+    SaltyEngine::Engine::Instance().LoadScene(map);
 }
 
 void Rtype::Game::Server::Room::Run()

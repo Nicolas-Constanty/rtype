@@ -43,13 +43,7 @@ int main(int ac, char **av)
 	Network::Socket::WinSocket::Start();
 #endif
 
-
-
-	//COMMENT THIS LINE
 	StartGame(ac, av, map);
-
-	//UNCOMMENT THIS LINE TO GET OLD CLIENT
-//	CallCharabia(map, scene, renderer, ip, port, secret);
 
 #if _WIN32
 	Network::Socket::WinSocket::Stop();

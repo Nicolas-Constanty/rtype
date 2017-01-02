@@ -41,7 +41,7 @@ int main(int ac, char **av)
         //SaltyEngine::SFML::AssetManager::Instance().LoadScene("scene" + level);
         //SaltyEngine::SFML::AssetManager::Instance().LoadAssets();
 		std::cout << secret << " " << level << std::endl;
-        room.Start(port, max, secret, level);
+        room.Start(ac, av, port, max, secret, level);
     /*}
     catch (std::runtime_error const &err)
     {
