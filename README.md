@@ -1,8 +1,10 @@
 # R-Type
 
-Clone of the original R-Type game.
+The R-Type now arrived to its version 1.1 ! You can now play with friend across the network, fight epic bosses, and greet friends in a waiting room.
 
 ## Getting Started
+
+This is a student project, realized in ~one month
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
@@ -29,8 +31,6 @@ cd rtype && mkdir build && cd build && cmake .. && make && cd ..
 git clone https://github.com/Nicolas-Constanty/rtype.git
 cd rtype
 ```
-
-End with an example of getting some data out of the system or using it for a little demo
 
 ## Deployment
 
