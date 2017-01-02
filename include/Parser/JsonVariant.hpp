@@ -29,27 +29,6 @@ private:
     bvariant value;
 };
 
-
-//
-//class json_visitor_a : public boost::static_visitor<JsonVariant::json_array *>
-//{
-//public:
-//	JsonVariant::json_array *operator()(JsonVariant::json_array *elem) const
-//	{
-//		return elem;
-//	}
-//};
-//
-//class json_visitor_s : public boost::static_visitor<std::string>
-//{
-//public:
-//
-//	const std::string & operator()(const std::string & str) const
-//	{
-//		return str;
-//	}
-//};
-
 class json_visitor_p : public boost::static_visitor<JsonVariant::json_pair *>
 {
 public:

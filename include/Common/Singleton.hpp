@@ -24,17 +24,12 @@ public:
 	static T &Instance();
 
 protected:
-    //static T m_instance;
 	Singleton ()
 	{}
 
 	virtual ~Singleton()
 	{
-		//delete m_instance;
 	}
 };
-
-//template <class T>
-//T Singleton<T>::m_instance = T();
 
 #endif //!SINGLETON_HPP

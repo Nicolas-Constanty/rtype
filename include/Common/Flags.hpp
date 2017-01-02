@@ -49,9 +49,9 @@ class LIB_EXPORT Flags {
 
   private:
     int autoId;
-    std::map<int, std::function< void(std::string optarg) > > setters; // flag id -> setters
+    std::map<int, std::function< void(std::string optarg) > > setters;
     std::set<std::string> longFlags;
-    std::map<std::string, std::vector<std::string> > help; // group -> help itmes
+    std::map<std::string, std::vector<std::string> > help;
     std::vector<struct option> options;
     std::string optionStr;
 
@@ -86,7 +86,6 @@ class LIB_EXPORT Flags {
 
 		op.flag = NULL;
 
-		// generate help item
 		std::stringstream ss;
 		ss << "  ";
 		if (shortFlag) {
