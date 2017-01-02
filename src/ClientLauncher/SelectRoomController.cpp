@@ -277,6 +277,9 @@ void SelectRoomController::Create() {
         {
             SaltyEngine::GUI::SFML::LabelList *ll = gm->GetComponent<SaltyEngine::GUI::SFML::LabelList>();
             std::vector<std::string> scene = split(ll->GetSelected(), '-');
+            if (players == 1) {
+                launch = true;
+            }
             m_roomNetworkManager->GetComponent<RoomNetworkManager>()->SendCreate(
                     players, scene[0], (unsigned short) std::atoi(scene[1].c_str()));
         }
