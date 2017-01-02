@@ -41,10 +41,14 @@ namespace Rtype
                     return (map);
                 }
 
+                void SetLevel(std::string const &level) {
+                    this->map = level;
+                }
+
             private:
                 const uint32_t secret;
                 const uint16_t port;
-                const std::string map;
+                std::string map;
                 Rtype::Game::Server::RtypeGameServer    *server;
                 Network::Core::NativeSocketIOOperationDispatcher    dispatcher;
                 GameManager *manager;
