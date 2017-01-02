@@ -10,21 +10,7 @@
 
 GameManagerPrefab::GameManagerPrefab() : GameObject("GameManager", SaltyEngine::Layer::Tag::GameManager)
 {
-
-//    std::string ip = "127.0.0.1";
-//    unsigned int port = 4241;
-//    unsigned int secret = 0;
-
     AddComponent<GameManager>();
-//    SaltyEngine::GameObject *m_roomNetworkManager = SaltyEngine::GameObject::Find("RoomNetworkManager");
-
-//    if (m_roomNetworkManager) {
-//        ip = m_roomNetworkManager->GetComponent<RoomNetworkManager>()->GetUDPIP();
-//        port = m_roomNetworkManager->GetComponent<RoomNetworkManager>()->GetUDPPort();
-//        secret = m_roomNetworkManager->GetComponent<RoomNetworkManager>()->GetUDPSecret();
-//    }
-
-//    AddComponent<Rtype::Game::Client::GameClientObject>(ip, port, secret);
 
     const SaltyEngine::Engine &engine = SaltyEngine::Engine::Instance();
     const SaltyEngine::Vector2ui size = engine.GetSize();
@@ -66,20 +52,9 @@ GameManagerPrefab::GameManagerPrefab() : GameObject("GameManager", SaltyEngine::
     launch_button->transform.SetParent(&transform);
     launch_button->transform.SetPosition(size.x / 2, victoryScreen->transform.GetPosition().y + 100);
     launch_button->transform.SetLocalScale(SaltyEngine::Vector2(2, 2));
-    b->onClick.AddListener("SayOuch", [](){
-        std::cout << "Ouch!!!" << std::endl;
-        //TODO retour dans la guiRoom
+    b->onClick.AddListener("LoadRoom", [](){
         SaltyEngine::Engine::Instance().LoadScene("sceneRoom");
-//        SaltyEngine::Engine::Instance().Stop();
     });
-
-
-
-
-//    SaltyEngine::GameObject     *buttonEnd = (SaltyEngine::GameObject*)SaltyEngine::Instantiate();
-//    buttonEnd->SetName("EndScreen");
-//    victoryScreen->AddComponent<EndScreen>();
-//    victoryScreen->transform.SetPosition(size.x / 2, static_cast<float>(size.y / 2.3));
 }
 
 GameManagerPrefab::~GameManagerPrefab()

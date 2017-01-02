@@ -51,8 +51,8 @@ void GameManager::Start()
         SaltyEngine::Engine::Instance().GetCurrentScene()->SetScale(monsterMap->scale);
 
         if (monsterMap)
-            monsterMap->objects.sort([](std::pair<std::string, SaltyEngine::Vector2f> obj1, std::pair<std::string, SaltyEngine::Vector2f> obj2) {
-                return (obj1.second.x < obj2.second.x);
+            monsterMap->objects.sort([](std::pair<std::string, SaltyEngine::PrefabDefault> obj1, std::pair<std::string, SaltyEngine::PrefabDefault> obj2) {
+                return (obj1.second.pos.x < obj2.second.pos.x);
             });
     }
 }
@@ -130,13 +130,13 @@ void GameManager::FixedUpdate() {
     if (m_server && m_server->Server()->IsLaunch() && !endOfGame) {
         this->currentPosition = this->currentPosition + velocity * SaltyEngine::Engine::Instance().GetFixedDeltaTime();
 
-        std::list<std::pair<std::string, SaltyEngine::Vector2f> >::iterator it = monsterMap->objects.begin();
+        std::list<std::pair<std::string, SaltyEngine::PrefabDefault> >::iterator it = monsterMap->objects.begin();
 
         while (it != monsterMap->objects.end()) {
-            if ((*it).second.x < this->currentPosition) {
+            if ((*it).second.pos.x < this->currentPosition) {
                 if ((*it).first != "Player") {
 
-                    SaltyEngine::Vector2f pos = (*it).second;
+                    SaltyEngine::Vector2f pos = (*it).second.pos;
 
                     SaltyEngine::GameObject *object = dynamic_cast<SaltyEngine::GameObject *>(SaltyEngine::Instantiate((*it).first, pos, 0));
                     gameObjectContainer.Add(GameObjectID::NewID(), object);

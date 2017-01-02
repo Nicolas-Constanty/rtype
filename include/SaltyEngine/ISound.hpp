@@ -10,7 +10,7 @@
 
 namespace SaltyEngine {
     namespace Sound {
-        enum  	Status {
+        enum Status {
             Stopped,
             Paused,
             Playing

@@ -19,11 +19,11 @@ namespace SaltyEngine
 
             virtual ~SFMLSceneLoader();
 
-            void LoadScene(std::string const &sceneName) override;
+            AScene *LoadScene(std::string const &sceneName) override;
 
             Vector2 GetSceneScale(void) const override;
 
-            std::list<std::pair<std::string, Vector2f>> const &GetSceneObjects(void) const override;
+            std::list<std::pair<std::string, PrefabDefault>> const &GetSceneObjects(void) const override;
 
         private:
             SceneDefault *m_scene = nullptr;

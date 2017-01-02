@@ -15,6 +15,7 @@
   "prefabs": {
     "CanvasPlayerConnect": {
       "prefabName": "Logger",
+      "instantiate" : "1",
       "position": {
         "x" : "0",
         "y": "0"

@@ -34,7 +34,7 @@ namespace SaltyEngine
 		virtual void Stop();
 		virtual void Run(void);
 		virtual EngineStatus GetStatus(void) const;
-		virtual bool LoadScene(size_t index);
+//		virtual bool LoadScene(size_t index);
 		virtual bool LoadScene(const std::string &name);
 		virtual void SetFrameRate(size_t fr);
 		virtual void operator<<(AScene *scene);
@@ -53,11 +53,12 @@ namespace SaltyEngine
         int GetArgc(void) const;
         char const** GetArgv(void) const;
         void SetArguments(int ac, char const**av);
+		AScene *GetSceneByName(const std::string &name);
 
 	protected:
 		EngineStatus								m_status;
 		std::vector<std::unique_ptr<AScene>>		m_scenes;
-		size_t										m_current;
+		AScene										*m_current;
 		std::chrono::nanoseconds					m_frame_rate;
 		size_t										m_fps;
 		std::chrono::duration<long long, std::nano> m_delta_time;
@@ -69,7 +70,7 @@ namespace SaltyEngine
         ISceneLoader        *m_sceneLoader = nullptr;
 		char 				const**m_av = nullptr;
 		int 				m_ac = 0;
-	};
+    };
 }
 
 template<>

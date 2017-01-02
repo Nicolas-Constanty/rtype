@@ -16,7 +16,6 @@
 #include "SaltyEngine/AScene.hpp"
 #include "Common/Debug.hpp"
 
-
 namespace SaltyEngine
 {
 	/**
@@ -25,11 +24,11 @@ namespace SaltyEngine
 	 * @brief	Default constructor init m_fps at DEFAULT_FRAME_RATE.
 	 */
 
-	Engine::Engine(): m_current(0)
+	Engine::Engine(): m_current(nullptr)
 	{
 		srand(static_cast<unsigned int>(time(nullptr)));
-		m_renderer = new DefaultRenderer();
-		m_even_manager = new Input::DefaultEventManager();
+		m_renderer = nullptr;
+		m_even_manager = nullptr;
         m_physics_handler = nullptr;
 		m_status = EngineStatus::stop;
 		m_fps = DEFAULT_FRAME_RATE;
@@ -93,6 +92,16 @@ namespace SaltyEngine
 			Debug::PrintError("Cannot run without scene!");
 			return;
 		}
+        if (m_even_manager == nullptr)
+        {
+            Debug::PrintError("Set event manager before Run!");
+            return;
+        }
+        if (m_renderer == nullptr)
+        {
+            Debug::PrintError("Set renderer before Run!");
+            return;
+        }
 		Start();
 		std::chrono::nanoseconds lag(0);
 		std::chrono::time_point<std::chrono::high_resolution_clock> time_start = std::chrono::high_resolution_clock::now();
@@ -102,9 +111,8 @@ namespace SaltyEngine
 			time_start = std::chrono::high_resolution_clock::now();
 			lag += std::chrono::duration_cast<std::chrono::nanoseconds>(m_delta_time);
 			m_even_manager->Update();
-			AScene *scene = m_scenes[m_current].get();
-			scene->OnStart();
-			scene->OnEnable();
+			m_current->OnStart();
+            m_current->OnEnable();
 
 			while (lag >= m_frame_rate)
 			{
@@ -113,7 +121,7 @@ namespace SaltyEngine
 				{
 					if (m_status != EngineStatus::pause)
 					{
-						scene->FixedUpdate();
+                        m_current->FixedUpdate();
 						if (m_physics_handler)
 						{
 							m_physics_handler->Clear();
@@ -121,13 +129,13 @@ namespace SaltyEngine
 							m_physics_handler->Collide();
 						}
 
-						scene->OnTriggerEnter();
-						scene->OnTriggerExit();
-						scene->OnTriggerStay();
+                        m_current->OnTriggerEnter();
+                        m_current->OnTriggerExit();
+                        m_current->OnTriggerStay();
 
-						scene->OnCollisionEnter();
-						scene->OnCollisionExit();
-						scene->OnCollisionStay();
+                        m_current->OnCollisionEnter();
+                        m_current->OnCollisionExit();
+                        m_current->OnCollisionStay();
 					}
 					else
 					{
@@ -137,17 +145,26 @@ namespace SaltyEngine
 				else
 					std::cerr << "You run an empty game!" << std::endl;
 			}
-			
-			scene->Update();
+
+            m_current->Update();
 			if (m_physics_handler)
 				m_physics_handler->Display();
-			scene->CallCoroutines();
-			scene->OnGui();
-			scene->OnDisable();
-			scene->OnDestroy();
+            m_current->CallCoroutines();
+            m_current->OnGui();
+            m_current->OnDisable();
+            m_current->OnDestroy();
 			m_renderer->Display();
-			scene->Destroy();
+            m_current->Destroy();
 		}
+	}
+
+	AScene *Engine::GetSceneByName(const std::string &name)
+	{
+		for (std::vector<std::unique_ptr<AScene>>::const_iterator scene = m_scenes.begin(); scene != m_scenes.end(); ++scene) {
+			if ((*scene)->GetName() == name)
+				return scene->get();
+		}
+		return nullptr;
 	}
 
 	/**
@@ -179,31 +196,6 @@ namespace SaltyEngine
 	 * @return	True if it succeeds, false if it fails.
 	 */
 
-	bool Engine::LoadScene(size_t index)
-	{
-		if (index < m_scenes.size())
-		{
-			std::list<GameObject *> undeleted_obj = m_scenes[m_current]->CleanScene();
-			m_current = index;
-            for (GameObject *go : undeleted_obj)
-                m_scenes[m_current]->m_objects.push_back(go);
-            m_sceneLoader->LoadScene(m_scenes[m_current]->GetName());
-            m_scenes[m_current]->SetScale(m_sceneLoader->GetSceneScale());
-            for (std::pair<std::string, SaltyEngine::Vector2> it : m_sceneLoader->GetSceneObjects())
-            {
-                if (it.first == "GameManager") {
-                    SaltyEngine::Vector2f pos = it.second;
-                    SaltyEngine::Instantiate(it.first, pos, 0);
-                }
-            }
-		}
-		else
-		{
-			std::cerr << "Invalid scene index[" << index << "]!" << std::endl;
-		}
-		return (index < m_scenes.size());
-	}
-
 	/**
 	 * @fn	bool SaltyEngine::LoadScene(const std::string & name)
 	 *
@@ -219,20 +211,14 @@ namespace SaltyEngine
 
 	bool Engine::LoadScene(const std::string & name)
 	{
-		size_t index = 0;
-		for (std::vector<std::unique_ptr<AScene>>::const_iterator it = m_scenes.begin(); it < m_scenes.end(); ++it)
-		{
-			if ((*it)->GetName() == name)
-				break;
-			++index;
-		}
-		if (index < m_scenes.size())
-        {
-            return LoadScene(index);
+        std::list<GameObject *> undeleted_obj;
+        if (m_current) {
+            undeleted_obj = m_current->CleanScene();
         }
-		else
-			std::cerr << "Invalid scene index[" << index << "]!" << std::endl;
-		return (index < m_scenes.size());
+        m_current = m_sceneLoader->LoadScene(name);
+        for (GameObject *go : undeleted_obj)
+            m_current->m_objects.push_back(go);
+        return (m_current != nullptr);
 	}
 
 	/**
@@ -280,19 +266,15 @@ namespace SaltyEngine
 	void Engine::SetRenderer(IRenderer *renderer)
 	{
 		if (m_renderer && m_renderer != renderer)
-		{
 			delete m_renderer;
-			m_renderer = renderer;
-		}
+        m_renderer = renderer;
 	}
 
 	void Engine::SetEventManager(Input::IEventManager * ev_manager)
 	{
 		if (m_even_manager && m_even_manager != ev_manager)
-		{
 			delete m_even_manager;
-			m_even_manager = ev_manager;
-		}
+        m_even_manager = ev_manager;
 	}
 
 	AScene * Engine::GetCurrentScene(void) const
@@ -300,7 +282,7 @@ namespace SaltyEngine
 		if (m_scenes.empty()) {
 			throw std::runtime_error("No Scene was added");
 		}
-		return m_scenes[m_current].get();
+		return m_current;
 	}
 
 	IRenderer * Engine::GetRenderer(void) const
@@ -321,7 +303,11 @@ namespace SaltyEngine
 	void Engine::operator<<(AScene *scene)
 	{
 		if (scene != nullptr)
+		{
 			m_scenes.push_back(std::unique_ptr<AScene>(scene));
+			if (!m_current)
+				m_current = scene;
+		}
 		else
 			throw new std::runtime_error("Can't push null scene");
 	}

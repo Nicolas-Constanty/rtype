@@ -47,13 +47,18 @@ namespace SaltyEngine {
         Vector2f                scale;
     };
 
+    struct PrefabDefault{
+        Vector2f    pos;
+        bool        instantiate;
+    };
+
     struct SceneDefault {
         std::string title;
         std::string preview;
         std::string background;
         Vector2f    scale;
         Vector2     size;
-        std::list<std::pair<std::string, Vector2f> > objects;
+        std::list<std::pair<std::string, PrefabDefault> > objects;
     };
 
     ///
@@ -469,9 +474,19 @@ namespace SaltyEngine {
 
                         for (JsonVariant::json_pair::const_iterator prefab = prefabs->begin(); prefab != prefabs->end(); ++prefab) {
                             std::string const &prefabName = prefab->second["prefabName"]();
-                            Vector2f    const &position = Vector2f(std::stoi(prefab->second["position"]["x"]()), std::stoi(prefab->second["position"]["y"]()));
+                            PrefabDefault pref;
+                            pref.instantiate = false;
+                            pref.pos = Vector2f(std::stoi(prefab->second["position"]["x"]()), std::stoi(prefab->second["position"]["y"]()));
+                            try {
+                                pref.instantiate = (std::atoi(prefab->second["instantiate"]().c_str()) != 0);
+                                if (!map["scale"]["height"]().empty()) {
+                                    m_current_scene->scale.y = std::stof(map["scale"]["height"]());
+                                }
+                            } catch (std::exception const &) {
+
+                            }
                             if (LoadPrefab(prefabName)) {
-                                m_current_scene->objects.push_back(std::make_pair(prefabName, position));
+                                m_current_scene->objects.push_back(std::make_pair(prefabName, pref));
                             } else {
                                 Debug::PrintError("Cannot load prefab " + prefabName + " for the scene " + filename);
                             }

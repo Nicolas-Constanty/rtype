@@ -23,7 +23,6 @@ namespace SaltyEngine
 	};
 	typedef size_t uid;
 
-
 	class PREF_EXPORT Object: protected ICloneable<Object>
 	{
 		static std::atomic<uid> s_id;
