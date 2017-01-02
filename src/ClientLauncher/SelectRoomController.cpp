@@ -1,4 +1,5 @@
 #include <Rtype/Game/Client/GameClientObject.hpp>
+#include <Rtype/Game/Server/GameServerObject.hpp>
 #include "RoomNetworkSaltyEngine/RoomNetworkManager.hpp"
 #include "ClientLauncher/SelectRoomController.hpp"
 #include "SaltyEngine/SFML.hpp"
@@ -190,7 +191,7 @@ void SelectRoomController::onGetSWAP(SWAPPackageRoom const &swapPackageRoom) {
     m_roomNetworkManager->GetComponent<RoomNetworkManager>()->GetNetworkManager()->SetTransitionNetworkManager(NULL);
     m_roomNetworkManager->GetComponent<RoomNetworkManager>()->GetNetworkManager()->canAddGETPackage = true;
 
-        SaltyEngine::Engine::Instance().LoadScene("scene2");
+    SaltyEngine::Engine::Instance().LoadScene("scene2");
 
     SaltyEngine::GameObject *gameManager = SaltyEngine::GameObject::FindGameObjectWithTag(SaltyEngine::Layer::Tag::GameManager);
 
@@ -252,5 +253,5 @@ void SelectRoomController::DisplaySelectMenu() {
 }
 
 void SelectRoomController::Create() {
-
+    m_roomNetworkManager->GetComponent<RoomNetworkManager>()->SendCreate(2, "toto", 2);
 }
