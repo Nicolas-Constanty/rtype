@@ -87,6 +87,7 @@ namespace SaltyEngine
 
 	void Engine::Run()
 	{
+        __LoadScene();
 		if (m_scenes.size() == 0)
 		{
 			Debug::PrintError("Cannot run without scene!");
@@ -155,6 +156,7 @@ namespace SaltyEngine
             m_current->OnDestroy();
 			m_renderer->Display();
             m_current->Destroy();
+            __LoadScene();
 		}
 	}
 
@@ -221,13 +223,13 @@ namespace SaltyEngine
 
 	bool Engine::LoadScene(const std::string & name)
 	{
-        std::list<GameObject *> undeleted_obj;
         if (m_current) {
-            undeleted_obj = m_current->CleanScene();
+            m_undeleted_object = m_current->CleanScene();
         }
-        m_current = m_sceneLoader->LoadScene(name);
-        for (GameObject *go : undeleted_obj)
-            m_current->m_objects.push_back(go);
+        if (m_current_name.empty())
+        {
+            m_current_name = name;
+        }
         return (m_current != nullptr);
 	}
 
@@ -359,5 +361,16 @@ namespace SaltyEngine
     {
         m_ac = ac;
         m_av = av;
+    }
+
+    void Engine::__LoadScene() {
+        if (!m_current_name.empty())
+        {
+            m_current = m_sceneLoader->LoadScene(m_current_name);
+            for (GameObject *go : m_undeleted_object)
+                m_current->m_objects.push_back(go);
+            m_undeleted_object.clear();
+            m_current_name = "";
+        }
     }
 }

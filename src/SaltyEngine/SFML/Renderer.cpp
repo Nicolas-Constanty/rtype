@@ -100,6 +100,7 @@ namespace SaltyEngine
 
 		void Renderer::RemoveSpriteRenderer(GameObject *const gm) {
 
+			std::cout << gm->GetName() << std::endl;
             for (SpriteMap::iterator it = m_spriteRenderers.begin(); it != m_spriteRenderers.end(); ++it)
             {
                 (*it).second.remove_if([gm](Drawable drawable) { return (gm == drawable.gm); });

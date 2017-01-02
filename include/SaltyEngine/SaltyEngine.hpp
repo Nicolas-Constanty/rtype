@@ -66,11 +66,15 @@ namespace SaltyEngine
 		IRenderer									*m_renderer;
 		Input::IEventManager						*m_even_manager;
         APhysicsHandler                             *m_physics_handler;
+        std::list<GameObject *>                     m_undeleted_object;
+        std::string                                 m_current_name;
+
 
     private:
         ISceneLoader        *m_sceneLoader = nullptr;
 		char 				const**m_av = nullptr;
 		int 				m_ac = 0;
+        void                __LoadScene();
     };
 }
 

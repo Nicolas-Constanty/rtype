@@ -45,6 +45,7 @@ namespace SaltyEngine
 
     void GameObject::__Destroy()
     {
+		Debug::PrintError("Delete " + GetName());
         Engine::Instance().GetRenderer()->RemoveSpriteRenderer(this);
         m_behaviour.clear();
         m_components.clear();
