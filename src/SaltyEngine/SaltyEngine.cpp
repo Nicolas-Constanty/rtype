@@ -167,6 +167,16 @@ namespace SaltyEngine
 		return nullptr;
 	}
 
+    void Engine::SetCurrentScene(AScene *scene)
+    {
+        if (!scene)
+        {
+            Debug::PrintWarning("Cannot add null scene");
+            return;
+        }
+        m_current = scene;
+    }
+
 	/**
 	 * @fn	EngineStatus SaltyEngine::GetStatus() const
 	 *

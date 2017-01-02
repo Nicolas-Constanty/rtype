@@ -54,6 +54,7 @@ namespace SaltyEngine
         char const** GetArgv(void) const;
         void SetArguments(int ac, char const**av);
 		AScene *GetSceneByName(const std::string &name);
+		void SetCurrentScene(AScene *scene);
 
 	protected:
 		EngineStatus								m_status;

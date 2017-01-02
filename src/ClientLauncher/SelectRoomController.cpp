@@ -15,6 +15,7 @@ SelectRoomController::~SelectRoomController()
 
 void SelectRoomController::Start() {
 
+    Debug::PrintError("Je suis là");
     sf::Font *font = SaltyEngine::SFML::AssetManager::Instance().GetFont("SFSquareHead");
     const SaltyEngine::Engine &engine = SaltyEngine::Engine::Instance();
 
@@ -111,8 +112,8 @@ void SelectRoomController::Start() {
 
     create_menu->SetActive(false);
 
-//    create_menu->transform.SetPosition(engine.GetSize().x, engine.GetSize().y);
-//    select_menu->transform.SetPosition(engine.GetSize().x, engine.GetSize().y);
+    create_menu->transform.SetPosition(engine.GetSize().x, engine.GetSize().y);
+    select_menu->transform.SetPosition(engine.GetSize().x, engine.GetSize().y);
 
     m_create_menu = create_menu;
     m_select_menu = select_menu;

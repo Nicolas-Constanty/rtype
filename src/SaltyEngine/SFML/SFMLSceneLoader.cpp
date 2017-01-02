@@ -92,6 +92,7 @@ namespace SaltyEngine
 			if (a)
 				a->SetSize((unsigned int) m_scene->size.x, (unsigned int) m_scene->size.y);
 			m_scene = SaltyEngine::SFML::AssetManager::Instance().LoadScene(sceneName);
+            SaltyEngine::Engine::Instance().SetCurrentScene(scene);
 			for (std::pair<std::string, SaltyEngine::PrefabDefault> it :  m_scene->objects)
             {
 				Debug::PrintInfo("Try Load");
