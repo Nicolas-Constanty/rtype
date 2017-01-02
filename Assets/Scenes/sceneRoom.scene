@@ -14,7 +14,7 @@
   ],
   "prefabs": {
     "CanvasPlayerConnect": {
-      "prefabName": "SelectMap",
+      "prefabName": "SelectRoom",
       "instantiate" : "1",
       "position": {
         "x" : "0",
