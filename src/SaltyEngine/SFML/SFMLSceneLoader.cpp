@@ -37,6 +37,10 @@ namespace SaltyEngine
 			PhysicsHandler *a = dynamic_cast<PhysicsHandler *>(SaltyEngine::Engine::Instance().GetPhysicsHandler());
 			if (a)
 				a->SetSize((unsigned int) m_scene->size.x, (unsigned int) m_scene->size.y);
+			else
+			{
+				Debug::PrintInfo("NULL");
+			}
 			m_scene = SaltyEngine::SFML::AssetManager::Instance().LoadScene(sceneName);
 		}
 

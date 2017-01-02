@@ -251,6 +251,9 @@ namespace SaltyEngine
         void PhysicsHandler::SetSize(unsigned int x, unsigned y) {
             m_size.x = x;
             m_size.y = y;
+            m_img.create(m_size.x, m_size.y, sf::Color::Black);
+            m_renderer->setSize(sf::Vector2u(m_size.x, m_size.y));
+            m_renderer->setView(sf::View(sf::FloatRect(0.f, 0.f, m_size.x, m_size.y)));
         }
     }
 }

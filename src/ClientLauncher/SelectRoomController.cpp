@@ -272,6 +272,10 @@ void SelectRoomController::Create() {
     if (gm)
     {
         unsigned short players = (unsigned short) std::atoi(gm->GetComponent<SaltyEngine::GUI::SFML::TextBox>()->GetText().c_str());
+        if (players <= 0)
+            players = 1;
+        else if (players > 4)
+            players = 4;
         gm = SaltyEngine::GameObject::Find("ListScene");
         if (gm)
         {
