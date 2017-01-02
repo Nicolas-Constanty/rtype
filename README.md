@@ -8,57 +8,69 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+#### Linux
 
 ```
 Give examples
 ```
 
-### Installing
+### Building
 
-A step by step series of examples that tell you have to get a development env running
-
-Say what the step will be
+#### Linux
 
 ```
-Give the example
+git clone https://github.com/Nicolas-Constanty/rtype.git
+cd rtype && mkdir build && cd build && cmake .. && make && cd ..
 ```
 
-And repeat
+#### Windows
 
 ```
-until finished
+git clone https://github.com/Nicolas-Constanty/rtype.git
+cd rtype
 ```
 
 End with an example of getting some data out of the system or using it for a little demo
 
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+### First go to the rtype folder. You need minimum 3 terminals (one for each executable)
+
+ex :
+```
+cd $HOME/rtype/
+```
+
+* Start a RoomServer
+* Start a RoomGameDispatcher
+* Start [1-4] GameClient
+
+### Exemple for 2 players:
+
+ex Term1 :
+```
+./RoomServer
+```
+
+ex Term2 :
+```
+./RoomGameDispatcher
+```
+
+ex Term3 :
+```
+./GameClient
+```
+
+ex Term4 :
+```
+./GameClient
+```
 
 ## Built With
 
 * [SFML](http://www.sfml-dev.org/download-fr.php) - The graphic lib used
+* [Boost/Variant](http://www.boost.org/doc/libs/1_60_0/doc/html/variant.html) - Boost variant is used for the pseudo Json parser
 
 ## Contributing
 
