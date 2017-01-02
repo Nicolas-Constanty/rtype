@@ -20,7 +20,6 @@ if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 	set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_HOME_DIRECTORY}/lib)
 	set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_HOME_DIRECTORY}/lib)
 
-	############################## LIBRARIES ##############################
 ############### COMMON ###############
 include(${PROJECT_SOURCE_DIR}/R-Type/Common/CMakeLists.txt)
 
@@ -43,23 +42,14 @@ include(${PROJECT_SOURCE_DIR}/R-Type/Protocol/Server/CMakeLists.txt)
 include(${PROJECT_SOURCE_DIR}/R-Type/ServerGameDispatcher/CMakeLists.txt)
 include(${PROJECT_SOURCE_DIR}/R-Type/ServerRoom/CMakeLists.txt)
 
-#TODO UTILISER GAMESERVER
 ############ GAMESERVER ##############
 include(${PROJECT_SOURCE_DIR}/R-Type/GameServer/CMakeLists.txt)
-#TODO UTILISER GAMECLIENT
+
 ############ GAMECLIENT ##############
 include(${PROJECT_SOURCE_DIR}/R-Type/GameClient/CMakeLists.txt)
 
 ############### PREFABS ##############
 include(${PROJECT_SOURCE_DIR}/R-Type/Prefab/CMakeLists.txt)
-
-############### TESTS ################
-include(${PROJECT_SOURCE_DIR}/Tests/Network/ClientRoomConnectionToServerRoom/CMakeLists.txt)
-include(${PROJECT_SOURCE_DIR}/Tests/GameServer/CMakeLists.txt)
-#include(${PROJECT_SOURCE_DIR}/Tests/Network/CMakeLists.txt)
-#include(${PROJECT_SOURCE_DIR}/Tests/GUI/CMakeLists.txt)
-include(${PROJECT_SOURCE_DIR}/Tests/Animations/CMakeLists.txt)
-include(${PROJECT_SOURCE_DIR}/Tests/Process/CMakeLists.txt)
 
 #Windows
 elseif(MSVC)
