@@ -67,7 +67,6 @@ void SelectRoomController::Start() {
 }
 
 void SelectRoomController::Join() {
-    std::cout << "JOIN" << std::endl;
     SaltyEngine::GameObject *obj = labelListObj;
     SaltyEngine::GUI::SFML::LabelList *ll = NULL;
     if (obj)
