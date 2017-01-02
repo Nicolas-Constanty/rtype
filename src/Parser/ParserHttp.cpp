@@ -18,6 +18,8 @@ bool ParserHttp::parse(JsonVariant::json_pair *content)
 //Header ::=  CMD ' ' URI ' ' VERSION '\n' [HeaderList #flush ]*;
 bool ParserHttp::readHeader(JsonVariant::json_pair *content)
 {
+    //bool ret = readCMD();
+    //std::cout << std::boolalpha << ret << std::endl;
     return (readCMD() && readChar(' ') && readURI() && readChar(' ') && readVersion() && readChar('\n') && repeater([content, this] () { return (readHeaderList(content));}, '*'));
 }
 

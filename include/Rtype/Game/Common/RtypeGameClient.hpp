@@ -104,7 +104,7 @@ namespace Rtype
                 template <typename T>
                 void SendToServerReliablyNow(T const &ref)
                 {
-                    for (size_t i = 0; i < reliability; ++i)
+                    for (int i = 0; i < reliability; ++i)
                     {
                         SendToServerNow(ref);
                     }

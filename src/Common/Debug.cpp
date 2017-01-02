@@ -39,6 +39,7 @@ void Debug::PrintColor(const std::string & msg, int index)
 	HANDLE hstdin = GetStdHandle(STD_INPUT_HANDLE);
 	HANDLE hstdout = GetStdHandle(STD_OUTPUT_HANDLE);
 
+	// Remember how things were when we started
 	CONSOLE_SCREEN_BUFFER_INFO csbi;
 	GetConsoleScreenBufferInfo(hstdout, &csbi);
 	SetConsoleTextAttribute(hstdout, colors[index]);
