@@ -46,7 +46,7 @@ void SaltyEngine::GUI::SFML::TextBox::Update() {
     if (!eve->GetEvent().empty() && eve->IsWindowFocused() && this->gameObject->GetActiveSelf())
     {
         const sf::Event &ev = eve->GetEvent().front();
-        if (ev.text.unicode < 128)
+        if (ev.text.unicode > 0 && ev.text.unicode < 128)
         {
             if (ev.key.code == 8 && m_field.size())
             {
