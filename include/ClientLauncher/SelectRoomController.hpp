@@ -19,6 +19,8 @@ public:
     virtual ~SelectRoomController();
 
     void Create();
+    void DisplayCreateMenu();
+    void DisplaySelectMenu();
     void Join();
     void Quit();
 

@@ -81,18 +81,21 @@ void SaltyEngine::GUI::SFML::TextBox::Update() {
             m_text.setPosition(vec.x * sc.x - m_entry.getSize().x + 8, vec.y * sc.y + m_entry.getSize().y / 2);
         }
     }
-    if (m_renderer) {
-        if (m_clock.getElapsedTime().asSeconds() > 0.5f) {
-            m_clock.restart();
-            m_clignot = !m_clignot;
+    if (gameObject->GetActiveSelf())
+    {
+        if (m_renderer) {
+            if (m_clock.getElapsedTime().asSeconds() > 0.5f) {
+                m_clock.restart();
+                m_clignot = !m_clignot;
+            }
+            m_entry.setPosition(vec.x * sc.x, vec.y * sc.y + m_entry.getSize().y + m_title->getCharacterSize());
+            m_entry.setScale(sc.x, sc.y);
+            m_renderer->AddDrawable(&m_entry);
+            if (m_clignot) {
+                m_renderer->AddDrawable(&m_cursor);
+            }
+            m_renderer->AddDrawable(&m_text);
         }
-        m_entry.setPosition(vec.x * sc.x, vec.y * sc.y + m_entry.getSize().y + m_title->getCharacterSize());
-        m_entry.setScale(sc.x, sc.y);
-        m_renderer->AddDrawable(&m_entry);
-        if (m_clignot) {
-            m_renderer->AddDrawable(&m_cursor);
-        }
-        m_renderer->AddDrawable(&m_text);
     }
 }
 

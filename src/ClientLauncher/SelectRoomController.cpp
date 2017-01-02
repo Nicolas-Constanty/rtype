@@ -21,13 +21,15 @@ void SelectRoomController::Start() {
     obj->SetName("GameObjectLabelList");
     obj->AddComponent<SaltyEngine::GUI::SFML::LabelList>();
 
+    obj->transform.SetParent(&m_select_menu->transform);
+
     labelListObj = obj;
     obj->transform.SetPosition(SaltyEngine::Vector2(360, 200));
 
     m_create_button = m_select_menu->transform.GetChild(3)->gameObject;
     m_create_button->GetComponent<SaltyEngine::GUI::SFML::Button>()->onClick.AddListener(
-            "create",
-            std::bind(&SelectRoomController::Create, this)
+            "create menu",
+            std::bind(&SelectRoomController::DisplayCreateMenu, this)
     );
     m_select_menu->transform.GetChild(1)->gameObject->GetComponent<SaltyEngine::GUI::SFML::Button>()->onClick.AddListener(
             "join",
@@ -38,6 +40,14 @@ void SelectRoomController::Start() {
             std::bind(&SelectRoomController::Quit, this)
     );
 
+    m_create_menu->transform.GetChild(1)->gameObject->GetComponent<SaltyEngine::GUI::SFML::Button>()->onClick.AddListener(
+            "create game",
+            std::bind(&SelectRoomController::Create, this)
+    );
+    m_create_menu->transform.GetChild(2)->gameObject->GetComponent<SaltyEngine::GUI::SFML::Button>()->onClick.AddListener(
+            "cancel",
+            std::bind(&SelectRoomController::DisplaySelectMenu, this)
+    );
     m_roomNetworkManager = SaltyEngine::GameObject::Find("RoomNetworkManager");
 
     if (m_roomNetworkManager) {
@@ -80,11 +90,6 @@ void SelectRoomController::Join() {
 
 void SelectRoomController::Quit() {
     SaltyEngine::Engine::Instance().Stop();
-}
-
-void SelectRoomController::Create() {
-    m_select_menu->SetActive(false);
-    m_create_menu->SetActive(true);
 }
 
 void SelectRoomController::ListRoomGestion(GETPackageRoom const &pack) {
@@ -233,5 +238,19 @@ void SelectRoomController::onGetDELETE(DELETEPackageRoom const &deletePackageRoo
 }
 
 void SelectRoomController::onGetCHAT(CHATPackageRoom const& ) {
+
+}
+
+void SelectRoomController::DisplayCreateMenu() {
+    m_select_menu->SetActive(false);
+    m_create_menu->SetActive(true);
+}
+
+void SelectRoomController::DisplaySelectMenu() {
+    m_select_menu->SetActive(true);
+    m_create_menu->SetActive(false);
+}
+
+void SelectRoomController::Create() {
 
 }
