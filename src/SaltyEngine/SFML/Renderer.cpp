@@ -70,7 +70,7 @@ namespace SaltyEngine
                 if (std::find(m_labels.begin(), m_labels.end(), label) == m_labels.end())
                     m_labels.push_back(label);
                 else
-                    Debug::PrintWarning("label already load");
+                    Debug::PrintInfo("label already load");
 			}
 			else
 				Debug::PrintWarning("Cannot add null label");

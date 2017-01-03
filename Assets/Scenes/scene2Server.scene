@@ -1,6 +1,7 @@
 {
   "title": "scene2",
   "preview": "tot.png",
+  "norender" : "1",
   "scale": {
     "width": "2",
     "height": "2"
@@ -15,8 +16,7 @@
   ],
   "prefabs": {
     "GameManager": {
-      "prefabName": "GameManager",
-      "instantiate" : "1",
+      "prefabName": "GameManagerServer",
       "position": {
         "x": "0",
         "y": "0"

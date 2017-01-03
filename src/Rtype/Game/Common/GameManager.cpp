@@ -8,6 +8,7 @@
 #include <Rtype/Game/Client/BackgroundController.hpp>
 #include <Rtype/Game/Common/GameObjectID.hpp>
 #include <Rtype/Game/Client/GameGUIBeam.hpp>
+#include <SaltyEngine/SFML/SFMLSceneLoader.hpp>
 #include "Common/Debug.hpp"
 
 GameManager::GameManager(SaltyEngine::GameObject * const gamObj) :
@@ -34,48 +35,39 @@ GameManager::~GameManager()
 
 void GameManager::Start()
 {
+    Debug::PrintInfo("Je suis dans le game manager");
     gameObject->SetName("GameManager");
     m_client = gameObject->GetComponent<Rtype::Game::Client::GameClientObject>();
     m_server = gameObject->GetComponent<Rtype::Game::Server::GameServerObject>();
 
     if (m_client) {
+        Debug::PrintInfo("Je suis un client");
         gameObject->AddComponent<BackgroundController>();
         PlaySound("rtype-ost");
         CreateGUI();
     }
     if (m_server) {
+        Debug::PrintInfo("Je suis un server");
 		SaltyEngine::SFML::Sound::SetEnable(false);
         //	SaltyEngine::Engine::Instance().SetFrameRate(30);
 
-        // Create Scene
-        monsterMap = SaltyEngine::SFML::AssetManager::Instance().LoadScene(m_server->GetLevel());
-        SaltyEngine::Engine::Instance().GetCurrentScene()->SetScale(monsterMap->scale);
-
-        if (monsterMap)
-            monsterMap->objects.sort([](std::pair<std::string, SaltyEngine::PrefabDefault> obj1, std::pair<std::string, SaltyEngine::PrefabDefault> obj2) {
-                return (obj1.second.pos.x < obj2.second.pos.x);
-            });
+        SaltyEngine::SFML::SFMLSceneLoader *sl = dynamic_cast<SaltyEngine::SFML::SFMLSceneLoader *>(SaltyEngine::Engine::Instance().GetSceneLoader());
+        if (sl)
+        {
+            monsterMap = sl->GetScene();
+            if (monsterMap)
+                monsterMap->objects.sort([](std::pair<std::string, SaltyEngine::PrefabDefault> obj1, std::pair<std::string, SaltyEngine::PrefabDefault> obj2) {
+                    return (obj1.second.pos.x < obj2.second.pos.x);
+                });
+        } else {
+            Debug::PrintError("Need to load map before run scene");
+        }
     }
 }
 
 bool GameManager::isServerSide() const
 {
     return m_server != NULL;
-}
-
-void GameManager::OnCollisionExit(SaltyEngine::ICollider *collider)
-{
-    SaltyEngine::SFML::BoxCollider2D *c = dynamic_cast<SaltyEngine::SFML::BoxCollider2D*>(collider);
-
-    if (c && c->gameObject->GetTag() != SaltyEngine::Layer::Tag::Player)
-    {
-        Destroy(c->gameObject);
-    }
-}
-
-void GameManager::OnCollisionEnter(SaltyEngine::ICollider *)
-{
-	Debug::PrintSuccess("======ENTER=======");
 }
 
 void GameManager::addPlayer(SaltyEngine::GameObject *player, unsigned char playerID)

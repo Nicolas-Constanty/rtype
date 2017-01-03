@@ -78,7 +78,7 @@ namespace SaltyEngine {
         }
         if (m_prefabs.find(obj->GetName()) != m_prefabs.end())
         {
-            Debug::PrintWarning("Prefab [" + obj->GetName() + "] already in prefab list.");
+            Debug::PrintInfo("Prefab [" + obj->GetName() + "] already in prefab list.");
             loader->Unload();
             delete(loader);
             return nullptr;
@@ -95,6 +95,7 @@ SaltyEngine::GameObject *SaltyEngine::Factory::Find(std::string const &name)
     std::list<std::unique_ptr<Object>>::iterator it = std::find_if(m_objects.begin(), m_objects.end(),
                                                                    [&](const std::unique_ptr<Object> &obj)
                                                                    {
+                                                                       std::cout << obj.get()->GetName() << std::endl;
                                                                        return obj.get()->GetName() == name &&
                                                                                dynamic_cast<GameObject*>(obj.get())->GetActiveSelf();
                                                                    });

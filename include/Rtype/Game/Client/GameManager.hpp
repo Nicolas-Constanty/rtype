@@ -20,8 +20,6 @@ public:
 public:
 	void Start();
 	void FixedUpdate();
-    void OnCollisionExit(SaltyEngine::ICollider *collider);
-    void OnCollisionEnter(SaltyEngine::ICollider *collider);
 
 public:
 	void		PlaySound(std::string const &sound, bool loop = true);

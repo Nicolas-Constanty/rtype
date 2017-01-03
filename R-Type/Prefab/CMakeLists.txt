@@ -46,6 +46,16 @@ file(GLOB SRC_COMMMUNICATION
 	add_library(game_manager SHARED ${MANAGER_SOURCE_FILE})
 	target_link_libraries(game_manager ${PREFAB_LIBRARIES})
 
+	#GAME MANAGER SERVER
+	file(GLOB MANAGER_SERVER_SOURCE_FILE "src/Prefabs/GameManagerServer/*.cpp"  "include/Prefabs/GameManagerServer/*.hpp")
+	add_library(game_manager_server SHARED ${MANAGER_SERVER_SOURCE_FILE})
+	target_link_libraries(game_manager_server ${PREFAB_LIBRARIES})
+
+	#GAME MANAGER SERVER
+	file(GLOB MANAGER_CLIENT_SOURCE_FILE "src/Prefabs/GameManagerClient/*.cpp"  "include/Prefabs/GameManagerClient/*.hpp")
+	add_library(game_manager_client SHARED ${MANAGER_CLIENT_SOURCE_FILE})
+	target_link_libraries(game_manager_client ${PREFAB_LIBRARIES})
+
 	# BLOCK
 	file(GLOB BEAM_SOURCE_FILE "src/Prefabs/Block/*.cpp"  "include/Prefabs/Block/*.hpp")
 	add_library(BlockSimple SHARED ${BEAM_SOURCE_FILE})
@@ -368,6 +378,16 @@ file(GLOB SRC_COMMMUNICATION
 	add_library(game_manager SHARED ${MANAGER_SOURCE_FILE} $<TARGET_OBJECTS:RtypeLib> $<TARGET_OBJECTS:CommonPrefabs>)
 	target_link_libraries(game_manager ${PREFAB_LIBRARIES})
 
+	# GAME MANAGER SERVER
+	file(GLOB MANAGER_SERVER_SOURCE_FILE "../../src/Prefabs/GameManagerServer/*.cpp")
+	add_library(game_manager_server SHARED ${MANAGER_SERVER_SOURCE_FILE} $<TARGET_OBJECTS:RtypeLib> $<TARGET_OBJECTS:CommonPrefabs>)
+	target_link_libraries(game_manager_server ${PREFAB_LIBRARIES})
+
+	# GAME MANAGER CLIENT
+	file(GLOB MANAGER_CLIENT_SOURCE_FILE "../../src/Prefabs/GameManagerClient/*.cpp")
+	add_library(game_manager_client SHARED ${MANAGER_CLIENT_SOURCE_FILE} $<TARGET_OBJECTS:RtypeLib> $<TARGET_OBJECTS:CommonPrefabs>)
+	target_link_libraries(game_manager_client ${PREFAB_LIBRARIES})
+
 		# ROOM SCREEN
 		file(GLOB GUI_SELECT_ROOM_SOURCE_FILE
 				"../../src/ClientLauncher/SelectRoom.cpp"
@@ -401,6 +421,8 @@ add_dependencies(player ${PREFAB_DEPENDENCIES} missile_laser)
 add_dependencies(mate ${PREFAB_DEPENDENCIES} missile_laser)
 
 add_dependencies(game_manager ${PREFAB_DEPENDENCIES})
+add_dependencies(game_manager_server ${PREFAB_DEPENDENCIES})
+add_dependencies(game_manager_client ${PREFAB_DEPENDENCIES})
 
 set(PREFABS_TARGET
 		missile_medusa
@@ -422,6 +444,8 @@ set(PREFABS_TARGET
 		beam
 		BlockSimple
         game_manager
+        game_manager_server
+		game_manager_client
         gui_logger
 		gui_menu_room)
 

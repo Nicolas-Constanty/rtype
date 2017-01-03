@@ -66,32 +66,36 @@ namespace SaltyEngine
 				SaltyEngine::Engine::Instance() << scene;
 			}
 			m_scene = SaltyEngine::SFML::AssetManager::Instance().LoadSize(sceneName);
-			Renderer *renderer = dynamic_cast<Renderer *>(SaltyEngine::Engine::Instance().GetRenderer());
+			IRenderer *renderer = SaltyEngine::Engine::Instance().GetRenderer();
+            Renderer *r = dynamic_cast<Renderer *>(renderer);
 			unsigned int x = (unsigned int) m_scene->size.x;
 			unsigned int y = (unsigned int) m_scene->size.y;
-			if (renderer)
+			if (r)
 			{
-				renderer->setSize(sf::Vector2u(x * 2, y * 2));
-				renderer->setView(sf::View(sf::FloatRect(0.f, 0.f, x * 2, y * 2)));
+                r->setSize(sf::Vector2u(x * 2, y * 2));
+                r->setView(sf::View(sf::FloatRect(0.f, 0.f, x * 2, y * 2)));
 			} else {
-
-				renderer = new SaltyEngine::SFML::Renderer(sf::VideoMode(x * 2, y * 2), "R-Type Launcher");
-				SaltyEngine::Engine::Instance().SetRenderer(renderer);
-			}
-			if (SaltyEngine::Engine::Instance().GetEventManager() == nullptr)
-			{
-				SaltyEngine::SFML::EventManager *event_manager = new SaltyEngine::SFML::EventManager(renderer);
-				SaltyEngine::Engine::Instance().SetEventManager(event_manager);
-			}
-			if (SaltyEngine::Engine::Instance().GetPhysicsHandler() == nullptr)
-			{
-				SaltyEngine::SFML::PhysicsHandler *ph = new PhysicsHandler(x, y, false);
+				SaltyEngine::SFML::PhysicsHandler *ph = nullptr;
+                if (m_scene->renderer) {
+                    r = new SaltyEngine::SFML::Renderer(sf::VideoMode(x * 2, y * 2), "R-Type Launcher");
+					ph = new PhysicsHandler(x, y, false);
+                    SaltyEngine::SFML::EventManager *event_manager = new SaltyEngine::SFML::EventManager(r);
+                    SaltyEngine::Engine::Instance().SetEventManager(event_manager);
+					SaltyEngine::Engine::Instance().SetRenderer(r);
+                } else {
+                    renderer = new SaltyEngine::DefaultRenderer();
+					ph = new PhysicsHandler(x, y, true);
+                    SaltyEngine::Input::IEventManager *event_manager = new SaltyEngine::Input::DefaultEventManager();
+                    SaltyEngine::Engine::Instance().SetEventManager(event_manager);
+					SaltyEngine::Engine::Instance().SetRenderer(renderer);
+                }
 				SaltyEngine::Engine::Instance().SetPhysicsHandler(ph);
-			}
+            }
 			PhysicsHandler *a = dynamic_cast<PhysicsHandler *>(SaltyEngine::Engine::Instance().GetPhysicsHandler());
 			if (a)
 				a->SetSize((unsigned int) m_scene->size.x, (unsigned int) m_scene->size.y);
 			m_scene = SaltyEngine::SFML::AssetManager::Instance().LoadScene(sceneName);
+            scene->SetScale(m_scene->scale);
             SaltyEngine::Engine::Instance().SetCurrentScene(scene);
 			for (std::pair<std::string, SaltyEngine::PrefabDefault> it :  m_scene->objects)
             {
@@ -112,6 +116,10 @@ namespace SaltyEngine
 		Vector2 SFMLSceneLoader::GetSceneScale(void) const
 		{
 			return m_scene->scale;
+		}
+
+		SceneDefault *SFMLSceneLoader::GetScene() const {
+			return m_scene;
 		}
 	}
 }

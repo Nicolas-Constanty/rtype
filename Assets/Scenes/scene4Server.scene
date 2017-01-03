@@ -1,6 +1,7 @@
 {
   "title": "scene4",
   "preview": "tot.png",
+  "norender" : "1",
   "scale": {
     "width": "2",
     "height": "2"
@@ -12,13 +13,23 @@
   "prefabs": {
     "Player": {
       "prefabName": "Player",
+      "instantiate" : "1",
       "position": {
         "x" : "50",
         "y": "500"
       }
     },
+    "GameManager": {
+      "prefabName": "GameManagerServer",
+      "instantiate" : "1",
+      "position": {
+        "x": "0",
+        "y": "0"
+      }
+    },
     "BLOCK" : {
       "prefabName": "BlockSimple",
+      "instantiate" : "1",
       "position": {
         "x": "0",
         "y": "20"
@@ -26,6 +37,7 @@
     },
     "BLOCK1" : {
       "prefabName": "BlockSimple",
+      "instantiate" : "1",
       "position": {
         "x": "90",
         "y": "20"
@@ -33,6 +45,7 @@
     },
     "BLOCK2" : {
       "prefabName": "BlockSimple",
+      "instantiate" : "1",
       "position": {
         "x": "180",
         "y": "20"
@@ -40,6 +53,7 @@
     },
     "BLOCK3" : {
       "prefabName": "BlockSimple",
+      "instantiate" : "1",
       "position": {
         "x": "270",
         "y": "20"
@@ -47,6 +61,7 @@
     },
     "BLOCK4" : {
       "prefabName": "BlockSimple",
+      "instantiate" : "1",
       "position": {
         "x": "350",
         "y": "20"
@@ -54,6 +69,7 @@
     },
     "Bonus1" : {
       "prefabName": "SpiralBonus",
+      "instantiate" : "1",
       "position": {
         "x": "300",
         "y": "100"
@@ -61,6 +77,7 @@
     },
     "Bonus2" : {
       "prefabName": "SpiralBonus",
+      "instantiate" : "1",
       "position": {
         "x": "500",
         "y": "100"
@@ -68,6 +85,7 @@
     },
     "MonsterWalker": {
       "prefabName": "MonsterWalker",
+      "instantiate" : "1",
       "position": {
         "x" : "500",
         "y": "300"
@@ -75,6 +93,7 @@
     },
     "MonsterNeunoeil": {
       "prefabName": "MonsterNeunoeil",
+      "instantiate" : "1",
       "position": {
         "x" : "1300",
         "y": "300"

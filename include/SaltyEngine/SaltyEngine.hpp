@@ -49,6 +49,7 @@ namespace SaltyEngine
 		virtual APhysicsHandler *GetPhysicsHandler(void) const;
 		virtual const Vector2ui &GetSize(void) const;
         virtual void SetSceneLoader(ISceneLoader *sceneLoader);
+        virtual ISceneLoader *GetSceneLoader() const;
 
         int GetArgc(void) const;
         char const** GetArgv(void) const;

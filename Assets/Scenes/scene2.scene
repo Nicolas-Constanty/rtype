@@ -15,7 +15,7 @@
   ],
   "prefabs": {
     "GameManager": {
-      "prefabName": "GameManager",
+      "prefabName": "GameManagerClient",
       "instantiate" : "1",
       "position": {
         "x": "0",

@@ -393,7 +393,7 @@ namespace SaltyEngine
             return;
         }
 		if (std::find(m_objects.begin(), m_objects.end(), gameobj) != m_objects.end()) {
-			Debug::PrintWarning("Object " + gameobj->GetName() + " was already add in the scene");
+			Debug::PrintInfo("Object " + gameobj->GetName() + " was already add in the scene");
 			return;
 		}
 		gameobj->transform.SetLocalScale(m_scale);

@@ -373,4 +373,8 @@ namespace SaltyEngine
             m_current_name = "";
         }
     }
+
+    ISceneLoader *Engine::GetSceneLoader() const {
+        return m_sceneLoader;
+    }
 }

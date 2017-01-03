@@ -291,13 +291,16 @@ void SelectRoomController::onGetSWAP(SWAPPackageRoom const &swapPackageRoom) {
     m_roomNetworkManager->GetComponent<RoomNetworkManager>()->GetNetworkManager()->canAddGETPackage = true;
 
     SaltyEngine::Engine::Instance().LoadScene("scene2");
-
-    SaltyEngine::GameObject *gameManager = SaltyEngine::GameObject::FindGameObjectWithTag(SaltyEngine::Layer::Tag::GameManager);
-
-    if (gameManager) {
-        gameManager->AddComponent<Rtype::Game::Client::GameClientObject>(ip, port, secret);
-    }
-
+    char const**av;
+    av = (const char **) new char*[7];
+    av[0] = strdup("r");
+    av[1] = strdup("i");
+    av[2] = strdup(ip.c_str());
+    av[3] = strdup("p");
+    av[4] = strdup(std::to_string(port).c_str());
+    av[5] = strdup("s");
+    av[6] = strdup(std::to_string(secret).c_str());
+    SaltyEngine::Engine::Instance().SetArguments(7, av);
 }
 
 void SelectRoomController::onGetGET(GETPackageRoom const& room) {

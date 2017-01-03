@@ -27,6 +27,8 @@ namespace SaltyEngine
 
         private:
             SceneDefault *m_scene = nullptr;
+        public:
+            SceneDefault *GetScene() const;
         };
     }
 }

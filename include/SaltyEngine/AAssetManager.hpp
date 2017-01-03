@@ -58,6 +58,7 @@ namespace SaltyEngine {
         std::string background;
         Vector2f    scale;
         Vector2     size;
+        bool        renderer;
         std::list<std::pair<std::string, PrefabDefault> > objects;
     };
 
@@ -210,7 +211,7 @@ namespace SaltyEngine {
         /// \return bool
         bool            LoadSprite(std::string const &filename) {
             if (m_sprites.find(filename) != m_sprites.end()) {
-                Debug::PrintWarning("Sprite " + filename + " already loaded");
+                Debug::PrintInfo("Sprite " + filename + " already loaded");
                 return true;
             }
             try {
@@ -271,7 +272,7 @@ namespace SaltyEngine {
         /// \return bool
         bool            LoadAnimation(std::string const &filename) {
             if (m_animations.find(filename) != m_animations.end()) {
-                Debug::PrintWarning("Animation " + filename + " already loaded");
+                Debug::PrintInfo("Animation " + filename + " already loaded");
                 return true;
             }
             try {
@@ -335,7 +336,7 @@ namespace SaltyEngine {
         /// \return bool
         bool    LoadPrefab(std::string const &filename) {
             if (std::find(m_prefabs.begin(), m_prefabs.end(), filename) != m_prefabs.end()) {
-                Debug::PrintWarning("Prefab " + filename + " already loaded");
+                Debug::PrintInfo("Prefab " + filename + " already loaded");
                 return true;
             }
             try {
@@ -411,7 +412,7 @@ namespace SaltyEngine {
 #else
             m_current_scene = Make_unique<SceneDefault>();
 #endif
-
+            m_current_scene->renderer = true;
             try {
                 Parser parser = Parser(JSON, (path_scenes + filename + Asset::SCENE_EXTENSION).c_str());
                 JsonVariant::json_pair map;
@@ -426,6 +427,13 @@ namespace SaltyEngine {
                     } catch (std::exception const &) {
 
                     }
+                    try {
+                        if (std::atoi(map["norender"]().c_str()) != 0)
+                            m_current_scene->renderer = false;
+                    } catch (std::exception const &) {
+
+                    }
+
                 }
             } catch (std::exception const &e) {
                 Debug::PrintError(std::string(e.what()) + " " + filename);

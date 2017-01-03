@@ -24,7 +24,7 @@ if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 	file(GLOB GameClientInc
 			"include/Rtype/Game/Server/*.hpp"
 			"include/Rtype/Game/Common/*.hpp"
-			"include/Rtype/Game/Common/*.hpp"
+			"include/Rtype/Game/Client/*.hpp"
 			"include/RoomNetworkSaltyEngine/*.hpp"
 			)
 	

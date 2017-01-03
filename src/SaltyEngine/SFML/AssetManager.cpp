@@ -18,7 +18,7 @@ namespace SaltyEngine {
 
         bool AssetManager::LoadISound(std::string const &name, bool isMusic) {
             if (m_sounds.find(name) != m_sounds.end()) {
-                Debug::PrintWarning("Sound " + name + " already loaded");
+                Debug::PrintInfo("Sound " + name + " already loaded");
                 return true;
             }
             ::SaltyEngine::Sound::ISound *sound;
@@ -38,7 +38,7 @@ namespace SaltyEngine {
 
         bool AssetManager::LoadTexture(std::string const &name) {
             if (m_textures.find(name) != m_textures.end()) {
-                Debug::PrintWarning("Texture " + name + " already loaded");
+                Debug::PrintInfo("Texture " + name + " already loaded");
                 return true;
             }
             Texture *texture = new Texture();
@@ -53,7 +53,7 @@ namespace SaltyEngine {
 
         bool AssetManager::LoadFont(std::string const &name) {
             if (m_fonts.find(name) != m_fonts.end()) {
-                Debug::PrintWarning("Font " + name + " already loaded");
+                Debug::PrintInfo("Font " + name + " already loaded");
                 return true;
             }
             sf::Font *font = new sf::Font();
