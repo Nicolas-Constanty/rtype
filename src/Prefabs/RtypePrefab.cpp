@@ -25,7 +25,7 @@ RtypePrefab::~RtypePrefab()
 
 void RtypePrefab::LoadManager()
 {
-    SaltyEngine::GameObject *obj = SaltyEngine::GameObject::Find("GameManager");
+    SaltyEngine::GameObject *obj = SaltyEngine::GameObject::FindGameObjectWithTag(SaltyEngine::Layer::Tag::GameManager);
 
     if (obj)
         m_manager = obj->GetComponent<GameManager>();

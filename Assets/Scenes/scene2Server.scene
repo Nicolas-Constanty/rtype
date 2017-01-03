@@ -17,6 +17,7 @@
   "prefabs": {
     "GameManager": {
       "prefabName": "GameManagerServer",
+      "instantiate": "1",
       "position": {
         "x": "0",
         "y": "0"

@@ -45,8 +45,11 @@ namespace Rtype
                     this->map = level;
                 }
 
+                SaltyEngine::Component *CloneComponent(SaltyEngine::GameObject *const obj) override;
+
             private:
                 const uint32_t secret;
+                const size_t m_maxClient;
                 const uint16_t port;
                 std::string map;
                 Rtype::Game::Server::RtypeGameServer    *server;

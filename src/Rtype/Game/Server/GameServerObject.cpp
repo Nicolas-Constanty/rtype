@@ -10,9 +10,10 @@
 Rtype::Game::Server::GameServerObject::GameServerObject(SaltyEngine::GameObject *obj, const uint16_t port, const size_t maxClient, const uint32_t secret, const std::string &map) :
     SaltyEngine::SaltyBehaviour(obj),
     secret(secret),
+    m_maxClient(maxClient),
     port(port),
     map(map),
-    server(new RtypeGameServer(dispatcher, maxClient, map)),
+    server(nullptr),
     dispatcher(),
     manager(NULL),
     running(false)
@@ -27,6 +28,7 @@ Rtype::Game::Server::GameServerObject::~GameServerObject()
 
 void Rtype::Game::Server::GameServerObject::Start()
 {
+    server = new RtypeGameServer(dispatcher, m_maxClient, map);
     if (secret != 0)
     {
         server->setSecret(secret);
@@ -52,4 +54,9 @@ void Rtype::Game::Server::GameServerObject::Update()
 {
     if (running)
        dispatcher.Poll();
+}
+
+SaltyEngine::Component *Rtype::Game::Server::GameServerObject::CloneComponent(SaltyEngine::GameObject *const obj)
+{
+    return new GameServerObject(obj, port, m_maxClient, secret, map);
 }

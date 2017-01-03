@@ -125,7 +125,10 @@ SaltyEngine::GameObject *SaltyEngine::Factory::FindByTag(Layer::Tag tag)
                                                                    {
                                                                        GameObject *go = dynamic_cast<GameObject*>(obj.get());
                                                                        if (go != nullptr)
-                                                                           return go->GetTag() == tag && go->GetActiveSelf();
+                                                                       {
+                                                                           return go->GetTag() == tag &&
+                                                                                  go->GetActiveSelf();
+                                                                       }
                                                                        return false;
                                                                    });
     if (it == m_objects.end())

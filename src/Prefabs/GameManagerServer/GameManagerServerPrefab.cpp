@@ -11,13 +11,13 @@
 
 GameManagerServerPrefab::GameManagerServerPrefab() : GameObject("GameManagerServer", SaltyEngine::Layer::Tag::GameManager)
 {
-    SetName("GameManager");
     Flags   flags;
     uint16_t port;
     size_t max;
     uint32_t secret;
     std::string level;
 
+    flags.Reset();
     flags.Var(port, 'p', "port", uint16_t(4242), "The port on which the room server will be binded", "Room port");
     flags.Var(max, 'm', "max", size_t(2), "The maximum amount of players that are allowed to join the room server", "Maximum amount of players");
     flags.Var(secret, 's', "secret", uint32_t(0), "The secret password of the room", "Secret password");
@@ -26,7 +26,7 @@ GameManagerServerPrefab::GameManagerServerPrefab() : GameObject("GameManagerServ
     flags.Parse(SaltyEngine::Engine::Instance().GetArgc(), (char **)SaltyEngine::Engine::Instance().GetArgv());
     AddComponent<Rtype::Game::Server::GameServerObject>(port, max > 4 ? 4 : max, secret, level);
     AddComponent<GameManager>();
-    *SaltyEngine::Engine::Instance().GetCurrentScene() << this;
+//    *SaltyEngine::Engine::Instance().GetCurrentScene() << this;
 
 //    const SaltyEngine::Engine &engine = SaltyEngine::Engine::Instance();
 //    const SaltyEngine::Vector2ui size = engine.GetSize();

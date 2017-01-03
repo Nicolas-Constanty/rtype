@@ -16,6 +16,7 @@ GameManagerClientPrefab::GameManagerClientPrefab() : GameObject("GameManagerClie
     uint16_t port;
     uint32_t secret;
 
+    flags.Reset();
     flags.Var(ip, 'i', "ip", std::string("127.0.0.1"), "The ip of server", "Ip");
     flags.Var(port, 'p', "port", uint16_t(4242), "The port on which the room server will be binded", "Room port");
     flags.Var(secret, 's', "secret", uint32_t(0), "The secret password of the room", "Secret password");
