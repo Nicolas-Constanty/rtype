@@ -1,7 +1,7 @@
 #ifdef _WIN32
 #include <direct.h>
 #else
-#include <X11/Xlib.h>
+//#include <X11/Xlib.h>
 #include <dirent.h>
 #include <SaltyEngine/Constants.hpp>
  #include <unistd.h>

@@ -13,8 +13,8 @@
 GameManagerClientPrefab::GameManagerClientPrefab() : GameObject("GameManagerClient", SaltyEngine::Layer::Tag::GameManager)
 {
     Flags   flags;
-    std::string ip;
-    uint16_t port = 0;
+    std::string ip = "127.0.0.1";
+    uint16_t port = 4242;
     uint32_t secret = 0;
 
     SaltyEngine::GameObject *gameObject = SaltyEngine::GameObject::Find("RoomNetworkManager");
