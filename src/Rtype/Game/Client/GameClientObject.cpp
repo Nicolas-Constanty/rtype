@@ -1,3 +1,4 @@
+#include <RoomNetworkSaltyEngine/RoomNetworkManager.hpp>
 #include "Rtype/Game/Client/GameClientObject.hpp"
 #include "Rtype/Game/Client/GameManager.hpp"
 
@@ -18,9 +19,18 @@ Rtype::Game::Client::GameClientObject::~GameClientObject()
 Rtype::Game::Client::GameClientObject::GameClientObject(const std::string & name, SaltyEngine::GameObject * const gamObj, const std::string &ip, const uint16_t port, const uint16_t secret)
 	: SaltyBehaviour(name, gamObj), m_port(port), m_ip(ip), m_secret(secret)
 {
+
 }
 
 void Rtype::Game::Client::GameClientObject::Start() {
+	SaltyEngine::GameObject *gameObject = SaltyEngine::GameObject::Find("RoomNetworkManager");
+
+	if (gameObject) {
+		m_ip = gameObject->GetComponent<RoomNetworkManager>()->GetUDPIP();
+		m_port = static_cast<uint16_t>(gameObject->GetComponent<RoomNetworkManager>()->GetUDPPort());
+		m_secret = gameObject->GetComponent<RoomNetworkManager>()->GetUDPSecret();
+	}
+
 	std::cout << "start gameClientObject" << std::endl;
 	
 	m_rtypeclient = new Rtype::Game::Client::RtypeClientGameClient(m_dispatcher, m_secret);
