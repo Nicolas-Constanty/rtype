@@ -127,7 +127,7 @@ void GameManager::FixedUpdate() {
 
         while (it != monsterMap->objects.end()) {
             if ((*it).second.pos.x < this->currentPosition) {
-                if ((*it).first != "Player") {
+                if ((*it).first != "Player" && (*it).first != "GameManagerServer") {
 
                     SaltyEngine::Vector2f pos = (*it).second.pos;
 
