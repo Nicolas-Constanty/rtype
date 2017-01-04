@@ -290,17 +290,26 @@ void SelectRoomController::onGetSWAP(SWAPPackageRoom const &swapPackageRoom) {
     m_roomNetworkManager->GetComponent<RoomNetworkManager>()->GetNetworkManager()->SetTransitionNetworkManager(NULL);
     m_roomNetworkManager->GetComponent<RoomNetworkManager>()->GetNetworkManager()->canAddGETPackage = true;
 
+//    sleep(5);
     SaltyEngine::Engine::Instance().LoadScene("scene2");
-    char const**av;
-    av = (const char **) new char*[7];
-    av[0] = strdup("r");
-    av[1] = strdup("i");
-    av[2] = strdup(ip.c_str());
-    av[3] = strdup("p");
-    av[4] = strdup(std::to_string(port).c_str());
-    av[5] = strdup("s");
-    av[6] = strdup(std::to_string(secret).c_str());
-    SaltyEngine::Engine::Instance().SetArguments(7, av);
+//    char const**av;
+//    av = (const char **) new char*[7];
+////    av[0] = strdup("r");
+//    av[0] = strdup("i");
+//    av[1] = strdup(ip.c_str());
+//    av[2] = strdup("p");
+//    av[3] = strdup(std::to_string(port).c_str());
+//    av[4] = strdup("s");
+//    av[5] = strdup(std::to_string(secret).c_str());
+//    av[0] = strdup("-h");
+////    av[1] = strdup("i");
+//    av[1] = strdup(ip.c_str());
+//    av[2] = strdup("-p");
+//    av[3] = strdup(std::to_string(port).c_str());
+//    av[4] = strdup("-s");
+//    av[5] = strdup(std::to_string(secret).c_str());
+
+//    SaltyEngine::Engine::Instance().SetArguments(6, av);
 }
 
 void SelectRoomController::onGetGET(GETPackageRoom const& room) {

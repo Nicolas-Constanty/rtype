@@ -4,6 +4,7 @@
 
 #include <Rtype/Game/Client/GameGUILives.hpp>
 #include <Common/Flags.hpp>
+#include <RoomNetworkSaltyEngine/RoomNetworkManager.hpp>
 #include "Rtype/Game/Client/GameGUIBeam.hpp"
 #include "Rtype/Game/Client/GameClientObject.hpp"
 #include "Prefabs/GameManagerClient/GameManagerClientPrefab.hpp"
@@ -13,15 +14,31 @@ GameManagerClientPrefab::GameManagerClientPrefab() : GameObject("GameManagerClie
 {
     Flags   flags;
     std::string ip;
-    uint16_t port;
-    uint32_t secret;
+    uint16_t port = 0;
+    uint32_t secret = 0;
 
-    flags.Reset();
-    flags.Var(ip, 'i', "ip", std::string("127.0.0.1"), "The ip of server", "Ip");
-    flags.Var(port, 'p', "port", uint16_t(4242), "The port on which the room server will be binded", "Room port");
-    flags.Var(secret, 's', "secret", uint32_t(0), "The secret password of the room", "Secret password");
+    SaltyEngine::GameObject *gameObject = SaltyEngine::GameObject::Find("RoomNetworkManager");
 
-    flags.Parse(SaltyEngine::Engine::Instance().GetArgc(), (char **)SaltyEngine::Engine::Instance().GetArgv());
+
+    if (gameObject) {
+        ip = gameObject->GetComponent<RoomNetworkManager>()->GetUDPIP();
+        port = static_cast<uint16_t>(gameObject->GetComponent<RoomNetworkManager>()->GetUDPPort());
+        secret = gameObject->GetComponent<RoomNetworkManager>()->GetUDPSecret();
+    }
+//    flags.Reset();
+//    flags.Var(ip, 'i', "ip", std::string("127.0.0.1"), "The ip of server", "Ip");
+//    flags.Var(port, 'p', "port", uint16_t(4242), "The port on which the room server will be binded", "Room port");
+//    flags.Var(secret, 's', "secret", uint32_t(0), "The secret password of the room", "Secret password");
+//
+//    flags.Parse(SaltyEngine::Engine::Instance().GetArgc(), (char **)SaltyEngine::Engine::Instance().GetArgv());
+    std::cout << "GameManagerClientPrefab" << std::endl;
+    std::cout << "ip == " << ip << std::endl;
+    std::cout << "port == " << port << std::endl;
+    std::cout << "secret == " << secret << std::endl;
+
+//    std::cout << "wiat" << std::endl;
+//    sleep(20);
+//    std::cout << "go" << std::endl;
     AddComponent<Rtype::Game::Client::GameClientObject>(ip, port, secret);
     AddComponent<GameManager>();
 
