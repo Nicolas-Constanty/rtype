@@ -53,6 +53,8 @@ namespace Rtype
                 virtual void onGetDISCONNECTPackage(DISCONNECTPackageGame const &pack);
                 virtual void onGetRECONNECTPackage(RECONNECTPackageGame const &);
 
+                void OnSetGUI();
+
             private:
                 GameOver    *gameOver;
                 GameGUIHighscore *gameGUIHighscore;

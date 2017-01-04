@@ -33,6 +33,10 @@ namespace Rtype
 					m_rtypeclient->BroadCastPackage<Package>(func, args...);
 				}
 
+				Client::RtypeClientGameClient *GetClient() const {
+					return m_rtypeclient;
+				}
+
 				SaltyEngine::Component *CloneComponent(SaltyEngine::GameObject *const obj) override;
 
 			private:
