@@ -40,11 +40,7 @@ Rtype::Game::Client::RtypeClientGameClient::~RtypeClientGameClient()
 
 }
 
-bool Rtype::Game::Client::RtypeClientGameClient::OnStart()
-{
-    SendPackage<AUTHENTICATEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<AUTHENTICATEPackageGame>, secret);
-    connected = true;
-
+void Rtype::Game::Client::RtypeClientGameClient::OnSetGUI() {
     SaltyEngine::GameObject *goHighscore = SaltyEngine::GameObject::Find("GUIHighscore");
 
     if (goHighscore)
@@ -69,6 +65,14 @@ bool Rtype::Game::Client::RtypeClientGameClient::OnStart()
     if (this->gameGUIQuitButton) {
         this->gameGUIQuitButton->SetActive(false);
     }
+}
+
+bool Rtype::Game::Client::RtypeClientGameClient::OnStart()
+{
+    SendPackage<AUTHENTICATEPackageGame>(&Network::UDP::AUDPConnection::SendReliable<AUTHENTICATEPackageGame>, secret);
+    connected = true;
+
+    OnSetGUI();
 
     gameOver = new GameOver(gameManager);
     return true;

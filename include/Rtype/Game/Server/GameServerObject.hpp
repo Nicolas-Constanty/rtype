@@ -32,6 +32,8 @@ namespace Rtype
                     this->server->BroadCastPackage<Package>(func, args...);
                 }
 
+//                Rtype::Game::Server::RtypeGameServer    *GetClient
+
             public:
                 Rtype::Game::Server::RtypeGameServer *Server() {
                     return (server);

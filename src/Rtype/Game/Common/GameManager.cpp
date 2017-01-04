@@ -45,6 +45,12 @@ void GameManager::Start()
         gameObject->AddComponent<BackgroundController>();
         PlaySound("rtype-ost");
         CreateGUI();
+        if (m_client->GetClient()) {
+            Debug::PrintSuccess("Set GUI on client");
+            m_client->GetClient()->OnSetGUI();
+        } else {
+            Debug::PrintError("Can't set GUI on client");
+        }
     }
     if (m_server) {
         Debug::PrintInfo("Je suis un server");
@@ -63,6 +69,12 @@ void GameManager::Start()
             Debug::PrintError("Need to load map before run scene");
         }
     }
+//    if (m_client) {
+//        if (m_client->GetClient()) {
+//            std::cout << "setting GUI" << std::endl;
+//            m_client->GetClient()->OnSetGUI();
+//        }
+//    }
 }
 
 bool GameManager::isServerSide() const
