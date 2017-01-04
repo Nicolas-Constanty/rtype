@@ -34,9 +34,17 @@ void Rtype::Game::Client::GameClientObject::Start() {
 	std::cout << "start gameClientObject" << std::endl;
 	
 	m_rtypeclient = new Rtype::Game::Client::RtypeClientGameClient(m_dispatcher, m_secret);
-    m_rtypeclient->Connect(m_ip, m_port);
-	m_dispatcher.Watch(m_rtypeclient, Network::Core::NativeSocketIOOperationDispatcher::READ);
-	m_dispatcher.setTimeout({0, 2});
+
+	try
+	{
+		m_rtypeclient->Connect(m_ip, m_port);
+        m_dispatcher.Watch(m_rtypeclient, Network::Core::NativeSocketIOOperationDispatcher::READ);
+        m_dispatcher.setTimeout({0, 2});
+	}
+	catch (Network::Socket::SocketException const &err)
+	{
+		Debug::PrintError("Connect: " + std::string(err.what()));
+	}
 }
 
 void Rtype::Game::Client::GameClientObject::Update()
