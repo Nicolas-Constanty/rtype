@@ -14,6 +14,7 @@ if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 			"src/Rtype/Game/Client/*.cpp"
 			"src/Prefabs/RtypePrefab.cpp"
 			"R-Type/GameServer/main.cpp"
+			"src/RoomNetworkSaltyEngine/*.cpp"
 			)
 
 	#Hpp files
@@ -21,6 +22,7 @@ if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 			"include/Rtype/Game/Server/*.hpp"
 			"include/Rtype/Game/Common/*.hpp"
 			"include/Rtype/Game/Common/*.hpp"
+			"include/RoomNetworkSaltyEngine/*.hpp"
 			)
 
 	#C++ FLAGS
