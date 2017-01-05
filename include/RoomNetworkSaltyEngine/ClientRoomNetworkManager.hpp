@@ -44,12 +44,13 @@ public:
     void SetTransitionNetworkManager(ITransitionNetworkManager *manager) const;
     ITransitionNetworkManager const*GetTransitionNetworkManager(void) const;
     std::list<GETPackageRoom *> const &GetPackages() const;
+    void ClearPackagesGET() const;
 
 private:
     RTypeProtocolRoomManager protocolRoomManager;
     RoomPackageFactory factory;
     mutable ITransitionNetworkManager   *transitionNetworkManager = NULL;
-    std::list<GETPackageRoom *> getPackages;
+    mutable std::list<GETPackageRoom *> getPackages;
 
 public:
     mutable bool canAddGETPackage = true;

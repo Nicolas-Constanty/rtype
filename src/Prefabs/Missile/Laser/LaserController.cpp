@@ -31,17 +31,13 @@ void LaserController::OnCollisionEnter(SaltyEngine::ICollider *col)
 //    std::cout << "ONCOLLISION ENTER" << std::endl;
 //    SaltyEngine::ACollider2D<sf::Vector2i> *c = dynamic_cast<SaltyEngine::ACollider2D<sf::Vector2i>*>(col);
     SaltyEngine::SFML::SpriteCollider2D *c = dynamic_cast<SaltyEngine::SFML::SpriteCollider2D *>(col);
-    std::cout << "ON collision ENTER at " << time(NULL) << std::endl;
 
     if (!c) {
-        std::cout << "ON collision exit return" << time(NULL) << std::endl;
         return;
     }
     if (c->CompareTag(SaltyEngine::Layer::Tag::Enemy)) {
-        std::cout << "ON collision compare tag ok" << time(NULL) << std::endl;
         AGenericController *controller = c->gameObject->GetComponent<AGenericController>();
         if (controller) {
-            std::cout << "ON collision take damage" << time(NULL) << std::endl;
             controller->TakeDamage(m_damage);
             this->m_targetNbr -= 1;
             if (this->m_targetNbr == 0) {
@@ -51,11 +47,7 @@ void LaserController::OnCollisionEnter(SaltyEngine::ICollider *col)
                 playerController->SetHighScore(playerController->GetHighScore() + controller->GetHighScore());
             }
         }
-    } else {
-        std::cout << "with name == " << c->gameObject->GetName() << std::endl;
-        std::cout << "tag is == " << static_cast<int>(c->tag) << std::endl;
     }
-    std::cout << "ON collision exit" << time(NULL) << std::endl;
 }
 
 //void LaserController::OnCollisionExit(SaltyEngine::ICollider *collider)

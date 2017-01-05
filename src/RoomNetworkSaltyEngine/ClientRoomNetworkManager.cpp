@@ -106,6 +106,16 @@ void ClientRoomNetworkManager::onGetLAUNCHPackage(LAUNCHPackageRoom const &obj) 
 
 void ClientRoomNetworkManager::onGetDELETEPackage(DELETEPackageRoom const &obj) {
 //    std::cout << obj << std::endl;
+    std::list<GETPackageRoom *>::iterator it = getPackages.begin();
+    while (it != getPackages.end()) {
+        if ((*it)->roomID == obj.roomID) {
+            delete *it;
+            getPackages.erase(it);
+            buff += sizeof(obj);
+            return ;
+        }
+        ++it;
+    }
     if (transitionNetworkManager)
         transitionNetworkManager->onGetDELETE(obj);
     buff += sizeof(obj);
@@ -129,4 +139,18 @@ ITransitionNetworkManager const *ClientRoomNetworkManager::GetTransitionNetworkM
 
 std::list<GETPackageRoom *> const &ClientRoomNetworkManager::GetPackages() const {
     return this->getPackages;
+}
+
+void ClientRoomNetworkManager::ClearPackagesGET() const {
+    std::list<GETPackageRoom *>::iterator it = getPackages.begin();
+    while (it != getPackages.end()) {
+//        if ((*it)->roomID == obj.roomID) {
+            delete *it;
+            it = getPackages.erase(it);
+//            buff += sizeof(obj);
+//            return ;
+//        }
+//        ++it;
+    }
+//    this->getPackages.clear();
 }

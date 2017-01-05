@@ -159,6 +159,7 @@ void SelectRoomController::Start() {
         for (GETPackageRoom *getPackageRoom : list) {
             ListRoomGestion(*getPackageRoom);
         }
+        m_roomNetworkManager->GetComponent<RoomNetworkManager>()->GetNetworkManager()->ClearPackagesGET();
         m_roomNetworkManager->GetComponent<RoomNetworkManager>()->GetNetworkManager()->canAddGETPackage = false;
 
         //TODO A ENLEVER
