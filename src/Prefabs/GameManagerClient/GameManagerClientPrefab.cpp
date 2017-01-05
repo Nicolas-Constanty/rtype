@@ -17,24 +17,23 @@ GameManagerClientPrefab::GameManagerClientPrefab() : GameObject("GameManagerClie
     uint16_t port = 4242;
     uint32_t secret = 0;
 
-    SaltyEngine::GameObject *gameObject = SaltyEngine::GameObject::Find("RoomNetworkManager");
-
-
-    if (gameObject) {
-        ip = gameObject->GetComponent<RoomNetworkManager>()->GetUDPIP();
-        port = static_cast<uint16_t>(gameObject->GetComponent<RoomNetworkManager>()->GetUDPPort());
-        secret = gameObject->GetComponent<RoomNetworkManager>()->GetUDPSecret();
-    }
+//    SaltyEngine::GameObject *gameObject = SaltyEngine::GameObject::Find("RoomNetworkManager");
+//
+//    if (gameObject) {
+//        ip = gameObject->GetComponent<RoomNetworkManager>()->GetUDPIP();
+//        port = static_cast<uint16_t>(gameObject->GetComponent<RoomNetworkManager>()->GetUDPPort());
+//        secret = gameObject->GetComponent<RoomNetworkManager>()->GetUDPSecret();
+//    }
 //    flags.Reset();
 //    flags.Var(ip, 'i', "ip", std::string("127.0.0.1"), "The ip of server", "Ip");
 //    flags.Var(port, 'p', "port", uint16_t(4242), "The port on which the room server will be binded", "Room port");
 //    flags.Var(secret, 's', "secret", uint32_t(0), "The secret password of the room", "Secret password");
 //
 //    flags.Parse(SaltyEngine::Engine::Instance().GetArgc(), (char **)SaltyEngine::Engine::Instance().GetArgv());
-    std::cout << "GameManagerClientPrefab" << std::endl;
-    std::cout << "ip == " << ip << std::endl;
-    std::cout << "port == " << port << std::endl;
-    std::cout << "secret == " << secret << std::endl;
+//    std::cout << "GameManagerClientPrefab" << std::endl;
+//    std::cout << "ip == " << ip << std::endl;
+//    std::cout << "port == " << port << std::endl;
+//    std::cout << "secret == " << secret << std::endl;
 
 //    std::cout << "wiat" << std::endl;
 //    sleep(20);

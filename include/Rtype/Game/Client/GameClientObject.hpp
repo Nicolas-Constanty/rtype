@@ -42,7 +42,7 @@ namespace Rtype
 			private:
 				uint16_t m_port;
 				std::string m_ip;
-                const uint32_t m_secret;
+				uint32_t m_secret;
 				Client::RtypeClientGameClient *m_rtypeclient = nullptr;
 				Network::Core::NativeSocketIOOperationDispatcher m_dispatcher;
 			};
