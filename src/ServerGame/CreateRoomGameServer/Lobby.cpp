@@ -93,7 +93,9 @@ void Lobby::CreateServerGame() {
         lobbyHandler.OnProcessBegin(lobbyInfo);
     }
 
+    std::cout << "Waiting end of game ..." << std::endl;
     int status = process.WaitSon();
+    std::cout << "End of game." << std::endl;
 
     ///TODO checker le status
     mutex.lock();
