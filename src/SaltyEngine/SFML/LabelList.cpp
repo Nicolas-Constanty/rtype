@@ -30,6 +30,7 @@ namespace SaltyEngine
                         if (r)
                             r->RemoveLabel(*it);
                         m_labels.erase(it);
+                        m_index = 0;
                         return ;
                     }
                     ++i;
