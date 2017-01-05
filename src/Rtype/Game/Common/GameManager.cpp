@@ -203,14 +203,6 @@ bool GameManager::IsSceneEmpty() const {
         if (gameObject->GetTag() == SaltyEngine::Layer::Tag::Enemy) {
             return false;
         }
-//        if (gameObject->GetTag() != SaltyEngine::Layer::Tag::Player
-//            && gameObject->GetTag() != SaltyEngine::Layer::Tag::BulletPlayer
-//            && gameObject->GetTag() != SaltyEngine::Layer::Tag::Destroy
-//            && gameObject->GetTag() != SaltyEngine::Layer::Tag::Untagged
-//            && gameObject->GetTag() != SaltyEngine::Layer::Tag::BulletEnemy
-//            && gameObject->GetTag() != SaltyEngine::Layer::Tag::Pod) {
-//            return false;
-//        }
     }
     return true;
 }
