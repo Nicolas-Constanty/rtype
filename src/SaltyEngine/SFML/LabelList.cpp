@@ -26,6 +26,9 @@ namespace SaltyEngine
                 size_t i = 0;
                 for (std::vector<Label *>::iterator it = m_labels.begin(); it != m_labels.end(); ++it) {
                     if (i == index) {
+                        SaltyEngine::SFML::Renderer *r = dynamic_cast<SaltyEngine::SFML::Renderer *>(SaltyEngine::Engine::Instance().GetRenderer());
+                        if (r)
+                            r->RemoveLabel(*it);
                         m_labels.erase(it);
                         return ;
                     }
