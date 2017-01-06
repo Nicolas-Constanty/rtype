@@ -60,13 +60,15 @@ elseif(MSVC)
 	#C++ files
 	file(GLOB GameClientSrc
 			"../../R-Type/GameClient/main.cpp"
+			"../../src/RoomNetworkSaltyEngine/*.cpp"
 	)
 
 	#Hpp files
 	file(GLOB GameClientInc
 			"../../include/Rtype/Game/Server/*.hpp"
+			"../../include/Rtype/Game/Room/*.hpp"
 			"../../include/Rtype/Game/Common/*.hpp"
-			"../../include/Rtype/Game/Common/*.hpp"
+			"../../include/RoomNetworkSaltyEngine/*.hpp"
 	)
 
 	#C++ FLAGS

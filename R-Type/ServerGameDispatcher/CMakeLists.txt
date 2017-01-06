@@ -14,9 +14,9 @@ if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 elseif(MSVC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3 -DRTYPESERVER -DNO_EXPORT")
 
-	file(GLOB serverGameDispatcherSrc "../../src/Thread/*.cpp" "../../src/Process/*.cpp" "../../src/ServerGame/CreateRoomGameServer/*.cpp")
+	file(GLOB serverGameDispatcherSrc "../../src/Thread/Std*.cpp" "../../src/Process/*.cpp" "../../src/ServerGame/CreateRoomGameServer/*.cpp")
 
-	file(GLOB serverGameDispatcherInc "../../include/Thread/*.hpp" "../../include/Process/*.hpp" "../../include/ServerGame/CreateRoomGameServer/*.hpp ../../include/Common/*.hpp")
+	file(GLOB serverGameDispatcherInc "../../include/Thread/Std*.hpp" "../../include/Process/*.hpp" "../../include/ServerGame/CreateRoomGameServer/*.hpp ../../include/Common/*.hpp")
 
 	add_executable(RoomGameDispatcher ${serverGameDispatcherSrc} ${serverGameDispatcherInc})
 

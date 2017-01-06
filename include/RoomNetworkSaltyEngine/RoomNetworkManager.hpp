@@ -10,7 +10,7 @@
 #include "SaltyEngine/SaltyBehaviour.hpp"
 #include "Common/DLLexport.hpp"
 
-class LIB_EXPORT RoomNetworkManager : public SaltyEngine::SaltyBehaviour, public ITransitionNetworkManager {
+class PREF_EXPORT RoomNetworkManager : public SaltyEngine::SaltyBehaviour, public ITransitionNetworkManager {
 public:
     RoomNetworkManager(SaltyEngine::GameObject * const gameObject, std::string const &ip, unsigned short port);
     //RoomNetworkManager(std::string const &name, SaltyEngine::GameObject * const gameObject, std::string const &ip, unsigned short port);

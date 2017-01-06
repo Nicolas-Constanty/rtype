@@ -6,10 +6,11 @@
 #define RTYPE_RTYPEPROTOCOLROOMMANAGER_HPP
 
 #include <map>
+#include "Common/DLLexport.hpp"
 #include "Protocol/IRTypeProtocolManager.hpp"
 #include "Protocol/Room/IProtocolRoomHandler.hpp"
 
-class RTypeProtocolRoomManager : public IRTypeProtocolManager {
+class PREF_EXPORT RTypeProtocolRoomManager : public IRTypeProtocolManager {
 
 public:
     typedef struct RoomID {

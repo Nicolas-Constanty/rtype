@@ -15,7 +15,7 @@
 #include "Protocol/Room/ProtocolPrintRoomPackage.hpp"
 #include "ITransitionNetworkManager.hpp"
 
-class LIB_EXPORT ClientRoomNetworkManager : public Network::TCP::ATCPClient, public IProtocolRoomHandler
+class PREF_EXPORT ClientRoomNetworkManager : public Network::TCP::ATCPClient, public IProtocolRoomHandler
 {
 public:
     ClientRoomNetworkManager(Network::Core::NativeSocketIOOperationDispatcher &dispatcher);
