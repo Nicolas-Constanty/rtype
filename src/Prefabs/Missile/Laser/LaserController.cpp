@@ -32,8 +32,9 @@ void LaserController::OnCollisionEnter(SaltyEngine::ICollider *col)
 //    SaltyEngine::ACollider2D<sf::Vector2i> *c = dynamic_cast<SaltyEngine::ACollider2D<sf::Vector2i>*>(col);
     SaltyEngine::SFML::SpriteCollider2D *c = dynamic_cast<SaltyEngine::SFML::SpriteCollider2D *>(col);
 
-    if (!c)
+    if (!c) {
         return;
+    }
     if (c->CompareTag(SaltyEngine::Layer::Tag::Enemy)) {
         AGenericController *controller = c->gameObject->GetComponent<AGenericController>();
         if (controller) {

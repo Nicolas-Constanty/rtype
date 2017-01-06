@@ -200,12 +200,7 @@ unsigned char GameManager::GetPlayerID(SaltyEngine::GameObject *player) const
 bool GameManager::IsSceneEmpty() const {
     std::vector<SaltyEngine::GameObject *> const &list = SaltyEngine::Engine::Instance().GetCurrentScene()->GetAllGameObject();
     for (SaltyEngine::GameObject *gameObject : list) {
-        if (gameObject->GetTag() != SaltyEngine::Layer::Tag::Player
-            && gameObject->GetTag() != SaltyEngine::Layer::Tag::BulletPlayer
-            && gameObject->GetTag() != SaltyEngine::Layer::Tag::Destroy
-            && gameObject->GetTag() != SaltyEngine::Layer::Tag::Untagged
-            && gameObject->GetTag() != SaltyEngine::Layer::Tag::BulletEnemy
-            && gameObject->GetTag() != SaltyEngine::Layer::Tag::Pod) {
+        if (gameObject->GetTag() == SaltyEngine::Layer::Tag::Enemy) {
             return false;
         }
     }

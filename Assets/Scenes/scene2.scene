@@ -203,6 +203,27 @@
         "x" : "1365",
         "y": "50"
       }
+    },
+    "BLOCK100": {
+      "prefabName": "BlockSimple",
+      "position": {
+        "x": "9306",
+        "y": "20"
+      }
+    },
+    "MonsterNeunoeil": {
+      "prefabName": "MonsterNeunoeil",
+      "position": {
+        "x" : "1645",
+        "y": "200"
+      }
+    },
+    "Bonus1" : {
+      "prefabName": "SpiralBonus",
+      "position": {
+        "x": "300",
+        "y": "100"
+      }
     }
   }
 }
