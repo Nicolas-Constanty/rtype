@@ -1,7 +1,7 @@
 {
   "title": "scene2",
   "preview": "tot.png",
-  "norender" : "1",
+  "norender": "1",
   "scale": {
     "width": "2",
     "height": "2"
@@ -10,7 +10,7 @@
     "width": "960",
     "height": "540"
   },
-  "fonts" : [
+  "fonts": [
     "arial",
     "SFSquareHead"
   ],
@@ -26,183 +26,575 @@
     "Player": {
       "prefabName": "Player",
       "position": {
-        "x" : "50",
+        "x": "50",
         "y": "500"
       }
     },
     "Monster2": {
       "prefabName": "Monster",
       "position": {
-        "x" : "1400",
+        "x": "1400",
         "y": "60"
       }
     },
     "Monster3": {
       "prefabName": "Monster",
       "position": {
-        "x" : "1405",
+        "x": "1405",
         "y": "90"
       }
     },
     "Monster5": {
       "prefabName": "Monster",
       "position": {
-        "x" : "1420",
+        "x": "1420",
         "y": "150"
       }
     },
     "Monster6": {
       "prefabName": "Monster",
       "position": {
-        "x" : "1430",
+        "x": "1430",
         "y": "180"
       }
     },
     "Monster7": {
       "prefabName": "Monster",
       "position": {
-        "x" : "1425",
+        "x": "1425",
         "y": "210"
       }
     },
     "Monster8": {
       "prefabName": "Monster",
       "position": {
-        "x" : "1430",
+        "x": "1430",
         "y": "240"
       }
     },
-    "MonsterWalker": {
-      "prefabName": "MonsterWalker",
+    "Monster0": {
+      "prefabName": "Monster",
       "position": {
-        "x" : "500",
-        "y": "100"
+        "x": "1400",
+        "y": "250"
       }
     },
-    "MonsterFlying": {
+    "MonsterFlying0": {
       "prefabName": "MonsterFlying",
       "position": {
-        "x" : "1300",
-        "y": "300"
+        "x": "1300",
+        "y": "100"
       }
     },
     "MonsterFlying1": {
       "prefabName": "MonsterFlying",
       "position": {
-        "x" : "1305",
-        "y": "300"
+        "x": "1305",
+        "y": "100"
       }
     },
     "MonsterFlying2": {
       "prefabName": "MonsterFlying",
       "position": {
-        "x" : "1310",
-        "y": "300"
+        "x": "1310",
+        "y": "100"
       }
     },
     "MonsterFlying3": {
       "prefabName": "MonsterFlying",
       "position": {
-        "x" : "1315",
-        "y": "300"
+        "x": "1315",
+        "y": "100"
       }
     },
     "MonsterFlying4": {
       "prefabName": "MonsterFlying",
       "position": {
-        "x" : "1320",
-        "y": "300"
+        "x": "1320",
+        "y": "100"
       }
     },
     "MonsterFlying5": {
       "prefabName": "MonsterFlying",
       "position": {
-        "x" : "1325",
-        "y": "300"
+        "x": "1325",
+        "y": "100"
       }
     },
     "MonsterFlying6": {
       "prefabName": "MonsterFlying",
       "position": {
-        "x" : "1330",
+        "x": "1330",
         "y": "100"
       }
     },
     "MonsterFlying7": {
       "prefabName": "MonsterFlying",
       "position": {
-        "x" : "1335",
+        "x": "1335",
         "y": "100"
       }
     },
     "MonsterFlying8": {
       "prefabName": "MonsterFlying",
       "position": {
-        "x" : "1340",
+        "x": "1340",
         "y": "100"
       }
     },
     "MonsterFlying9": {
       "prefabName": "MonsterFlying",
       "position": {
-        "x" : "1345",
+        "x": "1345",
         "y": "100"
       }
     },
     "MonsterFlying10": {
       "prefabName": "MonsterFlying",
       "position": {
-        "x" : "1330",
+        "x": "1345",
         "y": "200"
       }
     },
     "MonsterFlying11": {
       "prefabName": "MonsterFlying",
       "position": {
-        "x" : "1335",
+        "x": "1350",
         "y": "200"
       }
     },
     "MonsterFlying12": {
       "prefabName": "MonsterFlying",
       "position": {
-        "x" : "1340",
+        "x": "1355",
         "y": "200"
       }
     },
     "MonsterFlying13": {
       "prefabName": "MonsterFlying",
       "position": {
-        "x" : "1345",
+        "x": "1360",
         "y": "200"
       }
     },
     "MonsterFlying14": {
       "prefabName": "MonsterFlying",
       "position": {
-        "x" : "1350",
-        "y": "50"
+        "x": "1365",
+        "y": "200"
       }
     },
     "MonsterFlying15": {
       "prefabName": "MonsterFlying",
       "position": {
-        "x" : "1355",
-        "y": "50"
+        "x": "1370",
+        "y": "200"
       }
     },
     "MonsterFlying16": {
       "prefabName": "MonsterFlying",
       "position": {
-        "x" : "1360",
-        "y": "50"
+        "x": "1375",
+        "y": "200"
       }
     },
     "MonsterFlying17": {
       "prefabName": "MonsterFlying",
       "position": {
-        "x" : "1365",
-        "y": "50"
+        "x": "1380",
+        "y": "200"
+      }
+    },
+    "MonsterFlying18": {
+      "prefabName": "MonsterFlying",
+      "position": {
+        "x": "1385",
+        "y": "200"
+      }
+    },
+    "MonsterFlying19": {
+      "prefabName": "MonsterFlying",
+      "position": {
+        "x": "1390",
+        "y": "200"
+      }
+    },
+    "MonsterFlying20": {
+      "prefabName": "MonsterFlying",
+      "position": {
+        "x": "1400",
+        "y": "250"
+      }
+    },
+    "MonsterFlying21": {
+      "prefabName": "MonsterFlying",
+      "position": {
+        "x": "1405",
+        "y": "250"
+      }
+    },
+    "MonsterFlying22": {
+      "prefabName": "MonsterFlying",
+      "position": {
+        "x": "1410",
+        "y": "250"
+      }
+    },
+    "MonsterFlying23": {
+      "prefabName": "MonsterFlying",
+      "position": {
+        "x": "1415",
+        "y": "250"
+      }
+    },
+    "MonsterFlying24": {
+      "prefabName": "MonsterFlying",
+      "position": {
+        "x": "1420",
+        "y": "250"
+      }
+    },
+    "MonsterFlying25": {
+      "prefabName": "MonsterFlying",
+      "position": {
+        "x": "1425",
+        "y": "250"
+      }
+    },
+    "MonsterFlying26": {
+      "prefabName": "MonsterFlying",
+      "position": {
+        "x": "1430",
+        "y": "250"
+      }
+    },
+    "MonsterFlying27": {
+      "prefabName": "MonsterFlying",
+      "position": {
+        "x": "1435",
+        "y": "250"
+      }
+    },
+    "MonsterFlying28": {
+      "prefabName": "MonsterFlying",
+      "position": {
+        "x": "1440",
+        "y": "250"
+      }
+    },
+    "MonsterFlying29": {
+      "prefabName": "MonsterFlying",
+      "position": {
+        "x": "1445",
+        "y": "250"
+      }
+    },
+    "MonsterFlying30": {
+      "prefabName": "MonsterFlying",
+      "position": {
+        "x": "1450",
+        "y": "250"
+      }
+    },
+    "MonsterFlying31": {
+      "prefabName": "MonsterFlying",
+      "position": {
+        "x": "1455",
+        "y": "250"
+      }
+    },
+    "MonsterFlying32": {
+      "prefabName": "MonsterFlying",
+      "position": {
+        "x": "1460",
+        "y": "250"
+      }
+    },
+    "MonsterFlying33": {
+      "prefabName": "MonsterFlying",
+      "position": {
+        "x": "1465",
+        "y": "250"
+      }
+    },
+    "MonsterFlying34": {
+      "prefabName": "MonsterFlying",
+      "position": {
+        "x": "1470",
+        "y": "250"
+      }
+    },
+    "MonsterFlying35": {
+      "prefabName": "MonsterFlying",
+      "position": {
+        "x": "1475",
+        "y": "250"
+      }
+    },
+    "MonsterFlying36": {
+      "prefabName": "MonsterFlying",
+      "position": {
+        "x": "1480",
+        "y": "250"
+      }
+    },
+    "MonsterFlying37": {
+      "prefabName": "MonsterFlying",
+      "position": {
+        "x": "1485",
+        "y": "250"
+      }
+    },
+    "MonsterFlying38": {
+      "prefabName": "MonsterFlying",
+      "position": {
+        "x": "1490",
+        "y": "250"
+      }
+    },
+    "MonsterFlying39": {
+      "prefabName": "MonsterFlying",
+      "position": {
+        "x": "1495",
+        "y": "250"
+      }
+    },
+    "MonsterFlying40": {
+      "prefabName": "MonsterFlying",
+      "position": {
+        "x": "1500",
+        "y": "250"
+      }
+    },
+    "MonsterFlying41": {
+      "prefabName": "MonsterFlying",
+      "position": {
+        "x": "1505",
+        "y": "250"
+      }
+    },
+    "MonsterFlying42": {
+      "prefabName": "MonsterFlying",
+      "position": {
+        "x": "1510",
+        "y": "250"
+      }
+    },
+    "MonsterFlying43": {
+      "prefabName": "MonsterFlying",
+      "position": {
+        "x": "1515",
+        "y": "250"
+      }
+    },
+    "MonsterFlying44": {
+      "prefabName": "MonsterFlying",
+      "position": {
+        "x": "1520",
+        "y": "250"
+      }
+    },
+    "MonsterFlying45": {
+      "prefabName": "MonsterFlying",
+      "position": {
+        "x": "1525",
+        "y": "250"
+      }
+    },
+    "MonsterFlying46": {
+      "prefabName": "MonsterFlying",
+      "position": {
+        "x": "1530",
+        "y": "250"
+      }
+    },
+    "MonsterFlying47": {
+      "prefabName": "MonsterFlying",
+      "position": {
+        "x": "1535",
+        "y": "250"
+      }
+    },
+    "MonsterFlying48": {
+      "prefabName": "MonsterFlying",
+      "position": {
+        "x": "1540",
+        "y": "250"
+      }
+    },
+    "MonsterFlying49": {
+      "prefabName": "MonsterFlying",
+      "position": {
+        "x": "1545",
+        "y": "250"
+      }
+    },
+    "MonsterFlying50": {
+      "prefabName": "MonsterFlying",
+      "position": {
+        "x": "1550",
+        "y": "250"
+      }
+    },
+    "MonsterFlying51": {
+      "prefabName": "MonsterFlying",
+      "position": {
+        "x": "1555",
+        "y": "250"
+      }
+    },
+    "MonsterFlying52": {
+      "prefabName": "MonsterFlying",
+      "position": {
+        "x": "1560",
+        "y": "250"
+      }
+    },
+    "MonsterFlying53": {
+      "prefabName": "MonsterFlying",
+      "position": {
+        "x": "1565",
+        "y": "250"
+      }
+    },
+    "MonsterFlying54": {
+      "prefabName": "MonsterFlying",
+      "position": {
+        "x": "1570",
+        "y": "250"
+      }
+    },
+    "MonsterFlying55": {
+      "prefabName": "MonsterFlying",
+      "position": {
+        "x": "1575",
+        "y": "250"
+      }
+    },
+    "MonsterFlying56": {
+      "prefabName": "MonsterFlying",
+      "position": {
+        "x": "1580",
+        "y": "250"
+      }
+    },
+    "MonsterFlying57": {
+      "prefabName": "MonsterFlying",
+      "position": {
+        "x": "1585",
+        "y": "250"
+      }
+    },
+    "MonsterFlying58": {
+      "prefabName": "MonsterFlying",
+      "position": {
+        "x": "1590",
+        "y": "250"
+      }
+    },
+    "MonsterFlying59": {
+      "prefabName": "MonsterFlying",
+      "position": {
+        "x": "1595",
+        "y": "250"
+      }
+    },
+    "MonsterFlying60": {
+      "prefabName": "MonsterFlying",
+      "position": {
+        "x": "1600",
+        "y": "250"
+      }
+    },
+    "MonsterFlying61": {
+      "prefabName": "MonsterFlying",
+      "position": {
+        "x": "1605",
+        "y": "250"
+      }
+    },
+    "MonsterFlying62": {
+      "prefabName": "MonsterFlying",
+      "position": {
+        "x": "1610",
+        "y": "250"
+      }
+    },
+    "MonsterFlying63": {
+      "prefabName": "MonsterFlying",
+      "position": {
+        "x": "1615",
+        "y": "250"
+      }
+    },
+    "MonsterFlying64": {
+      "prefabName": "MonsterFlying",
+      "position": {
+        "x": "1620",
+        "y": "250"
+      }
+    },
+    "MonsterFlying65": {
+      "prefabName": "MonsterFlying",
+      "position": {
+        "x": "1625",
+        "y": "250"
+      }
+    },
+    "MonsterFlying66": {
+      "prefabName": "MonsterFlying",
+      "position": {
+        "x": "1630",
+        "y": "250"
+      }
+    },
+    "MonsterFlying67": {
+      "prefabName": "MonsterFlying",
+      "position": {
+        "x": "1635",
+        "y": "250"
+      }
+    },
+    "MonsterFlying68": {
+      "prefabName": "MonsterFlying",
+      "position": {
+        "x": "1640",
+        "y": "250"
+      }
+    },
+    "MonsterFlying69": {
+      "prefabName": "MonsterFlying",
+      "position": {
+        "x": "1645",
+        "y": "250"
+      }
+    },
+    "MonsterNeunoeil": {
+      "prefabName": "MonsterNeunoeil",
+      "position": {
+        "x": "1601",
+        "y": "200"
+      }
+    },
+    "Bonus1": {
+      "prefabName": "SpiralBonus",
+      "position": {
+        "x": "1400",
+        "y": "200"
+      }
+    },
+    "Bonus2": {
+      "prefabName": "SpiralBonus",
+      "position": {
+        "x": "1530",
+        "y": "150"
+      }
+    },
+    "Bonus3": {
+      "prefabName": "SpiralBonus",
+      "position": {
+        "x": "1230",
+        "y": "100"
       }
     }
   }
