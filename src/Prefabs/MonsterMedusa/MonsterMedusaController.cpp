@@ -65,6 +65,9 @@ void MonsterMedusaController::FixedUpdate()
 }
 
 void MonsterMedusaController::Move() {
+    if (gameObject->transform.GetPosition().x > 1000) {
+        gameObject->transform.SetPosition(gameObject->transform.GetPosition().x - 10, gameObject->transform.GetPosition().y);
+    }
     switch (m_state)
     {
         case E_CREATING:
