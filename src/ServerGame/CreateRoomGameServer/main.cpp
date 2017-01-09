@@ -7,6 +7,7 @@
 #include "ServerGame/CreateRoomGameServer/ClientGameRooms.hpp"
 
 int main(int ac, char **av) {
+
     size_t          nbrRooms;
     uint16_t port;
     std::string serverRoomIP;
@@ -31,6 +32,9 @@ int main(int ac, char **av) {
         return 0;
     }
 
+#if _WIN32
+	Network::Socket::WinSocket::Start();
+#endif
 
     Network::Core::NativeSocketIOOperationDispatcher    dispatcher;
 	std::unique_ptr<ClientGameRooms> client;
@@ -59,5 +63,10 @@ int main(int ac, char **av) {
 		usleep(5000);
 #endif // _WIN32
     }
+
+#ifdef _WIN32
+	Network::Socket::WinSocket::Stop();
+#endif // _WIN32
+
     return 0;
 }

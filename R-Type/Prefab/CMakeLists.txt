@@ -249,6 +249,8 @@ file(GLOB SRC_COMMMUNICATION
 		${SRC_RTYPE}
 		"../../src/Prefabs/RtypePrefab.cpp"
 		"../../src/Prefabs/PositionReplicator/PositionReplicator.cpp"
+		"../../src/RoomNetworkSaltyEngine/RoomNetworkManager.cpp"
+		"../../src/RoomNetworkSaltyEngine/ClientRoomNetworkManager.cpp"
 		
 	)
 
@@ -261,7 +263,7 @@ file(GLOB SRC_COMMMUNICATION
 		"../../src/Prefabs/Mate/MateComponent.cpp"
 	)
 
-	set(PREFAB_LIBRARIES SaltyEngine SFMLSaltyEngine Network ProtocolGame)
+	set(PREFAB_LIBRARIES SaltyEngine SFMLSaltyEngine Network ProtocolGame ProtocolRoom)
 	
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DBUILD_SHARED_LIBS -DEXPORT_PREF")
 	
@@ -368,10 +370,9 @@ file(GLOB SRC_COMMMUNICATION
         # LOG SCREEN
 		file(GLOB GUI_LOGGER_SOURCE_FILE
 				"../../src/ClientLauncher/Logger.cpp"
-				"../../src/ClientLauncher/LoggerController.cpp"
-				"../../src/RoomNetworkSaltyEngine/*.cpp")
+				"../../src/ClientLauncher/LoggerController.cpp")
 		add_library(gui_logger SHARED ${GUI_LOGGER_SOURCE_FILE} $<TARGET_OBJECTS:RtypeLib> $<TARGET_OBJECTS:CommonPrefabs>)
-		target_link_libraries(gui_logger ${PREFAB_LIBRARIES} ProtocolRoom)
+		target_link_libraries(gui_logger ${PREFAB_LIBRARIES})
 
 	# GAME MANAGER
 	file(GLOB MANAGER_SOURCE_FILE "../../src/Prefabs/GameManager/*.cpp")
@@ -395,7 +396,7 @@ file(GLOB SRC_COMMMUNICATION
 		add_library(gui_menu_room SHARED ${GUI_SELECT_ROOM_SOURCE_FILE} $<TARGET_OBJECTS:RtypeLib> $<TARGET_OBJECTS:CommonPrefabs>)
 		target_link_libraries(gui_menu_room ${PREFAB_LIBRARIES} gui_logger)
 
-		set(PREFAB_DEPENDENCIES SaltyEngine SFMLSaltyEngine Network Common ProtocolGame)
+		set(PREFAB_DEPENDENCIES SaltyEngine SFMLSaltyEngine Network Common ProtocolGame ProtocolRoom)
 
 endif()
 

@@ -291,7 +291,11 @@ void SelectRoomController::onGetSWAP(SWAPPackageRoom const &swapPackageRoom) {
     m_roomNetworkManager->GetComponent<RoomNetworkManager>()->GetNetworkManager()->SetTransitionNetworkManager(NULL);
     m_roomNetworkManager->GetComponent<RoomNetworkManager>()->GetNetworkManager()->canAddGETPackage = true;
 
+#ifdef _WIN32
+	Sleep(3);
+#else
     sleep(3);
+#endif
     SaltyEngine::Engine::Instance().LoadScene("scene2");
 //    char const**av;
 //    av = (const char **) new char*[7];
